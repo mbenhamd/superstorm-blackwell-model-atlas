@@ -1,0 +1,1653 @@
+{
+  "checks": [
+    {
+      "check": "Kimi config.architecture_class",
+      "passed": true,
+      "actual": "KimiK3ForConditionalGeneration",
+      "expected": "KimiK3ForConditionalGeneration"
+    },
+    {
+      "check": "Kimi config.text_class",
+      "passed": true,
+      "actual": "KimiLinearForCausalLM",
+      "expected": "KimiLinearForCausalLM"
+    },
+    {
+      "check": "Kimi config.layers",
+      "passed": true,
+      "actual": 93,
+      "expected": 93
+    },
+    {
+      "check": "Kimi config.dense_prefix_layers",
+      "passed": true,
+      "actual": 1,
+      "expected": 1
+    },
+    {
+      "check": "Kimi config.hidden_size",
+      "passed": true,
+      "actual": 7168,
+      "expected": 7168
+    },
+    {
+      "check": "Kimi config.dense_intermediate_size",
+      "passed": true,
+      "actual": 33792,
+      "expected": 33792
+    },
+    {
+      "check": "Kimi config.latent_moe_dim",
+      "passed": true,
+      "actual": 3584,
+      "expected": 3584
+    },
+    {
+      "check": "Kimi config.moe_intermediate_size",
+      "passed": true,
+      "actual": 3072,
+      "expected": 3072
+    },
+    {
+      "check": "Kimi config.routed_experts",
+      "passed": true,
+      "actual": 896,
+      "expected": 896
+    },
+    {
+      "check": "Kimi config.experts_per_token",
+      "passed": true,
+      "actual": 16,
+      "expected": 16
+    },
+    {
+      "check": "Kimi config.shared_experts",
+      "passed": true,
+      "actual": 2,
+      "expected": 2
+    },
+    {
+      "check": "Kimi config.attention_heads",
+      "passed": true,
+      "actual": 96,
+      "expected": 96
+    },
+    {
+      "check": "Kimi config.kv_lora_rank",
+      "passed": true,
+      "actual": 512,
+      "expected": 512
+    },
+    {
+      "check": "Kimi config.kda_layers",
+      "passed": true,
+      "actual": 69,
+      "expected": 69
+    },
+    {
+      "check": "Kimi config.mla_layers",
+      "passed": true,
+      "actual": 24,
+      "expected": 24
+    },
+    {
+      "check": "Kimi config.full_attention_layer_indices_1based",
+      "passed": true,
+      "actual": [
+        4,
+        8,
+        12,
+        16,
+        20,
+        24,
+        28,
+        32,
+        36,
+        40,
+        44,
+        48,
+        52,
+        56,
+        60,
+        64,
+        68,
+        72,
+        76,
+        80,
+        84,
+        88,
+        92,
+        93
+      ],
+      "expected": [
+        4,
+        8,
+        12,
+        16,
+        20,
+        24,
+        28,
+        32,
+        36,
+        40,
+        44,
+        48,
+        52,
+        56,
+        60,
+        64,
+        68,
+        72,
+        76,
+        80,
+        84,
+        88,
+        92,
+        93
+      ]
+    },
+    {
+      "check": "Kimi config.kda_head_dim",
+      "passed": true,
+      "actual": 128,
+      "expected": 128
+    },
+    {
+      "check": "Kimi config.kda_conv_width",
+      "passed": true,
+      "actual": 4,
+      "expected": 4
+    },
+    {
+      "check": "Kimi config.attn_res_block_size",
+      "passed": true,
+      "actual": 12,
+      "expected": 12
+    },
+    {
+      "check": "Kimi config.max_position_embeddings",
+      "passed": true,
+      "actual": 1048576,
+      "expected": 1048576
+    },
+    {
+      "check": "Kimi config.vocab_size",
+      "passed": true,
+      "actual": 163840,
+      "expected": 163840
+    },
+    {
+      "check": "Kimi complete explicit layer partition",
+      "passed": true,
+      "actual": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90,
+        91,
+        92,
+        93
+      ],
+      "expected": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90,
+        91,
+        92,
+        93
+      ]
+    },
+    {
+      "check": "Kimi publisher field.vision_encoder",
+      "passed": true,
+      "actual": "MoonViT-V2",
+      "expected": "MoonViT-V2"
+    },
+    {
+      "check": "Kimi publisher field.vision_parameters_millions",
+      "passed": true,
+      "actual": 401,
+      "expected": 401
+    },
+    {
+      "check": "Kimi publisher field.activation",
+      "passed": true,
+      "actual": "SiTU / SiTU-GLU",
+      "expected": "SiTU / SiTU-GLU"
+    },
+    {
+      "check": "DeepSeek config.architecture_class",
+      "passed": true,
+      "actual": "DeepseekV4ForCausalLM",
+      "expected": "DeepseekV4ForCausalLM"
+    },
+    {
+      "check": "DeepSeek config.model_type",
+      "passed": true,
+      "actual": "deepseek_v4",
+      "expected": "deepseek_v4"
+    },
+    {
+      "check": "DeepSeek config.layers",
+      "passed": true,
+      "actual": 43,
+      "expected": 43
+    },
+    {
+      "check": "DeepSeek config.hidden_size",
+      "passed": true,
+      "actual": 4096,
+      "expected": 4096
+    },
+    {
+      "check": "DeepSeek config.attention_heads",
+      "passed": true,
+      "actual": 64,
+      "expected": 64
+    },
+    {
+      "check": "DeepSeek config.num_key_value_heads",
+      "passed": true,
+      "actual": 1,
+      "expected": 1
+    },
+    {
+      "check": "DeepSeek config.head_dim",
+      "passed": true,
+      "actual": 512,
+      "expected": 512
+    },
+    {
+      "check": "DeepSeek config.routed_experts",
+      "passed": true,
+      "actual": 256,
+      "expected": 256
+    },
+    {
+      "check": "DeepSeek config.experts_per_token",
+      "passed": true,
+      "actual": 6,
+      "expected": 6
+    },
+    {
+      "check": "DeepSeek config.shared_experts",
+      "passed": true,
+      "actual": 1,
+      "expected": 1
+    },
+    {
+      "check": "DeepSeek config.moe_intermediate_size",
+      "passed": true,
+      "actual": 2048,
+      "expected": 2048
+    },
+    {
+      "check": "DeepSeek config.expert_dtype",
+      "passed": true,
+      "actual": "fp4",
+      "expected": "fp4"
+    },
+    {
+      "check": "DeepSeek config.quant_method",
+      "passed": true,
+      "actual": "fp8",
+      "expected": "fp8"
+    },
+    {
+      "check": "DeepSeek config.quant_format",
+      "passed": true,
+      "actual": "e4m3",
+      "expected": "e4m3"
+    },
+    {
+      "check": "DeepSeek config.scale_format",
+      "passed": true,
+      "actual": "ue8m0",
+      "expected": "ue8m0"
+    },
+    {
+      "check": "DeepSeek config.weight_block_size",
+      "passed": true,
+      "actual": [
+        128,
+        128
+      ],
+      "expected": [
+        128,
+        128
+      ]
+    },
+    {
+      "check": "DeepSeek config.hc_mult",
+      "passed": true,
+      "actual": 4,
+      "expected": 4
+    },
+    {
+      "check": "DeepSeek config.hc_sinkhorn_iters",
+      "passed": true,
+      "actual": 20,
+      "expected": 20
+    },
+    {
+      "check": "DeepSeek config.index_heads",
+      "passed": true,
+      "actual": 64,
+      "expected": 64
+    },
+    {
+      "check": "DeepSeek config.index_head_dim",
+      "passed": true,
+      "actual": 128,
+      "expected": 128
+    },
+    {
+      "check": "DeepSeek config.index_topk",
+      "passed": true,
+      "actual": 512,
+      "expected": 512
+    },
+    {
+      "check": "DeepSeek config.num_hash_layers",
+      "passed": true,
+      "actual": 3,
+      "expected": 3
+    },
+    {
+      "check": "DeepSeek config.nextn_layers",
+      "passed": true,
+      "actual": 1,
+      "expected": 1
+    },
+    {
+      "check": "DeepSeek config.o_groups",
+      "passed": true,
+      "actual": 8,
+      "expected": 8
+    },
+    {
+      "check": "DeepSeek config.o_lora_rank",
+      "passed": true,
+      "actual": 1024,
+      "expected": 1024
+    },
+    {
+      "check": "DeepSeek config.q_lora_rank",
+      "passed": true,
+      "actual": 1024,
+      "expected": 1024
+    },
+    {
+      "check": "DeepSeek config.qk_rope_head_dim",
+      "passed": true,
+      "actual": 64,
+      "expected": 64
+    },
+    {
+      "check": "DeepSeek config.sliding_window",
+      "passed": true,
+      "actual": 128,
+      "expected": 128
+    },
+    {
+      "check": "DeepSeek config.max_position_embeddings",
+      "passed": true,
+      "actual": 1048576,
+      "expected": 1048576
+    },
+    {
+      "check": "DeepSeek config.rope_type",
+      "passed": true,
+      "actual": "yarn",
+      "expected": "yarn"
+    },
+    {
+      "check": "DeepSeek config.rope_factor",
+      "passed": true,
+      "actual": 16,
+      "expected": 16
+    },
+    {
+      "check": "DeepSeek config.original_max_position_embeddings",
+      "passed": true,
+      "actual": 65536,
+      "expected": 65536
+    },
+    {
+      "check": "DeepSeek config.rope_theta",
+      "passed": true,
+      "actual": 10000,
+      "expected": 10000
+    },
+    {
+      "check": "DeepSeek config.compress_rope_theta",
+      "passed": true,
+      "actual": 160000,
+      "expected": 160000
+    },
+    {
+      "check": "DeepSeek config.router_score",
+      "passed": true,
+      "actual": "sqrtsoftplus",
+      "expected": "sqrtsoftplus"
+    },
+    {
+      "check": "DeepSeek config.router_scale",
+      "passed": true,
+      "actual": 1.5,
+      "expected": 1.5
+    },
+    {
+      "check": "DeepSeek config.swiglu_limit",
+      "passed": true,
+      "actual": 10,
+      "expected": 10.0
+    },
+    {
+      "check": "DeepSeek config.vocab_size",
+      "passed": true,
+      "actual": 129280,
+      "expected": 129280
+    },
+    {
+      "check": "DeepSeek config.dspark_block_size",
+      "passed": true,
+      "actual": 5,
+      "expected": 5
+    },
+    {
+      "check": "DeepSeek config.dspark_target_layer_ids",
+      "passed": true,
+      "actual": [
+        40,
+        41,
+        42
+      ],
+      "expected": [
+        40,
+        41,
+        42
+      ]
+    },
+    {
+      "check": "DeepSeek config.dspark_markov_rank",
+      "passed": true,
+      "actual": 256,
+      "expected": 256
+    },
+    {
+      "check": "DeepSeek config.compress_ratios",
+      "passed": true,
+      "actual": [
+        0,
+        0,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        0,
+        0,
+        0
+      ],
+      "expected": [
+        0,
+        0,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "check": "DeepSeek reference DSpark stages",
+      "passed": true,
+      "actual": 3,
+      "expected": 3
+    },
+    {
+      "check": "DeepSeek full compression schedule",
+      "passed": true,
+      "actual": [
+        0,
+        0,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        0,
+        0,
+        0
+      ],
+      "expected": [
+        0,
+        0,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "check": "DeepSeek target compression entries",
+      "passed": true,
+      "actual": 43,
+      "expected": 43
+    },
+    {
+      "check": "DeepSeek draft compression entries",
+      "passed": true,
+      "actual": [
+        0,
+        0,
+        0
+      ],
+      "expected": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "check": "DeepSeek target alternating schedule",
+      "passed": true,
+      "actual": [
+        0,
+        0,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4
+      ],
+      "expected": [
+        0,
+        0,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4,
+        128,
+        4
+      ]
+    },
+    {
+      "check": "Kimi FP32 state bytes",
+      "passed": true,
+      "actual": 434110464,
+      "expected": 434110464
+    },
+    {
+      "check": "Kimi FP32 state MiB",
+      "passed": true,
+      "actual": 414.0,
+      "expected": 414
+    },
+    {
+      "check": "Kimi all FP8 exceeds advertised 8 B300 decimal capacity",
+      "passed": true,
+      "actual": true,
+      "expected": true
+    },
+    {
+      "check": "DeepSeek rope multiplication",
+      "passed": true,
+      "actual": 1048576,
+      "expected": 1048576
+    },
+    {
+      "check": "DeepSeek no exact count claimed",
+      "passed": true,
+      "actual": [
+        null,
+        null
+      ],
+      "expected": [
+        null,
+        null
+      ]
+    },
+    {
+      "check": "Catalog model equality kimi-k3",
+      "passed": true,
+      "actual": true,
+      "expected": true
+    },
+    {
+      "check": "Model source IDs resolve kimi-k3",
+      "passed": true,
+      "actual": true,
+      "expected": true
+    },
+    {
+      "check": "Catalog model equality deepseek-v4-flash-0731",
+      "passed": true,
+      "actual": true,
+      "expected": true
+    },
+    {
+      "check": "Model source IDs resolve deepseek-v4-flash-0731",
+      "passed": true,
+      "actual": true,
+      "expected": true
+    },
+    {
+      "check": "Catalog profile equality kimi-k3.native.sglang.baseline",
+      "passed": true,
+      "actual": true,
+      "expected": true
+    },
+    {
+      "check": "Profile target revision kimi-k3.native.sglang.baseline",
+      "passed": true,
+      "actual": "f831ab66814297da540d832a5235f8e904f29d06",
+      "expected": "f831ab66814297da540d832a5235f8e904f29d06"
+    },
+    {
+      "check": "Profile exact repository kimi-k3.native.sglang.baseline",
+      "passed": true,
+      "actual": "moonshotai/Kimi-K3",
+      "expected": "moonshotai/Kimi-K3"
+    },
+    {
+      "check": "Profile source IDs resolve kimi-k3.native.sglang.baseline",
+      "passed": true,
+      "actual": true,
+      "expected": true
+    },
+    {
+      "check": "Profile unmeasured kimi-k3.native.sglang.baseline",
+      "passed": true,
+      "actual": false,
+      "expected": false
+    },
+    {
+      "check": "Profile group size kimi-k3.native.sglang.baseline",
+      "passed": true,
+      "actual": 8,
+      "expected": 8
+    },
+    {
+      "check": "Catalog profile equality kimi-k3.native.vllm.baseline",
+      "passed": true,
+      "actual": true,
+      "expected": true
+    },
+    {
+      "check": "Profile target revision kimi-k3.native.vllm.baseline",
+      "passed": true,
+      "actual": "f831ab66814297da540d832a5235f8e904f29d06",
+      "expected": "f831ab66814297da540d832a5235f8e904f29d06"
+    },
+    {
+      "check": "Profile exact repository kimi-k3.native.vllm.baseline",
+      "passed": true,
+      "actual": "moonshotai/Kimi-K3",
+      "expected": "moonshotai/Kimi-K3"
+    },
+    {
+      "check": "Profile source IDs resolve kimi-k3.native.vllm.baseline",
+      "passed": true,
+      "actual": true,
+      "expected": true
+    },
+    {
+      "check": "Profile unmeasured kimi-k3.native.vllm.baseline",
+      "passed": true,
+      "actual": false,
+      "expected": false
+    },
+    {
+      "check": "Profile group size kimi-k3.native.vllm.baseline",
+      "passed": true,
+      "actual": 8,
+      "expected": 8
+    },
+    {
+      "check": "Catalog profile equality kimi-k3.nvfp4.sglang.baseline",
+      "passed": true,
+      "actual": true,
+      "expected": true
+    },
+    {
+      "check": "Profile target revision kimi-k3.nvfp4.sglang.baseline",
+      "passed": true,
+      "actual": "b2428a0b83a8b712ff2e1a8448a103d4175341f1",
+      "expected": "b2428a0b83a8b712ff2e1a8448a103d4175341f1"
+    },
+    {
+      "check": "Profile exact repository kimi-k3.nvfp4.sglang.baseline",
+      "passed": true,
+      "actual": "nvidia/Kimi-K3-NVFP4",
+      "expected": "nvidia/Kimi-K3-NVFP4"
+    },
+    {
+      "check": "Profile source IDs resolve kimi-k3.nvfp4.sglang.baseline",
+      "passed": true,
+      "actual": true,
+      "expected": true
+    },
+    {
+      "check": "Profile unmeasured kimi-k3.nvfp4.sglang.baseline",
+      "passed": true,
+      "actual": false,
+      "expected": false
+    },
+    {
+      "check": "Profile group size kimi-k3.nvfp4.sglang.baseline",
+      "passed": true,
+      "actual": 8,
+      "expected": 8
+    },
+    {
+      "check": "Catalog profile equality kimi-k3.nvfp4.sglang.dspark",
+      "passed": true,
+      "actual": true,
+      "expected": true
+    },
+    {
+      "check": "Profile target revision kimi-k3.nvfp4.sglang.dspark",
+      "passed": true,
+      "actual": "b2428a0b83a8b712ff2e1a8448a103d4175341f1",
+      "expected": "b2428a0b83a8b712ff2e1a8448a103d4175341f1"
+    },
+    {
+      "check": "Profile exact repository kimi-k3.nvfp4.sglang.dspark",
+      "passed": true,
+      "actual": "nvidia/Kimi-K3-NVFP4",
+      "expected": "nvidia/Kimi-K3-NVFP4"
+    },
+    {
+      "check": "Profile source IDs resolve kimi-k3.nvfp4.sglang.dspark",
+      "passed": true,
+      "actual": true,
+      "expected": true
+    },
+    {
+      "check": "Profile unmeasured kimi-k3.nvfp4.sglang.dspark",
+      "passed": true,
+      "actual": false,
+      "expected": false
+    },
+    {
+      "check": "Profile group size kimi-k3.nvfp4.sglang.dspark",
+      "passed": true,
+      "actual": 8,
+      "expected": 8
+    },
+    {
+      "check": "SGLang draft identity",
+      "passed": true,
+      "actual": "RadixArk/Kimi-K3-DSpark",
+      "expected": "RadixArk/Kimi-K3-DSpark"
+    },
+    {
+      "check": "SGLang draft revision",
+      "passed": true,
+      "actual": "3c5bac301d9cf392706189d82ed947feca6c2f0f",
+      "expected": "3c5bac301d9cf392706189d82ed947feca6c2f0f"
+    },
+    {
+      "check": "Catalog profile equality kimi-k3.nvfp4.vllm.baseline",
+      "passed": true,
+      "actual": true,
+      "expected": true
+    },
+    {
+      "check": "Profile target revision kimi-k3.nvfp4.vllm.baseline",
+      "passed": true,
+      "actual": "b2428a0b83a8b712ff2e1a8448a103d4175341f1",
+      "expected": "b2428a0b83a8b712ff2e1a8448a103d4175341f1"
+    },
+    {
+      "check": "Profile exact repository kimi-k3.nvfp4.vllm.baseline",
+      "passed": true,
+      "actual": "nvidia/Kimi-K3-NVFP4",
+      "expected": "nvidia/Kimi-K3-NVFP4"
+    },
+    {
+      "check": "Profile source IDs resolve kimi-k3.nvfp4.vllm.baseline",
+      "passed": true,
+      "actual": true,
+      "expected": true
+    },
+    {
+      "check": "Profile unmeasured kimi-k3.nvfp4.vllm.baseline",
+      "passed": true,
+      "actual": false,
+      "expected": false
+    },
+    {
+      "check": "Profile group size kimi-k3.nvfp4.vllm.baseline",
+      "passed": true,
+      "actual": 8,
+      "expected": 8
+    },
+    {
+      "check": "Catalog profile equality deepseek-v4-flash-0731.native.sglang.baseline",
+      "passed": true,
+      "actual": true,
+      "expected": true
+    },
+    {
+      "check": "Profile target revision deepseek-v4-flash-0731.native.sglang.baseline",
+      "passed": true,
+      "actual": "7872f01b1d1fe23eabc4c98b48bffcef5a386062",
+      "expected": "7872f01b1d1fe23eabc4c98b48bffcef5a386062"
+    },
+    {
+      "check": "Profile exact repository deepseek-v4-flash-0731.native.sglang.baseline",
+      "passed": true,
+      "actual": "deepseek-ai/DeepSeek-V4-Flash-0731",
+      "expected": "deepseek-ai/DeepSeek-V4-Flash-0731"
+    },
+    {
+      "check": "Profile source IDs resolve deepseek-v4-flash-0731.native.sglang.baseline",
+      "passed": true,
+      "actual": true,
+      "expected": true
+    },
+    {
+      "check": "Profile unmeasured deepseek-v4-flash-0731.native.sglang.baseline",
+      "passed": true,
+      "actual": false,
+      "expected": false
+    },
+    {
+      "check": "Profile group size deepseek-v4-flash-0731.native.sglang.baseline",
+      "passed": true,
+      "actual": 8,
+      "expected": 8
+    },
+    {
+      "check": "Catalog profile equality deepseek-v4-flash-0731.native.vllm.dspark",
+      "passed": true,
+      "actual": true,
+      "expected": true
+    },
+    {
+      "check": "Profile target revision deepseek-v4-flash-0731.native.vllm.dspark",
+      "passed": true,
+      "actual": "7872f01b1d1fe23eabc4c98b48bffcef5a386062",
+      "expected": "7872f01b1d1fe23eabc4c98b48bffcef5a386062"
+    },
+    {
+      "check": "Profile exact repository deepseek-v4-flash-0731.native.vllm.dspark",
+      "passed": true,
+      "actual": "deepseek-ai/DeepSeek-V4-Flash-0731",
+      "expected": "deepseek-ai/DeepSeek-V4-Flash-0731"
+    },
+    {
+      "check": "Profile source IDs resolve deepseek-v4-flash-0731.native.vllm.dspark",
+      "passed": true,
+      "actual": true,
+      "expected": true
+    },
+    {
+      "check": "Profile unmeasured deepseek-v4-flash-0731.native.vllm.dspark",
+      "passed": true,
+      "actual": false,
+      "expected": false
+    },
+    {
+      "check": "Profile group size deepseek-v4-flash-0731.native.vllm.dspark",
+      "passed": true,
+      "actual": 4,
+      "expected": 4
+    },
+    {
+      "check": "Catalog profile equality deepseek-v4-flash-0731.native.vllm.ep4",
+      "passed": true,
+      "actual": true,
+      "expected": true
+    },
+    {
+      "check": "Profile target revision deepseek-v4-flash-0731.native.vllm.ep4",
+      "passed": true,
+      "actual": "7872f01b1d1fe23eabc4c98b48bffcef5a386062",
+      "expected": "7872f01b1d1fe23eabc4c98b48bffcef5a386062"
+    },
+    {
+      "check": "Profile exact repository deepseek-v4-flash-0731.native.vllm.ep4",
+      "passed": true,
+      "actual": "deepseek-ai/DeepSeek-V4-Flash-0731",
+      "expected": "deepseek-ai/DeepSeek-V4-Flash-0731"
+    },
+    {
+      "check": "Profile source IDs resolve deepseek-v4-flash-0731.native.vllm.ep4",
+      "passed": true,
+      "actual": true,
+      "expected": true
+    },
+    {
+      "check": "Profile unmeasured deepseek-v4-flash-0731.native.vllm.ep4",
+      "passed": true,
+      "actual": false,
+      "expected": false
+    },
+    {
+      "check": "Profile group size deepseek-v4-flash-0731.native.vllm.ep4",
+      "passed": true,
+      "actual": 4,
+      "expected": 4
+    },
+    {
+      "check": "Catalog profile equality deepseek-v4-flash-0731.native.vllm.ep8",
+      "passed": true,
+      "actual": true,
+      "expected": true
+    },
+    {
+      "check": "Profile target revision deepseek-v4-flash-0731.native.vllm.ep8",
+      "passed": true,
+      "actual": "7872f01b1d1fe23eabc4c98b48bffcef5a386062",
+      "expected": "7872f01b1d1fe23eabc4c98b48bffcef5a386062"
+    },
+    {
+      "check": "Profile exact repository deepseek-v4-flash-0731.native.vllm.ep8",
+      "passed": true,
+      "actual": "deepseek-ai/DeepSeek-V4-Flash-0731",
+      "expected": "deepseek-ai/DeepSeek-V4-Flash-0731"
+    },
+    {
+      "check": "Profile source IDs resolve deepseek-v4-flash-0731.native.vllm.ep8",
+      "passed": true,
+      "actual": true,
+      "expected": true
+    },
+    {
+      "check": "Profile unmeasured deepseek-v4-flash-0731.native.vllm.ep8",
+      "passed": true,
+      "actual": false,
+      "expected": false
+    },
+    {
+      "check": "Profile group size deepseek-v4-flash-0731.native.vllm.ep8",
+      "passed": true,
+      "actual": 8,
+      "expected": 8
+    },
+    {
+      "check": "All local Markdown links exist",
+      "passed": true,
+      "actual": true,
+      "expected": true
+    },
+    {
+      "check": "Corrected noncausal draft wording",
+      "passed": true,
+      "actual": true,
+      "expected": true
+    },
+    {
+      "check": "Removed target verification overclaim",
+      "passed": true,
+      "actual": false,
+      "expected": false
+    },
+    {
+      "check": "Corrected source boundary",
+      "passed": true,
+      "actual": true,
+      "expected": true
+    },
+    {
+      "check": "evidence/SOURCES.md stale VDS wording removed",
+      "passed": true,
+      "actual": false,
+      "expected": false
+    },
+    {
+      "check": "evidence/sources.json stale VDS wording removed",
+      "passed": true,
+      "actual": false,
+      "expected": false
+    }
+  ],
+  "count": 143,
+  "passed": true,
+  "source_config_projection_counts": {
+    "kimi-k3": 21,
+    "deepseek-v4-flash-0731": 43
+  },
+  "publisher_projection_fields": 3,
+  "local_markdown_links": [
+    {
+      "path": "companies/deepseek/README.md",
+      "target": "deepseek-v4-flash-0731/README.md",
+      "exists": true
+    },
+    {
+      "path": "companies/deepseek/README.md",
+      "target": "deepseek-v4-flash-0731/serving.md",
+      "exists": true
+    },
+    {
+      "path": "companies/deepseek/deepseek-v4-flash-0731/README.md",
+      "target": "architecture.md",
+      "exists": true
+    },
+    {
+      "path": "companies/deepseek/deepseek-v4-flash-0731/README.md",
+      "target": "precision.md",
+      "exists": true
+    },
+    {
+      "path": "companies/deepseek/deepseek-v4-flash-0731/README.md",
+      "target": "serving.md",
+      "exists": true
+    },
+    {
+      "path": "companies/deepseek/deepseek-v4-flash-0731/README.md",
+      "target": "validation.md",
+      "exists": true
+    },
+    {
+      "path": "companies/deepseek/deepseek-v4-flash-0731/README.md",
+      "target": "sources.md",
+      "exists": true
+    },
+    {
+      "path": "companies/deepseek/deepseek-v4-flash-0731/README.md",
+      "target": "model.json",
+      "exists": true
+    },
+    {
+      "path": "companies/deepseek/deepseek-v4-flash-0731/README.md",
+      "target": "../../../README.md",
+      "exists": true
+    },
+    {
+      "path": "companies/deepseek/deepseek-v4-flash-0731/architecture.md",
+      "target": "model.json",
+      "exists": true
+    },
+    {
+      "path": "companies/deepseek/deepseek-v4-flash-0731/architecture.md",
+      "target": "../../../reports/memory-math.md",
+      "exists": true
+    },
+    {
+      "path": "companies/deepseek/deepseek-v4-flash-0731/precision.md",
+      "target": "../../../reports/precision-and-kernels.md",
+      "exists": true
+    },
+    {
+      "path": "companies/deepseek/deepseek-v4-flash-0731/precision.md",
+      "target": "serving.md",
+      "exists": true
+    },
+    {
+      "path": "companies/deepseek/deepseek-v4-flash-0731/serving.md",
+      "target": "model.json",
+      "exists": true
+    },
+    {
+      "path": "companies/deepseek/deepseek-v4-flash-0731/serving.md",
+      "target": "../../../profiles/README.md",
+      "exists": true
+    },
+    {
+      "path": "companies/deepseek/deepseek-v4-flash-0731/sources.md",
+      "target": "../../../evidence/sources.json",
+      "exists": true
+    },
+    {
+      "path": "companies/deepseek/deepseek-v4-flash-0731/sources.md",
+      "target": "validation.md",
+      "exists": true
+    },
+    {
+      "path": "companies/deepseek/deepseek-v4-flash-0731/validation.md",
+      "target": "../../../benchmarks/PROTOCOL.md",
+      "exists": true
+    },
+    {
+      "path": "companies/deepseek/deepseek-v4-flash-0731/validation.md",
+      "target": "../../../benchmarks/result.schema.json",
+      "exists": true
+    },
+    {
+      "path": "companies/moonshot-ai/README.md",
+      "target": "kimi-k3/README.md",
+      "exists": true
+    },
+    {
+      "path": "companies/moonshot-ai/README.md",
+      "target": "kimi-k3/architecture.md",
+      "exists": true
+    },
+    {
+      "path": "companies/moonshot-ai/README.md",
+      "target": "kimi-k3/precision.md",
+      "exists": true
+    },
+    {
+      "path": "companies/moonshot-ai/kimi-k3/README.md",
+      "target": "architecture.md",
+      "exists": true
+    },
+    {
+      "path": "companies/moonshot-ai/kimi-k3/README.md",
+      "target": "precision.md",
+      "exists": true
+    },
+    {
+      "path": "companies/moonshot-ai/kimi-k3/README.md",
+      "target": "serving.md",
+      "exists": true
+    },
+    {
+      "path": "companies/moonshot-ai/kimi-k3/README.md",
+      "target": "validation.md",
+      "exists": true
+    },
+    {
+      "path": "companies/moonshot-ai/kimi-k3/README.md",
+      "target": "sources.md",
+      "exists": true
+    },
+    {
+      "path": "companies/moonshot-ai/kimi-k3/README.md",
+      "target": "model.json",
+      "exists": true
+    },
+    {
+      "path": "companies/moonshot-ai/kimi-k3/README.md",
+      "target": "../../../README.md",
+      "exists": true
+    },
+    {
+      "path": "companies/moonshot-ai/kimi-k3/README.md",
+      "target": "dspark.md",
+      "exists": true
+    },
+    {
+      "path": "companies/moonshot-ai/kimi-k3/architecture.md",
+      "target": "../../../reports/memory-math.md",
+      "exists": true
+    },
+    {
+      "path": "companies/moonshot-ai/kimi-k3/precision.md",
+      "target": "../../../reports/precision-and-kernels.md",
+      "exists": true
+    },
+    {
+      "path": "companies/moonshot-ai/kimi-k3/precision.md",
+      "target": "validation.md",
+      "exists": true
+    },
+    {
+      "path": "companies/moonshot-ai/kimi-k3/serving.md",
+      "target": "dspark.md",
+      "exists": true
+    },
+    {
+      "path": "companies/moonshot-ai/kimi-k3/serving.md",
+      "target": "precision.md",
+      "exists": true
+    },
+    {
+      "path": "companies/moonshot-ai/kimi-k3/serving.md",
+      "target": "model.json",
+      "exists": true
+    },
+    {
+      "path": "companies/moonshot-ai/kimi-k3/serving.md",
+      "target": "../../../profiles/README.md",
+      "exists": true
+    },
+    {
+      "path": "companies/moonshot-ai/kimi-k3/sources.md",
+      "target": "../../../evidence/sources.json",
+      "exists": true
+    },
+    {
+      "path": "companies/moonshot-ai/kimi-k3/sources.md",
+      "target": "validation.md",
+      "exists": true
+    },
+    {
+      "path": "companies/moonshot-ai/kimi-k3/validation.md",
+      "target": "sources.md",
+      "exists": true
+    },
+    {
+      "path": "companies/moonshot-ai/kimi-k3/validation.md",
+      "target": "../../../benchmarks/PROTOCOL.md",
+      "exists": true
+    },
+    {
+      "path": "companies/moonshot-ai/kimi-k3/validation.md",
+      "target": "../../../benchmarks/result.schema.json",
+      "exists": true
+    }
+  ],
+  "company_file_paths": [
+    "companies/deepseek/README.md",
+    "companies/deepseek/deepseek-v4-flash-0731/README.md",
+    "companies/deepseek/deepseek-v4-flash-0731/architecture.md",
+    "companies/deepseek/deepseek-v4-flash-0731/model.json",
+    "companies/deepseek/deepseek-v4-flash-0731/precision.md",
+    "companies/deepseek/deepseek-v4-flash-0731/serving.md",
+    "companies/deepseek/deepseek-v4-flash-0731/sources.md",
+    "companies/deepseek/deepseek-v4-flash-0731/validation.md",
+    "companies/moonshot-ai/README.md",
+    "companies/moonshot-ai/kimi-k3/README.md",
+    "companies/moonshot-ai/kimi-k3/architecture.md",
+    "companies/moonshot-ai/kimi-k3/dspark.md",
+    "companies/moonshot-ai/kimi-k3/model.json",
+    "companies/moonshot-ai/kimi-k3/precision.md",
+    "companies/moonshot-ai/kimi-k3/serving.md",
+    "companies/moonshot-ai/kimi-k3/sources.md",
+    "companies/moonshot-ai/kimi-k3/validation.md"
+  ],
+  "profile_paths": [
+    "profiles/kimi-k3.native.sglang.baseline.json",
+    "profiles/kimi-k3.native.vllm.baseline.json",
+    "profiles/kimi-k3.nvfp4.sglang.baseline.json",
+    "profiles/kimi-k3.nvfp4.sglang.dspark.json",
+    "profiles/kimi-k3.nvfp4.vllm.baseline.json",
+    "profiles/deepseek-v4-flash-0731.native.sglang.baseline.json",
+    "profiles/deepseek-v4-flash-0731.native.vllm.dspark.json",
+    "profiles/deepseek-v4-flash-0731.native.vllm.ep4.json",
+    "profiles/deepseek-v4-flash-0731.native.vllm.ep8.json"
+  ]
+}

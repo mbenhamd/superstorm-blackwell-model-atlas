@@ -6,11 +6,11 @@
 
 Start with vLLM TP1, 32K context and restrained concurrency. Compare BF16, RedHat block FP8 and RedHat NVFP4. The exact tool template is a versioned deployment asset, not a path guaranteed to exist inside every image; the baseline profile therefore does not blindly reference a source-tree-relative example file.
 
-SGLang is an alternative to qualify, particularly for its caching behavior, but the generic Hugging Face “use with SGLang” widget is not a hardware benchmark or a guarantee that every quantized export works. A profile marked compatibility-probe must first load and pass protocol/accuracy tests.
+SGLang is an alternative to qualify for the exact export. The generic Hugging Face “use with SGLang” widget does not establish that a particular quantization format works in the selected image. A profile marked compatibility-probe must first load and pass protocol/accuracy tests.
 
 Keep audio disabled for this variant unless a separately verified processor/runtime path proves the intended capability. Do not copy the generic example’s audio limit and advertise audio support.
 
-[gemma-4-31b-it-CARD](https://huggingface.co/google/gemma-4-31B-it) [HW](https://docs.nvidia.com/dgx/dgxb300-user-guide/introduction-to-dgxb300.html)
+[gemma-4-31b-it-CARD](https://huggingface.co/google/gemma-4-31B-it/blob/842da3794eaa0b77d5f08bae87a17459d91ff475/README.md) [HW](https://docs.nvidia.com/dgx/dgxb300-user-guide/introduction-to-dgxb300.html)
 
 ## Experiment sequence
 

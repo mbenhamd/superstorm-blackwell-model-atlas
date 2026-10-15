@@ -1,0 +1,145 @@
+{
+  "task": "Framework/hardware/reports audit",
+  "as_of_utc": "2026-10-15",
+  "completed_at": "2026-10-15T22:07:56.433621+00:00",
+  "scope_paths": [
+    "frameworks/DECISION.md",
+    "frameworks/kserve/ARCHITECTURE.md",
+    "frameworks/sglang/SOURCE_REVIEW.md",
+    "frameworks/vllm/SOURCE_REVIEW.md",
+    "hardware/B300-8GPU.md",
+    "reports/DECISIONS.md",
+    "reports/comparison.md",
+    "reports/memory-math.md",
+    "reports/nightly-readiness.md",
+    "reports/precision-and-kernels.md"
+  ],
+  "coverage": [
+    {
+      "path": "frameworks/DECISION.md",
+      "sha256_after": "181e9b3fcb6fc11d059be78ff58041f8779e5d706a0a9115131db1d10923cbcb",
+      "status": "reviewed and corrected",
+      "notes": "Corrected exact-export evidence: documented SGLang DeepSeek TP4 and FlashNext TP1 candidate; vLLM MTP fix source ancestry; patched Kimi container distinct from upstream open PR."
+    },
+    {
+      "path": "frameworks/kserve/ARCHITECTURE.md",
+      "sha256_after": "d02a13bada77d4b510ad976526056b9e9af501ca0cc0dced30440226826c12ba",
+      "status": "reviewed and corrected",
+      "notes": "Separated latest stable 0.21 from website docs 0.20 and master metadata; checked both served LLM API versions and v1alpha2 storage; retained no cluster validation claim."
+    },
+    {
+      "path": "frameworks/sglang/SOURCE_REVIEW.md",
+      "sha256_after": "6beeeaa571dccfeac2cd2a610c626161b677d1dae0ba1593b1283221e59c0754",
+      "status": "reviewed and corrected",
+      "notes": "Corrected the registry range to lines 1–159; separated inspected source, current main and nightly metadata; documented the PR author’s eight-GB300 correctness evaluation, absence of speed measurements, and stable-source ancestry."
+    },
+    {
+      "path": "frameworks/vllm/SOURCE_REVIEW.md",
+      "sha256_after": "eb59f2a8b861a52ca12bbef4e1d5ea2db02b05cd6fbb99747650cfe281d65b79",
+      "status": "reviewed and corrected",
+      "notes": "Separated inspected source from current main; checked byte equality for two source files; scoped the directory listing and documented NVIDIA’s patched Kimi container separately."
+    },
+    {
+      "path": "hardware/B300-8GPU.md",
+      "sha256_after": "e21c0ec6cf5fd7f8c8e74f72e651e427d7a89eef5521794b75fffc4ea47d010d",
+      "status": "reviewed and corrected",
+      "notes": "Reverified NVIDIA’s eight 288 GB GPUs and compute capability 10.3; recomputed 2145.77 GiB under a decimal assumption; corrected publisher topologies versus experiments and GLM MTP accounting."
+    },
+    {
+      "path": "reports/DECISIONS.md",
+      "sha256_after": "2f720da2c164b7b3f539896c17c22c1081245247917e948a84471b3997b9f77e",
+      "status": "reviewed and corrected",
+      "notes": "Reviewed all ADRs; added explicit parameter scope/serialized auxiliary/payload vs runtime accounting rule."
+    },
+    {
+      "path": "reports/comparison.md",
+      "sha256_after": "bc13bd05429c485b5589867c8274147e8fc4b0e490b46e6f91518562a9fc5def",
+      "status": "reviewed and corrected",
+      "notes": "Pinned all eight model config citations, linked all model names, relabeled configured position limits, and corrected topology evidence and parameter scopes."
+    },
+    {
+      "path": "reports/memory-math.md",
+      "sha256_after": "012784fc8791e42a8bcae517f0919a2b446d804a72aee4f9925942e6f40e8bc9",
+      "status": "reviewed and corrected",
+      "notes": "Recomputed all table rows, KV and state examples, and unit arithmetic; incorporated GLM MTP and Flash counts; left DeepSeek exact scope unset; labeled rounded inputs and one-dimensional scaling assumptions."
+    },
+    {
+      "path": "reports/nightly-readiness.md",
+      "sha256_after": "13d025b70f982790f0e218152f079be32e660489adb23b29401f9c45da413e80",
+      "status": "reviewed and corrected",
+      "notes": "Separated stable, inspected source, current branch, nightly metadata and binary tests; confirmed release ancestry; described the clone failure as historical."
+    },
+    {
+      "path": "reports/precision-and-kernels.md",
+      "sha256_after": "066a4360721940770b68e01b12fa071814861352d56b2311b6c96434e1831f32",
+      "status": "reviewed and corrected",
+      "notes": "Reverified format scaling and dispatch source; corrected main versus MTP quantization; documented Qwen’s exporter-version conflict and Kimi’s quantization scope."
+    }
+  ],
+  "findings": [
+    {
+      "severity": "medium",
+      "issue": "Rounded parameter headlines were labeled weight floors, and GLM full-checkpoint accounting omitted approximately 9.95B serialized MTP parameters.",
+      "resolution": "Relabeled payload illustrations; used 753.32994048B for GLM’s checkpoint and 321.32303139B for Flash metadata; rounded inputs are not strict bounds."
+    },
+    {
+      "severity": "medium",
+      "issue": "DeepSeek’s 284B family headline appeared in an exact 0731 payload row despite a competing 304B source headline.",
+      "resolution": "Left exact count and payload unset and recorded the unresolved source scopes."
+    },
+    {
+      "severity": "medium",
+      "issue": "Qwen Flash Next and Mistral experimental topologies resembled publisher baselines, and exact-artifact SGLang evidence was understated.",
+      "resolution": "Identified vLLM TP8 baselines, SGLang Flash Next TP1 as documented but unverified, and publisher-documented DeepSeek TP4 and Mistral paths."
+    },
+    {
+      "severity": "medium",
+      "issue": "Stable source inclusion, current branch heads and nightly metadata were not resolved separately.",
+      "resolution": "Preserved historical inspection refs, added timestamped branch snapshots, checked ancestry and nightly indexes; no binaries tested."
+    },
+    {
+      "severity": "low",
+      "issue": "KServe release 0.21 was cited alongside mutable website documentation labeled 0.20.",
+      "resolution": "Recorded the version difference and checked that release schemas serve v1alpha1 and v1alpha2 with v1alpha2 storage; did not falsely label v1alpha1 invalid."
+    },
+    {
+      "severity": "low",
+      "issue": "The SGLang registry review claimed lines 1–180 of a 159-line file.",
+      "resolution": "Corrected the range to 1–159 and reread the source; verified byte equality at the observed current main snapshot."
+    },
+    {
+      "severity": "low",
+      "issue": "Configured positional limits were called native, and model table rows claimed to link without actual model links.",
+      "resolution": "Renamed the limit, clarified context and quality boundaries, and linked each model report."
+    }
+  ],
+  "source_updates_file": "evidence/sources.json",
+  "lock_updates_file": "evidence/upstreams.lock.json",
+  "verification": {
+    "git_diff_check": "Passed for frameworks/, hardware/ and reports/.",
+    "local_markdown_links": "Every target relative link resolves.",
+    "markdown_tables": "All target table column counts are consistent.",
+    "arithmetic": "Independently recomputed seven uniform payload rows, four recurrent matrix rows, two GQA examples, the hardware unit conversion and GLM parameter subtraction.",
+    "immutable_model_configs": "Fresh HTTP 200 retrievals for eight pinned configs; checked summary and memory dimensions.",
+    "source_excerpts": "Reread vLLM registry lines 1–350, DSpark lines 1–190, SGLang registry lines 1–159, and ModelOpt lines 1–240; all four complete files are byte-identical at the later branch snapshots.",
+    "releases_and_prs": "Reconfirmed official latest release pages and API flags, three PR states, and two release ancestry comparisons.",
+    "nightly": "Checked published indexes and registry metadata; no wheel or image executed."
+  },
+  "limits": [
+    "No GPU load, quality, throughput, latency, power or memory measurements.",
+    "No container pulled or wheel installed; published checksums and digests were not verified against binary bytes.",
+    "KServe source review covers selected schema version declarations and deployment constants, not the complete controller or a cluster.",
+    "Parallel company audits verified publisher card and export details; this audit independently fetched all eight base configs and recomputed summary arithmetic.",
+    "DeepSeek exact 0731 parameter census remains unresolved."
+  ],
+  "cross_file_propagation": [
+    "Merge the 38 source updates and lock fields; refresh SOURCES.md consistently.",
+    "Update README, START_HERE and ATLAS with corrected recommendations, parameter scopes and configured-position-limit wording.",
+    "Keep the historical clone failure distinct from successful HTTPS source and metadata retrieval during this audit.",
+    "Limitations should acknowledge pinned model revisions and metadata audits while preserving the absence of binary and GPU tests.",
+    "Synchronize profiles and catalog: Qwen Flash Next vLLM TP8 / SGLang TP1 probe, Mistral TP8 baseline, and DeepSeek TP1 with DP4/EP plus SGLang TP4 comparator, as assigned to tooling.",
+    "Use GLM total 753.32994048B, main 743.377019904B and MTP 9.952920576B; distinguish Flash metadata 321.32303139B from its rounded 320B headline.",
+    "Preserve inspected vLLM/SGLang refs separately from the 21:52 UTC branch snapshots; KServe selected source scope now points to its release commit."
+  ],
+  "record_role": "First-pass Astra max reviewer handoff; final shared propagation and second-review resolutions are recorded in evidence/AUDIT-2026-10-15.md."
+}

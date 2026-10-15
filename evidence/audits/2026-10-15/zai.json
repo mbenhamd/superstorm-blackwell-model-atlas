@@ -1,0 +1,1846 @@
+{
+  "audit": "Z.ai family verification and correction",
+  "audit_date_utc": "2026-10-15",
+  "completed_at": "2026-10-15T22:05:39.662439+00:00",
+  "local_date_note": "Paris passed midnight to 2026-10-16 during audit; retrieval dates here use UTC and preserve the 2026-10-15 snapshot.",
+  "ownership": "Only tracked companies/z-ai/** files edited; shared catalog/evidence/profiles left for root propagation.",
+  "tracked_files_reviewed": 15,
+  "per_file_coverage": [
+    {
+      "path": "companies/z-ai/README.md",
+      "status": "reviewed_and_corrected",
+      "verification": "Checked both family summaries and publisher identity; reconciled headline/checkpoint scopes and added base pins.",
+      "sha256_after_edit": "ba5376d40bbf118d8e0bba3c76ddcf0ab3f20f744f711cf536877d44f1197d13"
+    },
+    {
+      "path": "companies/z-ai/glm-5.3-flash/README.md",
+      "status": "reviewed_and_corrected",
+      "verification": "Rechecked identity, context, provenance, stated hypotheses and limits; immutable revision added; parameter scope corrected.",
+      "sha256_after_edit": "7b136692d238ab049a540834cae3d6fd8575d4e2ee8ab0ada58ba30784bd33fe"
+    },
+    {
+      "path": "companies/z-ai/glm-5.3-flash/architecture.md",
+      "status": "reviewed_and_corrected",
+      "verification": "Compared every projected field to pinned config; audited data-flow wording and memory arithmetic; exact checkpoint metadata separated from rounded headlines.",
+      "sha256_after_edit": "cf281015648f8d9433937497e4f702dca85f16571888a1173b7459e7f1fe655e"
+    },
+    {
+      "path": "companies/z-ai/glm-5.3-flash/model.json",
+      "status": "reviewed_and_corrected",
+      "verification": "Pinned every variant; synchronized normalized projections and exact metadata totals; added accounting scope and index tensor bytes.",
+      "sha256_after_edit": "6ab095b0c1c0f2a7f82154787db70d8f4630e913e5194adc62aa7a2882c3462e"
+    },
+    {
+      "path": "companies/z-ai/glm-5.3-flash/precision.md",
+      "status": "reviewed_and_corrected",
+      "verification": "Re-read all named publisher/exporter cards, complete quantization configs (including exclusions), metadata and indices; scoped quantization and exporter quality evidence.",
+      "sha256_after_edit": "d41e5fc6f83b394644e5e58ca543375e0dfa6a50559d58084e9c88663927102d"
+    },
+    {
+      "path": "companies/z-ai/glm-5.3-flash/serving.md",
+      "status": "reviewed_and_corrected",
+      "verification": "Re-read current official engine recipes; separated documented candidates from measured claims; corrected parser and disaggregation constraints.",
+      "sha256_after_edit": "b561524821f5ae504f3a5ec6d7562d9ff595f631b8c65b8662e99bd17fa413b0"
+    },
+    {
+      "path": "companies/z-ai/glm-5.3-flash/sources.md",
+      "status": "reviewed_and_corrected",
+      "verification": "Replaced mutable artifact citations with exact immutable revisions and recorded all source IDs.",
+      "sha256_after_edit": "cf67be5abe3d99ef69a7462635909627d6dba8ddf5be8e12fb93e4ae45bc525a"
+    },
+    {
+      "path": "companies/z-ai/glm-5.3-flash/validation.md",
+      "status": "reviewed_and_corrected",
+      "verification": "Aligned achieved metadata verification with explicitly unperformed GPU/runtime validation.",
+      "sha256_after_edit": "c5b6edc66033a22e33f3e09e92949d31f1f8e0a4de4832e7d7b3d27b6fe527a5"
+    },
+    {
+      "path": "companies/z-ai/glm-5.3/README.md",
+      "status": "reviewed_and_corrected",
+      "verification": "Rechecked identity, context, provenance, stated hypotheses and limits; immutable revision added; parameter scope corrected.",
+      "sha256_after_edit": "4db04a7be0fe19efa50b59043724689c6cd4ee00c7ccccaec0ddae750b08e9e6"
+    },
+    {
+      "path": "companies/z-ai/glm-5.3/architecture.md",
+      "status": "reviewed_and_corrected",
+      "verification": "Compared every projected field to pinned config; audited data-flow wording and memory arithmetic; exact checkpoint metadata separated from rounded headlines.",
+      "sha256_after_edit": "3bb8a2fb4d24a88a3717fb44829d126b6ed53b4f58058fd46218937005e7e8c0"
+    },
+    {
+      "path": "companies/z-ai/glm-5.3/model.json",
+      "status": "reviewed_and_corrected",
+      "verification": "Pinned every variant; synchronized normalized projections and exact metadata totals; added accounting scope and index tensor bytes.",
+      "sha256_after_edit": "cf43c1753ecbcb7a403fc1e8f5bced7c8a0a025a7ddfe49c370d2e02cf49f57d"
+    },
+    {
+      "path": "companies/z-ai/glm-5.3/precision.md",
+      "status": "reviewed_and_corrected",
+      "verification": "Re-read all named publisher/exporter cards, complete quantization configs (including exclusions), metadata and indices; scoped quantization and exporter quality evidence.",
+      "sha256_after_edit": "9fcbeedda61cae257f1c4eb88a62102164925e055226a16b43fcc523f8699ef1"
+    },
+    {
+      "path": "companies/z-ai/glm-5.3/serving.md",
+      "status": "reviewed_and_corrected",
+      "verification": "Re-read current official engine recipes; separated documented candidates from measured claims; corrected parser and disaggregation constraints.",
+      "sha256_after_edit": "86280bc075e588420120891163977c6020a41f355af787dc5544c19a029371cd"
+    },
+    {
+      "path": "companies/z-ai/glm-5.3/sources.md",
+      "status": "reviewed_and_corrected",
+      "verification": "Replaced mutable artifact citations with exact immutable revisions and recorded all source IDs.",
+      "sha256_after_edit": "0d0e2f311a5c60d464ad2bfdcf872265690c3a9065f27f3a12f4f2e468c0df69"
+    },
+    {
+      "path": "companies/z-ai/glm-5.3/validation.md",
+      "status": "reviewed_and_corrected",
+      "verification": "Aligned achieved metadata verification with explicitly unperformed GPU/runtime validation.",
+      "sha256_after_edit": "c8cdecc94f6ab9c714df78bb1facac7a556b88dbb27f1e3413db4f63947f7ce4"
+    }
+  ],
+  "findings": [
+    {
+      "id": "ZAI-01",
+      "severity": "material",
+      "status": "corrected",
+      "claim": "743B versus 753B GLM accounting remained unexplained and catalog total_b omitted stored MTP.",
+      "evidence": "Pinned official metadata reports 753,329,940,480. Five BF16 metadata headers cover all 791 layer78 tensors and sum 9,952,920,576. Difference is 743,377,019,904.",
+      "resolution": "Preserve approximate743B main/39B active headline, add explicit 753.33B full checkpoint scope; total_b=753.32994048, main_b=743.377019904, mtp_b=9.952920576.",
+      "scope": "Named-tensor and Hub metadata accounting; not independent unique training-parameter verification or tied/shared-weight deduplication."
+    },
+    {
+      "id": "ZAI-02",
+      "severity": "material",
+      "status": "root_profile_change_required",
+      "claim": "GLM SGLang baseline incorrectly used glm45 tool parser.",
+      "evidence": "Official cookbook states auto tools resolves to glm47 and glm45 does not parse new tool-call format; reason parser remains glm45.",
+      "resolution": "Serving report corrected. Root must change --tool-call-parser to glm47 in profile and catalog copy."
+    },
+    {
+      "id": "ZAI-03",
+      "severity": "material",
+      "status": "corrected",
+      "claim": "Exact RedHat Flash precision contract was left unaudited.",
+      "evidence": "Pinned compressed-tensors config targets main routed experts layers3–44 with NVFP4 W4A4 and MTP expert layer45 with FP8 W8A8; exclusions govern remaining modules.",
+      "resolution": "Replaced unresolved statements across all Flash reports; exact revision and serialization bytes recorded."
+    },
+    {
+      "id": "ZAI-04",
+      "severity": "material",
+      "status": "corrected",
+      "claim": "GLM NVFP4 scope could incorrectly include MTP.",
+      "evidence": "RedHat ignores ^model.layers.78.*; Inferact explicitly excludes its MTP expert module.",
+      "resolution": "Both variants now explicitly described as main routed-expert NVFP4 with MTP excluded."
+    },
+    {
+      "id": "ZAI-05",
+      "severity": "provenance",
+      "status": "corrected",
+      "claim": "All seven Z.ai-related variant revisions were null and BF16 variants only indirectly evidenced.",
+      "evidence": "Direct pinned Hub API, model cards and config/index retrievals succeeded for every named variant.",
+      "resolution": "All revisions resolved; no GPU claims added."
+    },
+    {
+      "id": "ZAI-06",
+      "severity": "material",
+      "status": "corrected",
+      "claim": "Flash 320B headline was also used as exact checkpoint count.",
+      "evidence": "Publisher headline320B/18B; both official API variants report321,323,031,390 parameters.",
+      "resolution": "Keep rounded publisher headline, use total_b=321.32303139 for checkpoint arithmetic and publisher_total_b=320."
+    },
+    {
+      "id": "ZAI-07",
+      "severity": "provenance",
+      "status": "corrected",
+      "claim": "Flash license identity left unresolved.",
+      "evidence": "Pinned official LICENSE says MIT; BF16 license matches; RedHat card declaresMIT.",
+      "resolution": "Record MIT identification without claiming broader legal clearance."
+    },
+    {
+      "id": "ZAI-08",
+      "severity": "material",
+      "status": "corrected",
+      "claim": "GLM recipe MTP depth called a measured starting hypothesis.",
+      "evidence": "Recipe documents five proposals; no local B300 measurement exists.",
+      "resolution": "Replaced measured wording with documented candidate."
+    },
+    {
+      "id": "ZAI-09",
+      "severity": "material",
+      "status": "corrected",
+      "claim": "Flash disaggregation and speculation could be read as freely composable experiments.",
+      "evidence": "SGLang current PD documentation: dummy-weight mechanical checks only; speculation does not start; keep sameTP; real-weight accuracy/load qualification missing.",
+      "resolution": "Explicit separate PD preview boundary in Flash serving and validation; vLLM matching-state-layout requirement kept separately."
+    },
+    {
+      "id": "ZAI-10",
+      "severity": "clarity",
+      "status": "corrected",
+      "claim": "Memory/precision arithmetic lacked actual serialization metadata and state exclusions.",
+      "evidence": "All seven indices inspected; Flash state34×64×128×128×4=142,606,336bytes=136MiB; RedHatFlash tensor payload reduction39.75%, not50% for entire artifact.",
+      "resolution": "Added exact index totals and exclusion scopes; no index byte count labeled measured resident memory."
+    },
+    {
+      "id": "ZAI-11",
+      "severity": "clarity",
+      "status": "corrected",
+      "claim": "MTP expanded as next-token prediction and Flash data flow attributed target verification to MTP.",
+      "resolution": "Corrected to multi-token prediction and serving-engine target verification/state commit."
+    },
+    {
+      "id": "ZAI-12",
+      "severity": "source_limit",
+      "status": "recorded",
+      "claim": "Engine recipe minimum versions and runtime switches are not uniformly reliable.",
+      "evidence": "GLM vLLM badge0.29.0+ vs text0.28.0; Flash prerequisites FlashInfer0.6.17 vs troubleshooting0.6.18; Flash SGLang thinking:false advice lacks a corresponding branch in pinned template.",
+      "resolution": "Version caveats recorded; unsupported thinking-disable switch not adopted."
+    }
+  ],
+  "source_updates": {
+    "glm-5.3-CARD": {
+      "id": "glm-5.3-CARD",
+      "url": "https://huggingface.co/zai-org/GLM-5.3/raw/ba32f8c19c8738e2c57c71798c601d477a7bf844/README.md",
+      "immutable_url": "https://huggingface.co/zai-org/GLM-5.3/raw/ba32f8c19c8738e2c57c71798c601d477a7bf844/README.md",
+      "revision": "ba32f8c19c8738e2c57c71798c601d477a7bf844",
+      "title": "zai-org/GLM-5.3 README.md",
+      "kind": "publisher model card",
+      "accessed_on": "2026-10-15",
+      "verification": "HTTP 200; pinned contents inspected; no GPU execution",
+      "notes": "",
+      "accessed_on_timezone": "UTC",
+      "capture": "HTTP retrieval recorded with content checksum; source bodies retained only in temporary audit files, not bundled in the repository",
+      "retrieved_at": "2026-10-15T22:01:30.435574+00:00",
+      "http_status": 200,
+      "sha256": "ed1c0a4563c437a32f8953d637a1db9bd831de1b24bd3062a5ace9e04340b1cf",
+      "bytes": 14209
+    },
+    "glm-5.3-CFG": {
+      "id": "glm-5.3-CFG",
+      "url": "https://huggingface.co/zai-org/GLM-5.3/raw/ba32f8c19c8738e2c57c71798c601d477a7bf844/config.json",
+      "immutable_url": "https://huggingface.co/zai-org/GLM-5.3/raw/ba32f8c19c8738e2c57c71798c601d477a7bf844/config.json",
+      "revision": "ba32f8c19c8738e2c57c71798c601d477a7bf844",
+      "title": "zai-org/GLM-5.3 config.json",
+      "kind": "publisher configuration",
+      "accessed_on": "2026-10-15",
+      "verification": "HTTP 200; pinned contents inspected; no GPU execution",
+      "notes": "",
+      "accessed_on_timezone": "UTC",
+      "capture": "HTTP retrieval recorded with content checksum; source bodies retained only in temporary audit files, not bundled in the repository",
+      "retrieved_at": "2026-10-15T22:01:30.435924+00:00",
+      "http_status": 200,
+      "sha256": "3ac72612095574542f7fff847ada8e59d9199dd8af44bdf625d7e02615572e69",
+      "bytes": 29464,
+      "evidence_fields": {
+        "architecture_class": "GlmMoeDsaForCausalLM",
+        "model_type": "glm_moe_dsa",
+        "layers": 78,
+        "dense_prefix_layers": 3,
+        "hidden_size": 6144,
+        "dense_intermediate_size": 12288,
+        "moe_intermediate_size": 2048,
+        "routed_experts": 256,
+        "experts_per_token": 8,
+        "shared_experts": 1,
+        "attention_heads": 64,
+        "q_lora_rank": 2048,
+        "kv_lora_rank": 512,
+        "qk_nope_head_dim": 192,
+        "qk_rope_head_dim": 64,
+        "v_head_dim": 256,
+        "index_heads": 32,
+        "index_head_dim": 128,
+        "index_topk": 2048,
+        "index_selection_frequency": 4,
+        "nextn_layers": 1,
+        "max_position_embeddings": 1048576,
+        "vocab_size": 154880,
+        "router_dtype": "float32",
+        "router_score": "sigmoid",
+        "router_scale": 2.5,
+        "quant_method": "fp8",
+        "fp8_format": "e4m3",
+        "weight_block_size": [
+          128,
+          128
+        ],
+        "activation_scheme": "dynamic"
+      }
+    },
+    "glm-5.3-INDEX": {
+      "id": "glm-5.3-INDEX",
+      "url": "https://huggingface.co/zai-org/GLM-5.3/resolve/ba32f8c19c8738e2c57c71798c601d477a7bf844/model.safetensors.index.json",
+      "immutable_url": "https://huggingface.co/zai-org/GLM-5.3/resolve/ba32f8c19c8738e2c57c71798c601d477a7bf844/model.safetensors.index.json",
+      "revision": "ba32f8c19c8738e2c57c71798c601d477a7bf844",
+      "title": "zai-org/GLM-5.3 model.safetensors.index.json",
+      "kind": "checkpoint index metadata",
+      "accessed_on": "2026-10-15",
+      "verification": "HTTP 200; pinned contents inspected; no GPU execution",
+      "notes": "Index metadata total_size is serialized tensor bytes, not peak memory.",
+      "accessed_on_timezone": "UTC",
+      "capture": "HTTP retrieval recorded with content checksum; source bodies retained only in temporary audit files, not bundled in the repository",
+      "retrieved_at": "2026-10-15T22:01:30.436013+00:00",
+      "http_status": 200,
+      "sha256": "e0fe7f28c1f853d4824e4d796374e3dacf1fe470988773952c79b063768134bf",
+      "bytes": 11359251
+    },
+    "glm-5.3-LICENSE": {
+      "id": "glm-5.3-LICENSE",
+      "url": "https://huggingface.co/zai-org/GLM-5.3/raw/ba32f8c19c8738e2c57c71798c601d477a7bf844/LICENSE",
+      "immutable_url": "https://huggingface.co/zai-org/GLM-5.3/raw/ba32f8c19c8738e2c57c71798c601d477a7bf844/LICENSE",
+      "revision": "ba32f8c19c8738e2c57c71798c601d477a7bf844",
+      "title": "zai-org/GLM-5.3 LICENSE",
+      "kind": "publisher license",
+      "accessed_on": "2026-10-15",
+      "verification": "HTTP 200; pinned contents inspected; no GPU execution",
+      "notes": "",
+      "accessed_on_timezone": "UTC",
+      "capture": "HTTP retrieval recorded with content checksum; source bodies retained only in temporary audit files, not bundled in the repository",
+      "retrieved_at": "2026-10-15T22:01:30.436093+00:00",
+      "http_status": 200,
+      "sha256": "96e1622099fc9d6b70c9760f007d99e66d7497eec636b63c60fe208401e9170c",
+      "bytes": 4263
+    },
+    "glm-5.3-BF16-CARD": {
+      "id": "glm-5.3-BF16-CARD",
+      "url": "https://huggingface.co/zai-org/GLM-5.3-BF16/raw/abf42e6c0e53bc29a875511301e7b7fcd220315b/README.md",
+      "immutable_url": "https://huggingface.co/zai-org/GLM-5.3-BF16/raw/abf42e6c0e53bc29a875511301e7b7fcd220315b/README.md",
+      "revision": "abf42e6c0e53bc29a875511301e7b7fcd220315b",
+      "title": "zai-org/GLM-5.3-BF16 README.md",
+      "kind": "publisher model card",
+      "accessed_on": "2026-10-15",
+      "verification": "HTTP 200; pinned contents inspected; no GPU execution",
+      "notes": "",
+      "accessed_on_timezone": "UTC",
+      "capture": "HTTP retrieval recorded with content checksum; source bodies retained only in temporary audit files, not bundled in the repository",
+      "retrieved_at": "2026-10-15T22:01:30.436183+00:00",
+      "http_status": 200,
+      "sha256": "9bdaa8b83a653f3ccac2a140d1c3880929d6f16e4a2b38d03e358b9fad0ee95f",
+      "bytes": 14214
+    },
+    "glm-5.3-BF16-CFG": {
+      "id": "glm-5.3-BF16-CFG",
+      "url": "https://huggingface.co/zai-org/GLM-5.3-BF16/raw/abf42e6c0e53bc29a875511301e7b7fcd220315b/config.json",
+      "immutable_url": "https://huggingface.co/zai-org/GLM-5.3-BF16/raw/abf42e6c0e53bc29a875511301e7b7fcd220315b/config.json",
+      "revision": "abf42e6c0e53bc29a875511301e7b7fcd220315b",
+      "title": "zai-org/GLM-5.3-BF16 config.json",
+      "kind": "publisher configuration",
+      "accessed_on": "2026-10-15",
+      "verification": "HTTP 200; pinned contents inspected; no GPU execution",
+      "notes": "",
+      "accessed_on_timezone": "UTC",
+      "capture": "HTTP retrieval recorded with content checksum; source bodies retained only in temporary audit files, not bundled in the repository",
+      "retrieved_at": "2026-10-15T22:01:30.436256+00:00",
+      "http_status": 200,
+      "sha256": "ca8f2f47b07919a514c0ca223dc2ea2bc7445afaa5ac76c013a3784e096426ca",
+      "bytes": 3732
+    },
+    "glm-5.3-BF16-INDEX": {
+      "id": "glm-5.3-BF16-INDEX",
+      "url": "https://huggingface.co/zai-org/GLM-5.3-BF16/resolve/abf42e6c0e53bc29a875511301e7b7fcd220315b/model.safetensors.index.json",
+      "immutable_url": "https://huggingface.co/zai-org/GLM-5.3-BF16/resolve/abf42e6c0e53bc29a875511301e7b7fcd220315b/model.safetensors.index.json",
+      "revision": "abf42e6c0e53bc29a875511301e7b7fcd220315b",
+      "title": "zai-org/GLM-5.3-BF16 model.safetensors.index.json",
+      "kind": "checkpoint index metadata",
+      "accessed_on": "2026-10-15",
+      "verification": "HTTP 200; pinned contents inspected; no GPU execution",
+      "notes": "Index metadata total_size is serialized tensor bytes, not peak memory.",
+      "accessed_on_timezone": "UTC",
+      "capture": "HTTP retrieval recorded with content checksum; source bodies retained only in temporary audit files, not bundled in the repository",
+      "retrieved_at": "2026-10-15T22:01:30.436353+00:00",
+      "http_status": 200,
+      "sha256": "5fd47a926aefce0f2c917f42523e5e0f3c87e23e389e767c3681536a62f5cf5e",
+      "bytes": 5408032
+    },
+    "glm-5.3-NV": {
+      "id": "glm-5.3-NV",
+      "url": "https://huggingface.co/RedHatAI/GLM-5.3-NVFP4/raw/c8917e4258572c405575855ff53effe58c17a38e/README.md",
+      "immutable_url": "https://huggingface.co/RedHatAI/GLM-5.3-NVFP4/raw/c8917e4258572c405575855ff53effe58c17a38e/README.md",
+      "revision": "c8917e4258572c405575855ff53effe58c17a38e",
+      "title": "RedHatAI/GLM-5.3-NVFP4 README.md",
+      "kind": "exporter model card",
+      "accessed_on": "2026-10-15",
+      "verification": "HTTP 200; pinned contents inspected; no GPU execution",
+      "notes": "",
+      "accessed_on_timezone": "UTC",
+      "capture": "HTTP retrieval recorded with content checksum; source bodies retained only in temporary audit files, not bundled in the repository",
+      "retrieved_at": "2026-10-15T22:01:30.436434+00:00",
+      "http_status": 200,
+      "sha256": "278170e63b2b2d1167df93af014ed67469511b1ffbe01f429aa3cb3245cd1f82",
+      "bytes": 4188
+    },
+    "glm-5.3-NV-CFG": {
+      "id": "glm-5.3-NV-CFG",
+      "url": "https://huggingface.co/RedHatAI/GLM-5.3-NVFP4/raw/c8917e4258572c405575855ff53effe58c17a38e/config.json",
+      "immutable_url": "https://huggingface.co/RedHatAI/GLM-5.3-NVFP4/raw/c8917e4258572c405575855ff53effe58c17a38e/config.json",
+      "revision": "c8917e4258572c405575855ff53effe58c17a38e",
+      "title": "RedHatAI/GLM-5.3-NVFP4 config.json",
+      "kind": "exporter quantization configuration",
+      "accessed_on": "2026-10-15",
+      "verification": "HTTP 200; pinned contents inspected; no GPU execution",
+      "notes": "",
+      "accessed_on_timezone": "UTC",
+      "capture": "HTTP retrieval recorded with content checksum; source bodies retained only in temporary audit files, not bundled in the repository",
+      "retrieved_at": "2026-10-15T22:01:30.686646+00:00",
+      "http_status": 200,
+      "sha256": "5fd3cbff61c6c8a6f1f6bc16b8ec68e4aca4ce1ddf4a5b87b54067d6a4ab9765",
+      "bytes": 9887,
+      "evidence_fields": {
+        "quant_method": "compressed-tensors",
+        "format": "nvfp4-pack-quantized",
+        "group_size": 16,
+        "weights_bits": 4,
+        "activation_bits": 4,
+        "mtp_ignore_pattern": "re:^model\\.layers\\.78\\..*"
+      }
+    },
+    "glm-5.3-NV-INDEX": {
+      "id": "glm-5.3-NV-INDEX",
+      "url": "https://huggingface.co/RedHatAI/GLM-5.3-NVFP4/resolve/c8917e4258572c405575855ff53effe58c17a38e/model.safetensors.index.json",
+      "immutable_url": "https://huggingface.co/RedHatAI/GLM-5.3-NVFP4/resolve/c8917e4258572c405575855ff53effe58c17a38e/model.safetensors.index.json",
+      "revision": "c8917e4258572c405575855ff53effe58c17a38e",
+      "title": "RedHatAI/GLM-5.3-NVFP4 model.safetensors.index.json",
+      "kind": "checkpoint index metadata",
+      "accessed_on": "2026-10-15",
+      "verification": "HTTP 200; pinned contents inspected; no GPU execution",
+      "notes": "Index metadata total_size is serialized tensor bytes, not peak memory.",
+      "accessed_on_timezone": "UTC",
+      "capture": "HTTP retrieval recorded with content checksum; source bodies retained only in temporary audit files, not bundled in the repository",
+      "retrieved_at": "2026-10-15T22:01:30.686720+00:00",
+      "http_status": 200,
+      "sha256": "3e8fc81472e00344b9a6d88a71ecea432807d40b4f0ac2321b4befe36ac27054",
+      "bytes": 23288894
+    },
+    "glm-5.3-INFERACT-CARD": {
+      "id": "glm-5.3-INFERACT-CARD",
+      "url": "https://huggingface.co/Inferact/GLM-5.3-NVFP4/raw/ce67b36f3669192b5bb233819f0fda6c8a9837f8/README.md",
+      "immutable_url": "https://huggingface.co/Inferact/GLM-5.3-NVFP4/raw/ce67b36f3669192b5bb233819f0fda6c8a9837f8/README.md",
+      "revision": "ce67b36f3669192b5bb233819f0fda6c8a9837f8",
+      "title": "Inferact/GLM-5.3-NVFP4 README.md",
+      "kind": "exporter model card",
+      "accessed_on": "2026-10-15",
+      "verification": "HTTP 200; pinned contents inspected; no GPU execution",
+      "notes": "",
+      "accessed_on_timezone": "UTC",
+      "capture": "HTTP retrieval recorded with content checksum; source bodies retained only in temporary audit files, not bundled in the repository",
+      "retrieved_at": "2026-10-15T22:01:30.690337+00:00",
+      "http_status": 200,
+      "sha256": "aeec1ebd06aae91c054fd94b252225a8b11b98ad9464c70265427a56af262519",
+      "bytes": 14097
+    },
+    "glm-5.3-INFERACT-CFG": {
+      "id": "glm-5.3-INFERACT-CFG",
+      "url": "https://huggingface.co/Inferact/GLM-5.3-NVFP4/raw/ce67b36f3669192b5bb233819f0fda6c8a9837f8/config.json",
+      "immutable_url": "https://huggingface.co/Inferact/GLM-5.3-NVFP4/raw/ce67b36f3669192b5bb233819f0fda6c8a9837f8/config.json",
+      "revision": "ce67b36f3669192b5bb233819f0fda6c8a9837f8",
+      "title": "Inferact/GLM-5.3-NVFP4 config.json",
+      "kind": "exporter quantization configuration",
+      "accessed_on": "2026-10-15",
+      "verification": "HTTP 200; pinned contents inspected; no GPU execution",
+      "notes": "",
+      "accessed_on_timezone": "UTC",
+      "capture": "HTTP retrieval recorded with content checksum; source bodies retained only in temporary audit files, not bundled in the repository",
+      "retrieved_at": "2026-10-15T22:01:30.692131+00:00",
+      "http_status": 200,
+      "sha256": "44ffebdc4bf4f99b74932908896da5ba1e09b88a15edebf8d065232669193d9c",
+      "bytes": 62025,
+      "evidence_fields": {
+        "quant_method": "modelopt",
+        "quant_algo": "NVFP4",
+        "group_size": 16,
+        "mtp_experts_excluded": "model.layers.78.mlp.experts"
+      }
+    },
+    "glm-5.3-INFERACT-INDEX": {
+      "id": "glm-5.3-INFERACT-INDEX",
+      "url": "https://huggingface.co/Inferact/GLM-5.3-NVFP4/resolve/ce67b36f3669192b5bb233819f0fda6c8a9837f8/model.safetensors.index.json",
+      "immutable_url": "https://huggingface.co/Inferact/GLM-5.3-NVFP4/resolve/ce67b36f3669192b5bb233819f0fda6c8a9837f8/model.safetensors.index.json",
+      "revision": "ce67b36f3669192b5bb233819f0fda6c8a9837f8",
+      "title": "Inferact/GLM-5.3-NVFP4 model.safetensors.index.json",
+      "kind": "checkpoint index metadata",
+      "accessed_on": "2026-10-15",
+      "verification": "HTTP 200; pinned contents inspected; no GPU execution",
+      "notes": "Index metadata total_size is serialized tensor bytes, not peak memory.",
+      "accessed_on_timezone": "UTC",
+      "capture": "HTTP retrieval recorded with content checksum; source bodies retained only in temporary audit files, not bundled in the repository",
+      "retrieved_at": "2026-10-15T22:01:30.696138+00:00",
+      "http_status": 200,
+      "sha256": "e5de21cffb3ec5f958646ac6923cdd6a76b39ea0cb4b31e7627fb14c561cd42f",
+      "bytes": 24040026
+    },
+    "glm-5.3-META": {
+      "id": "glm-5.3-META",
+      "url": "https://huggingface.co/api/models/zai-org/GLM-5.3/revision/ba32f8c19c8738e2c57c71798c601d477a7bf844",
+      "immutable_url": "https://huggingface.co/api/models/zai-org/GLM-5.3/revision/ba32f8c19c8738e2c57c71798c601d477a7bf844",
+      "revision": "ba32f8c19c8738e2c57c71798c601d477a7bf844",
+      "title": "zai-org/GLM-5.3 pinned Hub metadata",
+      "kind": "publisher artifact metadata",
+      "accessed_on": "2026-10-15",
+      "verification": "HTTP 200; returned sha matches requested revision; safetensors parameter metadata inspected",
+      "notes": "Hub metadata is not an independent full checkpoint census.",
+      "accessed_on_timezone": "UTC",
+      "capture": "HTTP retrieval recorded with content checksum; source bodies retained only in temporary audit files, not bundled in the repository",
+      "retrieved_at": "2026-10-15T22:01:30.716487+00:00",
+      "http_status": 200,
+      "sha256": "ac5b4aae634ff3be17e05174a70d4914900a69471d40ac397e3608b513be7c0c",
+      "bytes": 42375
+    },
+    "glm-5.3-VR": {
+      "id": "glm-5.3-VR",
+      "url": "https://recipes.vllm.ai/zai-org/GLM-5.3",
+      "title": "GLM 5.3 vLLM recipe",
+      "kind": "primary engine documentation",
+      "accessed_on": "2026-10-15",
+      "verification": "HTTP 200; current page re-read",
+      "notes": "Minimum-version labels conflict (0.29.0+ badge versus 0.28.0 text); five MTP proposals documented, not measured on target node.",
+      "accessed_on_timezone": "UTC",
+      "capture": "HTTP retrieval recorded with content checksum; source bodies retained only in temporary audit files, not bundled in the repository",
+      "retrieved_at": "2026-10-15T22:01:30.883443+00:00",
+      "http_status": 200,
+      "sha256": "966f2ecd6b390ed210767c9eca8338851161786e486d9acce9a2af49cf42e157",
+      "bytes": 2157707
+    },
+    "glm-5.3-GR": {
+      "id": "glm-5.3-GR",
+      "url": "https://docs.sglang.io/cookbook/autoregressive/GLM/GLM-5.3",
+      "title": "GLM 5.3 SGLang cookbook",
+      "kind": "primary engine documentation",
+      "accessed_on": "2026-10-15",
+      "verification": "HTTP 200; current page re-read",
+      "notes": "Current cookbook resolves reasoning parser auto to glm45, tool-call parser auto to glm47; glm45 tool parser does not parse newer token format. Recipe evidence, not local runtime verification.",
+      "accessed_on_timezone": "UTC",
+      "capture": "HTTP retrieval recorded with content checksum; source bodies retained only in temporary audit files, not bundled in the repository",
+      "retrieved_at": "2026-10-15T22:01:30.885422+00:00",
+      "http_status": 200,
+      "sha256": "61a55ce952e9bc7ed5f7a212e2806a2e338226530a61046151bdb05ab279d701",
+      "bytes": 871141
+    },
+    "glm-5.3-BF16-HEADERS": {
+      "id": "glm-5.3-BF16-HEADERS",
+      "url": "https://huggingface.co/zai-org/GLM-5.3-BF16/tree/abf42e6c0e53bc29a875511301e7b7fcd220315b",
+      "immutable_url": "https://huggingface.co/zai-org/GLM-5.3-BF16/tree/abf42e6c0e53bc29a875511301e7b7fcd220315b",
+      "revision": "abf42e6c0e53bc29a875511301e7b7fcd220315b",
+      "title": "GLM-5.3 BF16 MTP safetensors headers (five shards)",
+      "kind": "publisher tensor-header metadata",
+      "accessed_on": "2026-10-15",
+      "verification": "HTTP 206 range reads; 791 tensor-shape products summed to 9,952,920,576; no tensor payload reads",
+      "related_urls": [
+        "https://huggingface.co/zai-org/GLM-5.3-BF16/resolve/abf42e6c0e53bc29a875511301e7b7fcd220315b/model-00270-of-00282.safetensors",
+        "https://huggingface.co/zai-org/GLM-5.3-BF16/resolve/abf42e6c0e53bc29a875511301e7b7fcd220315b/model-00271-of-00282.safetensors",
+        "https://huggingface.co/zai-org/GLM-5.3-BF16/resolve/abf42e6c0e53bc29a875511301e7b7fcd220315b/model-00272-of-00282.safetensors",
+        "https://huggingface.co/zai-org/GLM-5.3-BF16/resolve/abf42e6c0e53bc29a875511301e7b7fcd220315b/model-00273-of-00282.safetensors",
+        "https://huggingface.co/zai-org/GLM-5.3-BF16/resolve/abf42e6c0e53bc29a875511301e7b7fcd220315b/model-00274-of-00282.safetensors"
+      ],
+      "notes": "Main estimate subtracts extra-layer count from Hub total; not full independent census.",
+      "accessed_on_timezone": "UTC",
+      "capture": "HTTP 206 reads of safetensors header prefixes and JSON only; tensor payloads were not read"
+    },
+    "glm-5.3-flash-CARD": {
+      "id": "glm-5.3-flash-CARD",
+      "url": "https://huggingface.co/zai-org/GLM-5.3-Flash/raw/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/README.md",
+      "immutable_url": "https://huggingface.co/zai-org/GLM-5.3-Flash/raw/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/README.md",
+      "revision": "46a050bec13002ad29ee795c16e61cf4fa3c4a9c",
+      "title": "zai-org/GLM-5.3-Flash README.md",
+      "kind": "publisher model card",
+      "accessed_on": "2026-10-15",
+      "verification": "HTTP 200; pinned contents inspected; no GPU execution",
+      "notes": "",
+      "accessed_on_timezone": "UTC",
+      "capture": "HTTP retrieval recorded with content checksum; source bodies retained only in temporary audit files, not bundled in the repository",
+      "retrieved_at": "2026-10-15T22:01:30.887252+00:00",
+      "http_status": 200,
+      "sha256": "e6c5d41400e28f5a89418a0d15b09b9c113314a7553d40d7d4a8a72fcdb87d02",
+      "bytes": 8027
+    },
+    "glm-5.3-flash-CFG": {
+      "id": "glm-5.3-flash-CFG",
+      "url": "https://huggingface.co/zai-org/GLM-5.3-Flash/raw/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/config.json",
+      "immutable_url": "https://huggingface.co/zai-org/GLM-5.3-Flash/raw/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/config.json",
+      "revision": "46a050bec13002ad29ee795c16e61cf4fa3c4a9c",
+      "title": "zai-org/GLM-5.3-Flash config.json",
+      "kind": "publisher configuration",
+      "accessed_on": "2026-10-15",
+      "verification": "HTTP 200; pinned contents inspected; no GPU execution",
+      "notes": "",
+      "accessed_on_timezone": "UTC",
+      "capture": "HTTP retrieval recorded with content checksum; source bodies retained only in temporary audit files, not bundled in the repository",
+      "retrieved_at": "2026-10-15T22:01:30.888943+00:00",
+      "http_status": 200,
+      "sha256": "bb8f01c42cb92a52ca72e65afb4d5bd8d11aef083cd210e8de25dfb904f23e9f",
+      "bytes": 69416,
+      "evidence_fields": {
+        "architecture_class": "Glm5NextForConditionalGeneration",
+        "text_model_type": "glm5_next_text",
+        "layers": 45,
+        "dense_prefix_layers": 3,
+        "hidden_size": 4096,
+        "moe_intermediate_size": 2048,
+        "routed_experts": 288,
+        "experts_per_token": 8,
+        "shared_experts": 1,
+        "kda_layers": 34,
+        "sparse_mla_layers": 11,
+        "full_attention_layer_indices_0based": [
+          3,
+          7,
+          11,
+          15,
+          19,
+          23,
+          27,
+          31,
+          35,
+          39,
+          43
+        ],
+        "attention_heads": 64,
+        "kda_heads": 64,
+        "kda_head_dim": 128,
+        "kda_conv_width": 4,
+        "q_lora_rank": 1536,
+        "qk_nope_head_dim": 256,
+        "qk_rope_head_dim": 0,
+        "v_head_dim": 256,
+        "index_heads": 32,
+        "index_head_dim": 128,
+        "index_topk": 2048,
+        "index_pool_compression": 4,
+        "hc_mult": 4,
+        "hc_sinkhorn_iters": 20,
+        "nextn_layers": 1,
+        "max_position_embeddings": 1048576,
+        "vocab_size": 154880,
+        "router_dtype": "float32",
+        "router_score": "sigmoid",
+        "swiglu_limit": 10,
+        "vision_layers": 24,
+        "vision_hidden_size": 1024,
+        "vision_heads": 16,
+        "vision_patch_size": 14,
+        "vision_output_size": 4096,
+        "native_precision": "FP8",
+        "kv_lora_rank": 512
+      }
+    },
+    "glm-5.3-flash-INDEX": {
+      "id": "glm-5.3-flash-INDEX",
+      "url": "https://huggingface.co/zai-org/GLM-5.3-Flash/resolve/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/model.safetensors.index.json",
+      "immutable_url": "https://huggingface.co/zai-org/GLM-5.3-Flash/resolve/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/model.safetensors.index.json",
+      "revision": "46a050bec13002ad29ee795c16e61cf4fa3c4a9c",
+      "title": "zai-org/GLM-5.3-Flash model.safetensors.index.json",
+      "kind": "checkpoint index metadata",
+      "accessed_on": "2026-10-15",
+      "verification": "HTTP 200; pinned contents inspected; no GPU execution",
+      "notes": "Index metadata total_size is serialized tensor bytes, not peak memory.",
+      "accessed_on_timezone": "UTC",
+      "capture": "HTTP retrieval recorded with content checksum; source bodies retained only in temporary audit files, not bundled in the repository",
+      "retrieved_at": "2026-10-15T22:01:31.029569+00:00",
+      "http_status": 200,
+      "sha256": "3c3f40366a53c3fd7974b4eab7881a365a98c2a4329150befebab99fe7c18b05",
+      "bytes": 8406613
+    },
+    "glm-5.3-flash-LICENSE": {
+      "id": "glm-5.3-flash-LICENSE",
+      "url": "https://huggingface.co/zai-org/GLM-5.3-Flash/raw/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/LICENSE",
+      "immutable_url": "https://huggingface.co/zai-org/GLM-5.3-Flash/raw/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/LICENSE",
+      "revision": "46a050bec13002ad29ee795c16e61cf4fa3c4a9c",
+      "title": "zai-org/GLM-5.3-Flash LICENSE",
+      "kind": "publisher license",
+      "accessed_on": "2026-10-15",
+      "verification": "HTTP 200; pinned contents inspected; no GPU execution",
+      "notes": "",
+      "accessed_on_timezone": "UTC",
+      "capture": "HTTP retrieval recorded with content checksum; source bodies retained only in temporary audit files, not bundled in the repository",
+      "retrieved_at": "2026-10-15T22:01:31.062590+00:00",
+      "http_status": 200,
+      "sha256": "30b85b6b9659f2e78aa259f8faf5d920a68dee7c9ced3fa6dba1f19f2bc4fca1",
+      "bytes": 1070
+    },
+    "glm-5.3-flash-BF16-CARD": {
+      "id": "glm-5.3-flash-BF16-CARD",
+      "url": "https://huggingface.co/zai-org/GLM-5.3-Flash-BF16/raw/f9fed3bbc82291073373d67452e9f25317ef7577/README.md",
+      "immutable_url": "https://huggingface.co/zai-org/GLM-5.3-Flash-BF16/raw/f9fed3bbc82291073373d67452e9f25317ef7577/README.md",
+      "revision": "f9fed3bbc82291073373d67452e9f25317ef7577",
+      "title": "zai-org/GLM-5.3-Flash-BF16 README.md",
+      "kind": "publisher model card",
+      "accessed_on": "2026-10-15",
+      "verification": "HTTP 200; pinned contents inspected; no GPU execution",
+      "notes": "",
+      "accessed_on_timezone": "UTC",
+      "capture": "HTTP retrieval recorded with content checksum; source bodies retained only in temporary audit files, not bundled in the repository",
+      "retrieved_at": "2026-10-15T22:01:31.066025+00:00",
+      "http_status": 200,
+      "sha256": "5c48ce1a84c5901ab96d602333e9201fa385a73e9c298fab3467183b8b95a549",
+      "bytes": 8033
+    },
+    "glm-5.3-flash-BF16-CFG": {
+      "id": "glm-5.3-flash-BF16-CFG",
+      "url": "https://huggingface.co/zai-org/GLM-5.3-Flash-BF16/raw/f9fed3bbc82291073373d67452e9f25317ef7577/config.json",
+      "immutable_url": "https://huggingface.co/zai-org/GLM-5.3-Flash-BF16/raw/f9fed3bbc82291073373d67452e9f25317ef7577/config.json",
+      "revision": "f9fed3bbc82291073373d67452e9f25317ef7577",
+      "title": "zai-org/GLM-5.3-Flash-BF16 config.json",
+      "kind": "publisher configuration",
+      "accessed_on": "2026-10-15",
+      "verification": "HTTP 200; pinned contents inspected; no GPU execution",
+      "notes": "",
+      "accessed_on_timezone": "UTC",
+      "capture": "HTTP retrieval recorded with content checksum; source bodies retained only in temporary audit files, not bundled in the repository",
+      "retrieved_at": "2026-10-15T22:01:31.068111+00:00",
+      "http_status": 200,
+      "sha256": "33e63ec7fe607658be712bd6dd3c16c6549960d8e7f0483d34b939881b55f943",
+      "bytes": 5939
+    },
+    "glm-5.3-flash-BF16-INDEX": {
+      "id": "glm-5.3-flash-BF16-INDEX",
+      "url": "https://huggingface.co/zai-org/GLM-5.3-Flash-BF16/resolve/f9fed3bbc82291073373d67452e9f25317ef7577/model.safetensors.index.json",
+      "immutable_url": "https://huggingface.co/zai-org/GLM-5.3-Flash-BF16/resolve/f9fed3bbc82291073373d67452e9f25317ef7577/model.safetensors.index.json",
+      "revision": "f9fed3bbc82291073373d67452e9f25317ef7577",
+      "title": "zai-org/GLM-5.3-Flash-BF16 model.safetensors.index.json",
+      "kind": "checkpoint index metadata",
+      "accessed_on": "2026-10-15",
+      "verification": "HTTP 200; pinned contents inspected; no GPU execution",
+      "notes": "Index metadata total_size is serialized tensor bytes, not peak memory.",
+      "accessed_on_timezone": "UTC",
+      "capture": "HTTP retrieval recorded with content checksum; source bodies retained only in temporary audit files, not bundled in the repository",
+      "retrieved_at": "2026-10-15T22:01:31.106377+00:00",
+      "http_status": 200,
+      "sha256": "e6007bd58fb7e07f9fe69544257ee2713f252ef5855bbf685b48c991d524ef0f",
+      "bytes": 4083163
+    },
+    "glm-5.3-flash-NV": {
+      "id": "glm-5.3-flash-NV",
+      "url": "https://huggingface.co/RedHatAI/GLM-5.3-Flash-NVFP4/raw/18d55bfd5a2194887738da73753975c9d3842f46/README.md",
+      "immutable_url": "https://huggingface.co/RedHatAI/GLM-5.3-Flash-NVFP4/raw/18d55bfd5a2194887738da73753975c9d3842f46/README.md",
+      "revision": "18d55bfd5a2194887738da73753975c9d3842f46",
+      "title": "RedHatAI/GLM-5.3-Flash-NVFP4 README.md",
+      "kind": "exporter model card",
+      "accessed_on": "2026-10-15",
+      "verification": "HTTP 200; pinned contents inspected; no GPU execution",
+      "notes": "",
+      "accessed_on_timezone": "UTC",
+      "capture": "HTTP retrieval recorded with content checksum; source bodies retained only in temporary audit files, not bundled in the repository",
+      "retrieved_at": "2026-10-15T22:01:31.232773+00:00",
+      "http_status": 200,
+      "sha256": "c8d3f90d37e4d0c073f182bf785f6753c2a43ef5885abce0461586f266c195e2",
+      "bytes": 3469
+    },
+    "glm-5.3-flash-NV-CFG": {
+      "id": "glm-5.3-flash-NV-CFG",
+      "url": "https://huggingface.co/RedHatAI/GLM-5.3-Flash-NVFP4/raw/18d55bfd5a2194887738da73753975c9d3842f46/config.json",
+      "immutable_url": "https://huggingface.co/RedHatAI/GLM-5.3-Flash-NVFP4/raw/18d55bfd5a2194887738da73753975c9d3842f46/config.json",
+      "revision": "18d55bfd5a2194887738da73753975c9d3842f46",
+      "title": "RedHatAI/GLM-5.3-Flash-NVFP4 config.json",
+      "kind": "exporter quantization configuration",
+      "accessed_on": "2026-10-15",
+      "verification": "HTTP 200; pinned contents inspected; no GPU execution",
+      "notes": "",
+      "accessed_on_timezone": "UTC",
+      "capture": "HTTP retrieval recorded with content checksum; source bodies retained only in temporary audit files, not bundled in the repository",
+      "retrieved_at": "2026-10-15T22:01:31.232852+00:00",
+      "http_status": 200,
+      "sha256": "29c9f4171196910e99b9c069d6b76c56e3cdcd0f436dc1bacbc9513c9a7529ac",
+      "bytes": 53876,
+      "evidence_fields": {
+        "quant_method": "compressed-tensors",
+        "format": "mixed-precision",
+        "main_expert_layers_0based": "3-44",
+        "main_weight_bits": 4,
+        "main_activation_bits": 4,
+        "main_group_size": 16,
+        "mtp_expert_layer_0based": 45,
+        "mtp_weight_bits": 8,
+        "mtp_weight_blocks": [
+          128,
+          128
+        ],
+        "mtp_activation_bits": 8,
+        "other_modules": "explicit exclusions"
+      }
+    },
+    "glm-5.3-flash-NV-INDEX": {
+      "id": "glm-5.3-flash-NV-INDEX",
+      "url": "https://huggingface.co/RedHatAI/GLM-5.3-Flash-NVFP4/resolve/18d55bfd5a2194887738da73753975c9d3842f46/model.safetensors.index.json",
+      "immutable_url": "https://huggingface.co/RedHatAI/GLM-5.3-Flash-NVFP4/resolve/18d55bfd5a2194887738da73753975c9d3842f46/model.safetensors.index.json",
+      "revision": "18d55bfd5a2194887738da73753975c9d3842f46",
+      "title": "RedHatAI/GLM-5.3-Flash-NVFP4 model.safetensors.index.json",
+      "kind": "checkpoint index metadata",
+      "accessed_on": "2026-10-15",
+      "verification": "HTTP 200; pinned contents inspected; no GPU execution",
+      "notes": "Index metadata total_size is serialized tensor bytes, not peak memory.",
+      "accessed_on_timezone": "UTC",
+      "capture": "HTTP retrieval recorded with content checksum; source bodies retained only in temporary audit files, not bundled in the repository",
+      "retrieved_at": "2026-10-15T22:01:31.236507+00:00",
+      "http_status": 200,
+      "sha256": "015faae91e8189c7553f1d48ec3d0694b8c02b282d7f58af2d7b4064a81ce4c0",
+      "bytes": 17055736
+    },
+    "glm-5.3-flash-META": {
+      "id": "glm-5.3-flash-META",
+      "url": "https://huggingface.co/api/models/zai-org/GLM-5.3-Flash/revision/46a050bec13002ad29ee795c16e61cf4fa3c4a9c",
+      "immutable_url": "https://huggingface.co/api/models/zai-org/GLM-5.3-Flash/revision/46a050bec13002ad29ee795c16e61cf4fa3c4a9c",
+      "revision": "46a050bec13002ad29ee795c16e61cf4fa3c4a9c",
+      "title": "zai-org/GLM-5.3-Flash pinned Hub metadata",
+      "kind": "publisher artifact metadata",
+      "accessed_on": "2026-10-15",
+      "verification": "HTTP 200; returned sha matches requested revision; safetensors parameter metadata inspected",
+      "notes": "Hub metadata is not an independent full checkpoint census.",
+      "accessed_on_timezone": "UTC",
+      "capture": "HTTP retrieval recorded with content checksum; source bodies retained only in temporary audit files, not bundled in the repository",
+      "retrieved_at": "2026-10-15T22:01:31.404752+00:00",
+      "http_status": 200,
+      "sha256": "7d7bbc445a8ca0b8c1c874e8202e05678e321a96bf1211d15d69ade3247e4381",
+      "bytes": 70224
+    },
+    "glm-5.3-flash-VR": {
+      "id": "glm-5.3-flash-VR",
+      "url": "https://recipes.vllm.ai/zai-org/GLM-5.3-Flash",
+      "title": "GLM 5.3 Flash vLLM recipe",
+      "kind": "primary engine documentation",
+      "accessed_on": "2026-10-15",
+      "verification": "HTTP 200; current page re-read",
+      "notes": "Historical integration instruction remains; FlashInfer minimum differs (0.6.17 prerequisite versus 0.6.18 troubleshooting). TP4 and PD layout are documented candidates, not target validation.",
+      "accessed_on_timezone": "UTC",
+      "capture": "HTTP retrieval recorded with content checksum; source bodies retained only in temporary audit files, not bundled in the repository",
+      "retrieved_at": "2026-10-15T22:01:31.409121+00:00",
+      "http_status": 200,
+      "sha256": "923d16c64e3836f24d65621c1ca590487fb476bb022ed12c68076c44ca4b238b",
+      "bytes": 2169197
+    },
+    "glm-5.3-flash-GR": {
+      "id": "glm-5.3-flash-GR",
+      "url": "https://docs.sglang.io/cookbook/autoregressive/GLM/GLM-5.3-Flash",
+      "title": "GLM 5.3 Flash SGLang cookbook",
+      "kind": "primary engine documentation",
+      "accessed_on": "2026-10-15",
+      "verification": "HTTP 200; current page re-read",
+      "notes": "CUDA pairs FP8 KV with TRT-LLM DSA, BF16 KV with TileLang; PD preview has dummy-weight mechanical checks only and no speculative decoding. Parser roles: reasoning glm45, tools glm47. thinking:false advice conflicts with pinned template opening <think> unconditionally; do not treat that switch as verified.",
+      "accessed_on_timezone": "UTC",
+      "capture": "HTTP retrieval recorded with content checksum; source bodies retained only in temporary audit files, not bundled in the repository",
+      "retrieved_at": "2026-10-15T22:01:31.431064+00:00",
+      "http_status": 200,
+      "sha256": "861a5fbaf239aa18ea0d0a609ea4c89a87a85eb8e2cd6f780cce253cc42ad3b7",
+      "bytes": 880522
+    }
+  },
+  "variant_pin_map": {
+    "zai-org/GLM-5.3": "ba32f8c19c8738e2c57c71798c601d477a7bf844",
+    "zai-org/GLM-5.3-BF16": "abf42e6c0e53bc29a875511301e7b7fcd220315b",
+    "RedHatAI/GLM-5.3-NVFP4": "c8917e4258572c405575855ff53effe58c17a38e",
+    "Inferact/GLM-5.3-NVFP4": "ce67b36f3669192b5bb233819f0fda6c8a9837f8",
+    "zai-org/GLM-5.3-Flash": "46a050bec13002ad29ee795c16e61cf4fa3c4a9c",
+    "zai-org/GLM-5.3-Flash-BF16": "f9fed3bbc82291073373d67452e9f25317ef7577",
+    "RedHatAI/GLM-5.3-Flash-NVFP4": "18d55bfd5a2194887738da73753975c9d3842f46"
+  },
+  "model_records_to_propagate": [
+    {
+      "key": "glm-5.3",
+      "company": "z-ai",
+      "name": "GLM 5.3",
+      "hf_id": "zai-org/GLM-5.3",
+      "headline": "Approximately 743B main / 39B active; 753.33B including serialized MTP; MLA with DSA; native FP8 packaging",
+      "config_projection": {
+        "architecture_class": "GlmMoeDsaForCausalLM",
+        "model_type": "glm_moe_dsa",
+        "layers": 78,
+        "dense_prefix_layers": 3,
+        "hidden_size": 6144,
+        "dense_intermediate_size": 12288,
+        "moe_intermediate_size": 2048,
+        "routed_experts": 256,
+        "experts_per_token": 8,
+        "shared_experts": 1,
+        "attention_heads": 64,
+        "q_lora_rank": 2048,
+        "kv_lora_rank": 512,
+        "qk_nope_head_dim": 192,
+        "qk_rope_head_dim": 64,
+        "v_head_dim": 256,
+        "index_heads": 32,
+        "index_head_dim": 128,
+        "index_topk": 2048,
+        "index_selection_frequency": 4,
+        "nextn_layers": 1,
+        "max_position_embeddings": 1048576,
+        "vocab_size": 154880,
+        "router_dtype": "float32",
+        "router_score": "sigmoid",
+        "router_scale": 2.5,
+        "quant_method": "fp8",
+        "fp8_format": "e4m3",
+        "weight_block_size": [
+          128,
+          128
+        ],
+        "activation_scheme": "dynamic"
+      },
+      "total_b": 753.32994048,
+      "active_b": 39,
+      "context": 1048576,
+      "layout": "sparse-mla-moe",
+      "license": "GLM-5.3 custom license (not inferred from previous GLM releases)",
+      "recommended": "vLLM FP8 and RedHat/Inferact NVFP4 first; SGLang challenger",
+      "baseline_tp": 8,
+      "variants": [
+        {
+          "key": "fp8",
+          "hf_id": "zai-org/GLM-5.3",
+          "precision": "Block FP8 with exclusions",
+          "status": "Pinned card, configuration and index reviewed; GPU execution unverified",
+          "revision": "ba32f8c19c8738e2c57c71798c601d477a7bf844",
+          "index_tensor_bytes": 755617140416
+        },
+        {
+          "key": "bf16",
+          "hf_id": "zai-org/GLM-5.3-BF16",
+          "precision": "BF16 reference with small FP32 component",
+          "status": "Pinned card, configuration and index reviewed; GPU execution unverified",
+          "revision": "abf42e6c0e53bc29a875511301e7b7fcd220315b",
+          "index_tensor_bytes": 1506659919872
+        },
+        {
+          "key": "nvfp4",
+          "hf_id": "RedHatAI/GLM-5.3-NVFP4",
+          "precision": "compressed-tensors NVFP4 W4A4 main routed-expert linears; group size 16; MTP and other modules excluded",
+          "status": "Pinned card, configuration and index reviewed; GPU execution unverified",
+          "revision": "c8917e4258572c405575855ff53effe58c17a38e",
+          "index_tensor_bytes": 464824469712
+        },
+        {
+          "key": "nvfp4-inferact",
+          "hf_id": "Inferact/GLM-5.3-NVFP4",
+          "precision": "ModelOpt NVFP4 main routed-expert export; group size 16; MTP and other modules excluded",
+          "status": "Pinned card, configuration and index reviewed; GPU execution unverified",
+          "revision": "ce67b36f3669192b5bb233819f0fda6c8a9837f8",
+          "index_tensor_bytes": 464822832448
+        }
+      ],
+      "path": "companies/z-ai/glm-5.3",
+      "source_ids": [
+        "glm-5.3-CARD",
+        "glm-5.3-CFG",
+        "glm-5.3-NV",
+        "glm-5.3-VR",
+        "glm-5.3-GR",
+        "glm-5.3-META",
+        "glm-5.3-INDEX",
+        "glm-5.3-LICENSE",
+        "glm-5.3-BF16-CFG",
+        "glm-5.3-BF16-INDEX",
+        "glm-5.3-BF16-HEADERS",
+        "glm-5.3-NV-CFG",
+        "glm-5.3-NV-INDEX",
+        "glm-5.3-INFERACT-CFG",
+        "glm-5.3-INFERACT-INDEX"
+      ],
+      "revision": "ba32f8c19c8738e2c57c71798c601d477a7bf844",
+      "evidence_status": "Pinned publisher cards, configurations and checkpoint metadata rechecked 2026-10-15; no model tensor payloads downloaded or GPU execution measured",
+      "source_projection_is_complete_original_config": false,
+      "verified_on": "2026-10-15",
+      "parameter_accounting": {
+        "checkpoint_parameters": 753329940480,
+        "total_b_scope": "Hub-reported official checkpoint parameter count, including serialized MTP; unique training parameters and tied/shared-weight accounting not independently verified",
+        "active_b_scope": "Publisher or engine-recipe headline; active path not independently counted",
+        "main_parameters_excluding_layer_78": 743377019904,
+        "mtp_layer_78_parameters": 9952920576,
+        "method": "Subtract sum of 791 model.layers.78 tensor-shape products in five pinned BF16 safetensors headers from the official checkpoint metadata total; not a complete independent tensor census",
+        "counting_revision": "abf42e6c0e53bc29a875511301e7b7fcd220315b"
+      },
+      "main_b": 743.377019904,
+      "mtp_b": 9.952920576,
+      "verified_on_timezone": "UTC"
+    },
+    {
+      "key": "glm-5.3-flash",
+      "company": "z-ai",
+      "name": "GLM 5.3 Flash",
+      "hf_id": "zai-org/GLM-5.3-Flash",
+      "headline": "Publisher headline 320B total / 18B active; checkpoint metadata 321.32B; KDA + NoPE sparse MLA + mHC; multimodal",
+      "config_projection": {
+        "architecture_class": "Glm5NextForConditionalGeneration",
+        "text_model_type": "glm5_next_text",
+        "layers": 45,
+        "dense_prefix_layers": 3,
+        "hidden_size": 4096,
+        "moe_intermediate_size": 2048,
+        "routed_experts": 288,
+        "experts_per_token": 8,
+        "shared_experts": 1,
+        "kda_layers": 34,
+        "sparse_mla_layers": 11,
+        "full_attention_layer_indices_0based": [
+          3,
+          7,
+          11,
+          15,
+          19,
+          23,
+          27,
+          31,
+          35,
+          39,
+          43
+        ],
+        "attention_heads": 64,
+        "kda_heads": 64,
+        "kda_head_dim": 128,
+        "kda_conv_width": 4,
+        "q_lora_rank": 1536,
+        "qk_nope_head_dim": 256,
+        "qk_rope_head_dim": 0,
+        "v_head_dim": 256,
+        "index_heads": 32,
+        "index_head_dim": 128,
+        "index_topk": 2048,
+        "index_pool_compression": 4,
+        "hc_mult": 4,
+        "hc_sinkhorn_iters": 20,
+        "nextn_layers": 1,
+        "max_position_embeddings": 1048576,
+        "vocab_size": 154880,
+        "router_dtype": "float32",
+        "router_score": "sigmoid",
+        "swiglu_limit": 10,
+        "vision_layers": 24,
+        "vision_hidden_size": 1024,
+        "vision_heads": 16,
+        "vision_patch_size": 14,
+        "vision_output_size": 4096,
+        "native_precision": "FP8",
+        "kv_lora_rank": 512
+      },
+      "total_b": 321.32303139,
+      "active_b": 18,
+      "context": 1048576,
+      "layout": "hybrid-mhc-moe",
+      "license": "MIT (pinned official LICENSE reviewed)",
+      "recommended": "SGLang Blackwell FP8 initial candidate; vLLM FP8 and NVFP4 head-to-head",
+      "baseline_tp": 4,
+      "variants": [
+        {
+          "key": "fp8",
+          "hf_id": "zai-org/GLM-5.3-Flash",
+          "precision": "Block FP8 E4M3 with exclusions",
+          "status": "Pinned card, configuration and index reviewed; GPU execution unverified",
+          "revision": "46a050bec13002ad29ee795c16e61cf4fa3c4a9c",
+          "index_tensor_bytes": 328326771576
+        },
+        {
+          "key": "bf16",
+          "hf_id": "zai-org/GLM-5.3-Flash-BF16",
+          "precision": "BF16 reference with small FP32 component",
+          "status": "Pinned card, configuration and index reviewed; GPU execution unverified",
+          "revision": "f9fed3bbc82291073373d67452e9f25317ef7577",
+          "index_tensor_bytes": 642646653816
+        },
+        {
+          "key": "nvfp4",
+          "hf_id": "RedHatAI/GLM-5.3-Flash-NVFP4",
+          "precision": "compressed-tensors: main routed experts NVFP4 W4A4; MTP routed experts FP8 W8A8; other modules excluded",
+          "status": "Pinned card, configuration and index reviewed; GPU execution unverified",
+          "revision": "18d55bfd5a2194887738da73753975c9d3842f46",
+          "index_tensor_bytes": 197816133372
+        }
+      ],
+      "path": "companies/z-ai/glm-5.3-flash",
+      "source_ids": [
+        "glm-5.3-flash-CARD",
+        "glm-5.3-flash-CFG",
+        "glm-5.3-flash-VR",
+        "glm-5.3-flash-GR",
+        "glm-5.3-flash-META",
+        "glm-5.3-flash-INDEX",
+        "glm-5.3-flash-LICENSE",
+        "glm-5.3-flash-BF16-CFG",
+        "glm-5.3-flash-BF16-INDEX",
+        "glm-5.3-flash-NV",
+        "glm-5.3-flash-NV-CFG",
+        "glm-5.3-flash-NV-INDEX"
+      ],
+      "revision": "46a050bec13002ad29ee795c16e61cf4fa3c4a9c",
+      "evidence_status": "Pinned publisher cards, configurations and checkpoint metadata rechecked 2026-10-15; no model tensor payloads downloaded or GPU execution measured",
+      "source_projection_is_complete_original_config": false,
+      "verified_on": "2026-10-15",
+      "parameter_accounting": {
+        "checkpoint_parameters": 321323031390,
+        "total_b_scope": "Hub-reported official checkpoint parameter count, including serialized MTP; unique training parameters and tied/shared-weight accounting not independently verified",
+        "active_b_scope": "Publisher or engine-recipe headline; active path not independently counted"
+      },
+      "publisher_total_b": 320,
+      "verified_on_timezone": "UTC"
+    }
+  ],
+  "retrievals": [
+    {
+      "source_id": "glm-5.3-CARD",
+      "url": "https://huggingface.co/zai-org/GLM-5.3/raw/ba32f8c19c8738e2c57c71798c601d477a7bf844/README.md",
+      "resolved_url": "https://huggingface.co/zai-org/GLM-5.3/raw/ba32f8c19c8738e2c57c71798c601d477a7bf844/README.md",
+      "retrieved_at": "2026-10-15T22:01:30.435574+00:00",
+      "retrieved_on": "2026-10-15",
+      "date_timezone": "UTC",
+      "http_status": 200,
+      "bytes": 14209,
+      "sha256": "ed1c0a4563c437a32f8953d637a1db9bd831de1b24bd3062a5ace9e04340b1cf",
+      "revision": "ba32f8c19c8738e2c57c71798c601d477a7bf844"
+    },
+    {
+      "source_id": "glm-5.3-CFG",
+      "url": "https://huggingface.co/zai-org/GLM-5.3/raw/ba32f8c19c8738e2c57c71798c601d477a7bf844/config.json",
+      "resolved_url": "https://huggingface.co/zai-org/GLM-5.3/raw/ba32f8c19c8738e2c57c71798c601d477a7bf844/config.json",
+      "retrieved_at": "2026-10-15T22:01:30.435924+00:00",
+      "retrieved_on": "2026-10-15",
+      "date_timezone": "UTC",
+      "http_status": 200,
+      "bytes": 29464,
+      "sha256": "3ac72612095574542f7fff847ada8e59d9199dd8af44bdf625d7e02615572e69",
+      "revision": "ba32f8c19c8738e2c57c71798c601d477a7bf844"
+    },
+    {
+      "source_id": "glm-5.3-INDEX",
+      "url": "https://huggingface.co/zai-org/GLM-5.3/resolve/ba32f8c19c8738e2c57c71798c601d477a7bf844/model.safetensors.index.json",
+      "resolved_url": "https://us.aws.cdn.hf.co/xet-bridge-us/6a8d396a6f0233a6c0d8c4f2/cc559a187bc99b20039b572a3161f394c51ad19eb2c8eed41371f54740af5f94?X-Xet-Cas-Uid=public&user_id=public&response-content-disposition=inline%3B+filename*%3DUTF-8%27%27model.safetensors.index.json%3B+filename%3D%22model.safetensors.index.json%22%3B&response-content-type=application%2Fjson%3B+charset%3Dutf-8&xip=buxOiFkej10&Expires=1792105290&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly91cy5hd3MuY2RuLmhmLmNvL3hldC1icmlkZ2UtdXMvNmE4ZDM5NmE2ZjAyMzNhNmMwZDhjNGYyL2NjNTU5YTE4N2JjOTliMjAwMzliNTcyYTMxNjFmMzk0YzUxYWQxOWViMmM4ZWVkNDEzNzFmNTQ3NDBhZjVmOTRcXD9YLVhldC1DYXMtVWlkPXB1YmxpYyZ1c2VyX2lkPXB1YmxpYyZyZXNwb25zZS1jb250ZW50LWRpc3Bvc2l0aW9uPWlubGluZSUzQitmaWxlbmFtZSUyQSUzRFVURi04JTI3JTI3bW9kZWwuc2FmZXRlbnNvcnMuaW5kZXguanNvbiUzQitmaWxlbmFtZSUzRCUyMm1vZGVsLnNhZmV0ZW5zb3JzLmluZGV4Lmpzb24lMjIlM0ImcmVzcG9uc2UtY29udGVudC10eXBlPWFwcGxpY2F0aW9uJTJGanNvbiUzQitjaGFyc2V0JTNEdXRmLTgmeGlwPWJ1eE9pRmtlajEwIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJFcG9jaFRpbWUiOjE3OTIxMDUyOTB9fX1dfQ__&Signature=MEQCICdk9o6wF4hI0reLND3dWb4145op7sBKgSAMBbwIA3GrAiBcdICcIeWXiTiidqjYSYU%7ELRbZD0viOBD6YpDgEHr6Mw__&Key-Pair-Id=01KXEF4KZ1B6FV465MAWR4M21F&Hash-Algorithm=SHA256",
+      "retrieved_at": "2026-10-15T22:01:30.436013+00:00",
+      "retrieved_on": "2026-10-15",
+      "date_timezone": "UTC",
+      "http_status": 200,
+      "bytes": 11359251,
+      "sha256": "e0fe7f28c1f853d4824e4d796374e3dacf1fe470988773952c79b063768134bf",
+      "revision": "ba32f8c19c8738e2c57c71798c601d477a7bf844"
+    },
+    {
+      "source_id": "glm-5.3-LICENSE",
+      "url": "https://huggingface.co/zai-org/GLM-5.3/raw/ba32f8c19c8738e2c57c71798c601d477a7bf844/LICENSE",
+      "resolved_url": "https://huggingface.co/zai-org/GLM-5.3/raw/ba32f8c19c8738e2c57c71798c601d477a7bf844/LICENSE",
+      "retrieved_at": "2026-10-15T22:01:30.436093+00:00",
+      "retrieved_on": "2026-10-15",
+      "date_timezone": "UTC",
+      "http_status": 200,
+      "bytes": 4263,
+      "sha256": "96e1622099fc9d6b70c9760f007d99e66d7497eec636b63c60fe208401e9170c",
+      "revision": "ba32f8c19c8738e2c57c71798c601d477a7bf844"
+    },
+    {
+      "source_id": "glm-5.3-BF16-CARD",
+      "url": "https://huggingface.co/zai-org/GLM-5.3-BF16/raw/abf42e6c0e53bc29a875511301e7b7fcd220315b/README.md",
+      "resolved_url": "https://huggingface.co/zai-org/GLM-5.3-BF16/raw/abf42e6c0e53bc29a875511301e7b7fcd220315b/README.md",
+      "retrieved_at": "2026-10-15T22:01:30.436183+00:00",
+      "retrieved_on": "2026-10-15",
+      "date_timezone": "UTC",
+      "http_status": 200,
+      "bytes": 14214,
+      "sha256": "9bdaa8b83a653f3ccac2a140d1c3880929d6f16e4a2b38d03e358b9fad0ee95f",
+      "revision": "abf42e6c0e53bc29a875511301e7b7fcd220315b"
+    },
+    {
+      "source_id": "glm-5.3-BF16-CFG",
+      "url": "https://huggingface.co/zai-org/GLM-5.3-BF16/raw/abf42e6c0e53bc29a875511301e7b7fcd220315b/config.json",
+      "resolved_url": "https://huggingface.co/zai-org/GLM-5.3-BF16/raw/abf42e6c0e53bc29a875511301e7b7fcd220315b/config.json",
+      "retrieved_at": "2026-10-15T22:01:30.436256+00:00",
+      "retrieved_on": "2026-10-15",
+      "date_timezone": "UTC",
+      "http_status": 200,
+      "bytes": 3732,
+      "sha256": "ca8f2f47b07919a514c0ca223dc2ea2bc7445afaa5ac76c013a3784e096426ca",
+      "revision": "abf42e6c0e53bc29a875511301e7b7fcd220315b"
+    },
+    {
+      "source_id": "glm-5.3-BF16-INDEX",
+      "url": "https://huggingface.co/zai-org/GLM-5.3-BF16/resolve/abf42e6c0e53bc29a875511301e7b7fcd220315b/model.safetensors.index.json",
+      "resolved_url": "https://huggingface.co/api/resolve-cache/models/zai-org/GLM-5.3-BF16/abf42e6c0e53bc29a875511301e7b7fcd220315b/model.safetensors.index.json?%2Fzai-org%2FGLM-5.3-BF16%2Fresolve%2Fabf42e6c0e53bc29a875511301e7b7fcd220315b%2Fmodel.safetensors.index.json=&etag=%22c53c184f330b39aa7d110fb1ecee7af1cbb86532%22",
+      "retrieved_at": "2026-10-15T22:01:30.436353+00:00",
+      "retrieved_on": "2026-10-15",
+      "date_timezone": "UTC",
+      "http_status": 200,
+      "bytes": 5408032,
+      "sha256": "5fd47a926aefce0f2c917f42523e5e0f3c87e23e389e767c3681536a62f5cf5e",
+      "revision": "abf42e6c0e53bc29a875511301e7b7fcd220315b"
+    },
+    {
+      "source_id": "glm-5.3-NV",
+      "url": "https://huggingface.co/RedHatAI/GLM-5.3-NVFP4/raw/c8917e4258572c405575855ff53effe58c17a38e/README.md",
+      "resolved_url": "https://huggingface.co/RedHatAI/GLM-5.3-NVFP4/raw/c8917e4258572c405575855ff53effe58c17a38e/README.md",
+      "retrieved_at": "2026-10-15T22:01:30.436434+00:00",
+      "retrieved_on": "2026-10-15",
+      "date_timezone": "UTC",
+      "http_status": 200,
+      "bytes": 4188,
+      "sha256": "278170e63b2b2d1167df93af014ed67469511b1ffbe01f429aa3cb3245cd1f82",
+      "revision": "c8917e4258572c405575855ff53effe58c17a38e"
+    },
+    {
+      "source_id": "glm-5.3-NV-CFG",
+      "url": "https://huggingface.co/RedHatAI/GLM-5.3-NVFP4/raw/c8917e4258572c405575855ff53effe58c17a38e/config.json",
+      "resolved_url": "https://huggingface.co/RedHatAI/GLM-5.3-NVFP4/raw/c8917e4258572c405575855ff53effe58c17a38e/config.json",
+      "retrieved_at": "2026-10-15T22:01:30.686646+00:00",
+      "retrieved_on": "2026-10-15",
+      "date_timezone": "UTC",
+      "http_status": 200,
+      "bytes": 9887,
+      "sha256": "5fd3cbff61c6c8a6f1f6bc16b8ec68e4aca4ce1ddf4a5b87b54067d6a4ab9765",
+      "revision": "c8917e4258572c405575855ff53effe58c17a38e"
+    },
+    {
+      "source_id": "glm-5.3-NV-INDEX",
+      "url": "https://huggingface.co/RedHatAI/GLM-5.3-NVFP4/resolve/c8917e4258572c405575855ff53effe58c17a38e/model.safetensors.index.json",
+      "resolved_url": "https://us.aws.cdn.hf.co/xet-bridge-us/6ab14b9b54dd1bbb80c91aad/8f219bd3779c071bee5dc562ff9270e7ef7400a45e03ec16bb464d0621ed91c0?xip=buxOiFkej10&user_id=public&X-Xet-Cas-Uid=public&response-content-disposition=inline%3B+filename*%3DUTF-8%27%27model.safetensors.index.json%3B+filename%3D%22model.safetensors.index.json%22%3B&response-content-type=application%2Fjson%3B+charset%3Dutf-8&Expires=1792105290&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly91cy5hd3MuY2RuLmhmLmNvL3hldC1icmlkZ2UtdXMvNmFiMTRiOWI1NGRkMWJiYjgwYzkxYWFkLzhmMjE5YmQzNzc5YzA3MWJlZTVkYzU2MmZmOTI3MGU3ZWY3NDAwYTQ1ZTAzZWMxNmJiNDY0ZDA2MjFlZDkxYzBcXD94aXA9YnV4T2lGa2VqMTAmdXNlcl9pZD1wdWJsaWMmWC1YZXQtQ2FzLVVpZD1wdWJsaWMmcmVzcG9uc2UtY29udGVudC1kaXNwb3NpdGlvbj1pbmxpbmUlM0IrZmlsZW5hbWUlMkElM0RVVEYtOCUyNyUyN21vZGVsLnNhZmV0ZW5zb3JzLmluZGV4Lmpzb24lM0IrZmlsZW5hbWUlM0QlMjJtb2RlbC5zYWZldGVuc29ycy5pbmRleC5qc29uJTIyJTNCJnJlc3BvbnNlLWNvbnRlbnQtdHlwZT1hcHBsaWNhdGlvbiUyRmpzb24lM0IrY2hhcnNldCUzRHV0Zi04IiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJFcG9jaFRpbWUiOjE3OTIxMDUyOTB9fX1dfQ__&Signature=MEQCICuGgHe7qFRvtlEo7P1sRkECLV-2NcR2yzRQ1TjyPJJlAiBtuzfGTWdRK1jnXxeH6db33S5CCXVYoEek4CeZd2FfXw__&Key-Pair-Id=01KXEF4KZ1B6FV465MAWR4M21F&Hash-Algorithm=SHA256",
+      "retrieved_at": "2026-10-15T22:01:30.686720+00:00",
+      "retrieved_on": "2026-10-15",
+      "date_timezone": "UTC",
+      "http_status": 200,
+      "bytes": 23288894,
+      "sha256": "3e8fc81472e00344b9a6d88a71ecea432807d40b4f0ac2321b4befe36ac27054",
+      "revision": "c8917e4258572c405575855ff53effe58c17a38e"
+    },
+    {
+      "source_id": "glm-5.3-INFERACT-CARD",
+      "url": "https://huggingface.co/Inferact/GLM-5.3-NVFP4/raw/ce67b36f3669192b5bb233819f0fda6c8a9837f8/README.md",
+      "resolved_url": "https://huggingface.co/Inferact/GLM-5.3-NVFP4/raw/ce67b36f3669192b5bb233819f0fda6c8a9837f8/README.md",
+      "retrieved_at": "2026-10-15T22:01:30.690337+00:00",
+      "retrieved_on": "2026-10-15",
+      "date_timezone": "UTC",
+      "http_status": 200,
+      "bytes": 14097,
+      "sha256": "aeec1ebd06aae91c054fd94b252225a8b11b98ad9464c70265427a56af262519",
+      "revision": "ce67b36f3669192b5bb233819f0fda6c8a9837f8"
+    },
+    {
+      "source_id": "glm-5.3-INFERACT-CFG",
+      "url": "https://huggingface.co/Inferact/GLM-5.3-NVFP4/raw/ce67b36f3669192b5bb233819f0fda6c8a9837f8/config.json",
+      "resolved_url": "https://huggingface.co/Inferact/GLM-5.3-NVFP4/raw/ce67b36f3669192b5bb233819f0fda6c8a9837f8/config.json",
+      "retrieved_at": "2026-10-15T22:01:30.692131+00:00",
+      "retrieved_on": "2026-10-15",
+      "date_timezone": "UTC",
+      "http_status": 200,
+      "bytes": 62025,
+      "sha256": "44ffebdc4bf4f99b74932908896da5ba1e09b88a15edebf8d065232669193d9c",
+      "revision": "ce67b36f3669192b5bb233819f0fda6c8a9837f8"
+    },
+    {
+      "source_id": "glm-5.3-INFERACT-INDEX",
+      "url": "https://huggingface.co/Inferact/GLM-5.3-NVFP4/resolve/ce67b36f3669192b5bb233819f0fda6c8a9837f8/model.safetensors.index.json",
+      "resolved_url": "https://us.aws.cdn.hf.co/xet-bridge-us/6a91119f02479f5e20730f43/1b7549aec3f2322625b842022093594f8ff9f7d7c127a2f08ca9f3d6a09e44d4?X-Xet-Cas-Uid=public&user_id=public&response-content-type=application%2Fjson%3B+charset%3Dutf-8&response-content-disposition=inline%3B+filename*%3DUTF-8%27%27model.safetensors.index.json%3B+filename%3D%22model.safetensors.index.json%22%3B&xip=buxOiFkej10&Expires=1792105290&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly91cy5hd3MuY2RuLmhmLmNvL3hldC1icmlkZ2UtdXMvNmE5MTExOWYwMjQ3OWY1ZTIwNzMwZjQzLzFiNzU0OWFlYzNmMjMyMjYyNWI4NDIwMjIwOTM1OTRmOGZmOWY3ZDdjMTI3YTJmMDhjYTlmM2Q2YTA5ZTQ0ZDRcXD9YLVhldC1DYXMtVWlkPXB1YmxpYyZ1c2VyX2lkPXB1YmxpYyZyZXNwb25zZS1jb250ZW50LXR5cGU9YXBwbGljYXRpb24lMkZqc29uJTNCK2NoYXJzZXQlM0R1dGYtOCZyZXNwb25zZS1jb250ZW50LWRpc3Bvc2l0aW9uPWlubGluZSUzQitmaWxlbmFtZSUyQSUzRFVURi04JTI3JTI3bW9kZWwuc2FmZXRlbnNvcnMuaW5kZXguanNvbiUzQitmaWxlbmFtZSUzRCUyMm1vZGVsLnNhZmV0ZW5zb3JzLmluZGV4Lmpzb24lMjIlM0ImeGlwPWJ1eE9pRmtlajEwIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJFcG9jaFRpbWUiOjE3OTIxMDUyOTB9fX1dfQ__&Signature=MEYCIQCxzNKKaqvOReC1U99Hd1wDguFNieBFMNJd4-j-NX3iwQIhAPBMlXahguaXv4q0pEtQPveoQHrDMAmRyh46aedWP6Ps&Key-Pair-Id=01KXEF4KZ1B6FV465MAWR4M21F&Hash-Algorithm=SHA256",
+      "retrieved_at": "2026-10-15T22:01:30.696138+00:00",
+      "retrieved_on": "2026-10-15",
+      "date_timezone": "UTC",
+      "http_status": 200,
+      "bytes": 24040026,
+      "sha256": "e5de21cffb3ec5f958646ac6923cdd6a76b39ea0cb4b31e7627fb14c561cd42f",
+      "revision": "ce67b36f3669192b5bb233819f0fda6c8a9837f8"
+    },
+    {
+      "source_id": "glm-5.3-META",
+      "url": "https://huggingface.co/api/models/zai-org/GLM-5.3/revision/ba32f8c19c8738e2c57c71798c601d477a7bf844",
+      "resolved_url": "https://huggingface.co/api/models/zai-org/GLM-5.3/revision/ba32f8c19c8738e2c57c71798c601d477a7bf844",
+      "retrieved_at": "2026-10-15T22:01:30.716487+00:00",
+      "retrieved_on": "2026-10-15",
+      "date_timezone": "UTC",
+      "http_status": 200,
+      "bytes": 42375,
+      "sha256": "ac5b4aae634ff3be17e05174a70d4914900a69471d40ac397e3608b513be7c0c",
+      "revision": "ba32f8c19c8738e2c57c71798c601d477a7bf844"
+    },
+    {
+      "source_id": "glm-5.3-VR",
+      "url": "https://recipes.vllm.ai/zai-org/GLM-5.3",
+      "resolved_url": "https://recipes.vllm.ai/zai-org/GLM-5.3",
+      "retrieved_at": "2026-10-15T22:01:30.883443+00:00",
+      "retrieved_on": "2026-10-15",
+      "date_timezone": "UTC",
+      "http_status": 200,
+      "bytes": 2157707,
+      "sha256": "966f2ecd6b390ed210767c9eca8338851161786e486d9acce9a2af49cf42e157",
+      "revision": null
+    },
+    {
+      "source_id": "glm-5.3-GR",
+      "url": "https://docs.sglang.io/cookbook/autoregressive/GLM/GLM-5.3",
+      "resolved_url": "https://docs.sglang.io/cookbook/autoregressive/GLM/GLM-5.3",
+      "retrieved_at": "2026-10-15T22:01:30.885422+00:00",
+      "retrieved_on": "2026-10-15",
+      "date_timezone": "UTC",
+      "http_status": 200,
+      "bytes": 871141,
+      "sha256": "61a55ce952e9bc7ed5f7a212e2806a2e338226530a61046151bdb05ab279d701",
+      "revision": null
+    },
+    {
+      "source_id": "glm-5.3-flash-CARD",
+      "url": "https://huggingface.co/zai-org/GLM-5.3-Flash/raw/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/README.md",
+      "resolved_url": "https://huggingface.co/zai-org/GLM-5.3-Flash/raw/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/README.md",
+      "retrieved_at": "2026-10-15T22:01:30.887252+00:00",
+      "retrieved_on": "2026-10-15",
+      "date_timezone": "UTC",
+      "http_status": 200,
+      "bytes": 8027,
+      "sha256": "e6c5d41400e28f5a89418a0d15b09b9c113314a7553d40d7d4a8a72fcdb87d02",
+      "revision": "46a050bec13002ad29ee795c16e61cf4fa3c4a9c"
+    },
+    {
+      "source_id": "glm-5.3-flash-CFG",
+      "url": "https://huggingface.co/zai-org/GLM-5.3-Flash/raw/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/config.json",
+      "resolved_url": "https://huggingface.co/zai-org/GLM-5.3-Flash/raw/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/config.json",
+      "retrieved_at": "2026-10-15T22:01:30.888943+00:00",
+      "retrieved_on": "2026-10-15",
+      "date_timezone": "UTC",
+      "http_status": 200,
+      "bytes": 69416,
+      "sha256": "bb8f01c42cb92a52ca72e65afb4d5bd8d11aef083cd210e8de25dfb904f23e9f",
+      "revision": "46a050bec13002ad29ee795c16e61cf4fa3c4a9c"
+    },
+    {
+      "source_id": "glm-5.3-flash-INDEX",
+      "url": "https://huggingface.co/zai-org/GLM-5.3-Flash/resolve/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/model.safetensors.index.json",
+      "resolved_url": "https://huggingface.co/api/resolve-cache/models/zai-org/GLM-5.3-Flash/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/model.safetensors.index.json?%2Fzai-org%2FGLM-5.3-Flash%2Fresolve%2F46a050bec13002ad29ee795c16e61cf4fa3c4a9c%2Fmodel.safetensors.index.json=&etag=%226e8b6ed466b916b0289a6391ef6702725017209f%22",
+      "retrieved_at": "2026-10-15T22:01:31.029569+00:00",
+      "retrieved_on": "2026-10-15",
+      "date_timezone": "UTC",
+      "http_status": 200,
+      "bytes": 8406613,
+      "sha256": "3c3f40366a53c3fd7974b4eab7881a365a98c2a4329150befebab99fe7c18b05",
+      "revision": "46a050bec13002ad29ee795c16e61cf4fa3c4a9c"
+    },
+    {
+      "source_id": "glm-5.3-flash-LICENSE",
+      "url": "https://huggingface.co/zai-org/GLM-5.3-Flash/raw/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/LICENSE",
+      "resolved_url": "https://huggingface.co/zai-org/GLM-5.3-Flash/raw/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/LICENSE",
+      "retrieved_at": "2026-10-15T22:01:31.062590+00:00",
+      "retrieved_on": "2026-10-15",
+      "date_timezone": "UTC",
+      "http_status": 200,
+      "bytes": 1070,
+      "sha256": "30b85b6b9659f2e78aa259f8faf5d920a68dee7c9ced3fa6dba1f19f2bc4fca1",
+      "revision": "46a050bec13002ad29ee795c16e61cf4fa3c4a9c"
+    },
+    {
+      "source_id": "glm-5.3-flash-BF16-CARD",
+      "url": "https://huggingface.co/zai-org/GLM-5.3-Flash-BF16/raw/f9fed3bbc82291073373d67452e9f25317ef7577/README.md",
+      "resolved_url": "https://huggingface.co/zai-org/GLM-5.3-Flash-BF16/raw/f9fed3bbc82291073373d67452e9f25317ef7577/README.md",
+      "retrieved_at": "2026-10-15T22:01:31.066025+00:00",
+      "retrieved_on": "2026-10-15",
+      "date_timezone": "UTC",
+      "http_status": 200,
+      "bytes": 8033,
+      "sha256": "5c48ce1a84c5901ab96d602333e9201fa385a73e9c298fab3467183b8b95a549",
+      "revision": "f9fed3bbc82291073373d67452e9f25317ef7577"
+    },
+    {
+      "source_id": "glm-5.3-flash-BF16-CFG",
+      "url": "https://huggingface.co/zai-org/GLM-5.3-Flash-BF16/raw/f9fed3bbc82291073373d67452e9f25317ef7577/config.json",
+      "resolved_url": "https://huggingface.co/zai-org/GLM-5.3-Flash-BF16/raw/f9fed3bbc82291073373d67452e9f25317ef7577/config.json",
+      "retrieved_at": "2026-10-15T22:01:31.068111+00:00",
+      "retrieved_on": "2026-10-15",
+      "date_timezone": "UTC",
+      "http_status": 200,
+      "bytes": 5939,
+      "sha256": "33e63ec7fe607658be712bd6dd3c16c6549960d8e7f0483d34b939881b55f943",
+      "revision": "f9fed3bbc82291073373d67452e9f25317ef7577"
+    },
+    {
+      "source_id": "glm-5.3-flash-BF16-INDEX",
+      "url": "https://huggingface.co/zai-org/GLM-5.3-Flash-BF16/resolve/f9fed3bbc82291073373d67452e9f25317ef7577/model.safetensors.index.json",
+      "resolved_url": "https://huggingface.co/api/resolve-cache/models/zai-org/GLM-5.3-Flash-BF16/f9fed3bbc82291073373d67452e9f25317ef7577/model.safetensors.index.json?%2Fzai-org%2FGLM-5.3-Flash-BF16%2Fresolve%2Ff9fed3bbc82291073373d67452e9f25317ef7577%2Fmodel.safetensors.index.json=&etag=%2257fbbf78a7186b6f27271a05a1ec593d638e9a55%22",
+      "retrieved_at": "2026-10-15T22:01:31.106377+00:00",
+      "retrieved_on": "2026-10-15",
+      "date_timezone": "UTC",
+      "http_status": 200,
+      "bytes": 4083163,
+      "sha256": "e6007bd58fb7e07f9fe69544257ee2713f252ef5855bbf685b48c991d524ef0f",
+      "revision": "f9fed3bbc82291073373d67452e9f25317ef7577"
+    },
+    {
+      "source_id": "glm-5.3-flash-NV",
+      "url": "https://huggingface.co/RedHatAI/GLM-5.3-Flash-NVFP4/raw/18d55bfd5a2194887738da73753975c9d3842f46/README.md",
+      "resolved_url": "https://huggingface.co/RedHatAI/GLM-5.3-Flash-NVFP4/raw/18d55bfd5a2194887738da73753975c9d3842f46/README.md",
+      "retrieved_at": "2026-10-15T22:01:31.232773+00:00",
+      "retrieved_on": "2026-10-15",
+      "date_timezone": "UTC",
+      "http_status": 200,
+      "bytes": 3469,
+      "sha256": "c8d3f90d37e4d0c073f182bf785f6753c2a43ef5885abce0461586f266c195e2",
+      "revision": "18d55bfd5a2194887738da73753975c9d3842f46"
+    },
+    {
+      "source_id": "glm-5.3-flash-NV-CFG",
+      "url": "https://huggingface.co/RedHatAI/GLM-5.3-Flash-NVFP4/raw/18d55bfd5a2194887738da73753975c9d3842f46/config.json",
+      "resolved_url": "https://huggingface.co/RedHatAI/GLM-5.3-Flash-NVFP4/raw/18d55bfd5a2194887738da73753975c9d3842f46/config.json",
+      "retrieved_at": "2026-10-15T22:01:31.232852+00:00",
+      "retrieved_on": "2026-10-15",
+      "date_timezone": "UTC",
+      "http_status": 200,
+      "bytes": 53876,
+      "sha256": "29c9f4171196910e99b9c069d6b76c56e3cdcd0f436dc1bacbc9513c9a7529ac",
+      "revision": "18d55bfd5a2194887738da73753975c9d3842f46"
+    },
+    {
+      "source_id": "glm-5.3-flash-NV-INDEX",
+      "url": "https://huggingface.co/RedHatAI/GLM-5.3-Flash-NVFP4/resolve/18d55bfd5a2194887738da73753975c9d3842f46/model.safetensors.index.json",
+      "resolved_url": "https://us.aws.cdn.hf.co/xet-bridge-us/6a8f9d42e8e799f329a2b38b/1f709cce28dab955ae20a05572910e622cc81a103fd08e86a1127885f07bd23a?user_id=public&X-Xet-Cas-Uid=public&response-content-disposition=inline%3B+filename*%3DUTF-8%27%27model.safetensors.index.json%3B+filename%3D%22model.safetensors.index.json%22%3B&response-content-type=application%2Fjson%3B+charset%3Dutf-8&xip=buxOiFkej10&Expires=1792105291&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly91cy5hd3MuY2RuLmhmLmNvL3hldC1icmlkZ2UtdXMvNmE4ZjlkNDJlOGU3OTlmMzI5YTJiMzhiLzFmNzA5Y2NlMjhkYWI5NTVhZTIwYTA1NTcyOTEwZTYyMmNjODFhMTAzZmQwOGU4NmExMTI3ODg1ZjA3YmQyM2FcXD91c2VyX2lkPXB1YmxpYyZYLVhldC1DYXMtVWlkPXB1YmxpYyZyZXNwb25zZS1jb250ZW50LWRpc3Bvc2l0aW9uPWlubGluZSUzQitmaWxlbmFtZSUyQSUzRFVURi04JTI3JTI3bW9kZWwuc2FmZXRlbnNvcnMuaW5kZXguanNvbiUzQitmaWxlbmFtZSUzRCUyMm1vZGVsLnNhZmV0ZW5zb3JzLmluZGV4Lmpzb24lMjIlM0ImcmVzcG9uc2UtY29udGVudC10eXBlPWFwcGxpY2F0aW9uJTJGanNvbiUzQitjaGFyc2V0JTNEdXRmLTgmeGlwPWJ1eE9pRmtlajEwIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJFcG9jaFRpbWUiOjE3OTIxMDUyOTF9fX1dfQ__&Signature=MEUCICTEnMgKcxoc47xjGL6YUv05pdi47cb9zss2Eki6I8D8AiEA7P1CKAN-VdW201875EPcBu%7E7p7tJ5T6BxzOSsUHG9kU_&Key-Pair-Id=01KXEF4KZ1B6FV465MAWR4M21F&Hash-Algorithm=SHA256",
+      "retrieved_at": "2026-10-15T22:01:31.236507+00:00",
+      "retrieved_on": "2026-10-15",
+      "date_timezone": "UTC",
+      "http_status": 200,
+      "bytes": 17055736,
+      "sha256": "015faae91e8189c7553f1d48ec3d0694b8c02b282d7f58af2d7b4064a81ce4c0",
+      "revision": "18d55bfd5a2194887738da73753975c9d3842f46"
+    },
+    {
+      "source_id": "glm-5.3-flash-META",
+      "url": "https://huggingface.co/api/models/zai-org/GLM-5.3-Flash/revision/46a050bec13002ad29ee795c16e61cf4fa3c4a9c",
+      "resolved_url": "https://huggingface.co/api/models/zai-org/GLM-5.3-Flash/revision/46a050bec13002ad29ee795c16e61cf4fa3c4a9c",
+      "retrieved_at": "2026-10-15T22:01:31.404752+00:00",
+      "retrieved_on": "2026-10-15",
+      "date_timezone": "UTC",
+      "http_status": 200,
+      "bytes": 70224,
+      "sha256": "7d7bbc445a8ca0b8c1c874e8202e05678e321a96bf1211d15d69ade3247e4381",
+      "revision": "46a050bec13002ad29ee795c16e61cf4fa3c4a9c"
+    },
+    {
+      "source_id": "glm-5.3-flash-VR",
+      "url": "https://recipes.vllm.ai/zai-org/GLM-5.3-Flash",
+      "resolved_url": "https://recipes.vllm.ai/zai-org/GLM-5.3-Flash",
+      "retrieved_at": "2026-10-15T22:01:31.409121+00:00",
+      "retrieved_on": "2026-10-15",
+      "date_timezone": "UTC",
+      "http_status": 200,
+      "bytes": 2169197,
+      "sha256": "923d16c64e3836f24d65621c1ca590487fb476bb022ed12c68076c44ca4b238b",
+      "revision": null
+    },
+    {
+      "source_id": "glm-5.3-flash-GR",
+      "url": "https://docs.sglang.io/cookbook/autoregressive/GLM/GLM-5.3-Flash",
+      "resolved_url": "https://docs.sglang.io/cookbook/autoregressive/GLM/GLM-5.3-Flash",
+      "retrieved_at": "2026-10-15T22:01:31.431064+00:00",
+      "retrieved_on": "2026-10-15",
+      "date_timezone": "UTC",
+      "http_status": 200,
+      "bytes": 880522,
+      "sha256": "861a5fbaf239aa18ea0d0a609ea4c89a87a85eb8e2cd6f780cce253cc42ad3b7",
+      "revision": null
+    }
+  ],
+  "pinned_api_retrievals": [
+    {
+      "id": "zai-org/GLM-5.3",
+      "url": "https://huggingface.co/api/models/zai-org/GLM-5.3/revision/ba32f8c19c8738e2c57c71798c601d477a7bf844",
+      "revision": "ba32f8c19c8738e2c57c71798c601d477a7bf844",
+      "http_status": 200,
+      "retrieved_at": "2026-10-15T21:56:42.313085+00:00",
+      "safetensors": {
+        "parameters": {
+          "BF16": 2103729152,
+          "F8_E4M3": 751226191872,
+          "F32": 19456
+        },
+        "total": 753329940480
+      },
+      "sha256": "ac5b4aae634ff3be17e05174a70d4914900a69471d40ac397e3608b513be7c0c",
+      "bytes": 42375
+    },
+    {
+      "id": "zai-org/GLM-5.3-BF16",
+      "url": "https://huggingface.co/api/models/zai-org/GLM-5.3-BF16/revision/abf42e6c0e53bc29a875511301e7b7fcd220315b",
+      "revision": "abf42e6c0e53bc29a875511301e7b7fcd220315b",
+      "http_status": 200,
+      "retrieved_at": "2026-10-15T21:56:42.313338+00:00",
+      "safetensors": {
+        "parameters": {
+          "BF16": 753329921024,
+          "F32": 19456
+        },
+        "total": 753329940480
+      },
+      "sha256": "23b614585b71f769103da403376f5197fbfccff3009b902b7564f07c28de3312",
+      "bytes": 26392
+    },
+    {
+      "id": "RedHatAI/GLM-5.3-NVFP4",
+      "url": "https://huggingface.co/api/models/RedHatAI/GLM-5.3-NVFP4/revision/c8917e4258572c405575855ff53effe58c17a38e",
+      "revision": "c8917e4258572c405575855ff53effe58c17a38e",
+      "http_status": 200,
+      "retrieved_at": "2026-10-15T21:56:42.313451+00:00",
+      "safetensors": {
+        "parameters": {
+          "BF16": 28554189824,
+          "F32": 19456,
+          "U8": 724775731200
+        },
+        "total": 753329940480
+      },
+      "sha256": "e4b5ba3b8c8226ad2990c93f49e152eea6a6b9571caca330a94d53c69ab95608",
+      "bytes": 18202
+    },
+    {
+      "id": "Inferact/GLM-5.3-NVFP4",
+      "url": "https://huggingface.co/api/models/Inferact/GLM-5.3-NVFP4/revision/ce67b36f3669192b5bb233819f0fda6c8a9837f8",
+      "revision": "ce67b36f3669192b5bb233819f0fda6c8a9837f8",
+      "http_status": 200,
+      "retrieved_at": "2026-10-15T21:56:42.313541+00:00",
+      "safetensors": {
+        "parameters": {
+          "BF16": 28554209024,
+          "U8": 362387865600,
+          "F32": 256
+        },
+        "total": 390942074880
+      },
+      "sha256": "64c9f3c999050cbac32541578583281876accffe4e3b36680b77776f3b46164d",
+      "bytes": 66212
+    },
+    {
+      "id": "zai-org/GLM-5.3-Flash",
+      "url": "https://huggingface.co/api/models/zai-org/GLM-5.3-Flash/revision/46a050bec13002ad29ee795c16e61cf4fa3c4a9c",
+      "revision": "46a050bec13002ad29ee795c16e61cf4fa3c4a9c",
+      "http_status": 200,
+      "retrieved_at": "2026-10-15T21:56:42.313619+00:00",
+      "safetensors": {
+        "parameters": {
+          "BF16": 6926096640,
+          "F8_E4M3": 314396639232,
+          "F32": 295518
+        },
+        "total": 321323031390
+      },
+      "sha256": "91ce18a533c2e8f0caa6e210a2585ee12fb07ac1c95b711b423173f10a5e2246",
+      "bytes": 70224
+    },
+    {
+      "id": "zai-org/GLM-5.3-Flash-BF16",
+      "url": "https://huggingface.co/api/models/zai-org/GLM-5.3-Flash-BF16/revision/f9fed3bbc82291073373d67452e9f25317ef7577",
+      "revision": "f9fed3bbc82291073373d67452e9f25317ef7577",
+      "http_status": 200,
+      "retrieved_at": "2026-10-15T21:56:42.313697+00:00",
+      "safetensors": {
+        "parameters": {
+          "F32": 295518,
+          "BF16": 321322735872
+        },
+        "total": 321323031390
+      },
+      "sha256": "e87251d167a22b24a52d7b69f626bcb0e8e6c1572071c75bfe57a2f2ab1f4931",
+      "bytes": 18694
+    },
+    {
+      "id": "RedHatAI/GLM-5.3-Flash-NVFP4",
+      "url": "https://huggingface.co/api/models/RedHatAI/GLM-5.3-Flash-NVFP4/revision/18d55bfd5a2194887738da73753975c9d3842f46",
+      "revision": "18d55bfd5a2194887738da73753975c9d3842f46",
+      "http_status": 200,
+      "retrieved_at": "2026-10-15T21:56:42.313767+00:00",
+      "safetensors": {
+        "parameters": {
+          "F32": 3342624,
+          "BF16": 9666124350,
+          "U8": 152202903552,
+          "F8_E4M3": 7247757312
+        },
+        "total": 169120127838
+      },
+      "sha256": "576999ad79b625ee2b76d6f9de689c0582d71967bcfbdb4724d4af85811e38ae",
+      "bytes": 54016
+    }
+  ],
+  "config_reverification": [
+    {
+      "id": "zai-org/GLM-5.3",
+      "url": "https://huggingface.co/zai-org/GLM-5.3/raw/ba32f8c19c8738e2c57c71798c601d477a7bf844/config.json",
+      "revision": "ba32f8c19c8738e2c57c71798c601d477a7bf844",
+      "http_status": 200,
+      "retrieved_at": "2026-10-15T21:59:57.628541+00:00",
+      "sha256": "3ac72612095574542f7fff847ada8e59d9199dd8af44bdf625d7e02615572e69",
+      "bytes": 29464,
+      "matches_initial_fetch": true
+    },
+    {
+      "id": "zai-org/GLM-5.3-BF16",
+      "url": "https://huggingface.co/zai-org/GLM-5.3-BF16/raw/abf42e6c0e53bc29a875511301e7b7fcd220315b/config.json",
+      "revision": "abf42e6c0e53bc29a875511301e7b7fcd220315b",
+      "http_status": 200,
+      "retrieved_at": "2026-10-15T21:59:57.628879+00:00",
+      "sha256": "ca8f2f47b07919a514c0ca223dc2ea2bc7445afaa5ac76c013a3784e096426ca",
+      "bytes": 3732,
+      "matches_initial_fetch": true
+    },
+    {
+      "id": "RedHatAI/GLM-5.3-NVFP4",
+      "url": "https://huggingface.co/RedHatAI/GLM-5.3-NVFP4/raw/c8917e4258572c405575855ff53effe58c17a38e/config.json",
+      "revision": "c8917e4258572c405575855ff53effe58c17a38e",
+      "http_status": 200,
+      "retrieved_at": "2026-10-15T21:59:57.628969+00:00",
+      "sha256": "5fd3cbff61c6c8a6f1f6bc16b8ec68e4aca4ce1ddf4a5b87b54067d6a4ab9765",
+      "bytes": 9887,
+      "matches_initial_fetch": true
+    },
+    {
+      "id": "Inferact/GLM-5.3-NVFP4",
+      "url": "https://huggingface.co/Inferact/GLM-5.3-NVFP4/raw/ce67b36f3669192b5bb233819f0fda6c8a9837f8/config.json",
+      "revision": "ce67b36f3669192b5bb233819f0fda6c8a9837f8",
+      "http_status": 200,
+      "retrieved_at": "2026-10-15T21:59:57.629053+00:00",
+      "sha256": "44ffebdc4bf4f99b74932908896da5ba1e09b88a15edebf8d065232669193d9c",
+      "bytes": 62025,
+      "matches_initial_fetch": true
+    },
+    {
+      "id": "zai-org/GLM-5.3-Flash",
+      "url": "https://huggingface.co/zai-org/GLM-5.3-Flash/raw/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/config.json",
+      "revision": "46a050bec13002ad29ee795c16e61cf4fa3c4a9c",
+      "http_status": 200,
+      "retrieved_at": "2026-10-15T21:59:57.629150+00:00",
+      "sha256": "bb8f01c42cb92a52ca72e65afb4d5bd8d11aef083cd210e8de25dfb904f23e9f",
+      "bytes": 69416,
+      "matches_initial_fetch": true
+    },
+    {
+      "id": "zai-org/GLM-5.3-Flash-BF16",
+      "url": "https://huggingface.co/zai-org/GLM-5.3-Flash-BF16/raw/f9fed3bbc82291073373d67452e9f25317ef7577/config.json",
+      "revision": "f9fed3bbc82291073373d67452e9f25317ef7577",
+      "http_status": 200,
+      "retrieved_at": "2026-10-15T21:59:57.629230+00:00",
+      "sha256": "33e63ec7fe607658be712bd6dd3c16c6549960d8e7f0483d34b939881b55f943",
+      "bytes": 5939,
+      "matches_initial_fetch": true
+    },
+    {
+      "id": "RedHatAI/GLM-5.3-Flash-NVFP4",
+      "url": "https://huggingface.co/RedHatAI/GLM-5.3-Flash-NVFP4/raw/18d55bfd5a2194887738da73753975c9d3842f46/config.json",
+      "revision": "18d55bfd5a2194887738da73753975c9d3842f46",
+      "http_status": 200,
+      "retrieved_at": "2026-10-15T21:59:57.629305+00:00",
+      "sha256": "29c9f4171196910e99b9c069d6b76c56e3cdcd0f436dc1bacbc9513c9a7529ac",
+      "bytes": 53876,
+      "matches_initial_fetch": true
+    }
+  ],
+  "mtp_header_accounting": {
+    "checkpoint": "zai-org/GLM-5.3-BF16",
+    "revision": "abf42e6c0e53bc29a875511301e7b7fcd220315b",
+    "scope": "All names beginning model.layers.78. in pinned BF16 index; no tensor payload read; no tied/shared weight deduplication",
+    "tensors": 791,
+    "mtp_parameters": 9952920576,
+    "hub_reported_checkpoint_parameters": 753329940480,
+    "derived_main_parameters": 743377019904,
+    "equation": "753329940480 - 9952920576 = 743377019904",
+    "headers": [
+      {
+        "file": "model-00270-of-00282.safetensors",
+        "url": "https://huggingface.co/zai-org/GLM-5.3-BF16/resolve/abf42e6c0e53bc29a875511301e7b7fcd220315b/model-00270-of-00282.safetensors",
+        "revision": "abf42e6c0e53bc29a875511301e7b7fcd220315b",
+        "http_status": 206,
+        "header_sha256": "0d185dfb01c6bfb3089f087bcbf0ff0b67fa979cd36190baa3bea1e83da5ac5b",
+        "header_bytes": 25840,
+        "content_range": "bytes 8-25847/5366430968",
+        "mtp_parameters": 75515904,
+        "mtp_tensor_count": 4,
+        "retrieved_on": "2026-10-15",
+        "date_timezone": "UTC"
+      },
+      {
+        "file": "model-00271-of-00282.safetensors",
+        "url": "https://huggingface.co/zai-org/GLM-5.3-BF16/resolve/abf42e6c0e53bc29a875511301e7b7fcd220315b/model-00271-of-00282.safetensors",
+        "revision": "abf42e6c0e53bc29a875511301e7b7fcd220315b",
+        "http_status": 206,
+        "header_sha256": "fe9b433d40dc4c84b626298316863198b85c55d308f91660144445a51fec3484",
+        "header_bytes": 26784,
+        "content_range": "bytes 8-26791/5360347304",
+        "mtp_parameters": 2680160256,
+        "mtp_tensor_count": 213,
+        "retrieved_on": "2026-10-15",
+        "date_timezone": "UTC"
+      },
+      {
+        "file": "model-00272-of-00282.safetensors",
+        "url": "https://huggingface.co/zai-org/GLM-5.3-BF16/resolve/abf42e6c0e53bc29a875511301e7b7fcd220315b/model-00272-of-00282.safetensors",
+        "revision": "abf42e6c0e53bc29a875511301e7b7fcd220315b",
+        "http_status": 206,
+        "header_sha256": "a17f4068f4949693128a6921f25c99b7df4fe06b785305dfacf877fe761d2b43",
+        "header_bytes": 26800,
+        "content_range": "bytes 8-26807/5360347320",
+        "mtp_parameters": 2680160256,
+        "mtp_tensor_count": 213,
+        "retrieved_on": "2026-10-15",
+        "date_timezone": "UTC"
+      },
+      {
+        "file": "model-00273-of-00282.safetensors",
+        "url": "https://huggingface.co/zai-org/GLM-5.3-BF16/resolve/abf42e6c0e53bc29a875511301e7b7fcd220315b/model-00273-of-00282.safetensors",
+        "revision": "abf42e6c0e53bc29a875511301e7b7fcd220315b",
+        "http_status": 206,
+        "header_sha256": "d6ff4cc7812f5e6cdc1a38d22dbd52d5ad418bf483608623cbc22ab3e10fa5eb",
+        "header_bytes": 26688,
+        "content_range": "bytes 8-26695/5360347208",
+        "mtp_parameters": 2680160256,
+        "mtp_tensor_count": 213,
+        "retrieved_on": "2026-10-15",
+        "date_timezone": "UTC"
+      },
+      {
+        "file": "model-00274-of-00282.safetensors",
+        "url": "https://huggingface.co/zai-org/GLM-5.3-BF16/resolve/abf42e6c0e53bc29a875511301e7b7fcd220315b/model-00274-of-00282.safetensors",
+        "revision": "abf42e6c0e53bc29a875511301e7b7fcd220315b",
+        "http_status": 206,
+        "header_sha256": "f9db311698e21687b1323ec3fdeb348d0b7553d95432cca6180cc11d1ea79e19",
+        "header_bytes": 26864,
+        "content_range": "bytes 8-26871/5359997688",
+        "mtp_parameters": 1836923904,
+        "mtp_tensor_count": 148,
+        "retrieved_on": "2026-10-15",
+        "date_timezone": "UTC"
+      }
+    ]
+  },
+  "engine_release_and_head_observations": [
+    {
+      "repo": "vllm-project/vllm",
+      "url": "https://api.github.com/repos/vllm-project/vllm/releases/latest",
+      "release": "v0.31.0",
+      "published_at": "2026-10-05T06:44:55Z",
+      "sha": null,
+      "commit_date": null,
+      "html_url": "https://github.com/vllm-project/vllm/releases/tag/v0.31.0"
+    },
+    {
+      "repo": "vllm-project/vllm",
+      "url": "https://api.github.com/repos/vllm-project/vllm/commits/main",
+      "release": null,
+      "published_at": null,
+      "sha": "e711723352670e811b0e904300d771471e28930d",
+      "commit_date": "2026-10-15T21:51:57Z",
+      "html_url": "https://github.com/vllm-project/vllm/commit/e711723352670e811b0e904300d771471e28930d"
+    },
+    {
+      "repo": "sgl-project/sglang",
+      "url": "https://api.github.com/repos/sgl-project/sglang/releases/latest",
+      "release": "v0.5.21",
+      "published_at": "2026-10-02T01:09:04Z",
+      "sha": null,
+      "commit_date": null,
+      "html_url": "https://github.com/sgl-project/sglang/releases/tag/v0.5.21"
+    },
+    {
+      "repo": "sgl-project/sglang",
+      "url": "https://api.github.com/repos/sgl-project/sglang/commits/main",
+      "release": null,
+      "published_at": null,
+      "sha": "91f6ef23223d8415724b1bbfab415bb5977fca0c",
+      "commit_date": "2026-10-15T21:11:51Z",
+      "html_url": "https://github.com/sgl-project/sglang/commit/91f6ef23223d8415724b1bbfab415bb5977fca0c"
+    },
+    {
+      "repo": "kserve/kserve",
+      "url": "https://api.github.com/repos/kserve/kserve/releases/latest",
+      "release": "v0.21.0",
+      "published_at": "2026-09-25T17:04:20Z",
+      "sha": null,
+      "commit_date": null,
+      "html_url": "https://github.com/kserve/kserve/releases/tag/v0.21.0"
+    },
+    {
+      "repo": "kserve/kserve",
+      "url": "https://api.github.com/repos/kserve/kserve/commits/main",
+      "error": "HTTP Error 422: Unprocessable Entity"
+    },
+    {
+      "repo": "kserve/kserve",
+      "url": "https://api.github.com/repos/kserve/kserve/commits/master",
+      "default_branch": "master",
+      "sha": "22be2b0496eea4548a98395c3abccf48d8235385",
+      "commit_date": "2026-10-15T19:47:34Z",
+      "note": "Head metadata only; code not inspected by this audit."
+    }
+  ],
+  "engine_observation_limit": "Releases and current branch metadata rechecked; no engine code inspection or nightly image verification performed in this Z.ai sub-audit. Framework audit owns source inspection and binary inclusion.",
+  "cross_file_changes_required": [
+    {
+      "paths": [
+        "catalog/models.json"
+      ],
+      "change": "Replace the two Z.ai model records with current companies/z-ai/*/model.json; copy all new fields and source IDs exactly."
+    },
+    {
+      "paths": [
+        "catalog/profiles.json",
+        "profiles/glm-5.3.*.json",
+        "profiles/glm-5.3-flash.*.json"
+      ],
+      "change": "Set model_revision from variant_pin_map by exact hf_id. Keep tested_on_target=false and requires_image_compatibility_check=true. Remove accidental Flash source IDs from GLM5.3 profiles; add relevant new artifact IDs."
+    },
+    {
+      "paths": [
+        "profiles/glm-5.3.fp8.sglang.baseline.json",
+        "catalog/profiles.json"
+      ],
+      "change": "Keep --reasoning-parser glm45; change --tool-call-parser glm45 to glm47."
+    },
+    {
+      "paths": [
+        "profiles/glm-5.3-flash.nvfp4.vllm.baseline.json",
+        "catalog/profiles.json"
+      ],
+      "change": "Update reason: exact RedHat card/config/index are now pinned and inspected; GPU loader/quality compatibility remains unverified. Compatibility-probe may remain for those unperformed checks."
+    },
+    {
+      "paths": [
+        "profiles/glm-5.3-flash.fp8.sglang.baseline.json",
+        "profiles/glm-5.3-flash.fp8.sglang.mtp.json",
+        "profiles/glm-5.3-flash.fp8.vllm.baseline.json",
+        "profiles/glm-5.3-flash.nvfp4.vllm.baseline.json"
+      ],
+      "change": "If profiles promise structured reasoning/tools, add documented parsers and vLLM automatic-tool-choice flag: SGLang reasoning glm45, tools glm47; current vLLM recipe glm47 both. Existing deliberately parser-free probes must remain labeled as such. This is a compatibility decision for root, not a local test result."
+    },
+    {
+      "paths": [
+        "evidence/sources.json",
+        "evidence/SOURCES.md"
+      ],
+      "change": "Merge source_updates by id, preserving fields for HTTP status/hash/revision/retrieved_at; update former mutable citations and capture descriptions. New source IDs used in model records must be registered."
+    },
+    {
+      "paths": [
+        "evidence/upstreams.lock.json"
+      ],
+      "change": "Add/merge seven exact model-artifact revisions with config hashes and index payload metadata. Do not describe observed engine heads as inspected source or certified nightly images."
+    },
+    {
+      "paths": [
+        "LIMITATIONS.md",
+        "README.md",
+        "reports/comparison.md",
+        "reports/memory-math.md",
+        "reports/source-review-challenges.md",
+        "ATLAS.html"
+      ],
+      "change": "Propagate main/full GLM parameter scopes, exact Flash checkpoint accounting, MIT identity, resolved variant pins and direct RedHatFlash audit; remove stale unresolved claims and retain all GPU limitations. Some listed reports may not exist; locate matching content. Root/framework agent owns propagation and HTML regeneration."
+    },
+    {
+      "paths": [
+        "LIMITATIONS.md",
+        "evidence/README.md"
+      ],
+      "change": "Current metadata retrieval succeeded locally; historical clone failure must be retained as historical evidence rather than current blanket network inability. No model tensor payloads were downloaded; five safetensors headers were read with HTTP206."
+    }
+  ],
+  "preserved_unknowns": [
+    "No tensor payload download or inference load",
+    "No B300 latency, throughput, quality, power, cache or peak-memory results",
+    "No verified image digest or nightly container",
+    "No full independent model tensor census or unique training-parameter count",
+    "No independently reconstructed39B/18B active counts",
+    "No equal-quality guarantee for quantized derivatives",
+    "No completed SGLang Flash real-weight PD qualification"
+  ],
+  "local_checks": {
+    "status": "passed",
+    "tracked_files_checked": 15,
+    "config_projection_fields_compared_to_pinned_configs": {
+      "glm-5.3": 30,
+      "glm-5.3-flash": 39
+    },
+    "variant_revision_and_index_matches": 7,
+    "mtp_header_tensors": 791,
+    "mtp_parameters": 9952920576,
+    "derived_main_parameters": 743377019904,
+    "state_matrix_bytes": 142606336,
+    "redhat_flash_index_size_reduction_percent": 39.75,
+    "ifeval_difference_percentage_points": 4.07,
+    "scope": "Static document/metadata verification only; no GPU or engine tests"
+  },
+  "record_role": "First-pass Astra max reviewer handoff; final shared propagation and second-review resolutions are recorded in evidence/AUDIT-2026-10-15.md."
+}

@@ -1,26 +1,27 @@
 # GLM 5.3 Flash: precision and provenance
 
-| Variant | Exact artifact | Actual precision contract | Evidence |
+The official FP8 and BF16 variants and the exact RedHat derivative were checked at immutable revisions on 2026-10-15.
+
+| Variant | Pinned artifact | Precision contract from configuration | Index tensor bytes |
 | --- | --- | --- | --- |
-| fp8 | zai-org/GLM-5.3-Flash | FP8 default | verified official release |
-| bf16 | zai-org/GLM-5.3-Flash-BF16 | BF16 | linked by engine recipe |
-| nvfp4 | RedHatAI/GLM-5.3-Flash-NVFP4 | NVFP4 expert derivative | engine recipe evidence; exact config not separately audited |
+| fp8 | [zai-org/GLM-5.3-Flash](https://huggingface.co/zai-org/GLM-5.3-Flash/raw/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/config.json) | Block FP8 E4M3, 128×128 weight blocks, dynamic activations and explicit exclusions | 328,326,771,576 |
+| bf16 | [zai-org/GLM-5.3-Flash-BF16](https://huggingface.co/zai-org/GLM-5.3-Flash-BF16/raw/f9fed3bbc82291073373d67452e9f25317ef7577/config.json) | BF16 reference with a small FP32 component; no quantization config | 642,646,653,816 |
+| nvfp4 | [RedHatAI/GLM-5.3-Flash-NVFP4](https://huggingface.co/RedHatAI/GLM-5.3-Flash-NVFP4/raw/18d55bfd5a2194887738da73753975c9d3842f46/config.json) | compressed-tensors: main routed experts NVFP4 W4A4; MTP routed experts FP8 W8A8; other modules excluded | 197,816,133,372 |
 
+The figures come from `metadata.total_size` in each pinned index, linked in [sources](sources.md). They are serialized tensor bytes, not measured GPU allocations. RedHat's export is about 39.75% smaller by this metric than the official FP8 artifact; a four-bit label does not imply a 50% reduction for the whole mixed checkpoint.
 
-## Interpretation
+## Exact RedHat contract
 
-The default official model is FP8. The vLLM recipe names RedHat’s NVFP4 expert derivative. SGLang’s current cookbook also names other NVFP4 exporters. Those are evidence of multiple supported development paths, not proof that all files, calibration recipes and backends are interchangeable.
+The NVFP4 group targets the routed-expert projection weights and activations in zero-based main layers 3–44, with group size 16. A second group targets MTP layer 45's routed experts using 8-bit floating-point weights in 128×128 blocks and dynamic 8-bit activations. The remaining modules are excluded from these quantization groups. This narrows the card's statement that MTP is kept in FP8 to the scope directly visible in the config. [glm-5.3-flash-NV-CFG](https://huggingface.co/RedHatAI/GLM-5.3-Flash-NVFP4/raw/18d55bfd5a2194887738da73753975c9d3842f46/config.json)
 
-On Blackwell the documented sparse-attention path supports FP8 KV. The cookbook treats Hopper differently, so do not generalize a Hopper workaround to B300 or a B300 launch to H100. Test weight precision and KV precision as separate factors.
+RedHat publishes selected reasoning benchmark scores but no paired FP8 table in this pinned card. Those scores do not establish lossless conversion, multimodal quality or B300 performance. NVIDIA and RadixArk exports named by the SGLang cookbook require their own config and calibration checks. [glm-5.3-flash-NV](https://huggingface.co/RedHatAI/GLM-5.3-Flash-NVFP4/raw/18d55bfd5a2194887738da73753975c9d3842f46/README.md)
 
-[glm-5.3-flash-CARD](https://huggingface.co/zai-org/GLM-5.3-Flash) [glm-5.3-flash-VR](https://recipes.vllm.ai/zai-org/GLM-5.3-Flash)
+## KV and deployment contract
 
-## Deployment rule
+SGLang's CUDA recipe pairs Blackwell FP8 KV with TRT-LLM DSA, or BF16 KV with TileLang DSA. Change the dtype and both DSA backends together; the cookbook says CUDA TileLang DSA plus FP8 KV is not a valid pairing for this model. Verify the exact image because this is a documented path, not a local execution result. [glm-5.3-flash-GR](https://docs.sglang.io/cookbook/autoregressive/GLM/GLM-5.3-Flash)
 
-Pin the model revision, tokenizer/processor revision, quantization configuration, runtime commit and image digest together. A root BF16 `dtype` can coexist with quantized weights. The real contract includes serialized tensor types, scales, grouping, excluded modules, activation precision and runtime repacking. Do not cast a quantized checkpoint to BF16 and call it the original BF16 reference.
-
-For every candidate, compare target-only quality against the appropriate reference before enabling lower-precision KV or speculation. [Precision primer](../../../reports/precision-and-kernels.md) distinguishes NVFP4, MXFP4, FP8 and BF16. [NV4](https://developer.nvidia.com/blog/introducing-nvfp4-for-efficient-and-accurate-low-precision-inference/) [TE](https://docs.nvidia.com/deeplearning/transformer-engine/examples/fp8_primer.html)
+Pin the model, tokenizer/processor, config and engine/container revisions together. Establish target-only quality before comparing quantized KV or speculation. A root BF16 `dtype` does not mean every stored tensor is BF16, and casting quantized weights does not recover the original reference. See the [precision primer](../../../reports/precision-and-kernels.md).
 
 ## License provenance
 
-Use the exact GLM-5.3-Flash license at the selected revision. This is a provenance flag, not legal clearance. The ZIP contains no model weights. Original model terms and derivative exporter terms remain separate from this repository’s original code and prose.
+The official FP8 and BF16 artifacts contain the MIT license; the RedHat card also declares MIT. These observations apply to the inspected revisions. Check any additional exporter or bundled-code terms before redistribution. No model tensor payloads are bundled here. [glm-5.3-flash-LICENSE](https://huggingface.co/zai-org/GLM-5.3-Flash/raw/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/LICENSE)

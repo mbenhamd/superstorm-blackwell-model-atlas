@@ -2,7 +2,7 @@
 
 ## Data flow
 
-Vision/text → KDA or pooled sparse MLA → four-stream mHC → shared/routed MoE → repeat → text head; MTP verifies and commits both token and recurrent state.
+Vision/text → hybrid attention and MoE blocks with four residual streams → text head. KDA layers maintain recurrent state; sparse MLA layers read selected token history. MTP proposes tokens, and the serving engine must verify them with the target and commit the corresponding accepted state.
 
 ## How the parts work together
 
@@ -14,7 +14,7 @@ The MoE has many more resident experts than each token activates. Its shared pat
 
 The native MTP layer is served through different APIs in the two engines. SGLang’s current recipe uses the EAGLE algorithm spelling for this native MTP path. That does not mean the model is using an unrelated external EAGLE checkpoint.
 
-The architecture facts above are drawn from the publisher card and configuration; the workload consequences are analytical interpretation. [glm-5.3-flash-CARD](https://huggingface.co/zai-org/GLM-5.3-Flash) [glm-5.3-flash-CFG](https://huggingface.co/zai-org/GLM-5.3-Flash/raw/main/config.json)
+The architecture facts above are drawn from the publisher card and configuration; the workload consequences are analytical interpretation. [glm-5.3-flash-CARD](https://huggingface.co/zai-org/GLM-5.3-Flash/raw/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/README.md) [glm-5.3-flash-CFG](https://huggingface.co/zai-org/GLM-5.3-Flash/raw/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/config.json)
 
 ## Configuration extraction
 
@@ -39,6 +39,7 @@ This is a **selected, normalized projection**, not a byte-for-byte copy of the c
 | kda_head_dim | 128 |
 | kda_conv_width | 4 |
 | q_lora_rank | 1536 |
+| kv_lora_rank | 512 |
 | qk_nope_head_dim | 256 |
 | qk_rope_head_dim | 0 |
 | v_head_dim | 256 |
@@ -62,18 +63,22 @@ This is a **selected, normalized projection**, not a byte-for-byte copy of the c
 | native_precision | FP8 |
 
 
-Source for the extraction: [glm-5.3-flash-CFG](https://huggingface.co/zai-org/GLM-5.3-Flash/raw/main/config.json). Headline counts, modality descriptions and advertised extended context are additionally drawn from [glm-5.3-flash-CARD](https://huggingface.co/zai-org/GLM-5.3-Flash). A `transformers_version` metadata field is not by itself proof of a minimum compatible package version.
+Source for the extraction, rechecked on 2026-10-15 at `46a050bec13002ad29ee795c16e61cf4fa3c4a9c`: [glm-5.3-flash-CFG](https://huggingface.co/zai-org/GLM-5.3-Flash/raw/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/config.json). Headline counts, modality descriptions and advertised extended context are additionally drawn from [glm-5.3-flash-CARD](https://huggingface.co/zai-org/GLM-5.3-Flash/raw/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/README.md). A `transformers_version` metadata field is not by itself proof of a minimum compatible package version.
 
 ## Memory and performance consequences
 
+The publisher rounds the model to 320B total / 18B active. Pinned Hub metadata for both official precision variants reports 321,323,031,390 parameters; the catalog uses that checkpoint total for weight-only arithmetic. The publisher's active-parameter count has not been independently reconstructed. Packed NVFP4 arrays and their scale tensors cannot be counted as if every stored scalar were an original model parameter. [glm-5.3-flash-META](https://huggingface.co/api/models/zai-org/GLM-5.3-Flash/revision/46a050bec13002ad29ee795c16e61cf4fa3c4a9c)
+
+The official FP8 index reports 328,326,771,576 serialized tensor bytes (328.33 decimal GB); BF16 reports 642,646,653,816 bytes (642.65 GB). Runtime memory also includes caches, recurrent state, temporary buffers and any loader repacking. [glm-5.3-flash-INDEX](https://huggingface.co/zai-org/GLM-5.3-Flash/raw/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/model.safetensors.index.json) [glm-5.3-flash-BF16-INDEX](https://huggingface.co/zai-org/GLM-5.3-Flash-BF16/raw/f9fed3bbc82291073373d67452e9f25317ef7577/model.safetensors.index.json)
+
 Budget recurrent KDA state and sparse token cache independently. SGLang’s cookbook explicitly warns that its default Mamba-to-full-memory ratio is generic. Too little state capacity caps running requests; too much starves token history. Derive a candidate split from real request lengths and boot-log pool sizes instead of blindly maximizing the ratio.
 
-For a simple state-size illustration, 34 × 64 × 128 × 128 FP32 entries is 136 MiB per sequence before implementation overhead. This is not the final CUDA allocation and cannot be divided by EP or DCP unless the source path shards that state accordingly.
+For a simple state-size illustration, 34 × 64 × 128 × 128 × 4 bytes is 142,606,336 bytes = 136 MiB per sequence for the FP32 state matrices alone, excluding convolution state, MTP state and implementation overhead. This is not the final CUDA allocation and cannot be divided by EP or DCP unless the source path shards that state accordingly.
 
-The numeric examples are calculations from stated dimensions and assumptions, not measured allocations. [Memory mathematics](../../../reports/memory-math.md) explains the formulas and their limits. [glm-5.3-flash-CARD](https://huggingface.co/zai-org/GLM-5.3-Flash) [glm-5.3-flash-CFG](https://huggingface.co/zai-org/GLM-5.3-Flash/raw/main/config.json) [HW](https://docs.nvidia.com/dgx/dgxb300-user-guide/introduction-to-dgxb300.html)
+The numeric examples are calculations from stated dimensions and assumptions, not measured allocations. [Memory mathematics](../../../reports/memory-math.md) explains the formulas and their limits. [glm-5.3-flash-CARD](https://huggingface.co/zai-org/GLM-5.3-Flash/raw/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/README.md) [glm-5.3-flash-CFG](https://huggingface.co/zai-org/GLM-5.3-Flash/raw/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/config.json) [HW](https://docs.nvidia.com/dgx/dgxb300-user-guide/introduction-to-dgxb300.html)
 
 ## What this report does not establish
 
-The exact RedHat NVFP4 tensor-level recipe was not separately inspected; do not treat its format as identical to NVIDIA/RadixArk. The optimal state split and disaggregation crossover need local measurements.
+The RedHat quantization configuration is now inspected at an immutable revision: main routed experts use NVFP4 and MTP routed experts use FP8. Other exporters require their own configuration audit. Quality, loader memory, the best KDA/KV split and the disaggregation crossover still need local measurements.
 
 The public artifacts do not disclose every training-data, optimization or implementation detail. This report does not fill missing details with assumptions or present a complete formal reconstruction of private training.

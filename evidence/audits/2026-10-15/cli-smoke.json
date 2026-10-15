@@ -1,0 +1,87 @@
+{
+  "run_at_utc": "2026-10-15T22:10:49.883418+00:00",
+  "boundary": "Local calculations, dry runs, metadata listing and help only; no engine startup, model retrieval, benchmark traffic or deployment.",
+  "checks": [
+    {
+      "command": [
+        "python3.12",
+        "scripts/memory.py",
+        "weights",
+        "--parameters-b",
+        "2800",
+        "--format",
+        "fp8"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"kind\": \"weights\",\n  \"bytes\": 2800000000000.0,\n  \"GB_decimal\": 2800.0,\n  \"GiB_binary\": 2607.70320892334,\n  \"assumptions\": \"Uniform idealized format, not a mixed export. Block formats include one block scale; exclude outer scales, padding, higher-precision modules and all runtime memory.\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python3.12",
+        "scripts/memory.py",
+        "kv",
+        "--layers",
+        "88",
+        "--kv-heads",
+        "8",
+        "--head-dim",
+        "128",
+        "--tokens",
+        "262144"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"kind\": \"kv\",\n  \"bytes\": 94489280512,\n  \"GB_decimal\": 94.489280512,\n  \"GiB_binary\": 88.0,\n  \"assumptions\": \"Ordinary unpadded K+V only. Invalid as a whole-model formula for MLA, sparse/compressed caches, KV sharing, sliding windows or recurrent state.\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python3.12",
+        "scripts/launch.py",
+        "--profile",
+        "profiles/qwen3.8-27b.bf16.vllm.baseline.json"
+      ],
+      "exit_code": 0,
+      "stdout": "vllm serve /models/PINNED_REVISION --served-model-name Qwen/Qwen3.8-27B --tensor-parallel-size 1 --max-model-len 32768 --gpu-memory-utilization 0.85 --max-num-seqs 32 --kv-cache-dtype auto --host 127.0.0.1 --port 8000\n",
+      "stderr": "DRY RUN: no engine started. Verify image flags, local weights and metadata before executing.\n"
+    },
+    {
+      "command": [
+        "python3.12",
+        "scripts/clone_upstreams.py"
+      ],
+      "exit_code": 0,
+      "stdout": "git init upstreams/vllm\ngit -C upstreams/vllm remote add origin https://github.com/vllm-project/vllm.git\ngit -C upstreams/vllm fetch --depth=1 origin f8460ef23659afd69046a81529ec2295e4c3f686\ngit -C upstreams/vllm checkout --detach f8460ef23659afd69046a81529ec2295e4c3f686\ngit init upstreams/sglang\ngit -C upstreams/sglang remote add origin https://github.com/sgl-project/sglang.git\ngit -C upstreams/sglang fetch --depth=1 origin 877be2974aa151a984e52822c028276c2b1e9303\ngit -C upstreams/sglang checkout --detach 877be2974aa151a984e52822c028276c2b1e9303\n# DRY RUN. No directories, downloads or installs performed. Histories are shallow; submodules are not automatically fetched.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python3.12",
+        "scripts/fetch_metadata.py"
+      ],
+      "exit_code": 0,
+      "stdout": "moonshotai/Kimi-K3\nnvidia/Kimi-K3-NVFP4\nzai-org/GLM-5.3\nzai-org/GLM-5.3-BF16\nRedHatAI/GLM-5.3-NVFP4\nInferact/GLM-5.3-NVFP4\nzai-org/GLM-5.3-Flash\nzai-org/GLM-5.3-Flash-BF16\nRedHatAI/GLM-5.3-Flash-NVFP4\ndeepseek-ai/DeepSeek-V4-Flash-0731\nQwen/Qwen3.8-27B\nQwen/Qwen3.8-27B-FP8\nnvidia/Qwen3.8-27B-NVFP4\nQwen/Qwen3.8-Flash-Next\nQwen/Qwen3.8-Flash-Next-FP8\nnvidia/Qwen3.8-Flash-Next-NVFP4\ngoogle/gemma-4-31B-it\nRedHatAI/gemma-4-31B-it-FP8-block\nRedHatAI/gemma-4-31B-it-NVFP4\nmistralai/Mistral-Medium-3.5-128B\n# LIST ONLY. Use --repo organization/model --fetch to resolve and archive metadata; never weights.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python3.12",
+        "benchmarks/run_streaming.py",
+        "--help"
+      ],
+      "exit_code": 0,
+      "stdout": "usage: run_streaming.py [-h] [--base-url BASE_URL] --model MODEL\n                        --requests-jsonl REQUESTS_JSONL\n                        [--concurrency CONCURRENCY] [--timeout TIMEOUT]\n                        --output OUTPUT\n\nClosed-loop HTTP/SSE probe. Chunk counts are not token counts.\n\noptions:\n  -h, --help            show this help message and exit\n  --base-url BASE_URL\n  --model MODEL\n  --requests-jsonl REQUESTS_JSONL\n  --concurrency CONCURRENCY\n  --timeout TIMEOUT\n  --output OUTPUT\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python3.12",
+        "deploy/kserve/render.py",
+        "--help"
+      ],
+      "exit_code": 0,
+      "stdout": "usage: render.py [-h] --profile PROFILE --image IMAGE --pvc PVC\n                 --model-subpath MODEL_SUBPATH --name NAME --cpu CPU\n                 --host-memory HOST_MEMORY [--node-selector NODE_SELECTOR]\n                 [--draft-subpath DRAFT_SUBPATH] [--shm-size SHM_SIZE]\n                 [--allow-compatibility-probe] [--allow-reviewed-remote-code]\n\nRender a one-node Standard KServe InferenceService; never applies to a\ncluster.\n\noptions:\n  -h, --help            show this help message and exit\n  --profile PROFILE\n  --image IMAGE\n  --pvc PVC\n  --model-subpath MODEL_SUBPATH\n  --name NAME\n  --cpu CPU\n  --host-memory HOST_MEMORY\n  --node-selector NODE_SELECTOR\n  --draft-subpath DRAFT_SUBPATH\n  --shm-size SHM_SIZE\n  --allow-compatibility-probe\n  --allow-reviewed-remote-code\n",
+      "stderr": ""
+    }
+  ]
+}

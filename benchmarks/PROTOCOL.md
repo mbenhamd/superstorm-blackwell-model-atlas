@@ -32,6 +32,8 @@ For dense Qwen/Gemma compare TP1 replicas with TP2/4 as total-node capacity, not
 
 `run_streaming.py` provides a lightweight, closed-loop, concurrent HTTP/SSE probe using the Python standard library. It records semantic deltas and usage when the endpoint supplies it. It does not infer tokens from chunk counts, execute returned tools/code, generate large synthetic prompts or supply an open-loop arrival process. Use the pinned engine's native benchmark harness for controlled token workloads and detailed kernel/service measurements, and compare against this client view.
 
+The probe accepts one completion per request (`n=1`) and requires a completed choice with a recognized finish reason. `[DONE]` alone cannot mark an empty or truncated stream successful. Tool-call identifiers and indices alone do not count as first semantic output; function names and argument text do. `ok` measures protocol completion, not answer quality or SLO compliance. A missing usage count stays unknown, and any failed request or missing count suppresses total output-token throughput. Both an origin URL and an API base ending in `/v1` are accepted. The timeout applies to socket operations and is checked between bounded line reads, so it is not strict wall-clock cancellation.
+
 ```bash
 python benchmarks/run_streaming.py --base-url http://127.0.0.1:8000 \
   --model Qwen/Qwen3.8-27B --requests-jsonl benchmarks/smoke.jsonl \

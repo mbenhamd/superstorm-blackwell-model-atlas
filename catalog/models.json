@@ -56,29 +56,31 @@
         "attn_res_block_size": 12,
         "max_position_embeddings": 1048576,
         "vision_encoder": "MoonViT-V2",
-        "vision_parameters_millions": 401
+        "vision_parameters_millions": 401,
+        "vocab_size": 163840
       },
       "total_b": 2800,
       "active_b": 104,
       "context": 1048576,
       "layout": "hybrid-latent-moe",
-      "license": "Kimi custom license (review exact revision)",
-      "recommended": "SGLang first for NVIDIA mixed NVFP4; vLLM and SGLang race for native MXFP4",
+      "license": "Kimi K3 License; pinned LICENSE file reviewed",
+      "recommended": "SGLang initial candidate for NVIDIA mixed NVFP4; compare vLLM and SGLang for native MXFP4",
       "baseline_tp": 8,
       "variants": [
         {
           "key": "native",
           "hf_id": "moonshotai/Kimi-K3",
-          "precision": "MXFP4 weights / MXFP8 activations; mixed non-expert precision",
-          "status": "verified publisher release",
-          "revision": null
+          "precision": "MXFP4 routed-expert weights; retained non-expert precision; publisher MXFP8 QAT claim does not fix runtime activation dtype",
+          "status": "verified immutable publisher card/config; no GPU test",
+          "revision": "f831ab66814297da540d832a5235f8e904f29d06"
         },
         {
           "key": "nvfp4",
           "hf_id": "nvidia/Kimi-K3-NVFP4",
           "precision": "NVFP4 experts + FP8_PB_WO attention + retained higher precision",
-          "status": "verified NVIDIA derivative; backend-specific fixes",
-          "revision": null
+          "status": "verified immutable NVIDIA card/config; backend-specific fixes; no local GPU test",
+          "revision": "b2428a0b83a8b712ff2e1a8448a103d4175341f1",
+          "license": "NVIDIA Open Model Agreement named in card; Kimi K3 LICENSE file also present"
         },
         {
           "key": "fp8",
@@ -96,18 +98,31 @@
         "kimi-k3-DRAFT",
         "kimi-k3-DRAFT-SG",
         "kimi-k3-VR",
-        "kimi-k3-GR"
+        "kimi-k3-GR",
+        "kimi-k3-NV-CFG",
+        "kimi-k3-LICENSE",
+        "kimi-k3-NV-LICENSE",
+        "kimi-k3-DRAFT-CFG",
+        "kimi-k3-DRAFT-SG-CFG",
+        "KIMIPR",
+        "KIMIVPR",
+        "KIMIVPR-MIXED",
+        "KIMIVPR-SCALE",
+        "GREL-KIMI-ANCESTRY",
+        "VDS"
       ],
-      "revision": null,
-      "evidence_status": "Publisher configuration and cards reviewed; not loaded or benchmarked on hardware",
-      "source_projection_is_complete_original_config": false
+      "revision": "f831ab66814297da540d832a5235f8e904f29d06",
+      "evidence_status": "Publisher cards, configurations and license files retrieved at immutable revisions on 2026-10-15; not loaded or benchmarked on hardware",
+      "source_projection_is_complete_original_config": false,
+      "config_projection_source_note": "Configuration fields verified at the pinned base revision; vision encoder name, 401M vision count and SiTU-GLU label also use the publisher card. Layer counts derive from the explicit lists.",
+      "parameter_count_note": "2.8T total and 104B active are rounded publisher headlines, not a checkpoint tensor census."
     },
     {
       "key": "glm-5.3",
       "company": "z-ai",
       "name": "GLM 5.3",
       "hf_id": "zai-org/GLM-5.3",
-      "headline": "Approximately 743B main / 39B active; MLA with DSA; native FP8 packaging",
+      "headline": "Approximately 743B main / 39B active; 753.33B including serialized MTP; MLA with DSA; native FP8 packaging",
       "config_projection": {
         "architecture_class": "GlmMoeDsaForCausalLM",
         "model_type": "glm_moe_dsa",
@@ -143,7 +158,7 @@
         ],
         "activation_scheme": "dynamic"
       },
-      "total_b": 743,
+      "total_b": 753.32994048,
       "active_b": 39,
       "context": 1048576,
       "layout": "sparse-mla-moe",
@@ -155,51 +170,76 @@
           "key": "fp8",
           "hf_id": "zai-org/GLM-5.3",
           "precision": "Block FP8 with exclusions",
-          "status": "verified official default",
-          "revision": null
+          "status": "Pinned card, configuration and index reviewed; GPU execution unverified",
+          "revision": "ba32f8c19c8738e2c57c71798c601d477a7bf844",
+          "index_tensor_bytes": 755617140416
         },
         {
           "key": "bf16",
           "hf_id": "zai-org/GLM-5.3-BF16",
-          "precision": "BF16 reference",
-          "status": "linked by official engine recipe; not separately audited",
-          "revision": null
+          "precision": "BF16 reference with small FP32 component",
+          "status": "Pinned card, configuration and index reviewed; GPU execution unverified",
+          "revision": "abf42e6c0e53bc29a875511301e7b7fcd220315b",
+          "index_tensor_bytes": 1506659919872
         },
         {
           "key": "nvfp4",
           "hf_id": "RedHatAI/GLM-5.3-NVFP4",
-          "precision": "Routed experts W4A4; other layers retained",
-          "status": "verified RedHat derivative",
-          "revision": null
+          "precision": "compressed-tensors NVFP4 W4A4 main routed-expert linears; group size 16; MTP and other modules excluded",
+          "status": "Pinned card, configuration and index reviewed; GPU execution unverified",
+          "revision": "c8917e4258572c405575855ff53effe58c17a38e",
+          "index_tensor_bytes": 464824469712
         },
         {
           "key": "nvfp4-inferact",
           "hf_id": "Inferact/GLM-5.3-NVFP4",
-          "precision": "Expert-only NVFP4; about 465 GB reported",
-          "status": "engine recipe evidence; exporter differs",
-          "revision": null
+          "precision": "ModelOpt NVFP4 main routed-expert export; group size 16; MTP and other modules excluded",
+          "status": "Pinned card, configuration and index reviewed; GPU execution unverified",
+          "revision": "ce67b36f3669192b5bb233819f0fda6c8a9837f8",
+          "index_tensor_bytes": 464822832448
         }
       ],
       "path": "companies/z-ai/glm-5.3",
       "source_ids": [
         "glm-5.3-CARD",
         "glm-5.3-CFG",
-        "glm-5.3-flash-CARD",
-        "glm-5.3-flash-CFG",
         "glm-5.3-NV",
         "glm-5.3-VR",
-        "glm-5.3-GR"
+        "glm-5.3-GR",
+        "glm-5.3-META",
+        "glm-5.3-INDEX",
+        "glm-5.3-LICENSE",
+        "glm-5.3-BF16-CFG",
+        "glm-5.3-BF16-INDEX",
+        "glm-5.3-BF16-HEADERS",
+        "glm-5.3-NV-CFG",
+        "glm-5.3-NV-INDEX",
+        "glm-5.3-INFERACT-CFG",
+        "glm-5.3-INFERACT-INDEX"
       ],
-      "revision": null,
-      "evidence_status": "Publisher configuration and cards reviewed; not loaded or benchmarked on hardware",
-      "source_projection_is_complete_original_config": false
+      "revision": "ba32f8c19c8738e2c57c71798c601d477a7bf844",
+      "evidence_status": "Pinned publisher cards, configurations and checkpoint metadata rechecked 2026-10-15; no model tensor payloads downloaded or GPU execution measured",
+      "source_projection_is_complete_original_config": false,
+      "verified_on": "2026-10-15",
+      "parameter_accounting": {
+        "checkpoint_parameters": 753329940480,
+        "total_b_scope": "Hub-reported official checkpoint parameter count, including serialized MTP; unique training parameters and tied/shared-weight accounting not independently verified",
+        "active_b_scope": "Publisher or engine-recipe headline; active path not independently counted",
+        "main_parameters_excluding_layer_78": 743377019904,
+        "mtp_layer_78_parameters": 9952920576,
+        "method": "Subtract sum of 791 model.layers.78 tensor-shape products in five pinned BF16 safetensors headers from the official checkpoint metadata total; not a complete independent tensor census",
+        "counting_revision": "abf42e6c0e53bc29a875511301e7b7fcd220315b"
+      },
+      "main_b": 743.377019904,
+      "mtp_b": 9.952920576,
+      "verified_on_timezone": "UTC"
     },
     {
       "key": "glm-5.3-flash",
       "company": "z-ai",
       "name": "GLM 5.3 Flash",
       "hf_id": "zai-org/GLM-5.3-Flash",
-      "headline": "320B total / 18B active; KDA + NoPE sparse MLA + mHC; multimodal",
+      "headline": "Publisher headline 320B total / 18B active; checkpoint metadata 321.32B; KDA + NoPE sparse MLA + mHC; multimodal",
       "config_projection": {
         "architecture_class": "Glm5NextForConditionalGeneration",
         "text_model_type": "glm5_next_text",
@@ -250,36 +290,40 @@
         "vision_heads": 16,
         "vision_patch_size": 14,
         "vision_output_size": 4096,
-        "native_precision": "FP8"
+        "native_precision": "FP8",
+        "kv_lora_rank": 512
       },
-      "total_b": 320,
+      "total_b": 321.32303139,
       "active_b": 18,
       "context": 1048576,
       "layout": "hybrid-mhc-moe",
-      "license": "Use the exact GLM-5.3-Flash license at the selected revision",
+      "license": "MIT (pinned official LICENSE reviewed)",
       "recommended": "SGLang Blackwell FP8 initial candidate; vLLM FP8 and NVFP4 head-to-head",
       "baseline_tp": 4,
       "variants": [
         {
           "key": "fp8",
           "hf_id": "zai-org/GLM-5.3-Flash",
-          "precision": "FP8 default",
-          "status": "verified official release",
-          "revision": null
+          "precision": "Block FP8 E4M3 with exclusions",
+          "status": "Pinned card, configuration and index reviewed; GPU execution unverified",
+          "revision": "46a050bec13002ad29ee795c16e61cf4fa3c4a9c",
+          "index_tensor_bytes": 328326771576
         },
         {
           "key": "bf16",
           "hf_id": "zai-org/GLM-5.3-Flash-BF16",
-          "precision": "BF16",
-          "status": "linked by engine recipe",
-          "revision": null
+          "precision": "BF16 reference with small FP32 component",
+          "status": "Pinned card, configuration and index reviewed; GPU execution unverified",
+          "revision": "f9fed3bbc82291073373d67452e9f25317ef7577",
+          "index_tensor_bytes": 642646653816
         },
         {
           "key": "nvfp4",
           "hf_id": "RedHatAI/GLM-5.3-Flash-NVFP4",
-          "precision": "NVFP4 expert derivative",
-          "status": "engine recipe evidence; exact config not separately audited",
-          "revision": null
+          "precision": "compressed-tensors: main routed experts NVFP4 W4A4; MTP routed experts FP8 W8A8; other modules excluded",
+          "status": "Pinned card, configuration and index reviewed; GPU execution unverified",
+          "revision": "18d55bfd5a2194887738da73753975c9d3842f46",
+          "index_tensor_bytes": 197816133372
         }
       ],
       "path": "companies/z-ai/glm-5.3-flash",
@@ -287,11 +331,27 @@
         "glm-5.3-flash-CARD",
         "glm-5.3-flash-CFG",
         "glm-5.3-flash-VR",
-        "glm-5.3-flash-GR"
+        "glm-5.3-flash-GR",
+        "glm-5.3-flash-META",
+        "glm-5.3-flash-INDEX",
+        "glm-5.3-flash-LICENSE",
+        "glm-5.3-flash-BF16-CFG",
+        "glm-5.3-flash-BF16-INDEX",
+        "glm-5.3-flash-NV",
+        "glm-5.3-flash-NV-CFG",
+        "glm-5.3-flash-NV-INDEX"
       ],
-      "revision": null,
-      "evidence_status": "Publisher configuration and cards reviewed; not loaded or benchmarked on hardware",
-      "source_projection_is_complete_original_config": false
+      "revision": "46a050bec13002ad29ee795c16e61cf4fa3c4a9c",
+      "evidence_status": "Pinned publisher cards, configurations and checkpoint metadata rechecked 2026-10-15; no model tensor payloads downloaded or GPU execution measured",
+      "source_projection_is_complete_original_config": false,
+      "verified_on": "2026-10-15",
+      "parameter_accounting": {
+        "checkpoint_parameters": 321323031390,
+        "total_b_scope": "Hub-reported official checkpoint parameter count, including serialized MTP; unique training parameters and tied/shared-weight accounting not independently verified",
+        "active_b_scope": "Publisher or engine-recipe headline; active path not independently counted"
+      },
+      "publisher_total_b": 320,
+      "verified_on_timezone": "UTC"
     },
     {
       "key": "deepseek-v4-flash-0731",
@@ -348,22 +408,71 @@
           42
         ],
         "dspark_markov_rank": 256,
-        "compression_schedule_description": "First two uncompressed, then alternating ratios 4 and 128; configuration also contains draft entries"
+        "compression_schedule_description": "46 entries: 43 target entries (0, 0, then alternating 4 and 128 ending in 4), followed by three uncompressed DSpark stages in the reference inference implementation",
+        "compress_ratios": [
+          0,
+          0,
+          4,
+          128,
+          4,
+          128,
+          4,
+          128,
+          4,
+          128,
+          4,
+          128,
+          4,
+          128,
+          4,
+          128,
+          4,
+          128,
+          4,
+          128,
+          4,
+          128,
+          4,
+          128,
+          4,
+          128,
+          4,
+          128,
+          4,
+          128,
+          4,
+          128,
+          4,
+          128,
+          4,
+          128,
+          4,
+          128,
+          4,
+          128,
+          4,
+          128,
+          4,
+          0,
+          0,
+          0
+        ],
+        "dspark_stages_reference_inference": 3
       },
       "total_b": null,
       "active_b": null,
       "context": 1048576,
       "layout": "compressed-mhc-moe",
-      "license": "MIT metadata; exact 0731 license file should be pinned before redistribution",
-      "recommended": "vLLM native mixed-format baseline; SGLang alternative after exact 0731 protocol check",
-      "baseline_tp": 8,
+      "license": "MIT; pinned LICENSE file and model-card scope reviewed",
+      "recommended": "vLLM TP1/DP4+EP baseline and SGLang documented TP4 comparator; qualify eight-GPU adaptations",
+      "baseline_tp": 1,
       "variants": [
         {
           "key": "native",
           "hf_id": "deepseek-ai/DeepSeek-V4-Flash-0731",
           "precision": "FP4 experts plus FP8-configured components; not an all-FP8 model",
-          "status": "verified exact 0731 config",
-          "revision": null
+          "status": "verified exact immutable 0731 config; no GPU test",
+          "revision": "7872f01b1d1fe23eabc4c98b48bffcef5a386062"
         }
       ],
       "path": "companies/deepseek/deepseek-v4-flash-0731",
@@ -371,14 +480,20 @@
         "deepseek-v4-flash-0731-CARD",
         "deepseek-v4-flash-0731-CFG",
         "deepseek-v4-flash-0731-VR",
-        "deepseek-v4-flash-0731-FAMILY"
+        "deepseek-v4-flash-0731-FAMILY",
+        "deepseek-v4-flash-0731-LICENSE",
+        "deepseek-v4-flash-0731-INFER-CFG",
+        "deepseek-v4-flash-0731-INFER-SRC",
+        "deepseek-v4-flash-0731-ENC",
+        "deepseek-v4-flash-0731-GR"
       ],
-      "revision": null,
-      "evidence_status": "Publisher configuration and cards reviewed; not loaded or benchmarked on hardware",
+      "revision": "7872f01b1d1fe23eabc4c98b48bffcef5a386062",
+      "evidence_status": "Exact publisher card, configuration, reference inference files and license retrieved at immutable revision on 2026-10-15; both engines have documented 0731 paths; no local GPU test",
       "source_projection_is_complete_original_config": false,
       "family_total_b": 284,
       "family_active_b": 13,
-      "parameter_count_note": "284B/13B is the serving recipe family headline; exact 0731 main+draft tensor census not performed. total_b is intentionally null."
+      "parameter_count_note": "284B/13B is the vLLM recipe preview-family headline; the SGLang cookbook lists 304B/13B for 0731. Exact 0731 main+draft logical-parameter census is not performed, so total_b and active_b remain null; serialized tensor-element counts are not substituted.",
+      "config_projection_source_note": "Root config num_nextn_predict_layers is 1 (retained as nextn_layers metadata); pinned inference/config.json independently sets n_mtp_layers=3 and inference/model.py constructs three DSparkBlock stages. dspark_target_layer_ids are zero-based in that implementation."
     },
     {
       "key": "qwen3.8-27b",
@@ -423,29 +538,32 @@
       "context": 262144,
       "layout": "hybrid-dense",
       "license": "Apache-2.0 on base; also review derivative terms",
-      "recommended": "vLLM TP1 BF16/FP8 and SGLang TP1; test NVFP4 rather than assuming it wins",
+      "recommended": "Compare vLLM and SGLang TP1 BF16, FP8 and NVIDIA mixed NVFP4; no measured winner",
       "baseline_tp": 1,
       "variants": [
         {
           "key": "bf16",
           "hf_id": "Qwen/Qwen3.8-27B",
-          "precision": "BF16",
-          "status": "verified base",
-          "revision": null
+          "precision": "BF16 declared by text config",
+          "status": "Publisher card and pinned configuration metadata inspected; no weight load",
+          "revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0"
         },
         {
           "key": "fp8",
           "hf_id": "Qwen/Qwen3.8-27B-FP8",
-          "precision": "Fine-grained FP8",
-          "status": "verified official derivative",
-          "revision": null
+          "precision": "E4M3 FP8 with 128x128 weight blocks and excluded modules",
+          "status": "Publisher card and pinned configuration metadata inspected; no weight load",
+          "revision": "017b9c7af6b5689d5dd426a76e0bc077eb5ca20a"
         },
         {
           "key": "nvfp4",
           "hf_id": "nvidia/Qwen3.8-27B-NVFP4",
-          "precision": "NVFP4 MLP/head + FP8 attention; ModelOpt 0.48.0",
-          "status": "verified NVIDIA mixed derivative",
-          "revision": null
+          "precision": "NVFP4 dense MLPs/lm_head; FP8 attention projections; MTP excluded from quantization map",
+          "status": "Publisher card and pinned configuration metadata inspected; no weight load",
+          "revision": "482ca0f3832238542f8f5295dde86b5f22711d80",
+          "provenance_notes": [
+            "Card states ModelOpt 0.48.0; config.json and hf_quant_config.json record 0.47.0.dev80+g913f5e224. Exporter-version discrepancy unresolved."
+          ]
         }
       ],
       "path": "companies/alibaba-qwen/qwen3.8-27b",
@@ -453,13 +571,33 @@
         "qwen3.8-27b-CARD",
         "qwen3.8-27b-CFG",
         "qwen3.8-27b-FP8",
+        "qwen3.8-27b-FP8-CFG",
         "qwen3.8-27b-NV",
+        "qwen3.8-27b-NV-CFG",
+        "qwen3.8-27b-NV-QUANT",
         "qwen3.8-27b-VR",
         "qwen3.8-27b-GR"
       ],
-      "revision": null,
-      "evidence_status": "Publisher configuration and cards reviewed; not loaded or benchmarked on hardware",
-      "source_projection_is_complete_original_config": false
+      "revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
+      "evidence_status": "Publisher cards and immutable configuration metadata rechecked on 2026-10-15; weights not inspected; no GPU load or benchmark",
+      "source_projection_is_complete_original_config": false,
+      "metadata_retrieved_on": "2026-10-15",
+      "config_projection_provenance": {
+        "configuration_source_id": "qwen3.8-27b-CFG",
+        "publisher_card_source_id": "qwen3.8-27b-CARD",
+        "derived_fields": {
+          "linear_attention_layers": "Count of linear_attention entries in text_config.layer_types",
+          "rotary_dim": "text_config.head_dim multiplied by text_config.partial_rotary_factor",
+          "full_attention_layers": "Count of full_attention entries in text_config.layer_types"
+        },
+        "publisher_card_fields": [
+          "advertised_extended_context"
+        ],
+        "normalized_field_notes": {
+          "nextn_layers": "text_config.mtp_num_hidden_layers"
+        }
+      },
+      "parameter_count_scope": "Rounded publisher language-model headline; vision and auxiliary-module accounting require a tensor census. active_b uses the dense-model headline convention, not a count of parameters read for one token."
     },
     {
       "key": "qwen3.8-flash-next",
@@ -518,41 +656,70 @@
       "context": 262144,
       "layout": "hybrid-ngram-moe",
       "license": "Qwen Community License 1.0; NVIDIA derivative also names NVIDIA Open Model License",
-      "recommended": "vLLM first for the exact NVIDIA mixed NVFP4 export; qualify SGLang separately",
-      "baseline_tp": 4,
+      "recommended": "vLLM TP8 baseline for the NVIDIA mixed export; SGLang documented TP1 candidate, unverified on B300",
+      "baseline_tp": 8,
       "revision": "de4b8e4d43b917e7706784d8bb445c9af86a3540",
       "variants": [
         {
           "key": "bf16",
           "hf_id": "Qwen/Qwen3.8-Flash-Next",
-          "precision": "BF16 reference with large n-gram embeddings",
-          "status": "verified base",
-          "revision": null
+          "precision": "BF16 declared by text config",
+          "status": "Publisher card and pinned configuration metadata inspected; no weight load",
+          "revision": "de4b8e4d43b917e7706784d8bb445c9af86a3540"
         },
         {
           "key": "fp8",
           "hf_id": "Qwen/Qwen3.8-Flash-Next-FP8",
-          "precision": "Mixed FP8 export",
-          "status": "referenced by NVIDIA and engine recipe",
-          "revision": null
+          "precision": "FP8 routed experts and PLE embedding; attention/shared experts excluded",
+          "status": "Publisher card and pinned configuration metadata inspected; no weight load",
+          "revision": "236dfdf285828023ca3bcd3f37366c58a3469b13"
         },
         {
           "key": "nvfp4",
           "hf_id": "nvidia/Qwen3.8-Flash-Next-NVFP4",
           "precision": "Main routed experts NVFP4; MTP experts and PLE FP8; attention/shared BF16",
-          "status": "verified NVIDIA derivative",
-          "revision": null
+          "status": "Publisher card and pinned configuration metadata inspected; no weight load",
+          "revision": "fc694b54fb0174e0913e6adf86691ef85a4ead47",
+          "provenance_notes": [
+            "MTP label is FP8_PB_WO in config.json and FP8_BLOCK_SCALES in hf_quant_config.json; both specify group size 128."
+          ]
         }
       ],
       "path": "companies/alibaba-qwen/qwen3.8-flash-next",
       "source_ids": [
         "qwen3.8-flash-next-CARD",
         "qwen3.8-flash-next-CFG",
+        "qwen3.8-flash-next-FP8",
+        "qwen3.8-flash-next-FP8-CFG",
         "qwen3.8-flash-next-NV",
-        "qwen3.8-flash-next-VR"
+        "qwen3.8-flash-next-NV-CFG",
+        "qwen3.8-flash-next-NV-QUANT",
+        "qwen3.8-flash-next-VR",
+        "qwen3.8-flash-next-GR",
+        "qwen3.8-flash-next-GPR",
+        "qwen3.8-flash-next-GR-SOURCE"
       ],
-      "evidence_status": "Publisher configuration and cards reviewed; not loaded or benchmarked on hardware",
-      "source_projection_is_complete_original_config": false
+      "evidence_status": "Publisher cards and immutable configuration metadata rechecked on 2026-10-15; weights not inspected; no GPU load or benchmark",
+      "source_projection_is_complete_original_config": false,
+      "metadata_retrieved_on": "2026-10-15",
+      "config_projection_provenance": {
+        "configuration_source_id": "qwen3.8-flash-next-CFG",
+        "publisher_card_source_id": "qwen3.8-flash-next-CARD",
+        "derived_fields": {
+          "linear_attention_layers": "Count of linear_attention entries in text_config.layer_types",
+          "rotary_dim": "text_config.head_dim multiplied by text_config.partial_rotary_factor",
+          "sparse_attention_layers": "Count of full_attention entries in text_config.layer_types; identified as QSA by publisher card"
+        },
+        "publisher_card_fields": [
+          "advertised_extended_context",
+          "shared_experts"
+        ],
+        "normalized_field_notes": {
+          "linear_head_dim": "Both text_config.linear_key_head_dim and linear_value_head_dim equal 128",
+          "ple_layer_ids": "One-based [2]; NVIDIA quantization metadata names the zero-based tensor path layers.1.ple"
+        }
+      },
+      "parameter_count_scope": "Approximate sum of rounded publisher language-model components: 125B main + 51B n-gram + 4B MTP; not a tensor census and no separate vision count. active_b=6 applies only to the main path."
     },
     {
       "key": "gemma-4-31b-it",
@@ -595,7 +762,7 @@
       "active_b": 31,
       "context": 262144,
       "layout": "windowed-dense",
-      "license": "Apache-2.0 metadata observed on RedHat derivative; confirm base and derivative files",
+      "license": "Apache-2.0 in the Google base and Red Hat derivative cards; Google license page reviewed",
       "recommended": "vLLM TP1 BF16/FP8/NVFP4 comparison; SGLang challenger with export-level probe",
       "baseline_tp": 1,
       "variants": [
@@ -603,22 +770,28 @@
           "key": "bf16",
           "hf_id": "google/gemma-4-31B-it",
           "precision": "BF16",
-          "status": "verified official base",
-          "revision": null
+          "status": "Publisher card and configuration verified at pinned revision; not loaded",
+          "revision": "842da3794eaa0b77d5f08bae87a17459d91ff475",
+          "listed_weight_file_bytes": 62546338248,
+          "weight_file_bytes_source_id": "gemma-4-31b-it-BASE-TREE"
         },
         {
           "key": "fp8",
           "hf_id": "RedHatAI/gemma-4-31B-it-FP8-block",
           "precision": "W8A8, 128×128 weight blocks, dynamic activation groups of 128",
-          "status": "verified RedHat derivative",
-          "revision": null
+          "status": "Publisher card and configuration verified at pinned revision; not loaded",
+          "revision": "d7242548c457ab4b45bd3adb8937f2659af4739d",
+          "listed_weight_file_bytes": 33263238928,
+          "weight_file_bytes_source_id": "gemma-4-31b-it-FP8-TREE"
         },
         {
           "key": "nvfp4",
           "hf_id": "RedHatAI/gemma-4-31B-it-NVFP4",
-          "precision": "Transformer block W4A4 group 16; vision/embedding/head retain precision",
-          "status": "verified RedHat derivative",
-          "revision": null
+          "precision": "Text Linear W4A4, group 16 with local activation scaling; vision/embedding/head retain precision",
+          "status": "Publisher card and configuration verified at pinned revision; not loaded",
+          "revision": "5df75ccad9b74546f5be758a2a68acc2e16bbc9b",
+          "listed_weight_file_bytes": 23265401144,
+          "weight_file_bytes_source_id": "gemma-4-31b-it-NV-TREE"
         }
       ],
       "path": "companies/google/gemma-4-31b-it",
@@ -626,11 +799,19 @@
         "gemma-4-31b-it-CARD",
         "gemma-4-31b-it-CFG",
         "gemma-4-31b-it-FP8",
-        "gemma-4-31b-it-NV"
+        "gemma-4-31b-it-NV",
+        "gemma-4-31b-it-FP8-CFG",
+        "gemma-4-31b-it-NV-CFG",
+        "gemma-4-31b-it-BASE-TREE",
+        "gemma-4-31b-it-FP8-TREE",
+        "gemma-4-31b-it-NV-TREE",
+        "gemma-4-31b-it-LICENSE"
       ],
-      "revision": null,
-      "evidence_status": "Publisher configuration and cards reviewed; not loaded or benchmarked on hardware",
-      "source_projection_is_complete_original_config": false
+      "revision": "842da3794eaa0b77d5f08bae87a17459d91ff475",
+      "evidence_status": "Pinned publisher cards/configurations and repository file metadata rechecked 2026-10-15; not loaded or benchmarked on hardware",
+      "source_projection_is_complete_original_config": false,
+      "parameter_count_note": "31B is a rounded family label, not an audited unique-parameter census; use exact artifact metadata for weight storage",
+      "weight_file_bytes_note": "Sum of .safetensors file sizes listed by the pinned Hugging Face tree API, including headers; not a local tensor census or runtime memory measurement"
     },
     {
       "key": "mistral-medium-3.5",
@@ -673,22 +854,26 @@
           "vision_tower",
           "multi_modal_projector",
           "lm_head"
-        ]
+        ],
+        "rope_mscale": 1.0,
+        "rope_mscale_all_dim": 0.0,
+        "rope_beta_fast": 4.0,
+        "rope_beta_slow": 1.0
       },
       "total_b": 128,
       "active_b": 128,
       "context": 262144,
       "layout": "gqa-dense",
-      "license": "Publisher custom license / metadata other; not assumed Apache-2.0",
-      "recommended": "vLLM first, producer-endorsed; TP2/4 versus TP8 measured at equal workload",
-      "baseline_tp": 2,
+      "license": "Modified MIT License; revenue restriction in the publisher LICENSE file",
+      "recommended": "vLLM publisher TP8 baseline; compare TP2/4 and publisher-documented SGLang at equal workload",
+      "baseline_tp": 8,
       "variants": [
         {
           "key": "fp8",
           "hf_id": "mistralai/Mistral-Medium-3.5-128B",
           "precision": "Static FP8 text linears; higher precision exclusions",
-          "status": "verified official release",
-          "revision": null
+          "status": "Publisher card and configuration verified at pinned revision; not loaded",
+          "revision": "22b2b868a15677cfa6061277ed2f653d1349a9ab"
         }
       ],
       "path": "companies/mistral-ai/mistral-medium-3.5",
@@ -696,11 +881,25 @@
         "mistral-medium-3.5-CARD",
         "mistral-medium-3.5-CFG",
         "mistral-medium-3.5-TREE",
-        "mistral-medium-3.5-FIXCFG"
+        "mistral-medium-3.5-FIXCFG",
+        "mistral-medium-3.5-HF-INDEX",
+        "mistral-medium-3.5-NATIVE-INDEX",
+        "mistral-medium-3.5-LICENSE",
+        "mistral-medium-3.5-GR"
       ],
-      "revision": null,
-      "evidence_status": "Publisher configuration and cards reviewed; not loaded or benchmarked on hardware",
-      "source_projection_is_complete_original_config": false
+      "revision": "22b2b868a15677cfa6061277ed2f653d1349a9ab",
+      "evidence_status": "Pinned publisher cards/configurations and repository file metadata rechecked 2026-10-15; not loaded or benchmarked on hardware",
+      "source_projection_is_complete_original_config": false,
+      "parameter_count_note": "128B is the publisher rounded dense-model label, not an audited unique-parameter census",
+      "weight_layout_metadata": {
+        "hf_index_total_size_bytes": 133605834656,
+        "native_index_total_size_bytes": 133605834656,
+        "note": "Each alternative index reports the same tensor payload; excludes safetensors headers and runtime allocations",
+        "source_ids": [
+          "mistral-medium-3.5-HF-INDEX",
+          "mistral-medium-3.5-NATIVE-INDEX"
+        ]
+      }
     }
   ]
 }

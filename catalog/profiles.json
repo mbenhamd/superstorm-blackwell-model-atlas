@@ -35,7 +35,7 @@
       "kimi-k3-GR"
     ],
     "reviewed_source_commit": "877be2974aa151a984e52822c028276c2b1e9303",
-    "model_revision": null,
+    "model_revision": "f831ab66814297da540d832a5235f8e904f29d06",
     "draft_hf_id": null,
     "draft_revision": null,
     "requires_reviewed_remote_code": true,
@@ -80,7 +80,7 @@
       "kimi-k3-GR"
     ],
     "reviewed_source_commit": "f8460ef23659afd69046a81529ec2295e4c3f686",
-    "model_revision": null,
+    "model_revision": "f831ab66814297da540d832a5235f8e904f29d06",
     "draft_hf_id": null,
     "draft_revision": null,
     "requires_reviewed_remote_code": true,
@@ -126,7 +126,7 @@
       "kimi-k3-GR"
     ],
     "reviewed_source_commit": "877be2974aa151a984e52822c028276c2b1e9303",
-    "model_revision": null,
+    "model_revision": "b2428a0b83a8b712ff2e1a8448a103d4175341f1",
     "draft_hf_id": null,
     "draft_revision": null,
     "requires_reviewed_remote_code": true,
@@ -166,7 +166,7 @@
       "kimi-k3-GR"
     ],
     "reviewed_source_commit": "f8460ef23659afd69046a81529ec2295e4c3f686",
-    "model_revision": null,
+    "model_revision": "b2428a0b83a8b712ff2e1a8448a103d4175341f1",
     "draft_hf_id": null,
     "draft_revision": null,
     "requires_reviewed_remote_code": true,
@@ -221,9 +221,9 @@
       "kimi-k3-GR"
     ],
     "reviewed_source_commit": "877be2974aa151a984e52822c028276c2b1e9303",
-    "model_revision": null,
+    "model_revision": "b2428a0b83a8b712ff2e1a8448a103d4175341f1",
     "draft_hf_id": "RadixArk/Kimi-K3-DSpark",
-    "draft_revision": null,
+    "draft_revision": "3c5bac301d9cf392706189d82ed947feca6c2f0f",
     "requires_reviewed_remote_code": true,
     "tested_on_target": false,
     "requires_image_compatibility_check": true,
@@ -268,7 +268,7 @@
       "glm-5.3-GR"
     ],
     "reviewed_source_commit": "f8460ef23659afd69046a81529ec2295e4c3f686",
-    "model_revision": null,
+    "model_revision": "ba32f8c19c8738e2c57c71798c601d477a7bf844",
     "draft_hf_id": null,
     "draft_revision": null,
     "requires_reviewed_remote_code": false,
@@ -313,13 +313,13 @@
       "glm-5.3-GR"
     ],
     "reviewed_source_commit": "f8460ef23659afd69046a81529ec2295e4c3f686",
-    "model_revision": null,
+    "model_revision": "c8917e4258572c405575855ff53effe58c17a38e",
     "draft_hf_id": null,
     "draft_revision": null,
     "requires_reviewed_remote_code": false,
     "tested_on_target": false,
     "requires_image_compatibility_check": true,
-    "notes": "A starting experiment, not a measured optimum. Local execution requires immutable preloaded model metadata, an installed compatible engine and explicit acknowledgement."
+    "notes": "A starting experiment, not a measured optimum. Local execution requires immutable preloaded model metadata, an installed compatible engine and explicit acknowledgement. KV dtype is not explicitly set here; the FP8 baseline selects FP8 KV. Record and align effective cache dtype before a controlled weight-precision comparison, or report it as a separate variable."
   },
   {
     "id": "glm-5.3.fp8.vllm.mtp",
@@ -362,7 +362,7 @@
       "glm-5.3-GR"
     ],
     "reviewed_source_commit": "f8460ef23659afd69046a81529ec2295e4c3f686",
-    "model_revision": null,
+    "model_revision": "ba32f8c19c8738e2c57c71798c601d477a7bf844",
     "draft_hf_id": null,
     "draft_revision": null,
     "requires_reviewed_remote_code": false,
@@ -388,14 +388,14 @@
       "--reasoning-parser",
       "glm45",
       "--tool-call-parser",
-      "glm45"
+      "glm47"
     ],
     "gpu_count": 8,
     "tensor_parallel_size": 8,
     "data_parallel_size": 1,
     "context_cap": 65536,
     "status": "compatibility-probe",
-    "reason": "Challenger engine. Parser names are engine-specific; exact checkpoint/image smoke test remains mandatory.",
+    "reason": "Challenger engine. The cookbook uses glm47 for tool calls and glm45 for reasoning; exact checkpoint/image smoke testing remains mandatory.",
     "source_ids": [
       "glm-5.3-CARD",
       "glm-5.3-CFG",
@@ -406,7 +406,7 @@
       "glm-5.3-GR"
     ],
     "reviewed_source_commit": "877be2974aa151a984e52822c028276c2b1e9303",
-    "model_revision": null,
+    "model_revision": "ba32f8c19c8738e2c57c71798c601d477a7bf844",
     "draft_hf_id": null,
     "draft_revision": null,
     "requires_reviewed_remote_code": false,
@@ -445,7 +445,7 @@
       "glm-5.3-flash-GR"
     ],
     "reviewed_source_commit": "877be2974aa151a984e52822c028276c2b1e9303",
-    "model_revision": null,
+    "model_revision": "46a050bec13002ad29ee795c16e61cf4fa3c4a9c",
     "draft_hf_id": null,
     "draft_revision": null,
     "requires_reviewed_remote_code": false,
@@ -492,7 +492,7 @@
       "glm-5.3-flash-GR"
     ],
     "reviewed_source_commit": "877be2974aa151a984e52822c028276c2b1e9303",
-    "model_revision": null,
+    "model_revision": "46a050bec13002ad29ee795c16e61cf4fa3c4a9c",
     "draft_hf_id": null,
     "draft_revision": null,
     "requires_reviewed_remote_code": false,
@@ -529,7 +529,7 @@
       "glm-5.3-flash-GR"
     ],
     "reviewed_source_commit": "f8460ef23659afd69046a81529ec2295e4c3f686",
-    "model_revision": null,
+    "model_revision": "46a050bec13002ad29ee795c16e61cf4fa3c4a9c",
     "draft_hf_id": null,
     "draft_revision": null,
     "requires_reviewed_remote_code": false,
@@ -558,15 +558,17 @@
     "data_parallel_size": 1,
     "context_cap": 65536,
     "status": "compatibility-probe",
-    "reason": "Export linked in engine recipe, but complete exact derivative config not separately audited.",
+    "reason": "Exact RedHat card/config are pinned and inspected; mixed NVFP4 routed experts and FP8 MTP still require loader, kernel and quality checks in the selected image.",
     "source_ids": [
       "glm-5.3-flash-CARD",
       "glm-5.3-flash-CFG",
       "glm-5.3-flash-VR",
-      "glm-5.3-flash-GR"
+      "glm-5.3-flash-GR",
+      "glm-5.3-flash-NV",
+      "glm-5.3-flash-NV-CFG"
     ],
     "reviewed_source_commit": "f8460ef23659afd69046a81529ec2295e4c3f686",
-    "model_revision": null,
+    "model_revision": "18d55bfd5a2194887738da73753975c9d3842f46",
     "draft_hf_id": null,
     "draft_revision": null,
     "requires_reviewed_remote_code": false,
@@ -619,7 +621,7 @@
       "deepseek-v4-flash-0731-FAMILY"
     ],
     "reviewed_source_commit": "f8460ef23659afd69046a81529ec2295e4c3f686",
-    "model_revision": null,
+    "model_revision": "7872f01b1d1fe23eabc4c98b48bffcef5a386062",
     "draft_hf_id": null,
     "draft_revision": null,
     "requires_reviewed_remote_code": false,
@@ -672,7 +674,7 @@
       "deepseek-v4-flash-0731-FAMILY"
     ],
     "reviewed_source_commit": "f8460ef23659afd69046a81529ec2295e4c3f686",
-    "model_revision": null,
+    "model_revision": "7872f01b1d1fe23eabc4c98b48bffcef5a386062",
     "draft_hf_id": null,
     "draft_revision": null,
     "requires_reviewed_remote_code": false,
@@ -727,7 +729,7 @@
       "deepseek-v4-flash-0731-FAMILY"
     ],
     "reviewed_source_commit": "f8460ef23659afd69046a81529ec2295e4c3f686",
-    "model_revision": null,
+    "model_revision": "7872f01b1d1fe23eabc4c98b48bffcef5a386062",
     "draft_hf_id": null,
     "draft_revision": null,
     "requires_reviewed_remote_code": false,
@@ -764,7 +766,7 @@
       "deepseek-v4-flash-0731-FAMILY"
     ],
     "reviewed_source_commit": "877be2974aa151a984e52822c028276c2b1e9303",
-    "model_revision": null,
+    "model_revision": "7872f01b1d1fe23eabc4c98b48bffcef5a386062",
     "draft_hf_id": null,
     "draft_revision": null,
     "requires_reviewed_remote_code": false,
@@ -805,7 +807,7 @@
       "qwen3.8-27b-GR"
     ],
     "reviewed_source_commit": "f8460ef23659afd69046a81529ec2295e4c3f686",
-    "model_revision": null,
+    "model_revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
     "draft_hf_id": null,
     "draft_revision": null,
     "requires_reviewed_remote_code": false,
@@ -846,7 +848,7 @@
       "qwen3.8-27b-GR"
     ],
     "reviewed_source_commit": "f8460ef23659afd69046a81529ec2295e4c3f686",
-    "model_revision": null,
+    "model_revision": "017b9c7af6b5689d5dd426a76e0bc077eb5ca20a",
     "draft_hf_id": null,
     "draft_revision": null,
     "requires_reviewed_remote_code": false,
@@ -887,7 +889,7 @@
       "qwen3.8-27b-GR"
     ],
     "reviewed_source_commit": "f8460ef23659afd69046a81529ec2295e4c3f686",
-    "model_revision": null,
+    "model_revision": "482ca0f3832238542f8f5295dde86b5f22711d80",
     "draft_hf_id": null,
     "draft_revision": null,
     "requires_reviewed_remote_code": false,
@@ -928,13 +930,13 @@
       "qwen3.8-27b-GR"
     ],
     "reviewed_source_commit": "877be2974aa151a984e52822c028276c2b1e9303",
-    "model_revision": null,
+    "model_revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
     "draft_hf_id": null,
     "draft_revision": null,
     "requires_reviewed_remote_code": false,
     "tested_on_target": false,
     "requires_image_compatibility_check": true,
-    "notes": "A starting experiment, not a measured optimum. Local execution requires immutable preloaded model metadata, an installed compatible engine and explicit acknowledgement."
+    "notes": "A starting experiment, not a measured optimum. Local execution requires immutable preloaded model metadata, an installed compatible engine and explicit acknowledgement. BF16 KV is a local controlled-comparison choice; the current SGLang cookbook pins FP8 E4M3 KV. This profile does not reproduce the cookbook measurements."
   },
   {
     "id": "qwen3.8-27b.fp8.sglang.baseline",
@@ -969,13 +971,13 @@
       "qwen3.8-27b-GR"
     ],
     "reviewed_source_commit": "877be2974aa151a984e52822c028276c2b1e9303",
-    "model_revision": null,
+    "model_revision": "017b9c7af6b5689d5dd426a76e0bc077eb5ca20a",
     "draft_hf_id": null,
     "draft_revision": null,
     "requires_reviewed_remote_code": false,
     "tested_on_target": false,
     "requires_image_compatibility_check": true,
-    "notes": "A starting experiment, not a measured optimum. Local execution requires immutable preloaded model metadata, an installed compatible engine and explicit acknowledgement."
+    "notes": "A starting experiment, not a measured optimum. Local execution requires immutable preloaded model metadata, an installed compatible engine and explicit acknowledgement. BF16 KV is a local controlled-comparison choice; the current SGLang cookbook pins FP8 E4M3 KV. This profile does not reproduce the cookbook measurements."
   },
   {
     "id": "qwen3.8-27b.nvfp4.sglang.baseline",
@@ -1010,13 +1012,13 @@
       "qwen3.8-27b-GR"
     ],
     "reviewed_source_commit": "877be2974aa151a984e52822c028276c2b1e9303",
-    "model_revision": null,
+    "model_revision": "482ca0f3832238542f8f5295dde86b5f22711d80",
     "draft_hf_id": null,
     "draft_revision": null,
     "requires_reviewed_remote_code": false,
     "tested_on_target": false,
     "requires_image_compatibility_check": true,
-    "notes": "A starting experiment, not a measured optimum. Local execution requires immutable preloaded model metadata, an installed compatible engine and explicit acknowledgement."
+    "notes": "A starting experiment, not a measured optimum. Local execution requires immutable preloaded model metadata, an installed compatible engine and explicit acknowledgement. BF16 KV is a local controlled-comparison choice; the current SGLang cookbook pins FP8 E4M3 KV. This profile does not reproduce the cookbook measurements."
   },
   {
     "id": "qwen3.8-27b.nvfp4.sglang.mtp",
@@ -1059,13 +1061,13 @@
       "qwen3.8-27b-GR"
     ],
     "reviewed_source_commit": "877be2974aa151a984e52822c028276c2b1e9303",
-    "model_revision": null,
+    "model_revision": "482ca0f3832238542f8f5295dde86b5f22711d80",
     "draft_hf_id": null,
     "draft_revision": null,
     "requires_reviewed_remote_code": false,
     "tested_on_target": false,
     "requires_image_compatibility_check": true,
-    "notes": "A starting experiment, not a measured optimum. Local execution requires immutable preloaded model metadata, an installed compatible engine and explicit acknowledgement."
+    "notes": "A starting experiment, not a measured optimum. Local execution requires immutable preloaded model metadata, an installed compatible engine and explicit acknowledgement. BF16 KV is a local controlled-comparison choice; the current SGLang cookbook pins FP8 E4M3 KV. This profile does not reproduce the cookbook measurements."
   },
   {
     "id": "gemma-4-31b-it.bf16.vllm.baseline",
@@ -1096,7 +1098,7 @@
       "gemma-4-31b-it-NV"
     ],
     "reviewed_source_commit": "f8460ef23659afd69046a81529ec2295e4c3f686",
-    "model_revision": null,
+    "model_revision": "842da3794eaa0b77d5f08bae87a17459d91ff475",
     "draft_hf_id": null,
     "draft_revision": null,
     "requires_reviewed_remote_code": false,
@@ -1133,7 +1135,7 @@
       "gemma-4-31b-it-NV"
     ],
     "reviewed_source_commit": "f8460ef23659afd69046a81529ec2295e4c3f686",
-    "model_revision": null,
+    "model_revision": "d7242548c457ab4b45bd3adb8937f2659af4739d",
     "draft_hf_id": null,
     "draft_revision": null,
     "requires_reviewed_remote_code": false,
@@ -1170,7 +1172,7 @@
       "gemma-4-31b-it-NV"
     ],
     "reviewed_source_commit": "f8460ef23659afd69046a81529ec2295e4c3f686",
-    "model_revision": null,
+    "model_revision": "5df75ccad9b74546f5be758a2a68acc2e16bbc9b",
     "draft_hf_id": null,
     "draft_revision": null,
     "requires_reviewed_remote_code": false,
@@ -1207,7 +1209,7 @@
       "gemma-4-31b-it-NV"
     ],
     "reviewed_source_commit": "877be2974aa151a984e52822c028276c2b1e9303",
-    "model_revision": null,
+    "model_revision": "5df75ccad9b74546f5be758a2a68acc2e16bbc9b",
     "draft_hf_id": null,
     "draft_revision": null,
     "requires_reviewed_remote_code": false,
@@ -1251,7 +1253,7 @@
       "mistral-medium-3.5-FIXCFG"
     ],
     "reviewed_source_commit": "f8460ef23659afd69046a81529ec2295e4c3f686",
-    "model_revision": null,
+    "model_revision": "22b2b868a15677cfa6061277ed2f653d1349a9ab",
     "draft_hf_id": null,
     "draft_revision": null,
     "requires_reviewed_remote_code": false,
@@ -1288,7 +1290,7 @@
       "mistral-medium-3.5-FIXCFG"
     ],
     "reviewed_source_commit": "f8460ef23659afd69046a81529ec2295e4c3f686",
-    "model_revision": null,
+    "model_revision": "22b2b868a15677cfa6061277ed2f653d1349a9ab",
     "draft_hf_id": null,
     "draft_revision": null,
     "requires_reviewed_remote_code": false,
@@ -1325,7 +1327,7 @@
       "mistral-medium-3.5-FIXCFG"
     ],
     "reviewed_source_commit": "877be2974aa151a984e52822c028276c2b1e9303",
-    "model_revision": null,
+    "model_revision": "22b2b868a15677cfa6061277ed2f653d1349a9ab",
     "draft_hf_id": null,
     "draft_revision": null,
     "requires_reviewed_remote_code": false,
@@ -1366,7 +1368,7 @@
       "qwen3.8-flash-next-VR"
     ],
     "reviewed_source_commit": "f8460ef23659afd69046a81529ec2295e4c3f686",
-    "model_revision": null,
+    "model_revision": "fc694b54fb0174e0913e6adf86691ef85a4ead47",
     "draft_hf_id": null,
     "draft_revision": null,
     "requires_reviewed_remote_code": true,
@@ -1411,7 +1413,7 @@
       "qwen3.8-flash-next-VR"
     ],
     "reviewed_source_commit": "f8460ef23659afd69046a81529ec2295e4c3f686",
-    "model_revision": null,
+    "model_revision": "fc694b54fb0174e0913e6adf86691ef85a4ead47",
     "draft_hf_id": null,
     "draft_revision": null,
     "requires_reviewed_remote_code": true,
@@ -1427,33 +1429,44 @@
     "hf_id": "nvidia/Qwen3.8-Flash-Next-NVFP4",
     "engine_args": [
       "--tp-size",
-      "4",
+      "1",
       "--context-length",
       "65536",
       "--mem-fraction-static",
       "0.82",
       "--max-running-requests",
-      "32"
+      "32",
+      "--linear-attn-prefill-backend",
+      "flashinfer",
+      "--linear-attn-decode-backend",
+      "flashinfer",
+      "--mamba-ssm-dtype",
+      "bfloat16",
+      "--reasoning-parser",
+      "auto"
     ],
-    "gpu_count": 4,
-    "tensor_parallel_size": 4,
+    "gpu_count": 1,
+    "tensor_parallel_size": 1,
     "data_parallel_size": 1,
     "context_cap": 65536,
     "status": "compatibility-probe",
-    "reason": "Exact NVIDIA PLE/MTP mixed loader requires independent verification; TP4 is a hypothesis, not an endorsement.",
+    "reason": "Exact NVIDIA TP1 recipe added by SGLang PR 41046 is explicitly marked verified:false. Retain a compatibility probe until loader, kernels and quality pass on the selected image.",
     "source_ids": [
       "qwen3.8-flash-next-CARD",
       "qwen3.8-flash-next-CFG",
       "qwen3.8-flash-next-NV",
-      "qwen3.8-flash-next-VR"
+      "qwen3.8-flash-next-VR",
+      "qwen3.8-flash-next-GR",
+      "qwen3.8-flash-next-GPR",
+      "qwen3.8-flash-next-GR-SOURCE"
     ],
     "reviewed_source_commit": "877be2974aa151a984e52822c028276c2b1e9303",
-    "model_revision": null,
+    "model_revision": "fc694b54fb0174e0913e6adf86691ef85a4ead47",
     "draft_hf_id": null,
     "draft_revision": null,
     "requires_reviewed_remote_code": true,
     "tested_on_target": false,
     "requires_image_compatibility_check": true,
-    "notes": "A starting experiment, not a measured optimum. Local execution requires immutable preloaded model metadata, an installed compatible engine and explicit acknowledgement."
+    "notes": "A starting experiment, not a measured optimum. Local execution requires immutable preloaded model metadata, an installed compatible engine and explicit acknowledgement. TP1 and FlashInfer linear-attention/BF16-state flags follow the pinned recipe generator. The 65,536 context cap, 32-request cap and 0.82 memory fraction are local unbenchmarked choices absent from that source cell."
   }
 ]

@@ -1,20 +1,22 @@
 # Qwen 3.8 Flash Next: serving on 8×B300
 
-**Status: unbenchmarked local recommendations.** The upstream recipes are evidence of documented support, not a benchmark of your node.
+**Status: unbenchmarked local candidates.** Publisher and engine recipes document support; this audit did not run an engine or benchmark the node.
 
 ## Engine and topology
 
-Use the exact NVIDIA export with vLLM as the first NVFP4 compatibility path. Keep target-only and MTP profiles separate. The supplied target-only candidate uses TP4 at 64K for a controlled comparison; the source-backed TP8/MTP layout is also included with expert parallelism and one speculative token as a cautious starting point.
+The supplied vLLM target-only candidate uses the exact NVIDIA export at TP8 and 65,536 tokens. The separate TP8 MTP candidate adds expert parallelism and one speculative token, following NVIDIA's layout while using a lower context cap. The supplied SGLang profile adapts its documented B300 TP1 target-only cell, with local caps of 65,536 tokens, 32 requests and a 0.82 static-memory fraction.
 
-Do not transfer Inferact or RedHat NVFP4 flags solely because the model names look the same. Their serialization and calibration can differ. The NVIDIA card names vLLM as its supported runtime; SGLang architecture support must not be promoted to exact-export certification without a load and accuracy probe.
+SGLang PR #41046 added exact NVIDIA-export recipes for B200/B300/GB300 and names version 0.5.20 or later. Its immutable generator selects TP1, FlashInfer linear-attention prefill/decode and BF16 recurrent state; it explicitly marks these cells `verified: false`. This supplies a concrete compatibility candidate, not B300 measurements. The profile retains that boundary. [qwen3.8-flash-next-GPR](https://github.com/sgl-project/sglang/pull/41046) [qwen3.8-flash-next-GR-SOURCE](https://raw.githubusercontent.com/sgl-project/sglang/a1eb691ab51bc461378b2fcca8991883add4f1b5/docs/src/snippets/configs/Qwen/qwen3.8-flash-next.jsx)
 
-The immutable base configuration revision is recorded in the catalog. Most other model revisions could not be established immutably in this environment, and the metadata fetcher is provided to resolve and hash them before execution.
+The base, official FP8 and NVIDIA metadata revisions are recorded in [sources](sources.md) and [model.json](model.json). NVIDIA's card supplies the exact NVFP4 TP8/MTP example; the current vLLM recipe's principal TP4+EP example uses the official FP8 export. Keep their checkpoint identities, KV settings and speculative depths distinct. Pin the actual runtime image before execution.
 
-[qwen3.8-flash-next-VR](https://recipes.vllm.ai/Qwen/Qwen3.8-Flash-Next) [qwen3.8-flash-next-CARD](https://huggingface.co/Qwen/Qwen3.8-Flash-Next) [HW](https://docs.nvidia.com/dgx/dgxb300-user-guide/introduction-to-dgxb300.html)
+[qwen3.8-flash-next-VR](https://recipes.vllm.ai/Qwen/Qwen3.8-Flash-Next) [qwen3.8-flash-next-CARD](https://huggingface.co/Qwen/Qwen3.8-Flash-Next/raw/de4b8e4d43b917e7706784d8bb445c9af86a3540/README.md) [qwen3.8-flash-next-NV](https://huggingface.co/nvidia/Qwen3.8-Flash-Next-NVFP4/raw/fc694b54fb0174e0913e6adf86691ef85a4ead47/README.md) [HW](https://docs.nvidia.com/dgx/dgxb300-user-guide/introduction-to-dgxb300.html)
 
 ## Experiment sequence
 
-Compare TP4 target-only, TP8 target-only, TP8+EP with one-token MTP, and alternative proposal depths after accuracy checks. Track n-gram allocation, lookup stalls, recurrent-state allocation, indexer time and total node goodput.
+Compare SGLang TP1 target-only with vLLM TP8 target-only, accounting for total GPUs consumed and effective cache/state dtypes. Then evaluate TP4 capacity experiments, TP8+EP with one-token MTP, and alternative proposal depths after accuracy checks. Track n-gram placement, lookup stalls, recurrent-state allocation, indexer time and total node goodput.
+
+Use the pinned publisher card and tokenizer template for thinking controls and sampling. The current SGLang cookbook's claim that this model always thinks conflicts with the publisher card, which documents `enable_thinking` and separate thinking/non-thinking sampling settings. Treat that cookbook prose as stale. [qwen3.8-flash-next-GR](https://docs.sglang.io/cookbook/autoregressive/Qwen/Qwen3.8-Flash-Next)
 
 First capture actual GPU memory, compute capability, peer topology and software versions with `python scripts/preflight.py`. Then resolve immutable model metadata, inspect the rendered profile and run the target-only correctness suite. Profiles live in [profiles](../../../profiles/README.md).
 
@@ -30,4 +32,4 @@ The profile’s context cap is an application policy. Tensor parallelism is a st
 
 ## Remaining uncertainty
 
-Exact NVIDIA-export SGLang compatibility; end-to-end performance of n-gram placement choices; full checkpoint tensor-byte census; production throughput under realistic prefix reuse.
+B300 load, quality and performance for the documented SGLang NVIDIA TP1 recipe; n-gram placement costs; full checkpoint tensor-byte census; production throughput under realistic prefix reuse.

@@ -12,9 +12,9 @@ A dense prefix is followed by routed MoE layers. Shared experts provide a common
 
 The index-selection frequency exposes reuse across layers. Reusing index selections can avoid repeated work, but correctness depends on the implementation’s layer boundaries and index cache. It is not equivalent to asking every layer to select a fresh arbitrary top-k set.
 
-The next-token-prediction extension can propose multiple steps for speculative serving. It does not convert the main model into a dense small model. Generation remains a target-model process with draft verification and cache bookkeeping.
+The multi-token-prediction (MTP) extension can propose multiple steps for speculative serving. It does not convert the main model into a dense small model. Generation remains a target-model process with draft verification and cache bookkeeping.
 
-The architecture facts above are drawn from the publisher card and configuration; the workload consequences are analytical interpretation. [glm-5.3-CARD](https://huggingface.co/zai-org/GLM-5.3) [glm-5.3-CFG](https://huggingface.co/zai-org/GLM-5.3/raw/main/config.json)
+The architecture facts above are drawn from the publisher card and configuration; the workload consequences are analytical interpretation. [glm-5.3-CARD](https://huggingface.co/zai-org/GLM-5.3/raw/ba32f8c19c8738e2c57c71798c601d477a7bf844/README.md) [glm-5.3-CFG](https://huggingface.co/zai-org/GLM-5.3/raw/ba32f8c19c8738e2c57c71798c601d477a7bf844/config.json)
 
 ## Configuration extraction
 
@@ -54,18 +54,18 @@ This is a **selected, normalized projection**, not a byte-for-byte copy of the c
 | activation_scheme | dynamic |
 
 
-Source for the extraction: [glm-5.3-CFG](https://huggingface.co/zai-org/GLM-5.3/raw/main/config.json). Headline counts, modality descriptions and advertised extended context are additionally drawn from [glm-5.3-CARD](https://huggingface.co/zai-org/GLM-5.3). A `transformers_version` metadata field is not by itself proof of a minimum compatible package version.
+Source for the extraction, rechecked on 2026-10-15 at `ba32f8c19c8738e2c57c71798c601d477a7bf844`: [glm-5.3-CFG](https://huggingface.co/zai-org/GLM-5.3/raw/ba32f8c19c8738e2c57c71798c601d477a7bf844/config.json). Headline counts, modality descriptions and advertised extended context are additionally drawn from [glm-5.3-CARD](https://huggingface.co/zai-org/GLM-5.3/raw/ba32f8c19c8738e2c57c71798c601d477a7bf844/README.md). A `transformers_version` metadata field is not by itself proof of a minimum compatible package version.
 
 ## Memory and performance consequences
 
-The approximately 743B main-model count in the engine recipe and the 753B figure displayed for the RedHat checkpoint have different apparent accounting scopes. This atlas does not silently equate them or assert an exact explanation without tensor-level accounting. Use checkpoint bytes and the loader’s allocated-memory report for planning.
+The parameter scopes can now be reconciled. The pinned official FP8 and BF16 Hub metadata each report 753,329,940,480 parameters. The BF16 index maps 791 tensors to the extra layer `model.layers.78`; HTTP range reads of their five safetensors headers give 9,952,920,576 parameters. Subtracting that MTP layer gives 743,377,019,904 main-model parameters, consistent with the recipe's approximate 743B headline. The 39B active figure remains a recipe headline, not an independently counted active path. This reconciles named tensors in the stored artifacts; it does not independently verify unique training parameters, deduplicate tied/shared weights or constitute a complete tensor census. [glm-5.3-META](https://huggingface.co/api/models/zai-org/GLM-5.3/revision/ba32f8c19c8738e2c57c71798c601d477a7bf844) [glm-5.3-BF16-INDEX](https://huggingface.co/zai-org/GLM-5.3-BF16/resolve/abf42e6c0e53bc29a875511301e7b7fcd220315b/model.safetensors.index.json) [Header retrievals](sources.md)
 
-At this scale, FP8 weights can fit across the eight-GPU node while leaving substantial space compared with K3, but a 1M-token configuration still needs a KV, sparse-indexer, graph and concurrency budget. Reducing a scheduling limit can reduce peak workspace; it is not a mathematical substitute for proving that one maximum-length request fits.
+The FP8 index reports 755,617,140,416 serialized tensor bytes (755.62 decimal GB); the BF16 index reports 1,506,659,919,872 bytes (1,506.66 GB). These include the stored checkpoint's precision mix and are not CUDA load measurements. Both payloads are below the reference node's advertised 8 × 288 GB aggregate capacity, but per-rank allocation, KV/indexer caches, graph capture, temporary buffers and desired concurrency determine whether a launch works. A lower scheduling limit alone does not prove that one maximum-length request fits. [glm-5.3-INDEX](https://huggingface.co/zai-org/GLM-5.3/resolve/ba32f8c19c8738e2c57c71798c601d477a7bf844/model.safetensors.index.json) [glm-5.3-BF16-INDEX](https://huggingface.co/zai-org/GLM-5.3-BF16/resolve/abf42e6c0e53bc29a875511301e7b7fcd220315b/model.safetensors.index.json)
 
-The numeric examples are calculations from stated dimensions and assumptions, not measured allocations. [Memory mathematics](../../../reports/memory-math.md) explains the formulas and their limits. [glm-5.3-CARD](https://huggingface.co/zai-org/GLM-5.3) [glm-5.3-CFG](https://huggingface.co/zai-org/GLM-5.3/raw/main/config.json) [HW](https://docs.nvidia.com/dgx/dgxb300-user-guide/introduction-to-dgxb300.html)
+The numeric examples are calculations from stated dimensions and assumptions, not measured allocations. [Memory mathematics](../../../reports/memory-math.md) explains the formulas and their limits. [glm-5.3-CARD](https://huggingface.co/zai-org/GLM-5.3/raw/ba32f8c19c8738e2c57c71798c601d477a7bf844/README.md) [glm-5.3-CFG](https://huggingface.co/zai-org/GLM-5.3/raw/ba32f8c19c8738e2c57c71798c601d477a7bf844/config.json) [HW](https://docs.nvidia.com/dgx/dgxb300-user-guide/introduction-to-dgxb300.html)
 
 ## What this report does not establish
 
-Exact reason for 743B versus 753B accounting; exact BF16 single-node usable capacity; exporter-specific quality under your prompts; stable-image inclusion of every recent fix; SGLang performance relative to vLLM on this OEM node.
+Actual per-rank load and cache capacity on this node; exporter-specific quality under the application prompts; inclusion of required fixes in the selected image; and the workload crossover between vLLM and SGLang remain unmeasured. The 743B/753B accounting is now reconciled from pinned metadata.
 
 The public artifacts do not disclose every training-data, optimization or implementation detail. This report does not fill missing details with assumptions or present a complete formal reconstruction of private training.

@@ -4,19 +4,21 @@
 
 ## Engine and topology
 
-Start with a single eight-GPU target. For native K3, compare SGLang TP8 at 64K context against vLLM’s model-specific recipe. For the NVIDIA derivative, prefer the SGLang mixed-format path as the initial compatibility candidate, with the FlashInfer TRT-LLM MoE runner required by its recipe. Its published DCP8 setup is a separate topology from the symmetric-memory TP8 native baseline; do not combine their flags indiscriminately.
+Start with a single eight-GPU target. For native K3, compare SGLang TP8 at 64K context against vLLM’s model-specific recipe. For the NVIDIA derivative, prefer the SGLang mixed-format path as the initial compatibility candidate, with the FlashInfer TRT-LLM MoE runner required by its recipe. Its published DCP8 setup differs from the plain TP8 target-only profile included here. The cookbook disables symmetric memory under DCP; choose a documented topology before combining flags.
 
 Establish target-only correctness first. Then attach the engine-specific drafter: Inferact’s MLA-native DSpark is documented for vLLM, while the RadixArk drafter is documented in the SGLang path. Tokenizer, hidden-state feature selection, target revision, drafter revision, KV precision, and speculative state rollback are one compatibility unit.
 
-The repository includes separate target-only and DSpark profiles. It intentionally does not enable simulated acceptance. The SGLang cookbook marks some B300 rows as verified and other layouts as extrapolations; its simulated-acceptance results are capacity/performance experiments, not observed application acceptance. The published Inferact GB300 figure is not a measurement of your eight-B300 node.
+The repository includes separate target-only and DSpark profiles. It intentionally does not enable simulated acceptance. The SGLang cookbook marks some B300 rows as verified and other layouts as extrapolations; its simulated-acceptance results are capacity/performance experiments, not observed application acceptance. The published Inferact peak figure is not a measurement of your eight-B300 node, and its written hardware count and TP degree need clarification; see the [DSpark audit](dspark.md).
 
-[kimi-k3-VR](https://recipes.vllm.ai/moonshotai/Kimi-K3) [kimi-k3-GR](https://docs.sglang.io/cookbook/autoregressive/Moonshotai/Kimi-K3) [kimi-k3-CARD](https://huggingface.co/moonshotai/Kimi-K3) [HW](https://docs.nvidia.com/dgx/dgxb300-user-guide/introduction-to-dgxb300.html)
+[kimi-k3-VR](https://recipes.vllm.ai/moonshotai/Kimi-K3) [kimi-k3-GR](https://docs.sglang.io/cookbook/autoregressive/Moonshotai/Kimi-K3) [kimi-k3-CARD](https://huggingface.co/moonshotai/Kimi-K3/blob/f831ab66814297da540d832a5235f8e904f29d06/README.md) [HW](https://docs.nvidia.com/dgx/dgxb300-user-guide/introduction-to-dgxb300.html)
+
+NVIDIA also publishes a vLLM route using a bundled runtime patch. Its existence prevents a blanket claim that this derivative is unsupported by vLLM; it does not validate the atlas’s generic vLLM profile. The [precision report](precision.md) records the patch and still-open upstream PRs.
 
 ## Experiment sequence
 
 Sweep target-only versus 3/5/7-token drafting on real coding and multi-turn agent prompts. Measure accepted tokens, total emitted tokens, draft overhead, target verification cost, state-pool ceiling, TTFT and p95 token latency. Compare context 16K/64K/128K before attempting 1M. Test cancellation and resumption with non-empty speculative state.
 
-First capture actual GPU memory, compute capability, peer topology and software versions with `python scripts/preflight.py`. Then resolve immutable model metadata, inspect the rendered profile and run the target-only correctness suite. Profiles live in [profiles](../../../profiles/README.md).
+First capture actual GPU memory, compute capability, peer topology and software versions with `python scripts/preflight.py`. Then verify local metadata against the immutable revisions in [model.json](model.json), inspect the rendered profile and run the target-only correctness suite. Profiles live in [profiles](../../../profiles/README.md).
 
 ## Acceptance gates
 

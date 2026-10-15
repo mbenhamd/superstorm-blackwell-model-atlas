@@ -45,9 +45,9 @@
     "kimi-k3-GR"
   ],
   "reviewed_source_commit": "877be2974aa151a984e52822c028276c2b1e9303",
-  "model_revision": null,
+  "model_revision": "b2428a0b83a8b712ff2e1a8448a103d4175341f1",
   "draft_hf_id": "RadixArk/Kimi-K3-DSpark",
-  "draft_revision": null,
+  "draft_revision": "3c5bac301d9cf392706189d82ed947feca6c2f0f",
   "requires_reviewed_remote_code": true,
   "tested_on_target": false,
   "requires_image_compatibility_check": true,

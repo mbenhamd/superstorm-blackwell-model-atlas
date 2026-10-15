@@ -20,4 +20,8 @@ KServe/Kubernetes govern placement, health and rollout; vLLM/SGLang execute nume
 
 Resolve mutable model IDs and nightly tags to immutable identities, preserve raw metadata and compare outputs. Keep current source/release observations without claiming tested nightly binaries. Rejected alternative: a moving `latest` command is reproducible.
 
+## ADR 006: State what each parameter count includes
+
+Keep publisher headlines, main-model counts, serialized auxiliary parameters and stored tensor bytes separate. GLM 5.3’s MTP tensors explain why its approximately 743B main model has a larger checkpoint count. DeepSeek’s competing recipe headlines still lack a reconciled exact census. Uniform byte estimates using rounded counts remain illustrations; runtime memory additionally depends on the loader, sharding, caches and workspaces.
+
 These are engineering decisions derived from [the framework comparison](../frameworks/DECISION.md), [source review](../evidence/README.md) and [memory analysis](memory-math.md). They are not empirical performance results.

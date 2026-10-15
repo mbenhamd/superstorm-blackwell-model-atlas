@@ -2,8 +2,10 @@
 
 | Check | Status in this ZIP |
 | --- | --- |
-| Publisher identity and named base repository | Reviewed online |
-| Selected architecture fields | Extracted from cited card/config |
+| Publisher identity and named base repository | Rechecked 2026-10-15 against the pinned publisher card |
+| Base / derivative revision pins | Resolved for all three artifacts; see [sources](sources.md) |
+| Selected architecture fields | Compared with the pinned base config; projected text fields match both derivatives |
+| Quantization configuration and file sizes | Pinned exporter configs and tree metadata checked; no tensors downloaded |
 | Entire checkpoint tensor census | Not performed |
 | Model-weight download | Not performed; no weights bundled |
 | GPU load / generation | Not performed |

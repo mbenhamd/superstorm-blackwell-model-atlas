@@ -8,7 +8,6 @@ from pathlib import Path
 import shlex
 import shutil
 import subprocess
-import tempfile
 
 UPSTREAMS = {
  'vllm': ('https://github.com/vllm-project/vllm.git', 'f8460ef23659afd69046a81529ec2295e4c3f686'),
@@ -35,9 +34,14 @@ def main() -> None:
     a.output.mkdir(parents=True,exist_ok=True)
     # Never reset, clean, stash or replace an existing checkout.
     for name in names:
-        if (a.output/name).exists(): ap.error(f'Refusing existing destination: {a.output/name}')
+        destination=a.output/name
+        if destination.exists() or destination.is_symlink(): ap.error(f'Refusing existing destination: {destination}')
     for name in names:
-        staging=Path(tempfile.mkdtemp(prefix=f'.{name}-',dir=a.output))
+        # mkdir atomically claims this path; rename could replace a concurrently
+        # created empty directory. Keep any incomplete new checkout for inspection.
+        staging=a.output/name
+        try: staging.mkdir()
+        except OSError as exc: ap.error(f'Cannot reserve new destination {staging}: {exc}')
         try:
             for cmd in commands(name,staging): subprocess.run(cmd,check=True,timeout=300)
             sha=subprocess.check_output(['git','-C',str(staging),'rev-parse','HEAD'],text=True,timeout=30).strip()
@@ -45,10 +49,7 @@ def main() -> None:
             (staging/'superstorm-checkout.json').write_text(json.dumps({'upstream':UPSTREAMS[name][0],
                 'commit':sha,'retrieved_at_utc':dt.datetime.now(dt.timezone.utc).isoformat(),
                 'history':'shallow','submodules_fetched':False},indent=2)+'\n')
-            destination=a.output/name
-            if destination.exists(): raise FileExistsError('Destination appeared during retrieval; refusing overwrite.')
-            staging.rename(destination)
-            print(f'Created {destination} at {sha}')
+            print(f'Created {staging} at {sha}')
         except (OSError,ValueError,subprocess.SubprocessError) as exc:
             print(f'Retrieval failed. Incomplete new checkout retained at {staging} for inspection.')
             ap.error(str(exc))

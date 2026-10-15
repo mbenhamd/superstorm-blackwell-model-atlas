@@ -19,15 +19,17 @@
   "data_parallel_size": 1,
   "context_cap": 65536,
   "status": "compatibility-probe",
-  "reason": "Export linked in engine recipe, but complete exact derivative config not separately audited.",
+  "reason": "Exact RedHat card/config are pinned and inspected; mixed NVFP4 routed experts and FP8 MTP still require loader, kernel and quality checks in the selected image.",
   "source_ids": [
     "glm-5.3-flash-CARD",
     "glm-5.3-flash-CFG",
     "glm-5.3-flash-VR",
-    "glm-5.3-flash-GR"
+    "glm-5.3-flash-GR",
+    "glm-5.3-flash-NV",
+    "glm-5.3-flash-NV-CFG"
   ],
   "reviewed_source_commit": "f8460ef23659afd69046a81529ec2295e4c3f686",
-  "model_revision": null,
+  "model_revision": "18d55bfd5a2194887738da73753975c9d3842f46",
   "draft_hf_id": null,
   "draft_revision": null,
   "requires_reviewed_remote_code": false,

@@ -3,7 +3,7 @@
   "company": "z-ai",
   "name": "GLM 5.3",
   "hf_id": "zai-org/GLM-5.3",
-  "headline": "Approximately 743B main / 39B active; MLA with DSA; native FP8 packaging",
+  "headline": "Approximately 743B main / 39B active; 753.33B including serialized MTP; MLA with DSA; native FP8 packaging",
   "config_projection": {
     "architecture_class": "GlmMoeDsaForCausalLM",
     "model_type": "glm_moe_dsa",
@@ -39,7 +39,7 @@
     ],
     "activation_scheme": "dynamic"
   },
-  "total_b": 743,
+  "total_b": 753.32994048,
   "active_b": 39,
   "context": 1048576,
   "layout": "sparse-mla-moe",
@@ -51,42 +51,67 @@
       "key": "fp8",
       "hf_id": "zai-org/GLM-5.3",
       "precision": "Block FP8 with exclusions",
-      "status": "verified official default",
-      "revision": null
+      "status": "Pinned card, configuration and index reviewed; GPU execution unverified",
+      "revision": "ba32f8c19c8738e2c57c71798c601d477a7bf844",
+      "index_tensor_bytes": 755617140416
     },
     {
       "key": "bf16",
       "hf_id": "zai-org/GLM-5.3-BF16",
-      "precision": "BF16 reference",
-      "status": "linked by official engine recipe; not separately audited",
-      "revision": null
+      "precision": "BF16 reference with small FP32 component",
+      "status": "Pinned card, configuration and index reviewed; GPU execution unverified",
+      "revision": "abf42e6c0e53bc29a875511301e7b7fcd220315b",
+      "index_tensor_bytes": 1506659919872
     },
     {
       "key": "nvfp4",
       "hf_id": "RedHatAI/GLM-5.3-NVFP4",
-      "precision": "Routed experts W4A4; other layers retained",
-      "status": "verified RedHat derivative",
-      "revision": null
+      "precision": "compressed-tensors NVFP4 W4A4 main routed-expert linears; group size 16; MTP and other modules excluded",
+      "status": "Pinned card, configuration and index reviewed; GPU execution unverified",
+      "revision": "c8917e4258572c405575855ff53effe58c17a38e",
+      "index_tensor_bytes": 464824469712
     },
     {
       "key": "nvfp4-inferact",
       "hf_id": "Inferact/GLM-5.3-NVFP4",
-      "precision": "Expert-only NVFP4; about 465 GB reported",
-      "status": "engine recipe evidence; exporter differs",
-      "revision": null
+      "precision": "ModelOpt NVFP4 main routed-expert export; group size 16; MTP and other modules excluded",
+      "status": "Pinned card, configuration and index reviewed; GPU execution unverified",
+      "revision": "ce67b36f3669192b5bb233819f0fda6c8a9837f8",
+      "index_tensor_bytes": 464822832448
     }
   ],
   "path": "companies/z-ai/glm-5.3",
   "source_ids": [
     "glm-5.3-CARD",
     "glm-5.3-CFG",
-    "glm-5.3-flash-CARD",
-    "glm-5.3-flash-CFG",
     "glm-5.3-NV",
     "glm-5.3-VR",
-    "glm-5.3-GR"
+    "glm-5.3-GR",
+    "glm-5.3-META",
+    "glm-5.3-INDEX",
+    "glm-5.3-LICENSE",
+    "glm-5.3-BF16-CFG",
+    "glm-5.3-BF16-INDEX",
+    "glm-5.3-BF16-HEADERS",
+    "glm-5.3-NV-CFG",
+    "glm-5.3-NV-INDEX",
+    "glm-5.3-INFERACT-CFG",
+    "glm-5.3-INFERACT-INDEX"
   ],
-  "revision": null,
-  "evidence_status": "Publisher configuration and cards reviewed; not loaded or benchmarked on hardware",
-  "source_projection_is_complete_original_config": false
+  "revision": "ba32f8c19c8738e2c57c71798c601d477a7bf844",
+  "evidence_status": "Pinned publisher cards, configurations and checkpoint metadata rechecked 2026-10-15; no model tensor payloads downloaded or GPU execution measured",
+  "source_projection_is_complete_original_config": false,
+  "verified_on": "2026-10-15",
+  "parameter_accounting": {
+    "checkpoint_parameters": 753329940480,
+    "total_b_scope": "Hub-reported official checkpoint parameter count, including serialized MTP; unique training parameters and tied/shared-weight accounting not independently verified",
+    "active_b_scope": "Publisher or engine-recipe headline; active path not independently counted",
+    "main_parameters_excluding_layer_78": 743377019904,
+    "mtp_layer_78_parameters": 9952920576,
+    "method": "Subtract sum of 791 model.layers.78 tensor-shape products in five pinned BF16 safetensors headers from the official checkpoint metadata total; not a complete independent tensor census",
+    "counting_revision": "abf42e6c0e53bc29a875511301e7b7fcd220315b"
+  },
+  "main_b": 743.377019904,
+  "mtp_b": 9.952920576,
+  "verified_on_timezone": "UTC"
 }

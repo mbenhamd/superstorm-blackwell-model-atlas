@@ -3,7 +3,7 @@
   "company": "z-ai",
   "name": "GLM 5.3 Flash",
   "hf_id": "zai-org/GLM-5.3-Flash",
-  "headline": "320B total / 18B active; KDA + NoPE sparse MLA + mHC; multimodal",
+  "headline": "Publisher headline 320B total / 18B active; checkpoint metadata 321.32B; KDA + NoPE sparse MLA + mHC; multimodal",
   "config_projection": {
     "architecture_class": "Glm5NextForConditionalGeneration",
     "text_model_type": "glm5_next_text",
@@ -54,36 +54,40 @@
     "vision_heads": 16,
     "vision_patch_size": 14,
     "vision_output_size": 4096,
-    "native_precision": "FP8"
+    "native_precision": "FP8",
+    "kv_lora_rank": 512
   },
-  "total_b": 320,
+  "total_b": 321.32303139,
   "active_b": 18,
   "context": 1048576,
   "layout": "hybrid-mhc-moe",
-  "license": "Use the exact GLM-5.3-Flash license at the selected revision",
+  "license": "MIT (pinned official LICENSE reviewed)",
   "recommended": "SGLang Blackwell FP8 initial candidate; vLLM FP8 and NVFP4 head-to-head",
   "baseline_tp": 4,
   "variants": [
     {
       "key": "fp8",
       "hf_id": "zai-org/GLM-5.3-Flash",
-      "precision": "FP8 default",
-      "status": "verified official release",
-      "revision": null
+      "precision": "Block FP8 E4M3 with exclusions",
+      "status": "Pinned card, configuration and index reviewed; GPU execution unverified",
+      "revision": "46a050bec13002ad29ee795c16e61cf4fa3c4a9c",
+      "index_tensor_bytes": 328326771576
     },
     {
       "key": "bf16",
       "hf_id": "zai-org/GLM-5.3-Flash-BF16",
-      "precision": "BF16",
-      "status": "linked by engine recipe",
-      "revision": null
+      "precision": "BF16 reference with small FP32 component",
+      "status": "Pinned card, configuration and index reviewed; GPU execution unverified",
+      "revision": "f9fed3bbc82291073373d67452e9f25317ef7577",
+      "index_tensor_bytes": 642646653816
     },
     {
       "key": "nvfp4",
       "hf_id": "RedHatAI/GLM-5.3-Flash-NVFP4",
-      "precision": "NVFP4 expert derivative",
-      "status": "engine recipe evidence; exact config not separately audited",
-      "revision": null
+      "precision": "compressed-tensors: main routed experts NVFP4 W4A4; MTP routed experts FP8 W8A8; other modules excluded",
+      "status": "Pinned card, configuration and index reviewed; GPU execution unverified",
+      "revision": "18d55bfd5a2194887738da73753975c9d3842f46",
+      "index_tensor_bytes": 197816133372
     }
   ],
   "path": "companies/z-ai/glm-5.3-flash",
@@ -91,9 +95,25 @@
     "glm-5.3-flash-CARD",
     "glm-5.3-flash-CFG",
     "glm-5.3-flash-VR",
-    "glm-5.3-flash-GR"
+    "glm-5.3-flash-GR",
+    "glm-5.3-flash-META",
+    "glm-5.3-flash-INDEX",
+    "glm-5.3-flash-LICENSE",
+    "glm-5.3-flash-BF16-CFG",
+    "glm-5.3-flash-BF16-INDEX",
+    "glm-5.3-flash-NV",
+    "glm-5.3-flash-NV-CFG",
+    "glm-5.3-flash-NV-INDEX"
   ],
-  "revision": null,
-  "evidence_status": "Publisher configuration and cards reviewed; not loaded or benchmarked on hardware",
-  "source_projection_is_complete_original_config": false
+  "revision": "46a050bec13002ad29ee795c16e61cf4fa3c4a9c",
+  "evidence_status": "Pinned publisher cards, configurations and checkpoint metadata rechecked 2026-10-15; no model tensor payloads downloaded or GPU execution measured",
+  "source_projection_is_complete_original_config": false,
+  "verified_on": "2026-10-15",
+  "parameter_accounting": {
+    "checkpoint_parameters": 321323031390,
+    "total_b_scope": "Hub-reported official checkpoint parameter count, including serialized MTP; unique training parameters and tied/shared-weight accounting not independently verified",
+    "active_b_scope": "Publisher or engine-recipe headline; active path not independently counted"
+  },
+  "publisher_total_b": 320,
+  "verified_on_timezone": "UTC"
 }

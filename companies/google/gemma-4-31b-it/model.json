@@ -39,7 +39,7 @@
   "active_b": 31,
   "context": 262144,
   "layout": "windowed-dense",
-  "license": "Apache-2.0 metadata observed on RedHat derivative; confirm base and derivative files",
+  "license": "Apache-2.0 in the Google base and Red Hat derivative cards; Google license page reviewed",
   "recommended": "vLLM TP1 BF16/FP8/NVFP4 comparison; SGLang challenger with export-level probe",
   "baseline_tp": 1,
   "variants": [
@@ -47,22 +47,28 @@
       "key": "bf16",
       "hf_id": "google/gemma-4-31B-it",
       "precision": "BF16",
-      "status": "verified official base",
-      "revision": null
+      "status": "Publisher card and configuration verified at pinned revision; not loaded",
+      "revision": "842da3794eaa0b77d5f08bae87a17459d91ff475",
+      "listed_weight_file_bytes": 62546338248,
+      "weight_file_bytes_source_id": "gemma-4-31b-it-BASE-TREE"
     },
     {
       "key": "fp8",
       "hf_id": "RedHatAI/gemma-4-31B-it-FP8-block",
       "precision": "W8A8, 128×128 weight blocks, dynamic activation groups of 128",
-      "status": "verified RedHat derivative",
-      "revision": null
+      "status": "Publisher card and configuration verified at pinned revision; not loaded",
+      "revision": "d7242548c457ab4b45bd3adb8937f2659af4739d",
+      "listed_weight_file_bytes": 33263238928,
+      "weight_file_bytes_source_id": "gemma-4-31b-it-FP8-TREE"
     },
     {
       "key": "nvfp4",
       "hf_id": "RedHatAI/gemma-4-31B-it-NVFP4",
-      "precision": "Transformer block W4A4 group 16; vision/embedding/head retain precision",
-      "status": "verified RedHat derivative",
-      "revision": null
+      "precision": "Text Linear W4A4, group 16 with local activation scaling; vision/embedding/head retain precision",
+      "status": "Publisher card and configuration verified at pinned revision; not loaded",
+      "revision": "5df75ccad9b74546f5be758a2a68acc2e16bbc9b",
+      "listed_weight_file_bytes": 23265401144,
+      "weight_file_bytes_source_id": "gemma-4-31b-it-NV-TREE"
     }
   ],
   "path": "companies/google/gemma-4-31b-it",
@@ -70,9 +76,17 @@
     "gemma-4-31b-it-CARD",
     "gemma-4-31b-it-CFG",
     "gemma-4-31b-it-FP8",
-    "gemma-4-31b-it-NV"
+    "gemma-4-31b-it-NV",
+    "gemma-4-31b-it-FP8-CFG",
+    "gemma-4-31b-it-NV-CFG",
+    "gemma-4-31b-it-BASE-TREE",
+    "gemma-4-31b-it-FP8-TREE",
+    "gemma-4-31b-it-NV-TREE",
+    "gemma-4-31b-it-LICENSE"
   ],
-  "revision": null,
-  "evidence_status": "Publisher configuration and cards reviewed; not loaded or benchmarked on hardware",
-  "source_projection_is_complete_original_config": false
+  "revision": "842da3794eaa0b77d5f08bae87a17459d91ff475",
+  "evidence_status": "Pinned publisher cards/configurations and repository file metadata rechecked 2026-10-15; not loaded or benchmarked on hardware",
+  "source_projection_is_complete_original_config": false,
+  "parameter_count_note": "31B is a rounded family label, not an audited unique-parameter census; use exact artifact metadata for weight storage",
+  "weight_file_bytes_note": "Sum of .safetensors file sizes listed by the pinned Hugging Face tree API, including headers; not a local tensor census or runtime memory measurement"
 }

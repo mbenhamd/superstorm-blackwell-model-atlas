@@ -39,22 +39,26 @@
       "vision_tower",
       "multi_modal_projector",
       "lm_head"
-    ]
+    ],
+    "rope_mscale": 1.0,
+    "rope_mscale_all_dim": 0.0,
+    "rope_beta_fast": 4.0,
+    "rope_beta_slow": 1.0
   },
   "total_b": 128,
   "active_b": 128,
   "context": 262144,
   "layout": "gqa-dense",
-  "license": "Publisher custom license / metadata other; not assumed Apache-2.0",
-  "recommended": "vLLM first, producer-endorsed; TP2/4 versus TP8 measured at equal workload",
-  "baseline_tp": 2,
+  "license": "Modified MIT License; revenue restriction in the publisher LICENSE file",
+  "recommended": "vLLM publisher TP8 baseline; compare TP2/4 and publisher-documented SGLang at equal workload",
+  "baseline_tp": 8,
   "variants": [
     {
       "key": "fp8",
       "hf_id": "mistralai/Mistral-Medium-3.5-128B",
       "precision": "Static FP8 text linears; higher precision exclusions",
-      "status": "verified official release",
-      "revision": null
+      "status": "Publisher card and configuration verified at pinned revision; not loaded",
+      "revision": "22b2b868a15677cfa6061277ed2f653d1349a9ab"
     }
   ],
   "path": "companies/mistral-ai/mistral-medium-3.5",
@@ -62,9 +66,23 @@
     "mistral-medium-3.5-CARD",
     "mistral-medium-3.5-CFG",
     "mistral-medium-3.5-TREE",
-    "mistral-medium-3.5-FIXCFG"
+    "mistral-medium-3.5-FIXCFG",
+    "mistral-medium-3.5-HF-INDEX",
+    "mistral-medium-3.5-NATIVE-INDEX",
+    "mistral-medium-3.5-LICENSE",
+    "mistral-medium-3.5-GR"
   ],
-  "revision": null,
-  "evidence_status": "Publisher configuration and cards reviewed; not loaded or benchmarked on hardware",
-  "source_projection_is_complete_original_config": false
+  "revision": "22b2b868a15677cfa6061277ed2f653d1349a9ab",
+  "evidence_status": "Pinned publisher cards/configurations and repository file metadata rechecked 2026-10-15; not loaded or benchmarked on hardware",
+  "source_projection_is_complete_original_config": false,
+  "parameter_count_note": "128B is the publisher rounded dense-model label, not an audited unique-parameter census",
+  "weight_layout_metadata": {
+    "hf_index_total_size_bytes": 133605834656,
+    "native_index_total_size_bytes": 133605834656,
+    "note": "Each alternative index reports the same tensor payload; excludes safetensors headers and runtime allocations",
+    "source_ids": [
+      "mistral-medium-3.5-HF-INDEX",
+      "mistral-medium-3.5-NATIVE-INDEX"
+    ]
+  }
 }

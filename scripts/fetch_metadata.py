@@ -37,9 +37,11 @@ def get(url: str, token: str | None = None) -> bytes:
 
 def fetch(repo: str, ref: str, output: Path, token: str | None = None) -> Path:
     if not re.fullmatch(r'[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+',repo): raise ValueError('Expected organization/model repository ID.')
+    if any(part in ('.','..') for part in repo.split('/')): raise ValueError('Invalid repository path component.')
     metadata=json.loads(get(f'https://huggingface.co/api/models/{repo}/revision/{parse.quote(ref,safe="")}',token))
+    if not isinstance(metadata,dict): raise ValueError('Hub API did not return a metadata object.')
     sha=metadata.get('sha','')
-    if not re.fullmatch(r'[a-f0-9]{40}',sha): raise ValueError('Hub API did not return an immutable 40-character commit.')
+    if not isinstance(sha,str) or not re.fullmatch(r'[a-f0-9]{40}',sha): raise ValueError('Hub API did not return an immutable 40-character commit.')
     if re.fullmatch(r'[a-f0-9]{40}',ref) and sha!=ref: raise ValueError('Immutable reference mismatch.')
     target=output/repo.replace('/','--')/sha
     target.mkdir(parents=True,exist_ok=False)
@@ -53,7 +55,8 @@ def fetch(repo: str, ref: str, output: Path, token: str | None = None) -> Path:
             except error.HTTPError as exc:
                 if exc.code==404 and filename!='config.json': receipt['missing'].append(filename); continue
                 raise
-            if filename.endswith('.json'): json.loads(data)
+            if filename.endswith('.json') and not isinstance(json.loads(data),dict):
+                raise ValueError(f'{filename} must contain a JSON object.')
             (target/filename).write_bytes(data)
             receipt['files'][filename]={'url':url,'bytes':len(data),'sha256':hashlib.sha256(data).hexdigest()}
         (target/'superstorm-revision.json').write_text(json.dumps(receipt,indent=2)+'\n')

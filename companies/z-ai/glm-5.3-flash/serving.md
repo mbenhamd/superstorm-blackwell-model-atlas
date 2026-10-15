@@ -6,15 +6,19 @@
 
 Use one TP4 target-only process as a starting candidate, then compare a second independent TP4 replica against a TP8 process. SGLang’s Blackwell cookbook selects FlashInfer TRT-LLM MoE; vLLM provides an explicit TP4 FP8 recipe and an optional TP4-prefill plus TP4-decode layout.
 
-Do not start with prefill/decode separation. First determine whether prefill interference is actually the latency bottleneck. For disaggregation, both sides must agree on KDA convolution-state layout, KV layout and speculative depth; a KV-only copy that omits recurrent state is not a correct migration.
+First determine whether prefill interference warrants prefill/decode separation. The vLLM recipe requires matching KDA convolution-state layout, KV layout and speculative depth on both sides. A KV-only copy that omits recurrent state is not a correct migration. SGLang documents its PD route as a preview with dummy-weight mechanical checks only; it lacks real-weight load/accuracy qualification, and its current documented PD path does not start with speculative decoding. Keep speculation off and both roles at the same TP size for that separate probe.
+
+The vLLM Flash recipe still contains historical integration/version guidance and differing FlashInfer minimums (0.6.17 in prerequisites versus 0.6.18 in troubleshooting). Resolve those requirements against the selected image; the recipe alone does not certify every release or nightly.
+
+For structured responses, the current SGLang recipe resolves the reasoning parser to `glm45` and the tool-call parser to `glm47`; vLLM's current recipe uses `glm47` for both. Verify the returned fields on the pinned image.
 
 Use natural MTP acceptance. Test the cookbook’s five-step, top-k-one configuration against target-only operation at high load. A speculative low-latency win can become a throughput loss when verification competes with a large batch.
 
-[glm-5.3-flash-VR](https://recipes.vllm.ai/zai-org/GLM-5.3-Flash) [glm-5.3-flash-GR](https://docs.sglang.io/cookbook/autoregressive/GLM/GLM-5.3-Flash) [glm-5.3-flash-CARD](https://huggingface.co/zai-org/GLM-5.3-Flash) [HW](https://docs.nvidia.com/dgx/dgxb300-user-guide/introduction-to-dgxb300.html)
+[glm-5.3-flash-VR](https://recipes.vllm.ai/zai-org/GLM-5.3-Flash) [glm-5.3-flash-GR](https://docs.sglang.io/cookbook/autoregressive/GLM/GLM-5.3-Flash) [glm-5.3-flash-CARD](https://huggingface.co/zai-org/GLM-5.3-Flash/raw/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/README.md) [HW](https://docs.nvidia.com/dgx/dgxb300-user-guide/introduction-to-dgxb300.html)
 
 ## Experiment sequence
 
-Sweep 0/1/3/5 draft steps; TP4 versus TP8; independent replicas versus 4+4 disaggregation; KV FP8 versus higher precision; controlled KDA pool sizes. Add multi-image and long multi-turn tests with cancellation, context-cache reuse and state rollback.
+Compare target-only operation (omit speculation flags) with 1/3/5 draft steps; TP4 versus TP8; independent replicas versus 4+4 disaggregation; the supported KV/backend pairs (FP8 + TRT-LLM DSA versus BF16 + TileLang DSA in SGLang CUDA); controlled KDA pool sizes. Add multi-image and long multi-turn tests with cancellation, context-cache reuse and state rollback.
 
 First capture actual GPU memory, compute capability, peer topology and software versions with `python scripts/preflight.py`. Then resolve immutable model metadata, inspect the rendered profile and run the target-only correctness suite. Profiles live in [profiles](../../../profiles/README.md).
 
@@ -30,4 +34,4 @@ The profile’s context cap is an application policy. Tensor parallelism is a st
 
 ## Remaining uncertainty
 
-The exact RedHat NVFP4 tensor-level recipe was not separately inspected; do not treat its format as identical to NVIDIA/RadixArk. The optimal state split and disaggregation crossover need local measurements.
+The RedHat quantization configuration is now inspected at an immutable revision: main routed experts use NVFP4 and MTP routed experts use FP8. Other exporters require their own configuration audit. Quality, loader memory, the best KDA/KV split and the disaggregation crossover still need local measurements.

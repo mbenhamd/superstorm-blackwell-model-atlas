@@ -35,11 +35,11 @@
     "glm-5.3-GR"
   ],
   "reviewed_source_commit": "f8460ef23659afd69046a81529ec2295e4c3f686",
-  "model_revision": null,
+  "model_revision": "c8917e4258572c405575855ff53effe58c17a38e",
   "draft_hf_id": null,
   "draft_revision": null,
   "requires_reviewed_remote_code": false,
   "tested_on_target": false,
   "requires_image_compatibility_check": true,
-  "notes": "A starting experiment, not a measured optimum. Local execution requires immutable preloaded model metadata, an installed compatible engine and explicit acknowledgement."
+  "notes": "A starting experiment, not a measured optimum. Local execution requires immutable preloaded model metadata, an installed compatible engine and explicit acknowledgement. KV dtype is not explicitly set here; the FP8 baseline selects FP8 KV. Record and align effective cache dtype before a controlled weight-precision comparison, or report it as a separate variable."
 }

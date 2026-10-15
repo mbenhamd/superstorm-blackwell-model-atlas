@@ -1,10 +1,12 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Superstorm closed-loop probe result",
+  "description": "Validates result structure; no proof of measurement authenticity, arithmetic consistency, model quality or SLO compliance.",
   "type": "object",
   "required": [
     "schema_version",
     "measurement_kind",
+    "created_at_utc",
     "model",
     "concurrency",
     "wall_seconds",
@@ -18,8 +20,13 @@
     "measurement_kind": {
       "const": "closed-loop HTTP/SSE client probe"
     },
+    "created_at_utc": {
+      "type": "string",
+      "format": "date-time"
+    },
     "model": {
-      "type": "string"
+      "type": "string",
+      "minLength": 1
     },
     "concurrency": {
       "type": "integer",
@@ -29,16 +36,36 @@
       "type": "number",
       "minimum": 0
     },
+    "request_path": {
+      "type": "string",
+      "pattern": "^/"
+    },
+    "timeout_seconds": {
+      "type": "integer",
+      "minimum": 1
+    },
     "requests": {
       "type": "array",
+      "minItems": 1,
       "items": {
         "type": "object",
         "required": [
+          "payload_sha256",
           "ok",
           "latency_seconds",
-          "completion_tokens"
+          "completion_tokens",
+          "first_semantic_seconds",
+          "first_answer_seconds",
+          "semantic_chunks",
+          "finish_reason",
+          "usage",
+          "tpot_proxy_seconds"
         ],
         "properties": {
+          "payload_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
           "ok": {
             "type": "boolean"
           },
@@ -52,12 +79,170 @@
               "null"
             ],
             "minimum": 0
+          },
+          "first_semantic_seconds": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "minimum": 0
+          },
+          "first_answer_seconds": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "minimum": 0
+          },
+          "semantic_chunks": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "finish_reason": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "stop",
+              "length",
+              "tool_calls",
+              "content_filter",
+              "function_call",
+              null
+            ]
+          },
+          "usage": {
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "tpot_proxy_seconds": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "minimum": 0
+          },
+          "error_type": {
+            "type": "string",
+            "minLength": 1
           }
-        }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": false
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "error_type"
+              ]
+            }
+          }
+        ],
+        "additionalProperties": true
       }
     },
     "summary": {
-      "type": "object"
+      "type": "object",
+      "required": [
+        "requests",
+        "successful",
+        "failed",
+        "error_rate",
+        "successful_requests_per_second",
+        "output_tokens_per_second",
+        "output_token_accounting_complete",
+        "latency_success_only_p50",
+        "latency_success_only_p95",
+        "first_semantic_success_only_p95",
+        "note"
+      ],
+      "properties": {
+        "requests": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "successful": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "failed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "error_rate": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "successful_requests_per_second": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "output_tokens_per_second": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "output_token_accounting_complete": {
+          "type": "boolean"
+        },
+        "latency_success_only_p50": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "latency_success_only_p95": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "first_semantic_success_only_p95": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "note": {
+          "type": "string"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "output_token_accounting_complete": {
+                "const": false
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "output_tokens_per_second": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ],
+      "additionalProperties": true
     }
   },
   "additionalProperties": true

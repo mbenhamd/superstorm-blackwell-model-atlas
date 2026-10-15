@@ -1,16 +1,20 @@
 # Qwen 3.8 27B: serving on 8×B300
 
-**Status: unbenchmarked local recommendations.** The upstream recipes are evidence of documented support, not a benchmark of your node.
+**Status: unbenchmarked local candidates.** Publisher and engine recipes document support; this audit did not run an engine or benchmark the node.
 
 ## Engine and topology
 
 Begin with vLLM TP1 BF16 at 32K context, then the same FP8 and NVFP4 workload. Repeat with SGLang TP1. Keep vision enabled for multimodal validation and explicitly constrain its allowed input sizes; a text-only optimization must be a separate profile.
 
+The supplied TP1 settings are controlled local experiments. NVIDIA's card documents a TP4 vLLM example and a SGLang example for its exact export; the current SGLang cookbook also lists that export. The cookbook pins FP8 KV, whereas the supplied SGLang comparison profiles pin BF16 KV. Record this difference and resolve vLLM's `auto` cache dtype before comparing results. The vLLM recipe's low-latency NVFP4 example uses an Inferact artifact, so its measurements do not establish NVIDIA-export performance.
+
 Compare per-GPU replicas with TP2 and TP4 only after measuring single-request latency. The NVIDIA card’s TP4 long-context example is not evidence that TP4 maximizes node throughput for ordinary chat. For hybrid prefix caching, verify the recurrent-state path, not just token KV hits.
 
 Use the correct thinking mode and sampling settings in benchmarks. Qwen’s documented thinking and non-thinking modes do not have identical generation defaults, so matching only temperature can still leave an unfair comparison.
 
-[qwen3.8-27b-VR](https://recipes.vllm.ai/Qwen/Qwen3.8-27B) [qwen3.8-27b-GR](https://docs.sglang.io/cookbook/autoregressive/Qwen/Qwen3.8-27B) [qwen3.8-27b-CARD](https://huggingface.co/Qwen/Qwen3.8-27B) [HW](https://docs.nvidia.com/dgx/dgxb300-user-guide/introduction-to-dgxb300.html)
+Base, official FP8 and NVIDIA metadata revisions are pinned in [sources](sources.md) and [model.json](model.json). Pin the tokenizer/processor and actual runtime image as well. A revision identifies source artifacts; it does not validate installed kernels, multimodal execution or MTP behavior.
+
+[qwen3.8-27b-VR](https://recipes.vllm.ai/Qwen/Qwen3.8-27B) [qwen3.8-27b-GR](https://docs.sglang.io/cookbook/autoregressive/Qwen/Qwen3.8-27B) [qwen3.8-27b-CARD](https://huggingface.co/Qwen/Qwen3.8-27B/raw/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/README.md) [qwen3.8-27b-NV](https://huggingface.co/nvidia/Qwen3.8-27B-NVFP4/raw/482ca0f3832238542f8f5295dde86b5f22711d80/README.md) [HW](https://docs.nvidia.com/dgx/dgxb300-user-guide/introduction-to-dgxb300.html)
 
 ## Experiment sequence
 

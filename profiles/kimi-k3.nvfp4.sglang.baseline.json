@@ -36,7 +36,7 @@
     "kimi-k3-GR"
   ],
   "reviewed_source_commit": "877be2974aa151a984e52822c028276c2b1e9303",
-  "model_revision": null,
+  "model_revision": "b2428a0b83a8b712ff2e1a8448a103d4175341f1",
   "draft_hf_id": null,
   "draft_revision": null,
   "requires_reviewed_remote_code": true,

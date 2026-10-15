@@ -1,0 +1,1179 @@
+{
+  "audit": "Alibaba Qwen family audit",
+  "scope": "All 15 tracked files under companies/alibaba-qwen; shared files are owned by root, tooling and framework agents.",
+  "as_of": "2026-10-15",
+  "date_basis": "UTC; local Europe/Paris date rolled to 2026-10-16 during the task.",
+  "completed_at": "2026-10-15T22:05:04.498006+00:00",
+  "model_revision_map": {
+    "Qwen/Qwen3.8-27B": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
+    "Qwen/Qwen3.8-27B-FP8": "017b9c7af6b5689d5dd426a76e0bc077eb5ca20a",
+    "nvidia/Qwen3.8-27B-NVFP4": "482ca0f3832238542f8f5295dde86b5f22711d80",
+    "Qwen/Qwen3.8-Flash-Next": "de4b8e4d43b917e7706784d8bb445c9af86a3540",
+    "Qwen/Qwen3.8-Flash-Next-FP8": "236dfdf285828023ca3bcd3f37366c58a3469b13",
+    "nvidia/Qwen3.8-Flash-Next-NVFP4": "fc694b54fb0174e0913e6adf86691ef85a4ead47"
+  },
+  "findings": [
+    {
+      "id": "QWEN-01",
+      "severity": "medium",
+      "claim": "Qwen27 NVIDIA precision was unconditionally labelled ModelOpt 0.48.0.",
+      "evidence": "Card says 0.48.0; config.json and hf_quant_config.json both record 0.47.0.dev80+g913f5e224 at revision 482ca0f3832238542f8f5295dde86b5f22711d80.",
+      "source_ids": [
+        "qwen3.8-27b-NV",
+        "qwen3.8-27b-NV-CFG",
+        "qwen3.8-27b-NV-QUANT"
+      ],
+      "resolution": "Removed unconditional version label; preserved the disagreement in model.json, precision.md, README and sources.",
+      "status": "corrected; producer-version discrepancy remains unresolved"
+    },
+    {
+      "id": "QWEN-02",
+      "severity": "medium",
+      "claim": "FlashNext report baseline was TP4 while supplied NVIDIA vLLM baseline and producer example are TP8.",
+      "evidence": "NVIDIA pinned card target-only example sets tensor-parallel-size 8; supplied vLLM baseline profile sets TP8.",
+      "source_ids": [
+        "qwen3.8-flash-next-NV"
+      ],
+      "resolution": "model.baseline_tp now 8; README and serving baseline corrected; TP4 retained only as proposed capacity experiment.",
+      "status": "corrected"
+    },
+    {
+      "id": "QWEN-03",
+      "severity": "medium",
+      "claim": "FlashNext SGLang evidence was described as architecture-only and exact-export compatibility unresolved without acknowledging documented B300 recipe.",
+      "evidence": "SGLang PR #41046 merged 2026-09-24 into main; pinned recipe generator contains exact NVIDIA TP1 B300 cells with verified:false and v0.5.20 minimum. PR explicitly states no new GPU measurements.",
+      "source_ids": [
+        "qwen3.8-flash-next-GR",
+        "qwen3.8-flash-next-GPR",
+        "qwen3.8-flash-next-GR-SOURCE"
+      ],
+      "resolution": "Documented exact-export TP1 candidate, retained unverified status; coordinated tooling update of supplied SGLang probe from TP4 to TP1 with documented flags and explicit local caps.",
+      "status": "owned reports corrected; profile integration delegated to tooling owner"
+    },
+    {
+      "id": "QWEN-04",
+      "severity": "medium",
+      "claim": "Five of six checkpoint revision fields were unresolved; Flash official FP8 was only secondarily referenced.",
+      "evidence": "All six publisher-owned HF APIs returned immutable SHA; all six raw cards/configs downloaded with HTTP 200. Fifteen immutable source artifacts were fetched again and hashes matched.",
+      "source_ids": [
+        "qwen3.8-27b-CARD",
+        "qwen3.8-27b-CFG",
+        "qwen3.8-27b-FP8",
+        "qwen3.8-27b-FP8-CFG",
+        "qwen3.8-27b-NV",
+        "qwen3.8-27b-NV-CFG",
+        "qwen3.8-flash-next-CARD",
+        "qwen3.8-flash-next-CFG",
+        "qwen3.8-flash-next-FP8",
+        "qwen3.8-flash-next-FP8-CFG",
+        "qwen3.8-flash-next-NV",
+        "qwen3.8-flash-next-NV-CFG"
+      ],
+      "resolution": "Pinned six variant revisions and base revisions, replaced owned mutable model citations, directly documented official Flash FP8 configuration.",
+      "status": "corrected"
+    },
+    {
+      "id": "QWEN-05",
+      "severity": "low",
+      "claim": "54GB was called a weight floor and 180B was insufficiently scoped.",
+      "evidence": "27B and 125B + 51B + 4B are rounded publisher language-model figures. 54 GB is 27e9 × 2; 180B is rounded component sum, not tensor census or explicit vision count.",
+      "source_ids": [
+        "qwen3.8-27b-CARD",
+        "qwen3.8-flash-next-CARD"
+      ],
+      "resolution": "Added decimalGB/GiB values, parameter_count_scope records and explicit formulas; preserved16GiBKV and144MiB matrix because their stated arithmetic is correct.",
+      "status": "corrected"
+    },
+    {
+      "id": "QWEN-06",
+      "severity": "low",
+      "claim": "Normalized projection did not clearly distinguish config fields, derived quantities, publisher-card fields or one-based PLE index.",
+      "evidence": "72 projected fields match inspected configs/card facts. Flash ple_layer_ids [2] maps to quantized tensor layers.1.ple; shared expert count and extended context come from card, rotary and attention counts are derived.",
+      "source_ids": [
+        "qwen3.8-27b-CFG",
+        "qwen3.8-flash-next-CFG",
+        "qwen3.8-flash-next-NV-CFG"
+      ],
+      "resolution": "Added projection provenance metadata, clarified architecture tables and precision labels.",
+      "status": "corrected"
+    },
+    {
+      "id": "QWEN-07",
+      "severity": "medium",
+      "claim": "Current SGLang Flash cookbook asserts thinking cannot be disabled and no generation recommendations exist.",
+      "evidence": "Pinned publisher card documents enable_thinking and both thinking/non-thinking sampling settings. Cookbook static NVIDIA hardware table also omits B300 additions in its own recipe generator.",
+      "source_ids": [
+        "qwen3.8-flash-next-CARD",
+        "qwen3.8-flash-next-GR",
+        "qwen3.8-flash-next-GR-SOURCE"
+      ],
+      "resolution": "Recorded source disagreement; model behavior follows publisher card, deployment shape follows pinned generator; no benchmark claims copied.",
+      "status": "external source conflict documented"
+    },
+    {
+      "id": "QWEN-08",
+      "severity": "low",
+      "claim": "NVIDIA export precision shorthand omitted exceptions and metadata label differences.",
+      "evidence": "27B maps 401 module entries: 193 NVFP4 MLP/head, 208 FP8 attention; MTP ignored. Flash maps 48 NVFP4 expert entries, one FP8 PLE entry and one MTP entry with 128-wide blocks; the MTP label differs between config.json (FP8_PB_WO) and hf_quant_config.json (FP8_BLOCK_SCALES).",
+      "source_ids": [
+        "qwen3.8-27b-NV-CFG",
+        "qwen3.8-27b-NV-QUANT",
+        "qwen3.8-flash-next-NV-CFG",
+        "qwen3.8-flash-next-NV-QUANT"
+      ],
+      "resolution": "Documented exact metadata scopes; avoided equating module-map entries with tensor bytes or measured execution.",
+      "status": "corrected"
+    }
+  ],
+  "per_file_coverage": [
+    {
+      "file": "companies/alibaba-qwen/README.md",
+      "status": "audited and corrected",
+      "verification": "Identity, immutable metadata provenance, recommendation and parameter-scope summary checked.",
+      "sha256_after_edit": "d9c8b78e75eb0eb6d477d8142271d0abcede638fd0f427d6f0d3a15eaf919b70"
+    },
+    {
+      "file": "companies/alibaba-qwen/qwen3.8-27b/README.md",
+      "status": "audited and corrected",
+      "verification": "Identity, immutable metadata provenance, recommendation and parameter-scope summary checked.",
+      "sha256_after_edit": "6ebd1ebd50656aa71e949732301631e32beaa90e74a3592243a0a2d2a93b9504"
+    },
+    {
+      "file": "companies/alibaba-qwen/qwen3.8-27b/architecture.md",
+      "status": "audited and corrected",
+      "verification": "Every normalized architecture field cross-checked against pinned config and card; arithmetic and model flow clarified.",
+      "sha256_after_edit": "8ea8dae801f1830239aff1a9faef22d26fa12cc9f0ce4ad9eaf7202ba26ebc76"
+    },
+    {
+      "file": "companies/alibaba-qwen/qwen3.8-27b/model.json",
+      "status": "audited and corrected",
+      "verification": "Parsed; 72 combined projection fields verified; variants pinned; shared catalog copy required.",
+      "sha256_after_edit": "2b24f23df5a3b90b46131526e174ce4dbadb4ebe93ed6e8087aab9ed84f96b10"
+    },
+    {
+      "file": "companies/alibaba-qwen/qwen3.8-27b/precision.md",
+      "status": "audited and corrected",
+      "verification": "All variants inspected; quantization exclusions, producer metadata, MTP precision and provenance checked.",
+      "sha256_after_edit": "a004486cf61c38edcee4ff46439aa4e0c84430adee9121352d4b41642d8d8b52"
+    },
+    {
+      "file": "companies/alibaba-qwen/qwen3.8-27b/serving.md",
+      "status": "audited and corrected",
+      "verification": "Publisher and engine recipes checked; exact artifact/runtime/TP shape and profile differences made explicit.",
+      "sha256_after_edit": "7151aeae6f1eb5309fb3f5fbe7216c68e4358530daec88508174e834000f790a"
+    },
+    {
+      "file": "companies/alibaba-qwen/qwen3.8-27b/sources.md",
+      "status": "audited and corrected",
+      "verification": "Every family source re-fetched; immutable URLs/revisions and source conflicts recorded.",
+      "sha256_after_edit": "323216b40841f231f7feb71458c4fe8b77503d0a6c3f975391e7681859254c9e"
+    },
+    {
+      "file": "companies/alibaba-qwen/qwen3.8-27b/validation.md",
+      "status": "audited and corrected",
+      "verification": "Ledger updated to actual metadata/static work; GPU tests remain proposed and unperformed.",
+      "sha256_after_edit": "06592a7b83e9fd64a8909caa3a984c2e54adbbe3242e36c5bb5fe266c27f4f6e"
+    },
+    {
+      "file": "companies/alibaba-qwen/qwen3.8-flash-next/README.md",
+      "status": "audited and corrected",
+      "verification": "Identity, immutable metadata provenance, recommendation and parameter-scope summary checked.",
+      "sha256_after_edit": "1806b7c37e3b23df8f8b22abec18b27d80a6fee7cc7afaf129c19feb5aaf4764"
+    },
+    {
+      "file": "companies/alibaba-qwen/qwen3.8-flash-next/architecture.md",
+      "status": "audited and corrected",
+      "verification": "Every normalized architecture field cross-checked against pinned config and card; arithmetic and model flow clarified.",
+      "sha256_after_edit": "4145c11259f0fe2ada1ffdaca4e763a9c90305972d49737554c315c95c4b4994"
+    },
+    {
+      "file": "companies/alibaba-qwen/qwen3.8-flash-next/model.json",
+      "status": "audited and corrected",
+      "verification": "Parsed; 72 combined projection fields verified; variants pinned; shared catalog copy required.",
+      "sha256_after_edit": "62b51068f646e50f637b6315f6c156b171e438bada0edb54200d84aab02dc2ad"
+    },
+    {
+      "file": "companies/alibaba-qwen/qwen3.8-flash-next/precision.md",
+      "status": "audited and corrected",
+      "verification": "All variants inspected; quantization exclusions, producer metadata, MTP precision and provenance checked.",
+      "sha256_after_edit": "5a64da07e0328d062a8c040e724eb377bfc1bcbb73e3411e41024df842213a6b"
+    },
+    {
+      "file": "companies/alibaba-qwen/qwen3.8-flash-next/serving.md",
+      "status": "audited and corrected",
+      "verification": "Publisher and engine recipes checked; exact artifact/runtime/TP shape and profile differences made explicit.",
+      "sha256_after_edit": "ced4f30589db106fed5f9c873a330ab8960c2c6db74ac03c87c4a94618d57d06"
+    },
+    {
+      "file": "companies/alibaba-qwen/qwen3.8-flash-next/sources.md",
+      "status": "audited and corrected",
+      "verification": "Every family source re-fetched; immutable URLs/revisions and source conflicts recorded.",
+      "sha256_after_edit": "1244032f895af1a4edc14ee03220574ecaffc03dcd3b28967261bdb12520eef1"
+    },
+    {
+      "file": "companies/alibaba-qwen/qwen3.8-flash-next/validation.md",
+      "status": "audited and corrected",
+      "verification": "Ledger updated to actual metadata/static work; GPU tests remain proposed and unperformed.",
+      "sha256_after_edit": "ac2daa73c29f1f008846f842a6346a6cc98a3ea00d43170677a1d42a996a41c0"
+    }
+  ],
+  "source_updates": [
+    {
+      "id": "qwen3.8-27b-CARD",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-27B/raw/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/README.md",
+      "immutable_url": "https://huggingface.co/Qwen/Qwen3.8-27B/raw/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/README.md",
+      "revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
+      "title": "Qwen 3.8 27B publisher model card",
+      "kind": "publisher model card",
+      "accessed_on": "2026-10-15",
+      "retrieval_status": 200,
+      "sha256": "57e4bdb258ee1a7d2635c5174ebd4e56abe392505cdb5f8bbb356b0dc4293641",
+      "bytes": 65012,
+      "revision_resolution_url": "https://huggingface.co/api/models/Qwen/Qwen3.8-27B",
+      "verification": "Publisher-owned repository API and immutable raw metadata retrieved successfully; no model weights downloaded.",
+      "capture": "Immutable metadata bytes retrieved during audit; only retrieval hashes and observations are retained in the repository audit ledger.",
+      "notes": ""
+    },
+    {
+      "id": "qwen3.8-27b-CFG",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-27B/raw/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/config.json",
+      "immutable_url": "https://huggingface.co/Qwen/Qwen3.8-27B/raw/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/config.json",
+      "revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
+      "title": "Qwen 3.8 27B configuration",
+      "kind": "publisher configuration",
+      "accessed_on": "2026-10-15",
+      "retrieval_status": 200,
+      "sha256": "191e0af232104ed8b65258cf3fb2b842e288008baca7633c11b82a1ac7203aab",
+      "bytes": 4312,
+      "revision_resolution_url": "https://huggingface.co/api/models/Qwen/Qwen3.8-27B",
+      "verification": "Publisher-owned repository API and immutable raw metadata retrieved successfully; no model weights downloaded.",
+      "capture": "Immutable metadata bytes retrieved during audit; only retrieval hashes and observations are retained in the repository audit ledger.",
+      "notes": ""
+    },
+    {
+      "id": "qwen3.8-27b-FP8",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-27B-FP8/raw/017b9c7af6b5689d5dd426a76e0bc077eb5ca20a/README.md",
+      "immutable_url": "https://huggingface.co/Qwen/Qwen3.8-27B-FP8/raw/017b9c7af6b5689d5dd426a76e0bc077eb5ca20a/README.md",
+      "revision": "017b9c7af6b5689d5dd426a76e0bc077eb5ca20a",
+      "title": "Official Qwen 27B FP8 card",
+      "kind": "publisher model card",
+      "accessed_on": "2026-10-15",
+      "retrieval_status": 200,
+      "sha256": "a247d876f5398eed9ae898f32a984083552de57237b5e20714657e1675e26d2e",
+      "bytes": 65249,
+      "revision_resolution_url": "https://huggingface.co/api/models/Qwen/Qwen3.8-27B-FP8",
+      "verification": "Publisher-owned repository API and immutable raw metadata retrieved successfully; no model weights downloaded.",
+      "capture": "Immutable metadata bytes retrieved during audit; only retrieval hashes and observations are retained in the repository audit ledger.",
+      "notes": ""
+    },
+    {
+      "id": "qwen3.8-27b-NV",
+      "url": "https://huggingface.co/nvidia/Qwen3.8-27B-NVFP4/raw/482ca0f3832238542f8f5295dde86b5f22711d80/README.md",
+      "immutable_url": "https://huggingface.co/nvidia/Qwen3.8-27B-NVFP4/raw/482ca0f3832238542f8f5295dde86b5f22711d80/README.md",
+      "revision": "482ca0f3832238542f8f5295dde86b5f22711d80",
+      "title": "NVIDIA mixed NVFP4/FP8 Qwen 27B card",
+      "kind": "publisher model card",
+      "accessed_on": "2026-10-15",
+      "retrieval_status": 200,
+      "sha256": "2dc5368ce2dda4393818fc3c6e587d588ec7b7f599b1f3a326d97dc271e3866d",
+      "bytes": 9578,
+      "revision_resolution_url": "https://huggingface.co/api/models/nvidia/Qwen3.8-27B-NVFP4",
+      "verification": "Publisher-owned repository API and immutable raw metadata retrieved successfully; no model weights downloaded.",
+      "capture": "Immutable metadata bytes retrieved during audit; only retrieval hashes and observations are retained in the repository audit ledger.",
+      "notes": ""
+    },
+    {
+      "id": "qwen3.8-flash-next-CARD",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next/raw/de4b8e4d43b917e7706784d8bb445c9af86a3540/README.md",
+      "immutable_url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next/raw/de4b8e4d43b917e7706784d8bb445c9af86a3540/README.md",
+      "revision": "de4b8e4d43b917e7706784d8bb445c9af86a3540",
+      "title": "Qwen 3.8 Flash Next publisher model card",
+      "kind": "publisher model card",
+      "accessed_on": "2026-10-15",
+      "retrieval_status": 200,
+      "sha256": "35ca37ccc366f1ba478dab33841a2c0c18ce53fd62f291ca05341f7728b225b2",
+      "bytes": 65155,
+      "revision_resolution_url": "https://huggingface.co/api/models/Qwen/Qwen3.8-Flash-Next",
+      "verification": "Publisher-owned repository API and immutable raw metadata retrieved successfully; no model weights downloaded.",
+      "capture": "Immutable metadata bytes retrieved during audit; only retrieval hashes and observations are retained in the repository audit ledger.",
+      "notes": ""
+    },
+    {
+      "id": "qwen3.8-flash-next-CFG",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next/raw/de4b8e4d43b917e7706784d8bb445c9af86a3540/config.json",
+      "immutable_url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next/raw/de4b8e4d43b917e7706784d8bb445c9af86a3540/config.json",
+      "revision": "de4b8e4d43b917e7706784d8bb445c9af86a3540",
+      "title": "Qwen 3.8 Flash Next configuration",
+      "kind": "publisher configuration",
+      "accessed_on": "2026-10-15",
+      "retrieval_status": 200,
+      "sha256": "889658f2508e8c61d409b02e70e0d78d8d4452ec65aaafbe129805d213d2e74b",
+      "bytes": 4745,
+      "revision_resolution_url": "https://huggingface.co/api/models/Qwen/Qwen3.8-Flash-Next",
+      "verification": "Publisher-owned repository API and immutable raw metadata retrieved successfully; no model weights downloaded.",
+      "capture": "Immutable metadata bytes retrieved during audit; only retrieval hashes and observations are retained in the repository audit ledger.",
+      "notes": ""
+    },
+    {
+      "id": "qwen3.8-flash-next-NV",
+      "url": "https://huggingface.co/nvidia/Qwen3.8-Flash-Next-NVFP4/raw/fc694b54fb0174e0913e6adf86691ef85a4ead47/README.md",
+      "immutable_url": "https://huggingface.co/nvidia/Qwen3.8-Flash-Next-NVFP4/raw/fc694b54fb0174e0913e6adf86691ef85a4ead47/README.md",
+      "revision": "fc694b54fb0174e0913e6adf86691ef85a4ead47",
+      "title": "NVIDIA mixed Flash Next export card",
+      "kind": "publisher model card",
+      "accessed_on": "2026-10-15",
+      "retrieval_status": 200,
+      "sha256": "e3ed0cb89950ef0f41e8df344ba1cc15c67e1baf91e1cb5305a7344e58a8d975",
+      "bytes": 12109,
+      "revision_resolution_url": "https://huggingface.co/api/models/nvidia/Qwen3.8-Flash-Next-NVFP4",
+      "verification": "Publisher-owned repository API and immutable raw metadata retrieved successfully; no model weights downloaded.",
+      "capture": "Immutable metadata bytes retrieved during audit; only retrieval hashes and observations are retained in the repository audit ledger.",
+      "notes": ""
+    },
+    {
+      "id": "qwen3.8-27b-VR",
+      "url": "https://recipes.vllm.ai/Qwen/Qwen3.8-27B",
+      "title": "vLLM Qwen 27B recipe",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "retrieval_status": 200,
+      "sha256": "b6f8bbb8fc8076ede19c029fb16dbb28d0a4a1f5522d0682f7c8ed41ae3cf30b",
+      "bytes": 2189592,
+      "revision": null,
+      "immutable_url": null,
+      "verification": "Current engine documentation retrieved; statements describe upstream documentation or measurements, not local serving validation.",
+      "capture": "Mutable documentation retrieved during audit; retrieval hash retained.",
+      "notes": "Recipes are not immutable engine binaries."
+    },
+    {
+      "id": "qwen3.8-27b-GR",
+      "url": "https://docs.sglang.io/cookbook/autoregressive/Qwen/Qwen3.8-27B",
+      "title": "SGLang Qwen 27B cookbook",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "retrieval_status": 200,
+      "sha256": "49a2cf20e330f660fa120432709c2d77217d32316e1efa60651a8b35a1a51bf4",
+      "bytes": 919480,
+      "revision": null,
+      "immutable_url": null,
+      "verification": "Current engine documentation retrieved; statements describe upstream documentation or measurements, not local serving validation.",
+      "capture": "Mutable documentation retrieved during audit; retrieval hash retained.",
+      "notes": "Recipes are not immutable engine binaries."
+    },
+    {
+      "id": "qwen3.8-flash-next-VR",
+      "url": "https://recipes.vllm.ai/Qwen/Qwen3.8-Flash-Next",
+      "title": "vLLM Flash Next recipe",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "retrieval_status": 200,
+      "sha256": "40c136f1e02e704b41f9e716806cc5c57ed380f74a205e2a0fa4dfe7d8dfb599",
+      "bytes": 2178279,
+      "revision": null,
+      "immutable_url": null,
+      "verification": "Current engine documentation retrieved; statements describe upstream documentation or measurements, not local serving validation.",
+      "capture": "Mutable documentation retrieved during audit; retrieval hash retained.",
+      "notes": "Recipes are not immutable engine binaries."
+    }
+  ],
+  "source_additions": [
+    {
+      "id": "qwen3.8-27b-FP8-CFG",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-27B-FP8/raw/017b9c7af6b5689d5dd426a76e0bc077eb5ca20a/config.json",
+      "immutable_url": "https://huggingface.co/Qwen/Qwen3.8-27B-FP8/raw/017b9c7af6b5689d5dd426a76e0bc077eb5ca20a/config.json",
+      "revision": "017b9c7af6b5689d5dd426a76e0bc077eb5ca20a",
+      "title": "Official Qwen 27B FP8 quantization configuration",
+      "kind": "publisher configuration",
+      "accessed_on": "2026-10-15",
+      "retrieval_status": 200,
+      "sha256": "74227dd615bf1ea975aa676bdf355a0379858c12f394b5365cd9dfa5fc2c70bc",
+      "bytes": 51350,
+      "revision_resolution_url": "https://huggingface.co/api/models/Qwen/Qwen3.8-27B-FP8",
+      "verification": "Publisher-owned repository API and immutable raw metadata retrieved successfully; no model weights downloaded.",
+      "capture": "Immutable metadata bytes retrieved during audit; only retrieval hashes and observations are retained in the repository audit ledger.",
+      "notes": ""
+    },
+    {
+      "id": "qwen3.8-27b-NV-CFG",
+      "url": "https://huggingface.co/nvidia/Qwen3.8-27B-NVFP4/raw/482ca0f3832238542f8f5295dde86b5f22711d80/config.json",
+      "immutable_url": "https://huggingface.co/nvidia/Qwen3.8-27B-NVFP4/raw/482ca0f3832238542f8f5295dde86b5f22711d80/config.json",
+      "revision": "482ca0f3832238542f8f5295dde86b5f22711d80",
+      "title": "NVIDIA Qwen 27B mixed configuration",
+      "kind": "publisher configuration",
+      "accessed_on": "2026-10-15",
+      "retrieval_status": 200,
+      "sha256": "71fa01bb64de20971045cd82a82c0ebb25a54e1b0a3f09ef23cf5479e9c54df8",
+      "bytes": 87506,
+      "revision_resolution_url": "https://huggingface.co/api/models/nvidia/Qwen3.8-27B-NVFP4",
+      "verification": "Publisher-owned repository API and immutable raw metadata retrieved successfully; no model weights downloaded.",
+      "capture": "Immutable metadata bytes retrieved during audit; only retrieval hashes and observations are retained in the repository audit ledger.",
+      "notes": ""
+    },
+    {
+      "id": "qwen3.8-27b-NV-QUANT",
+      "url": "https://huggingface.co/nvidia/Qwen3.8-27B-NVFP4/raw/482ca0f3832238542f8f5295dde86b5f22711d80/hf_quant_config.json",
+      "immutable_url": "https://huggingface.co/nvidia/Qwen3.8-27B-NVFP4/raw/482ca0f3832238542f8f5295dde86b5f22711d80/hf_quant_config.json",
+      "revision": "482ca0f3832238542f8f5295dde86b5f22711d80",
+      "title": "NVIDIA Qwen 27B quantization metadata",
+      "kind": "publisher configuration",
+      "accessed_on": "2026-10-15",
+      "retrieval_status": 200,
+      "sha256": "5f4aaa9e462ddb26a9790ab459eee69d100b9ade7541f0c86038e925c013f80b",
+      "bytes": 53760,
+      "revision_resolution_url": "https://huggingface.co/api/models/nvidia/Qwen3.8-27B-NVFP4",
+      "verification": "Publisher-owned repository API and immutable raw metadata retrieved successfully; no model weights downloaded.",
+      "capture": "Immutable metadata bytes retrieved during audit; only retrieval hashes and observations are retained in the repository audit ledger.",
+      "notes": ""
+    },
+    {
+      "id": "qwen3.8-flash-next-FP8",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next-FP8/raw/236dfdf285828023ca3bcd3f37366c58a3469b13/README.md",
+      "immutable_url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next-FP8/raw/236dfdf285828023ca3bcd3f37366c58a3469b13/README.md",
+      "revision": "236dfdf285828023ca3bcd3f37366c58a3469b13",
+      "title": "Official Qwen Flash Next FP8 card",
+      "kind": "publisher model card",
+      "accessed_on": "2026-10-15",
+      "retrieval_status": 200,
+      "sha256": "3c5fcfaf37c4415dbabdbd25eaa7a17ed42f8e63fead97b8644053b1d60ea43f",
+      "bytes": 65400,
+      "revision_resolution_url": "https://huggingface.co/api/models/Qwen/Qwen3.8-Flash-Next-FP8",
+      "verification": "Publisher-owned repository API and immutable raw metadata retrieved successfully; no model weights downloaded.",
+      "capture": "Immutable metadata bytes retrieved during audit; only retrieval hashes and observations are retained in the repository audit ledger.",
+      "notes": ""
+    },
+    {
+      "id": "qwen3.8-flash-next-FP8-CFG",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next-FP8/raw/236dfdf285828023ca3bcd3f37366c58a3469b13/config.json",
+      "immutable_url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next-FP8/raw/236dfdf285828023ca3bcd3f37366c58a3469b13/config.json",
+      "revision": "236dfdf285828023ca3bcd3f37366c58a3469b13",
+      "title": "Official Qwen Flash Next FP8 quantization configuration",
+      "kind": "publisher configuration",
+      "accessed_on": "2026-10-15",
+      "retrieval_status": 200,
+      "sha256": "c22eb0a053eed62e18f0184d3ca62d3798f208c3e00b9feee939fc3dbacdc8ca",
+      "bytes": 72514,
+      "revision_resolution_url": "https://huggingface.co/api/models/Qwen/Qwen3.8-Flash-Next-FP8",
+      "verification": "Publisher-owned repository API and immutable raw metadata retrieved successfully; no model weights downloaded.",
+      "capture": "Immutable metadata bytes retrieved during audit; only retrieval hashes and observations are retained in the repository audit ledger.",
+      "notes": ""
+    },
+    {
+      "id": "qwen3.8-flash-next-NV-CFG",
+      "url": "https://huggingface.co/nvidia/Qwen3.8-Flash-Next-NVFP4/raw/fc694b54fb0174e0913e6adf86691ef85a4ead47/config.json",
+      "immutable_url": "https://huggingface.co/nvidia/Qwen3.8-Flash-Next-NVFP4/raw/fc694b54fb0174e0913e6adf86691ef85a4ead47/config.json",
+      "revision": "fc694b54fb0174e0913e6adf86691ef85a4ead47",
+      "title": "NVIDIA Flash Next mixed configuration",
+      "kind": "publisher configuration",
+      "accessed_on": "2026-10-15",
+      "retrieval_status": 200,
+      "sha256": "deef67a61f3311faf051b23dc4192f442c7fee4f9cd2f38cbcbe4da55c763a80",
+      "bytes": 30820,
+      "revision_resolution_url": "https://huggingface.co/api/models/nvidia/Qwen3.8-Flash-Next-NVFP4",
+      "verification": "Publisher-owned repository API and immutable raw metadata retrieved successfully; no model weights downloaded.",
+      "capture": "Immutable metadata bytes retrieved during audit; only retrieval hashes and observations are retained in the repository audit ledger.",
+      "notes": ""
+    },
+    {
+      "id": "qwen3.8-flash-next-NV-QUANT",
+      "url": "https://huggingface.co/nvidia/Qwen3.8-Flash-Next-NVFP4/raw/fc694b54fb0174e0913e6adf86691ef85a4ead47/hf_quant_config.json",
+      "immutable_url": "https://huggingface.co/nvidia/Qwen3.8-Flash-Next-NVFP4/raw/fc694b54fb0174e0913e6adf86691ef85a4ead47/hf_quant_config.json",
+      "revision": "fc694b54fb0174e0913e6adf86691ef85a4ead47",
+      "title": "NVIDIA Flash Next quantization metadata",
+      "kind": "publisher configuration",
+      "accessed_on": "2026-10-15",
+      "retrieval_status": 200,
+      "sha256": "331ad11d57c8bc374554579977198084e0d4d0933d5b3558f125f6f670aba0e8",
+      "bytes": 23001,
+      "revision_resolution_url": "https://huggingface.co/api/models/nvidia/Qwen3.8-Flash-Next-NVFP4",
+      "verification": "Publisher-owned repository API and immutable raw metadata retrieved successfully; no model weights downloaded.",
+      "capture": "Immutable metadata bytes retrieved during audit; only retrieval hashes and observations are retained in the repository audit ledger.",
+      "notes": ""
+    },
+    {
+      "id": "qwen3.8-flash-next-GR",
+      "url": "https://docs.sglang.io/cookbook/autoregressive/Qwen/Qwen3.8-Flash-Next",
+      "title": "SGLang Flash Next cookbook",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "retrieval_status": 200,
+      "sha256": "2cad82409f4652abe2e4fc1b1e3b71c7b0d9f84ebcc92bd7ba18e961e616d89f",
+      "bytes": 898314,
+      "retrieved_url": "https://docs.sglang.io/cookbook/autoregressive/Qwen/Qwen3.8-Flash-Next",
+      "revision": null,
+      "immutable_url": null,
+      "verification": "Retrieved and inspected. PR 41046 adds NVIDIA TP1 B200/B300/GB300 recipes with verified=false; it explicitly claims no new GPU measurements.",
+      "capture": "Documentation or GitHub API retrieved during audit; retrieval hash retained.",
+      "notes": "Cookbook narrative has stale deployment-table and thinking/sampling statements; prefer pinned generator for recipe shape and publisher card for model behavior."
+    },
+    {
+      "id": "qwen3.8-flash-next-GPR",
+      "url": "https://github.com/sgl-project/sglang/pull/41046",
+      "title": "SGLang exact NVIDIA Flash Next B300 recipe PR 41046",
+      "kind": "upstream pull request",
+      "accessed_on": "2026-10-15",
+      "retrieval_status": 200,
+      "sha256": "8f8dd21907e83fbf54bad5b2868c9f5b5fd55d8dd0c90af32186ef29150cd60c",
+      "bytes": 21841,
+      "retrieved_url": "https://api.github.com/repos/sgl-project/sglang/pulls/41046",
+      "revision": "a1eb691ab51bc461378b2fcca8991883add4f1b5",
+      "immutable_url": null,
+      "verification": "Retrieved and inspected. PR 41046 adds NVIDIA TP1 B200/B300/GB300 recipes with verified=false; it explicitly claims no new GPU measurements.",
+      "capture": "Documentation or GitHub API retrieved during audit; retrieval hash retained.",
+      "notes": "Merged 2026-09-24T21:19:01Z into main; six added cells explicitly unverified."
+    },
+    {
+      "id": "qwen3.8-flash-next-GR-SOURCE",
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/a1eb691ab51bc461378b2fcca8991883add4f1b5/docs/src/snippets/configs/Qwen/qwen3.8-flash-next.jsx",
+      "immutable_url": "https://raw.githubusercontent.com/sgl-project/sglang/a1eb691ab51bc461378b2fcca8991883add4f1b5/docs/src/snippets/configs/Qwen/qwen3.8-flash-next.jsx",
+      "revision": "a1eb691ab51bc461378b2fcca8991883add4f1b5",
+      "title": "Pinned SGLang Flash Next recipe generator after PR 41046",
+      "kind": "upstream source",
+      "accessed_on": "2026-10-15",
+      "retrieval_status": 200,
+      "sha256": "de3833beaf52bbfa5eb865542471d70870eafaae6d0f88754e82bf9d442a7d52",
+      "bytes": 66179,
+      "verification": "B300 NVIDIA target-only cell inspected at lines 789-802; TP1, FlashInfer linear prefill/decode, BF16 SSM, reasoning-parser auto, verified=false.",
+      "capture": "Immutable source retrieved during audit; retrieval hash retained.",
+      "notes": "Source recipe, not a tested container or local benchmark."
+    }
+  ],
+  "retrievals": [
+    {
+      "url": "https://huggingface.co/api/models/Qwen/Qwen3.8-27B",
+      "status": 200,
+      "retrieved_on": "2026-10-15",
+      "date_basis": "UTC",
+      "sha256": "47959eadd7270bcb82a88fec34b8522411891f27a1861e2dd6b65838436f6f24",
+      "bytes": 24110,
+      "resolved_revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0"
+    },
+    {
+      "url": "https://huggingface.co/Qwen/Qwen3.8-27B/raw/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/config.json",
+      "status": 200,
+      "retrieved_on": "2026-10-15",
+      "date_basis": "UTC",
+      "sha256": "191e0af232104ed8b65258cf3fb2b842e288008baca7633c11b82a1ac7203aab",
+      "bytes": 4312,
+      "resolved_revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0"
+    },
+    {
+      "url": "https://huggingface.co/Qwen/Qwen3.8-27B/raw/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/README.md",
+      "status": 200,
+      "retrieved_on": "2026-10-15",
+      "date_basis": "UTC",
+      "sha256": "57e4bdb258ee1a7d2635c5174ebd4e56abe392505cdb5f8bbb356b0dc4293641",
+      "bytes": 65012,
+      "resolved_revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0"
+    },
+    {
+      "url": "https://huggingface.co/Qwen/Qwen3.8-27B/raw/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/LICENSE",
+      "status": 200,
+      "retrieved_on": "2026-10-15",
+      "date_basis": "UTC",
+      "sha256": "bbedc3fda3305820b977265f01b8619d87570a6739de3a5582c3464840f1e57a",
+      "bytes": 11544,
+      "resolved_revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0"
+    },
+    {
+      "url": "https://huggingface.co/api/models/Qwen/Qwen3.8-27B-FP8",
+      "status": 200,
+      "retrieved_on": "2026-10-15",
+      "date_basis": "UTC",
+      "sha256": "66d32c746337dcfb2b1b291d236415fefa64d3a2e640967b18221ee5caba4804",
+      "bytes": 64754,
+      "resolved_revision": "017b9c7af6b5689d5dd426a76e0bc077eb5ca20a"
+    },
+    {
+      "url": "https://huggingface.co/Qwen/Qwen3.8-27B-FP8/raw/017b9c7af6b5689d5dd426a76e0bc077eb5ca20a/config.json",
+      "status": 200,
+      "retrieved_on": "2026-10-15",
+      "date_basis": "UTC",
+      "sha256": "74227dd615bf1ea975aa676bdf355a0379858c12f394b5365cd9dfa5fc2c70bc",
+      "bytes": 51350,
+      "resolved_revision": "017b9c7af6b5689d5dd426a76e0bc077eb5ca20a"
+    },
+    {
+      "url": "https://huggingface.co/Qwen/Qwen3.8-27B-FP8/raw/017b9c7af6b5689d5dd426a76e0bc077eb5ca20a/README.md",
+      "status": 200,
+      "retrieved_on": "2026-10-15",
+      "date_basis": "UTC",
+      "sha256": "a247d876f5398eed9ae898f32a984083552de57237b5e20714657e1675e26d2e",
+      "bytes": 65249,
+      "resolved_revision": "017b9c7af6b5689d5dd426a76e0bc077eb5ca20a"
+    },
+    {
+      "url": "https://huggingface.co/Qwen/Qwen3.8-27B-FP8/raw/017b9c7af6b5689d5dd426a76e0bc077eb5ca20a/LICENSE",
+      "status": 200,
+      "retrieved_on": "2026-10-15",
+      "date_basis": "UTC",
+      "sha256": "bbedc3fda3305820b977265f01b8619d87570a6739de3a5582c3464840f1e57a",
+      "bytes": 11544,
+      "resolved_revision": "017b9c7af6b5689d5dd426a76e0bc077eb5ca20a"
+    },
+    {
+      "url": "https://huggingface.co/api/models/nvidia/Qwen3.8-27B-NVFP4",
+      "status": 200,
+      "retrieved_on": "2026-10-15",
+      "date_basis": "UTC",
+      "sha256": "546546324217d77c47a2441d3793066495699294da76af555d6fb5b470b53456",
+      "bytes": 31631,
+      "resolved_revision": "482ca0f3832238542f8f5295dde86b5f22711d80"
+    },
+    {
+      "url": "https://huggingface.co/nvidia/Qwen3.8-27B-NVFP4/raw/482ca0f3832238542f8f5295dde86b5f22711d80/config.json",
+      "status": 200,
+      "retrieved_on": "2026-10-15",
+      "date_basis": "UTC",
+      "sha256": "71fa01bb64de20971045cd82a82c0ebb25a54e1b0a3f09ef23cf5479e9c54df8",
+      "bytes": 87506,
+      "resolved_revision": "482ca0f3832238542f8f5295dde86b5f22711d80"
+    },
+    {
+      "url": "https://huggingface.co/nvidia/Qwen3.8-27B-NVFP4/raw/482ca0f3832238542f8f5295dde86b5f22711d80/README.md",
+      "status": 200,
+      "retrieved_on": "2026-10-15",
+      "date_basis": "UTC",
+      "sha256": "2dc5368ce2dda4393818fc3c6e587d588ec7b7f599b1f3a326d97dc271e3866d",
+      "bytes": 9578,
+      "resolved_revision": "482ca0f3832238542f8f5295dde86b5f22711d80"
+    },
+    {
+      "url": "https://huggingface.co/nvidia/Qwen3.8-27B-NVFP4/raw/482ca0f3832238542f8f5295dde86b5f22711d80/hf_quant_config.json",
+      "status": 200,
+      "retrieved_on": "2026-10-15",
+      "date_basis": "UTC",
+      "sha256": "5f4aaa9e462ddb26a9790ab459eee69d100b9ade7541f0c86038e925c013f80b",
+      "bytes": 53760,
+      "resolved_revision": "482ca0f3832238542f8f5295dde86b5f22711d80"
+    },
+    {
+      "url": "https://huggingface.co/nvidia/Qwen3.8-27B-NVFP4/raw/482ca0f3832238542f8f5295dde86b5f22711d80/LICENSE",
+      "status": 200,
+      "retrieved_on": "2026-10-15",
+      "date_basis": "UTC",
+      "sha256": "bbedc3fda3305820b977265f01b8619d87570a6739de3a5582c3464840f1e57a",
+      "bytes": 11544,
+      "resolved_revision": "482ca0f3832238542f8f5295dde86b5f22711d80"
+    },
+    {
+      "url": "https://huggingface.co/api/models/Qwen/Qwen3.8-Flash-Next",
+      "status": 200,
+      "retrieved_on": "2026-10-15",
+      "date_basis": "UTC",
+      "sha256": "56bf2dd7bfbf2d85bb3ad624a48ad6e2d71bca6480365d73fabbbb442a2e49ea",
+      "bytes": 27363,
+      "resolved_revision": "de4b8e4d43b917e7706784d8bb445c9af86a3540"
+    },
+    {
+      "url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next/raw/de4b8e4d43b917e7706784d8bb445c9af86a3540/config.json",
+      "status": 200,
+      "retrieved_on": "2026-10-15",
+      "date_basis": "UTC",
+      "sha256": "889658f2508e8c61d409b02e70e0d78d8d4452ec65aaafbe129805d213d2e74b",
+      "bytes": 4745,
+      "resolved_revision": "de4b8e4d43b917e7706784d8bb445c9af86a3540"
+    },
+    {
+      "url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next/raw/de4b8e4d43b917e7706784d8bb445c9af86a3540/README.md",
+      "status": 200,
+      "retrieved_on": "2026-10-15",
+      "date_basis": "UTC",
+      "sha256": "35ca37ccc366f1ba478dab33841a2c0c18ce53fd62f291ca05341f7728b225b2",
+      "bytes": 65155,
+      "resolved_revision": "de4b8e4d43b917e7706784d8bb445c9af86a3540"
+    },
+    {
+      "url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next/raw/de4b8e4d43b917e7706784d8bb445c9af86a3540/LICENSE",
+      "status": 200,
+      "retrieved_on": "2026-10-15",
+      "date_basis": "UTC",
+      "sha256": "a0dc422560841fd68e06d974907f8b4c709bca44a67daad2b528437bdf676c08",
+      "bytes": 3235,
+      "resolved_revision": "de4b8e4d43b917e7706784d8bb445c9af86a3540"
+    },
+    {
+      "url": "https://huggingface.co/api/models/Qwen/Qwen3.8-Flash-Next-FP8",
+      "status": 200,
+      "retrieved_on": "2026-10-15",
+      "date_basis": "UTC",
+      "sha256": "66053b238c2d56052ae8e0493f2d5f07355c65e02b2a3bd6b67ec3f74ffc61d5",
+      "bytes": 82101,
+      "resolved_revision": "236dfdf285828023ca3bcd3f37366c58a3469b13"
+    },
+    {
+      "url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next-FP8/raw/236dfdf285828023ca3bcd3f37366c58a3469b13/config.json",
+      "status": 200,
+      "retrieved_on": "2026-10-15",
+      "date_basis": "UTC",
+      "sha256": "c22eb0a053eed62e18f0184d3ca62d3798f208c3e00b9feee939fc3dbacdc8ca",
+      "bytes": 72514,
+      "resolved_revision": "236dfdf285828023ca3bcd3f37366c58a3469b13"
+    },
+    {
+      "url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next-FP8/raw/236dfdf285828023ca3bcd3f37366c58a3469b13/README.md",
+      "status": 200,
+      "retrieved_on": "2026-10-15",
+      "date_basis": "UTC",
+      "sha256": "3c5fcfaf37c4415dbabdbd25eaa7a17ed42f8e63fead97b8644053b1d60ea43f",
+      "bytes": 65400,
+      "resolved_revision": "236dfdf285828023ca3bcd3f37366c58a3469b13"
+    },
+    {
+      "url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next-FP8/raw/236dfdf285828023ca3bcd3f37366c58a3469b13/LICENSE",
+      "status": 200,
+      "retrieved_on": "2026-10-15",
+      "date_basis": "UTC",
+      "sha256": "a0dc422560841fd68e06d974907f8b4c709bca44a67daad2b528437bdf676c08",
+      "bytes": 3235,
+      "resolved_revision": "236dfdf285828023ca3bcd3f37366c58a3469b13"
+    },
+    {
+      "url": "https://huggingface.co/api/models/nvidia/Qwen3.8-Flash-Next-NVFP4",
+      "status": 200,
+      "retrieved_on": "2026-10-15",
+      "date_basis": "UTC",
+      "sha256": "832f174d196c15ace300d7b56c0088b222831ec1dee0a5709c723a2565d0b318",
+      "bytes": 38341,
+      "resolved_revision": "fc694b54fb0174e0913e6adf86691ef85a4ead47"
+    },
+    {
+      "url": "https://huggingface.co/nvidia/Qwen3.8-Flash-Next-NVFP4/raw/fc694b54fb0174e0913e6adf86691ef85a4ead47/config.json",
+      "status": 200,
+      "retrieved_on": "2026-10-15",
+      "date_basis": "UTC",
+      "sha256": "deef67a61f3311faf051b23dc4192f442c7fee4f9cd2f38cbcbe4da55c763a80",
+      "bytes": 30820,
+      "resolved_revision": "fc694b54fb0174e0913e6adf86691ef85a4ead47"
+    },
+    {
+      "url": "https://huggingface.co/nvidia/Qwen3.8-Flash-Next-NVFP4/raw/fc694b54fb0174e0913e6adf86691ef85a4ead47/README.md",
+      "status": 200,
+      "retrieved_on": "2026-10-15",
+      "date_basis": "UTC",
+      "sha256": "e3ed0cb89950ef0f41e8df344ba1cc15c67e1baf91e1cb5305a7344e58a8d975",
+      "bytes": 12109,
+      "resolved_revision": "fc694b54fb0174e0913e6adf86691ef85a4ead47"
+    },
+    {
+      "url": "https://huggingface.co/nvidia/Qwen3.8-Flash-Next-NVFP4/raw/fc694b54fb0174e0913e6adf86691ef85a4ead47/hf_quant_config.json",
+      "status": 200,
+      "retrieved_on": "2026-10-15",
+      "date_basis": "UTC",
+      "sha256": "331ad11d57c8bc374554579977198084e0d4d0933d5b3558f125f6f670aba0e8",
+      "bytes": 23001,
+      "resolved_revision": "fc694b54fb0174e0913e6adf86691ef85a4ead47"
+    },
+    {
+      "id": "qwen3.8-27b-VR",
+      "url": "https://recipes.vllm.ai/Qwen/Qwen3.8-27B",
+      "retrieved_on": "2026-10-15",
+      "status": 200,
+      "bytes": 2189592,
+      "sha256": "b6f8bbb8fc8076ede19c029fb16dbb28d0a4a1f5522d0682f7c8ed41ae3cf30b",
+      "resolved_url": "https://recipes.vllm.ai/Qwen/Qwen3.8-27B"
+    },
+    {
+      "id": "qwen3.8-27b-GR",
+      "url": "https://docs.sglang.io/cookbook/autoregressive/Qwen/Qwen3.8-27B",
+      "retrieved_on": "2026-10-15",
+      "status": 200,
+      "bytes": 919480,
+      "sha256": "49a2cf20e330f660fa120432709c2d77217d32316e1efa60651a8b35a1a51bf4",
+      "resolved_url": "https://docs.sglang.io/cookbook/autoregressive/Qwen/Qwen3.8-27B"
+    },
+    {
+      "id": "qwen3.8-flash-next-VR",
+      "url": "https://recipes.vllm.ai/Qwen/Qwen3.8-Flash-Next",
+      "retrieved_on": "2026-10-15",
+      "status": 200,
+      "bytes": 2178279,
+      "sha256": "40c136f1e02e704b41f9e716806cc5c57ed380f74a205e2a0fa4dfe7d8dfb599",
+      "resolved_url": "https://recipes.vllm.ai/Qwen/Qwen3.8-Flash-Next"
+    },
+    {
+      "id": "QPR",
+      "url": "https://api.github.com/repos/vllm-project/vllm/pulls/55513",
+      "retrieved_on": "2026-10-15",
+      "status": 200,
+      "bytes": 33134,
+      "sha256": "99356c9daf74d96c5e4b4fa133cdc0b891d969cda4ae66ed7aea1b878188d2ca",
+      "resolved_url": "https://api.github.com/repos/vllm-project/vllm/pulls/55513",
+      "title": "[Bugfix][Model] Fix block FP8 MTP in ModelOpt mixed checkpoints",
+      "html_url": "https://github.com/vllm-project/vllm/pull/55513",
+      "state": "closed",
+      "merged": true,
+      "merged_at": "2026-09-08T22:47:22Z",
+      "merge_commit_sha": "60ad959b6f1a5c8f602edbd608c8decbc0788c50"
+    },
+    {
+      "id": "VREL",
+      "url": "https://api.github.com/repos/vllm-project/vllm/releases/latest",
+      "retrieved_on": "2026-10-15",
+      "status": 200,
+      "bytes": 60451,
+      "sha256": "456972faba9c464801fbb272a934767bbceeab02c87d2862491f78784557dc5c",
+      "resolved_url": "https://api.github.com/repos/vllm-project/vllm/releases/latest",
+      "html_url": "https://github.com/vllm-project/vllm/releases/tag/v0.31.0",
+      "tag_name": "v0.31.0",
+      "published_at": "2026-10-05T06:44:55Z",
+      "prerelease": false,
+      "target_commitish": "main"
+    },
+    {
+      "id": "GREL",
+      "url": "https://api.github.com/repos/sgl-project/sglang/releases/latest",
+      "retrieved_on": "2026-10-15",
+      "status": 200,
+      "bytes": 85534,
+      "sha256": "eaf401087605280b42d2c4648a618413fb5c1150599c8b5521a92bed6b6117b9",
+      "resolved_url": "https://api.github.com/repos/sgl-project/sglang/releases/latest",
+      "html_url": "https://github.com/sgl-project/sglang/releases/tag/v0.5.21",
+      "tag_name": "v0.5.21",
+      "published_at": "2026-10-02T01:09:04Z",
+      "prerelease": false,
+      "target_commitish": "main"
+    },
+    {
+      "id": "KREL",
+      "url": "https://api.github.com/repos/kserve/kserve/releases/latest",
+      "retrieved_on": "2026-10-15",
+      "status": 200,
+      "bytes": 63765,
+      "sha256": "13638b9524bc1bff2d1d5c6db6cc4fdbb5e2c29cf98753cbecca3fa3255a8fb4",
+      "resolved_url": "https://api.github.com/repos/kserve/kserve/releases/latest",
+      "html_url": "https://github.com/kserve/kserve/releases/tag/v0.21.0",
+      "tag_name": "v0.21.0",
+      "published_at": "2026-09-25T17:04:20Z",
+      "prerelease": false,
+      "target_commitish": "master"
+    },
+    {
+      "id": "VHEAD",
+      "url": "https://api.github.com/repos/vllm-project/vllm/commits/main",
+      "retrieved_on": "2026-10-15",
+      "status": 200,
+      "bytes": 76022,
+      "sha256": "a750c79b271ef834ac60569c278308a7f8b42473947fd6c190508fa41e25592d",
+      "resolved_url": "https://api.github.com/repos/vllm-project/vllm/commits/main",
+      "html_url": "https://github.com/vllm-project/vllm/commit/e711723352670e811b0e904300d771471e28930d",
+      "sha": "e711723352670e811b0e904300d771471e28930d"
+    },
+    {
+      "id": "GHEAD",
+      "url": "https://api.github.com/repos/sgl-project/sglang/commits/main",
+      "retrieved_on": "2026-10-15",
+      "status": 200,
+      "bytes": 14100,
+      "sha256": "bfd0b92ecf04c19880689566c6696e6b960fe393f23ea8221fd0588729089585",
+      "resolved_url": "https://api.github.com/repos/sgl-project/sglang/commits/main",
+      "html_url": "https://github.com/sgl-project/sglang/commit/91f6ef23223d8415724b1bbfab415bb5977fca0c",
+      "sha": "91f6ef23223d8415724b1bbfab415bb5977fca0c"
+    },
+    {
+      "id": "qwen3.8-flash-next-GR",
+      "url": "https://docs.sglang.io/cookbook/autoregressive/Qwen/Qwen3.8-Flash-Next",
+      "retrieved_on": "2026-10-15",
+      "status": 200,
+      "bytes": 898314,
+      "sha256": "2cad82409f4652abe2e4fc1b1e3b71c7b0d9f84ebcc92bd7ba18e961e616d89f",
+      "resolved_url": "https://docs.sglang.io/cookbook/autoregressive/Qwen/Qwen3.8-Flash-Next"
+    },
+    {
+      "id": "qwen3.8-flash-next-GPR",
+      "url": "https://api.github.com/repos/sgl-project/sglang/pulls/41046",
+      "retrieved_on": "2026-10-15",
+      "status": 200,
+      "bytes": 21841,
+      "sha256": "8f8dd21907e83fbf54bad5b2868c9f5b5fd55d8dd0c90af32186ef29150cd60c",
+      "resolved_url": "https://api.github.com/repos/sgl-project/sglang/pulls/41046",
+      "title": "[Docs] Enable Qwen3.8 Flash Next NVIDIA NVFP4 on B200/B300/GB300",
+      "state": "closed",
+      "merged": true,
+      "merged_at": "2026-09-24T21:19:01Z",
+      "merge_commit_sha": "a1eb691ab51bc461378b2fcca8991883add4f1b5",
+      "html_url": "https://github.com/sgl-project/sglang/pull/41046"
+    },
+    {
+      "id": "qwen3.8-flash-next-GPR-files",
+      "url": "https://api.github.com/repos/sgl-project/sglang/pulls/41046/files",
+      "retrieved_on": "2026-10-15",
+      "status": 200,
+      "bytes": 11391,
+      "sha256": "2f63f3201d1166aaa20776271c6dabd816e925985372c4510ede97fac1e198a7",
+      "resolved_url": "https://api.github.com/repos/sgl-project/sglang/pulls/41046/files"
+    },
+    {
+      "id": "qwen3.8-flash-next-LOADERPR",
+      "url": "https://api.github.com/repos/sgl-project/sglang/pulls/38121",
+      "retrieved_on": "2026-10-15",
+      "status": 200,
+      "bytes": 45913,
+      "sha256": "fcf619d21f898e537bea57efc73cee6abe42ea62aa7c6560b9899ae6b06bb074",
+      "resolved_url": "https://api.github.com/repos/sgl-project/sglang/pulls/38121",
+      "title": "[Qwen4-Exp] Load nvidia/Qwen3.8-Flash-Next-NVFP4 (ModelOpt MIXED_PRECISION) on qwen4-main-squashed",
+      "state": "closed",
+      "merged": true,
+      "merged_at": "2026-09-05T17:59:37Z",
+      "merge_commit_sha": "9b2aee22836b2bfe620bf83861919870d6692660",
+      "html_url": "https://github.com/sgl-project/sglang/pull/38121"
+    },
+    {
+      "id": "qwen3.8-flash-next-GR-SOURCE",
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/a1eb691ab51bc461378b2fcca8991883add4f1b5/docs/src/snippets/configs/Qwen/qwen3.8-flash-next.jsx",
+      "revision": "a1eb691ab51bc461378b2fcca8991883add4f1b5",
+      "retrieved_on": "2026-10-15",
+      "status": 200,
+      "bytes": 66179,
+      "sha256": "de3833beaf52bbfa5eb865542471d70870eafaae6d0f88754e82bf9d442a7d52"
+    }
+  ],
+  "reverification": [
+    {
+      "source_id": "qwen3.8-27b-CARD",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-27B/raw/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/README.md",
+      "status": 200,
+      "sha256": "57e4bdb258ee1a7d2635c5174ebd4e56abe392505cdb5f8bbb356b0dc4293641",
+      "reverified_at": "2026-10-15T22:03:24.290857+00:00",
+      "matches_first_retrieval": true
+    },
+    {
+      "source_id": "qwen3.8-27b-CFG",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-27B/raw/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/config.json",
+      "status": 200,
+      "sha256": "191e0af232104ed8b65258cf3fb2b842e288008baca7633c11b82a1ac7203aab",
+      "reverified_at": "2026-10-15T22:03:24.290813+00:00",
+      "matches_first_retrieval": true
+    },
+    {
+      "source_id": "qwen3.8-27b-FP8",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-27B-FP8/raw/017b9c7af6b5689d5dd426a76e0bc077eb5ca20a/README.md",
+      "status": 200,
+      "sha256": "a247d876f5398eed9ae898f32a984083552de57237b5e20714657e1675e26d2e",
+      "reverified_at": "2026-10-15T22:03:24.303059+00:00",
+      "matches_first_retrieval": true
+    },
+    {
+      "source_id": "qwen3.8-27b-NV",
+      "url": "https://huggingface.co/nvidia/Qwen3.8-27B-NVFP4/raw/482ca0f3832238542f8f5295dde86b5f22711d80/README.md",
+      "status": 200,
+      "sha256": "2dc5368ce2dda4393818fc3c6e587d588ec7b7f599b1f3a326d97dc271e3866d",
+      "reverified_at": "2026-10-15T22:03:24.294737+00:00",
+      "matches_first_retrieval": true
+    },
+    {
+      "source_id": "qwen3.8-flash-next-CARD",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next/raw/de4b8e4d43b917e7706784d8bb445c9af86a3540/README.md",
+      "status": 200,
+      "sha256": "35ca37ccc366f1ba478dab33841a2c0c18ce53fd62f291ca05341f7728b225b2",
+      "reverified_at": "2026-10-15T22:03:24.327848+00:00",
+      "matches_first_retrieval": true
+    },
+    {
+      "source_id": "qwen3.8-flash-next-CFG",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next/raw/de4b8e4d43b917e7706784d8bb445c9af86a3540/config.json",
+      "status": 200,
+      "sha256": "889658f2508e8c61d409b02e70e0d78d8d4452ec65aaafbe129805d213d2e74b",
+      "reverified_at": "2026-10-15T22:03:24.288311+00:00",
+      "matches_first_retrieval": true
+    },
+    {
+      "source_id": "qwen3.8-flash-next-NV",
+      "url": "https://huggingface.co/nvidia/Qwen3.8-Flash-Next-NVFP4/raw/fc694b54fb0174e0913e6adf86691ef85a4ead47/README.md",
+      "status": 200,
+      "sha256": "e3ed0cb89950ef0f41e8df344ba1cc15c67e1baf91e1cb5305a7344e58a8d975",
+      "reverified_at": "2026-10-15T22:03:24.448036+00:00",
+      "matches_first_retrieval": true
+    },
+    {
+      "source_id": "qwen3.8-27b-FP8-CFG",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-27B-FP8/raw/017b9c7af6b5689d5dd426a76e0bc077eb5ca20a/config.json",
+      "status": 200,
+      "sha256": "74227dd615bf1ea975aa676bdf355a0379858c12f394b5365cd9dfa5fc2c70bc",
+      "reverified_at": "2026-10-15T22:03:24.458609+00:00",
+      "matches_first_retrieval": true
+    },
+    {
+      "source_id": "qwen3.8-27b-NV-CFG",
+      "url": "https://huggingface.co/nvidia/Qwen3.8-27B-NVFP4/raw/482ca0f3832238542f8f5295dde86b5f22711d80/config.json",
+      "status": 200,
+      "sha256": "71fa01bb64de20971045cd82a82c0ebb25a54e1b0a3f09ef23cf5479e9c54df8",
+      "reverified_at": "2026-10-15T22:03:24.464634+00:00",
+      "matches_first_retrieval": true
+    },
+    {
+      "source_id": "qwen3.8-27b-NV-QUANT",
+      "url": "https://huggingface.co/nvidia/Qwen3.8-27B-NVFP4/raw/482ca0f3832238542f8f5295dde86b5f22711d80/hf_quant_config.json",
+      "status": 200,
+      "sha256": "5f4aaa9e462ddb26a9790ab459eee69d100b9ade7541f0c86038e925c013f80b",
+      "reverified_at": "2026-10-15T22:03:24.462620+00:00",
+      "matches_first_retrieval": true
+    },
+    {
+      "source_id": "qwen3.8-flash-next-FP8",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next-FP8/raw/236dfdf285828023ca3bcd3f37366c58a3469b13/README.md",
+      "status": 200,
+      "sha256": "3c5fcfaf37c4415dbabdbd25eaa7a17ed42f8e63fead97b8644053b1d60ea43f",
+      "reverified_at": "2026-10-15T22:03:24.462631+00:00",
+      "matches_first_retrieval": true
+    },
+    {
+      "source_id": "qwen3.8-flash-next-FP8-CFG",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next-FP8/raw/236dfdf285828023ca3bcd3f37366c58a3469b13/config.json",
+      "status": 200,
+      "sha256": "c22eb0a053eed62e18f0184d3ca62d3798f208c3e00b9feee939fc3dbacdc8ca",
+      "reverified_at": "2026-10-15T22:03:24.478203+00:00",
+      "matches_first_retrieval": true
+    },
+    {
+      "source_id": "qwen3.8-flash-next-NV-CFG",
+      "url": "https://huggingface.co/nvidia/Qwen3.8-Flash-Next-NVFP4/raw/fc694b54fb0174e0913e6adf86691ef85a4ead47/config.json",
+      "status": 200,
+      "sha256": "deef67a61f3311faf051b23dc4192f442c7fee4f9cd2f38cbcbe4da55c763a80",
+      "reverified_at": "2026-10-15T22:03:24.645918+00:00",
+      "matches_first_retrieval": true
+    },
+    {
+      "source_id": "qwen3.8-flash-next-NV-QUANT",
+      "url": "https://huggingface.co/nvidia/Qwen3.8-Flash-Next-NVFP4/raw/fc694b54fb0174e0913e6adf86691ef85a4ead47/hf_quant_config.json",
+      "status": 200,
+      "sha256": "331ad11d57c8bc374554579977198084e0d4d0933d5b3558f125f6f670aba0e8",
+      "reverified_at": "2026-10-15T22:03:24.645946+00:00",
+      "matches_first_retrieval": true
+    },
+    {
+      "source_id": "qwen3.8-flash-next-GR-SOURCE",
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/a1eb691ab51bc461378b2fcca8991883add4f1b5/docs/src/snippets/configs/Qwen/qwen3.8-flash-next.jsx",
+      "status": 200,
+      "sha256": "de3833beaf52bbfa5eb865542471d70870eafaae6d0f88754e82bf9d442a7d52",
+      "reverified_at": "2026-10-15T22:03:24.530180+00:00",
+      "matches_first_retrieval": true
+    }
+  ],
+  "local_checks": {
+    "config_projection_checks": [
+      {
+        "model": "qwen3.8-27b",
+        "projection_fields_checked": 30,
+        "status": "pass",
+        "card_only_fields": [
+          "advertised_extended_context"
+        ]
+      },
+      {
+        "model": "qwen3.8-flash-next",
+        "projection_fields_checked": 42,
+        "status": "pass",
+        "card_only_fields": [
+          "advertised_extended_context",
+          "shared_experts"
+        ]
+      }
+    ],
+    "owned_files_checked": 15,
+    "local_markdown_links_checked": 37,
+    "json_parse": "pass",
+    "local_links": "pass",
+    "arithmetic": "pass",
+    "catalog_consistency": "Root audit will synchronize shared catalog/model copies after owned edits."
+  },
+  "diff_check": "git diff --check -- companies/alibaba-qwen passed.",
+  "initial_retrieval_failures": [
+    {
+      "url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next/raw/de4b8e4d43b917e7706784d8bb445c9af86a3540/config.json",
+      "method": "web open",
+      "result": "Internal Error",
+      "resolution": "Direct HTTPS request succeededHTTP 200; repeated immutable fetch hash matched. This was not evidence of model absence."
+    }
+  ],
+  "shared_corrections_required": [
+    {
+      "files": [
+        "catalog/models.json"
+      ],
+      "action": "Replace Qwen model entries with owned model.json files, including revisions, source IDs, parameter scope, projection provenance, Flash baseline TP8 and updated recommendations."
+    },
+    {
+      "files": [
+        "profiles/qwen*.json",
+        "catalog/profiles.json"
+      ],
+      "action": "Tooling owner received all six revisions. Pin exact checkpoint revisions. Flash SGLang probe adapts the pinned B300 TP1 cell with FlashInfer linear backends, BF16 recurrent state and reasoning-parser auto, plus local 65,536-token/32-request/0.82-memory caps. Retain compatibility-probe and tested_on_target=false."
+    },
+    {
+      "files": [
+        "evidence/sources.json",
+        "evidence/SOURCES.md",
+        "evidence/upstreams.lock.json"
+      ],
+      "action": "Apply source_updates and source_additions from this ledger. Preserve retrieval method, status, hash and immutable model revisions. Successful model-metadata retrieval is not tensor or runtime validation."
+    },
+    {
+      "files": [
+        "README.md",
+        "START_HERE.md",
+        "LIMITATIONS.md",
+        "reports/comparison.md",
+        "reports/memory-math.md",
+        "reports/precision-and-kernels.md",
+        "ATLAS.html"
+      ],
+      "action": "Remove obsolete unresolved-Qwen-revision and only-secondarily-referenced-Flash-FP8 claims. Propagate the producer-version conflict, rounded parameter scope, and Flash vLLM TP8/SGLang documented TP1 candidates. The framework owner received relevant corrections; root should rebuild the offline edition."
+    }
+  ],
+  "upstream_observations": [
+    {
+      "id": "QPR",
+      "url": "https://api.github.com/repos/vllm-project/vllm/pulls/55513",
+      "status": 200,
+      "merged": true,
+      "merged_at": "2026-09-08T22:47:22Z",
+      "merge_commit_sha": "60ad959b6f1a5c8f602edbd608c8decbc0788c50"
+    },
+    {
+      "id": "VREL",
+      "url": "https://api.github.com/repos/vllm-project/vllm/releases/latest",
+      "status": 200,
+      "tag_name": "v0.31.0",
+      "published_at": "2026-10-05T06:44:55Z",
+      "prerelease": false
+    },
+    {
+      "id": "GREL",
+      "url": "https://api.github.com/repos/sgl-project/sglang/releases/latest",
+      "status": 200,
+      "tag_name": "v0.5.21",
+      "published_at": "2026-10-02T01:09:04Z",
+      "prerelease": false
+    },
+    {
+      "id": "KREL",
+      "url": "https://api.github.com/repos/kserve/kserve/releases/latest",
+      "status": 200,
+      "tag_name": "v0.21.0",
+      "published_at": "2026-09-25T17:04:20Z",
+      "prerelease": false
+    },
+    {
+      "id": "VHEAD",
+      "url": "https://api.github.com/repos/vllm-project/vllm/commits/main",
+      "status": 200,
+      "sha": "e711723352670e811b0e904300d771471e28930d"
+    },
+    {
+      "id": "GHEAD",
+      "url": "https://api.github.com/repos/sgl-project/sglang/commits/main",
+      "status": 200,
+      "sha": "91f6ef23223d8415724b1bbfab415bb5977fca0c"
+    }
+  ],
+  "remaining_limits": [
+    "No model-weight payload downloaded or full tensor census performed.",
+    "No inference engine installed or run; no GPU load, quality, memory, latency, throughput or power measurement.",
+    "No nightly image pulled or digest verified.",
+    "NVIDIA 27B ModelOpt producer-version discrepancy remains unresolved.",
+    "SGLang B300 NVIDIA Flash Next TP1 recipe is explicitly unverified upstream; the local profile is a controlled adaptation.",
+    "License strings are provenance metadata, not legal clearance."
+  ],
+  "raw_metadata_archived_in_repository": false,
+  "record_role": "First-pass Astra max reviewer handoff; final shared propagation and second-review resolutions are recorded in evidence/AUDIT-2026-10-15.md."
+}

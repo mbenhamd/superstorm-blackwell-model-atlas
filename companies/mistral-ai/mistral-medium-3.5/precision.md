@@ -2,7 +2,7 @@
 
 | Variant | Exact artifact | Actual precision contract | Evidence |
 | --- | --- | --- | --- |
-| fp8 | mistralai/Mistral-Medium-3.5-128B | Static FP8 text linears; higher precision exclusions | verified official release |
+| fp8 | mistralai/Mistral-Medium-3.5-128B | Static FP8 text linears; higher precision exclusions | Publisher card/config inspected at `22b2b868a15677cfa6061277ed2f653d1349a9ab` |
 
 
 ## Interpretation
@@ -11,7 +11,7 @@ The default export uses static-activation FP8 without the 128×128 weight-block 
 
 This atlas does not invent a Mistral NVFP4 checkpoint: the requested Mistral variant was not specified that way, and no exact NVFP4 derivative was audited. A future conversion must begin from the corrected configuration and validate long-context and multimodal behavior.
 
-[mistral-medium-3.5-CARD](https://huggingface.co/mistralai/Mistral-Medium-3.5-128B)
+[mistral-medium-3.5-CARD](https://huggingface.co/mistralai/Mistral-Medium-3.5-128B/blob/22b2b868a15677cfa6061277ed2f653d1349a9ab/README.md)
 
 ## Deployment rule
 
@@ -21,4 +21,4 @@ For every candidate, compare target-only quality against the appropriate referen
 
 ## License provenance
 
-Publisher custom license / metadata other; not assumed Apache-2.0. This is a provenance flag, not legal clearance. The ZIP contains no model weights. Original model terms and derivative exporter terms remain separate from this repository’s original code and prose.
+The pinned [LICENSE](https://huggingface.co/mistralai/Mistral-Medium-3.5-128B/blob/22b2b868a15677cfa6061277ed2f653d1349a9ab/LICENSE) is titled Modified MIT License. Its revenue clause restricts exercise of the license rights when the company or employer’s global consolidated monthly revenue exceeded US$20 million in the preceding month, and directs affected users to Mistral for commercial licensing. The `other` card metadata does not describe this condition by itself. The ZIP contains no model weights. Original model terms and derivative exporter terms remain separate from this repository’s original code and prose.

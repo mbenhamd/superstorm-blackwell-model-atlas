@@ -10,7 +10,17 @@
       "commit_date": "2026-10-15T20:58:25Z",
       "clone_completed": false,
       "nightly_artifact_verified": false,
-      "image_digest": null
+      "image_digest": null,
+      "release_prerelease": false,
+      "release_commit": "db9527a46873454610df6dbedf79a36d6bf1a7f6",
+      "release_checked_at": "2026-10-15T21:52:51.128695+00:00",
+      "latest_branch": "main",
+      "latest_branch_ref": "e711723352670e811b0e904300d771471e28930d",
+      "latest_branch_commit_date": "2026-10-15T21:51:57Z",
+      "latest_branch_checked_at": "2026-10-15T21:52:51.128376+00:00",
+      "source_rechecked_at_current_branch": true,
+      "source_files_identical_at_current_branch": true,
+      "source_review_scope": "Selected model registry and Kimi DSpark MLA files only; see frameworks/vllm/SOURCE_REVIEW.md"
     },
     {
       "key": "sglang",
@@ -21,17 +31,37 @@
       "commit_date": "2026-10-15T20:34:49Z",
       "clone_completed": false,
       "nightly_artifact_verified": false,
-      "image_digest": null
+      "image_digest": null,
+      "release_prerelease": false,
+      "release_commit": "e00930c5489053f26d86b179cee0d087f846acbb",
+      "release_checked_at": "2026-10-15T21:52:51.143963+00:00",
+      "latest_branch": "main",
+      "latest_branch_ref": "91f6ef23223d8415724b1bbfab415bb5977fca0c",
+      "latest_branch_commit_date": "2026-10-15T21:11:51Z",
+      "latest_branch_checked_at": "2026-10-15T21:52:51.322075+00:00",
+      "source_rechecked_at_current_branch": true,
+      "source_files_identical_at_current_branch": true,
+      "source_review_scope": "Selected ModelOpt quantization and model registry files only; see frameworks/sglang/SOURCE_REVIEW.md"
     },
     {
       "key": "kserve",
       "repo": "https://github.com/kserve/kserve.git",
       "release": "v0.21.0",
       "release_published_at": "2026-09-25T17:04:20Z",
-      "inspected_ref": null,
+      "inspected_ref": "d1482554fc4f66dd41aee70e01f5174e24f265bd",
       "clone_completed": false,
       "nightly_artifact_verified": false,
-      "image_digest": null
+      "image_digest": null,
+      "release_prerelease": false,
+      "release_commit": "d1482554fc4f66dd41aee70e01f5174e24f265bd",
+      "release_checked_at": "2026-10-15T21:52:51.124638+00:00",
+      "latest_branch": "master",
+      "latest_branch_ref": "22be2b0496eea4548a98395c3abccf48d8235385",
+      "latest_branch_commit_date": "2026-10-15T19:47:34Z",
+      "latest_branch_checked_at": "2026-10-15T21:52:51.512389+00:00",
+      "commit_date": "2026-09-24T20:10:37Z",
+      "source_review_scope": "LLMInferenceService/Config version declarations and deployment-mode constants only; no full controller review",
+      "documentation_version_observed": "0.20"
     }
   ],
   "pull_requests": [
@@ -40,21 +70,539 @@
       "number": 35077,
       "state": "merged",
       "merged_at": "2026-08-19T15:13:45Z",
-      "merge_commit": "5f128395910dafb98c34083dc26cb790c7674d34"
+      "merge_commit": "5f128395910dafb98c34083dc26cb790c7674d34",
+      "retrieved_at": "2026-10-15T21:52:51.236600+00:00",
+      "included_in_release_source": "v0.5.21"
     },
     {
       "repo": "vllm-project/vllm",
       "number": 52406,
       "state": "open",
       "head_commit": "271aa8deeb723650932f609b8291e4299f0d504b",
-      "merged_at": null
+      "merged_at": null,
+      "retrieved_at": "2026-10-15T21:52:51.228510+00:00"
     },
     {
       "repo": "vllm-project/vllm",
       "number": 55513,
       "state": "merged",
       "merged_at": "2026-09-08T22:47:22Z",
-      "merge_commit": "60ad959b6f1a5c8f602edbd608c8decbc0788c50"
+      "merge_commit": "60ad959b6f1a5c8f602edbd608c8decbc0788c50",
+      "retrieved_at": "2026-10-15T21:52:51.492496+00:00",
+      "included_in_release_source": "v0.31.0"
+    },
+    {
+      "repo": "vllm-project/vllm",
+      "number": 50617,
+      "state": "open",
+      "merged_at": null,
+      "merge_commit": null,
+      "head_commit": "0cf7d59ca09abfb0ea6fe0d519c0b50f90da3cd4",
+      "retrieved_at": "2026-10-15T22:07:24.919971+00:00",
+      "api_url": "https://api.github.com/repos/vllm-project/vllm/pulls/50617",
+      "http_status": 200,
+      "response_sha256": "ef75c86ed784f819cd314696c5266fe16ade98c13b8de915252da66417fd4fcf"
+    },
+    {
+      "repo": "vllm-project/vllm",
+      "number": 52405,
+      "state": "open",
+      "merged_at": null,
+      "merge_commit": null,
+      "head_commit": "f66d822a614866f06ba92bf3c0614675df90eb8b",
+      "retrieved_at": "2026-10-15T22:07:24.911519+00:00",
+      "api_url": "https://api.github.com/repos/vllm-project/vllm/pulls/52405",
+      "http_status": 200,
+      "response_sha256": "ed2699f8797a047192cdaf341b84b4823e63af323bafb39686efdd0383675fd6"
+    },
+    {
+      "repo": "sgl-project/sglang",
+      "number": 41046,
+      "state": "merged",
+      "merged_at": "2026-09-24T21:19:01Z",
+      "merge_commit": "a1eb691ab51bc461378b2fcca8991883add4f1b5",
+      "head_commit": "668011a712d4a7bce31896513b162a127bd4d732",
+      "retrieved_at": "2026-10-15T22:07:24.894596+00:00",
+      "api_url": "https://api.github.com/repos/sgl-project/sglang/pulls/41046",
+      "http_status": 200,
+      "response_sha256": "597dd17b7557563f905bd11b3a07f3ac0d0a1f4f0d8e9b6301b93568ccfa3069"
     }
-  ]
+  ],
+  "nightly_metadata_observations": [
+    {
+      "id": "VNIGHTLY-INDEX",
+      "url": "https://wheels.vllm.ai/nightly/cu130/vllm/",
+      "resolved_url": "https://wheels.vllm.ai/nightly/cu130/vllm/",
+      "sha256": "64b9bae1ef52d0a6df1007ae32d66b2567066b455844767b4949e83e34616e0f",
+      "retrieved_at": "2026-10-15T21:58:21.223419+00:00",
+      "bytes_fetched": 591,
+      "links": [
+        "../../../f8460ef23659afd69046a81529ec2295e4c3f686/vllm-0.32.0rc1.dev255%2Bgf8460ef23-cp38-abi3-manylinux_2_28_aarch64.whl",
+        "../../../f8460ef23659afd69046a81529ec2295e4c3f686/vllm-0.32.0rc1.dev255%2Bgf8460ef23-cp38-abi3-manylinux_2_28_x86_64.whl"
+      ]
+    },
+    {
+      "id": "GNIGHTLY-INDEX",
+      "url": "https://docs.sglang.ai/whl/cu130/sglang",
+      "resolved_url": "https://sgl-project.github.io/whl/cu130/sglang/",
+      "retrieved_at": "2026-10-15T21:58:46.107363+00:00",
+      "sha256": "a10da2f4002744325d18590c95e6949f103bcabef9cccc1ff0c02e726c62f9ce",
+      "bytes_fetched": 54485,
+      "links": [
+        "https://github.com/sgl-project/whl/releases/download/nightly-2026-05-05-2b769d37a/sglang-0.5.11.dev20260505+g2b769d37a-cp310-cp310-linux_x86_64.whl#sha256=ac337c9bfb1c24f8bae593d52f5ba2cd5cc73b147bb8d5ded6d953c856e6d7ad",
+        "https://github.com/sgl-project/whl/releases/download/nightly-2026-05-04-91fa2340e/sglang-0.5.11.dev20260504+g91fa2340e-cp310-cp310-linux_x86_64.whl#sha256=ceb83e955d455b2417bb44e10a9c94f104da6f06f9821cf0975167e8e5b76c7e",
+        "https://github.com/sgl-project/whl/releases/download/nightly-2026-05-03-76b9c8de6/sglang-0.5.11.dev20260503+g76b9c8de6-cp310-cp310-linux_x86_64.whl#sha256=ad439b14711373fdc59f323ce4a3ff081bda6d87166271f48e05aa88505a81ba",
+        "https://github.com/sgl-project/whl/releases/download/nightly-2026-05-02-d41e8c459/sglang-0.5.11.dev20260502+gd41e8c459-cp310-cp310-linux_x86_64.whl#sha256=5785058d2774397f8eae295e9ce47934df4e936159a3ecee48284edd57bdbf55",
+        "https://github.com/sgl-project/whl/releases/download/nightly-2026-05-01-9d8426870/sglang-0.5.11.dev20260501+g9d8426870-cp310-cp310-linux_x86_64.whl#sha256=e29aaee0bec2180ac56c68a4dc764b0c63ca39f1a372f650dd43f0d93e702006",
+        "https://github.com/sgl-project/whl/releases/download/nightly-2026-04-30-2f13d2831/sglang-0.5.11.dev20260430+g2f13d2831-cp310-cp310-linux_x86_64.whl#sha256=e00e2b09ce6ae062af3734abcd9d5c104496de6728e762ffc31ae3d722afa6ce"
+      ],
+      "wheel_count": 175,
+      "latest_wheel_links": [
+        "https://github.com/sgl-project/whl/releases/download/nightly-2026-10-15-a12814c158/sglang-0.5.22.dev20261015+ga12814c158-cp312-cp312-manylinux_2_39_x86_64.whl#sha256=54a92e87a1b7edb4057e59b703acc79bb84a1dd04187e57ee940d072a2c1519d",
+        "https://github.com/sgl-project/whl/releases/download/nightly-2026-10-14-44b44774c3/sglang-0.5.22.dev20261014+g44b44774c3-cp312-cp312-manylinux_2_39_x86_64.whl#sha256=d7cfc7b5a9eb7e6c05c3a02cfdb320e0638fcfebc5b32f092e88fbbf7b9ada98",
+        "https://github.com/sgl-project/whl/releases/download/nightly-2026-10-13-43e4e84731/sglang-0.5.22.dev20261013+g43e4e84731-cp312-cp312-manylinux_2_39_x86_64.whl#sha256=d03d56cdd060715fdeee8eec480fd6f696e94d5448968c81e08f87d4e55b9aed"
+      ]
+    },
+    {
+      "id": "GNIGHTLY-TAGS",
+      "url": "https://hub.docker.com/v2/repositories/lmsysorg/sglang/tags?page_size=5&name=nightly&ordering=last_updated",
+      "resolved_url": "https://hub.docker.com/v2/repositories/lmsysorg/sglang/tags?page_size=5&name=nightly&ordering=last_updated",
+      "sha256": "ea1f4e6ff94c08eea73a9d1b51aa67e3ecedf0321401d44b8117a0ee4cafcc48",
+      "retrieved_at": "2026-10-15T21:58:20.937475+00:00",
+      "bytes_fetched": 5033,
+      "tags": [
+        {
+          "name": "nightly-cu134",
+          "last_updated": "2026-10-15T10:52:37.843322Z",
+          "digest": "sha256:ba1cb37b0ee61e92ab2cb7657ae0fd1c31aa4874bd336c188d3f6e1284a3413c",
+          "images": [
+            {
+              "architecture": "arm64",
+              "os": "linux",
+              "digest": "sha256:ba1cb37b0ee61e92ab2cb7657ae0fd1c31aa4874bd336c188d3f6e1284a3413c"
+            }
+          ]
+        },
+        {
+          "name": "nightly-cu134-20261015-f7ad434",
+          "last_updated": "2026-10-15T10:52:34.341872Z",
+          "digest": "sha256:ba1cb37b0ee61e92ab2cb7657ae0fd1c31aa4874bd336c188d3f6e1284a3413c",
+          "images": [
+            {
+              "architecture": "arm64",
+              "os": "linux",
+              "digest": "sha256:ba1cb37b0ee61e92ab2cb7657ae0fd1c31aa4874bd336c188d3f6e1284a3413c"
+            }
+          ]
+        },
+        {
+          "name": "nightly-dev-cu13-20261015-a6a8c560",
+          "last_updated": "2026-10-15T00:53:20.180244Z",
+          "digest": "sha256:0a1ba33aa4e032b8c5bcebdc69c45664074c032074add4f7db01629ec1fcc381",
+          "images": [
+            {
+              "architecture": "amd64",
+              "os": "linux",
+              "digest": "sha256:6b17a72a4c0e4fe8add1a23ea2ce203b8d3e709c41f6a3551f14502ea6be59a8"
+            },
+            {
+              "architecture": "arm64",
+              "os": "linux",
+              "digest": "sha256:8c281367727d30a77c174a316610d3c022b66ededf44de26e7b0e659ada91512"
+            }
+          ]
+        },
+        {
+          "name": "nightly-dev-20261015-a6a8c560",
+          "last_updated": "2026-10-15T00:53:18.730025Z",
+          "digest": "sha256:0a1ba33aa4e032b8c5bcebdc69c45664074c032074add4f7db01629ec1fcc381",
+          "images": [
+            {
+              "architecture": "amd64",
+              "os": "linux",
+              "digest": "sha256:6b17a72a4c0e4fe8add1a23ea2ce203b8d3e709c41f6a3551f14502ea6be59a8"
+            },
+            {
+              "architecture": "arm64",
+              "os": "linux",
+              "digest": "sha256:8c281367727d30a77c174a316610d3c022b66ededf44de26e7b0e659ada91512"
+            }
+          ]
+        },
+        {
+          "name": "nightly-cu134-20261014-3b72b70",
+          "last_updated": "2026-10-14T10:50:44.668651Z",
+          "digest": "sha256:362319ddf18806a8e263bd008e4cab819acc412bf05b2e11fea9919ef074248c",
+          "images": [
+            {
+              "architecture": "arm64",
+              "os": "linux",
+              "digest": "sha256:362319ddf18806a8e263bd008e4cab819acc412bf05b2e11fea9919ef074248c"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "nightly_observation_boundary": "Index and registry metadata only; no wheel/container downloaded, installed, loaded or benchmarked.",
+  "model_artifacts": [
+    {
+      "hf_id": "deepseek-ai/DeepSeek-V4-Flash-0731",
+      "revision": "7872f01b1d1fe23eabc4c98b48bffcef5a386062",
+      "model_keys": [
+        "deepseek-v4-flash-0731"
+      ],
+      "roles": [
+        "native"
+      ],
+      "source_ids": [
+        "deepseek-v4-flash-0731-CARD",
+        "deepseek-v4-flash-0731-CFG",
+        "deepseek-v4-flash-0731-LICENSE",
+        "deepseek-v4-flash-0731-INFER-CFG",
+        "deepseek-v4-flash-0731-INFER-SRC",
+        "deepseek-v4-flash-0731-ENC"
+      ],
+      "verification": "Pinned metadata reviewed; weight payload and runtime behavior untested"
+    },
+    {
+      "hf_id": "google/gemma-4-31B-it",
+      "revision": "842da3794eaa0b77d5f08bae87a17459d91ff475",
+      "model_keys": [
+        "gemma-4-31b-it"
+      ],
+      "roles": [
+        "bf16"
+      ],
+      "source_ids": [
+        "gemma-4-31b-it-CARD",
+        "gemma-4-31b-it-CFG",
+        "gemma-4-31b-it-BASE-TREE"
+      ],
+      "verification": "Pinned metadata reviewed; weight payload and runtime behavior untested"
+    },
+    {
+      "hf_id": "Inferact/GLM-5.3-NVFP4",
+      "revision": "ce67b36f3669192b5bb233819f0fda6c8a9837f8",
+      "model_keys": [
+        "glm-5.3"
+      ],
+      "roles": [
+        "nvfp4-inferact"
+      ],
+      "source_ids": [
+        "glm-5.3-INFERACT-CARD",
+        "glm-5.3-INFERACT-CFG",
+        "glm-5.3-INFERACT-INDEX"
+      ],
+      "verification": "Pinned metadata reviewed; weight payload and runtime behavior untested"
+    },
+    {
+      "hf_id": "Inferact/Kimi-K3-DSpark",
+      "revision": "cf6b8244620e7ea4b0651d214f28e89eac75bed6",
+      "model_keys": [
+        "kimi-k3"
+      ],
+      "roles": [
+        "alternate_external_drafter"
+      ],
+      "source_ids": [
+        "kimi-k3-DRAFT",
+        "kimi-k3-DRAFT-CFG"
+      ],
+      "verification": "Pinned metadata reviewed; weight payload and runtime behavior untested"
+    },
+    {
+      "hf_id": "mistralai/Mistral-Medium-3.5-128B",
+      "revision": "22b2b868a15677cfa6061277ed2f653d1349a9ab",
+      "model_keys": [
+        "mistral-medium-3.5"
+      ],
+      "roles": [
+        "fp8"
+      ],
+      "source_ids": [
+        "mistral-medium-3.5-CARD",
+        "mistral-medium-3.5-CFG",
+        "mistral-medium-3.5-TREE",
+        "mistral-medium-3.5-HF-INDEX",
+        "mistral-medium-3.5-NATIVE-INDEX",
+        "mistral-medium-3.5-LICENSE"
+      ],
+      "verification": "Pinned metadata reviewed; weight payload and runtime behavior untested"
+    },
+    {
+      "hf_id": "moonshotai/Kimi-K3",
+      "revision": "f831ab66814297da540d832a5235f8e904f29d06",
+      "model_keys": [
+        "kimi-k3"
+      ],
+      "roles": [
+        "native"
+      ],
+      "source_ids": [
+        "kimi-k3-CARD",
+        "kimi-k3-CFG",
+        "kimi-k3-LICENSE"
+      ],
+      "verification": "Pinned metadata reviewed; weight payload and runtime behavior untested"
+    },
+    {
+      "hf_id": "nvidia/Kimi-K3-NVFP4",
+      "revision": "b2428a0b83a8b712ff2e1a8448a103d4175341f1",
+      "model_keys": [
+        "kimi-k3"
+      ],
+      "roles": [
+        "nvfp4"
+      ],
+      "source_ids": [
+        "kimi-k3-NV",
+        "kimi-k3-NV-CFG",
+        "kimi-k3-NV-LICENSE"
+      ],
+      "verification": "Pinned metadata reviewed; weight payload and runtime behavior untested"
+    },
+    {
+      "hf_id": "nvidia/Qwen3.8-27B-NVFP4",
+      "revision": "482ca0f3832238542f8f5295dde86b5f22711d80",
+      "model_keys": [
+        "qwen3.8-27b"
+      ],
+      "roles": [
+        "nvfp4"
+      ],
+      "source_ids": [
+        "qwen3.8-27b-NV",
+        "qwen3.8-27b-NV-CFG",
+        "qwen3.8-27b-NV-QUANT"
+      ],
+      "verification": "Pinned metadata reviewed; weight payload and runtime behavior untested"
+    },
+    {
+      "hf_id": "nvidia/Qwen3.8-Flash-Next-NVFP4",
+      "revision": "fc694b54fb0174e0913e6adf86691ef85a4ead47",
+      "model_keys": [
+        "qwen3.8-flash-next"
+      ],
+      "roles": [
+        "nvfp4"
+      ],
+      "source_ids": [
+        "qwen3.8-flash-next-NV",
+        "qwen3.8-flash-next-NV-CFG",
+        "qwen3.8-flash-next-NV-QUANT"
+      ],
+      "verification": "Pinned metadata reviewed; weight payload and runtime behavior untested"
+    },
+    {
+      "hf_id": "Qwen/Qwen3.8-27B",
+      "revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
+      "model_keys": [
+        "qwen3.8-27b"
+      ],
+      "roles": [
+        "bf16"
+      ],
+      "source_ids": [
+        "qwen3.8-27b-CARD",
+        "qwen3.8-27b-CFG"
+      ],
+      "verification": "Pinned metadata reviewed; weight payload and runtime behavior untested"
+    },
+    {
+      "hf_id": "Qwen/Qwen3.8-27B-FP8",
+      "revision": "017b9c7af6b5689d5dd426a76e0bc077eb5ca20a",
+      "model_keys": [
+        "qwen3.8-27b"
+      ],
+      "roles": [
+        "fp8"
+      ],
+      "source_ids": [
+        "qwen3.8-27b-FP8",
+        "qwen3.8-27b-FP8-CFG"
+      ],
+      "verification": "Pinned metadata reviewed; weight payload and runtime behavior untested"
+    },
+    {
+      "hf_id": "Qwen/Qwen3.8-Flash-Next",
+      "revision": "de4b8e4d43b917e7706784d8bb445c9af86a3540",
+      "model_keys": [
+        "qwen3.8-flash-next"
+      ],
+      "roles": [
+        "bf16"
+      ],
+      "source_ids": [
+        "qwen3.8-flash-next-CARD",
+        "qwen3.8-flash-next-CFG"
+      ],
+      "verification": "Pinned metadata reviewed; weight payload and runtime behavior untested"
+    },
+    {
+      "hf_id": "Qwen/Qwen3.8-Flash-Next-FP8",
+      "revision": "236dfdf285828023ca3bcd3f37366c58a3469b13",
+      "model_keys": [
+        "qwen3.8-flash-next"
+      ],
+      "roles": [
+        "fp8"
+      ],
+      "source_ids": [
+        "qwen3.8-flash-next-FP8",
+        "qwen3.8-flash-next-FP8-CFG"
+      ],
+      "verification": "Pinned metadata reviewed; weight payload and runtime behavior untested"
+    },
+    {
+      "hf_id": "RadixArk/Kimi-K3-DSpark",
+      "revision": "3c5bac301d9cf392706189d82ed947feca6c2f0f",
+      "model_keys": [
+        "kimi-k3"
+      ],
+      "roles": [
+        "external_drafter"
+      ],
+      "source_ids": [
+        "kimi-k3-DRAFT-SG",
+        "kimi-k3-DRAFT-SG-CFG"
+      ],
+      "verification": "Pinned metadata reviewed; weight payload and runtime behavior untested"
+    },
+    {
+      "hf_id": "RedHatAI/gemma-4-31B-it-FP8-block",
+      "revision": "d7242548c457ab4b45bd3adb8937f2659af4739d",
+      "model_keys": [
+        "gemma-4-31b-it"
+      ],
+      "roles": [
+        "fp8"
+      ],
+      "source_ids": [
+        "gemma-4-31b-it-FP8",
+        "gemma-4-31b-it-FP8-CFG",
+        "gemma-4-31b-it-FP8-TREE"
+      ],
+      "verification": "Pinned metadata reviewed; weight payload and runtime behavior untested"
+    },
+    {
+      "hf_id": "RedHatAI/gemma-4-31B-it-NVFP4",
+      "revision": "5df75ccad9b74546f5be758a2a68acc2e16bbc9b",
+      "model_keys": [
+        "gemma-4-31b-it"
+      ],
+      "roles": [
+        "nvfp4"
+      ],
+      "source_ids": [
+        "gemma-4-31b-it-NV",
+        "gemma-4-31b-it-NV-CFG",
+        "gemma-4-31b-it-NV-TREE"
+      ],
+      "verification": "Pinned metadata reviewed; weight payload and runtime behavior untested"
+    },
+    {
+      "hf_id": "RedHatAI/GLM-5.3-Flash-NVFP4",
+      "revision": "18d55bfd5a2194887738da73753975c9d3842f46",
+      "model_keys": [
+        "glm-5.3-flash"
+      ],
+      "roles": [
+        "nvfp4"
+      ],
+      "source_ids": [
+        "glm-5.3-flash-NV",
+        "glm-5.3-flash-NV-CFG",
+        "glm-5.3-flash-NV-INDEX"
+      ],
+      "verification": "Pinned metadata reviewed; weight payload and runtime behavior untested"
+    },
+    {
+      "hf_id": "RedHatAI/GLM-5.3-NVFP4",
+      "revision": "c8917e4258572c405575855ff53effe58c17a38e",
+      "model_keys": [
+        "glm-5.3"
+      ],
+      "roles": [
+        "nvfp4"
+      ],
+      "source_ids": [
+        "glm-5.3-NV",
+        "glm-5.3-NV-CFG",
+        "glm-5.3-NV-INDEX"
+      ],
+      "verification": "Pinned metadata reviewed; weight payload and runtime behavior untested"
+    },
+    {
+      "hf_id": "zai-org/GLM-5.3",
+      "revision": "ba32f8c19c8738e2c57c71798c601d477a7bf844",
+      "model_keys": [
+        "glm-5.3"
+      ],
+      "roles": [
+        "fp8"
+      ],
+      "source_ids": [
+        "glm-5.3-CARD",
+        "glm-5.3-CFG",
+        "glm-5.3-INDEX",
+        "glm-5.3-LICENSE",
+        "glm-5.3-META"
+      ],
+      "verification": "Pinned metadata reviewed; weight payload and runtime behavior untested"
+    },
+    {
+      "hf_id": "zai-org/GLM-5.3-BF16",
+      "revision": "abf42e6c0e53bc29a875511301e7b7fcd220315b",
+      "model_keys": [
+        "glm-5.3"
+      ],
+      "roles": [
+        "bf16"
+      ],
+      "source_ids": [
+        "glm-5.3-BF16-CARD",
+        "glm-5.3-BF16-CFG",
+        "glm-5.3-BF16-INDEX",
+        "glm-5.3-BF16-HEADERS"
+      ],
+      "verification": "Pinned metadata reviewed; weight payload and runtime behavior untested"
+    },
+    {
+      "hf_id": "zai-org/GLM-5.3-Flash",
+      "revision": "46a050bec13002ad29ee795c16e61cf4fa3c4a9c",
+      "model_keys": [
+        "glm-5.3-flash"
+      ],
+      "roles": [
+        "fp8"
+      ],
+      "source_ids": [
+        "glm-5.3-flash-CARD",
+        "glm-5.3-flash-CFG",
+        "glm-5.3-flash-INDEX",
+        "glm-5.3-flash-LICENSE",
+        "glm-5.3-flash-META"
+      ],
+      "verification": "Pinned metadata reviewed; weight payload and runtime behavior untested"
+    },
+    {
+      "hf_id": "zai-org/GLM-5.3-Flash-BF16",
+      "revision": "f9fed3bbc82291073373d67452e9f25317ef7577",
+      "model_keys": [
+        "glm-5.3-flash"
+      ],
+      "roles": [
+        "bf16"
+      ],
+      "source_ids": [
+        "glm-5.3-flash-BF16-CARD",
+        "glm-5.3-flash-BF16-CFG",
+        "glm-5.3-flash-BF16-INDEX"
+      ],
+      "verification": "Pinned metadata reviewed; weight payload and runtime behavior untested"
+    }
+  ],
+  "date_basis": "UTC; source observations are dated individually"
 }

@@ -8,13 +8,13 @@ Text / Pixtral vision → projector → 88 dense GQA blocks with YaRN → output
 
 The language network uses dense feed-forward blocks and grouped-query attention. Many query heads share a smaller set of key/value heads. Unlike the hybrid models in this catalog, its text configuration does not declare a sliding window; full token history therefore drives attention-cache growth across the language layers.
 
-The positional configuration extends an original short window using YaRN parameters. A later corrected Transformers configuration is explicitly referenced by the publisher. A quantized derivative created before that correction can retain incorrect long-context behavior even when its weights are otherwise faithful.
+The positional configuration extends a 4,096-position reference using YaRN with factor 64. The publisher identifies a concrete correction in commit `c4be198050fb5789774a55b92ed697becfbf20ae`: `mscale_all_dim` changed from 1.0 to 0.0. The pinned base config contains 0.0. The publisher warns that derivatives built with the earlier config can inherit degraded long-context behavior. [mistral-medium-3.5-FIXCFG](https://huggingface.co/mistralai/Mistral-Medium-3.5-128B/commit/c4be198050fb5789774a55b92ed697becfbf20ae)
 
 The Pixtral vision encoder and multimodal projector process image inputs. Their precision exclusions are part of the official FP8 export, so the whole checkpoint is not homogeneous FP8. The text architecture class, vision architecture and tokenizer/encoding stack together define a valid model load.
 
-The official repository contains both consolidated-format and Transformers-style weight shards. These are alternate representations, not six disjoint pieces of one larger model. Downloading both layouts approximately doubles storage and startup transfer without doubling the model’s capability.
+The official repository contains both consolidated-format and Transformers-style weight shards. These are alternate representations, not six disjoint pieces of one larger model. Downloading both layouts approximately doubles weight download/storage volume. Startup transfer depends on which layout the loader reads; retaining both on disk does not imply loading both into GPU memory.
 
-The architecture facts above are drawn from the publisher card and configuration; the workload consequences are analytical interpretation. [mistral-medium-3.5-CARD](https://huggingface.co/mistralai/Mistral-Medium-3.5-128B) [mistral-medium-3.5-CFG](https://huggingface.co/mistralai/Mistral-Medium-3.5-128B/blob/main/config.json)
+The architecture facts above are drawn from the publisher card and configuration; the workload consequences are analytical interpretation. [mistral-medium-3.5-CARD](https://huggingface.co/mistralai/Mistral-Medium-3.5-128B/blob/22b2b868a15677cfa6061277ed2f653d1349a9ab/README.md) [mistral-medium-3.5-CFG](https://huggingface.co/mistralai/Mistral-Medium-3.5-128B/raw/22b2b868a15677cfa6061277ed2f653d1349a9ab/config.json)
 
 ## Configuration extraction
 
@@ -30,7 +30,7 @@ This is a **selected, normalized projection**, not a byte-for-byte copy of the c
 | attention_heads | 96 |
 | num_key_value_heads | 8 |
 | head_dim | 128 |
-| sliding_window | null (explicitly in configuration or projection) |
+| sliding_window | null (explicit in the pinned configuration) |
 | max_position_embeddings | 262144 |
 | vocab_size | 131072 |
 | tie_word_embeddings | False |
@@ -38,6 +38,10 @@ This is a **selected, normalized projection**, not a byte-for-byte copy of the c
 | rms_norm_eps | 1e-05 |
 | rope_type | yarn |
 | rope_factor | 64 |
+| rope_mscale | 1.0 |
+| rope_mscale_all_dim | 0.0 (corrected value) |
+| rope_beta_fast | 4.0 |
+| rope_beta_slow | 1.0 |
 | rope_theta | 1000000 |
 | original_max_position_embeddings | 4096 |
 | vision_model_type | pixtral |
@@ -51,22 +55,24 @@ This is a **selected, normalized projection**, not a byte-for-byte copy of the c
 | spatial_merge_size | 2 |
 | quant_method | fp8 |
 | activation_scheme | static |
-| weight_block_size | null (explicitly in configuration or projection) |
+| weight_block_size | null (explicit in the pinned configuration) |
 | excluded_quant_modules | vision_tower, multi_modal_projector, lm_head |
 
 
-Source for the extraction: [mistral-medium-3.5-CFG](https://huggingface.co/mistralai/Mistral-Medium-3.5-128B/blob/main/config.json). Headline counts, modality descriptions and advertised extended context are additionally drawn from [mistral-medium-3.5-CARD](https://huggingface.co/mistralai/Mistral-Medium-3.5-128B). A `transformers_version` metadata field is not by itself proof of a minimum compatible package version.
+Source for the extraction: [mistral-medium-3.5-CFG](https://huggingface.co/mistralai/Mistral-Medium-3.5-128B/raw/22b2b868a15677cfa6061277ed2f653d1349a9ab/config.json). Headline counts, modality descriptions and advertised extended context are additionally drawn from [mistral-medium-3.5-CARD](https://huggingface.co/mistralai/Mistral-Medium-3.5-128B/blob/22b2b868a15677cfa6061277ed2f653d1349a9ab/README.md). A `transformers_version` metadata field is not by itself proof of a minimum compatible package version.
 
 ## Memory and performance consequences
 
-Use about 134 GB as the publisher-tree weight-layout magnitude, not the roughly 267 GB sum across both layouts. The exact byte count should be read from the selected index. With uniform GQA, an ideal BF16 KV payload for one native 262,144-token sequence is 88 GiB across the model, before padding and engine overhead; FP8 KV would halve the element payload if that path is supported and validated.
+At the pinned revision, each of the Transformers and consolidated indexes reports `metadata.total_size = 133605834656` bytes: about 133.606 decimal GB or 124.430 GiB of tensor payload per alternative layout. The sum across both alternatives is 267.212 GB and must not be used as the weight size of one loaded model. Index payload sizes exclude safetensors headers, auxiliary files and runtime allocations. [mistral-medium-3.5-HF-INDEX](https://huggingface.co/mistralai/Mistral-Medium-3.5-128B/raw/22b2b868a15677cfa6061277ed2f653d1349a9ab/model.safetensors.index.json) [mistral-medium-3.5-NATIVE-INDEX](https://huggingface.co/mistralai/Mistral-Medium-3.5-128B/raw/22b2b868a15677cfa6061277ed2f653d1349a9ab/consolidated.safetensors.index.json)
 
-A single B300 can plausibly accommodate the FP8 weights and a constrained short-context workload, but this is not a long-context/concurrency guarantee. TP2 and TP4 are sensible candidates; compare them with the publisher’s TP8 example instead of assuming all eight GPUs are always necessary.
+For one 262,144-token sequence, separate BF16 keys and values give `2 × 88 layers × 8 KV heads × 128 elements × 2 bytes × 262144 tokens = 94,489,280,512 bytes = 88 GiB` across the model. At 32,768 tokens the same ideal element payload is 11 GiB. These calculations exclude padding, any head replication, cache scales and engine overhead. FP8 KV would halve the element payload if supported and validated; quantized weights do not automatically imply FP8 KV.
 
-The numeric examples are calculations from stated dimensions and assumptions, not measured allocations. [Memory mathematics](../../../reports/memory-math.md) explains the formulas and their limits. [mistral-medium-3.5-CARD](https://huggingface.co/mistralai/Mistral-Medium-3.5-128B) [mistral-medium-3.5-CFG](https://huggingface.co/mistralai/Mistral-Medium-3.5-128B/blob/main/config.json) [HW](https://docs.nvidia.com/dgx/dgxb300-user-guide/introduction-to-dgxb300.html)
+A single B300 can plausibly accommodate the FP8 weights and a constrained short-context workload, but this is not a long-context/concurrency guarantee. Establish correctness with the publisher’s TP8 example, then compare TP2, TP4 and a constrained TP1 probe under the same workload and total GPU budget.
+
+The numeric examples are calculations from stated dimensions and assumptions, not measured allocations. [Memory mathematics](../../../reports/memory-math.md) explains the formulas and their limits. [mistral-medium-3.5-CARD](https://huggingface.co/mistralai/Mistral-Medium-3.5-128B/blob/22b2b868a15677cfa6061277ed2f653d1349a9ab/README.md) [mistral-medium-3.5-CFG](https://huggingface.co/mistralai/Mistral-Medium-3.5-128B/raw/22b2b868a15677cfa6061277ed2f653d1349a9ab/config.json) [HW](https://docs.nvidia.com/dgx/dgxb300-user-guide/introduction-to-dgxb300.html)
 
 ## What this report does not establish
 
-Installed-image compatibility of the corrected configuration; exact selected-layout bytes; SGLang static-FP8 support for this artifact; maximum safe concurrency and best TP width; no audited NVFP4 variant.
+Installed-image and B300 compatibility at the pinned corrected revision; runtime memory beyond the reported weight payload; maximum safe concurrency and best TP width; no audited NVFP4 variant. SGLang support is documented upstream, but has not been run locally.
 
 The public artifacts do not disclose every training-data, optimization or implementation detail. This report does not fill missing details with assumptions or present a complete formal reconstruction of private training.

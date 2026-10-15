@@ -14,11 +14,11 @@ The feed-forward network is dense, not MoE. Every token traverses those linears;
 
 MTP is an optional additional serving path. It changes scheduling and temporary-state needs, not the base model’s dense-versus-MoE identity. The official context extension beyond the native window is not evidence that every engine, quantization and workload preserves useful accuracy at that length.
 
-The architecture facts above are drawn from the publisher card and configuration; the workload consequences are analytical interpretation. [qwen3.8-27b-CARD](https://huggingface.co/Qwen/Qwen3.8-27B) [qwen3.8-27b-CFG](https://huggingface.co/Qwen/Qwen3.8-27B/raw/main/config.json)
+The architecture facts above are drawn from the publisher card and configuration; the workload consequences are analytical interpretation. [qwen3.8-27b-CARD](https://huggingface.co/Qwen/Qwen3.8-27B/raw/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/README.md) [qwen3.8-27b-CFG](https://huggingface.co/Qwen/Qwen3.8-27B/raw/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/config.json)
 
 ## Configuration extraction
 
-This is a **selected, normalized projection**, not a byte-for-byte copy of the complete config. Field labels have been made comparable across models. Layer indices explicitly state zero-based or one-based conventions.
+This is a **selected, normalized projection**, not a byte-for-byte copy of the complete config. Field labels have been made comparable across models. Layer counts are derived from `text_config.layer_types`; `rotary_dim` is `head_dim × partial_rotary_factor`; `nextn_layers` corresponds to `text_config.mtp_num_hidden_layers`. The extended-context claim comes from the card rather than the config.
 
 | Property | Value |
 | --- | --- |
@@ -54,15 +54,15 @@ This is a **selected, normalized projection**, not a byte-for-byte copy of the c
 | vision_output_size | 5120 |
 
 
-Source for the extraction: [qwen3.8-27b-CFG](https://huggingface.co/Qwen/Qwen3.8-27B/raw/main/config.json). Headline counts, modality descriptions and advertised extended context are additionally drawn from [qwen3.8-27b-CARD](https://huggingface.co/Qwen/Qwen3.8-27B). A `transformers_version` metadata field is not by itself proof of a minimum compatible package version.
+Source for the extraction: [qwen3.8-27b-CFG](https://huggingface.co/Qwen/Qwen3.8-27B/raw/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/config.json). Headline counts, modality descriptions and advertised extended context are additionally drawn from [qwen3.8-27b-CARD](https://huggingface.co/Qwen/Qwen3.8-27B/raw/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/README.md). A `transformers_version` metadata field is not by itself proof of a minimum compatible package version.
 
 ## Memory and performance consequences
 
-A TP1 process is a serious first candidate on a 288 GB GPU: the ideal BF16 language-weight floor is only 54 GB before vision, auxiliary modules and overhead. Eight independent replicas can be compared with one TP8 process for total node goodput. The right answer still depends on concurrency, context and latency requirements.
+A TP1 process is a memory-planning candidate on a 288 GB GPU. Multiplying the publisher's rounded 27B language-model headline by two bytes gives approximately 54 GB (50.3 GiB) at BF16. This is not a checkpoint byte census or a strict lower bound; vision, auxiliary modules and runtime allocations need separate accounting. Compare independent replicas with sharded layouts for total node goodput at the same workload and latency target.
 
-For the 16 full-attention layers, a conventional unpadded BF16 KV payload estimate is 16 GiB per native 262,144-token sequence. The recurrent path additionally has an illustrative 144 MiB matrix-state payload per sequence if the published heads and FP32 state are represented directly. Actual allocators may pool, pad or share these differently.
+For the 16 full-attention layers, conventional unpadded BF16 KV payload is `2 × 16 × 4 × 256 × 262144 × 2` bytes, or 16 GiB per native-length sequence. The recurrent matrix alone is `48 × 48 × 128 × 128 × 4` bytes, or 144 MiB per state slot at FP32. Convolution state, cached snapshots, speculative verification and allocator overhead are additional. Neither calculation measures an engine's complete state pool.
 
-The numeric examples are calculations from stated dimensions and assumptions, not measured allocations. [Memory mathematics](../../../reports/memory-math.md) explains the formulas and their limits. [qwen3.8-27b-CARD](https://huggingface.co/Qwen/Qwen3.8-27B) [qwen3.8-27b-CFG](https://huggingface.co/Qwen/Qwen3.8-27B/raw/main/config.json) [HW](https://docs.nvidia.com/dgx/dgxb300-user-guide/introduction-to-dgxb300.html)
+The numeric examples are calculations from stated dimensions and assumptions, not measured allocations. [Memory mathematics](../../../reports/memory-math.md) explains the formulas and their limits. [qwen3.8-27b-CARD](https://huggingface.co/Qwen/Qwen3.8-27B/raw/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/README.md) [qwen3.8-27b-CFG](https://huggingface.co/Qwen/Qwen3.8-27B/raw/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/config.json) [HW](https://docs.nvidia.com/dgx/dgxb300-user-guide/introduction-to-dgxb300.html)
 
 ## What this report does not establish
 

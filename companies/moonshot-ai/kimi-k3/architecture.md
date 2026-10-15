@@ -14,7 +14,7 @@ The configuration also exposes block attention-residual organization. Do not sub
 
 Image or video processing adds a vision encoder and transport path before language inference. Its memory and CPU-transfer overhead must be budgeted separately from text tokens. A text-only benchmark does not certify multimodal throughput.
 
-The architecture facts above are drawn from the publisher card and configuration; the workload consequences are analytical interpretation. [kimi-k3-CARD](https://huggingface.co/moonshotai/Kimi-K3) [kimi-k3-CFG](https://huggingface.co/moonshotai/Kimi-K3/raw/main/config.json)
+The architecture facts above are drawn from the publisher card and configuration; the workload consequences are analytical interpretation. [kimi-k3-CARD](https://huggingface.co/moonshotai/Kimi-K3/blob/f831ab66814297da540d832a5235f8e904f29d06/README.md) [kimi-k3-CFG](https://huggingface.co/moonshotai/Kimi-K3/raw/f831ab66814297da540d832a5235f8e904f29d06/config.json)
 
 ## Configuration extraction
 
@@ -45,17 +45,20 @@ This is a **selected, normalized projection**, not a byte-for-byte copy of the c
 | max_position_embeddings | 1048576 |
 | vision_encoder | MoonViT-V2 |
 | vision_parameters_millions | 401 |
+| vocab_size | 163840 |
 
 
-Source for the extraction: [kimi-k3-CFG](https://huggingface.co/moonshotai/Kimi-K3/raw/main/config.json). Headline counts, modality descriptions and advertised extended context are additionally drawn from [kimi-k3-CARD](https://huggingface.co/moonshotai/Kimi-K3). A `transformers_version` metadata field is not by itself proof of a minimum compatible package version.
+Most rows are config extractions; the vision encoder name and 401M count come from the publisher card, and SiTU-GLU is the card’s activation label. The 24 MLA and 69 KDA counts agree with the config’s explicit layer lists.
+
+Source for the extraction: [kimi-k3-CFG](https://huggingface.co/moonshotai/Kimi-K3/raw/f831ab66814297da540d832a5235f8e904f29d06/config.json). Headline counts, modality descriptions and advertised extended context are additionally drawn from [kimi-k3-CARD](https://huggingface.co/moonshotai/Kimi-K3/blob/f831ab66814297da540d832a5235f8e904f29d06/README.md). A `transformers_version` metadata field is not by itself proof of a minimum compatible package version.
 
 ## Memory and performance consequences
 
-The state pool is a separate concurrency limit from the MLA KV pool. Adding DCP can improve one pool without sharding the recurrent state in the same way. In a head-sharded thought experiment, 69 layers × 96 heads × 128 × 128 FP32 entries is about 414 MiB of matrix state per sequence before convolution state, speculative snapshots, padding, and implementation-specific sharing. This is an illustrative formula, not an allocator measurement. Divide only by a parallelism dimension that the actual implementation uses to shard those heads.
+The state pool is a separate concurrency limit from the MLA KV pool. Adding DCP can improve one pool without sharding the recurrent state in the same way. In a head-sharded thought experiment, 69 layers × 96 heads × 128 × 128 FP32 entries is exactly 434,110,464 bytes (414 MiB) of matrix state per sequence before convolution state, speculative snapshots, padding, and implementation-specific sharing. This is an illustrative formula, not an allocator measurement. Divide only by a parallelism dimension that the actual implementation uses to shard those heads.
 
-A hypothetical all-FP8 2.8T model needs 2.8 TB for idealized weights alone. That does not fit into the advertised 2.304 TB aggregate of eight B300 GPUs. Native MXFP4 and the mixed NVFP4 export change that conclusion, but usable KV and state capacity must still be established after loading and CUDA graph capture.
+Using the rounded publisher count, a hypothetical all-FP8 2.8T model needs approximately 2.8 TB (decimal) for idealized weights alone. That does not fit into the advertised 2.304 TB aggregate of eight B300 GPUs. Native MXFP4 and the mixed NVFP4 export change that conclusion, but usable KV and state capacity must still be established after loading and CUDA graph capture.
 
-The numeric examples are calculations from stated dimensions and assumptions, not measured allocations. [Memory mathematics](../../../reports/memory-math.md) explains the formulas and their limits. [kimi-k3-CARD](https://huggingface.co/moonshotai/Kimi-K3) [kimi-k3-CFG](https://huggingface.co/moonshotai/Kimi-K3/raw/main/config.json) [HW](https://docs.nvidia.com/dgx/dgxb300-user-guide/introduction-to-dgxb300.html)
+The numeric examples are calculations from stated dimensions and assumptions, not measured allocations. [Memory mathematics](../../../reports/memory-math.md) explains the formulas and their limits. [kimi-k3-CARD](https://huggingface.co/moonshotai/Kimi-K3/blob/f831ab66814297da540d832a5235f8e904f29d06/README.md) [kimi-k3-CFG](https://huggingface.co/moonshotai/Kimi-K3/raw/f831ab66814297da540d832a5235f8e904f29d06/config.json) [HW](https://docs.nvidia.com/dgx/dgxb300-user-guide/introduction-to-dgxb300.html)
 
 ## What this report does not establish
 

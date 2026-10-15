@@ -55,39 +55,68 @@
   "context": 262144,
   "layout": "hybrid-ngram-moe",
   "license": "Qwen Community License 1.0; NVIDIA derivative also names NVIDIA Open Model License",
-  "recommended": "vLLM first for the exact NVIDIA mixed NVFP4 export; qualify SGLang separately",
-  "baseline_tp": 4,
+  "recommended": "vLLM TP8 baseline for the NVIDIA mixed export; SGLang documented TP1 candidate, unverified on B300",
+  "baseline_tp": 8,
   "revision": "de4b8e4d43b917e7706784d8bb445c9af86a3540",
   "variants": [
     {
       "key": "bf16",
       "hf_id": "Qwen/Qwen3.8-Flash-Next",
-      "precision": "BF16 reference with large n-gram embeddings",
-      "status": "verified base",
-      "revision": null
+      "precision": "BF16 declared by text config",
+      "status": "Publisher card and pinned configuration metadata inspected; no weight load",
+      "revision": "de4b8e4d43b917e7706784d8bb445c9af86a3540"
     },
     {
       "key": "fp8",
       "hf_id": "Qwen/Qwen3.8-Flash-Next-FP8",
-      "precision": "Mixed FP8 export",
-      "status": "referenced by NVIDIA and engine recipe",
-      "revision": null
+      "precision": "FP8 routed experts and PLE embedding; attention/shared experts excluded",
+      "status": "Publisher card and pinned configuration metadata inspected; no weight load",
+      "revision": "236dfdf285828023ca3bcd3f37366c58a3469b13"
     },
     {
       "key": "nvfp4",
       "hf_id": "nvidia/Qwen3.8-Flash-Next-NVFP4",
       "precision": "Main routed experts NVFP4; MTP experts and PLE FP8; attention/shared BF16",
-      "status": "verified NVIDIA derivative",
-      "revision": null
+      "status": "Publisher card and pinned configuration metadata inspected; no weight load",
+      "revision": "fc694b54fb0174e0913e6adf86691ef85a4ead47",
+      "provenance_notes": [
+        "MTP label is FP8_PB_WO in config.json and FP8_BLOCK_SCALES in hf_quant_config.json; both specify group size 128."
+      ]
     }
   ],
   "path": "companies/alibaba-qwen/qwen3.8-flash-next",
   "source_ids": [
     "qwen3.8-flash-next-CARD",
     "qwen3.8-flash-next-CFG",
+    "qwen3.8-flash-next-FP8",
+    "qwen3.8-flash-next-FP8-CFG",
     "qwen3.8-flash-next-NV",
-    "qwen3.8-flash-next-VR"
+    "qwen3.8-flash-next-NV-CFG",
+    "qwen3.8-flash-next-NV-QUANT",
+    "qwen3.8-flash-next-VR",
+    "qwen3.8-flash-next-GR",
+    "qwen3.8-flash-next-GPR",
+    "qwen3.8-flash-next-GR-SOURCE"
   ],
-  "evidence_status": "Publisher configuration and cards reviewed; not loaded or benchmarked on hardware",
-  "source_projection_is_complete_original_config": false
+  "evidence_status": "Publisher cards and immutable configuration metadata rechecked on 2026-10-15; weights not inspected; no GPU load or benchmark",
+  "source_projection_is_complete_original_config": false,
+  "metadata_retrieved_on": "2026-10-15",
+  "config_projection_provenance": {
+    "configuration_source_id": "qwen3.8-flash-next-CFG",
+    "publisher_card_source_id": "qwen3.8-flash-next-CARD",
+    "derived_fields": {
+      "linear_attention_layers": "Count of linear_attention entries in text_config.layer_types",
+      "rotary_dim": "text_config.head_dim multiplied by text_config.partial_rotary_factor",
+      "sparse_attention_layers": "Count of full_attention entries in text_config.layer_types; identified as QSA by publisher card"
+    },
+    "publisher_card_fields": [
+      "advertised_extended_context",
+      "shared_experts"
+    ],
+    "normalized_field_notes": {
+      "linear_head_dim": "Both text_config.linear_key_head_dim and linear_value_head_dim equal 128",
+      "ple_layer_ids": "One-based [2]; NVIDIA quantization metadata names the zero-based tensor path layers.1.ple"
+    }
+  },
+  "parameter_count_scope": "Approximate sum of rounded publisher language-model components: 125B main + 51B n-gram + 4B MTP; not a tensor census and no separate vision count. active_b=6 applies only to the main path."
 }

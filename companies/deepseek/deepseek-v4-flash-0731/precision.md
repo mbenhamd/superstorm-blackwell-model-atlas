@@ -1,24 +1,25 @@
 # DeepSeek V4 Flash 0731: precision and provenance
 
-| Variant | Exact artifact | Actual precision contract | Evidence |
-| --- | --- | --- | --- |
-| native | deepseek-ai/DeepSeek-V4-Flash-0731 | FP4 experts plus FP8-configured components; not an all-FP8 model | verified exact 0731 config |
+Reverified 2026-10-15 (UTC) at `7872f01b1d1fe23eabc4c98b48bffcef5a386062`. No checkpoint was loaded locally.
 
+| Variant | Exact artifact | Precision evidence |
+| --- | --- | --- |
+| native | `deepseek-ai/DeepSeek-V4-Flash-0731` | Root config sets `expert_dtype=fp4` and separately declares FP8 `e4m3` with `ue8m0` scales and 128×128 weight blocks |
 
 ## Interpretation
 
-The official artifact is mixed precision. FP4 expert storage and UE8M0/block-scale metadata must match the intended loader and expert kernel. It should not be relabeled NVFP4 merely because both formats use four-bit values.
+The official artifact is mixed precision. Its reference loader packs two FP4 expert values per byte and uses one E8M0 scale per 32 expert values. The 128×128 blocks in the root quantization config describe the FP8 path, not those FP4 expert groups. Other tensors can retain higher precision. This is not an all-FP8 checkpoint, and four-bit expert storage alone does not identify an NVFP4 export. [Root config](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/raw/7872f01b1d1fe23eabc4c98b48bffcef5a386062/config.json), [reference implementation](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/blob/7872f01b1d1fe23eabc4c98b48bffcef5a386062/inference/model.py).
 
-The source recipe exposes an optional FP4 indexer cache. That is an additional accuracy/performance trade, not a necessary consequence of the expert weight format. Keep it off for the first correctness comparison, then test index selection stability and long-context retrieval when enabling it.
+The vLLM recipe's optional FP4 indexer cache changes a separate attention-cache representation. Keep it off during the initial correctness comparison, then measure retrieval quality and performance when enabling it. The checkpoint's FP4 expert weights do not mandate that cache setting. [vLLM recipe](https://recipes.vllm.ai/deepseek-ai/DeepSeek-V4-Flash?features=tool_calling,reasoning&hardware=b300).
 
-[deepseek-v4-flash-0731-CARD](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731) [deepseek-v4-flash-0731-VR](https://recipes.vllm.ai/deepseek-ai/DeepSeek-V4-Flash?features=tool_calling,reasoning&hardware=b300)
+Engine execution precision can differ from serialized precision. Select the intended expert backend and inspect its actual load/repacking path before comparing memory or speed. SGLang documents `flashinfer_mxfp4` for the exact 0731 FP4 route; the atlas's vLLM candidate follows the documented `deep_gemm_mega_moe` route. These names are not evidence that both execute the same weight and activation arithmetic. [Publisher serving examples](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/blob/7872f01b1d1fe23eabc4c98b48bffcef5a386062/README.md).
 
 ## Deployment rule
 
-Pin the model revision, tokenizer/processor revision, quantization configuration, runtime commit and image digest together. A root BF16 `dtype` can coexist with quantized weights. The real contract includes serialized tensor types, scales, grouping, excluded modules, activation precision and runtime repacking. Do not cast a quantized checkpoint to BF16 and call it the original BF16 reference.
+Pin the model and tokenizer revisions, quantization configuration, runtime commit and image digest together. Root BF16 metadata can coexist with quantized weights. Inspect serialized tensors, scales, excluded modules, activation precision and runtime repacking. Casting a quantized checkpoint to BF16 does not reconstruct an original BF16 reference.
 
-For every candidate, compare target-only quality against the appropriate reference before enabling lower-precision KV or speculation. [Precision primer](../../../reports/precision-and-kernels.md) distinguishes NVFP4, MXFP4, FP8 and BF16. [NV4](https://developer.nvidia.com/blog/introducing-nvfp4-for-efficient-and-accurate-low-precision-inference/) [TE](https://docs.nvidia.com/deeplearning/transformer-engine/examples/fp8_primer.html)
+Compare target-only quality before changing cache precision or enabling DSpark. The [precision primer](../../../reports/precision-and-kernels.md) explains the formats, and the [serving report](serving.md) keeps publisher recipes separate from local experiments.
 
 ## License provenance
 
-MIT metadata; exact 0731 license file should be pinned before redistribution. This is a provenance flag, not legal clearance. The ZIP contains no model weights. Original model terms and derivative exporter terms remain separate from this repository’s original code and prose.
+The pinned LICENSE file is MIT. The same revision's model card explicitly applies that license to the repository and model weights. This verifies the named artifact's stated terms; it does not establish terms for separately named derivatives. No model weights are bundled here. [LICENSE](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/blob/7872f01b1d1fe23eabc4c98b48bffcef5a386062/LICENSE), [model card](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/blob/7872f01b1d1fe23eabc4c98b48bffcef5a386062/README.md).

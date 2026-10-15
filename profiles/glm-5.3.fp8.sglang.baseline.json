@@ -16,14 +16,14 @@
     "--reasoning-parser",
     "glm45",
     "--tool-call-parser",
-    "glm45"
+    "glm47"
   ],
   "gpu_count": 8,
   "tensor_parallel_size": 8,
   "data_parallel_size": 1,
   "context_cap": 65536,
   "status": "compatibility-probe",
-  "reason": "Challenger engine. Parser names are engine-specific; exact checkpoint/image smoke test remains mandatory.",
+  "reason": "Challenger engine. The cookbook uses glm47 for tool calls and glm45 for reasoning; exact checkpoint/image smoke testing remains mandatory.",
   "source_ids": [
     "glm-5.3-CARD",
     "glm-5.3-CFG",
@@ -34,7 +34,7 @@
     "glm-5.3-GR"
   ],
   "reviewed_source_commit": "877be2974aa151a984e52822c028276c2b1e9303",
-  "model_revision": null,
+  "model_revision": "ba32f8c19c8738e2c57c71798c601d477a7bf844",
   "draft_hf_id": null,
   "draft_revision": null,
   "requires_reviewed_remote_code": false,

@@ -1,0 +1,539 @@
+{
+  "audit_date": "2026-10-15",
+  "scope": "Every tracked file under companies/google/ and companies/mistral-ai/",
+  "completion_status": "complete for owned files; shared-file propagation assigned to root",
+  "source_updates": [
+    {
+      "id": "gemma-4-31b-it-CARD",
+      "title": "Gemma 4 31B IT publisher card at pinned revision",
+      "kind": "publisher model card",
+      "url": "https://huggingface.co/google/gemma-4-31B-it/raw/842da3794eaa0b77d5f08bae87a17459d91ff475/README.md",
+      "immutable_url": "https://huggingface.co/google/gemma-4-31B-it/raw/842da3794eaa0b77d5f08bae87a17459d91ff475/README.md",
+      "revision": "842da3794eaa0b77d5f08bae87a17459d91ff475",
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T21:52:36.273135+00:00",
+      "retrieval_status": 200,
+      "sha256": "e209f5c435b1e66055bd6d7c29185103ae8d2027a03a96b359335154f206b82b",
+      "capture": "Retrieved with Python urllib; metadata/text snapshot held in temporary audit cache, no weight tensors fetched",
+      "verification": "Publisher identifies dense 31B family, text/image modalities without audio for this variant, 256K context and Apache-2.0.",
+      "existing_source_id": true
+    },
+    {
+      "id": "gemma-4-31b-it-CFG",
+      "title": "Gemma 4 31B IT pinned configuration",
+      "kind": "publisher configuration",
+      "url": "https://huggingface.co/google/gemma-4-31B-it/raw/842da3794eaa0b77d5f08bae87a17459d91ff475/config.json",
+      "immutable_url": "https://huggingface.co/google/gemma-4-31B-it/raw/842da3794eaa0b77d5f08bae87a17459d91ff475/config.json",
+      "revision": "842da3794eaa0b77d5f08bae87a17459d91ff475",
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T21:52:36.268173+00:00",
+      "retrieval_status": 200,
+      "sha256": "e967dd38bc5cfd38bd09a995a7bf4a754075df2b46aba68f7fbb5a791e6d8dd1",
+      "capture": "Retrieved with Python urllib; metadata/text snapshot held in temporary audit cache, no weight tensors fetched",
+      "verification": "All existing normalized config fields matched; 60 layer types count as 50 sliding and 10 full attention; audio_config is explicitly null.",
+      "existing_source_id": true
+    },
+    {
+      "id": "gemma-4-31b-it-FP8",
+      "title": "Red Hat Gemma block FP8 pinned card",
+      "kind": "exporter model card",
+      "url": "https://huggingface.co/RedHatAI/gemma-4-31B-it-FP8-block/raw/d7242548c457ab4b45bd3adb8937f2659af4739d/README.md",
+      "immutable_url": "https://huggingface.co/RedHatAI/gemma-4-31B-it-FP8-block/raw/d7242548c457ab4b45bd3adb8937f2659af4739d/README.md",
+      "revision": "d7242548c457ab4b45bd3adb8937f2659af4739d",
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T21:52:36.258847+00:00",
+      "retrieval_status": 200,
+      "sha256": "4c9e4e3440cd22cb702d5f638bb595ffe6437fbe4bd84cd7208390bb51c17c99",
+      "capture": "Retrieved with Python urllib; metadata/text snapshot held in temporary audit cache, no weight tensors fetched",
+      "verification": "Names exact base; documents W8A8 block/group recipe and exclusions; advertised 50% memory saving is not a runtime measurement here.",
+      "existing_source_id": true
+    },
+    {
+      "id": "gemma-4-31b-it-NV",
+      "title": "Red Hat Gemma NVFP4 pinned card",
+      "kind": "exporter model card",
+      "url": "https://huggingface.co/RedHatAI/gemma-4-31B-it-NVFP4/raw/5df75ccad9b74546f5be758a2a68acc2e16bbc9b/README.md",
+      "immutable_url": "https://huggingface.co/RedHatAI/gemma-4-31B-it-NVFP4/raw/5df75ccad9b74546f5be758a2a68acc2e16bbc9b/README.md",
+      "revision": "5df75ccad9b74546f5be758a2a68acc2e16bbc9b",
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T21:52:36.258846+00:00",
+      "retrieval_status": 200,
+      "sha256": "353739bf71e2688b9ac6c26bd3914676543699d17f6ccb345c9373094c01353b",
+      "capture": "Retrieved with Python urllib; metadata/text snapshot held in temporary audit cache, no weight tensors fetched",
+      "verification": "Names exact base; documents group-16 W4A4 with local activation scaling. Generic audio example conflicts with variant-specific publisher modality/config and is not accepted as audio support.",
+      "existing_source_id": true
+    },
+    {
+      "id": "gemma-4-31b-it-FP8-CFG",
+      "title": "Red Hat Gemma block FP8 pinned configuration",
+      "kind": "exporter configuration",
+      "url": "https://huggingface.co/RedHatAI/gemma-4-31B-it-FP8-block/raw/d7242548c457ab4b45bd3adb8937f2659af4739d/config.json",
+      "immutable_url": "https://huggingface.co/RedHatAI/gemma-4-31B-it-FP8-block/raw/d7242548c457ab4b45bd3adb8937f2659af4739d/config.json",
+      "revision": "d7242548c457ab4b45bd3adb8937f2659af4739d",
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T21:52:36.277861+00:00",
+      "retrieval_status": 200,
+      "sha256": "f83680dca1680f7dcc507bc801549a99f5b4346aa3fdf2a48b549b782a8ca999",
+      "capture": "Retrieved with Python urllib; metadata/text snapshot held in temporary audit cache, no weight tensors fetched",
+      "verification": "compressed-tensors; weight block_structure [128,128]; input group_size 128 and dynamic true; vision/lm_head/embeddings ignored.",
+      "existing_source_id": false
+    },
+    {
+      "id": "gemma-4-31b-it-NV-CFG",
+      "title": "Red Hat Gemma NVFP4 pinned configuration",
+      "kind": "exporter configuration",
+      "url": "https://huggingface.co/RedHatAI/gemma-4-31B-it-NVFP4/raw/5df75ccad9b74546f5be758a2a68acc2e16bbc9b/config.json",
+      "immutable_url": "https://huggingface.co/RedHatAI/gemma-4-31B-it-NVFP4/raw/5df75ccad9b74546f5be758a2a68acc2e16bbc9b/config.json",
+      "revision": "5df75ccad9b74546f5be758a2a68acc2e16bbc9b",
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T21:52:36.253008+00:00",
+      "retrieval_status": 200,
+      "sha256": "615d03da9669d63b5b1b8ef735b10a0eb1f08674e275681e6dd5c206063e1c22",
+      "capture": "Retrieved with Python urllib; metadata/text snapshot held in temporary audit cache, no weight tensors fetched",
+      "verification": "nvfp4-pack-quantized; W4A4 group size16, tensor_group scales, input dynamic local; vision linears/lm_head ignored. Targets are Linear, not embedding modules.",
+      "existing_source_id": false
+    },
+    {
+      "id": "gemma-4-31b-it-BASE-TREE",
+      "title": "Gemma BF16 pinned file metadata",
+      "kind": "Hugging Face repository metadata",
+      "url": "https://huggingface.co/api/models/google/gemma-4-31B-it/tree/842da3794eaa0b77d5f08bae87a17459d91ff475?recursive=false&expand=false",
+      "immutable_url": "https://huggingface.co/api/models/google/gemma-4-31B-it/tree/842da3794eaa0b77d5f08bae87a17459d91ff475?recursive=false&expand=false",
+      "revision": "842da3794eaa0b77d5f08bae87a17459d91ff475",
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T21:54:07.655407+00:00",
+      "retrieval_status": 200,
+      "sha256": "ba692555c5585f7706f75e1d745fbb41f4b41d9f286480c5072222c986394025",
+      "capture": "Retrieved with Python urllib; metadata/text snapshot held in temporary audit cache, no weight tensors fetched",
+      "verification": "Two safetensors files sum to 62546338248 bytes, including headers; metadata only, no weights downloaded.",
+      "existing_source_id": false
+    },
+    {
+      "id": "gemma-4-31b-it-FP8-TREE",
+      "title": "Gemma FP8 pinned file metadata",
+      "kind": "Hugging Face repository metadata",
+      "url": "https://huggingface.co/api/models/RedHatAI/gemma-4-31B-it-FP8-block/tree/d7242548c457ab4b45bd3adb8937f2659af4739d?recursive=false&expand=false",
+      "immutable_url": "https://huggingface.co/api/models/RedHatAI/gemma-4-31B-it-FP8-block/tree/d7242548c457ab4b45bd3adb8937f2659af4739d?recursive=false&expand=false",
+      "revision": "d7242548c457ab4b45bd3adb8937f2659af4739d",
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T21:54:07.655361+00:00",
+      "retrieval_status": 200,
+      "sha256": "2cf0992e4cac384846a559ea555bdae9a61160e7fd34056efcad53437bdbcaef",
+      "capture": "Retrieved with Python urllib; metadata/text snapshot held in temporary audit cache, no weight tensors fetched",
+      "verification": "Two safetensors files sum to 33263238928 bytes, including headers; metadata only, no weights downloaded.",
+      "existing_source_id": false
+    },
+    {
+      "id": "gemma-4-31b-it-NV-TREE",
+      "title": "Gemma NVFP4 pinned file metadata",
+      "kind": "Hugging Face repository metadata",
+      "url": "https://huggingface.co/api/models/RedHatAI/gemma-4-31B-it-NVFP4/tree/5df75ccad9b74546f5be758a2a68acc2e16bbc9b?recursive=false&expand=false",
+      "immutable_url": "https://huggingface.co/api/models/RedHatAI/gemma-4-31B-it-NVFP4/tree/5df75ccad9b74546f5be758a2a68acc2e16bbc9b?recursive=false&expand=false",
+      "revision": "5df75ccad9b74546f5be758a2a68acc2e16bbc9b",
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T21:54:07.655361+00:00",
+      "retrieval_status": 200,
+      "sha256": "f68a6bdc318d798b814f4915a43c0d585cf49fa33ecbb953b26d36c7f3fc55e3",
+      "capture": "Retrieved with Python urllib; metadata/text snapshot held in temporary audit cache, no weight tensors fetched",
+      "verification": "One safetensors file is listed as 23265401144 bytes, including header; metadata only, no weights downloaded.",
+      "existing_source_id": false
+    },
+    {
+      "id": "gemma-4-31b-it-LICENSE",
+      "title": "Google Gemma Apache 2.0 license page",
+      "kind": "publisher license page",
+      "url": "https://ai.google.dev/gemma/apache_2",
+      "immutable_url": null,
+      "revision": null,
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T21:59:02.895991+00:00",
+      "retrieval_status": 200,
+      "sha256": "e4815f4e97daaf3e96f06340f2e3b2297f2ea963b3c2f6428875c66ea8b81ad7",
+      "capture": "Retrieved with Python urllib; metadata/text snapshot held in temporary audit cache, no weight tensors fetched",
+      "verification": "Google base and derivative cards link to this publisher Apache 2.0 license page; no derivative-only inference is needed.",
+      "existing_source_id": false
+    },
+    {
+      "id": "mistral-medium-3.5-CARD",
+      "title": "Mistral Medium 3.5 pinned publisher card",
+      "kind": "publisher model card",
+      "url": "https://huggingface.co/mistralai/Mistral-Medium-3.5-128B/raw/22b2b868a15677cfa6061277ed2f653d1349a9ab/README.md",
+      "immutable_url": "https://huggingface.co/mistralai/Mistral-Medium-3.5-128B/raw/22b2b868a15677cfa6061277ed2f653d1349a9ab/README.md",
+      "revision": "22b2b868a15677cfa6061277ed2f653d1349a9ab",
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T21:52:36.432045+00:00",
+      "retrieval_status": 200,
+      "sha256": "6d14ac4dba5a4c8b3d652ea67742ee1b41e424772194b8088cd62603d5032465",
+      "capture": "Retrieved with Python urllib; metadata/text snapshot held in temporary audit cache, no weight tensors fetched",
+      "verification": "Confirms dense128B/text-image, reasoning none/high, vLLM recommendation and explicit SGLang TP8 recipe, plus correction commit link.",
+      "existing_source_id": true
+    },
+    {
+      "id": "mistral-medium-3.5-CFG",
+      "title": "Mistral Medium 3.5 pinned configuration",
+      "kind": "publisher configuration",
+      "url": "https://huggingface.co/mistralai/Mistral-Medium-3.5-128B/raw/22b2b868a15677cfa6061277ed2f653d1349a9ab/config.json",
+      "immutable_url": "https://huggingface.co/mistralai/Mistral-Medium-3.5-128B/raw/22b2b868a15677cfa6061277ed2f653d1349a9ab/config.json",
+      "revision": "22b2b868a15677cfa6061277ed2f653d1349a9ab",
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T21:52:36.431563+00:00",
+      "retrieval_status": 200,
+      "sha256": "6ebadc48e3bdfff1a6a0b863530c68c9725a49eecd21c0527bdcb21b822f4d71",
+      "capture": "Retrieved with Python urllib; metadata/text snapshot held in temporary audit cache, no weight tensors fetched",
+      "verification": "All prior projection fields matched; corrected mscale_all_dim=0.0, mscale=1.0, beta_fast=4.0 and beta_slow=1.0 added to projection.",
+      "existing_source_id": true
+    },
+    {
+      "id": "mistral-medium-3.5-TREE",
+      "title": "Mistral pinned dual-layout file metadata",
+      "kind": "Hugging Face repository metadata",
+      "url": "https://huggingface.co/api/models/mistralai/Mistral-Medium-3.5-128B/tree/22b2b868a15677cfa6061277ed2f653d1349a9ab?recursive=false&expand=false",
+      "immutable_url": "https://huggingface.co/api/models/mistralai/Mistral-Medium-3.5-128B/tree/22b2b868a15677cfa6061277ed2f653d1349a9ab?recursive=false&expand=false",
+      "revision": "22b2b868a15677cfa6061277ed2f653d1349a9ab",
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T21:54:07.582228+00:00",
+      "retrieval_status": 200,
+      "sha256": "6943375da096fad923d7944d9f24a277e4b2df17f62ecc6f5a6651529a6eb2c0",
+      "capture": "Retrieved with Python urllib; metadata/text snapshot held in temporary audit cache, no weight tensors fetched",
+      "verification": "Lists three consolidated and three Transformers safetensors files as alternative layouts; file metadata alone is not a tensor-content equality proof.",
+      "existing_source_id": true
+    },
+    {
+      "id": "mistral-medium-3.5-FIXCFG",
+      "title": "Mistral Transformers YaRN correction commit",
+      "kind": "publisher configuration correction",
+      "url": "https://huggingface.co/mistralai/Mistral-Medium-3.5-128B/commit/c4be198050fb5789774a55b92ed697becfbf20ae",
+      "immutable_url": "https://huggingface.co/mistralai/Mistral-Medium-3.5-128B/commit/c4be198050fb5789774a55b92ed697becfbf20ae",
+      "revision": "c4be198050fb5789774a55b92ed697becfbf20ae",
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T21:59:01.835698+00:00",
+      "retrieval_status": 200,
+      "sha256": "3d8d6b533702e91c672a613ffea5505f2dc6f5b22d67f3526f826d9117832e56",
+      "capture": "Retrieved with Python urllib; metadata/text snapshot held in temporary audit cache, no weight tensors fetched",
+      "verification": "Actual correction commit c4be198050fb5789774a55b92ed697becfbf20ae changes mscale_all_dim from1.0 to0.0; replaces duplicate mutable config citation.",
+      "existing_source_id": true
+    },
+    {
+      "id": "mistral-medium-3.5-HF-INDEX",
+      "title": "Mistral pinned Transformers weight index",
+      "kind": "publisher weight-index metadata",
+      "url": "https://huggingface.co/mistralai/Mistral-Medium-3.5-128B/raw/22b2b868a15677cfa6061277ed2f653d1349a9ab/model.safetensors.index.json",
+      "immutable_url": "https://huggingface.co/mistralai/Mistral-Medium-3.5-128B/raw/22b2b868a15677cfa6061277ed2f653d1349a9ab/model.safetensors.index.json",
+      "revision": "22b2b868a15677cfa6061277ed2f653d1349a9ab",
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T21:52:36.469702+00:00",
+      "retrieval_status": 200,
+      "sha256": "0c4898b704211909ad88fa96097de59448afa43b9fdb131cfce88e281744754a",
+      "capture": "Retrieved with Python urllib; metadata/text snapshot held in temporary audit cache, no weight tensors fetched",
+      "verification": "metadata.total_size=133605834656 bytes; this is tensor payload excluding safetensors headers.",
+      "existing_source_id": false
+    },
+    {
+      "id": "mistral-medium-3.5-NATIVE-INDEX",
+      "title": "Mistral pinned consolidated weight index",
+      "kind": "publisher weight-index metadata",
+      "url": "https://huggingface.co/mistralai/Mistral-Medium-3.5-128B/raw/22b2b868a15677cfa6061277ed2f653d1349a9ab/consolidated.safetensors.index.json",
+      "immutable_url": "https://huggingface.co/mistralai/Mistral-Medium-3.5-128B/raw/22b2b868a15677cfa6061277ed2f653d1349a9ab/consolidated.safetensors.index.json",
+      "revision": "22b2b868a15677cfa6061277ed2f653d1349a9ab",
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T21:52:36.459839+00:00",
+      "retrieval_status": 200,
+      "sha256": "abf847cd7a832d633fc800945dabf54fad3fca04a853c7d53eefa1e9b90fd8d0",
+      "capture": "Retrieved with Python urllib; metadata/text snapshot held in temporary audit cache, no weight tensors fetched",
+      "verification": "metadata.total_size=133605834656 bytes; alternative layout has same reported payload.",
+      "existing_source_id": false
+    },
+    {
+      "id": "mistral-medium-3.5-LICENSE",
+      "title": "Mistral pinned Modified MIT License",
+      "kind": "publisher license file",
+      "url": "https://huggingface.co/mistralai/Mistral-Medium-3.5-128B/raw/22b2b868a15677cfa6061277ed2f653d1349a9ab/LICENSE",
+      "immutable_url": "https://huggingface.co/mistralai/Mistral-Medium-3.5-128B/raw/22b2b868a15677cfa6061277ed2f653d1349a9ab/LICENSE",
+      "revision": "22b2b868a15677cfa6061277ed2f653d1349a9ab",
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T21:52:36.431743+00:00",
+      "retrieval_status": 200,
+      "sha256": "648194727930df730890e9f9affdbcc5c930d406d6829559b25ca3d5a973fc8c",
+      "capture": "Retrieved with Python urllib; metadata/text snapshot held in temporary audit cache, no weight tensors fetched",
+      "verification": "Exact title and revenue restriction checked; the license condition concerns preceding-month global consolidated company/employer revenue exceeding US$20million.",
+      "existing_source_id": false
+    },
+    {
+      "id": "mistral-medium-3.5-GR",
+      "title": "SGLang Mistral Medium3.5 deployment cookbook",
+      "kind": "serving-engine documentation",
+      "url": "https://docs.sglang.io/cookbook/autoregressive/Mistral/Mistral-Medium-3.5",
+      "immutable_url": null,
+      "revision": null,
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T21:59:01.832269+00:00",
+      "retrieval_status": 200,
+      "sha256": "e4c0dad9bcda63e59739247db8d4e286482454472c390fb02a2d1fdad15175a8",
+      "capture": "Retrieved with Python urllib; metadata/text snapshot held in temporary audit cache, no weight tensors fetched",
+      "verification": "Documents exact static-FP8 artifact and both layouts; benchmark claims use4xH200. Its B300 TP2 recommendation is a recipe, not a universal TP minimum or local measurement.",
+      "existing_source_id": false
+    }
+  ],
+  "findings": [
+    {
+      "severity": "medium",
+      "claim": "All model and derivative revisions remained null despite accessible public metadata.",
+      "resolution": "Pinned four artifacts and cited immutable cards/configs throughout owned Markdown and model.json.",
+      "files": [
+        "companies/google/gemma-4-31b-it/model.json",
+        "companies/mistral-ai/mistral-medium-3.5/model.json"
+      ]
+    },
+    {
+      "severity": "medium",
+      "claim": "Gemma license provenance was limited to a derivative and the base remained unverified.",
+      "resolution": "Pinned Google card and live Google license page both identify Apache-2.0; base provenance now explicit."
+    },
+    {
+      "severity": "medium",
+      "claim": "Mistral recommendation wording said TP2/4 versus TP8 measured, and baseline_tp2 conflicted with the actual TP8 baseline profile.",
+      "resolution": "Removed implied measurement; baseline_tp=8 and TP2/4 clearly comparison probes; root must propagate catalog."
+    },
+    {
+      "severity": "medium",
+      "claim": "Mistral SGLang support was left unknown despite direct publisher and engine documentation.",
+      "resolution": "Documented exact upstream SGLang support; retained untested local-image probe status and parser gates."
+    },
+    {
+      "severity": "medium",
+      "claim": "Mistral config-fix source duplicated the main config and the corrected field was absent from projection.",
+      "resolution": "Linked actual correction commit; added mscale_all_dim=0.0, mscale=1.0, beta_fast=4.0, beta_slow=1.0."
+    },
+    {
+      "severity": "medium",
+      "claim": "Mistral license was only described as custom/other.",
+      "resolution": "Named Modified MIT and summarized the material revenue restriction with pinned LICENSE citation."
+    },
+    {
+      "severity": "low",
+      "claim": "Mistral exact selected-layout bytes were unresolved although both index files are public.",
+      "resolution": "Recorded each metadata.total_size=133605834656 bytes; excluded headers/runtime and avoided summing alternate layouts as one model."
+    },
+    {
+      "severity": "low",
+      "claim": "Downloading both Mistral layouts was said to necessarily double startup transfer.",
+      "resolution": "Distinguished download/storage totals from which files a runtime actually reads."
+    },
+    {
+      "severity": "low",
+      "claim": "Mistral analogy suggested re-running the full manuscript every decode step.",
+      "resolution": "Explained consulting cached keys/values across history."
+    },
+    {
+      "severity": "low",
+      "claim": "Gemma quantization discussion lacked exact artifact-size evidence.",
+      "resolution": "Added pinned tree file totals; 2.688x BF16/NVFP4 ratio is file metadata arithmetic, not a runtime saving."
+    },
+    {
+      "severity": "info",
+      "claim": "Core architecture dimensions, Gemma audio exclusion and Mistral88GiB BF16-KV calculation.",
+      "resolution": "Verified, retained, clarified assumptions; no basis to label these claims fabricated."
+    }
+  ],
+  "coverage": [
+    {
+      "path": "companies/google/README.md",
+      "reviewed": true,
+      "edited": true,
+      "checks": "Entire file reviewed; pinned primary-source claims rechecked; owned JSON/local links and relevant config/math assertions passed"
+    },
+    {
+      "path": "companies/google/gemma-4-31b-it/README.md",
+      "reviewed": true,
+      "edited": true,
+      "checks": "Entire file reviewed; pinned primary-source claims rechecked; owned JSON/local links and relevant config/math assertions passed"
+    },
+    {
+      "path": "companies/google/gemma-4-31b-it/architecture.md",
+      "reviewed": true,
+      "edited": true,
+      "checks": "Entire file reviewed; pinned primary-source claims rechecked; owned JSON/local links and relevant config/math assertions passed"
+    },
+    {
+      "path": "companies/google/gemma-4-31b-it/model.json",
+      "reviewed": true,
+      "edited": true,
+      "checks": "Entire file reviewed; pinned primary-source claims rechecked; owned JSON/local links and relevant config/math assertions passed"
+    },
+    {
+      "path": "companies/google/gemma-4-31b-it/precision.md",
+      "reviewed": true,
+      "edited": true,
+      "checks": "Entire file reviewed; pinned primary-source claims rechecked; owned JSON/local links and relevant config/math assertions passed"
+    },
+    {
+      "path": "companies/google/gemma-4-31b-it/serving.md",
+      "reviewed": true,
+      "edited": true,
+      "checks": "Entire file reviewed; pinned primary-source claims rechecked; owned JSON/local links and relevant config/math assertions passed"
+    },
+    {
+      "path": "companies/google/gemma-4-31b-it/sources.md",
+      "reviewed": true,
+      "edited": true,
+      "checks": "Entire file reviewed; pinned primary-source claims rechecked; owned JSON/local links and relevant config/math assertions passed"
+    },
+    {
+      "path": "companies/google/gemma-4-31b-it/validation.md",
+      "reviewed": true,
+      "edited": true,
+      "checks": "Entire file reviewed; pinned primary-source claims rechecked; owned JSON/local links and relevant config/math assertions passed"
+    },
+    {
+      "path": "companies/mistral-ai/README.md",
+      "reviewed": true,
+      "edited": true,
+      "checks": "Entire file reviewed; pinned primary-source claims rechecked; owned JSON/local links and relevant config/math assertions passed"
+    },
+    {
+      "path": "companies/mistral-ai/mistral-medium-3.5/README.md",
+      "reviewed": true,
+      "edited": true,
+      "checks": "Entire file reviewed; pinned primary-source claims rechecked; owned JSON/local links and relevant config/math assertions passed"
+    },
+    {
+      "path": "companies/mistral-ai/mistral-medium-3.5/architecture.md",
+      "reviewed": true,
+      "edited": true,
+      "checks": "Entire file reviewed; pinned primary-source claims rechecked; owned JSON/local links and relevant config/math assertions passed"
+    },
+    {
+      "path": "companies/mistral-ai/mistral-medium-3.5/model.json",
+      "reviewed": true,
+      "edited": true,
+      "checks": "Entire file reviewed; pinned primary-source claims rechecked; owned JSON/local links and relevant config/math assertions passed"
+    },
+    {
+      "path": "companies/mistral-ai/mistral-medium-3.5/precision.md",
+      "reviewed": true,
+      "edited": true,
+      "checks": "Entire file reviewed; pinned primary-source claims rechecked; owned JSON/local links and relevant config/math assertions passed"
+    },
+    {
+      "path": "companies/mistral-ai/mistral-medium-3.5/serving.md",
+      "reviewed": true,
+      "edited": true,
+      "checks": "Entire file reviewed; pinned primary-source claims rechecked; owned JSON/local links and relevant config/math assertions passed"
+    },
+    {
+      "path": "companies/mistral-ai/mistral-medium-3.5/sources.md",
+      "reviewed": true,
+      "edited": true,
+      "checks": "Entire file reviewed; pinned primary-source claims rechecked; owned JSON/local links and relevant config/math assertions passed"
+    },
+    {
+      "path": "companies/mistral-ai/mistral-medium-3.5/validation.md",
+      "reviewed": true,
+      "edited": true,
+      "checks": "Entire file reviewed; pinned primary-source claims rechecked; owned JSON/local links and relevant config/math assertions passed"
+    }
+  ],
+  "retrieval_failures": [
+    {
+      "url": "https://huggingface.co/api/models/RedHatAI/gemma-4-31B-it-FP8-block",
+      "status": "web tool inaccessible, then HTTP200 via Python urllib",
+      "interpretation": "Transport/tool limitation, not evidence of model nonexistence"
+    },
+    {
+      "url": "https://huggingface.co/api/models/RedHatAI/gemma-4-31B-it-NVFP4",
+      "status": "web tool inaccessible, then HTTP200 via Python urllib",
+      "interpretation": "Transport/tool limitation, not evidence of model nonexistence"
+    },
+    {
+      "url": "https://huggingface.co/api/models/mistralai/Mistral-Medium-3.5-128B",
+      "status": "web tool inaccessible, then HTTP200 via Python urllib",
+      "interpretation": "Transport/tool limitation, not evidence of model nonexistence"
+    }
+  ],
+  "parameter_scope_notes": {
+    "gemma": "31B retained as rounded family label. Base API reports31273088876 BF16 elements; card table30.7B with separate~550M vision; base index total_parameters32682372656 differs. No independent unique-tensor census performed and no inferred reconciliation asserted.",
+    "mistral": "128B retained as publisher rounded label. API safetensors total127704210176 and index total_parameters127704211408 differ; precise unique parameter census not claimed."
+  },
+  "cross_file_actions": [
+    {
+      "path": "catalog/models.json",
+      "action": "Replace Google and Mistral records with the exact corresponding corrected company model.json objects."
+    },
+    {
+      "path": "catalog/profiles.json and profiles/{Gemma,Mistral}*.json",
+      "action": "Synchronize model_revision using artifact pins. Keep tested_on_target=false and image-compatibility gates. Mistral vLLM baseline staysTP8; TP2 remains probe. SGLang reason should acknowledge documented publisher support. Enable mistral reasoning/tool parsers before protocol validation; current parser-free probe cannot validate these outputs."
+    },
+    {
+      "path": "evidence/sources.json and evidence/SOURCES.md",
+      "action": "Apply source_updates entries by id, including new source ids and exact correction-commit citation. Do not claim full source artifacts are archived in repo unless copied; temporary cache only."
+    },
+    {
+      "path": "evidence/upstreams.lock.json",
+      "action": "Record four artifact revisions and retrieval evidence; distinguish mutable live docs and unfetched nightly binaries."
+    },
+    {
+      "path": "README.md, LIMITATIONS.md, reports/, profiles/INDEX.md, ATLAS.html",
+      "action": "Propagate pins, license identities, Mistral TP8 baseline/probe distinction, documented SGLang support, exact metadata sizes, and absence of local B300 measurements. Remove now-stale statement that all but Qwen model revisions remain null."
+    }
+  ],
+  "artifact_pins": {
+    "google/gemma-4-31B-it": "842da3794eaa0b77d5f08bae87a17459d91ff475",
+    "RedHatAI/gemma-4-31B-it-FP8-block": "d7242548c457ab4b45bd3adb8937f2659af4739d",
+    "RedHatAI/gemma-4-31B-it-NVFP4": "5df75ccad9b74546f5be758a2a68acc2e16bbc9b",
+    "mistralai/Mistral-Medium-3.5-128B": "22b2b868a15677cfa6061277ed2f653d1349a9ab"
+  },
+  "release_observations": {
+    "source": "Official releases/latest pages re-opened through web on2026-10-15",
+    "vllm": "v0.31.0",
+    "sglang": "v0.5.21",
+    "kserve": "v0.21.0",
+    "main_or_nightly": "vLLM main API returned4d9a8d6a417afad932b368471e498ca75a03b942 during this audit; no nightly image pulled. SGLang/KServe web main API attempts failed; root framework audit owns refreshed main-source evidence."
+  },
+  "verification": {
+    "projection_fields_checked": {
+      "gemma": 29,
+      "mistral": 35
+    },
+    "derivative_text_config_comparison": "All base text_config fields match both derivatives; NVFP4 also has extra optional moe_intermediate_size:null",
+    "quantization_contracts": "passed",
+    "weight_size_sums_and_KV_arithmetic": "passed",
+    "owned_JSON_and_local_links": "passed",
+    "model_revision_and_pinned_config_refetch": [
+      {
+        "repo": "google/gemma-4-31B-it",
+        "revision": "842da3794eaa0b77d5f08bae87a17459d91ff475",
+        "url": "https://huggingface.co/google/gemma-4-31B-it/raw/842da3794eaa0b77d5f08bae87a17459d91ff475/config.json",
+        "retrieval_status": 200,
+        "sha256": "e967dd38bc5cfd38bd09a995a7bf4a754075df2b46aba68f7fbb5a791e6d8dd1",
+        "retrieved_at": "2026-10-15T22:02:29.068673+00:00"
+      },
+      {
+        "repo": "RedHatAI/gemma-4-31B-it-FP8-block",
+        "revision": "d7242548c457ab4b45bd3adb8937f2659af4739d",
+        "url": "https://huggingface.co/RedHatAI/gemma-4-31B-it-FP8-block/raw/d7242548c457ab4b45bd3adb8937f2659af4739d/config.json",
+        "retrieval_status": 200,
+        "sha256": "f83680dca1680f7dcc507bc801549a99f5b4346aa3fdf2a48b549b782a8ca999",
+        "retrieved_at": "2026-10-15T22:02:29.397258+00:00"
+      },
+      {
+        "repo": "RedHatAI/gemma-4-31B-it-NVFP4",
+        "revision": "5df75ccad9b74546f5be758a2a68acc2e16bbc9b",
+        "url": "https://huggingface.co/RedHatAI/gemma-4-31B-it-NVFP4/raw/5df75ccad9b74546f5be758a2a68acc2e16bbc9b/config.json",
+        "retrieval_status": 200,
+        "sha256": "615d03da9669d63b5b1b8ef735b10a0eb1f08674e275681e6dd5c206063e1c22",
+        "retrieved_at": "2026-10-15T22:02:29.752873+00:00"
+      },
+      {
+        "repo": "mistralai/Mistral-Medium-3.5-128B",
+        "revision": "22b2b868a15677cfa6061277ed2f653d1349a9ab",
+        "url": "https://huggingface.co/mistralai/Mistral-Medium-3.5-128B/raw/22b2b868a15677cfa6061277ed2f653d1349a9ab/config.json",
+        "retrieval_status": 200,
+        "sha256": "6ebadc48e3bdfff1a6a0b863530c68c9725a49eecd21c0527bdcb21b822f4d71",
+        "retrieved_at": "2026-10-15T22:02:30.115022+00:00"
+      }
+    ],
+    "gpu_tests": "not run; no GPU or engine execution",
+    "shared_catalog_consistency": "Root integration required; owned records intentionally differ until propagated"
+  },
+  "record_role": "First-pass Astra max reviewer handoff; final shared propagation and second-review resolutions are recorded in evidence/AUDIT-2026-10-15.md."
+}

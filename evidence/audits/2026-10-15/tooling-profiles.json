@@ -1,0 +1,541 @@
+{
+  "completed_at_utc": "2026-10-15T22:05:15Z",
+  "scope": "Every originally tracked file under scripts/, tests/, benchmarks/, deploy/, profiles/",
+  "coverage": [
+    {
+      "path": "benchmarks/PROTOCOL.md",
+      "reviewed": true,
+      "changed": true,
+      "detail": "All file contents reviewed, fixes and regression coverage documented below."
+    },
+    {
+      "path": "benchmarks/__init__.py",
+      "reviewed": true,
+      "changed": false,
+      "detail": "Empty package marker reviewed; syntax compiled by repository validation."
+    },
+    {
+      "path": "benchmarks/result.schema.json",
+      "reviewed": true,
+      "changed": true,
+      "detail": "All file contents reviewed, fixes and regression coverage documented below."
+    },
+    {
+      "path": "benchmarks/run_streaming.py",
+      "reviewed": true,
+      "changed": true,
+      "detail": "All file contents reviewed, fixes and regression coverage documented below."
+    },
+    {
+      "path": "benchmarks/smoke.jsonl",
+      "reviewed": true,
+      "changed": false,
+      "detail": "Three explicit short chat requests reviewed; harmless integration inputs, not a quality benchmark or executable tool/code results."
+    },
+    {
+      "path": "deploy/__init__.py",
+      "reviewed": true,
+      "changed": false,
+      "detail": "Empty package marker reviewed; syntax compiled by repository validation."
+    },
+    {
+      "path": "deploy/kserve/README.md",
+      "reviewed": true,
+      "changed": true,
+      "detail": "All file contents reviewed, fixes and regression coverage documented below."
+    },
+    {
+      "path": "deploy/kserve/__init__.py",
+      "reviewed": true,
+      "changed": false,
+      "detail": "Empty package marker reviewed; syntax compiled by repository validation."
+    },
+    {
+      "path": "deploy/kserve/render.py",
+      "reviewed": true,
+      "changed": true,
+      "detail": "All file contents reviewed, fixes and regression coverage documented below."
+    },
+    {
+      "path": "profiles/INDEX.md",
+      "reviewed": true,
+      "changed": true,
+      "detail": "All file contents reviewed, fixes and regression coverage documented below."
+    },
+    {
+      "path": "profiles/README.md",
+      "reviewed": true,
+      "changed": true,
+      "detail": "All file contents reviewed, fixes and regression coverage documented below."
+    },
+    {
+      "path": "profiles/deepseek-v4-flash-0731.native.sglang.baseline.json",
+      "reviewed": true,
+      "changed": true,
+      "detail": "Checkpoint, immutable pin, engine arguments, TP/DP/context metadata, status, evidence and catalog consistency reviewed. compatibility-probe; target execution remains false."
+    },
+    {
+      "path": "profiles/deepseek-v4-flash-0731.native.vllm.dspark.json",
+      "reviewed": true,
+      "changed": true,
+      "detail": "Checkpoint, immutable pin, engine arguments, TP/DP/context metadata, status, evidence and catalog consistency reviewed. candidate; target execution remains false."
+    },
+    {
+      "path": "profiles/deepseek-v4-flash-0731.native.vllm.ep4.json",
+      "reviewed": true,
+      "changed": true,
+      "detail": "Checkpoint, immutable pin, engine arguments, TP/DP/context metadata, status, evidence and catalog consistency reviewed. candidate; target execution remains false."
+    },
+    {
+      "path": "profiles/deepseek-v4-flash-0731.native.vllm.ep8.json",
+      "reviewed": true,
+      "changed": true,
+      "detail": "Checkpoint, immutable pin, engine arguments, TP/DP/context metadata, status, evidence and catalog consistency reviewed. candidate; target execution remains false."
+    },
+    {
+      "path": "profiles/gemma-4-31b-it.bf16.vllm.baseline.json",
+      "reviewed": true,
+      "changed": true,
+      "detail": "Checkpoint, immutable pin, engine arguments, TP/DP/context metadata, status, evidence and catalog consistency reviewed. candidate; target execution remains false."
+    },
+    {
+      "path": "profiles/gemma-4-31b-it.fp8.vllm.baseline.json",
+      "reviewed": true,
+      "changed": true,
+      "detail": "Checkpoint, immutable pin, engine arguments, TP/DP/context metadata, status, evidence and catalog consistency reviewed. candidate; target execution remains false."
+    },
+    {
+      "path": "profiles/gemma-4-31b-it.nvfp4.sglang.baseline.json",
+      "reviewed": true,
+      "changed": true,
+      "detail": "Checkpoint, immutable pin, engine arguments, TP/DP/context metadata, status, evidence and catalog consistency reviewed. compatibility-probe; target execution remains false."
+    },
+    {
+      "path": "profiles/gemma-4-31b-it.nvfp4.vllm.baseline.json",
+      "reviewed": true,
+      "changed": true,
+      "detail": "Checkpoint, immutable pin, engine arguments, TP/DP/context metadata, status, evidence and catalog consistency reviewed. candidate; target execution remains false."
+    },
+    {
+      "path": "profiles/glm-5.3-flash.fp8.sglang.baseline.json",
+      "reviewed": true,
+      "changed": true,
+      "detail": "Checkpoint, immutable pin, engine arguments, TP/DP/context metadata, status, evidence and catalog consistency reviewed. candidate; target execution remains false."
+    },
+    {
+      "path": "profiles/glm-5.3-flash.fp8.sglang.mtp.json",
+      "reviewed": true,
+      "changed": true,
+      "detail": "Checkpoint, immutable pin, engine arguments, TP/DP/context metadata, status, evidence and catalog consistency reviewed. candidate; target execution remains false."
+    },
+    {
+      "path": "profiles/glm-5.3-flash.fp8.vllm.baseline.json",
+      "reviewed": true,
+      "changed": true,
+      "detail": "Checkpoint, immutable pin, engine arguments, TP/DP/context metadata, status, evidence and catalog consistency reviewed. candidate; target execution remains false."
+    },
+    {
+      "path": "profiles/glm-5.3-flash.nvfp4.vllm.baseline.json",
+      "reviewed": true,
+      "changed": true,
+      "detail": "Checkpoint, immutable pin, engine arguments, TP/DP/context metadata, status, evidence and catalog consistency reviewed. compatibility-probe; target execution remains false."
+    },
+    {
+      "path": "profiles/glm-5.3.fp8.sglang.baseline.json",
+      "reviewed": true,
+      "changed": true,
+      "detail": "Checkpoint, immutable pin, engine arguments, TP/DP/context metadata, status, evidence and catalog consistency reviewed. compatibility-probe; target execution remains false."
+    },
+    {
+      "path": "profiles/glm-5.3.fp8.vllm.baseline.json",
+      "reviewed": true,
+      "changed": true,
+      "detail": "Checkpoint, immutable pin, engine arguments, TP/DP/context metadata, status, evidence and catalog consistency reviewed. candidate; target execution remains false."
+    },
+    {
+      "path": "profiles/glm-5.3.fp8.vllm.mtp.json",
+      "reviewed": true,
+      "changed": true,
+      "detail": "Checkpoint, immutable pin, engine arguments, TP/DP/context metadata, status, evidence and catalog consistency reviewed. candidate; target execution remains false."
+    },
+    {
+      "path": "profiles/glm-5.3.nvfp4.vllm.baseline.json",
+      "reviewed": true,
+      "changed": true,
+      "detail": "Checkpoint, immutable pin, engine arguments, TP/DP/context metadata, status, evidence and catalog consistency reviewed. candidate; target execution remains false."
+    },
+    {
+      "path": "profiles/kimi-k3.native.sglang.baseline.json",
+      "reviewed": true,
+      "changed": true,
+      "detail": "Checkpoint, immutable pin, engine arguments, TP/DP/context metadata, status, evidence and catalog consistency reviewed. candidate; target execution remains false."
+    },
+    {
+      "path": "profiles/kimi-k3.native.vllm.baseline.json",
+      "reviewed": true,
+      "changed": true,
+      "detail": "Checkpoint, immutable pin, engine arguments, TP/DP/context metadata, status, evidence and catalog consistency reviewed. candidate; target execution remains false."
+    },
+    {
+      "path": "profiles/kimi-k3.nvfp4.sglang.baseline.json",
+      "reviewed": true,
+      "changed": true,
+      "detail": "Checkpoint, immutable pin, engine arguments, TP/DP/context metadata, status, evidence and catalog consistency reviewed. candidate; target execution remains false."
+    },
+    {
+      "path": "profiles/kimi-k3.nvfp4.sglang.dspark.json",
+      "reviewed": true,
+      "changed": true,
+      "detail": "Checkpoint, immutable pin, engine arguments, TP/DP/context metadata, status, evidence and catalog consistency reviewed. candidate; target execution remains false."
+    },
+    {
+      "path": "profiles/kimi-k3.nvfp4.vllm.baseline.json",
+      "reviewed": true,
+      "changed": true,
+      "detail": "Checkpoint, immutable pin, engine arguments, TP/DP/context metadata, status, evidence and catalog consistency reviewed. blocked; target execution remains false."
+    },
+    {
+      "path": "profiles/mistral-medium-3.5.fp8.sglang.baseline.json",
+      "reviewed": true,
+      "changed": true,
+      "detail": "Checkpoint, immutable pin, engine arguments, TP/DP/context metadata, status, evidence and catalog consistency reviewed. compatibility-probe; target execution remains false."
+    },
+    {
+      "path": "profiles/mistral-medium-3.5.fp8.vllm.baseline.json",
+      "reviewed": true,
+      "changed": true,
+      "detail": "Checkpoint, immutable pin, engine arguments, TP/DP/context metadata, status, evidence and catalog consistency reviewed. candidate; target execution remains false."
+    },
+    {
+      "path": "profiles/mistral-medium-3.5.fp8.vllm.tp2-probe.json",
+      "reviewed": true,
+      "changed": true,
+      "detail": "Checkpoint, immutable pin, engine arguments, TP/DP/context metadata, status, evidence and catalog consistency reviewed. compatibility-probe; target execution remains false."
+    },
+    {
+      "path": "profiles/qwen3.8-27b.bf16.sglang.baseline.json",
+      "reviewed": true,
+      "changed": true,
+      "detail": "Checkpoint, immutable pin, engine arguments, TP/DP/context metadata, status, evidence and catalog consistency reviewed. candidate; target execution remains false."
+    },
+    {
+      "path": "profiles/qwen3.8-27b.bf16.vllm.baseline.json",
+      "reviewed": true,
+      "changed": true,
+      "detail": "Checkpoint, immutable pin, engine arguments, TP/DP/context metadata, status, evidence and catalog consistency reviewed. candidate; target execution remains false."
+    },
+    {
+      "path": "profiles/qwen3.8-27b.fp8.sglang.baseline.json",
+      "reviewed": true,
+      "changed": true,
+      "detail": "Checkpoint, immutable pin, engine arguments, TP/DP/context metadata, status, evidence and catalog consistency reviewed. candidate; target execution remains false."
+    },
+    {
+      "path": "profiles/qwen3.8-27b.fp8.vllm.baseline.json",
+      "reviewed": true,
+      "changed": true,
+      "detail": "Checkpoint, immutable pin, engine arguments, TP/DP/context metadata, status, evidence and catalog consistency reviewed. candidate; target execution remains false."
+    },
+    {
+      "path": "profiles/qwen3.8-27b.nvfp4.sglang.baseline.json",
+      "reviewed": true,
+      "changed": true,
+      "detail": "Checkpoint, immutable pin, engine arguments, TP/DP/context metadata, status, evidence and catalog consistency reviewed. candidate; target execution remains false."
+    },
+    {
+      "path": "profiles/qwen3.8-27b.nvfp4.sglang.mtp.json",
+      "reviewed": true,
+      "changed": true,
+      "detail": "Checkpoint, immutable pin, engine arguments, TP/DP/context metadata, status, evidence and catalog consistency reviewed. candidate; target execution remains false."
+    },
+    {
+      "path": "profiles/qwen3.8-27b.nvfp4.vllm.baseline.json",
+      "reviewed": true,
+      "changed": true,
+      "detail": "Checkpoint, immutable pin, engine arguments, TP/DP/context metadata, status, evidence and catalog consistency reviewed. candidate; target execution remains false."
+    },
+    {
+      "path": "profiles/qwen3.8-flash-next.nvfp4.sglang.baseline.json",
+      "reviewed": true,
+      "changed": true,
+      "detail": "Checkpoint, immutable pin, engine arguments, TP/DP/context metadata, status, evidence and catalog consistency reviewed. compatibility-probe; target execution remains false."
+    },
+    {
+      "path": "profiles/qwen3.8-flash-next.nvfp4.vllm.baseline.json",
+      "reviewed": true,
+      "changed": true,
+      "detail": "Checkpoint, immutable pin, engine arguments, TP/DP/context metadata, status, evidence and catalog consistency reviewed. candidate; target execution remains false."
+    },
+    {
+      "path": "profiles/qwen3.8-flash-next.nvfp4.vllm.mtp.json",
+      "reviewed": true,
+      "changed": true,
+      "detail": "Checkpoint, immutable pin, engine arguments, TP/DP/context metadata, status, evidence and catalog consistency reviewed. candidate; target execution remains false."
+    },
+    {
+      "path": "scripts/README.md",
+      "reviewed": true,
+      "changed": true,
+      "detail": "All file contents reviewed, fixes and regression coverage documented below."
+    },
+    {
+      "path": "scripts/__init__.py",
+      "reviewed": true,
+      "changed": false,
+      "detail": "Empty package marker reviewed; syntax compiled by repository validation."
+    },
+    {
+      "path": "scripts/clone_upstreams.py",
+      "reviewed": true,
+      "changed": true,
+      "detail": "All file contents reviewed, fixes and regression coverage documented below."
+    },
+    {
+      "path": "scripts/fetch_metadata.py",
+      "reviewed": true,
+      "changed": true,
+      "detail": "All file contents reviewed, fixes and regression coverage documented below."
+    },
+    {
+      "path": "scripts/launch.py",
+      "reviewed": true,
+      "changed": true,
+      "detail": "All file contents reviewed, fixes and regression coverage documented below."
+    },
+    {
+      "path": "scripts/memory.py",
+      "reviewed": true,
+      "changed": false,
+      "detail": "Uniform weight and scale overhead, ordinary GQA KV, recurrent matrix and state-pool formulas reviewed; dimensional arithmetic tests pass; no GPU memory predictor claim."
+    },
+    {
+      "path": "scripts/preflight.py",
+      "reviewed": true,
+      "changed": false,
+      "detail": "Read-only command allowlist, bounded captures, missing package/tool behavior and exclusive output-file creation reviewed; no preflight hardware observations fabricated."
+    },
+    {
+      "path": "scripts/validate_repo.py",
+      "reviewed": true,
+      "changed": true,
+      "detail": "All file contents reviewed, fixes and regression coverage documented below."
+    },
+    {
+      "path": "tests/last-run.txt",
+      "reviewed": true,
+      "changed": false,
+      "detail": "Historical 39-test output reviewed. Root owns final refresh after integrated audit; current verified suite has 67 tests."
+    },
+    {
+      "path": "tests/test_atlas.py",
+      "reviewed": true,
+      "changed": true,
+      "detail": "All file contents reviewed, fixes and regression coverage documented below."
+    }
+  ],
+  "coverage_count": 55,
+  "material_findings_fixed": [
+    {
+      "severity": "medium",
+      "paths": [
+        "benchmarks/run_streaming.py"
+      ],
+      "issue": "Empty [DONE] and incomplete choices could count as success, while n>1 combined streams made per-request timing and TPOT misleading. Tool metadata IDs alone counted as semantic output.",
+      "fix": "Require a single completed choice, recognize normal finish reasons, reject multi-choice payloads/events, preserve unknown token counts, count tool function text/name rather than bookkeeping."
+    },
+    {
+      "severity": "medium",
+      "paths": [
+        "benchmarks/run_streaming.py"
+      ],
+      "issue": "Response iteration allocated an unbounded SSE line before size checks; output creation could fail after paid requests had already run; direct API callers bypassed credential URL checks.",
+      "fix": "Read bounded lines, reserve output exclusively before sending requests, and reuse URL/payload checks for public probe calls. Origin and /v1 API-base URLs work."
+    },
+    {
+      "severity": "medium",
+      "paths": [
+        "scripts/launch.py",
+        "scripts/validate_repo.py"
+      ],
+      "issue": "Profile metadata accepted booleans/noninteger ranks and disagreed with effective CLI topology/context; config/tokenizer/served-name overrides bypassed controlled identity fields; malformed provenance escaped diagnostics.",
+      "fix": "Validate typed profile fields, scalar CLI duplicates/aliases, exact rank and cap agreement, immutable revision shapes, external-draft identity and incomplete snapshots."
+    },
+    {
+      "severity": "medium",
+      "paths": [
+        "scripts/launch.py"
+      ],
+      "issue": "Synthetic speculative acceptance in vLLM JSON/dotted CLI or SYNTHETIC environment variables escaped SIMULAT-only environment guard.",
+      "fix": "Reject synthetic/simulated acceptance in environment and speculative arguments; verified official Kimi recipe documents these synthetic options."
+    },
+    {
+      "severity": "medium",
+      "paths": [
+        "scripts/validate_repo.py"
+      ],
+      "issue": "Catalog/model.json divergence, unknown profile files, checkpoint/revision mismatch and nonstandard JSON escaped local validator.",
+      "fix": "Added matching model-copy check, profile variant/pin checks, duplicate/orphan checks and strict JSON duplicate/nonfinite rejection."
+    },
+    {
+      "severity": "medium",
+      "paths": [
+        "profiles/glm-5.3.fp8.sglang.baseline.json"
+      ],
+      "issue": "Wrong glm45 tool parser for GLM5.3 tool syntax.",
+      "fix": "Use glm47 for tool calls and retain glm45 reasoning; preserve compatibility-probe."
+    },
+    {
+      "severity": "medium",
+      "paths": [
+        "profiles/qwen3.8-flash-next.nvfp4.sglang.baseline.json"
+      ],
+      "issue": "TP4 baseline was an arbitrary shape after an exact NVIDIA TP1 source recipe became available.",
+      "fix": "Align source TP1/FlashInfer linear attention/BF16 state flags; explicitly retain verified:false provenance and local conservative resource caps as a compatibility probe."
+    },
+    {
+      "severity": "medium",
+      "paths": [
+        "deploy/kserve/render.py",
+        "deploy/kserve/README.md"
+      ],
+      "issue": "Renderer accepted invalid PVC names/selectors and claimed no credentials while Kubernetes token automount was left to defaults.",
+      "fix": "Validate names/labels and emit automountServiceAccountToken:false; qualify image validation as digest suffix/basic structure, not registry verification."
+    },
+    {
+      "severity": "low",
+      "paths": [
+        "scripts/clone_upstreams.py"
+      ],
+      "issue": "Dangling symlink destinations and rename replacement race contradicted never modifying an existing checkout.",
+      "fix": "Check symlinks and reserve each target with atomic exclusive mkdir, keeping only newly created incomplete checkouts after retrieval failures."
+    },
+    {
+      "severity": "low",
+      "paths": [
+        "scripts/fetch_metadata.py"
+      ],
+      "issue": "Malformed API/config JSON shapes failed without clear provenance boundaries.",
+      "fix": "Reject nonobject API/config JSON and invalid revision types; regression tests cover immutable mismatch, optional404, receipt roundtrip and incomplete snapshot."
+    },
+    {
+      "severity": "low",
+      "paths": [
+        "profiles/",
+        "profiles/INDEX.md"
+      ],
+      "issue": "All34model revision fields and external drafter pin were unset; GLM Flash exact-derivative audit gap was stale.",
+      "fix": "Applied independently verified exact publisher/exporter commits from model audit owners; updated derivative evidence/reason while preserving unexecuted status."
+    }
+  ],
+  "source_updates": {
+    "TOOL-SGLANG-ARGS": {
+      "id": "TOOL-SGLANG-ARGS",
+      "title": "SGLang server arguments",
+      "url": "https://docs.sglang.io/docs/advanced_features/server_arguments",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "verification": "Retrieved through web tool and relevant sections read",
+      "notes": "Confirmed --tp-size aliases, BF16 KV option, served-name and config controls; live docs, not installed-engine validation."
+    },
+    "TOOL-VLLM-ARGS": {
+      "id": "TOOL-VLLM-ARGS",
+      "title": "vLLM serve CLI",
+      "url": "https://docs.vllm.ai/en/latest/cli/serve/",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "verification": "Retrieved through web tool and relevant sections read",
+      "notes": "Confirmed served-name, tokenizer/config identity overrides and documented current CLI; not proof of image compatibility."
+    },
+    "TOOL-KSERVE-CONFIG": {
+      "id": "TOOL-KSERVE-CONFIG",
+      "title": "KServe configuration",
+      "url": "https://kserve.github.io/website/docs/admin-guide/configurations",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "verification": "Retrieved through web tool and relevant sections read",
+      "notes": "Standard deployment annotation and automatic service-account token defaults reviewed."
+    },
+    "TOOL-KSERVE-CRD": {
+      "id": "TOOL-KSERVE-CRD",
+      "title": "KServe v0.21.0 InferenceService CRD",
+      "url": "https://raw.githubusercontent.com/kserve/kserve/v0.21.0/config/crd/full/serving.kserve.io_inferenceservices.yaml",
+      "kind": "versioned upstream schema",
+      "accessed_on": "2026-10-15",
+      "verification": "Retrieved through web tool and relevant sections read",
+      "notes": "Version-tagged schema includes predictor automountServiceAccountToken boolean; renderer now emits false. No live admission performed."
+    },
+    "TOOL-K8S-NAMES": {
+      "id": "TOOL-K8S-NAMES",
+      "title": "Kubernetes object names",
+      "url": "https://kubernetes.io/docs/concepts/overview/working-with-objects/names/",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "verification": "Retrieved through web tool and relevant sections read",
+      "notes": "DNS name boundaries checked for PVC validation."
+    },
+    "TOOL-K8S-LABELS": {
+      "id": "TOOL-K8S-LABELS",
+      "title": "Kubernetes labels and selectors",
+      "url": "https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "verification": "Retrieved through web tool and relevant sections read",
+      "notes": "Label key/prefix/value syntax and lengths checked for node-selector validation."
+    }
+  },
+  "additional_reverified_existing_sources": [
+    "VREL",
+    "GREL",
+    "KREL",
+    "kimi-k3-VR",
+    "kimi-k3-GR",
+    "glm-5.3-VR",
+    "glm-5.3-flash-GR",
+    "qwen3.8-27b-GR",
+    "qwen3.8-27b-NV",
+    "qwen3.8-flash-next-VR"
+  ],
+  "delegated_source_receipts": [
+    "Temporary evidence (not bundled): source-updates.json",
+    "Temporary evidence (not bundled): sglang-flash-retrievals.json"
+  ],
+  "validation": {
+    "unit_command": "python3 -m unittest discover -s tests -v",
+    "tests": 67,
+    "passed": 67,
+    "failed": 0,
+    "runtime_seconds": 0.24,
+    "includes_root_new_atlas_tests": 4,
+    "validator_command": "python3 scripts/validate_repo.py",
+    "ok": true,
+    "files_checked": 154,
+    "json_files": 50,
+    "python_files": 15,
+    "local_links_checked": 268,
+    "models": 8,
+    "companies": 6,
+    "profiles": 34,
+    "sources": 116,
+    "diff_check": "git diff --check -- scripts tests benchmarks deploy profiles: exit0"
+  },
+  "catalog_sync": "Root synchronized catalog/profiles.json and catalog/models.json; final validator confirms equality and exact revision consistency.",
+  "pending_root_actions": [
+    "Refresh final test/validator captures and generated artifacts after integration. Six TOOL-* entries are now integrated and model/profile catalog synchronization passes."
+  ],
+  "limits": [
+    "No inference engines installed or executed. No model weights downloaded. No real benchmark requests. No Kubernetes resource applied.",
+    "Mocked metadata/SSE tests verify local protocol behavior, not network or GPU integration.",
+    "Profile flags rechecked against official docs and applicable model audit receipts; actual installed image help/kernel behavior remain unverified.",
+    "Timeout is socket-level plus between-read budget, not strict wall-clock cancellation.",
+    "Output schema validates structure, not authenticity, quality, SLO compliance or cross-field arithmetic.",
+    "scripts/build_atlas.py and tests/test_build_atlas.py were added by root during audit and were not edited by this agent."
+  ],
+  "post_first_pass_updates": [
+    {
+      "at_utc": "2026-10-15T22:16:01.009610+00:00",
+      "change": "scripts/README.md now documents root-owned build_atlas.py default write/overwrite and --check read-only freshness behavior.",
+      "reverified": "Supported Python3.12 unit suite67PASS; validator135sourcesPASS; root handles finalcapture."
+    }
+  ],
+  "record_role": "First-pass Astra max reviewer handoff; final shared propagation and second-review resolutions are recorded in evidence/AUDIT-2026-10-15.md."
+}

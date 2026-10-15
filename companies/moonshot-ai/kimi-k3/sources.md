@@ -1,46 +1,26 @@
 # Kimi K3: sources
 
-## kimi-k3-CARD
+Re-retrieved on 2026-10-15 (UTC). Model cards, configurations and licenses below are linked to immutable repository revisions. Engine recipes and PR state are dated observations; they can change.
 
-[Kimi K3 publisher model card](https://huggingface.co/moonshotai/Kimi-K3)
+| Source ID | Primary artifact | Evidence boundary |
+| --- | --- | --- |
+| `kimi-k3-CARD` | [Kimi K3 publisher card](https://huggingface.co/moonshotai/Kimi-K3/blob/f831ab66814297da540d832a5235f8e904f29d06/README.md) | Immutable card retrieved successfully; architecture, parameter headlines, QAT and conversation protocol checked. No training or benchmark result reproduced. |
+| `kimi-k3-CFG` | [Kimi K3 configuration](https://huggingface.co/moonshotai/Kimi-K3/raw/f831ab66814297da540d832a5235f8e904f29d06/config.json) | Parsed immutable JSON; curated dimensions and 69 KDA / 24 MLA counts checked. Vocabulary is 163840; attention/shared/dense exclusions and unset activation quantization are explicit. |
+| `kimi-k3-LICENSE` | [Kimi K3 license](https://huggingface.co/moonshotai/Kimi-K3/blob/f831ab66814297da540d832a5235f8e904f29d06/LICENSE) | Exact custom Kimi K3 license file retrieved and read. |
+| `kimi-k3-NV` | [NVIDIA Kimi K3 mixed NVFP4 card](https://huggingface.co/nvidia/Kimi-K3-NVFP4/blob/b2428a0b83a8b712ff2e1a8448a103d4175341f1/README.md) | Mixed export, approximately 1.6 TB download, patched vLLM path on 8 B300 GPUs, SGLang development image and distinct NVIDIA/Kimi terms reviewed. Publisher results not reproduced. |
+| `kimi-k3-NV-CFG` | [NVIDIA Kimi K3 mixed configuration](https://huggingface.co/nvidia/Kimi-K3-NVFP4/raw/b2428a0b83a8b712ff2e1a8448a103d4175341f1/config.json) | Parsed immutable ModelOpt mixed-precision configuration: expert groups of 16 and FP8_PB_WO attention entries. Module aliases are not counted as distinct layers. |
+| `kimi-k3-NV-LICENSE` | [NVIDIA Kimi K3 checked-in license](https://huggingface.co/nvidia/Kimi-K3-NVFP4/blob/b2428a0b83a8b712ff2e1a8448a103d4175341f1/LICENSE) | Byte-identical to the selected base Kimi K3 license file; the card separately identifies the NVIDIA Open Model Agreement. |
+| `kimi-k3-DRAFT` | [Inferact Kimi K3 DSpark card](https://huggingface.co/Inferact/Kimi-K3-DSpark/blob/cf6b8244620e7ea4b0651d214f28e89eac75bed6/README.md) | MLA draft for vLLM; acceptance conditions reviewed. Peak description leaves the relationship between 4 GB300 and TP16 unclear. |
+| `kimi-k3-DRAFT-CFG` | [Inferact Kimi K3 DSpark config](https://huggingface.co/Inferact/Kimi-K3-DSpark/raw/cf6b8244620e7ea4b0651d214f28e89eac75bed6/config.json) | Five K3DSparkModel layers; target feature IDs [2, 23, 47, 71, 89]. Token and positional settings checked. |
+| `kimi-k3-DRAFT-SG` | [RadixArk Kimi K3 DSpark card](https://huggingface.co/RadixArk/Kimi-K3-DSpark/blob/3c5bac301d9cf392706189d82ed947feca6c2f0f/README.md) | SGLang serving path and dataset-specific acceptance aggregation reviewed. |
+| `kimi-k3-DRAFT-SG-CFG` | [RadixArk Kimi K3 DSpark config](https://huggingface.co/RadixArk/Kimi-K3-DSpark/raw/3c5bac301d9cf392706189d82ed947feca6c2f0f/config.json) | Five full-attention layers, 64 query heads, 16 KV heads, feature IDs [7, 23, 51, 67, 83] and block size 7 verified. |
+| `kimi-k3-VR` | [vLLM Kimi K3 recipe](https://recipes.vllm.ai/moonshotai/Kimi-K3) | Mutable recipe checked for native Kimi and Inferact DSpark paths. Older pre-release text coexists with newer deployment sections. |
+| `kimi-k3-GR` | [SGLang Kimi K3 cookbook](https://docs.sglang.io/cookbook/autoregressive/Moonshotai/Kimi-K3) | Mutable cookbook checked for DCP/state sizing and the NVFP4 image. B300 speed rows cite v0.5.18 at 71de97b2, input/output lengths 8192/1024 and simulated acceptance 4.5. |
+| `KIMIPR` | [SGLang Kimi mixed-format compatibility PR](https://github.com/sgl-project/sglang/pull/35077) | Official API confirms merge on 2026-08-19 at 5f128395910dafb98c34083dc26cb790c7674d34. Author reports 197/200 GSM8K on 8 GB300 GPUs and no speed measurement. |
+| `KIMIVPR` | [vLLM Kimi attention compatibility PR](https://github.com/vllm-project/vllm/pull/52406) | Official API confirms open/unmerged state, head 271aa8deeb723650932f609b8291e4299f0d504b. Branch unit/static checks differ from equivalent-path hardware evaluation. |
+| `KIMIVPR-MIXED` | [vLLM ModelOpt mixed-dispatch PR](https://github.com/vllm-project/vllm/pull/50617) | Official API confirms open/unmerged state. NVIDIA tracks this as part of the replacement for its runtime patch. |
+| `KIMIVPR-SCALE` | [vLLM TRTLLM NVFP4 SiTU scaling PR](https://github.com/vllm-project/vllm/pull/52405) | Official API confirms open/unmerged state. NVIDIA tracks this as part of the replacement for its runtime patch. |
+| `GREL-KIMI-ANCESTRY` | [SGLang compatibility merge ancestry](https://github.com/sgl-project/sglang/compare/5f128395910dafb98c34083dc26cb790c7674d34...v0.5.21) | Official compare API confirms the merge is an ancestor of v0.5.21. This establishes source inclusion, not a tested wheel or image. |
+| `VDS` | [vLLM Kimi DSpark implementation](https://github.com/vllm-project/vllm/blob/f8460ef23659afd69046a81529ec2295e4c3f686/vllm/models/kimi_k3/nvidia/dspark_mla.py) | Immutable source inspected: dense MLA, context projection, embedding alias, confidence/Markov heads, noncausal draft attention and fused reductions. |
 
-Accessed 2026-10-15. Primary publisher or serving-engine source.
-
-## kimi-k3-CFG
-
-[Kimi K3 configuration](https://huggingface.co/moonshotai/Kimi-K3/raw/main/config.json)
-
-Accessed 2026-10-15. Primary publisher or serving-engine source.
-
-## kimi-k3-NV
-
-[NVIDIA Kimi mixed NVFP4 export](https://huggingface.co/nvidia/Kimi-K3-NVFP4)
-
-Accessed 2026-10-15. Primary publisher or serving-engine source.
-
-## kimi-k3-DRAFT
-
-[Inferact MLA-native DSpark drafter](https://huggingface.co/Inferact/Kimi-K3-DSpark)
-
-Accessed 2026-10-15. Primary publisher or serving-engine source.
-
-## kimi-k3-DRAFT-SG
-
-[RadixArk SGLang DSpark drafter](https://huggingface.co/RadixArk/Kimi-K3-DSpark)
-
-Accessed 2026-10-15. Primary publisher or serving-engine source.
-
-## kimi-k3-VR
-
-[vLLM Kimi K3 recipe](https://recipes.vllm.ai/moonshotai/Kimi-K3)
-
-Accessed 2026-10-15. Primary publisher or serving-engine source.
-
-## kimi-k3-GR
-
-[SGLang Kimi K3 cookbook](https://docs.sglang.io/cookbook/autoregressive/Moonshotai/Kimi-K3)
-
-Accessed 2026-10-15. Some B300 DSpark results use simulated acceptance; exact verified cells distinguished from extrapolations.
-
-
-See the global [source register](../../../evidence/sources.json) and [limits](../../../LIMITATIONS.md).
+The global [source register](../../../evidence/sources.json) records these identifiers. [Validation](validation.md) distinguishes retrieved metadata and source inspection from GPU results. No full upstream checkout or model weights were produced by this audit.

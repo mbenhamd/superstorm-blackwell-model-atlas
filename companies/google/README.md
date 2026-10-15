@@ -1,7 +1,7 @@
 # Google
 
 ## [Gemma 4 31B IT](gemma-4-31b-it/README.md)
-Dense multimodal 31B; 5 sliding layers per global-attention layer
+Dense multimodal model in the 31B family; five sliding layers per global-attention layer. The [model report](gemma-4-31b-it/README.md) records pinned base and derivative revisions and their reported file sizes.
 
 Canonical repository: `google/gemma-4-31B-it`.
 

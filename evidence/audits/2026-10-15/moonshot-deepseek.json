@@ -1,0 +1,1336 @@
+{
+  "scope": "All tracked files under companies/moonshot-ai and companies/deepseek",
+  "task_date_utc": "2026-10-15",
+  "completed_at_utc": "2026-10-15T22:07:19.587975+00:00",
+  "local_calendar_note": "Paris changed to 2026-10-16 during the audit; retrieval timestamps and report audit date use UTC.",
+  "owned_files": [
+    {
+      "path": "companies/moonshot-ai/README.md",
+      "reviewed": true,
+      "edited": true,
+      "re_read_after_edit": true,
+      "coverage": "Checked family identity and count scope; corrected company capitalization, identified the publisher counts, added the verified revision and variant provenance link.",
+      "sha256": "b90808e142db8ee8e44009aa05edd78ce82d4d7f8830fb5ba65e990a11a5d690"
+    },
+    {
+      "path": "companies/moonshot-ai/kimi-k3/README.md",
+      "reviewed": true,
+      "edited": true,
+      "re_read_after_edit": true,
+      "coverage": "Pinned the base revision, updated recommendation and evidence boundary, distinguished configured context from practical capacity and kept hardware/performance unknowns.",
+      "sha256": "71b0769eaf2de5f3f2bc4e885bfd409c5daad6ef74a4444774c86a4dbd94addc"
+    },
+    {
+      "path": "companies/moonshot-ai/kimi-k3/architecture.md",
+      "reviewed": true,
+      "edited": true,
+      "re_read_after_edit": true,
+      "coverage": "Compared every curated dimension with immutable config/card; added exact vocabulary and row provenance; recomputed 414 MiB state and 2.8 TB hypothetical FP8 memory arithmetic.",
+      "sha256": "29f0bf020d486d2894cd0f5caaa63cded650f57184671e04b7de1ee243b1ec66"
+    },
+    {
+      "path": "companies/moonshot-ai/kimi-k3/model.json",
+      "reviewed": true,
+      "edited": true,
+      "re_read_after_edit": true,
+      "coverage": "Pinned native and NVIDIA variants, refined activation/runtime precision scope, added vocabulary/source provenance and explicit rounded headline-count note.",
+      "sha256": "242722960dcabfc7a73b476f5cb0ac2223e1677ccd71ed0db74a347ba61385e5"
+    },
+    {
+      "path": "companies/moonshot-ai/kimi-k3/precision.md",
+      "reviewed": true,
+      "edited": true,
+      "re_read_after_edit": true,
+      "coverage": "Checked both quantization configs and licenses, SGLang merge/release ancestry, three open vLLM PRs and NVIDIA patched vLLM route; removed stale blanket implications about stable support.",
+      "sha256": "99b7a5454af1d9c9d681860e7629b79e9d6b9fba9c5302eb1aeb5cfa0ff829a2"
+    },
+    {
+      "path": "companies/moonshot-ai/kimi-k3/serving.md",
+      "reviewed": true,
+      "edited": true,
+      "re_read_after_edit": true,
+      "coverage": "Checked native TP8 and NVIDIA DCP8 topology provenance, backend prerequisite, target-only versus draft setup, and speculative benchmark limitations.",
+      "sha256": "a810d828b5db2b78b94e101d9654b3eb325b3fc180a89d3b58f84e0655e80c21"
+    },
+    {
+      "path": "companies/moonshot-ai/kimi-k3/dspark.md",
+      "reviewed": true,
+      "edited": true,
+      "re_read_after_edit": true,
+      "coverage": "Inspected pinned vLLM DSpark implementation, independently pinned both draft configs, differentiated architecture/feature IDs, checked cookbook state formula, and challenged ambiguous Inferact hardware wording.",
+      "sha256": "6355780b45932617216aa228d5a6deaec98492e22e792859538c1371dbeafb37"
+    },
+    {
+      "path": "companies/moonshot-ai/kimi-k3/sources.md",
+      "reviewed": true,
+      "edited": true,
+      "re_read_after_edit": true,
+      "coverage": "Replaced mutable model references with immutable file links and added dated, source-specific boundaries for all used evidence.",
+      "sha256": "3f019b2eeaa1fffcd8032c411498c4d4f2f30ff1e711dbe25bcf1cde25d58e80"
+    },
+    {
+      "path": "companies/moonshot-ai/kimi-k3/validation.md",
+      "reviewed": true,
+      "edited": true,
+      "re_read_after_edit": true,
+      "coverage": "Recorded completed metadata/source/math checks and retained unperformed tensor census, weight download and GPU/application tests as open.",
+      "sha256": "6f1024f56eee01692eca300c7eb77ec085646316a03dba2430e10daa5cae79c7"
+    },
+    {
+      "path": "companies/deepseek/README.md",
+      "reviewed": true,
+      "edited": true,
+      "re_read_after_edit": true,
+      "coverage": "Checked exact 0731 identity, distinguished preview-family counts, documented both upstream engines and pinned the canonical revision.",
+      "sha256": "e81449d1c82ace80d7cea2273468e93d394872df65bb54a7db3e7bd60efdaa22"
+    },
+    {
+      "path": "companies/deepseek/deepseek-v4-flash-0731/README.md",
+      "reviewed": true,
+      "edited": true,
+      "re_read_after_edit": true,
+      "coverage": "Corrected TP8 summary to vLLM TP1/DP4+EP, pinned revision/license, removed irrelevant image-load qualification and unverified named later-release example.",
+      "sha256": "20b4daac01d2fcc380c7ac4b17f239faeaba35e6bda320a87162e5b89a684a7a"
+    },
+    {
+      "path": "companies/deepseek/deepseek-v4-flash-0731/architecture.md",
+      "reviewed": true,
+      "edited": true,
+      "re_read_after_edit": true,
+      "coverage": "Compared every config dimension, retained all 46 compression entries, resolved three reference DSpark stages versus nextn metadata1, confirmed zero-based target IDs and preserved count-scope uncertainty.",
+      "sha256": "f8c9afa4646d52c4a0e7c139ffddc9d818fbd5d6619e4691e5a3605735a753d7"
+    },
+    {
+      "path": "companies/deepseek/deepseek-v4-flash-0731/model.json",
+      "reviewed": true,
+      "edited": true,
+      "re_read_after_edit": true,
+      "coverage": "Pinned native revision, corrected baseline_tp to1, added compression schedule/reference stage count and evidence source notes; exact total/active counts remain null.",
+      "sha256": "fdfd23f2e2baad58f133fa374b2534dd78a3d6ba1bfdf8830b023a833167107d"
+    },
+    {
+      "path": "companies/deepseek/deepseek-v4-flash-0731/precision.md",
+      "reviewed": true,
+      "edited": true,
+      "re_read_after_edit": true,
+      "coverage": "Inspected reference mixed-precision loader to distinguish packed FP4/group32 scales from FP8/block128; verified MIT file and model-card license scope.",
+      "sha256": "5862aad0869cbeef9015aeb39b04940d8f437a65fb3a9faa0c452a4d3bb3111a"
+    },
+    {
+      "path": "companies/deepseek/deepseek-v4-flash-0731/serving.md",
+      "reviewed": true,
+      "edited": true,
+      "re_read_after_edit": true,
+      "coverage": "Verified exact vLLM and SGLang recipes, corrected topology/support scope, documented engine-specific parser and proposal-count semantics plus64K versus384K output-budget limitation.",
+      "sha256": "898f5a4aab042cb65e7f8940dcb2fca89a1006df4b7510d2ad5e0f4f54b99028"
+    },
+    {
+      "path": "companies/deepseek/deepseek-v4-flash-0731/sources.md",
+      "reviewed": true,
+      "edited": true,
+      "re_read_after_edit": true,
+      "coverage": "Pinned immutable publisher files and indexed exact SGLang/reference-inference/encoding/license evidence with dated boundaries.",
+      "sha256": "a24107782e741070f7c02b42c098d49b23061fe5c9203b0f83ae7b53a041422c"
+    },
+    {
+      "path": "companies/deepseek/deepseek-v4-flash-0731/validation.md",
+      "reviewed": true,
+      "edited": true,
+      "re_read_after_edit": true,
+      "coverage": "Recorded completed immutable metadata/source checks; exact count reconciliation, GPU tests, image validation and eight-GPU adaptation qualification remain open.",
+      "sha256": "24d90124d560007454458d92ad177a8bbbafcaad61c93b499b7cc26cc2069442"
+    }
+  ],
+  "findings": [
+    {
+      "id": "MD-01",
+      "severity": "high",
+      "status": "fixed",
+      "claim": "DeepSeek initial TP8 summary conflicted with its vLLM launch profiles.",
+      "evidence": "Official vLLM recipe documents DP4+EP with TP1; profiles use TP1/DP4 or TP1/DP8.",
+      "correction": "Set baseline_tp=1 and describe DP4 baseline plus unbenchmarked DP8 adaptation.",
+      "source_ids": [
+        "deepseek-v4-flash-0731-VR"
+      ]
+    },
+    {
+      "id": "MD-02",
+      "severity": "high",
+      "status": "fixed",
+      "claim": "Exact DeepSeek 0731 SGLang support was left generally unresolved despite existing publisher evidence.",
+      "evidence": "Pinned 0731 model card gives TP4/flashinfer_mxfp4/DSpark command; SGLang cookbook reports4 GB300 with v0.5.16.",
+      "correction": "Distinguish documented upstream exact0731 path from the local modified TP8 target-only probe.",
+      "source_ids": [
+        "deepseek-v4-flash-0731-CARD",
+        "deepseek-v4-flash-0731-GR"
+      ]
+    },
+    {
+      "id": "MD-03",
+      "severity": "medium",
+      "status": "fixed",
+      "claim": "All target, derivative and draft model pins were null although exact repositories were accessible.",
+      "evidence": "HF metadata API SHA matches successfully retrieved immutable card/config paths;18 immutable response bodies unchanged on re-fetch.",
+      "correction": "Pin base and variants in owned records, publish both draft pins and stable source links; parent propagates profile/catalog copies.",
+      "source_ids": [
+        "kimi-k3-CARD",
+        "kimi-k3-CFG",
+        "kimi-k3-NV",
+        "kimi-k3-DRAFT",
+        "kimi-k3-DRAFT-SG",
+        "deepseek-v4-flash-0731-CARD",
+        "deepseek-v4-flash-0731-CFG"
+      ]
+    },
+    {
+      "id": "MD-04",
+      "severity": "high",
+      "status": "fixed",
+      "claim": "DeepSeek root nextn_layers=1 could be mistaken for actual DSpark stage count.",
+      "evidence": "Pinned rootconfig num_nextn_predict_layers=1; same-revision inferenceconfig n_mtp_layers=3; source constructs DSparkBlock stages 3 under mtp namespace.",
+      "correction": "Keep metadata labeled, add reference stage count 3, full 46-entry schedule and zero-based target feature IDs.",
+      "source_ids": [
+        "deepseek-v4-flash-0731-CFG",
+        "deepseek-v4-flash-0731-INFER-CFG",
+        "deepseek-v4-flash-0731-INFER-SRC"
+      ]
+    },
+    {
+      "id": "MD-05",
+      "severity": "high",
+      "status": "fixed",
+      "claim": "Kimi mixed NVFP4 runtime discussion omitted NVIDIA’s documented patched vLLM path and did not resolve stable SGLang source inclusion.",
+      "evidence": "NVIDIA immutable card documents required runtime patch on8 B300; all three upstream vLLM PRs remain open. SGLang35077 merge is ancestor of v0.5.21 (ahead 2211,behind 0).",
+      "correction": "Keep generic vLLM profile blocked without denying patched support; establish SGLang release-source inclusion while retaining image/dependency uncertainty and cookbook’s mutable development image.",
+      "source_ids": [
+        "kimi-k3-NV",
+        "KIMIPR",
+        "KIMIVPR",
+        "KIMIVPR-MIXED",
+        "KIMIVPR-SCALE",
+        "GREL-KIMI-ANCESTRY"
+      ]
+    },
+    {
+      "id": "MD-06",
+      "severity": "medium",
+      "status": "fixed",
+      "claim": "Kimi native MXFP8 headline could be misread as universal runtime activation precision.",
+      "evidence": "Publisher describes MXFP4/MXFP8 QAT, but native config quantizes routed experts with input_activations null and excludes attention/shared/dense modules.",
+      "correction": "State exact serialized weight/module scope and leave backend activation execution as a separate contract.",
+      "source_ids": [
+        "kimi-k3-CARD",
+        "kimi-k3-CFG",
+        "kimi-k3-NV-CFG"
+      ]
+    },
+    {
+      "id": "MD-07",
+      "severity": "medium",
+      "status": "fixed",
+      "claim": "License provenance stayed unresolved or flattened base and derivative terms.",
+      "evidence": "Exact DeepSeek MIT file plus model-card scope retrieved. NVIDIA card identifies NVIDIA Open Model Agreement and links Kimi terms; derivative checked-in LICENSE matches custom base LICENSE.",
+      "correction": "Pin and identify each artifact’s stated terms; no blanket legal-clearance claim.",
+      "source_ids": [
+        "kimi-k3-LICENSE",
+        "kimi-k3-NV",
+        "kimi-k3-NV-LICENSE",
+        "deepseek-v4-flash-0731-LICENSE",
+        "deepseek-v4-flash-0731-CARD"
+      ]
+    },
+    {
+      "id": "MD-08",
+      "severity": "medium",
+      "status": "fixed",
+      "claim": "DeepSeek 128x128 FP8 block metadata could be conflated with expert FP4 grouping.",
+      "evidence": "Pinned reference Linear stores two FP4 values per byte with one E8M0 scale per 32; FP8 path uses128 blocks.",
+      "correction": "Describe separate precision groups and avoid labeling the native artifact NVFP4 solely from four-bit storage.",
+      "source_ids": [
+        "deepseek-v4-flash-0731-INFER-SRC",
+        "deepseek-v4-flash-0731-CFG"
+      ]
+    },
+    {
+      "id": "MD-09",
+      "severity": "medium",
+      "status": "documented_unknown",
+      "claim": "DeepSeek 284B versus304B headline counts have different and unresolved scopes.",
+      "evidence": "vLLM preview-family headline 284B/13B; SGLang exact0731 row 304B/13B. HF serialized-element totals are not a logical main+draft census.",
+      "correction": "Keep total_b and active_b null; retain family headline separately and explain what census would resolve.",
+      "source_ids": [
+        "deepseek-v4-flash-0731-VR",
+        "deepseek-v4-flash-0731-GR",
+        "deepseek-v4-flash-0731-FAMILY"
+      ]
+    },
+    {
+      "id": "MD-10",
+      "severity": "medium",
+      "status": "documented_unknown",
+      "claim": "Inferact peak-speed hardware description pairs 4×GB300 with TP16 without clarifying node count.",
+      "evidence": "Pinned draft card explicitly contains both descriptions; no independently complete topology/run artifact found.",
+      "correction": "Flag ambiguity and avoid using peak number for engine ranking.",
+      "source_ids": [
+        "kimi-k3-DRAFT"
+      ]
+    },
+    {
+      "id": "MD-11",
+      "severity": "medium",
+      "status": "fixed",
+      "claim": "DeepSeek 64K local profiles cannot represent publisher high/max output allowance.",
+      "evidence": "Exact card recommends maximum output length 384K for high/max; local max_model_len 65536.",
+      "correction": "Document local shorter application budget and require separate qualification for long-output profile.",
+      "source_ids": [
+        "deepseek-v4-flash-0731-CARD"
+      ]
+    },
+    {
+      "id": "MD-12",
+      "severity": "low",
+      "status": "fixed",
+      "claim": "Kimi curated configuration table mixed config extraction with card-derived vision labels.",
+      "evidence": "Config has no named MoonViT-V2/401M fields; these are publisher card claims. Actual vocab_size163840 contrasts with rounded 160K card label.",
+      "correction": "Mark row provenance, add exact vocab_size and retain rounded parameter counts as publisher headlines.",
+      "source_ids": [
+        "kimi-k3-CARD",
+        "kimi-k3-CFG"
+      ]
+    }
+  ],
+  "pin_map": {
+    "moonshotai/Kimi-K3": {
+      "revision": "f831ab66814297da540d832a5235f8e904f29d06",
+      "last_modified": "2026-09-02T02:22:41.000Z",
+      "metadata_api": "https://huggingface.co/api/models/moonshotai/Kimi-K3"
+    },
+    "nvidia/Kimi-K3-NVFP4": {
+      "revision": "b2428a0b83a8b712ff2e1a8448a103d4175341f1",
+      "last_modified": "2026-08-29T06:53:44.000Z",
+      "metadata_api": "https://huggingface.co/api/models/nvidia/Kimi-K3-NVFP4"
+    },
+    "deepseek-ai/DeepSeek-V4-Flash-0731": {
+      "revision": "7872f01b1d1fe23eabc4c98b48bffcef5a386062",
+      "last_modified": "2026-08-01T03:07:41.000Z",
+      "metadata_api": "https://huggingface.co/api/models/deepseek-ai/DeepSeek-V4-Flash-0731"
+    },
+    "RadixArk/Kimi-K3-DSpark": {
+      "revision": "3c5bac301d9cf392706189d82ed947feca6c2f0f",
+      "last_modified": "2026-08-16T16:23:16.000Z",
+      "metadata_api": "https://huggingface.co/api/models/RadixArk/Kimi-K3-DSpark"
+    },
+    "Inferact/Kimi-K3-DSpark": {
+      "revision": "cf6b8244620e7ea4b0651d214f28e89eac75bed6",
+      "last_modified": "2026-07-29T00:48:33.000Z",
+      "metadata_api": "https://huggingface.co/api/models/Inferact/Kimi-K3-DSpark"
+    },
+    "deepseek-ai/DeepSeek-V4-Flash": {
+      "revision": "60d8d70770c6776ff598c94bb586a859a38244f1",
+      "last_modified": "2026-06-22T12:12:13.000Z",
+      "metadata_api": "https://huggingface.co/api/models/deepseek-ai/DeepSeek-V4-Flash"
+    }
+  },
+  "source_updates": [
+    {
+      "id": "kimi-k3-CARD",
+      "url": "https://huggingface.co/moonshotai/Kimi-K3/blob/f831ab66814297da540d832a5235f8e904f29d06/README.md",
+      "immutable_url": "https://huggingface.co/moonshotai/Kimi-K3/blob/f831ab66814297da540d832a5235f8e904f29d06/README.md",
+      "revision": "f831ab66814297da540d832a5235f8e904f29d06",
+      "title": "Kimi K3 publisher card",
+      "kind": "publisher model card",
+      "accessed_on": "2026-10-15",
+      "verification": "Immutable card retrieved successfully; architecture, parameter headlines, QAT and conversation protocol checked. No training or benchmark result reproduced."
+    },
+    {
+      "id": "kimi-k3-CFG",
+      "url": "https://huggingface.co/moonshotai/Kimi-K3/raw/f831ab66814297da540d832a5235f8e904f29d06/config.json",
+      "immutable_url": "https://huggingface.co/moonshotai/Kimi-K3/raw/f831ab66814297da540d832a5235f8e904f29d06/config.json",
+      "revision": "f831ab66814297da540d832a5235f8e904f29d06",
+      "title": "Kimi K3 configuration",
+      "kind": "publisher configuration",
+      "accessed_on": "2026-10-15",
+      "verification": "Parsed immutable JSON; curated dimensions and 69 KDA / 24 MLA counts checked. Vocabulary is 163840; attention/shared/dense exclusions and unset activation quantization are explicit."
+    },
+    {
+      "id": "kimi-k3-LICENSE",
+      "url": "https://huggingface.co/moonshotai/Kimi-K3/blob/f831ab66814297da540d832a5235f8e904f29d06/LICENSE",
+      "immutable_url": "https://huggingface.co/moonshotai/Kimi-K3/blob/f831ab66814297da540d832a5235f8e904f29d06/LICENSE",
+      "revision": "f831ab66814297da540d832a5235f8e904f29d06",
+      "title": "Kimi K3 license",
+      "kind": "publisher license",
+      "accessed_on": "2026-10-15",
+      "verification": "Exact custom Kimi K3 license file retrieved and read."
+    },
+    {
+      "id": "kimi-k3-NV",
+      "url": "https://huggingface.co/nvidia/Kimi-K3-NVFP4/blob/b2428a0b83a8b712ff2e1a8448a103d4175341f1/README.md",
+      "immutable_url": "https://huggingface.co/nvidia/Kimi-K3-NVFP4/blob/b2428a0b83a8b712ff2e1a8448a103d4175341f1/README.md",
+      "revision": "b2428a0b83a8b712ff2e1a8448a103d4175341f1",
+      "title": "NVIDIA Kimi K3 mixed NVFP4 card",
+      "kind": "publisher model card",
+      "accessed_on": "2026-10-15",
+      "verification": "Mixed export, approximately 1.6 TB download, patched vLLM path on 8 B300 GPUs, SGLang development image and distinct NVIDIA/Kimi terms reviewed. Publisher results not reproduced."
+    },
+    {
+      "id": "kimi-k3-NV-CFG",
+      "url": "https://huggingface.co/nvidia/Kimi-K3-NVFP4/raw/b2428a0b83a8b712ff2e1a8448a103d4175341f1/config.json",
+      "immutable_url": "https://huggingface.co/nvidia/Kimi-K3-NVFP4/raw/b2428a0b83a8b712ff2e1a8448a103d4175341f1/config.json",
+      "revision": "b2428a0b83a8b712ff2e1a8448a103d4175341f1",
+      "title": "NVIDIA Kimi K3 mixed configuration",
+      "kind": "publisher configuration",
+      "accessed_on": "2026-10-15",
+      "verification": "Parsed immutable ModelOpt mixed-precision configuration: expert groups of 16 and FP8_PB_WO attention entries. Module aliases are not counted as distinct layers."
+    },
+    {
+      "id": "kimi-k3-NV-LICENSE",
+      "url": "https://huggingface.co/nvidia/Kimi-K3-NVFP4/blob/b2428a0b83a8b712ff2e1a8448a103d4175341f1/LICENSE",
+      "immutable_url": "https://huggingface.co/nvidia/Kimi-K3-NVFP4/blob/b2428a0b83a8b712ff2e1a8448a103d4175341f1/LICENSE",
+      "revision": "b2428a0b83a8b712ff2e1a8448a103d4175341f1",
+      "title": "NVIDIA Kimi K3 checked-in license",
+      "kind": "publisher license",
+      "accessed_on": "2026-10-15",
+      "verification": "Byte-identical to the selected base Kimi K3 license file; the card separately identifies the NVIDIA Open Model Agreement."
+    },
+    {
+      "id": "kimi-k3-DRAFT",
+      "url": "https://huggingface.co/Inferact/Kimi-K3-DSpark/blob/cf6b8244620e7ea4b0651d214f28e89eac75bed6/README.md",
+      "immutable_url": "https://huggingface.co/Inferact/Kimi-K3-DSpark/blob/cf6b8244620e7ea4b0651d214f28e89eac75bed6/README.md",
+      "revision": "cf6b8244620e7ea4b0651d214f28e89eac75bed6",
+      "title": "Inferact Kimi K3 DSpark card",
+      "kind": "publisher model card",
+      "accessed_on": "2026-10-15",
+      "verification": "MLA draft for vLLM; acceptance conditions reviewed. Peak description leaves the relationship between 4 GB300 and TP16 unclear."
+    },
+    {
+      "id": "kimi-k3-DRAFT-CFG",
+      "url": "https://huggingface.co/Inferact/Kimi-K3-DSpark/raw/cf6b8244620e7ea4b0651d214f28e89eac75bed6/config.json",
+      "immutable_url": "https://huggingface.co/Inferact/Kimi-K3-DSpark/raw/cf6b8244620e7ea4b0651d214f28e89eac75bed6/config.json",
+      "revision": "cf6b8244620e7ea4b0651d214f28e89eac75bed6",
+      "title": "Inferact Kimi K3 DSpark config",
+      "kind": "publisher configuration",
+      "accessed_on": "2026-10-15",
+      "verification": "Five K3DSparkModel layers; target feature IDs [2, 23, 47, 71, 89]. Token and positional settings checked."
+    },
+    {
+      "id": "kimi-k3-DRAFT-SG",
+      "url": "https://huggingface.co/RadixArk/Kimi-K3-DSpark/blob/3c5bac301d9cf392706189d82ed947feca6c2f0f/README.md",
+      "immutable_url": "https://huggingface.co/RadixArk/Kimi-K3-DSpark/blob/3c5bac301d9cf392706189d82ed947feca6c2f0f/README.md",
+      "revision": "3c5bac301d9cf392706189d82ed947feca6c2f0f",
+      "title": "RadixArk Kimi K3 DSpark card",
+      "kind": "publisher model card",
+      "accessed_on": "2026-10-15",
+      "verification": "SGLang serving path and dataset-specific acceptance aggregation reviewed."
+    },
+    {
+      "id": "kimi-k3-DRAFT-SG-CFG",
+      "url": "https://huggingface.co/RadixArk/Kimi-K3-DSpark/raw/3c5bac301d9cf392706189d82ed947feca6c2f0f/config.json",
+      "immutable_url": "https://huggingface.co/RadixArk/Kimi-K3-DSpark/raw/3c5bac301d9cf392706189d82ed947feca6c2f0f/config.json",
+      "revision": "3c5bac301d9cf392706189d82ed947feca6c2f0f",
+      "title": "RadixArk Kimi K3 DSpark config",
+      "kind": "publisher configuration",
+      "accessed_on": "2026-10-15",
+      "verification": "Five full-attention layers, 64 query heads, 16 KV heads, feature IDs [7, 23, 51, 67, 83] and block size 7 verified."
+    },
+    {
+      "id": "kimi-k3-VR",
+      "url": "https://recipes.vllm.ai/moonshotai/Kimi-K3",
+      "immutable_url": null,
+      "revision": null,
+      "title": "vLLM Kimi K3 recipe",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "verification": "Mutable recipe checked for native Kimi and Inferact DSpark paths. Older pre-release text coexists with newer deployment sections."
+    },
+    {
+      "id": "kimi-k3-GR",
+      "url": "https://docs.sglang.io/cookbook/autoregressive/Moonshotai/Kimi-K3",
+      "immutable_url": null,
+      "revision": null,
+      "title": "SGLang Kimi K3 cookbook",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "verification": "Mutable cookbook checked for DCP/state sizing and the NVFP4 image. B300 speed rows cite v0.5.18 at 71de97b2, input/output lengths 8192/1024 and simulated acceptance 4.5."
+    },
+    {
+      "id": "KIMIPR",
+      "url": "https://github.com/sgl-project/sglang/pull/35077",
+      "immutable_url": null,
+      "revision": null,
+      "title": "SGLang Kimi mixed-format compatibility PR",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "verification": "Official API confirms merge on 2026-08-19 at 5f128395910dafb98c34083dc26cb790c7674d34. Author reports 197/200 GSM8K on 8 GB300 GPUs and no speed measurement."
+    },
+    {
+      "id": "KIMIVPR",
+      "url": "https://github.com/vllm-project/vllm/pull/52406",
+      "immutable_url": null,
+      "revision": null,
+      "title": "vLLM Kimi attention compatibility PR",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "verification": "Official API confirms open/unmerged state, head 271aa8deeb723650932f609b8291e4299f0d504b. Branch unit/static checks differ from equivalent-path hardware evaluation."
+    },
+    {
+      "id": "KIMIVPR-MIXED",
+      "url": "https://github.com/vllm-project/vllm/pull/50617",
+      "immutable_url": null,
+      "revision": null,
+      "title": "vLLM ModelOpt mixed-dispatch PR",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "verification": "Official API confirms open/unmerged state. NVIDIA tracks this as part of the replacement for its runtime patch."
+    },
+    {
+      "id": "KIMIVPR-SCALE",
+      "url": "https://github.com/vllm-project/vllm/pull/52405",
+      "immutable_url": null,
+      "revision": null,
+      "title": "vLLM TRTLLM NVFP4 SiTU scaling PR",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "verification": "Official API confirms open/unmerged state. NVIDIA tracks this as part of the replacement for its runtime patch."
+    },
+    {
+      "id": "GREL-KIMI-ANCESTRY",
+      "url": "https://github.com/sgl-project/sglang/compare/5f128395910dafb98c34083dc26cb790c7674d34...v0.5.21",
+      "immutable_url": null,
+      "revision": null,
+      "title": "SGLang compatibility merge ancestry",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "verification": "Official compare API confirms the merge is an ancestor of v0.5.21. This establishes source inclusion, not a tested wheel or image."
+    },
+    {
+      "id": "VDS",
+      "url": "https://github.com/vllm-project/vllm/blob/f8460ef23659afd69046a81529ec2295e4c3f686/vllm/models/kimi_k3/nvidia/dspark_mla.py",
+      "immutable_url": "https://github.com/vllm-project/vllm/blob/f8460ef23659afd69046a81529ec2295e4c3f686/vllm/models/kimi_k3/nvidia/dspark_mla.py",
+      "revision": "f8460ef23659afd69046a81529ec2295e4c3f686",
+      "title": "vLLM Kimi DSpark implementation",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "verification": "Immutable source inspected: dense MLA, context projection, embedding alias, confidence/Markov heads, noncausal draft attention and fused reductions."
+    },
+    {
+      "id": "deepseek-v4-flash-0731-CARD",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/blob/7872f01b1d1fe23eabc4c98b48bffcef5a386062/README.md",
+      "immutable_url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/blob/7872f01b1d1fe23eabc4c98b48bffcef5a386062/README.md",
+      "revision": "7872f01b1d1fe23eabc4c98b48bffcef5a386062",
+      "title": "DeepSeek V4 Flash 0731 card",
+      "kind": "publisher model card",
+      "accessed_on": "2026-10-15",
+      "verification": "Exact official release, bundled DSpark, both engine examples, encoding helpers, 384K output recommendation and MIT scope checked."
+    },
+    {
+      "id": "deepseek-v4-flash-0731-CFG",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/raw/7872f01b1d1fe23eabc4c98b48bffcef5a386062/config.json",
+      "immutable_url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/raw/7872f01b1d1fe23eabc4c98b48bffcef5a386062/config.json",
+      "revision": "7872f01b1d1fe23eabc4c98b48bffcef5a386062",
+      "title": "DeepSeek V4 Flash 0731 config",
+      "kind": "publisher configuration",
+      "accessed_on": "2026-10-15",
+      "verification": "Parsed immutable JSON; dimensions and all 46 compression entries verified. Root nextn metadata 1 differs from 3 reference DSpark stages."
+    },
+    {
+      "id": "deepseek-v4-flash-0731-LICENSE",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/blob/7872f01b1d1fe23eabc4c98b48bffcef5a386062/LICENSE",
+      "immutable_url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/blob/7872f01b1d1fe23eabc4c98b48bffcef5a386062/LICENSE",
+      "revision": "7872f01b1d1fe23eabc4c98b48bffcef5a386062",
+      "title": "DeepSeek V4 Flash 0731 license",
+      "kind": "publisher license",
+      "accessed_on": "2026-10-15",
+      "verification": "Exact MIT file retrieved; the card explicitly applies it to the repository and model weights."
+    },
+    {
+      "id": "deepseek-v4-flash-0731-INFER-CFG",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/raw/7872f01b1d1fe23eabc4c98b48bffcef5a386062/inference/config.json",
+      "immutable_url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/raw/7872f01b1d1fe23eabc4c98b48bffcef5a386062/inference/config.json",
+      "revision": "7872f01b1d1fe23eabc4c98b48bffcef5a386062",
+      "title": "DeepSeek V4 Flash 0731 reference inference configuration",
+      "kind": "publisher configuration",
+      "accessed_on": "2026-10-15",
+      "verification": "Reference config sets 43 target layers and 3 draft stages; mixed FP4/FP8 settings and all 46 compression entries checked."
+    },
+    {
+      "id": "deepseek-v4-flash-0731-INFER-SRC",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/blob/7872f01b1d1fe23eabc4c98b48bffcef5a386062/inference/model.py",
+      "immutable_url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/blob/7872f01b1d1fe23eabc4c98b48bffcef5a386062/inference/model.py",
+      "revision": "7872f01b1d1fe23eabc4c98b48bffcef5a386062",
+      "title": "DeepSeek V4 Flash 0731 reference inference source",
+      "kind": "publisher source",
+      "accessed_on": "2026-10-15",
+      "verification": "Packed FP4 with groups of 32/E8M0 scales, FP8 blocks of 128, zero-based feature IDs and DSparkBlock construction checked. Source inspection only."
+    },
+    {
+      "id": "deepseek-v4-flash-0731-ENC",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/blob/7872f01b1d1fe23eabc4c98b48bffcef5a386062/encoding/README.md",
+      "immutable_url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/blob/7872f01b1d1fe23eabc4c98b48bffcef5a386062/encoding/README.md",
+      "revision": "7872f01b1d1fe23eabc4c98b48bffcef5a386062",
+      "title": "DeepSeek V4 Flash 0731 encoding documentation",
+      "kind": "publisher documentation",
+      "accessed_on": "2026-10-15",
+      "verification": "Dedicated Python encoding/parsing contract and reasoning modes reviewed."
+    },
+    {
+      "id": "deepseek-v4-flash-0731-FAMILY",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash/blob/60d8d70770c6776ff598c94bb586a859a38244f1/README.md",
+      "immutable_url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash/blob/60d8d70770c6776ff598c94bb586a859a38244f1/README.md",
+      "revision": "60d8d70770c6776ff598c94bb586a859a38244f1",
+      "title": "DeepSeek V4 Flash preview-family card",
+      "kind": "publisher model card",
+      "accessed_on": "2026-10-15",
+      "verification": "284B/13B is a preview-family claim; it is not transferred to the exact 0731 checkpoint count."
+    },
+    {
+      "id": "deepseek-v4-flash-0731-VR",
+      "url": "https://recipes.vllm.ai/deepseek-ai/DeepSeek-V4-Flash?features=tool_calling,reasoning&hardware=b300",
+      "immutable_url": null,
+      "revision": null,
+      "title": "vLLM DeepSeek V4 Flash recipe",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "verification": "TP1/DP4+EP Blackwell baseline and exact 0731 DSpark path checked. Probabilistic 7-token recipe differs from the publisher’s greedy example."
+    },
+    {
+      "id": "deepseek-v4-flash-0731-GR",
+      "url": "https://docs.sglang.io/cookbook/autoregressive/DeepSeek/DeepSeek-V4",
+      "immutable_url": null,
+      "revision": null,
+      "title": "SGLang DeepSeek V4 cookbook",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "verification": "Exact 0731 TP4/flashinfer_mxfp4/DSpark command; upstream reports 4 GB300 GPUs with v0.5.16. Parser names and 5 proposals/6 verification tokens checked; 304B scope unresolved."
+    }
+  ],
+  "retrievals": [
+    {
+      "url": "https://huggingface.co/moonshotai/Kimi-K3/raw/f831ab66814297da540d832a5235f8e904f29d06/README.md",
+      "resolved_url": "https://huggingface.co/moonshotai/Kimi-K3/raw/f831ab66814297da540d832a5235f8e904f29d06/README.md",
+      "status": 200,
+      "retrieved_at_utc": "2026-10-15T22:02:40.525401+00:00",
+      "bytes": 45261,
+      "sha256": "57de265b5842dfa465c6e73b368b0e15a89b8793b5450528dad577da202cc6fe",
+      "prior_sha256": "57de265b5842dfa465c6e73b368b0e15a89b8793b5450528dad577da202cc6fe",
+      "same_bytes_as_initial": true
+    },
+    {
+      "url": "https://huggingface.co/moonshotai/Kimi-K3/raw/f831ab66814297da540d832a5235f8e904f29d06/config.json",
+      "resolved_url": "https://huggingface.co/moonshotai/Kimi-K3/raw/f831ab66814297da540d832a5235f8e904f29d06/config.json",
+      "status": 200,
+      "retrieved_at_utc": "2026-10-15T22:02:40.525820+00:00",
+      "bytes": 7006,
+      "sha256": "9710e121a58d03ac92c8d6da287a19541994319afbbe6d6202af001ffd379213",
+      "prior_sha256": "9710e121a58d03ac92c8d6da287a19541994319afbbe6d6202af001ffd379213",
+      "same_bytes_as_initial": true
+    },
+    {
+      "url": "https://huggingface.co/moonshotai/Kimi-K3/raw/f831ab66814297da540d832a5235f8e904f29d06/LICENSE",
+      "resolved_url": "https://huggingface.co/moonshotai/Kimi-K3/raw/f831ab66814297da540d832a5235f8e904f29d06/LICENSE",
+      "status": 200,
+      "retrieved_at_utc": "2026-10-15T22:02:40.525933+00:00",
+      "bytes": 3065,
+      "sha256": "20c797ce19af0c17de52c6afb144644768a591c521655f5ebf5712c9850f2887",
+      "prior_sha256": "20c797ce19af0c17de52c6afb144644768a591c521655f5ebf5712c9850f2887",
+      "same_bytes_as_initial": true
+    },
+    {
+      "url": "https://huggingface.co/nvidia/Kimi-K3-NVFP4/raw/b2428a0b83a8b712ff2e1a8448a103d4175341f1/README.md",
+      "resolved_url": "https://huggingface.co/nvidia/Kimi-K3-NVFP4/raw/b2428a0b83a8b712ff2e1a8448a103d4175341f1/README.md",
+      "status": 200,
+      "retrieved_at_utc": "2026-10-15T22:02:40.526045+00:00",
+      "bytes": 13562,
+      "sha256": "b69e225f94bc0e822c5362ae1bc79bcedc75883aba9ccc4d6b573ebcb90cdbeb",
+      "prior_sha256": "b69e225f94bc0e822c5362ae1bc79bcedc75883aba9ccc4d6b573ebcb90cdbeb",
+      "same_bytes_as_initial": true
+    },
+    {
+      "url": "https://huggingface.co/nvidia/Kimi-K3-NVFP4/raw/b2428a0b83a8b712ff2e1a8448a103d4175341f1/config.json",
+      "resolved_url": "https://huggingface.co/nvidia/Kimi-K3-NVFP4/raw/b2428a0b83a8b712ff2e1a8448a103d4175341f1/config.json",
+      "status": 200,
+      "retrieved_at_utc": "2026-10-15T22:02:40.526126+00:00",
+      "bytes": 503645,
+      "sha256": "66ff1cc0486ab1a0901ce5e1f8bc00ad075ff263fc357991d6c23b6e756706b5",
+      "prior_sha256": "66ff1cc0486ab1a0901ce5e1f8bc00ad075ff263fc357991d6c23b6e756706b5",
+      "same_bytes_as_initial": true
+    },
+    {
+      "url": "https://huggingface.co/nvidia/Kimi-K3-NVFP4/raw/b2428a0b83a8b712ff2e1a8448a103d4175341f1/LICENSE",
+      "resolved_url": "https://huggingface.co/nvidia/Kimi-K3-NVFP4/raw/b2428a0b83a8b712ff2e1a8448a103d4175341f1/LICENSE",
+      "status": 200,
+      "retrieved_at_utc": "2026-10-15T22:02:40.526228+00:00",
+      "bytes": 3065,
+      "sha256": "20c797ce19af0c17de52c6afb144644768a591c521655f5ebf5712c9850f2887",
+      "prior_sha256": "20c797ce19af0c17de52c6afb144644768a591c521655f5ebf5712c9850f2887",
+      "same_bytes_as_initial": true
+    },
+    {
+      "url": "https://huggingface.co/RadixArk/Kimi-K3-DSpark/raw/3c5bac301d9cf392706189d82ed947feca6c2f0f/README.md",
+      "resolved_url": "https://huggingface.co/RadixArk/Kimi-K3-DSpark/raw/3c5bac301d9cf392706189d82ed947feca6c2f0f/README.md",
+      "status": 200,
+      "retrieved_at_utc": "2026-10-15T22:02:40.526328+00:00",
+      "bytes": 3899,
+      "sha256": "22b64d04df857096a6fa0d2f1e7dbd40275973e999be9358a067211dec4bdf0a",
+      "prior_sha256": "22b64d04df857096a6fa0d2f1e7dbd40275973e999be9358a067211dec4bdf0a",
+      "same_bytes_as_initial": true
+    },
+    {
+      "url": "https://huggingface.co/RadixArk/Kimi-K3-DSpark/raw/3c5bac301d9cf392706189d82ed947feca6c2f0f/config.json",
+      "resolved_url": "https://huggingface.co/RadixArk/Kimi-K3-DSpark/raw/3c5bac301d9cf392706189d82ed947feca6c2f0f/config.json",
+      "status": 200,
+      "retrieved_at_utc": "2026-10-15T22:02:40.526428+00:00",
+      "bytes": 1352,
+      "sha256": "410dd228c75ff91b57af8a1581d44d2ea096d5604f0d37fbd400470e90d961d3",
+      "prior_sha256": "410dd228c75ff91b57af8a1581d44d2ea096d5604f0d37fbd400470e90d961d3",
+      "same_bytes_as_initial": true
+    },
+    {
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/raw/7872f01b1d1fe23eabc4c98b48bffcef5a386062/README.md",
+      "resolved_url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/raw/7872f01b1d1fe23eabc4c98b48bffcef5a386062/README.md",
+      "status": 200,
+      "retrieved_at_utc": "2026-10-15T22:02:40.526519+00:00",
+      "bytes": 7238,
+      "sha256": "252acafdc9204d0dba3fde1b0a93d71cd1664a4ceadfe222b60117ed0ccc56ff",
+      "prior_sha256": "252acafdc9204d0dba3fde1b0a93d71cd1664a4ceadfe222b60117ed0ccc56ff",
+      "same_bytes_as_initial": true
+    },
+    {
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/raw/7872f01b1d1fe23eabc4c98b48bffcef5a386062/config.json",
+      "resolved_url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/raw/7872f01b1d1fe23eabc4c98b48bffcef5a386062/config.json",
+      "status": 200,
+      "retrieved_at_utc": "2026-10-15T22:02:40.526613+00:00",
+      "bytes": 1888,
+      "sha256": "6c8f3d2d3b48707541b88f32f22ef3f0f8a6b57d8523281e2b8d3cdb0ae9a023",
+      "prior_sha256": "6c8f3d2d3b48707541b88f32f22ef3f0f8a6b57d8523281e2b8d3cdb0ae9a023",
+      "same_bytes_as_initial": true
+    },
+    {
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/raw/7872f01b1d1fe23eabc4c98b48bffcef5a386062/LICENSE",
+      "resolved_url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/raw/7872f01b1d1fe23eabc4c98b48bffcef5a386062/LICENSE",
+      "status": 200,
+      "retrieved_at_utc": "2026-10-15T22:02:40.526720+00:00",
+      "bytes": 1084,
+      "sha256": "f2c6c602815669d292889e5be8c802f2ed950653b77999b1584e8e6aed25d040",
+      "prior_sha256": "f2c6c602815669d292889e5be8c802f2ed950653b77999b1584e8e6aed25d040",
+      "same_bytes_as_initial": true
+    },
+    {
+      "url": "https://huggingface.co/api/models/Inferact/Kimi-K3-DSpark",
+      "resolved_url": "https://huggingface.co/api/models/Inferact/Kimi-K3-DSpark",
+      "status": 200,
+      "retrieved_at_utc": "2026-10-15T22:02:40.526823+00:00",
+      "bytes": 1404,
+      "sha256": "62f2384066d1c394fb604b1122be2c66d460f7c24ee1ad8327e12c8bcd7a4073",
+      "prior_sha256": "62f2384066d1c394fb604b1122be2c66d460f7c24ee1ad8327e12c8bcd7a4073",
+      "same_bytes_as_initial": true
+    },
+    {
+      "url": "https://huggingface.co/api/models/deepseek-ai/DeepSeek-V4-Flash",
+      "resolved_url": "https://huggingface.co/api/models/deepseek-ai/DeepSeek-V4-Flash",
+      "status": 200,
+      "retrieved_at_utc": "2026-10-15T22:02:40.735650+00:00",
+      "bytes": 8160,
+      "sha256": "8d34c2b9c79cfbe09044bf08260197543f5834f15cb3c9771a6dea59b8fed77a",
+      "prior_sha256": "8d34c2b9c79cfbe09044bf08260197543f5834f15cb3c9771a6dea59b8fed77a",
+      "same_bytes_as_initial": true
+    },
+    {
+      "url": "https://api.github.com/repos/vllm-project/vllm/releases/latest",
+      "resolved_url": "https://api.github.com/repos/vllm-project/vllm/releases/latest",
+      "status": 200,
+      "retrieved_at_utc": "2026-10-15T22:02:40.735715+00:00",
+      "bytes": 60451,
+      "sha256": "8264d09e9aab9dff6aecbe40afc18279b13859c0e617993242cded084a75d424",
+      "prior_sha256": "456972faba9c464801fbb272a934767bbceeab02c87d2862491f78784557dc5c",
+      "same_bytes_as_initial": false
+    },
+    {
+      "url": "https://api.github.com/repos/sgl-project/sglang/releases/latest",
+      "resolved_url": "https://api.github.com/repos/sgl-project/sglang/releases/latest",
+      "status": 200,
+      "retrieved_at_utc": "2026-10-15T22:02:40.739680+00:00",
+      "bytes": 85534,
+      "sha256": "eaf401087605280b42d2c4648a618413fb5c1150599c8b5521a92bed6b6117b9",
+      "prior_sha256": "eaf401087605280b42d2c4648a618413fb5c1150599c8b5521a92bed6b6117b9",
+      "same_bytes_as_initial": true
+    },
+    {
+      "url": "https://api.github.com/repos/kserve/kserve/releases/latest",
+      "resolved_url": "https://api.github.com/repos/kserve/kserve/releases/latest",
+      "status": 200,
+      "retrieved_at_utc": "2026-10-15T22:02:40.742197+00:00",
+      "bytes": 63765,
+      "sha256": "13638b9524bc1bff2d1d5c6db6cc4fdbb5e2c29cf98753cbecca3fa3255a8fb4",
+      "prior_sha256": "13638b9524bc1bff2d1d5c6db6cc4fdbb5e2c29cf98753cbecca3fa3255a8fb4",
+      "same_bytes_as_initial": true
+    },
+    {
+      "url": "https://api.github.com/repos/vllm-project/vllm/pulls/52406",
+      "resolved_url": "https://api.github.com/repos/vllm-project/vllm/pulls/52406",
+      "status": 200,
+      "retrieved_at_utc": "2026-10-15T22:02:40.745884+00:00",
+      "bytes": 29579,
+      "sha256": "dd2cb6b98da8f6c9e8402b19c4f2e427c37889a2937ac066bcb40df10a277d13",
+      "prior_sha256": "9ba2d2cf4f1738d78076b6fd240fb796076a329306feccd495838c69ab321a2e",
+      "same_bytes_as_initial": false
+    },
+    {
+      "url": "https://api.github.com/repos/sgl-project/sglang/pulls/35077",
+      "resolved_url": "https://api.github.com/repos/sgl-project/sglang/pulls/35077",
+      "status": 200,
+      "retrieved_at_utc": "2026-10-15T22:02:40.747669+00:00",
+      "bytes": 38992,
+      "sha256": "c490a3ac8f22217bb6f4ca36b0a57a708abb06890af0e5721d2dc0caf6e8e493",
+      "prior_sha256": "01ba7aeaada3d7dc38d62a3ea62cff3c8084bbfd599efcd2c1db308a16decb56",
+      "same_bytes_as_initial": false
+    },
+    {
+      "url": "https://recipes.vllm.ai/moonshotai/Kimi-K3",
+      "resolved_url": "https://recipes.vllm.ai/moonshotai/Kimi-K3",
+      "status": 200,
+      "retrieved_at_utc": "2026-10-15T22:02:40.747707+00:00",
+      "bytes": 2221509,
+      "sha256": "4053f2630d44c41cf41c6be9d03e91bb5a1cfdb158682dda77ed2f3a4915695e",
+      "prior_sha256": "4053f2630d44c41cf41c6be9d03e91bb5a1cfdb158682dda77ed2f3a4915695e",
+      "same_bytes_as_initial": true
+    },
+    {
+      "url": "https://docs.sglang.io/cookbook/autoregressive/Moonshotai/Kimi-K3",
+      "resolved_url": "https://docs.sglang.io/cookbook/autoregressive/Moonshotai/Kimi-K3",
+      "status": 200,
+      "retrieved_at_utc": "2026-10-15T22:02:40.752479+00:00",
+      "bytes": 1046140,
+      "sha256": "eda082ae8483c160ba78990b224ff013aeae0fe4d40f897a2c28a8fb37b56443",
+      "prior_sha256": "eda082ae8483c160ba78990b224ff013aeae0fe4d40f897a2c28a8fb37b56443",
+      "same_bytes_as_initial": true
+    },
+    {
+      "url": "https://recipes.vllm.ai/deepseek-ai/DeepSeek-V4-Flash?features=tool_calling,reasoning&hardware=b300",
+      "resolved_url": "https://recipes.vllm.ai/deepseek-ai/DeepSeek-V4-Flash?features=tool_calling,reasoning&hardware=b300",
+      "status": 200,
+      "retrieved_at_utc": "2026-10-15T22:02:40.754183+00:00",
+      "bytes": 2192377,
+      "sha256": "69233fe21ba95f8ebdec131404be72277287bb023054d318c45b73a1aa664155",
+      "prior_sha256": "69233fe21ba95f8ebdec131404be72277287bb023054d318c45b73a1aa664155",
+      "same_bytes_as_initial": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/f8460ef23659afd69046a81529ec2295e4c3f686/vllm/models/kimi_k3/nvidia/dspark_mla.py",
+      "resolved_url": "https://raw.githubusercontent.com/vllm-project/vllm/f8460ef23659afd69046a81529ec2295e4c3f686/vllm/models/kimi_k3/nvidia/dspark_mla.py",
+      "status": 200,
+      "retrieved_at_utc": "2026-10-15T22:02:40.755903+00:00",
+      "bytes": 21602,
+      "sha256": "adfe621d7fbb89616e207118000c9f61201b2ff4af9b8d43387d71eec0344121",
+      "prior_sha256": "adfe621d7fbb89616e207118000c9f61201b2ff4af9b8d43387d71eec0344121",
+      "same_bytes_as_initial": true
+    },
+    {
+      "url": "https://huggingface.co/Inferact/Kimi-K3-DSpark/raw/cf6b8244620e7ea4b0651d214f28e89eac75bed6/README.md",
+      "resolved_url": "https://huggingface.co/Inferact/Kimi-K3-DSpark/raw/cf6b8244620e7ea4b0651d214f28e89eac75bed6/README.md",
+      "status": 200,
+      "retrieved_at_utc": "2026-10-15T22:02:40.763029+00:00",
+      "bytes": 6316,
+      "sha256": "4734eec1b55b5b40b4050512a029808aea117f24440dcaf27815efd1127a88dc",
+      "prior_sha256": "4734eec1b55b5b40b4050512a029808aea117f24440dcaf27815efd1127a88dc",
+      "same_bytes_as_initial": true
+    },
+    {
+      "url": "https://huggingface.co/Inferact/Kimi-K3-DSpark/raw/cf6b8244620e7ea4b0651d214f28e89eac75bed6/config.json",
+      "resolved_url": "https://huggingface.co/Inferact/Kimi-K3-DSpark/raw/cf6b8244620e7ea4b0651d214f28e89eac75bed6/config.json",
+      "status": 200,
+      "retrieved_at_utc": "2026-10-15T22:02:40.933418+00:00",
+      "bytes": 1251,
+      "sha256": "5a3c2f4f91c965ed93b14de5f12a4e9c17fd98d8c99916ed2deb26ce8702f970",
+      "prior_sha256": "5a3c2f4f91c965ed93b14de5f12a4e9c17fd98d8c99916ed2deb26ce8702f970",
+      "same_bytes_as_initial": true
+    },
+    {
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash/raw/60d8d70770c6776ff598c94bb586a859a38244f1/README.md",
+      "resolved_url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash/raw/60d8d70770c6776ff598c94bb586a859a38244f1/README.md",
+      "status": 200,
+      "retrieved_at_utc": "2026-10-15T22:02:40.939540+00:00",
+      "bytes": 13149,
+      "sha256": "c4d714818a4d3333542edc7d38ea065825a0cf7aa8fea3605bbd1d1c18e4a610",
+      "prior_sha256": "c4d714818a4d3333542edc7d38ea065825a0cf7aa8fea3605bbd1d1c18e4a610",
+      "same_bytes_as_initial": true
+    },
+    {
+      "url": "https://huggingface.co/api/models/deepseek-ai/DeepSeek-V4-Flash-0731",
+      "resolved_url": "https://huggingface.co/api/models/deepseek-ai/DeepSeek-V4-Flash-0731",
+      "status": 200,
+      "retrieved_at_utc": "2026-10-15T22:02:40.941495+00:00",
+      "bytes": 7325,
+      "sha256": "a3c130033fe4b5f52dc0c0a6ab05e54db59dc39e12cc5bf061423e106f45e481",
+      "prior_sha256": "3bbd99328c138b6e5655c966e0f02859d40a2bdfd78a9af2e9f76a46c31c1a12",
+      "same_bytes_as_initial": false
+    },
+    {
+      "url": "https://docs.sglang.io/cookbook/autoregressive/DeepSeek/DeepSeek-V4#hw=gb300&variant=flash-official&quant=fp4&strategy=low-latency&nodes=single",
+      "resolved_url": "https://docs.sglang.io/cookbook/autoregressive/DeepSeek/DeepSeek-V4#hw=gb300&variant=flash-official&quant=fp4&strategy=low-latency&nodes=single",
+      "status": 200,
+      "retrieved_at_utc": "2026-10-15T22:02:40.976570+00:00",
+      "bytes": 1844285,
+      "sha256": "f959398fbc24448d9d2623ed455b3aa76946f2ce14cdc79c04b41f551c791aaf",
+      "prior_sha256": "f959398fbc24448d9d2623ed455b3aa76946f2ce14cdc79c04b41f551c791aaf",
+      "same_bytes_as_initial": true
+    },
+    {
+      "url": "https://api.github.com/repos/vllm-project/vllm/pulls/52405",
+      "resolved_url": "https://api.github.com/repos/vllm-project/vllm/pulls/52405",
+      "status": 200,
+      "retrieved_at_utc": "2026-10-15T22:02:41.007913+00:00",
+      "bytes": 23028,
+      "sha256": "573c1e2b5917d432fd98d2cbebc341451fc1a23741be3c2e67fa1481138edfa9",
+      "prior_sha256": "fb1df40ff89005395cccea982e6deb4cf6fe00818068ca9d7ca6791b8787091b",
+      "same_bytes_as_initial": false
+    },
+    {
+      "url": "https://api.github.com/repos/vllm-project/vllm/pulls/50617",
+      "resolved_url": "https://api.github.com/repos/vllm-project/vllm/pulls/50617",
+      "status": 200,
+      "retrieved_at_utc": "2026-10-15T22:02:41.013737+00:00",
+      "bytes": 26573,
+      "sha256": "5153900cd46e61e6f2980e4b7220e479d5b544090c690ff5eb69d1a8a8ad93f7",
+      "prior_sha256": "e536f6cbe93b3173cc3d9653c85c88022988fd1e98572c96dfc28946ea819df6",
+      "same_bytes_as_initial": false
+    },
+    {
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/raw/7872f01b1d1fe23eabc4c98b48bffcef5a386062/inference/model.py",
+      "resolved_url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/raw/7872f01b1d1fe23eabc4c98b48bffcef5a386062/inference/model.py",
+      "status": 200,
+      "retrieved_at_utc": "2026-10-15T22:02:41.016624+00:00",
+      "bytes": 45118,
+      "sha256": "c0c19e6c9fa439bac7fbb1c5bc1868232dfd5aa2f439a548d0e33dcc2a9edd3f",
+      "prior_sha256": "c0c19e6c9fa439bac7fbb1c5bc1868232dfd5aa2f439a548d0e33dcc2a9edd3f",
+      "same_bytes_as_initial": true
+    },
+    {
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/raw/7872f01b1d1fe23eabc4c98b48bffcef5a386062/encoding/README.md",
+      "resolved_url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/raw/7872f01b1d1fe23eabc4c98b48bffcef5a386062/encoding/README.md",
+      "status": 200,
+      "retrieved_at_utc": "2026-10-15T22:02:41.034876+00:00",
+      "bytes": 9168,
+      "sha256": "294ed6493ebfe5a487f172154d60c494899997fed8806fdd3352dd8e3c33f9de",
+      "prior_sha256": "294ed6493ebfe5a487f172154d60c494899997fed8806fdd3352dd8e3c33f9de",
+      "same_bytes_as_initial": true
+    },
+    {
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/raw/7872f01b1d1fe23eabc4c98b48bffcef5a386062/inference/config.json",
+      "resolved_url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/raw/7872f01b1d1fe23eabc4c98b48bffcef5a386062/inference/config.json",
+      "status": 200,
+      "retrieved_at_utc": "2026-10-15T22:02:41.046924+00:00",
+      "bytes": 1162,
+      "sha256": "c90861f3d10a9e4ef5954f8f1a34c529d480da1c5799f84660028f4e38e14e71",
+      "prior_sha256": "c90861f3d10a9e4ef5954f8f1a34c529d480da1c5799f84660028f4e38e14e71",
+      "same_bytes_as_initial": true
+    },
+    {
+      "url": "https://huggingface.co/api/models/moonshotai/Kimi-K3",
+      "resolved_url": "https://huggingface.co/api/models/moonshotai/Kimi-K3",
+      "status": 200,
+      "retrieved_at_utc": "2026-10-15T22:02:41.131174+00:00",
+      "bytes": 9980,
+      "sha256": "d4511c8c89dde2ab9c04f632119e5b37268185b073a3a1811db19ccfa15be87d",
+      "prior_sha256": null,
+      "same_bytes_as_initial": null
+    },
+    {
+      "url": "https://huggingface.co/api/models/nvidia/Kimi-K3-NVFP4",
+      "resolved_url": "https://huggingface.co/api/models/nvidia/Kimi-K3-NVFP4",
+      "status": 200,
+      "retrieved_at_utc": "2026-10-15T22:02:41.132965+00:00",
+      "bytes": 123153,
+      "sha256": "cd3758603c41ac22ba185c2b68bce91f7638f309d10c33591e5a2532c7bc00ce",
+      "prior_sha256": null,
+      "same_bytes_as_initial": null
+    },
+    {
+      "url": "https://huggingface.co/api/models/RadixArk/Kimi-K3-DSpark",
+      "resolved_url": "https://huggingface.co/api/models/RadixArk/Kimi-K3-DSpark",
+      "status": 200,
+      "retrieved_at_utc": "2026-10-15T22:02:41.134708+00:00",
+      "bytes": 1650,
+      "sha256": "62c782ba831dc5b06eaae85e3de96531aa338b622ccd058e9f848a5b84df1f70",
+      "prior_sha256": null,
+      "same_bytes_as_initial": null
+    },
+    {
+      "url": "https://api.github.com/repos/sgl-project/sglang/compare/5f128395910dafb98c34083dc26cb790c7674d34...v0.5.21",
+      "resolved_url": "https://api.github.com/repos/sgl-project/sglang/compare/5f128395910dafb98c34083dc26cb790c7674d34...v0.5.21",
+      "status": 200,
+      "retrieved_at_utc": "2026-10-15T22:02:41.134765+00:00",
+      "bytes": 2306202,
+      "sha256": "ba7a1def91c1d490452534480ceb445954dba9779a674c469e3982bc5c68b7ab",
+      "prior_sha256": null,
+      "same_bytes_as_initial": null
+    }
+  ],
+  "retrieval_note": "Initial raw files were retrieved earlier in this task but exact timestamps were not recorded for all initial requests. The listed re-fetches record precise UTC times and SHA256. Original response bodies remain temporary /tmp audit captures, not repository archives. Mutable API bytes can change while reviewed facts remain identical.",
+  "upstreams_lock_updates": {
+    "pull_requests": [
+      {
+        "repo": "vllm-project/vllm",
+        "number": 52406,
+        "state": "open",
+        "merged_at": null,
+        "merge_commit": null,
+        "head_commit": "271aa8deeb723650932f609b8291e4299f0d504b",
+        "url": "https://github.com/vllm-project/vllm/pull/52406"
+      },
+      {
+        "repo": "vllm-project/vllm",
+        "number": 52405,
+        "state": "open",
+        "merged_at": null,
+        "merge_commit": null,
+        "head_commit": "f66d822a614866f06ba92bf3c0614675df90eb8b",
+        "url": "https://github.com/vllm-project/vllm/pull/52405"
+      },
+      {
+        "repo": "vllm-project/vllm",
+        "number": 50617,
+        "state": "open",
+        "merged_at": null,
+        "merge_commit": null,
+        "head_commit": "0cf7d59ca09abfb0ea6fe0d519c0b50f90da3cd4",
+        "url": "https://github.com/vllm-project/vllm/pull/50617"
+      },
+      {
+        "repo": "sgl-project/sglang",
+        "number": 35077,
+        "state": "merged",
+        "merged_at": "2026-08-19T15:13:45Z",
+        "merge_commit": "5f128395910dafb98c34083dc26cb790c7674d34",
+        "head_commit": "fb038f5b815d8c301c21d459bba620d55836bd2a",
+        "url": "https://github.com/sgl-project/sglang/pull/35077"
+      }
+    ],
+    "latest_stable_releases_rechecked": [
+      {
+        "url": "https://github.com/vllm-project/vllm/releases/tag/v0.31.0",
+        "tag": "v0.31.0",
+        "published_at": "2026-10-05T06:44:55Z",
+        "prerelease": false
+      },
+      {
+        "url": "https://github.com/sgl-project/sglang/releases/tag/v0.5.21",
+        "tag": "v0.5.21",
+        "published_at": "2026-10-02T01:09:04Z",
+        "prerelease": false
+      },
+      {
+        "url": "https://github.com/kserve/kserve/releases/tag/v0.21.0",
+        "tag": "v0.21.0",
+        "published_at": "2026-09-25T17:04:20Z",
+        "prerelease": false
+      }
+    ],
+    "sglang_35077_release_ancestry": {
+      "base": "5f128395910dafb98c34083dc26cb790c7674d34",
+      "head": "v0.5.21",
+      "ahead_by": 2211,
+      "behind_by": 0,
+      "merge_base": "5f128395910dafb98c34083dc26cb790c7674d34"
+    }
+  },
+  "cross_file_changes_required": [
+    {
+      "paths": [
+        "catalog/models.json"
+      ],
+      "action": "Copy complete updated owned model.json records so revisions, DeepSeek baseline_tp, full compression schedule, stage-count provenance, precision/parameter/license notes and source IDs remain identical."
+    },
+    {
+      "paths": [
+        "profiles/kimi-k3.*.json",
+        "profiles/deepseek-v4-flash-0731.*.json",
+        "catalog/profiles.json"
+      ],
+      "action": "Propagate exact target/draft pins; update DeepSeek SGLang reason to distinguish documented upstream TP4 from local TP8 probe. Preserve GPU tested=false and image-compatibility gates. Generic vLLM NVFP4 remains blocked; mention all three open PRs and separate patched route."
+    },
+    {
+      "paths": [
+        "evidence/sources.json",
+        "evidence/SOURCES.md",
+        "evidence/upstreams.lock.json"
+      ],
+      "action": "Apply source_updates and retrieval metadata; register exact SGLang0731/reference-inference/license sources, extra open vLLM PRs and SGLang release ancestry."
+    },
+    {
+      "paths": [
+        "README.md",
+        "LIMITATIONS.md",
+        "reports/comparison.md",
+        "frameworks/DECISION.md",
+        "reports/memory-math.md",
+        "ATLAS.html"
+      ],
+      "action": "Remove blanket null-revision and unresolved exact0731-SGLang assertions; use documented upstream versus local-probe distinctions. Correct DeepSeek baseline topology, qualify native MXFP8 runtime inference, parameter scope and source-versus-image inclusion. Regenerate offline reading edition after source updates."
+    }
+  ],
+  "verification": {
+    "checked_at_utc": "2026-10-15T22:05:27.259023+00:00",
+    "result": "passed",
+    "assertions": 170,
+    "owned_files": 17,
+    "relative_links_checked": 42,
+    "config_fields_compared": 60,
+    "immutable_retrievals_rechecked": 18,
+    "checks": [
+      "Kimi config text_class",
+      "Kimi config layers",
+      "Kimi config dense_prefix_layers",
+      "Kimi config hidden_size",
+      "Kimi config dense_intermediate_size",
+      "Kimi config latent_moe_dim",
+      "Kimi config moe_intermediate_size",
+      "Kimi config routed_experts",
+      "Kimi config experts_per_token",
+      "Kimi config shared_experts",
+      "Kimi config attention_heads",
+      "Kimi config kv_lora_rank",
+      "Kimi config full_attention_layer_indices_1based",
+      "Kimi config kda_head_dim",
+      "Kimi config kda_conv_width",
+      "Kimi config attn_res_block_size",
+      "Kimi config max_position_embeddings",
+      "Kimi config vocab_size",
+      "Kimi architecture class",
+      "Kimi activation",
+      "Kimi KDA list count",
+      "Kimi MLA list count",
+      "Kimi attention layer partition",
+      "Kimi publisher vision labels",
+      "Kimi all-FP8 remains unknown",
+      "Kimi no implied activation quantization",
+      "Kimi exact matrix arithmetic",
+      "Kimi hypothetical FP8 weights exceed advertised memory",
+      "NVIDIA mixed config",
+      "NVIDIA expert groups",
+      "NVIDIA attention algorithm",
+      "DeepSeek config architecture_class",
+      "DeepSeek config model_type",
+      "DeepSeek config layers",
+      "DeepSeek config hidden_size",
+      "DeepSeek config attention_heads",
+      "DeepSeek config num_key_value_heads",
+      "DeepSeek config head_dim",
+      "DeepSeek config routed_experts",
+      "DeepSeek config experts_per_token",
+      "DeepSeek config shared_experts",
+      "DeepSeek config moe_intermediate_size",
+      "DeepSeek config expert_dtype",
+      "DeepSeek config quant_method",
+      "DeepSeek config quant_format",
+      "DeepSeek config scale_format",
+      "DeepSeek config weight_block_size",
+      "DeepSeek config index_heads",
+      "DeepSeek config nextn_layers",
+      "DeepSeek config rope_type",
+      "DeepSeek config rope_factor",
+      "DeepSeek config original_max_position_embeddings",
+      "DeepSeek config router_score",
+      "DeepSeek config router_scale",
+      "DeepSeek config hc_mult",
+      "DeepSeek config hc_sinkhorn_iters",
+      "DeepSeek config index_head_dim",
+      "DeepSeek config index_topk",
+      "DeepSeek config num_hash_layers",
+      "DeepSeek config o_groups",
+      "DeepSeek config o_lora_rank",
+      "DeepSeek config q_lora_rank",
+      "DeepSeek config qk_rope_head_dim",
+      "DeepSeek config sliding_window",
+      "DeepSeek config max_position_embeddings",
+      "DeepSeek config rope_theta",
+      "DeepSeek config compress_rope_theta",
+      "DeepSeek config swiglu_limit",
+      "DeepSeek config vocab_size",
+      "DeepSeek config dspark_block_size",
+      "DeepSeek config dspark_target_layer_ids",
+      "DeepSeek config dspark_markov_rank",
+      "DeepSeek config compress_ratios",
+      "DeepSeek reference draft stages",
+      "DeepSeek full compression array",
+      "DeepSeek compression target/draft boundaries",
+      "DeepSeek positional arithmetic",
+      "DeepSeek topology summary",
+      "DeepSeek exact counts left unresolved",
+      "License files corroborated",
+      "Inferact draft dimensions",
+      "RadixArk draft dimensions",
+      "HF revision moonshotai/Kimi-K3",
+      "HF revision nvidia/Kimi-K3-NVFP4",
+      "HF revision deepseek-ai/DeepSeek-V4-Flash-0731",
+      "Open PR 52406",
+      "Open PR 52405",
+      "Open PR 50617",
+      "Merged SGLang PR",
+      "SGLang release ancestry",
+      "Latest stable release v0.31.0",
+      "Latest stable release v0.5.21",
+      "Latest stable release v0.21.0",
+      "All owned tracked files",
+      "Source IDs resolve kimi-k3",
+      "Source IDs resolve deepseek-v4-flash-0731",
+      "Markdown title companies/deepseek/README.md",
+      "Local link companies/deepseek/README.md -> deepseek-v4-flash-0731/README.md",
+      "Local link companies/deepseek/README.md -> deepseek-v4-flash-0731/serving.md",
+      "No mutable model config URL companies/deepseek/README.md",
+      "Markdown title companies/deepseek/deepseek-v4-flash-0731/README.md",
+      "Local link companies/deepseek/deepseek-v4-flash-0731/README.md -> architecture.md",
+      "Local link companies/deepseek/deepseek-v4-flash-0731/README.md -> precision.md",
+      "Local link companies/deepseek/deepseek-v4-flash-0731/README.md -> serving.md",
+      "Local link companies/deepseek/deepseek-v4-flash-0731/README.md -> validation.md",
+      "Local link companies/deepseek/deepseek-v4-flash-0731/README.md -> sources.md",
+      "Local link companies/deepseek/deepseek-v4-flash-0731/README.md -> model.json",
+      "Local link companies/deepseek/deepseek-v4-flash-0731/README.md -> ../../../README.md",
+      "No mutable model config URL companies/deepseek/deepseek-v4-flash-0731/README.md",
+      "Markdown title companies/deepseek/deepseek-v4-flash-0731/architecture.md",
+      "Local link companies/deepseek/deepseek-v4-flash-0731/architecture.md -> model.json",
+      "Local link companies/deepseek/deepseek-v4-flash-0731/architecture.md -> ../../../reports/memory-math.md",
+      "No mutable model config URL companies/deepseek/deepseek-v4-flash-0731/architecture.md",
+      "Markdown title companies/deepseek/deepseek-v4-flash-0731/precision.md",
+      "Local link companies/deepseek/deepseek-v4-flash-0731/precision.md -> ../../../reports/precision-and-kernels.md",
+      "Local link companies/deepseek/deepseek-v4-flash-0731/precision.md -> serving.md",
+      "No mutable model config URL companies/deepseek/deepseek-v4-flash-0731/precision.md",
+      "Markdown title companies/deepseek/deepseek-v4-flash-0731/serving.md",
+      "Local link companies/deepseek/deepseek-v4-flash-0731/serving.md -> model.json",
+      "Local link companies/deepseek/deepseek-v4-flash-0731/serving.md -> ../../../profiles/README.md",
+      "No mutable model config URL companies/deepseek/deepseek-v4-flash-0731/serving.md",
+      "Markdown title companies/deepseek/deepseek-v4-flash-0731/sources.md",
+      "Local link companies/deepseek/deepseek-v4-flash-0731/sources.md -> ../../../evidence/sources.json",
+      "Local link companies/deepseek/deepseek-v4-flash-0731/sources.md -> validation.md",
+      "No mutable model config URL companies/deepseek/deepseek-v4-flash-0731/sources.md",
+      "Markdown title companies/deepseek/deepseek-v4-flash-0731/validation.md",
+      "Local link companies/deepseek/deepseek-v4-flash-0731/validation.md -> ../../../benchmarks/PROTOCOL.md",
+      "Local link companies/deepseek/deepseek-v4-flash-0731/validation.md -> ../../../benchmarks/result.schema.json",
+      "No mutable model config URL companies/deepseek/deepseek-v4-flash-0731/validation.md",
+      "Markdown title companies/moonshot-ai/README.md",
+      "Local link companies/moonshot-ai/README.md -> kimi-k3/README.md",
+      "Local link companies/moonshot-ai/README.md -> kimi-k3/architecture.md",
+      "Local link companies/moonshot-ai/README.md -> kimi-k3/precision.md",
+      "No mutable model config URL companies/moonshot-ai/README.md",
+      "Markdown title companies/moonshot-ai/kimi-k3/README.md",
+      "Local link companies/moonshot-ai/kimi-k3/README.md -> architecture.md",
+      "Local link companies/moonshot-ai/kimi-k3/README.md -> precision.md",
+      "Local link companies/moonshot-ai/kimi-k3/README.md -> serving.md",
+      "Local link companies/moonshot-ai/kimi-k3/README.md -> validation.md",
+      "Local link companies/moonshot-ai/kimi-k3/README.md -> sources.md",
+      "Local link companies/moonshot-ai/kimi-k3/README.md -> model.json",
+      "Local link companies/moonshot-ai/kimi-k3/README.md -> ../../../README.md",
+      "Local link companies/moonshot-ai/kimi-k3/README.md -> dspark.md",
+      "No mutable model config URL companies/moonshot-ai/kimi-k3/README.md",
+      "Markdown title companies/moonshot-ai/kimi-k3/architecture.md",
+      "Local link companies/moonshot-ai/kimi-k3/architecture.md -> ../../../reports/memory-math.md",
+      "No mutable model config URL companies/moonshot-ai/kimi-k3/architecture.md",
+      "Markdown title companies/moonshot-ai/kimi-k3/dspark.md",
+      "No mutable model config URL companies/moonshot-ai/kimi-k3/dspark.md",
+      "Markdown title companies/moonshot-ai/kimi-k3/precision.md",
+      "Local link companies/moonshot-ai/kimi-k3/precision.md -> ../../../reports/precision-and-kernels.md",
+      "Local link companies/moonshot-ai/kimi-k3/precision.md -> validation.md",
+      "No mutable model config URL companies/moonshot-ai/kimi-k3/precision.md",
+      "Markdown title companies/moonshot-ai/kimi-k3/serving.md",
+      "Local link companies/moonshot-ai/kimi-k3/serving.md -> dspark.md",
+      "Local link companies/moonshot-ai/kimi-k3/serving.md -> precision.md",
+      "Local link companies/moonshot-ai/kimi-k3/serving.md -> model.json",
+      "Local link companies/moonshot-ai/kimi-k3/serving.md -> ../../../profiles/README.md",
+      "No mutable model config URL companies/moonshot-ai/kimi-k3/serving.md",
+      "Markdown title companies/moonshot-ai/kimi-k3/sources.md",
+      "Local link companies/moonshot-ai/kimi-k3/sources.md -> ../../../evidence/sources.json",
+      "Local link companies/moonshot-ai/kimi-k3/sources.md -> validation.md",
+      "No mutable model config URL companies/moonshot-ai/kimi-k3/sources.md",
+      "Markdown title companies/moonshot-ai/kimi-k3/validation.md",
+      "Local link companies/moonshot-ai/kimi-k3/validation.md -> sources.md",
+      "Local link companies/moonshot-ai/kimi-k3/validation.md -> ../../../benchmarks/PROTOCOL.md",
+      "Local link companies/moonshot-ai/kimi-k3/validation.md -> ../../../benchmarks/result.schema.json",
+      "No mutable model config URL companies/moonshot-ai/kimi-k3/validation.md",
+      "git diff --check",
+      "Immutable response bytes unchanged"
+    ],
+    "files": [
+      {
+        "path": "companies/deepseek/README.md",
+        "sha256": "e81449d1c82ace80d7cea2273468e93d394872df65bb54a7db3e7bd60efdaa22"
+      },
+      {
+        "path": "companies/deepseek/deepseek-v4-flash-0731/README.md",
+        "sha256": "20b4daac01d2fcc380c7ac4b17f239faeaba35e6bda320a87162e5b89a684a7a"
+      },
+      {
+        "path": "companies/deepseek/deepseek-v4-flash-0731/architecture.md",
+        "sha256": "f8c9afa4646d52c4a0e7c139ffddc9d818fbd5d6619e4691e5a3605735a753d7"
+      },
+      {
+        "path": "companies/deepseek/deepseek-v4-flash-0731/model.json",
+        "sha256": "fdfd23f2e2baad58f133fa374b2534dd78a3d6ba1bfdf8830b023a833167107d"
+      },
+      {
+        "path": "companies/deepseek/deepseek-v4-flash-0731/precision.md",
+        "sha256": "5862aad0869cbeef9015aeb39b04940d8f437a65fb3a9faa0c452a4d3bb3111a"
+      },
+      {
+        "path": "companies/deepseek/deepseek-v4-flash-0731/serving.md",
+        "sha256": "898f5a4aab042cb65e7f8940dcb2fca89a1006df4b7510d2ad5e0f4f54b99028"
+      },
+      {
+        "path": "companies/deepseek/deepseek-v4-flash-0731/sources.md",
+        "sha256": "a24107782e741070f7c02b42c098d49b23061fe5c9203b0f83ae7b53a041422c"
+      },
+      {
+        "path": "companies/deepseek/deepseek-v4-flash-0731/validation.md",
+        "sha256": "24d90124d560007454458d92ad177a8bbbafcaad61c93b499b7cc26cc2069442"
+      },
+      {
+        "path": "companies/moonshot-ai/README.md",
+        "sha256": "b90808e142db8ee8e44009aa05edd78ce82d4d7f8830fb5ba65e990a11a5d690"
+      },
+      {
+        "path": "companies/moonshot-ai/kimi-k3/README.md",
+        "sha256": "71b0769eaf2de5f3f2bc4e885bfd409c5daad6ef74a4444774c86a4dbd94addc"
+      },
+      {
+        "path": "companies/moonshot-ai/kimi-k3/architecture.md",
+        "sha256": "29f0bf020d486d2894cd0f5caaa63cded650f57184671e04b7de1ee243b1ec66"
+      },
+      {
+        "path": "companies/moonshot-ai/kimi-k3/dspark.md",
+        "sha256": "6355780b45932617216aa228d5a6deaec98492e22e792859538c1371dbeafb37"
+      },
+      {
+        "path": "companies/moonshot-ai/kimi-k3/model.json",
+        "sha256": "242722960dcabfc7a73b476f5cb0ac2223e1677ccd71ed0db74a347ba61385e5"
+      },
+      {
+        "path": "companies/moonshot-ai/kimi-k3/precision.md",
+        "sha256": "99b7a5454af1d9c9d681860e7629b79e9d6b9fba9c5302eb1aeb5cfa0ff829a2"
+      },
+      {
+        "path": "companies/moonshot-ai/kimi-k3/serving.md",
+        "sha256": "a810d828b5db2b78b94e101d9654b3eb325b3fc180a89d3b58f84e0655e80c21"
+      },
+      {
+        "path": "companies/moonshot-ai/kimi-k3/sources.md",
+        "sha256": "3f019b2eeaa1fffcd8032c411498c4d4f2f30ff1e711dbe25bcf1cde25d58e80"
+      },
+      {
+        "path": "companies/moonshot-ai/kimi-k3/validation.md",
+        "sha256": "6f1024f56eee01692eca300c7eb77ec085646316a03dba2430e10daa5cae79c7"
+      }
+    ],
+    "gpu_test_performed": false,
+    "global_catalog_consistency_check": "Deferred to root after shared catalog/evidence/profile propagation"
+  },
+  "limitations": [
+    "No model weights or checkpoint tensor census; rounded/publisher parameter counts are not treated as exact counts.",
+    "No GPU, engine load, quality/throughput/latency/power test or image digest validation.",
+    "No claim that current source inclusion certifies a released container dependency stack.",
+    "All-FP8 Kimi artifact was not established; absence was not inferred.",
+    "An exploratory guessed alias Inferact/Kimi-K3-DSpark-MLA returned HTTP401 before the canonical Inferact/Kimi-K3-DSpark repository was retrieved successfully; the alias response is not evidence against the canonical artifact.",
+    "Global catalog/profile/source consistency is owned by root and must be checked after propagation."
+  ],
+  "material_claims_rechecked_against_primary_sources": true,
+  "ready_for_independent_cross_review": true,
+  "record_role": "First-pass Astra max reviewer handoff; final shared propagation and second-review resolutions are recorded in evidence/AUDIT-2026-10-15.md.",
+  "post_review_correction": "VDS wording was corrected to noncausal draft attention after independent review; target verification was not established by that draft-attention flag."
+}

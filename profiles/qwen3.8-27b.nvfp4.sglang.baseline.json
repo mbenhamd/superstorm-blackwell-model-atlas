@@ -31,11 +31,11 @@
     "qwen3.8-27b-GR"
   ],
   "reviewed_source_commit": "877be2974aa151a984e52822c028276c2b1e9303",
-  "model_revision": null,
+  "model_revision": "482ca0f3832238542f8f5295dde86b5f22711d80",
   "draft_hf_id": null,
   "draft_revision": null,
   "requires_reviewed_remote_code": false,
   "tested_on_target": false,
   "requires_image_compatibility_check": true,
-  "notes": "A starting experiment, not a measured optimum. Local execution requires immutable preloaded model metadata, an installed compatible engine and explicit acknowledgement."
+  "notes": "A starting experiment, not a measured optimum. Local execution requires immutable preloaded model metadata, an installed compatible engine and explicit acknowledgement. BF16 KV is a local controlled-comparison choice; the current SGLang cookbook pins FP8 E4M3 KV. This profile does not reproduce the cookbook measurements."
 }

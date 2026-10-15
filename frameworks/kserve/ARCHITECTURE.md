@@ -2,7 +2,9 @@
 
 ## Scope and current release
 
-The latest retrieved release is **v0.21.0**, published September 25, 2026. Its resources and documentation describe both ordinary InferenceService and specialized LLMInferenceService paths. No cluster or CRD installation was available for validation here. [KREL](https://github.com/kserve/kserve/releases/tag/v0.21.0) [KSAPI](https://kserve.github.io/website/docs/reference/crd-api) [KSLLM](https://kserve.github.io/website/docs/model-serving/generative-inference/llmisvc/llmisvc-overview)
+The latest stable release, rechecked October 15, 2026, is **v0.21.0**, published September 25. Its tag resolves to `d1482554fc4f66dd41aee70e01f5174e24f265bd`. The separately observed master branch is `22be2b0496eea4548a98395c3abccf48d8235385` at 21:52 UTC; this is branch metadata, not a controller execution test. No cluster or CRD installation was available for validation here. [KREL](https://github.com/kserve/kserve/releases/tag/v0.21.0) [KMAIN](https://github.com/kserve/kserve/commit/22be2b0496eea4548a98395c3abccf48d8235385)
+
+The retrieved website pages identify their documentation version as **0.20**. The v0.21.0 source schemas were checked separately: both `LLMInferenceService` and `LLMInferenceServiceConfig` serve `v1alpha1` and `v1alpha2`, with `v1alpha2` as the storage version. Thus a `v1alpha1` example is not automatically invalid, but the website is not proof of a release-matched manifest. [KSLLM](https://kserve.github.io/website/docs/model-serving/generative-inference/llmisvc/llmisvc-overview) [KSCFG](https://kserve.github.io/website/docs/model-serving/generative-inference/llmisvc/llmisvc-configuration) [KCRD21](https://github.com/kserve/kserve/blob/d1482554fc4f66dd41aee70e01f5174e24f265bd/config/crd/full/llmisvc/serving.kserve.io_llminferenceservices.yaml) [KCONFIGCRD21](https://github.com/kserve/kserve/blob/d1482554fc4f66dd41aee70e01f5174e24f265bd/config/crd/full/llmisvc/serving.kserve.io_llminferenceserviceconfigs.yaml)
 
 ## Start with one node and colocated prefill/decode
 
@@ -17,7 +19,7 @@ Client
 
 For TP8, one model replica owns eight GPUs and forms an eight-rank process group. Eight independent one-GPU replicas are a different architecture. For a small dense model, use independent TP1 replicas deliberately and route requests across them. For a TP4 comparison, allocate two non-overlapping GPU groups, not two processes competing for the same four devices.
 
-The included renderer emits a custom-container `InferenceService` with the Standard deployment-mode annotation. It uses a read-only model PVC, explicit GPU limits, a memory-backed shared-memory mount and health probes. Host CPU/memory requests and the image digest are required inputs; they are not guessed from the DGX reference machine. [KSAPI](https://kserve.github.io/website/docs/reference/crd-api) [KSMULTI](https://kserve.github.io/website/docs/model-serving/generative-inference/multi-node)
+The included [renderer](../../deploy/kserve/render.py) emits a custom-container `InferenceService` with the Standard deployment-mode annotation, which exists in the v0.21.0 source. It uses a read-only model PVC, explicit GPU limits, a memory-backed shared-memory mount and health probes. Host CPU/memory requests and the image digest are required inputs; they are not guessed from the DGX reference machine. Local rendering does not validate the installed CRD, admission policy, device allocation or endpoint behavior. [KCONST21](https://github.com/kserve/kserve/blob/d1482554fc4f66dd41aee70e01f5174e24f265bd/pkg/constants/constants.go) [KSAPI](https://kserve.github.io/website/docs/reference/crd-api) [KSMULTI](https://kserve.github.io/website/docs/model-serving/generative-inference/multi-node)
 
 ## Move to LLMInferenceService when its features are needed
 

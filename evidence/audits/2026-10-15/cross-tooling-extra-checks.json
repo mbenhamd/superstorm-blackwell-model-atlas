@@ -1,0 +1,23 @@
+{
+  "at_utc": "2026-10-15T22:15:45.088280+00:00",
+  "markdown_documents": 78,
+  "fenced_code_blocks_retained_verbatim": 10,
+  "internal_links_resolve": 353,
+  "local_assets_checked": 90,
+  "local_assets_pending_root_archive": [
+    "evidence/audits/2026-10-15/cross-qwen.json",
+    "evidence/audits/2026-10-15/cross-framework-root.json",
+    "evidence/audits/2026-10-15/cross-tooling.json"
+  ],
+  "duplicate_ids": 0,
+  "unresolved_inline_placeholders": 0,
+  "kserve_predictor_emitted_fields_present_in_release_schema": [
+    "automountServiceAccountToken",
+    "containers",
+    "maxReplicas",
+    "minReplicas",
+    "nodeSelector",
+    "volumes"
+  ],
+  "scope": "Static source/schema inspection and in-memory HTML generation; no browser render or cluster admission."
+}

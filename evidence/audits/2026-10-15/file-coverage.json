@@ -1,0 +1,1200 @@
+{
+  "as_of_utc": "2026-10-15T22:17:48.501563+00:00",
+  "initial_commit": "9e086af",
+  "initial_tracked_file_count": 146,
+  "current_file_count": 170,
+  "coverage_boundary": "Every initial tracked file was assigned and reviewed. Audit records and generated artifacts are checked as evidence/derived output; this does not claim every external assertion was independently reproduced. Final file bytes are recorded in SHA256SUMS, excluding that manifest itself.",
+  "files": [
+    {
+      "path": ".gitignore",
+      "present_in_initial_commit": true,
+      "first_pass": "Coordinator",
+      "second_pass_or_artifact_check": "Astra max tooling/profiles",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "AGENTS.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Coordinator",
+      "second_pass_or_artifact_check": "Astra max tooling/profiles",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "ATLAS.html",
+      "present_in_initial_commit": true,
+      "first_pass": "Coordinator generated artifact review",
+      "second_pass_or_artifact_check": "Astra max HTML fidelity review; coordinator freshness/checksum checks",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "GLOSSARY.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Coordinator",
+      "second_pass_or_artifact_check": "Astra max tooling/profiles",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "LICENSE",
+      "present_in_initial_commit": true,
+      "first_pass": "Coordinator",
+      "second_pass_or_artifact_check": "Astra max tooling/profiles",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "LIMITATIONS.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Coordinator",
+      "second_pass_or_artifact_check": "Astra max tooling/profiles",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "README.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Coordinator",
+      "second_pass_or_artifact_check": "Astra max tooling/profiles",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "SHA256SUMS",
+      "present_in_initial_commit": true,
+      "first_pass": "Coordinator generated artifact review",
+      "second_pass_or_artifact_check": "Astra max HTML fidelity review; coordinator freshness/checksum checks",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "START_HERE.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Coordinator",
+      "second_pass_or_artifact_check": "Astra max tooling/profiles",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "VALIDATION.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Coordinator",
+      "second_pass_or_artifact_check": "Astra max tooling/profiles",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "benchmarks/PROTOCOL.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max tooling/profiles",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "benchmarks/__init__.py",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max tooling/profiles",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "benchmarks/result.schema.json",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max tooling/profiles",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "benchmarks/run_streaming.py",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max tooling/profiles",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "benchmarks/smoke.jsonl",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max tooling/profiles",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "catalog/models.json",
+      "present_in_initial_commit": true,
+      "first_pass": "Coordinator",
+      "second_pass_or_artifact_check": "Astra max tooling/profiles",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "catalog/profiles.json",
+      "present_in_initial_commit": true,
+      "first_pass": "Coordinator",
+      "second_pass_or_artifact_check": "Astra max tooling/profiles",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/alibaba-qwen/README.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Qwen",
+      "second_pass_or_artifact_check": "Astra max Moonshot/DeepSeek",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/alibaba-qwen/qwen3.8-27b/README.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Qwen",
+      "second_pass_or_artifact_check": "Astra max Moonshot/DeepSeek",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/alibaba-qwen/qwen3.8-27b/architecture.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Qwen",
+      "second_pass_or_artifact_check": "Astra max Moonshot/DeepSeek",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/alibaba-qwen/qwen3.8-27b/model.json",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Qwen",
+      "second_pass_or_artifact_check": "Astra max Moonshot/DeepSeek",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/alibaba-qwen/qwen3.8-27b/precision.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Qwen",
+      "second_pass_or_artifact_check": "Astra max Moonshot/DeepSeek",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/alibaba-qwen/qwen3.8-27b/serving.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Qwen",
+      "second_pass_or_artifact_check": "Astra max Moonshot/DeepSeek",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/alibaba-qwen/qwen3.8-27b/sources.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Qwen",
+      "second_pass_or_artifact_check": "Astra max Moonshot/DeepSeek",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/alibaba-qwen/qwen3.8-27b/validation.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Qwen",
+      "second_pass_or_artifact_check": "Astra max Moonshot/DeepSeek",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/alibaba-qwen/qwen3.8-flash-next/README.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Qwen",
+      "second_pass_or_artifact_check": "Astra max Moonshot/DeepSeek",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/alibaba-qwen/qwen3.8-flash-next/architecture.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Qwen",
+      "second_pass_or_artifact_check": "Astra max Moonshot/DeepSeek",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/alibaba-qwen/qwen3.8-flash-next/model.json",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Qwen",
+      "second_pass_or_artifact_check": "Astra max Moonshot/DeepSeek",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/alibaba-qwen/qwen3.8-flash-next/precision.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Qwen",
+      "second_pass_or_artifact_check": "Astra max Moonshot/DeepSeek",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/alibaba-qwen/qwen3.8-flash-next/serving.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Qwen",
+      "second_pass_or_artifact_check": "Astra max Moonshot/DeepSeek",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/alibaba-qwen/qwen3.8-flash-next/sources.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Qwen",
+      "second_pass_or_artifact_check": "Astra max Moonshot/DeepSeek",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/alibaba-qwen/qwen3.8-flash-next/validation.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Qwen",
+      "second_pass_or_artifact_check": "Astra max Moonshot/DeepSeek",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/deepseek/README.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Moonshot/DeepSeek",
+      "second_pass_or_artifact_check": "Astra max Qwen",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/deepseek/deepseek-v4-flash-0731/README.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Moonshot/DeepSeek",
+      "second_pass_or_artifact_check": "Astra max Qwen",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/deepseek/deepseek-v4-flash-0731/architecture.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Moonshot/DeepSeek",
+      "second_pass_or_artifact_check": "Astra max Qwen",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/deepseek/deepseek-v4-flash-0731/model.json",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Moonshot/DeepSeek",
+      "second_pass_or_artifact_check": "Astra max Qwen",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/deepseek/deepseek-v4-flash-0731/precision.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Moonshot/DeepSeek",
+      "second_pass_or_artifact_check": "Astra max Qwen",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/deepseek/deepseek-v4-flash-0731/serving.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Moonshot/DeepSeek",
+      "second_pass_or_artifact_check": "Astra max Qwen",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/deepseek/deepseek-v4-flash-0731/sources.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Moonshot/DeepSeek",
+      "second_pass_or_artifact_check": "Astra max Qwen",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/deepseek/deepseek-v4-flash-0731/validation.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Moonshot/DeepSeek",
+      "second_pass_or_artifact_check": "Astra max Qwen",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/google/README.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Google/Mistral",
+      "second_pass_or_artifact_check": "Astra max Z.ai",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/google/gemma-4-31b-it/README.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Google/Mistral",
+      "second_pass_or_artifact_check": "Astra max Z.ai",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/google/gemma-4-31b-it/architecture.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Google/Mistral",
+      "second_pass_or_artifact_check": "Astra max Z.ai",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/google/gemma-4-31b-it/model.json",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Google/Mistral",
+      "second_pass_or_artifact_check": "Astra max Z.ai",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/google/gemma-4-31b-it/precision.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Google/Mistral",
+      "second_pass_or_artifact_check": "Astra max Z.ai",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/google/gemma-4-31b-it/serving.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Google/Mistral",
+      "second_pass_or_artifact_check": "Astra max Z.ai",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/google/gemma-4-31b-it/sources.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Google/Mistral",
+      "second_pass_or_artifact_check": "Astra max Z.ai",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/google/gemma-4-31b-it/validation.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Google/Mistral",
+      "second_pass_or_artifact_check": "Astra max Z.ai",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/mistral-ai/README.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Google/Mistral",
+      "second_pass_or_artifact_check": "Astra max Z.ai",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/mistral-ai/mistral-medium-3.5/README.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Google/Mistral",
+      "second_pass_or_artifact_check": "Astra max Z.ai",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/mistral-ai/mistral-medium-3.5/architecture.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Google/Mistral",
+      "second_pass_or_artifact_check": "Astra max Z.ai",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/mistral-ai/mistral-medium-3.5/model.json",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Google/Mistral",
+      "second_pass_or_artifact_check": "Astra max Z.ai",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/mistral-ai/mistral-medium-3.5/precision.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Google/Mistral",
+      "second_pass_or_artifact_check": "Astra max Z.ai",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/mistral-ai/mistral-medium-3.5/serving.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Google/Mistral",
+      "second_pass_or_artifact_check": "Astra max Z.ai",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/mistral-ai/mistral-medium-3.5/sources.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Google/Mistral",
+      "second_pass_or_artifact_check": "Astra max Z.ai",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/mistral-ai/mistral-medium-3.5/validation.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Google/Mistral",
+      "second_pass_or_artifact_check": "Astra max Z.ai",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/moonshot-ai/README.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Moonshot/DeepSeek",
+      "second_pass_or_artifact_check": "Astra max Qwen",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/moonshot-ai/kimi-k3/README.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Moonshot/DeepSeek",
+      "second_pass_or_artifact_check": "Astra max Qwen",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/moonshot-ai/kimi-k3/architecture.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Moonshot/DeepSeek",
+      "second_pass_or_artifact_check": "Astra max Qwen",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/moonshot-ai/kimi-k3/dspark.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Moonshot/DeepSeek",
+      "second_pass_or_artifact_check": "Astra max Qwen",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/moonshot-ai/kimi-k3/model.json",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Moonshot/DeepSeek",
+      "second_pass_or_artifact_check": "Astra max Qwen",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/moonshot-ai/kimi-k3/precision.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Moonshot/DeepSeek",
+      "second_pass_or_artifact_check": "Astra max Qwen",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/moonshot-ai/kimi-k3/serving.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Moonshot/DeepSeek",
+      "second_pass_or_artifact_check": "Astra max Qwen",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/moonshot-ai/kimi-k3/sources.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Moonshot/DeepSeek",
+      "second_pass_or_artifact_check": "Astra max Qwen",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/moonshot-ai/kimi-k3/validation.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Moonshot/DeepSeek",
+      "second_pass_or_artifact_check": "Astra max Qwen",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/z-ai/README.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Z.ai",
+      "second_pass_or_artifact_check": "Astra max Google/Mistral",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/z-ai/glm-5.3-flash/README.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Z.ai",
+      "second_pass_or_artifact_check": "Astra max Google/Mistral",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/z-ai/glm-5.3-flash/architecture.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Z.ai",
+      "second_pass_or_artifact_check": "Astra max Google/Mistral",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/z-ai/glm-5.3-flash/model.json",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Z.ai",
+      "second_pass_or_artifact_check": "Astra max Google/Mistral",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/z-ai/glm-5.3-flash/precision.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Z.ai",
+      "second_pass_or_artifact_check": "Astra max Google/Mistral",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/z-ai/glm-5.3-flash/serving.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Z.ai",
+      "second_pass_or_artifact_check": "Astra max Google/Mistral",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/z-ai/glm-5.3-flash/sources.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Z.ai",
+      "second_pass_or_artifact_check": "Astra max Google/Mistral",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/z-ai/glm-5.3-flash/validation.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Z.ai",
+      "second_pass_or_artifact_check": "Astra max Google/Mistral",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/z-ai/glm-5.3/README.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Z.ai",
+      "second_pass_or_artifact_check": "Astra max Google/Mistral",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/z-ai/glm-5.3/architecture.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Z.ai",
+      "second_pass_or_artifact_check": "Astra max Google/Mistral",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/z-ai/glm-5.3/model.json",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Z.ai",
+      "second_pass_or_artifact_check": "Astra max Google/Mistral",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/z-ai/glm-5.3/precision.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Z.ai",
+      "second_pass_or_artifact_check": "Astra max Google/Mistral",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/z-ai/glm-5.3/serving.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Z.ai",
+      "second_pass_or_artifact_check": "Astra max Google/Mistral",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/z-ai/glm-5.3/sources.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Z.ai",
+      "second_pass_or_artifact_check": "Astra max Google/Mistral",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "companies/z-ai/glm-5.3/validation.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max Z.ai",
+      "second_pass_or_artifact_check": "Astra max Google/Mistral",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "deploy/__init__.py",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max tooling/profiles",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "deploy/kserve/README.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max tooling/profiles",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "deploy/kserve/__init__.py",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max tooling/profiles",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "deploy/kserve/render.py",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max tooling/profiles",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "evidence/AUDIT-2026-10-15.md",
+      "present_in_initial_commit": false,
+      "first_pass": "Coordinator",
+      "second_pass_or_artifact_check": "Astra max tooling/profiles",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "evidence/README.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Coordinator",
+      "second_pass_or_artifact_check": "Astra max tooling/profiles",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "evidence/SOURCES.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Coordinator",
+      "second_pass_or_artifact_check": "Astra max tooling/profiles",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "evidence/audits/2026-10-15/cli-smoke.json",
+      "present_in_initial_commit": false,
+      "first_pass": "Named reviewer/coordinator record",
+      "second_pass_or_artifact_check": "Coordinator integration, JSON/link and checksum checks",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "evidence/audits/2026-10-15/cross-framework-root.json",
+      "present_in_initial_commit": false,
+      "first_pass": "Named reviewer/coordinator record",
+      "second_pass_or_artifact_check": "Coordinator integration, JSON/link and checksum checks",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "evidence/audits/2026-10-15/cross-gm-checks.json",
+      "present_in_initial_commit": false,
+      "first_pass": "Named reviewer/coordinator record",
+      "second_pass_or_artifact_check": "Coordinator integration, JSON/link and checksum checks",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "evidence/audits/2026-10-15/cross-google-mistral.json",
+      "present_in_initial_commit": false,
+      "first_pass": "Named reviewer/coordinator record",
+      "second_pass_or_artifact_check": "Coordinator integration, JSON/link and checksum checks",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "evidence/audits/2026-10-15/cross-moonshot-deepseek-checks.json",
+      "present_in_initial_commit": false,
+      "first_pass": "Named reviewer/coordinator record",
+      "second_pass_or_artifact_check": "Coordinator integration, JSON/link and checksum checks",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "evidence/audits/2026-10-15/cross-moonshot-deepseek.json",
+      "present_in_initial_commit": false,
+      "first_pass": "Named reviewer/coordinator record",
+      "second_pass_or_artifact_check": "Coordinator integration, JSON/link and checksum checks",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "evidence/audits/2026-10-15/cross-qwen-checks.json",
+      "present_in_initial_commit": false,
+      "first_pass": "Named reviewer/coordinator record",
+      "second_pass_or_artifact_check": "Coordinator integration, JSON/link and checksum checks",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "evidence/audits/2026-10-15/cross-qwen.json",
+      "present_in_initial_commit": false,
+      "first_pass": "Named reviewer/coordinator record",
+      "second_pass_or_artifact_check": "Coordinator integration, JSON/link and checksum checks",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "evidence/audits/2026-10-15/cross-tooling-extra-checks.json",
+      "present_in_initial_commit": false,
+      "first_pass": "Named reviewer/coordinator record",
+      "second_pass_or_artifact_check": "Coordinator integration, JSON/link and checksum checks",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "evidence/audits/2026-10-15/cross-tooling.json",
+      "present_in_initial_commit": false,
+      "first_pass": "Named reviewer/coordinator record",
+      "second_pass_or_artifact_check": "Coordinator integration, JSON/link and checksum checks",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "evidence/audits/2026-10-15/cross-zai.json",
+      "present_in_initial_commit": false,
+      "first_pass": "Named reviewer/coordinator record",
+      "second_pass_or_artifact_check": "Coordinator integration, JSON/link and checksum checks",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "evidence/audits/2026-10-15/file-coverage.json",
+      "present_in_initial_commit": false,
+      "first_pass": "Named reviewer/coordinator record",
+      "second_pass_or_artifact_check": "Coordinator integration, JSON/link and checksum checks",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "evidence/audits/2026-10-15/framework-reports.json",
+      "present_in_initial_commit": false,
+      "first_pass": "Named reviewer/coordinator record",
+      "second_pass_or_artifact_check": "Coordinator integration, JSON/link and checksum checks",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "evidence/audits/2026-10-15/google-mistral.json",
+      "present_in_initial_commit": false,
+      "first_pass": "Named reviewer/coordinator record",
+      "second_pass_or_artifact_check": "Coordinator integration, JSON/link and checksum checks",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "evidence/audits/2026-10-15/independent-model-check.json",
+      "present_in_initial_commit": false,
+      "first_pass": "Named reviewer/coordinator record",
+      "second_pass_or_artifact_check": "Coordinator integration, JSON/link and checksum checks",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "evidence/audits/2026-10-15/moonshot-deepseek.json",
+      "present_in_initial_commit": false,
+      "first_pass": "Named reviewer/coordinator record",
+      "second_pass_or_artifact_check": "Coordinator integration, JSON/link and checksum checks",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "evidence/audits/2026-10-15/qwen.json",
+      "present_in_initial_commit": false,
+      "first_pass": "Named reviewer/coordinator record",
+      "second_pass_or_artifact_check": "Coordinator integration, JSON/link and checksum checks",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "evidence/audits/2026-10-15/source-access-final.json",
+      "present_in_initial_commit": false,
+      "first_pass": "Named reviewer/coordinator record",
+      "second_pass_or_artifact_check": "Coordinator integration, JSON/link and checksum checks",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "evidence/audits/2026-10-15/source-access.json",
+      "present_in_initial_commit": false,
+      "first_pass": "Named reviewer/coordinator record",
+      "second_pass_or_artifact_check": "Coordinator integration, JSON/link and checksum checks",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "evidence/audits/2026-10-15/tooling-profiles.json",
+      "present_in_initial_commit": false,
+      "first_pass": "Named reviewer/coordinator record",
+      "second_pass_or_artifact_check": "Coordinator integration, JSON/link and checksum checks",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "evidence/audits/2026-10-15/zai.json",
+      "present_in_initial_commit": false,
+      "first_pass": "Named reviewer/coordinator record",
+      "second_pass_or_artifact_check": "Coordinator integration, JSON/link and checksum checks",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "evidence/clone-attempt.log",
+      "present_in_initial_commit": true,
+      "first_pass": "Coordinator",
+      "second_pass_or_artifact_check": "Astra max tooling/profiles",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "evidence/local-validation.json",
+      "present_in_initial_commit": true,
+      "first_pass": "Coordinator",
+      "second_pass_or_artifact_check": "Astra max tooling/profiles",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "evidence/sources.json",
+      "present_in_initial_commit": true,
+      "first_pass": "Coordinator",
+      "second_pass_or_artifact_check": "Astra max tooling/profiles",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "evidence/upstreams.lock.json",
+      "present_in_initial_commit": true,
+      "first_pass": "Coordinator",
+      "second_pass_or_artifact_check": "Astra max tooling/profiles",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "frameworks/DECISION.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max frameworks/reports",
+      "second_pass_or_artifact_check": "Astra max tooling/profiles",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "frameworks/kserve/ARCHITECTURE.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max frameworks/reports",
+      "second_pass_or_artifact_check": "Astra max tooling/profiles",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "frameworks/sglang/SOURCE_REVIEW.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max frameworks/reports",
+      "second_pass_or_artifact_check": "Astra max tooling/profiles",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "frameworks/vllm/SOURCE_REVIEW.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max frameworks/reports",
+      "second_pass_or_artifact_check": "Astra max tooling/profiles",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "hardware/B300-8GPU.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max frameworks/reports",
+      "second_pass_or_artifact_check": "Astra max tooling/profiles",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "profiles/INDEX.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max tooling/profiles",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "profiles/README.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max tooling/profiles",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "profiles/deepseek-v4-flash-0731.native.sglang.baseline.json",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max tooling/profiles",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "profiles/deepseek-v4-flash-0731.native.vllm.dspark.json",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max tooling/profiles",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "profiles/deepseek-v4-flash-0731.native.vllm.ep4.json",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max tooling/profiles",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "profiles/deepseek-v4-flash-0731.native.vllm.ep8.json",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max tooling/profiles",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "profiles/gemma-4-31b-it.bf16.vllm.baseline.json",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max tooling/profiles",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "profiles/gemma-4-31b-it.fp8.vllm.baseline.json",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max tooling/profiles",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "profiles/gemma-4-31b-it.nvfp4.sglang.baseline.json",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max tooling/profiles",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "profiles/gemma-4-31b-it.nvfp4.vllm.baseline.json",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max tooling/profiles",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "profiles/glm-5.3-flash.fp8.sglang.baseline.json",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max tooling/profiles",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "profiles/glm-5.3-flash.fp8.sglang.mtp.json",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max tooling/profiles",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "profiles/glm-5.3-flash.fp8.vllm.baseline.json",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max tooling/profiles",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "profiles/glm-5.3-flash.nvfp4.vllm.baseline.json",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max tooling/profiles",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "profiles/glm-5.3.fp8.sglang.baseline.json",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max tooling/profiles",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "profiles/glm-5.3.fp8.vllm.baseline.json",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max tooling/profiles",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "profiles/glm-5.3.fp8.vllm.mtp.json",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max tooling/profiles",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "profiles/glm-5.3.nvfp4.vllm.baseline.json",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max tooling/profiles",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "profiles/kimi-k3.native.sglang.baseline.json",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max tooling/profiles",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "profiles/kimi-k3.native.vllm.baseline.json",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max tooling/profiles",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "profiles/kimi-k3.nvfp4.sglang.baseline.json",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max tooling/profiles",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "profiles/kimi-k3.nvfp4.sglang.dspark.json",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max tooling/profiles",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "profiles/kimi-k3.nvfp4.vllm.baseline.json",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max tooling/profiles",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "profiles/mistral-medium-3.5.fp8.sglang.baseline.json",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max tooling/profiles",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "profiles/mistral-medium-3.5.fp8.vllm.baseline.json",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max tooling/profiles",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "profiles/mistral-medium-3.5.fp8.vllm.tp2-probe.json",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max tooling/profiles",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "profiles/qwen3.8-27b.bf16.sglang.baseline.json",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max tooling/profiles",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "profiles/qwen3.8-27b.bf16.vllm.baseline.json",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max tooling/profiles",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "profiles/qwen3.8-27b.fp8.sglang.baseline.json",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max tooling/profiles",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "profiles/qwen3.8-27b.fp8.vllm.baseline.json",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max tooling/profiles",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "profiles/qwen3.8-27b.nvfp4.sglang.baseline.json",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max tooling/profiles",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "profiles/qwen3.8-27b.nvfp4.sglang.mtp.json",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max tooling/profiles",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "profiles/qwen3.8-27b.nvfp4.vllm.baseline.json",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max tooling/profiles",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "profiles/qwen3.8-flash-next.nvfp4.sglang.baseline.json",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max tooling/profiles",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "profiles/qwen3.8-flash-next.nvfp4.vllm.baseline.json",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max tooling/profiles",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "profiles/qwen3.8-flash-next.nvfp4.vllm.mtp.json",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max tooling/profiles",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "reports/DECISIONS.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max frameworks/reports",
+      "second_pass_or_artifact_check": "Astra max tooling/profiles",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "reports/comparison.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max frameworks/reports",
+      "second_pass_or_artifact_check": "Astra max tooling/profiles",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "reports/memory-math.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max frameworks/reports",
+      "second_pass_or_artifact_check": "Astra max tooling/profiles",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "reports/nightly-readiness.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max frameworks/reports",
+      "second_pass_or_artifact_check": "Astra max tooling/profiles",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "reports/precision-and-kernels.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max frameworks/reports",
+      "second_pass_or_artifact_check": "Astra max tooling/profiles",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "scripts/README.md",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max tooling/profiles",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "scripts/__init__.py",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max tooling/profiles",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "scripts/build_atlas.py",
+      "present_in_initial_commit": false,
+      "first_pass": "Coordinator",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "scripts/clone_upstreams.py",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max tooling/profiles",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "scripts/fetch_metadata.py",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max tooling/profiles",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "scripts/launch.py",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max tooling/profiles",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "scripts/memory.py",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max tooling/profiles",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "scripts/preflight.py",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max tooling/profiles",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "scripts/validate_repo.py",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max tooling/profiles",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "tests/last-run.txt",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max tooling/profiles",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "tests/test_atlas.py",
+      "present_in_initial_commit": true,
+      "first_pass": "Astra max tooling/profiles",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    },
+    {
+      "path": "tests/test_build_atlas.py",
+      "present_in_initial_commit": false,
+      "first_pass": "Coordinator",
+      "second_pass_or_artifact_check": "Astra max frameworks/reports",
+      "status": "reviewed; unresolved runtime evidence is documented in LIMITATIONS.md"
+    }
+  ],
+  "inventory_scope": "Git tracked and unignored new files. The validator additionally counts three ignored macOS .DS_Store files; these are not repository artifacts."
+}

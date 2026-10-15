@@ -1,10 +1,10 @@
 # DeepSeek V4 Flash 0731
 
-**As of 2026-10-15.** V4 Flash family; compressed/sparse attention, mHC, built-in DSpark.
+**Reverified 2026-10-15 (UTC).** V4 Flash family; compressed/sparse attention, mHC, built-in DSpark.
 
-The July 31 checkpoint is the target of this report. Do not silently substitute the preview, the unsuffixed repository, or a later V4.1 Flash when resolving a launch command. [deepseek-v4-flash-0731-CARD](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731) [deepseek-v4-flash-0731-CFG](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/raw/main/config.json)
+The July 31 checkpoint is the target of this report. Do not silently substitute the preview, the unsuffixed repository, or another release when resolving a launch command. [deepseek-v4-flash-0731-CARD](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/blob/7872f01b1d1fe23eabc4c98b48bffcef5a386062/README.md) [deepseek-v4-flash-0731-CFG](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/raw/7872f01b1d1fe23eabc4c98b48bffcef5a386062/config.json)
 
-**First serving candidate:** vLLM native mixed-format baseline; SGLang alternative after exact 0731 protocol check. This is a reasoned deployment starting point, not a measured winner on your hardware.
+**First serving candidate:** vLLM TP1/DP4+EP baseline and SGLang documented TP4 comparator; qualify eight-GPU adaptations. This is a reasoned deployment starting point, not a measured winner on your hardware.
 
 [Architecture](architecture.md) · [Precision and variants](precision.md) · [Serving decisions](serving.md) · [Validation](validation.md) · [Sources](sources.md) · [Machine-readable record](model.json)
 
@@ -17,17 +17,17 @@ The archive keeps the most recent pages nearby, condensed summaries of older pag
 | Property | Value |
 | --- | --- |
 | Exact base repository | deepseek-ai/DeepSeek-V4-Flash-0731 |
-| Native positional limit | 1,048,576 tokens |
-| Initial TP candidate | 8 |
-| Base revision pin | Not resolved immutably; resolve before deployment |
-| License scope | MIT metadata; exact 0731 license file should be pinned before redistribution |
-| Verification level | Publisher configuration and cards reviewed; not loaded or benchmarked on hardware |
+| Configured positional limit | 1,048,576 tokens |
+| Initial vLLM topology | TP1 / DP4 with expert parallelism; DP8 is an unbenchmarked adaptation |
+| Base revision pin | `7872f01b1d1fe23eabc4c98b48bffcef5a386062` |
+| License scope | MIT; pinned LICENSE and model-card scope reviewed |
+| Verification level | Immutable publisher files reviewed; both engines documented upstream; no local GPU test |
 
 
-The positional limit is not a promise of that many usable tokens under arbitrary batching, image load or cache precision. [deepseek-v4-flash-0731-CARD](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731) [deepseek-v4-flash-0731-CFG](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/raw/main/config.json)
+The positional limit is not a promise of that many usable tokens under arbitrary batching or cache precision. [deepseek-v4-flash-0731-CARD](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/blob/7872f01b1d1fe23eabc4c98b48bffcef5a386062/README.md) [deepseek-v4-flash-0731-CFG](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/raw/7872f01b1d1fe23eabc4c98b48bffcef5a386062/config.json)
 
 ## The most important unresolved checks
 
-Exact total and active parameter scope for this checkpoint; source-to-image provenance of the selected backend; full raw compression schedule is not archived; no local B300 capacity or throughput results; exact SGLang 0731 integration not certified.
+Exact main-plus-draft parameter accounting; selected image and kernel provenance; local B300 capacity, throughput and application correctness; qualification of the local eight-GPU adaptations.
 
 [Return to repository index](../../../README.md)

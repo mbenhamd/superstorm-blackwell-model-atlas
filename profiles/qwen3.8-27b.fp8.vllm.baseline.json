@@ -31,7 +31,7 @@
     "qwen3.8-27b-GR"
   ],
   "reviewed_source_commit": "f8460ef23659afd69046a81529ec2295e4c3f686",
-  "model_revision": null,
+  "model_revision": "017b9c7af6b5689d5dd426a76e0bc077eb5ca20a",
   "draft_hf_id": null,
   "draft_revision": null,
   "requires_reviewed_remote_code": false,

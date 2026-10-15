@@ -8,7 +8,7 @@
 | FP8 | Eight-bit floating family, often E4M3 for inference | Ignoring block, channel, tensor and dynamic-activation schemes |
 | MXFP8 | Microscaled FP8 with shared block scale | Treating it as the same packing as ordinary FP8 |
 | MXFP4 | Four-bit values with microscaling, typically 32-value blocks | Renaming it NVFP4 |
-| NVFP4 | Four-bit values, 16-value scaling and outer scaling | Assuming all tensors in an NVFP4 checkpoint are four-bit |
+| NVFP4 | E2M1 values, commonly one E4M3 scale per 16 values plus an outer FP32 scale | Assuming all tensors or all recipes use the same precision and scale layout |
 | W4A4 | Four-bit weights and activations for the affected operators | Assuming routers, KV cache and vision are also four-bit |
 | W4A16 | Four-bit weights with higher-precision activations | Expecting the same compute path as W4A4 |
 | Weight-only FP8 | Weights compressed; activation treatment is loader/kernel-specific | Assuming its exporter label fixes runtime activation precision |
@@ -23,7 +23,9 @@ A failure at any layer can break the result. In the inspected SGLang code, FP4 G
 
 ## Exporter differences in this catalog
 
-Kimi native MXFP4 is distinct from NVIDIA mixed NVFP4/FP8. RedHat GLM NVFP4 uses compressed-tensors for routed experts. NVIDIA Qwen 27B mixes NVFP4 MLP/head with FP8 attention. NVIDIA Flash Next additionally retains BF16 components and an FP8 n-gram table. RedHat Gemma excludes vision, embeddings and head from its Transformer-block quantization. Mistral uses a static-activation FP8 scheme. See each model’s `precision.md` for primary citations and exact artifact IDs; no universal NVFP4 loader flag is safe across this set.
+Kimi’s native routed-expert MXFP4/MXFP8 scheme is distinct from NVIDIA’s mixed NVFP4/FP8 export; neither description means that every tensor or runtime activation uses that format. RedHat and Inferact GLM 5.3 quantize main routed experts to NVFP4 while retaining MTP precision. RedHat GLM Flash instead combines main routed-expert NVFP4 with FP8 MTP experts. [Kimi precision](../companies/moonshot-ai/kimi-k3/precision.md) [GLM precision](../companies/z-ai/glm-5.3/precision.md) [GLM Flash precision](../companies/z-ai/glm-5.3-flash/precision.md)
+
+NVIDIA Qwen 27B mixes NVFP4 MLP/head with FP8 attention. Its card and quantization metadata disagree on the ModelOpt version; preserve the actual files and record that discrepancy. NVIDIA Flash Next retains BF16 components and an FP8 n-gram table. RedHat Gemma excludes vision, embeddings and head from Transformer-block quantization. Mistral uses static-activation FP8. Each linked precision report records the exact artifacts and primary sources; a single NVFP4 loader flag cannot express all these contracts. [Qwen 27B precision](../companies/alibaba-qwen/qwen3.8-27b/precision.md) [Flash Next precision](../companies/alibaba-qwen/qwen3.8-flash-next/precision.md) [Gemma precision](../companies/google/gemma-4-31b-it/precision.md) [Mistral precision](../companies/mistral-ai/mistral-medium-3.5/precision.md)
 
 ## FP8 KV is independent
 

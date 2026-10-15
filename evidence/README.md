@@ -11,7 +11,9 @@ Read [LIMITATIONS](../LIMITATIONS.md) before using this atlas for a purchasing o
 | Candidate/probe | A proposed local experiment with known prerequisites | Production-ready deployment |
 | Blocked/unknown | Evidence is insufficient or compatibility is unresolved | Proof the task is impossible |
 
-`sources.json` is the machine-readable primary-source register. [SOURCES.md](SOURCES.md) is the readable index. `upstreams.lock.json` records release/main information and PR state at retrieval. A model JSON contains a curated config projection and source IDs, not the complete original configuration. Local provenance fetched later belongs in the metadata directory with a timestamp and immutable revision; it must not be backdated to this audit.
+`sources.json` is the machine-readable primary-source register. [SOURCES.md](SOURCES.md) is the readable index. `upstreams.lock.json` records releases, inspected source commits, separately observed main references, PR states and exact model revisions. A model JSON contains a curated config projection and source IDs, not the complete original configuration. Later provenance must retain its actual timestamp and immutable revision.
+
+The [October 15 audit](AUDIT-2026-10-15.md) records findings and coverage. Its [source-access receipts](audits/2026-10-15/source-access.json) cover all 62 URLs in the initial register. A successful HTTP response establishes accessibility only; the accompanying reviewer ledgers document which content claims were checked. Response hashes identify retrieved bytes, whose complete bodies are not bundled. The historical clone-failure log does not describe the current audit environment.
 
 For each production claim retain the checkpoint SHA, image digest, effective engine class and kernels, command, hardware inventory, workload hash, quality output and raw measurements. A correct loader registry entry is one condition of support, not the entire evidence chain.
 

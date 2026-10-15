@@ -27,7 +27,7 @@
     "mistral-medium-3.5-FIXCFG"
   ],
   "reviewed_source_commit": "f8460ef23659afd69046a81529ec2295e4c3f686",
-  "model_revision": null,
+  "model_revision": "22b2b868a15677cfa6061277ed2f653d1349a9ab",
   "draft_hf_id": null,
   "draft_revision": null,
   "requires_reviewed_remote_code": false,

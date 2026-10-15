@@ -27,7 +27,7 @@
     "gemma-4-31b-it-NV"
   ],
   "reviewed_source_commit": "877be2974aa151a984e52822c028276c2b1e9303",
-  "model_revision": null,
+  "model_revision": "5df75ccad9b74546f5be758a2a68acc2e16bbc9b",
   "draft_hf_id": null,
   "draft_revision": null,
   "requires_reviewed_remote_code": false,

@@ -14,7 +14,7 @@ The model uses a specific router score function and scaling, plus bounded SwiGLU
 
 The release bundles DSpark-related structure, including selected target-layer features and a Markov component. The configured block size, an engine’s proposal count, and the number of tokens emitted after verification are different quantities. Never “correct” the checkpoint’s block setting to match an example CLI argument without checking that implementation’s semantics.
 
-The architecture facts above are drawn from the publisher card and configuration; the workload consequences are analytical interpretation. [deepseek-v4-flash-0731-CARD](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731) [deepseek-v4-flash-0731-CFG](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/raw/main/config.json)
+The architecture facts above are drawn from the publisher card and configuration; the workload consequences are analytical interpretation. [deepseek-v4-flash-0731-CARD](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/blob/7872f01b1d1fe23eabc4c98b48bffcef5a386062/README.md) [deepseek-v4-flash-0731-CFG](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/raw/7872f01b1d1fe23eabc4c98b48bffcef5a386062/config.json)
 
 ## Configuration extraction
 
@@ -44,7 +44,8 @@ This is a **selected, normalized projection**, not a byte-for-byte copy of the c
 | index_head_dim | 128 |
 | index_topk | 512 |
 | num_hash_layers | 3 |
-| nextn_layers | 1 |
+| nextn_layers (root-config metadata) | 1 |
+| dspark_stages_reference_inference | 3 |
 | o_groups | 8 |
 | o_lora_rank | 1024 |
 | q_lora_rank | 1024 |
@@ -61,23 +62,25 @@ This is a **selected, normalized projection**, not a byte-for-byte copy of the c
 | swiglu_limit | 10 |
 | vocab_size | 129280 |
 | dspark_block_size | 5 |
-| dspark_target_layer_ids | 40, 41, 42 |
+| dspark_target_layer_ids (zero-based in reference inference) | 40, 41, 42 |
 | dspark_markov_rank | 256 |
-| compression_schedule_description | First two uncompressed, then alternating ratios 4 and 128; configuration also contains draft entries |
+| compression_schedule_description | 43 target entries: 0, 0, then alternating 4 and 128, ending in 4; three trailing 0 entries for reference DSpark stages |
 
 
-Source for the extraction: [deepseek-v4-flash-0731-CFG](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/raw/main/config.json). Headline counts, modality descriptions and advertised extended context are additionally drawn from [deepseek-v4-flash-0731-CARD](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731). A `transformers_version` metadata field is not by itself proof of a minimum compatible package version.
+Source for the extraction: [deepseek-v4-flash-0731-CFG](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/raw/7872f01b1d1fe23eabc4c98b48bffcef5a386062/config.json). Headline counts, modality descriptions and advertised extended context are additionally drawn from [deepseek-v4-flash-0731-CARD](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/blob/7872f01b1d1fe23eabc4c98b48bffcef5a386062/README.md). A `transformers_version` metadata field is not by itself proof of a minimum compatible package version.
+
+The full 46-entry compression array is retained in [model.json](model.json). The root config's `num_nextn_predict_layers=1` is metadata, not a verified count of DSpark stages: the same revision's reference inference config sets `n_mtp_layers=3`, and its implementation builds three `DSparkBlock` stages under `mtp.*`. That namespace does not make the checkpoint compatible with an ordinary MTP speculative method. The reference loop also confirms that target feature IDs 40, 41 and 42 are zero-based. [Reference inference config](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/raw/7872f01b1d1fe23eabc4c98b48bffcef5a386062/inference/config.json), [reference implementation](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/blob/7872f01b1d1fe23eabc4c98b48bffcef5a386062/inference/model.py).
 
 ## Memory and performance consequences
 
 Do not read quant_method=fp8 as an all-FP8 model: the same configuration explicitly sets expert_dtype=fp4. Likewise, a single generic GQA formula does not represent all compressed caches, indexes, windows and draft state in this architecture.
 
-This report deliberately leaves exact July-31 total-parameter accounting unset in the machine-readable catalog. Common family-level parameter figures are not a substitute for counting this checkpoint’s main, auxiliary and speculative tensors. Architecture dimensions remain populated from the exact configuration.
+The vLLM recipe uses the preview-family headline 284B total / 13B active, while the SGLang cookbook labels the exact 0731 variant 304B / 13B. These differently scoped figures are not a verified main-plus-draft tensor census. The catalog keeps exact total and active counts unset until that accounting is reconciled; Hugging Face serialized-element totals also include packing and auxiliary tensors. [vLLM recipe](https://recipes.vllm.ai/deepseek-ai/DeepSeek-V4-Flash?features=tool_calling,reasoning&hardware=b300), [SGLang cookbook](https://docs.sglang.io/cookbook/autoregressive/DeepSeek/DeepSeek-V4).
 
-The numeric examples are calculations from stated dimensions and assumptions, not measured allocations. [Memory mathematics](../../../reports/memory-math.md) explains the formulas and their limits. [deepseek-v4-flash-0731-CARD](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731) [deepseek-v4-flash-0731-CFG](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/raw/main/config.json) [HW](https://docs.nvidia.com/dgx/dgxb300-user-guide/introduction-to-dgxb300.html)
+A 1,048,576-token positional ceiling follows the configured YaRN factor 16 and original 65,536 positions; that equality does not measure usable cache or long-context quality. [Memory mathematics](../../../reports/memory-math.md) explains the formulas and their limits. [deepseek-v4-flash-0731-CARD](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/blob/7872f01b1d1fe23eabc4c98b48bffcef5a386062/README.md) [deepseek-v4-flash-0731-CFG](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/raw/7872f01b1d1fe23eabc4c98b48bffcef5a386062/config.json) [HW](https://docs.nvidia.com/dgx/dgxb300-user-guide/introduction-to-dgxb300.html)
 
 ## What this report does not establish
 
-Exact total and active parameter scope for this checkpoint; source-to-image provenance of the selected backend; full raw compression schedule is not archived; no local B300 capacity or throughput results; exact SGLang 0731 integration not certified.
+Exact main-plus-draft parameter accounting; selected image and kernel provenance; local B300 capacity, throughput and application correctness; qualification of the local eight-GPU adaptations.
 
 The public artifacts do not disclose every training-data, optimization or implementation detail. This report does not fill missing details with assumptions or present a complete formal reconstruction of private training.
