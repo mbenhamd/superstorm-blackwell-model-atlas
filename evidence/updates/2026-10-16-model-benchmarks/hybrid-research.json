@@ -1,0 +1,1338 @@
+{
+  "scope": "GLM 5.3, GLM 5.3 Flash, Qwen 3.8 Flash Next validation planning; no tensor payloads or GPU execution",
+  "retrievals": [
+    {
+      "proposed_source_id": "glm-5.3-CARD",
+      "url": "https://huggingface.co/zai-org/GLM-5.3/raw/ba32f8c19c8738e2c57c71798c601d477a7bf844/README.md",
+      "kind": "publisher model card",
+      "revision": "ba32f8c19c8738e2c57c71798c601d477a7bf844",
+      "retrieved_at_utc": "2026-10-15T22:51:14.472092+00:00",
+      "http_status": 200,
+      "final_url": "https://huggingface.co/zai-org/GLM-5.3/raw/ba32f8c19c8738e2c57c71798c601d477a7bf844/README.md",
+      "sha256": "ed1c0a4563c437a32f8953d637a1db9bd831de1b24bd3062a5ace9e04340b1cf",
+      "bytes": 14209,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/glm-5.3-CARD.txt",
+      "evidence_kind": "publisher model card",
+      "claims": [
+        "Publisher thinking budget is low/high/max with max default; clear_thinking false default and true recommended for chat.",
+        "Publisher coding/agent scores use their own harnesses and larger budgets; proposed SWE-bench campaign is independent."
+      ],
+      "limits": [
+        "Pinned model metadata/template evidence only; no model tensor payloads, runtime allocations or quality/performance measurements."
+      ]
+    },
+    {
+      "proposed_source_id": "glm-5.3-CFG",
+      "url": "https://huggingface.co/zai-org/GLM-5.3/raw/ba32f8c19c8738e2c57c71798c601d477a7bf844/config.json",
+      "kind": "publisher configuration",
+      "revision": "ba32f8c19c8738e2c57c71798c601d477a7bf844",
+      "retrieved_at_utc": "2026-10-15T22:51:14.472635+00:00",
+      "http_status": 200,
+      "final_url": "https://huggingface.co/zai-org/GLM-5.3/raw/ba32f8c19c8738e2c57c71798c601d477a7bf844/config.json",
+      "sha256": "3ac72612095574542f7fff847ada8e59d9199dd8af44bdf625d7e02615572e69",
+      "bytes": 29464,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/glm-5.3-CFG.txt",
+      "evidence_kind": "publisher configuration",
+      "claims": [
+        "GlmMoeDsaForCausalLM; 78 layers; MLA/DSA; index_topk=2048 and index_topk_freq=4 with indexer_types describing cross-layer reuse."
+      ],
+      "limits": [
+        "Pinned model metadata/template evidence only; no model tensor payloads, runtime allocations or quality/performance measurements."
+      ]
+    },
+    {
+      "proposed_source_id": "glm-5.3-flash-CARD",
+      "url": "https://huggingface.co/zai-org/GLM-5.3-Flash/raw/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/README.md",
+      "kind": "publisher model card",
+      "revision": "46a050bec13002ad29ee795c16e61cf4fa3c4a9c",
+      "retrieved_at_utc": "2026-10-15T22:51:14.472757+00:00",
+      "http_status": 200,
+      "final_url": "https://huggingface.co/zai-org/GLM-5.3-Flash/raw/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/README.md",
+      "sha256": "e6c5d41400e28f5a89418a0d15b09b9c113314a7553d40d7d4a8a72fcdb87d02",
+      "bytes": 8027,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/glm-5.3-flash-CARD.txt",
+      "evidence_kind": "publisher model card",
+      "claims": [
+        "Publisher supports low/high/max reasoning effort; defaults to max; clear_thinking defaults false with true advised for chat.",
+        "Multimodal model publisher statement motivates image quality gates."
+      ],
+      "limits": [
+        "Pinned model metadata/template evidence only; no model tensor payloads, runtime allocations or quality/performance measurements."
+      ]
+    },
+    {
+      "proposed_source_id": "glm-5.3-flash-CFG",
+      "url": "https://huggingface.co/zai-org/GLM-5.3-Flash/raw/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/config.json",
+      "kind": "publisher configuration",
+      "revision": "46a050bec13002ad29ee795c16e61cf4fa3c4a9c",
+      "retrieved_at_utc": "2026-10-15T22:51:14.472861+00:00",
+      "http_status": 200,
+      "final_url": "https://huggingface.co/zai-org/GLM-5.3-Flash/raw/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/config.json",
+      "sha256": "bb8f01c42cb92a52ca72e65afb4d5bd8d11aef083cd210e8de25dfb904f23e9f",
+      "bytes": 69416,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/glm-5.3-flash-CFG.txt",
+      "evidence_kind": "publisher configuration",
+      "claims": [
+        "45 text layers: 34 linear_attention and 11 deepseek_sparse_attention; hc_mult=4; index_kpool=4; index_topk=2048."
+      ],
+      "limits": [
+        "Pinned model metadata/template evidence only; no model tensor payloads, runtime allocations or quality/performance measurements."
+      ]
+    },
+    {
+      "proposed_source_id": "qwen3.8-flash-next-CARD",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next/raw/de4b8e4d43b917e7706784d8bb445c9af86a3540/README.md",
+      "kind": "publisher model card",
+      "revision": "de4b8e4d43b917e7706784d8bb445c9af86a3540",
+      "retrieved_at_utc": "2026-10-15T22:51:14.472940+00:00",
+      "http_status": 200,
+      "final_url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next/raw/de4b8e4d43b917e7706784d8bb445c9af86a3540/README.md",
+      "sha256": "35ca37ccc366f1ba478dab33841a2c0c18ce53fd62f291ca05341f7728b225b2",
+      "bytes": 65155,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/qwen3.8-flash-next-CARD.txt",
+      "evidence_kind": "publisher model card",
+      "claims": [
+        "125B main+51B n-gram+4B MTP are rounded publisher components.",
+        "Native context 262144; extension toward 1M requires separate positional scaling/configuration.",
+        "Publisher documents enable_thinking, preserve_thinking, reasoning_effort and separate thinking/non-thinking sampling."
+      ],
+      "limits": [
+        "Pinned model metadata/template evidence only; no model tensor payloads, runtime allocations or quality/performance measurements."
+      ]
+    },
+    {
+      "proposed_source_id": "qwen3.8-flash-next-CFG",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next/raw/de4b8e4d43b917e7706784d8bb445c9af86a3540/config.json",
+      "kind": "publisher configuration",
+      "revision": "de4b8e4d43b917e7706784d8bb445c9af86a3540",
+      "retrieved_at_utc": "2026-10-15T22:51:14.473015+00:00",
+      "http_status": 200,
+      "final_url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next/raw/de4b8e4d43b917e7706784d8bb445c9af86a3540/config.json",
+      "sha256": "889658f2508e8c61d409b02e70e0d78d8d4452ec65aaafbe129805d213d2e74b",
+      "bytes": 4745,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/qwen3.8-flash-next-CFG.txt",
+      "evidence_kind": "publisher configuration",
+      "claims": [
+        "36 linear and 12 full_attention labels across 48 layers; QSA interpretation from card.",
+        "indexer_budget=2048; indexer_compress_ratio=4; moe_intermediate_size=640; mamba_ssm_dtype=float32."
+      ],
+      "limits": [
+        "Pinned model metadata/template evidence only; no model tensor payloads, runtime allocations or quality/performance measurements."
+      ]
+    },
+    {
+      "proposed_source_id": "glm-5.3-NV",
+      "url": "https://huggingface.co/RedHatAI/GLM-5.3-NVFP4/raw/c8917e4258572c405575855ff53effe58c17a38e/README.md",
+      "kind": "exporter model card",
+      "revision": "c8917e4258572c405575855ff53effe58c17a38e",
+      "retrieved_at_utc": "2026-10-15T22:51:14.473090+00:00",
+      "http_status": 200,
+      "final_url": "https://huggingface.co/RedHatAI/GLM-5.3-NVFP4/raw/c8917e4258572c405575855ff53effe58c17a38e/README.md",
+      "sha256": "278170e63b2b2d1167df93af014ed67469511b1ffbe01f429aa3cb3245cd1f82",
+      "bytes": 4188,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/glm-5.3-NV.txt",
+      "evidence_kind": "exporter model card",
+      "claims": [
+        "RedHat reports IFEval prompt-level strict accuracy 85.70% NVFP4 versus 89.77% FP8 on 4xB200 with temperature 1.0 and FP8 E4M3 KV; difference 4.07 percentage points is derived subtraction."
+      ],
+      "limits": [
+        "Pinned model metadata/template evidence only; no model tensor payloads, runtime allocations or quality/performance measurements."
+      ]
+    },
+    {
+      "proposed_source_id": "qwen3.8-flash-next-NV",
+      "url": "https://huggingface.co/nvidia/Qwen3.8-Flash-Next-NVFP4/raw/fc694b54fb0174e0913e6adf86691ef85a4ead47/README.md",
+      "kind": "publisher model card",
+      "revision": "fc694b54fb0174e0913e6adf86691ef85a4ead47",
+      "retrieved_at_utc": "2026-10-15T22:51:14.473159+00:00",
+      "http_status": 200,
+      "final_url": "https://huggingface.co/nvidia/Qwen3.8-Flash-Next-NVFP4/raw/fc694b54fb0174e0913e6adf86691ef85a4ead47/README.md",
+      "sha256": "e3ed0cb89950ef0f41e8df344ba1cc15c67e1baf91e1cb5305a7344e58a8d975",
+      "bytes": 12109,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/qwen3.8-flash-next-NV.txt",
+      "evidence_kind": "publisher model card",
+      "claims": [
+        "Main routed experts NVFP4, MTP routed experts block FP8, PLE per-tensor FP8; other main components BF16 per exporter.",
+        "TP8 MTP example adds EP and no-enable-flashinfer-autotune; target-only control must match them to isolate speculation.",
+        "Exporter evaluation specifies max_new_tokens=131072 and reasoning_effort=xhigh, incompatible with reproduction under a 65536 total-context cap."
+      ],
+      "limits": [
+        "Pinned model metadata/template evidence only; no model tensor payloads, runtime allocations or quality/performance measurements."
+      ]
+    },
+    {
+      "proposed_source_id": "glm-5.3-BF16-CFG",
+      "url": "https://huggingface.co/zai-org/GLM-5.3-BF16/raw/abf42e6c0e53bc29a875511301e7b7fcd220315b/config.json",
+      "kind": "publisher configuration",
+      "revision": "abf42e6c0e53bc29a875511301e7b7fcd220315b",
+      "retrieved_at_utc": "2026-10-15T22:51:14.650439+00:00",
+      "http_status": 200,
+      "final_url": "https://huggingface.co/zai-org/GLM-5.3-BF16/raw/abf42e6c0e53bc29a875511301e7b7fcd220315b/config.json",
+      "sha256": "ca8f2f47b07919a514c0ca223dc2ea2bc7445afaa5ac76c013a3784e096426ca",
+      "bytes": 3732,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/glm-5.3-BF16-CFG.txt",
+      "evidence_kind": "publisher configuration",
+      "claims": [
+        "Pinned artifact metadata reviewed for the declared reference/export identity and quantization contract."
+      ],
+      "limits": [
+        "Pinned model metadata/template evidence only; no model tensor payloads, runtime allocations or quality/performance measurements."
+      ]
+    },
+    {
+      "proposed_source_id": "glm-5.3-NV-CFG",
+      "url": "https://huggingface.co/RedHatAI/GLM-5.3-NVFP4/raw/c8917e4258572c405575855ff53effe58c17a38e/config.json",
+      "kind": "exporter quantization configuration",
+      "revision": "c8917e4258572c405575855ff53effe58c17a38e",
+      "retrieved_at_utc": "2026-10-15T22:51:14.653857+00:00",
+      "http_status": 200,
+      "final_url": "https://huggingface.co/RedHatAI/GLM-5.3-NVFP4/raw/c8917e4258572c405575855ff53effe58c17a38e/config.json",
+      "sha256": "5fd3cbff61c6c8a6f1f6bc16b8ec68e4aca4ce1ddf4a5b87b54067d6a4ab9765",
+      "bytes": 9887,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/glm-5.3-NV-CFG.txt",
+      "evidence_kind": "exporter quantization configuration",
+      "claims": [
+        "compressed-tensors quantization targets main routed experts; MTP layer 78 excluded."
+      ],
+      "limits": [
+        "Pinned model metadata/template evidence only; no model tensor payloads, runtime allocations or quality/performance measurements."
+      ]
+    },
+    {
+      "proposed_source_id": "glm-5.3-INFERACT-CFG",
+      "url": "https://huggingface.co/Inferact/GLM-5.3-NVFP4/raw/ce67b36f3669192b5bb233819f0fda6c8a9837f8/config.json",
+      "kind": "exporter quantization configuration",
+      "revision": "ce67b36f3669192b5bb233819f0fda6c8a9837f8",
+      "retrieved_at_utc": "2026-10-15T22:51:14.659942+00:00",
+      "http_status": 200,
+      "final_url": "https://huggingface.co/Inferact/GLM-5.3-NVFP4/raw/ce67b36f3669192b5bb233819f0fda6c8a9837f8/config.json",
+      "sha256": "44ffebdc4bf4f99b74932908896da5ba1e09b88a15edebf8d065232669193d9c",
+      "bytes": 62025,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/glm-5.3-INFERACT-CFG.txt",
+      "evidence_kind": "exporter quantization configuration",
+      "claims": [
+        "Distinct ModelOpt NVFP4 export with its own exclusions; cannot treat RedHat qualification as equivalent."
+      ],
+      "limits": [
+        "Pinned model metadata/template evidence only; no model tensor payloads, runtime allocations or quality/performance measurements."
+      ]
+    },
+    {
+      "proposed_source_id": "glm-5.3-flash-BF16-CFG",
+      "url": "https://huggingface.co/zai-org/GLM-5.3-Flash-BF16/raw/f9fed3bbc82291073373d67452e9f25317ef7577/config.json",
+      "kind": "publisher configuration",
+      "revision": "f9fed3bbc82291073373d67452e9f25317ef7577",
+      "retrieved_at_utc": "2026-10-15T22:51:14.663053+00:00",
+      "http_status": 200,
+      "final_url": "https://huggingface.co/zai-org/GLM-5.3-Flash-BF16/raw/f9fed3bbc82291073373d67452e9f25317ef7577/config.json",
+      "sha256": "33e63ec7fe607658be712bd6dd3c16c6549960d8e7f0483d34b939881b55f943",
+      "bytes": 5939,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/glm-5.3-flash-BF16-CFG.txt",
+      "evidence_kind": "publisher configuration",
+      "claims": [
+        "Pinned artifact metadata reviewed for the declared reference/export identity and quantization contract."
+      ],
+      "limits": [
+        "Pinned model metadata/template evidence only; no model tensor payloads, runtime allocations or quality/performance measurements."
+      ]
+    },
+    {
+      "proposed_source_id": "glm-5.3-flash-NV",
+      "url": "https://huggingface.co/RedHatAI/GLM-5.3-Flash-NVFP4/raw/18d55bfd5a2194887738da73753975c9d3842f46/README.md",
+      "kind": "exporter model card",
+      "revision": "18d55bfd5a2194887738da73753975c9d3842f46",
+      "retrieved_at_utc": "2026-10-15T22:51:14.663123+00:00",
+      "http_status": 200,
+      "final_url": "https://huggingface.co/RedHatAI/GLM-5.3-Flash-NVFP4/raw/18d55bfd5a2194887738da73753975c9d3842f46/README.md",
+      "sha256": "c8d3f90d37e4d0c073f182bf785f6753c2a43ef5885abce0461586f266c195e2",
+      "bytes": 3469,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/glm-5.3-flash-NV.txt",
+      "evidence_kind": "exporter model card",
+      "claims": [
+        "Card supplies selected reasoning scores without paired FP8 table; cannot infer retained multimodal quality."
+      ],
+      "limits": [
+        "Pinned model metadata/template evidence only; no model tensor payloads, runtime allocations or quality/performance measurements."
+      ]
+    },
+    {
+      "proposed_source_id": "glm-5.3-flash-NV-CFG",
+      "url": "https://huggingface.co/RedHatAI/GLM-5.3-Flash-NVFP4/raw/18d55bfd5a2194887738da73753975c9d3842f46/config.json",
+      "kind": "exporter quantization configuration",
+      "revision": "18d55bfd5a2194887738da73753975c9d3842f46",
+      "retrieved_at_utc": "2026-10-15T22:51:14.668390+00:00",
+      "http_status": 200,
+      "final_url": "https://huggingface.co/RedHatAI/GLM-5.3-Flash-NVFP4/raw/18d55bfd5a2194887738da73753975c9d3842f46/config.json",
+      "sha256": "29c9f4171196910e99b9c069d6b76c56e3cdcd0f436dc1bacbc9513c9a7529ac",
+      "bytes": 53876,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/glm-5.3-flash-NV-CFG.txt",
+      "evidence_kind": "exporter quantization configuration",
+      "claims": [
+        "Main routed expert group uses NVFP4, MTP routed experts FP8; mixed group loading needs qualification."
+      ],
+      "limits": [
+        "Pinned model metadata/template evidence only; no model tensor payloads, runtime allocations or quality/performance measurements."
+      ]
+    },
+    {
+      "proposed_source_id": "qwen3.8-flash-next-FP8-CFG",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next-FP8/raw/236dfdf285828023ca3bcd3f37366c58a3469b13/config.json",
+      "kind": "publisher configuration",
+      "revision": "236dfdf285828023ca3bcd3f37366c58a3469b13",
+      "retrieved_at_utc": "2026-10-15T22:51:14.668476+00:00",
+      "http_status": 200,
+      "final_url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next-FP8/raw/236dfdf285828023ca3bcd3f37366c58a3469b13/config.json",
+      "sha256": "c22eb0a053eed62e18f0184d3ca62d3798f208c3e00b9feee939fc3dbacdc8ca",
+      "bytes": 72514,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/qwen3.8-flash-next-FP8-CFG.txt",
+      "evidence_kind": "publisher configuration",
+      "claims": [
+        "Pinned artifact metadata reviewed for the declared reference/export identity and quantization contract."
+      ],
+      "limits": [
+        "Pinned model metadata/template evidence only; no model tensor payloads, runtime allocations or quality/performance measurements."
+      ]
+    },
+    {
+      "proposed_source_id": "qwen3.8-flash-next-NV-CFG",
+      "url": "https://huggingface.co/nvidia/Qwen3.8-Flash-Next-NVFP4/raw/fc694b54fb0174e0913e6adf86691ef85a4ead47/config.json",
+      "kind": "publisher configuration",
+      "revision": "fc694b54fb0174e0913e6adf86691ef85a4ead47",
+      "retrieved_at_utc": "2026-10-15T22:51:14.674123+00:00",
+      "http_status": 200,
+      "final_url": "https://huggingface.co/nvidia/Qwen3.8-Flash-Next-NVFP4/raw/fc694b54fb0174e0913e6adf86691ef85a4ead47/config.json",
+      "sha256": "deef67a61f3311faf051b23dc4192f442c7fee4f9cd2f38cbcbe4da55c763a80",
+      "bytes": 30820,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/qwen3.8-flash-next-NV-CFG.txt",
+      "evidence_kind": "publisher configuration",
+      "claims": [
+        "Mixed map includes main experts, PLE and MTP with FP8_PB_WO MTP label."
+      ],
+      "limits": [
+        "Pinned model metadata/template evidence only; no model tensor payloads, runtime allocations or quality/performance measurements."
+      ]
+    },
+    {
+      "proposed_source_id": "qwen3.8-flash-next-NV-QUANT",
+      "url": "https://huggingface.co/nvidia/Qwen3.8-Flash-Next-NVFP4/raw/fc694b54fb0174e0913e6adf86691ef85a4ead47/hf_quant_config.json",
+      "kind": "publisher configuration",
+      "revision": "fc694b54fb0174e0913e6adf86691ef85a4ead47",
+      "retrieved_at_utc": "2026-10-15T22:51:14.803597+00:00",
+      "http_status": 200,
+      "final_url": "https://huggingface.co/nvidia/Qwen3.8-Flash-Next-NVFP4/raw/fc694b54fb0174e0913e6adf86691ef85a4ead47/hf_quant_config.json",
+      "sha256": "331ad11d57c8bc374554579977198084e0d4d0933d5b3558f125f6f670aba0e8",
+      "bytes": 23001,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/qwen3.8-flash-next-NV-QUANT.txt",
+      "evidence_kind": "publisher configuration",
+      "claims": [
+        "MTP algorithm label is FP8_BLOCK_SCALES; retain both metadata maps rather than collapsing discrepancy."
+      ],
+      "limits": [
+        "Pinned model metadata/template evidence only; no model tensor payloads, runtime allocations or quality/performance measurements."
+      ]
+    },
+    {
+      "proposed_source_id": "qwen3.8-flash-next-GR-SOURCE",
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/a1eb691ab51bc461378b2fcca8991883add4f1b5/docs/src/snippets/configs/Qwen/qwen3.8-flash-next.jsx",
+      "kind": "upstream source",
+      "revision": "a1eb691ab51bc461378b2fcca8991883add4f1b5",
+      "retrieved_at_utc": "2026-10-15T22:51:14.807496+00:00",
+      "http_status": 200,
+      "final_url": "https://raw.githubusercontent.com/sgl-project/sglang/a1eb691ab51bc461378b2fcca8991883add4f1b5/docs/src/snippets/configs/Qwen/qwen3.8-flash-next.jsx",
+      "sha256": "de3833beaf52bbfa5eb865542471d70870eafaae6d0f88754e82bf9d442a7d52",
+      "bytes": 66179,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/qwen3.8-flash-next-GR-SOURCE.txt",
+      "evidence_kind": "upstream source",
+      "claims": [
+        "B300 nvfp4-nvda high-throughput cell has verified:false, TP1, FlashInfer linear prefill/decode, BF16 SSM."
+      ],
+      "limits": [
+        "Recipe/source evidence only; no binary, real-weight or B300 validation here. Any upstream measurements remain attributed, not reproduced."
+      ]
+    },
+    {
+      "proposed_source_id": "MBENCH-glm-5.3-CURRENT",
+      "url": "https://huggingface.co/api/models/zai-org/GLM-5.3",
+      "kind": "publisher repository revision metadata",
+      "retrieved_at_utc": "2026-10-15T22:51:14.812395+00:00",
+      "http_status": 200,
+      "final_url": "https://huggingface.co/api/models/zai-org/GLM-5.3",
+      "sha256": "c101a3aad2318bca4d5a59ef11192d4ffc822afcef49a39b9d291cb9ca4db76d",
+      "bytes": 42394,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/MBENCH-glm-5.3-CURRENT.txt",
+      "observed_revision": "ba32f8c19c8738e2c57c71798c601d477a7bf844",
+      "evidence_kind": "publisher repository revision metadata",
+      "claims": [
+        "Observed current repository SHA: ba32f8c19c8738e2c57c71798c601d477a7bf844; matches the corresponding artifact pinned in model.json."
+      ],
+      "limits": [
+        "Hub metadata/revision observation; no tensor payload inspection or GPU run."
+      ]
+    },
+    {
+      "proposed_source_id": "MBENCH-glm-5.3-MAIN-CARD",
+      "url": "https://huggingface.co/zai-org/GLM-5.3/raw/main/README.md",
+      "kind": "mutable publisher metadata",
+      "retrieved_at_utc": "2026-10-15T22:51:14.817055+00:00",
+      "http_status": 200,
+      "final_url": "https://huggingface.co/zai-org/GLM-5.3/raw/main/README.md",
+      "sha256": "ed1c0a4563c437a32f8953d637a1db9bd831de1b24bd3062a5ace9e04340b1cf",
+      "bytes": 14209,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/MBENCH-glm-5.3-MAIN-CARD.txt",
+      "evidence_kind": "mutable publisher metadata",
+      "claims": [
+        "SHA256 identical to freshly retrieved pinned glm-5.3-CARD."
+      ],
+      "limits": [
+        "Mutable head observation at retrieval time; execution must use immutable revision."
+      ]
+    },
+    {
+      "proposed_source_id": "MBENCH-glm-5.3-MAIN-CFG",
+      "url": "https://huggingface.co/zai-org/GLM-5.3/raw/main/config.json",
+      "kind": "mutable publisher metadata",
+      "retrieved_at_utc": "2026-10-15T22:51:14.820105+00:00",
+      "http_status": 200,
+      "final_url": "https://huggingface.co/zai-org/GLM-5.3/raw/main/config.json",
+      "sha256": "3ac72612095574542f7fff847ada8e59d9199dd8af44bdf625d7e02615572e69",
+      "bytes": 29464,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/MBENCH-glm-5.3-MAIN-CFG.txt",
+      "evidence_kind": "mutable publisher metadata",
+      "claims": [
+        "SHA256 identical to freshly retrieved pinned glm-5.3-CFG."
+      ],
+      "limits": [
+        "Mutable head observation at retrieval time; execution must use immutable revision."
+      ]
+    },
+    {
+      "proposed_source_id": "MBENCH-glm-5.3-TEMPLATE",
+      "url": "https://huggingface.co/zai-org/GLM-5.3/raw/ba32f8c19c8738e2c57c71798c601d477a7bf844/chat_template.jinja",
+      "kind": "publisher chat template",
+      "revision": "ba32f8c19c8738e2c57c71798c601d477a7bf844",
+      "retrieved_at_utc": "2026-10-15T22:51:14.832279+00:00",
+      "http_status": 200,
+      "final_url": "https://huggingface.co/zai-org/GLM-5.3/raw/ba32f8c19c8738e2c57c71798c601d477a7bf844/chat_template.jinja",
+      "sha256": "0e2b6268ac54f04d2bc1157e8cfb896cb66f25c0b5e319ea12e56014c3914f24",
+      "bytes": 10614,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/MBENCH-glm-5.3-TEMPLATE.txt",
+      "evidence_kind": "publisher chat template",
+      "claims": [
+        "effective_reasoning_effort accepts low/high, defaults max; clear_thinking defaults false; assistant generation prefix includes <think>."
+      ],
+      "limits": [
+        "Pinned model metadata/template evidence only; no model tensor payloads, runtime allocations or quality/performance measurements."
+      ]
+    },
+    {
+      "proposed_source_id": "MBENCH-glm-5.3-flash-CURRENT",
+      "url": "https://huggingface.co/api/models/zai-org/GLM-5.3-Flash",
+      "kind": "publisher repository revision metadata",
+      "retrieved_at_utc": "2026-10-15T22:51:14.843697+00:00",
+      "http_status": 200,
+      "final_url": "https://huggingface.co/api/models/zai-org/GLM-5.3-Flash",
+      "sha256": "7fb72452f972dad93bdb9840440ae849ce1ec6d2da00c5d5fb88b94d9ddf45b8",
+      "bytes": 70243,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/MBENCH-glm-5.3-flash-CURRENT.txt",
+      "observed_revision": "46a050bec13002ad29ee795c16e61cf4fa3c4a9c",
+      "evidence_kind": "publisher repository revision metadata",
+      "claims": [
+        "Observed current repository SHA: 46a050bec13002ad29ee795c16e61cf4fa3c4a9c; matches the corresponding artifact pinned in model.json."
+      ],
+      "limits": [
+        "Hub metadata/revision observation; no tensor payload inspection or GPU run."
+      ]
+    },
+    {
+      "proposed_source_id": "MBENCH-glm-5.3-flash-MAIN-CARD",
+      "url": "https://huggingface.co/zai-org/GLM-5.3-Flash/raw/main/README.md",
+      "kind": "mutable publisher metadata",
+      "retrieved_at_utc": "2026-10-15T22:51:14.900849+00:00",
+      "http_status": 200,
+      "final_url": "https://huggingface.co/zai-org/GLM-5.3-Flash/raw/main/README.md",
+      "sha256": "e6c5d41400e28f5a89418a0d15b09b9c113314a7553d40d7d4a8a72fcdb87d02",
+      "bytes": 8027,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/MBENCH-glm-5.3-flash-MAIN-CARD.txt",
+      "evidence_kind": "mutable publisher metadata",
+      "claims": [
+        "SHA256 identical to freshly retrieved pinned glm-5.3-flash-CARD."
+      ],
+      "limits": [
+        "Mutable head observation at retrieval time; execution must use immutable revision."
+      ]
+    },
+    {
+      "proposed_source_id": "MBENCH-glm-5.3-flash-MAIN-CFG",
+      "url": "https://huggingface.co/zai-org/GLM-5.3-Flash/raw/main/config.json",
+      "kind": "mutable publisher metadata",
+      "retrieved_at_utc": "2026-10-15T22:51:14.963265+00:00",
+      "http_status": 200,
+      "final_url": "https://huggingface.co/zai-org/GLM-5.3-Flash/raw/main/config.json",
+      "sha256": "bb8f01c42cb92a52ca72e65afb4d5bd8d11aef083cd210e8de25dfb904f23e9f",
+      "bytes": 69416,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/MBENCH-glm-5.3-flash-MAIN-CFG.txt",
+      "evidence_kind": "mutable publisher metadata",
+      "claims": [
+        "SHA256 identical to freshly retrieved pinned glm-5.3-flash-CFG."
+      ],
+      "limits": [
+        "Mutable head observation at retrieval time; execution must use immutable revision."
+      ]
+    },
+    {
+      "proposed_source_id": "MBENCH-glm-5.3-flash-TEMPLATE",
+      "url": "https://huggingface.co/zai-org/GLM-5.3-Flash/raw/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/chat_template.jinja",
+      "kind": "publisher chat template",
+      "revision": "46a050bec13002ad29ee795c16e61cf4fa3c4a9c",
+      "retrieved_at_utc": "2026-10-15T22:51:14.970303+00:00",
+      "http_status": 200,
+      "final_url": "https://huggingface.co/zai-org/GLM-5.3-Flash/raw/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/chat_template.jinja",
+      "sha256": "2614a3c896d53e265f564c23701173c0049f985dacfbae79fc4bcd9f5ba083f4",
+      "bytes": 10830,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/MBENCH-glm-5.3-flash-TEMPLATE.txt",
+      "evidence_kind": "publisher chat template",
+      "claims": [
+        "effective_reasoning_effort accepts low/high, defaults max; clear_thinking defaults false; template contains no thinking conditional and assistant generation prefix includes <think>."
+      ],
+      "limits": [
+        "Pinned model metadata/template evidence only; no model tensor payloads, runtime allocations or quality/performance measurements."
+      ]
+    },
+    {
+      "proposed_source_id": "MBENCH-qwen3.8-flash-next-CURRENT",
+      "url": "https://huggingface.co/api/models/Qwen/Qwen3.8-Flash-Next",
+      "kind": "publisher repository revision metadata",
+      "retrieved_at_utc": "2026-10-15T22:51:14.975396+00:00",
+      "http_status": 200,
+      "final_url": "https://huggingface.co/api/models/Qwen/Qwen3.8-Flash-Next",
+      "sha256": "56bf2dd7bfbf2d85bb3ad624a48ad6e2d71bca6480365d73fabbbb442a2e49ea",
+      "bytes": 27363,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/MBENCH-qwen3.8-flash-next-CURRENT.txt",
+      "observed_revision": "de4b8e4d43b917e7706784d8bb445c9af86a3540",
+      "evidence_kind": "publisher repository revision metadata",
+      "claims": [
+        "Observed current repository SHA: de4b8e4d43b917e7706784d8bb445c9af86a3540; matches the corresponding artifact pinned in model.json."
+      ],
+      "limits": [
+        "Hub metadata/revision observation; no tensor payload inspection or GPU run."
+      ]
+    },
+    {
+      "proposed_source_id": "MBENCH-qwen3.8-flash-next-MAIN-CARD",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next/raw/main/README.md",
+      "kind": "mutable publisher metadata",
+      "retrieved_at_utc": "2026-10-15T22:51:14.980829+00:00",
+      "http_status": 200,
+      "final_url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next/raw/main/README.md",
+      "sha256": "35ca37ccc366f1ba478dab33841a2c0c18ce53fd62f291ca05341f7728b225b2",
+      "bytes": 65155,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/MBENCH-qwen3.8-flash-next-MAIN-CARD.txt",
+      "evidence_kind": "mutable publisher metadata",
+      "claims": [
+        "SHA256 identical to freshly retrieved pinned qwen3.8-flash-next-CARD."
+      ],
+      "limits": [
+        "Mutable head observation at retrieval time; execution must use immutable revision."
+      ]
+    },
+    {
+      "proposed_source_id": "MBENCH-qwen3.8-flash-next-MAIN-CFG",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next/raw/main/config.json",
+      "kind": "mutable publisher metadata",
+      "retrieved_at_utc": "2026-10-15T22:51:14.984601+00:00",
+      "http_status": 200,
+      "final_url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next/raw/main/config.json",
+      "sha256": "889658f2508e8c61d409b02e70e0d78d8d4452ec65aaafbe129805d213d2e74b",
+      "bytes": 4745,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/MBENCH-qwen3.8-flash-next-MAIN-CFG.txt",
+      "evidence_kind": "mutable publisher metadata",
+      "claims": [
+        "SHA256 identical to freshly retrieved pinned qwen3.8-flash-next-CFG."
+      ],
+      "limits": [
+        "Mutable head observation at retrieval time; execution must use immutable revision."
+      ]
+    },
+    {
+      "proposed_source_id": "MBENCH-IFEVAL",
+      "url": "https://raw.githubusercontent.com/google-research/google-research/master/instruction_following_eval/README.md",
+      "kind": "official benchmark documentation",
+      "retrieved_at_utc": "2026-10-15T22:51:15.016059+00:00",
+      "http_status": 200,
+      "final_url": "https://raw.githubusercontent.com/google-research/google-research/master/instruction_following_eval/README.md",
+      "sha256": "fef3c44408e4b39837af345095ccce7da798853fd60ea94a1de63afa9d3d67b3",
+      "bytes": 1457,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/MBENCH-IFEVAL.txt",
+      "evidence_kind": "official benchmark documentation",
+      "claims": [
+        "Official evaluator consumes saved prompt/response pairs; instruction-following task is appropriate for explicit constrained-output regressions."
+      ],
+      "limits": [
+        "Task/scorer documentation only; no evaluation run or adapter qualification. Dataset/code/dependency versions, samples, prompt extraction and thresholds must be frozen by operator."
+      ]
+    },
+    {
+      "proposed_source_id": "MBENCH-RULER",
+      "url": "https://raw.githubusercontent.com/NVIDIA/RULER/main/README.md",
+      "kind": "official benchmark documentation",
+      "retrieved_at_utc": "2026-10-15T22:51:15.040012+00:00",
+      "http_status": 200,
+      "final_url": "https://raw.githubusercontent.com/NVIDIA/RULER/main/README.md",
+      "sha256": "f3aae5bbd58fcd7de32aab099c455dd2bbc1da23a2efee9db3071eb9fbf894a3",
+      "bytes": 18187,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/MBENCH-RULER.txt",
+      "evidence_kind": "official benchmark documentation",
+      "claims": [
+        "Synthetic configurable long-context tasks; categories include retrieval, variable tracking, aggregation and QA.",
+        "Main README marks legacy pipeline deprecated and directs users to rulerv1-ns/rulerv2-ns."
+      ],
+      "limits": [
+        "Task/scorer documentation only; no evaluation run or adapter qualification. Dataset/code/dependency versions, samples, prompt extraction and thresholds must be frozen by operator."
+      ]
+    },
+    {
+      "proposed_source_id": "MBENCH-SWEBENCH",
+      "url": "https://www.swebench.com/SWE-bench/",
+      "kind": "official benchmark documentation",
+      "retrieved_at_utc": "2026-10-15T22:51:15.056992+00:00",
+      "http_status": 200,
+      "final_url": "https://www.swebench.com/SWE-bench/",
+      "sha256": "28230f80f93ae6f4a52c18921a69e1736e629140a692ceb99cbb49cfcd259668",
+      "bytes": 40903,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/MBENCH-SWEBENCH.txt",
+      "evidence_kind": "official benchmark documentation",
+      "claims": [
+        "Official repository-issue evaluation, Docker harness, SWE-bench Verified subset.",
+        "Agent/harness/tool budgets are part of application evaluation, not isolated serving speed."
+      ],
+      "limits": [
+        "Task/scorer documentation only; no evaluation run or adapter qualification. Dataset/code/dependency versions, samples, prompt extraction and thresholds must be frozen by operator."
+      ]
+    },
+    {
+      "proposed_source_id": "MBENCH-DOCVQA",
+      "url": "https://www.docvqa.org/datasets/docvqa",
+      "kind": "official benchmark documentation",
+      "retrieved_at_utc": "2026-10-15T22:51:15.130798+00:00",
+      "http_status": 200,
+      "final_url": "https://www.docvqa.org/datasets/docvqa",
+      "sha256": "ed4c377fe4469105be3a05c9ef22bfc473c6da52b64b11dab98795d46c8caddc",
+      "bytes": 143128,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/MBENCH-DOCVQA.txt",
+      "evidence_kind": "official benchmark documentation",
+      "claims": [
+        "Single document image question answering with text-span answers; selected as a proposed image/document regression task."
+      ],
+      "limits": [
+        "Task/scorer documentation only; no evaluation run or adapter qualification. Dataset/code/dependency versions, samples, prompt extraction and thresholds must be frozen by operator."
+      ]
+    },
+    {
+      "proposed_source_id": "MBENCH-VREL",
+      "url": "https://api.github.com/repos/vllm-project/vllm/releases/latest",
+      "kind": "official release API",
+      "retrieved_at_utc": "2026-10-15T22:51:15.134950+00:00",
+      "http_status": 200,
+      "final_url": "https://api.github.com/repos/vllm-project/vllm/releases/latest",
+      "sha256": "39b26f6ba49f4846599e4f5626dc999d180a9ee80a90c6d8490e82053c36dbb6",
+      "bytes": 60451,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/MBENCH-VREL.txt",
+      "release": {
+        "tag_name": "v0.31.0",
+        "published_at": "2026-10-05T06:44:55Z",
+        "prerelease": false,
+        "html_url": "https://github.com/vllm-project/vllm/releases/tag/v0.31.0"
+      },
+      "evidence_kind": "official release API",
+      "claims": [
+        "Official latest stable release API observed v0.31.0 with prerelease=false."
+      ],
+      "limits": [
+        "Release metadata only; does not establish main/nightly image identity or exact model compatibility. Root owns shared engine/nightly integration."
+      ]
+    },
+    {
+      "proposed_source_id": "MBENCH-GREL",
+      "url": "https://api.github.com/repos/sgl-project/sglang/releases/latest",
+      "kind": "official release API",
+      "retrieved_at_utc": "2026-10-15T22:51:15.139950+00:00",
+      "http_status": 200,
+      "final_url": "https://api.github.com/repos/sgl-project/sglang/releases/latest",
+      "sha256": "eaf401087605280b42d2c4648a618413fb5c1150599c8b5521a92bed6b6117b9",
+      "bytes": 85534,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/MBENCH-GREL.txt",
+      "release": {
+        "tag_name": "v0.5.21",
+        "published_at": "2026-10-02T01:09:04Z",
+        "prerelease": false,
+        "html_url": "https://github.com/sgl-project/sglang/releases/tag/v0.5.21"
+      },
+      "evidence_kind": "official release API",
+      "claims": [
+        "Official latest stable release API observed v0.5.21 with prerelease=false."
+      ],
+      "limits": [
+        "Release metadata only; does not establish main/nightly image identity or exact model compatibility. Root owns shared engine/nightly integration."
+      ]
+    },
+    {
+      "proposed_source_id": "MBENCH-KREL",
+      "url": "https://api.github.com/repos/kserve/kserve/releases/latest",
+      "kind": "official release API",
+      "retrieved_at_utc": "2026-10-15T22:51:15.145790+00:00",
+      "http_status": 200,
+      "final_url": "https://api.github.com/repos/kserve/kserve/releases/latest",
+      "sha256": "bcf1d82e0c53e4c2c5230f684bd65154c4f86fd254da1cdd9245ca52424eb355",
+      "bytes": 63765,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/MBENCH-KREL.txt",
+      "release": {
+        "tag_name": "v0.21.0",
+        "published_at": "2026-09-25T17:04:20Z",
+        "prerelease": false,
+        "html_url": "https://github.com/kserve/kserve/releases/tag/v0.21.0"
+      },
+      "evidence_kind": "official release API",
+      "claims": [
+        "Official latest stable release API observed v0.21.0 with prerelease=false."
+      ],
+      "limits": [
+        "Release metadata only; does not establish main/nightly image identity or exact model compatibility. Root owns shared engine/nightly integration."
+      ]
+    },
+    {
+      "proposed_source_id": "glm-5.3-VR",
+      "url": "https://recipes.vllm.ai/zai-org/GLM-5.3",
+      "kind": "primary engine documentation",
+      "revision": null,
+      "retrieved_at_utc": "2026-10-15T22:52:22.845278+00:00",
+      "http_status": 200,
+      "final_url": "https://recipes.vllm.ai/zai-org/GLM-5.3",
+      "sha256": "966f2ecd6b390ed210767c9eca8338851161786e486d9acce9a2af49cf42e157",
+      "bytes": 2157707,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/glm-5.3-VR.txt",
+      "evidence_kind": "primary engine documentation",
+      "claims": [],
+      "limits": [
+        "Recipe/source evidence only; no binary, real-weight or B300 validation here. Any upstream measurements remain attributed, not reproduced."
+      ]
+    },
+    {
+      "proposed_source_id": "glm-5.3-GR",
+      "url": "https://docs.sglang.io/cookbook/autoregressive/GLM/GLM-5.3",
+      "kind": "primary engine documentation",
+      "revision": null,
+      "retrieved_at_utc": "2026-10-15T22:52:22.845666+00:00",
+      "http_status": 200,
+      "final_url": "https://docs.sglang.io/cookbook/autoregressive/GLM/GLM-5.3",
+      "sha256": "ca90d07edbf8f9480e366a7e54972899aef2fde1e22cc4b8f9961a2867f624ba",
+      "bytes": 871300,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/glm-5.3-GR.txt",
+      "evidence_kind": "primary engine documentation",
+      "claims": [],
+      "limits": [
+        "Recipe/source evidence only; no binary, real-weight or B300 validation here. Any upstream measurements remain attributed, not reproduced."
+      ]
+    },
+    {
+      "proposed_source_id": "glm-5.3-flash-VR",
+      "url": "https://recipes.vllm.ai/zai-org/GLM-5.3-Flash",
+      "kind": "primary engine documentation",
+      "revision": null,
+      "retrieved_at_utc": "2026-10-15T22:52:22.845802+00:00",
+      "http_status": 200,
+      "final_url": "https://recipes.vllm.ai/zai-org/GLM-5.3-Flash",
+      "sha256": "923d16c64e3836f24d65621c1ca590487fb476bb022ed12c68076c44ca4b238b",
+      "bytes": 2169197,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/glm-5.3-flash-VR.txt",
+      "evidence_kind": "primary engine documentation",
+      "claims": [],
+      "limits": [
+        "Recipe/source evidence only; no binary, real-weight or B300 validation here. Any upstream measurements remain attributed, not reproduced."
+      ]
+    },
+    {
+      "proposed_source_id": "glm-5.3-flash-GR",
+      "url": "https://docs.sglang.io/cookbook/autoregressive/GLM/GLM-5.3-Flash",
+      "kind": "primary engine documentation",
+      "revision": null,
+      "retrieved_at_utc": "2026-10-15T22:52:22.845920+00:00",
+      "http_status": 200,
+      "final_url": "https://docs.sglang.io/cookbook/autoregressive/GLM/GLM-5.3-Flash",
+      "sha256": "8da11cf9b0a06e69efe646a85ea35477cf2689917ddb44a7e232302fff4e07f1",
+      "bytes": 880681,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/glm-5.3-flash-GR.txt",
+      "evidence_kind": "primary engine documentation",
+      "claims": [
+        "CUDA DSA pairs: FP8 KV/TRT-LLM and BF16 KV/TileLang; dtype/backend are coupled.",
+        "Separate KDA and KV pools; preserve linear lower bound.",
+        "MTP is exposed through EAGLE spelling; 5/1/6 settings are distinct fields.",
+        "PD preview reports dummy-weight mechanics only; speculation off, unequal TP numeric correctness unverified.",
+        "Prose calls Mooncake the only PD backend but displayed examples use NIXL.",
+        "thinking:false advice conflicts with inspected publisher template.",
+        "PD operational notes say tested dummy-weight arm uses Triton MoE while flashinfer_trtllm from deployment recipes is untested under PD."
+      ],
+      "limits": [
+        "Recipe/source evidence only; no binary, real-weight or B300 validation here. Any upstream measurements remain attributed, not reproduced."
+      ]
+    },
+    {
+      "proposed_source_id": "qwen3.8-flash-next-VR",
+      "url": "https://recipes.vllm.ai/Qwen/Qwen3.8-Flash-Next",
+      "kind": "primary documentation",
+      "revision": null,
+      "retrieved_at_utc": "2026-10-15T22:52:22.846009+00:00",
+      "http_status": 200,
+      "final_url": "https://recipes.vllm.ai/Qwen/Qwen3.8-Flash-Next",
+      "sha256": "40c136f1e02e704b41f9e716806cc5c57ed380f74a205e2a0fa4dfe7d8dfb599",
+      "bytes": 2178279,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/qwen3.8-flash-next-VR.txt",
+      "evidence_kind": "primary documentation",
+      "claims": [
+        "Official FP8 recommended topology uses EP; block width prevents naively copying plain TP8 target-only NVFP4 example.",
+        "N-gram offload is documented; exact export/build compatibility remains a separate prerequisite."
+      ],
+      "limits": [
+        "Recipe/source evidence only; no binary, real-weight or B300 validation here. Any upstream measurements remain attributed, not reproduced."
+      ]
+    },
+    {
+      "proposed_source_id": "glm-5.3-BF16-CARD",
+      "url": "https://huggingface.co/zai-org/GLM-5.3-BF16/raw/abf42e6c0e53bc29a875511301e7b7fcd220315b/README.md",
+      "kind": "publisher model card",
+      "revision": "abf42e6c0e53bc29a875511301e7b7fcd220315b",
+      "retrieved_at_utc": "2026-10-15T22:52:22.846091+00:00",
+      "http_status": 200,
+      "final_url": "https://huggingface.co/zai-org/GLM-5.3-BF16/raw/abf42e6c0e53bc29a875511301e7b7fcd220315b/README.md",
+      "sha256": "9bdaa8b83a653f3ccac2a140d1c3880929d6f16e4a2b38d03e358b9fad0ee95f",
+      "bytes": 14214,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/glm-5.3-BF16-CARD.txt",
+      "evidence_kind": "publisher model card",
+      "claims": [
+        "Pinned artifact metadata reviewed for the declared reference/export identity and quantization contract."
+      ],
+      "limits": [
+        "Pinned model metadata/template evidence only; no model tensor payloads, runtime allocations or quality/performance measurements."
+      ]
+    },
+    {
+      "proposed_source_id": "glm-5.3-flash-BF16-CARD",
+      "url": "https://huggingface.co/zai-org/GLM-5.3-Flash-BF16/raw/f9fed3bbc82291073373d67452e9f25317ef7577/README.md",
+      "kind": "publisher model card",
+      "revision": "f9fed3bbc82291073373d67452e9f25317ef7577",
+      "retrieved_at_utc": "2026-10-15T22:52:22.846175+00:00",
+      "http_status": 200,
+      "final_url": "https://huggingface.co/zai-org/GLM-5.3-Flash-BF16/raw/f9fed3bbc82291073373d67452e9f25317ef7577/README.md",
+      "sha256": "5c48ce1a84c5901ab96d602333e9201fa385a73e9c298fab3467183b8b95a549",
+      "bytes": 8033,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/glm-5.3-flash-BF16-CARD.txt",
+      "evidence_kind": "publisher model card",
+      "claims": [
+        "Pinned artifact metadata reviewed for the declared reference/export identity and quantization contract."
+      ],
+      "limits": [
+        "Pinned model metadata/template evidence only; no model tensor payloads, runtime allocations or quality/performance measurements."
+      ]
+    },
+    {
+      "proposed_source_id": "qwen3.8-flash-next-FP8",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next-FP8/raw/236dfdf285828023ca3bcd3f37366c58a3469b13/README.md",
+      "kind": "publisher model card",
+      "revision": "236dfdf285828023ca3bcd3f37366c58a3469b13",
+      "retrieved_at_utc": "2026-10-15T22:52:22.846257+00:00",
+      "http_status": 200,
+      "final_url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next-FP8/raw/236dfdf285828023ca3bcd3f37366c58a3469b13/README.md",
+      "sha256": "3c5fcfaf37c4415dbabdbd25eaa7a17ed42f8e63fead97b8644053b1d60ea43f",
+      "bytes": 65400,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/qwen3.8-flash-next-FP8.txt",
+      "evidence_kind": "publisher model card",
+      "claims": [
+        "Pinned artifact metadata reviewed for the declared reference/export identity and quantization contract."
+      ],
+      "limits": [
+        "Pinned model metadata/template evidence only; no model tensor payloads, runtime allocations or quality/performance measurements."
+      ]
+    },
+    {
+      "proposed_source_id": "qwen3.8-flash-next-GR",
+      "url": "https://docs.sglang.io/cookbook/autoregressive/Qwen/Qwen3.8-Flash-Next",
+      "kind": "primary documentation",
+      "revision": null,
+      "retrieved_at_utc": "2026-10-15T22:52:23.022526+00:00",
+      "http_status": 200,
+      "final_url": "https://docs.sglang.io/cookbook/autoregressive/Qwen/Qwen3.8-Flash-Next",
+      "sha256": "a51cfe57ef8db58d950435f9ba69add0506ff42c7b8467d2d4f8bea4d08691a0",
+      "bytes": 898473,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/qwen3.8-flash-next-GR.txt",
+      "evidence_kind": "primary documentation",
+      "claims": [
+        "Cookbook prose claiming always-thinking conflicts with publisher mode controls; use publisher template behavior."
+      ],
+      "limits": [
+        "Recipe/source evidence only; no binary, real-weight or B300 validation here. Any upstream measurements remain attributed, not reproduced."
+      ]
+    },
+    {
+      "proposed_source_id": "MBENCH-glm-5.3-BF16-CURRENT",
+      "url": "https://huggingface.co/api/models/zai-org/GLM-5.3-BF16",
+      "kind": "publisher repository revision metadata",
+      "retrieved_at_utc": "2026-10-15T22:52:23.031554+00:00",
+      "http_status": 200,
+      "final_url": "https://huggingface.co/api/models/zai-org/GLM-5.3-BF16",
+      "sha256": "37306df1db4706f6e02de2c985d8dd39a784d1876260abd3ad7e4d406a2f3c4a",
+      "bytes": 26411,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/MBENCH-glm-5.3-BF16-CURRENT.txt",
+      "observed_revision": "abf42e6c0e53bc29a875511301e7b7fcd220315b",
+      "evidence_kind": "publisher repository revision metadata",
+      "claims": [
+        "Observed current repository SHA: abf42e6c0e53bc29a875511301e7b7fcd220315b; matches the corresponding artifact pinned in model.json."
+      ],
+      "limits": [
+        "Hub metadata/revision observation; no tensor payload inspection or GPU run."
+      ]
+    },
+    {
+      "proposed_source_id": "MBENCH-glm-5.3-NV-CURRENT",
+      "url": "https://huggingface.co/api/models/RedHatAI/GLM-5.3-NVFP4",
+      "kind": "publisher repository revision metadata",
+      "retrieved_at_utc": "2026-10-15T22:52:23.034569+00:00",
+      "http_status": 200,
+      "final_url": "https://huggingface.co/api/models/RedHatAI/GLM-5.3-NVFP4",
+      "sha256": "e4b5ba3b8c8226ad2990c93f49e152eea6a6b9571caca330a94d53c69ab95608",
+      "bytes": 18202,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/MBENCH-glm-5.3-NV-CURRENT.txt",
+      "observed_revision": "c8917e4258572c405575855ff53effe58c17a38e",
+      "evidence_kind": "publisher repository revision metadata",
+      "claims": [
+        "Observed current repository SHA: c8917e4258572c405575855ff53effe58c17a38e; matches the corresponding artifact pinned in model.json."
+      ],
+      "limits": [
+        "Hub metadata/revision observation; no tensor payload inspection or GPU run."
+      ]
+    },
+    {
+      "proposed_source_id": "MBENCH-glm-5.3-INFERACT-CURRENT",
+      "url": "https://huggingface.co/api/models/Inferact/GLM-5.3-NVFP4",
+      "kind": "publisher repository revision metadata",
+      "retrieved_at_utc": "2026-10-15T22:52:23.039454+00:00",
+      "http_status": 200,
+      "final_url": "https://huggingface.co/api/models/Inferact/GLM-5.3-NVFP4",
+      "sha256": "64c9f3c999050cbac32541578583281876accffe4e3b36680b77776f3b46164d",
+      "bytes": 66212,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/MBENCH-glm-5.3-INFERACT-CURRENT.txt",
+      "observed_revision": "ce67b36f3669192b5bb233819f0fda6c8a9837f8",
+      "evidence_kind": "publisher repository revision metadata",
+      "claims": [
+        "Observed current repository SHA: ce67b36f3669192b5bb233819f0fda6c8a9837f8; matches the corresponding artifact pinned in model.json."
+      ],
+      "limits": [
+        "Hub metadata/revision observation; no tensor payload inspection or GPU run."
+      ]
+    },
+    {
+      "proposed_source_id": "MBENCH-glm-5.3-flash-BF16-CURRENT",
+      "url": "https://huggingface.co/api/models/zai-org/GLM-5.3-Flash-BF16",
+      "kind": "publisher repository revision metadata",
+      "retrieved_at_utc": "2026-10-15T22:52:23.060337+00:00",
+      "http_status": 200,
+      "final_url": "https://huggingface.co/api/models/zai-org/GLM-5.3-Flash-BF16",
+      "sha256": "c0e00e33a4b3fd0aefe9c98235ec383f380f1cd7e128a2b71a740da2c01ed29a",
+      "bytes": 18713,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/MBENCH-glm-5.3-flash-BF16-CURRENT.txt",
+      "observed_revision": "f9fed3bbc82291073373d67452e9f25317ef7577",
+      "evidence_kind": "publisher repository revision metadata",
+      "claims": [
+        "Observed current repository SHA: f9fed3bbc82291073373d67452e9f25317ef7577; matches the corresponding artifact pinned in model.json."
+      ],
+      "limits": [
+        "Hub metadata/revision observation; no tensor payload inspection or GPU run."
+      ]
+    },
+    {
+      "proposed_source_id": "MBENCH-glm-5.3-flash-NV-CURRENT",
+      "url": "https://huggingface.co/api/models/RedHatAI/GLM-5.3-Flash-NVFP4",
+      "kind": "publisher repository revision metadata",
+      "retrieved_at_utc": "2026-10-15T22:52:23.140085+00:00",
+      "http_status": 200,
+      "final_url": "https://huggingface.co/api/models/RedHatAI/GLM-5.3-Flash-NVFP4",
+      "sha256": "576999ad79b625ee2b76d6f9de689c0582d71967bcfbdb4724d4af85811e38ae",
+      "bytes": 54016,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/MBENCH-glm-5.3-flash-NV-CURRENT.txt",
+      "observed_revision": "18d55bfd5a2194887738da73753975c9d3842f46",
+      "evidence_kind": "publisher repository revision metadata",
+      "claims": [
+        "Observed current repository SHA: 18d55bfd5a2194887738da73753975c9d3842f46; matches the corresponding artifact pinned in model.json."
+      ],
+      "limits": [
+        "Hub metadata/revision observation; no tensor payload inspection or GPU run."
+      ]
+    },
+    {
+      "proposed_source_id": "MBENCH-qwen3.8-flash-next-FP8-CURRENT",
+      "url": "https://huggingface.co/api/models/Qwen/Qwen3.8-Flash-Next-FP8",
+      "kind": "publisher repository revision metadata",
+      "retrieved_at_utc": "2026-10-15T22:52:23.143457+00:00",
+      "http_status": 200,
+      "final_url": "https://huggingface.co/api/models/Qwen/Qwen3.8-Flash-Next-FP8",
+      "sha256": "66053b238c2d56052ae8e0493f2d5f07355c65e02b2a3bd6b67ec3f74ffc61d5",
+      "bytes": 82101,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/MBENCH-qwen3.8-flash-next-FP8-CURRENT.txt",
+      "observed_revision": "236dfdf285828023ca3bcd3f37366c58a3469b13",
+      "evidence_kind": "publisher repository revision metadata",
+      "claims": [
+        "Observed current repository SHA: 236dfdf285828023ca3bcd3f37366c58a3469b13; matches the corresponding artifact pinned in model.json."
+      ],
+      "limits": [
+        "Hub metadata/revision observation; no tensor payload inspection or GPU run."
+      ]
+    },
+    {
+      "proposed_source_id": "MBENCH-qwen3.8-flash-next-NV-CURRENT",
+      "url": "https://huggingface.co/api/models/nvidia/Qwen3.8-Flash-Next-NVFP4",
+      "kind": "publisher repository revision metadata",
+      "retrieved_at_utc": "2026-10-15T22:52:23.163765+00:00",
+      "http_status": 200,
+      "final_url": "https://huggingface.co/api/models/nvidia/Qwen3.8-Flash-Next-NVFP4",
+      "sha256": "832f174d196c15ace300d7b56c0088b222831ec1dee0a5709c723a2565d0b318",
+      "bytes": 38341,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/MBENCH-qwen3.8-flash-next-NV-CURRENT.txt",
+      "observed_revision": "fc694b54fb0174e0913e6adf86691ef85a4ead47",
+      "evidence_kind": "publisher repository revision metadata",
+      "claims": [
+        "Observed current repository SHA: fc694b54fb0174e0913e6adf86691ef85a4ead47; matches the corresponding artifact pinned in model.json."
+      ],
+      "limits": [
+        "Hub metadata/revision observation; no tensor payload inspection or GPU run."
+      ]
+    },
+    {
+      "proposed_source_id": "MBENCH-RULER-V1",
+      "url": "https://raw.githubusercontent.com/NVIDIA/RULER/rulerv1-ns/README.md",
+      "kind": "official benchmark documentation",
+      "retrieved_at_utc": "2026-10-15T22:52:23.197715+00:00",
+      "http_status": 200,
+      "final_url": "https://raw.githubusercontent.com/NVIDIA/RULER/rulerv1-ns/README.md",
+      "sha256": "3302376f861372c433d4080bd9b9d10faf20fed30ec39fd1119cf703f3269c08",
+      "bytes": 2513,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/MBENCH-RULER-V1.txt",
+      "evidence_kind": "official benchmark documentation",
+      "claims": [
+        "Current v1 branch instructs using NeMo-Skills dependency and model-specific tokenizer; data generation and evaluation must both be pinned."
+      ],
+      "limits": [
+        "Task/scorer documentation only; no evaluation run or adapter qualification. Dataset/code/dependency versions, samples, prompt extraction and thresholds must be frozen by operator."
+      ]
+    },
+    {
+      "proposed_source_id": "MBENCH-RULER-V1-REF",
+      "url": "https://api.github.com/repos/NVIDIA/RULER/commits/rulerv1-ns",
+      "kind": "official benchmark source revision",
+      "retrieved_at_utc": "2026-10-15T22:52:23.202573+00:00",
+      "http_status": 200,
+      "final_url": "https://api.github.com/repos/NVIDIA/RULER/commits/rulerv1-ns",
+      "sha256": "bc64d7a6cd92fdbba9c0e1bb09a610c677270d2d3a0306299209c2951b22457b",
+      "bytes": 4317,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/MBENCH-RULER-V1-REF.txt",
+      "observed_revision": "e8bbff677ca2c239640dc90f93310dcf32408c93",
+      "evidence_kind": "official benchmark source revision",
+      "claims": [
+        "Observed benchmark source SHA: e8bbff677ca2c239640dc90f93310dcf32408c93."
+      ],
+      "limits": [
+        "Revision resolution alone does not qualify dataset, dependency or endpoint adapter."
+      ]
+    },
+    {
+      "proposed_source_id": "MBENCH-IFEVAL-REF",
+      "url": "https://api.github.com/repos/google-research/google-research/commits/master",
+      "kind": "official benchmark source revision",
+      "retrieved_at_utc": "2026-10-15T22:52:23.209195+00:00",
+      "http_status": 200,
+      "final_url": "https://api.github.com/repos/google-research/google-research/commits/master",
+      "sha256": "a7a632d1be28ee7a8db8ad73d7b1939e212562a07c3f3cdc81fe06ca96f59a76",
+      "bytes": 4792,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/MBENCH-IFEVAL-REF.txt",
+      "observed_revision": "3ef52111c1fabc301880818f5a547570e926a76b",
+      "evidence_kind": "official benchmark source revision",
+      "claims": [
+        "Observed benchmark source SHA: 3ef52111c1fabc301880818f5a547570e926a76b."
+      ],
+      "limits": [
+        "Revision resolution alone does not qualify dataset, dependency or endpoint adapter."
+      ]
+    },
+    {
+      "proposed_source_id": "MBENCH-DOCVQA-EVAL",
+      "url": "https://rrc.cvc.uab.es/?ch=17&com=tasks",
+      "kind": "official benchmark evaluation protocol",
+      "retrieved_at_utc": "2026-10-15T22:52:23.213262+00:00",
+      "http_status": 200,
+      "final_url": "https://rrc.cvc.uab.es/?ch=17&com=tasks",
+      "sha256": "2ef99908166ff2a008ed8572d2de8d7c94299860742d6be4fdbc91379f860159",
+      "bytes": 39446,
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/MBENCH-DOCVQA-EVAL.txt",
+      "evidence_kind": "official benchmark evaluation protocol",
+      "claims": [
+        "Official task evaluation describes Average Normalized Levenshtein Similarity (ANLS)."
+      ],
+      "limits": [
+        "Task/scorer documentation only; no evaluation run or adapter qualification. Dataset/code/dependency versions, samples, prompt extraction and thresholds must be frozen by operator."
+      ]
+    },
+    {
+      "proposed_source_id": "MB-LIVECODEBENCH",
+      "url": "https://raw.githubusercontent.com/LiveCodeBench/LiveCodeBench/28fef95ea8c9f7a547c8329f2cd3d32b92c1fa24/README.md",
+      "kind": "official benchmark documentation",
+      "revision": "28fef95ea8c9f7a547c8329f2cd3d32b92c1fa24",
+      "retrieved_at_utc": "2026-10-15T22:59:42.548344+00:00",
+      "http_status": 200,
+      "final_url": "https://raw.githubusercontent.com/LiveCodeBench/LiveCodeBench/28fef95ea8c9f7a547c8329f2cd3d32b92c1fa24/README.md",
+      "bytes": 12825,
+      "sha256": "ee0029cddc1d9051f35818f3348a4327819a3e35a9e597732519245605195cf6",
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/MB-LIVECODEBENCH.txt",
+      "evidence_kind": "official benchmark documentation",
+      "claims": [
+        "Release defaults follow latest; freeze release/date range and lite/full tests for comparable code-generation pass@1."
+      ],
+      "limits": [
+        "Task/scorer documentation only; no evaluation run or adapter qualification. Dataset/code/dependency versions, samples, prompt extraction and thresholds must be frozen by operator."
+      ]
+    },
+    {
+      "proposed_source_id": "MB-EVALPLUS",
+      "url": "https://raw.githubusercontent.com/evalplus/evalplus/26d6d00bb1fd0fa37f39c99d5290da67891d1c5e/README.md",
+      "kind": "official benchmark documentation",
+      "revision": "26d6d00bb1fd0fa37f39c99d5290da67891d1c5e",
+      "retrieved_at_utc": "2026-10-15T22:59:42.606562+00:00",
+      "http_status": 200,
+      "final_url": "https://raw.githubusercontent.com/evalplus/evalplus/26d6d00bb1fd0fa37f39c99d5290da67891d1c5e/README.md",
+      "bytes": 15259,
+      "sha256": "667f3f937cf8dfa67dd6624c24c22cb0e938c9b31179cf2e40457d2708ff2260",
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/MB-EVALPLUS.txt",
+      "evidence_kind": "official benchmark documentation",
+      "claims": [
+        "HumanEval+/MBPP+ expand functional code tests; suitable proposed small regression screen before repository-agent work."
+      ],
+      "limits": [
+        "Task/scorer documentation only; no evaluation run or adapter qualification. Dataset/code/dependency versions, samples, prompt extraction and thresholds must be frozen by operator."
+      ]
+    },
+    {
+      "proposed_source_id": "MBENCH-RULER-PAGE",
+      "url": "https://github.com/NVIDIA/RULER",
+      "kind": "official benchmark documentation",
+      "revision": null,
+      "retrieved_at_utc": "2026-10-15T22:59:42.808489+00:00",
+      "http_status": 200,
+      "final_url": "https://github.com/NVIDIA/RULER",
+      "bytes": 378069,
+      "sha256": "b09734e1237ad00b6ef46cea456121374ae8adede20c96a4bfe73eabe66d4901",
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/MBENCH-RULER-PAGE.txt",
+      "evidence_kind": "official benchmark documentation",
+      "claims": [
+        "Same official README guidance observed through the repository page cited by the plans."
+      ],
+      "limits": [
+        "Task/scorer documentation only; no evaluation run or adapter qualification. Dataset/code/dependency versions, samples, prompt extraction and thresholds must be frozen by operator."
+      ]
+    },
+    {
+      "proposed_source_id": "MBENCH-GLM53-TARGET-LOADER",
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/f8460ef23659afd69046a81529ec2295e4c3f686/vllm/models/deepseek_v32/nvidia/model.py",
+      "kind": "upstream source",
+      "evidence_kind": "immutable source inspection",
+      "revision": "f8460ef23659afd69046a81529ec2295e4c3f686",
+      "retrieved_at_utc": "2026-10-15T23:01:17.066946+00:00",
+      "http_status": 200,
+      "final_url": "https://raw.githubusercontent.com/vllm-project/vllm/f8460ef23659afd69046a81529ec2295e4c3f686/vllm/models/deepseek_v32/nvidia/model.py",
+      "bytes": 18494,
+      "sha256": "e53c068dc43981c20bfd83384764b57234a7e3c5e5235b988cdecebc1b5788e4",
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/MBENCH-GLM53-TARGET-LOADER.txt",
+      "inspected_lines": [
+        345,
+        360
+      ],
+      "claims": [
+        "Target loader deliberately omits MTP/speculative tensors; stored checkpoint inventory is not equivalent to target-only resident inventory."
+      ],
+      "limits": [
+        "Selected load-path source at the retained inspected commit; no runtime execution, tensor allocation or validation of another image/build. Exact registered class must be checked for the chosen image."
+      ]
+    },
+    {
+      "proposed_source_id": "MBENCH-GLM53F-TARGET-LOADER",
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/f8460ef23659afd69046a81529ec2295e4c3f686/vllm/models/glm5next/common/model.py",
+      "kind": "upstream source",
+      "evidence_kind": "immutable source inspection",
+      "revision": "f8460ef23659afd69046a81529ec2295e4c3f686",
+      "retrieved_at_utc": "2026-10-15T23:01:17.067452+00:00",
+      "http_status": 200,
+      "final_url": "https://raw.githubusercontent.com/vllm-project/vllm/f8460ef23659afd69046a81529ec2295e4c3f686/vllm/models/glm5next/common/model.py",
+      "bytes": 58982,
+      "sha256": "f337b984e25c8cb3d1546dbb4bf7ac8a5c057b19967adb0bb037c416b252b7bb",
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/MBENCH-GLM53F-TARGET-LOADER.txt",
+      "inspected_lines": [
+        914,
+        929
+      ],
+      "claims": [
+        "Target loader deliberately omits MTP/speculative tensors; stored checkpoint inventory is not equivalent to target-only resident inventory."
+      ],
+      "limits": [
+        "Selected load-path source at the retained inspected commit; no runtime execution, tensor allocation or validation of another image/build. Exact registered class must be checked for the chosen image."
+      ]
+    },
+    {
+      "proposed_source_id": "MBENCH-QFN-TARGET-LOADER",
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/f8460ef23659afd69046a81529ec2295e4c3f686/vllm/models/qwen4_exp/nvidia/model.py",
+      "kind": "upstream source",
+      "evidence_kind": "immutable source inspection",
+      "revision": "f8460ef23659afd69046a81529ec2295e4c3f686",
+      "retrieved_at_utc": "2026-10-15T23:01:17.067560+00:00",
+      "http_status": 200,
+      "final_url": "https://raw.githubusercontent.com/vllm-project/vllm/f8460ef23659afd69046a81529ec2295e4c3f686/vllm/models/qwen4_exp/nvidia/model.py",
+      "bytes": 46161,
+      "sha256": "57db5f72c89dcecd9f595b466e7f87cb4efc6063cf55b1c99a536fd6e5f807c5",
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/MBENCH-QFN-TARGET-LOADER.txt",
+      "inspected_lines": [
+        915,
+        932
+      ],
+      "claims": [
+        "Target loader deliberately omits MTP/speculative tensors; stored checkpoint inventory is not equivalent to target-only resident inventory."
+      ],
+      "limits": [
+        "Selected load-path source at the retained inspected commit; no runtime execution, tensor allocation or validation of another image/build. Exact registered class must be checked for the chosen image."
+      ]
+    },
+    {
+      "proposed_source_id": "VREG",
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/f8460ef23659afd69046a81529ec2295e4c3f686/vllm/model_executor/models/registry.py",
+      "kind": "upstream source",
+      "evidence_kind": "immutable source inspection",
+      "revision": "f8460ef23659afd69046a81529ec2295e4c3f686",
+      "retrieved_at_utc": "2026-10-15T23:03:12.188303+00:00",
+      "http_status": 200,
+      "final_url": "https://raw.githubusercontent.com/vllm-project/vllm/f8460ef23659afd69046a81529ec2295e4c3f686/vllm/model_executor/models/registry.py",
+      "bytes": 65270,
+      "sha256": "563a61769cb1fb9931f8f4cc0e42dd513eabbcd29870c7d6dbf957157ac337fd",
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/VREG-followup.txt",
+      "claims": [
+        "GlmMoeDsaForCausalLM registers the deepseek_v32 implementation; on CUDA its alias is DeepseekV32ForCausalLM."
+      ],
+      "limits": [
+        "Selected source registration/alias inspection only; not installed image or runtime qualification."
+      ]
+    },
+    {
+      "proposed_source_id": "MBENCH-GLM53-LOADER-ALIAS",
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/f8460ef23659afd69046a81529ec2295e4c3f686/vllm/models/deepseek_v32/__init__.py",
+      "kind": "upstream source",
+      "evidence_kind": "immutable source inspection",
+      "revision": "f8460ef23659afd69046a81529ec2295e4c3f686",
+      "retrieved_at_utc": "2026-10-15T23:03:12.188767+00:00",
+      "http_status": 200,
+      "final_url": "https://raw.githubusercontent.com/vllm-project/vllm/f8460ef23659afd69046a81529ec2295e4c3f686/vllm/models/deepseek_v32/__init__.py",
+      "bytes": 1661,
+      "sha256": "c7e4385cfa6269196a4508f09b7ea06c17c867522ead78a45225d8959c9c2888",
+      "temporary_capture": "/tmp/hybrid-benchmark-sources/MBENCH-GLM53-LOADER-ALIAS-followup.txt",
+      "claims": [
+        "GlmMoeDsaForCausalLM registers the deepseek_v32 implementation; on CUDA its alias is DeepseekV32ForCausalLM."
+      ],
+      "limits": [
+        "Selected source registration/alias inspection only; not installed image or runtime qualification."
+      ]
+    }
+  ],
+  "retrieval_window_utc": {
+    "first": "2026-10-15T22:51:14.472092+00:00",
+    "last": "2026-10-15T23:03:12.188767+00:00"
+  },
+  "edited_files": [
+    "companies/z-ai/glm-5.3/validation.md",
+    "companies/z-ai/glm-5.3-flash/validation.md",
+    "companies/alibaba-qwen/qwen3.8-flash-next/validation.md"
+  ],
+  "new_citation_ids": [
+    "MBENCH-IFEVAL",
+    "MBENCH-RULER",
+    "MBENCH-RULER-V1",
+    "MBENCH-SWEBENCH",
+    "MBENCH-DOCVQA",
+    "MBENCH-DOCVQA-EVAL",
+    "MBENCH-glm-5.3-flash-TEMPLATE",
+    "MBENCH-GLM53-TARGET-LOADER",
+    "MBENCH-GLM53F-TARGET-LOADER",
+    "MBENCH-QFN-TARGET-LOADER"
+  ],
+  "discrepancies": [
+    {
+      "source_id": "glm-5.3-flash-GR",
+      "finding": "PD prose says Mooncake only; displayed examples choose NIXL.",
+      "handling": "Explicit applicability block until selected image/connector is resolved."
+    },
+    {
+      "source_ids": [
+        "glm-5.3-flash-GR",
+        "MBENCH-glm-5.3-flash-TEMPLATE"
+      ],
+      "finding": "Cookbook thinking:false advice is unsupported by pinned template, which opens a thinking block unconditionally.",
+      "handling": "Do not claim a qualified mode switch; inspect serialized prompt and actual behavior."
+    },
+    {
+      "source_ids": [
+        "qwen3.8-flash-next-GR",
+        "qwen3.8-flash-next-CARD"
+      ],
+      "finding": "Cookbook prose denies disabling thinking; publisher documents enable_thinking and distinct sampling modes.",
+      "handling": "Publisher controls govern plan; no catalog/profile fact changed."
+    },
+    {
+      "source_id": "MBENCH-RULER",
+      "finding": "Legacy main-branch runner deprecated.",
+      "handling": "Choose v1 pipeline explicitly, pin branch and NeMo-Skills dependency before execution."
+    }
+  ],
+  "local_profile_controls": [
+    {
+      "path": "profiles/glm-5.3.fp8.vllm.baseline.json",
+      "control": "FP8 baseline fixes FP8 KV while NVFP4 profile leaves it automatic; align effective dtype or disclose multi-variable comparison."
+    },
+    {
+      "path": "profiles/qwen3.8-flash-next.nvfp4.vllm.mtp.json",
+      "control": "MTP profile also changes EP and disables FlashInfer autotuning. Construct target-only matched control before causal comparison."
+    },
+    {
+      "path": "profiles/qwen3.8-flash-next.nvfp4.sglang.baseline.json",
+      "control": "BF16 state override compared with publisher float32 config requires actual effective-dtype tracking."
+    }
+  ],
+  "justification": [
+    "Earlier pages offered knob lists without references, workload rationale, acceptance rules or causal controls.",
+    "New rows bind architecture/export-specific failure hypotheses to separate qualification and quality gates, then whole-node measurements.",
+    "Named public evaluators complement application data; publisher results stay attributed and independent reproduction is not implied."
+  ],
+  "local_checks": {
+    "relative_markdown_links": "32 links across owned pages resolved; none broken",
+    "gpu_execution": false,
+    "weights_downloaded": false,
+    "repository_files_changed_outside_ownership": false
+  },
+  "review_followup": {
+    "reason": "Independent review found target-only load gates could incorrectly require resident MTP tensors.",
+    "added_source_ids": [
+      "MBENCH-GLM53-TARGET-LOADER",
+      "MBENCH-GLM53F-TARGET-LOADER",
+      "MBENCH-QFN-TARGET-LOADER",
+      "VREG",
+      "MBENCH-GLM53-LOADER-ALIAS"
+    ],
+    "resolution": "Separate stored checkpoint audit from target-only resident inventory; allow intentional documented draft exclusions; require MTP tensors/precision for speculative-arm qualification.",
+    "registration_trace": [
+      "vllm/model_executor/models/registry.py: GlmMoeDsaForCausalLM -> vllm.models.deepseek_v32",
+      "vllm/models/deepseek_v32/__init__.py: CUDA alias -> DeepseekV32ForCausalLM",
+      "vllm/models/deepseek_v32/nvidia/model.py: target load_weights skips nextn/MTP; separate model handles draft"
+    ],
+    "additional_control": "Flash PD dummy-weight evidence used Triton MoE; flashinfer_trtllm is untested under PD. Exact runner qualification and matched colocated/split runner are now explicit.",
+    "local_checks": "All 32 relative links still resolve; no GPU execution. Three target-loader citations added."
+  }
+}

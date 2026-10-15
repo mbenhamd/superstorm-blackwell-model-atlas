@@ -25,3 +25,5 @@ DeepSeek's family parameter headlines are not an exact July-31 tensor census. GL
 ## Meaning of “best” in this repository
 
 Recommendations are starting hypotheses justified by memory architecture, available implementation paths and source evidence. A winner requires the same workload, input/output distribution, quality threshold, latency target, hardware, effective precision and natural speculative acceptance. Published author benchmarks are not reproduced results. In particular, simulated-acceptance Kimi DSpark results cannot certify application speedup.
+
+The [model benchmark guide](benchmarks/MODEL-BENCHMARKS.md) and expanded family validation plans propose quality suites and matched experiments. Named suites have not been installed or executed, and their endpoint adapters have not been qualified for these checkpoints. The streaming probe does not retain answers for later scoring; an external evaluator must capture and score outputs. Newly identified candidate exports/drafters in a validation plan are not catalogued launch profiles or established runtime support.

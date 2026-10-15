@@ -102,7 +102,9 @@
     "maximum_error_fraction": null,
     "minimum_goodput_improvement_fraction": null,
     "minimum_memory_headroom_bytes_each": null,
-    "correctness_and_recovery_requirements": []
+    "correctness_and_recovery_requirements": [],
+    "goodput_definition_and_scoring_scope": null,
+    "per_stratum_quality_requirements": null
   },
   "results": {
     "started_at_utc": null,
@@ -119,8 +121,40 @@
     "startup_and_recovery_seconds": null,
     "run_to_run_uncertainty": null,
     "decision": null,
-    "limitations": null
+    "limitations": null,
+    "answer_records_artifact": null,
+    "per_item_scores_artifact": null,
+    "expected_completed_scored_and_missing_counts": null,
+    "truncation_filter_retry_and_scorer_error_counts": null
   },
   "inapplicable_fields_with_reasons": {},
-  "boundary": "Documentation template only. No run has occurred. Populate applicable identities, controls and thresholds before execution; preserve null for unknown or unmeasured values. No repository tool validates this template's semantic completeness."
+  "boundary": "Documentation template only. No run has occurred. Populate applicable identities, controls and thresholds before execution; preserve null for unknown or unmeasured values. No repository tool validates this template's semantic completeness.",
+  "quality_evaluation": {
+    "suite_name_and_version": null,
+    "dataset_id_revision_split": null,
+    "selected_item_ids_artifact": null,
+    "selected_item_ids_sha256": null,
+    "expected_item_count": null,
+    "scorer_repo_and_commit": null,
+    "scorer_config_sha256": null,
+    "task_adapter_commit": null,
+    "prompt_and_few_shot_config_sha256": null,
+    "answer_extraction_rule": null,
+    "processor_revision_and_config": null,
+    "attempts_per_item": null,
+    "reasoning_and_output_budget_policy": null,
+    "timeout_retry_truncation_policy": null,
+    "tool_or_agent_environment_manifest": null,
+    "development_vs_held_out_split": null,
+    "contamination_limitations": null,
+    "critical_strata_and_metrics": null,
+    "load_run_scoring_sample_policy": null,
+    "per_request_join_key_definition": null,
+    "additional_suite_manifests": [],
+    "calibration_overlap_policy": null,
+    "evaluator_resource_limits": null,
+    "task_episode_definition": null,
+    "evaluator_run_id_and_cache_namespace": null,
+    "unfinished_and_missing_result_policy": null
+  }
 }

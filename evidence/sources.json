@@ -147,7 +147,24 @@
       "response_sha256": "456972faba9c464801fbb272a934767bbceeab02c87d2862491f78784557dc5c",
       "requested_response_url": "https://api.github.com/repos/vllm-project/vllm/releases/latest",
       "response_url": "https://api.github.com/repos/vllm-project/vllm/releases/latest",
-      "response_url_capture": "Request URL recorded in retrieval metadata; final URL was not separately logged."
+      "response_url_capture": "Request URL recorded in retrieval metadata; final URL was not separately logged.",
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:51:50.866039+00:00",
+          "requested_url": "https://github.com/vllm-project/vllm/releases/latest",
+          "response_url": "https://github.com/vllm-project/vllm/releases/tag/v0.31.0",
+          "response_sha256": "43e783c36191beb2d6877cb62171a430d3f83eba83c370e74e0dcc0db4236d93",
+          "observed_release": "v0.31.0",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/upstream-recheck.json"
+        },
+        {
+          "retrieved_at": "2026-10-15T22:51:46.945206+00:00",
+          "requested_url": "https://api.github.com/repos/vllm-project/vllm/releases/latest",
+          "response_sha256": "39b26f6ba49f4846599e4f5626dc999d180a9ee80a90c6d8490e82053c36dbb6",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/moe-research.json",
+          "scope": "Latest stable vLLM observed as v0.31.0; prerelease=false. Documentation/config/source inspection only; no local GPU or model-quality result."
+        }
+      ]
     },
     {
       "id": "GREL",
@@ -168,7 +185,24 @@
       "response_sha256": "eaf401087605280b42d2c4648a618413fb5c1150599c8b5521a92bed6b6117b9",
       "requested_response_url": "https://api.github.com/repos/sgl-project/sglang/releases/latest",
       "response_url": "https://api.github.com/repos/sgl-project/sglang/releases/latest",
-      "response_url_capture": "Request URL recorded in retrieval metadata; final URL was not separately logged."
+      "response_url_capture": "Request URL recorded in retrieval metadata; final URL was not separately logged.",
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:51:50.866620+00:00",
+          "requested_url": "https://github.com/sgl-project/sglang/releases/latest",
+          "response_url": "https://github.com/sgl-project/sglang/releases/tag/v0.5.21",
+          "response_sha256": "7a1b97688824785ec222d0dd67d75dea8c2ebd6f3b7b8d9e264cebc6ed326b52",
+          "observed_release": "v0.5.21",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/upstream-recheck.json"
+        },
+        {
+          "retrieved_at": "2026-10-15T22:51:46.950361+00:00",
+          "requested_url": "https://api.github.com/repos/sgl-project/sglang/releases/latest",
+          "response_sha256": "eaf401087605280b42d2c4648a618413fb5c1150599c8b5521a92bed6b6117b9",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/moe-research.json",
+          "scope": "Latest stable SGLang observed as v0.5.21; prerelease=false. Documentation/config/source inspection only; no local GPU or model-quality result."
+        }
+      ]
     },
     {
       "id": "KREL",
@@ -189,7 +223,24 @@
       "response_sha256": "13638b9524bc1bff2d1d5c6db6cc4fdbb5e2c29cf98753cbecca3fa3255a8fb4",
       "requested_response_url": "https://api.github.com/repos/kserve/kserve/releases/latest",
       "response_url": "https://api.github.com/repos/kserve/kserve/releases/latest",
-      "response_url_capture": "Request URL recorded in retrieval metadata; final URL was not separately logged."
+      "response_url_capture": "Request URL recorded in retrieval metadata; final URL was not separately logged.",
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:51:50.866886+00:00",
+          "requested_url": "https://github.com/kserve/kserve/releases/latest",
+          "response_url": "https://github.com/kserve/kserve/releases/tag/v0.21.0",
+          "response_sha256": "1ab32969c2bcc332f160e7dbb86e78d0709e05eee0d6bbf934e23946f1aca279",
+          "observed_release": "v0.21.0",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/upstream-recheck.json"
+        },
+        {
+          "retrieved_at": "2026-10-15T22:51:47.006663+00:00",
+          "requested_url": "https://api.github.com/repos/kserve/kserve/releases/latest",
+          "response_sha256": "bcf1d82e0c53e4c2c5230f684bd65154c4f86fd254da1cdd9245ca52424eb355",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/moe-research.json",
+          "scope": "Latest stable KServe observed as v0.21.0; prerelease=false. Documentation/config/source inspection only; no local GPU or model-quality result."
+        }
+      ]
     },
     {
       "id": "VHEAD",
@@ -236,7 +287,7 @@
     {
       "id": "VREG",
       "url": "https://github.com/vllm-project/vllm/blob/f8460ef23659afd69046a81529ec2295e4c3f686/vllm/model_executor/models/registry.py",
-      "title": "vLLM model registry, inspected lines 1–350",
+      "title": "vLLM model registry, inspected lines 1\u2013350",
       "kind": "pinned source code",
       "accessed_on": "2026-10-15",
       "capture": "Rechecked by HTTPS during the audit; retrieval timestamp and response SHA-256 recorded.",
@@ -252,7 +303,17 @@
       "response_sha256": "563a61769cb1fb9931f8f4cc0e42dd513eabbcd29870c7d6dbf957157ac337fd",
       "requested_response_url": "https://raw.githubusercontent.com/vllm-project/vllm/f8460ef23659afd69046a81529ec2295e4c3f686/vllm/model_executor/models/registry.py",
       "response_url": "https://raw.githubusercontent.com/vllm-project/vllm/f8460ef23659afd69046a81529ec2295e4c3f686/vllm/model_executor/models/registry.py",
-      "response_url_capture": "Request URL recorded in retrieval metadata; final URL was not separately logged."
+      "response_url_capture": "Request URL recorded in retrieval metadata; final URL was not separately logged.",
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T23:03:12.188303+00:00",
+          "requested_url": "https://raw.githubusercontent.com/vllm-project/vllm/f8460ef23659afd69046a81529ec2295e4c3f686/vllm/model_executor/models/registry.py",
+          "response_url": "https://raw.githubusercontent.com/vllm-project/vllm/f8460ef23659afd69046a81529ec2295e4c3f686/vllm/model_executor/models/registry.py",
+          "response_sha256": "563a61769cb1fb9931f8f4cc0e42dd513eabbcd29870c7d6dbf957157ac337fd",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/hybrid-research.json",
+          "scope": "GlmMoeDsaForCausalLM registers the deepseek_v32 implementation; on CUDA its alias is DeepseekV32ForCausalLM. Selected source registration/alias inspection only; not installed image or runtime qualification."
+        }
+      ]
     },
     {
       "id": "VDS",
@@ -281,7 +342,7 @@
     {
       "id": "GQUANT",
       "url": "https://github.com/sgl-project/sglang/blob/877be2974aa151a984e52822c028276c2b1e9303/python/sglang/srt/layers/quantization/modelopt_quant.py",
-      "title": "SGLang ModelOpt quantization, inspected lines 1–240",
+      "title": "SGLang ModelOpt quantization, inspected lines 1\u2013240",
       "kind": "pinned source code",
       "accessed_on": "2026-10-15",
       "capture": "Rechecked by HTTPS during the audit; retrieval timestamp and response SHA-256 recorded.",
@@ -512,7 +573,16 @@
         "http_status": 200,
         "sha256": "82b892039c064bc6c6ff217488e8690a470a8aa035a7c343e6c09b3e39d52b63",
         "scope": "HTTP retrieval only; see reviewer verification and audit ledgers for claim checks"
-      }
+      },
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:51:46.266624+00:00",
+          "requested_url": "https://huggingface.co/moonshotai/Kimi-K3/raw/f831ab66814297da540d832a5235f8e904f29d06/README.md",
+          "response_sha256": "57de265b5842dfa465c6e73b368b0e15a89b8793b5450528dad577da202cc6fe",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/moe-research.json",
+          "scope": "Publisher reports hybrid KDA/MLA, native vision, always-on reasoning and preservation of complete assistant reasoning/tool history. Benchmark table has publisher-specific effort, sampling, tool and harness settings; it is not a local serving baseline. Documentation/config/source inspection only; no local GPU or model-quality result."
+        }
+      ]
     },
     {
       "id": "kimi-k3-CFG",
@@ -532,7 +602,16 @@
         "http_status": 200,
         "sha256": "9710e121a58d03ac92c8d6da287a19541994319afbbe6d6202af001ffd379213",
         "scope": "HTTP retrieval only; see reviewer verification and audit ledgers for claim checks"
-      }
+      },
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:51:46.266714+00:00",
+          "requested_url": "https://huggingface.co/moonshotai/Kimi-K3/raw/f831ab66814297da540d832a5235f8e904f29d06/config.json",
+          "response_sha256": "9710e121a58d03ac92c8d6da287a19541994319afbbe6d6202af001ffd379213",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/moe-research.json",
+          "scope": "Pinned config has 69 KDA/24 full-attention layers and MXFP4 expert groups of 32 with explicit exclusions. Documentation/config/source inspection only; no local GPU or model-quality result."
+        }
+      ]
     },
     {
       "id": "glm-5.3-CARD",
@@ -557,7 +636,17 @@
         "http_status": 200,
         "sha256": "8e623115b1c5324d6ad76a2eaf6ff4409e766a7f3b361a580d3c7fd3e272dc4c",
         "scope": "HTTP retrieval only; see reviewer verification and audit ledgers for claim checks"
-      }
+      },
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:51:14.472092+00:00",
+          "requested_url": "https://huggingface.co/zai-org/GLM-5.3/raw/ba32f8c19c8738e2c57c71798c601d477a7bf844/README.md",
+          "response_url": "https://huggingface.co/zai-org/GLM-5.3/raw/ba32f8c19c8738e2c57c71798c601d477a7bf844/README.md",
+          "response_sha256": "ed1c0a4563c437a32f8953d637a1db9bd831de1b24bd3062a5ace9e04340b1cf",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/hybrid-research.json",
+          "scope": "Model benchmark planning; documentation/metadata only, no runtime validation."
+        }
+      ]
     },
     {
       "id": "glm-5.3-CFG",
@@ -617,7 +706,17 @@
         "http_status": 200,
         "sha256": "3ac72612095574542f7fff847ada8e59d9199dd8af44bdf625d7e02615572e69",
         "scope": "HTTP retrieval only; see reviewer verification and audit ledgers for claim checks"
-      }
+      },
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:51:14.472635+00:00",
+          "requested_url": "https://huggingface.co/zai-org/GLM-5.3/raw/ba32f8c19c8738e2c57c71798c601d477a7bf844/config.json",
+          "response_url": "https://huggingface.co/zai-org/GLM-5.3/raw/ba32f8c19c8738e2c57c71798c601d477a7bf844/config.json",
+          "response_sha256": "3ac72612095574542f7fff847ada8e59d9199dd8af44bdf625d7e02615572e69",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/hybrid-research.json",
+          "scope": "Model benchmark planning; documentation/metadata only, no runtime validation."
+        }
+      ]
     },
     {
       "id": "glm-5.3-flash-CARD",
@@ -642,7 +741,17 @@
         "http_status": 200,
         "sha256": "47445620d668bfbbaada937b6fd2ca12e8cdefb637bdc3e563981e066035e3e0",
         "scope": "HTTP retrieval only; see reviewer verification and audit ledgers for claim checks"
-      }
+      },
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:51:14.472757+00:00",
+          "requested_url": "https://huggingface.co/zai-org/GLM-5.3-Flash/raw/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/README.md",
+          "response_url": "https://huggingface.co/zai-org/GLM-5.3-Flash/raw/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/README.md",
+          "response_sha256": "e6c5d41400e28f5a89418a0d15b09b9c113314a7553d40d7d4a8a72fcdb87d02",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/hybrid-research.json",
+          "scope": "Model benchmark planning; documentation/metadata only, no runtime validation."
+        }
+      ]
     },
     {
       "id": "glm-5.3-flash-CFG",
@@ -720,7 +829,17 @@
         "http_status": 200,
         "sha256": "bb8f01c42cb92a52ca72e65afb4d5bd8d11aef083cd210e8de25dfb904f23e9f",
         "scope": "HTTP retrieval only; see reviewer verification and audit ledgers for claim checks"
-      }
+      },
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:51:14.472861+00:00",
+          "requested_url": "https://huggingface.co/zai-org/GLM-5.3-Flash/raw/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/config.json",
+          "response_url": "https://huggingface.co/zai-org/GLM-5.3-Flash/raw/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/config.json",
+          "response_sha256": "bb8f01c42cb92a52ca72e65afb4d5bd8d11aef083cd210e8de25dfb904f23e9f",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/hybrid-research.json",
+          "scope": "Model benchmark planning; documentation/metadata only, no runtime validation."
+        }
+      ]
     },
     {
       "id": "deepseek-v4-flash-0731-CARD",
@@ -740,7 +859,16 @@
         "http_status": 200,
         "sha256": "21df1f474814aa73fdd9e7bfe0c27ace86834b74da966a61edba4cdb984b103a",
         "scope": "HTTP retrieval only; see reviewer verification and audit ledgers for claim checks"
-      }
+      },
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:51:46.747882+00:00",
+          "requested_url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/raw/7872f01b1d1fe23eabc4c98b48bffcef5a386062/README.md",
+          "response_sha256": "252acafdc9204d0dba3fde1b0a93d71cd1664a4ceadfe222b60117ed0ccc56ff",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/moe-research.json",
+          "scope": "0731 is the official release with bundled DSpark and custom Python encoding. Publisher vLLM example uses greedy seven-token DSpark; SGLang TP4 example uses bundled DSpark and flashinfer_mxfp4. Publisher recommends 384K output for high/max effort; public agent scores name a harness described as to be released and internal DSBench sets. Documentation/config/source inspection only; no local GPU or model-quality result."
+        }
+      ]
     },
     {
       "id": "deepseek-v4-flash-0731-CFG",
@@ -760,7 +888,16 @@
         "http_status": 200,
         "sha256": "6c8f3d2d3b48707541b88f32f22ef3f0f8a6b57d8523281e2b8d3cdb0ae9a023",
         "scope": "HTTP retrieval only; see reviewer verification and audit ledgers for claim checks"
-      }
+      },
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:51:46.756336+00:00",
+          "requested_url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/raw/7872f01b1d1fe23eabc4c98b48bffcef5a386062/config.json",
+          "response_sha256": "6c8f3d2d3b48707541b88f32f22ef3f0f8a6b57d8523281e2b8d3cdb0ae9a023",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/moe-research.json",
+          "scope": "43 target layers, sliding_window=128, index_topk=512, mixed expert FP4 and FP8 block128 settings, and dspark_block_size=5. Documentation/config/source inspection only; no local GPU or model-quality result."
+        }
+      ]
     },
     {
       "id": "qwen3.8-27b-CARD",
@@ -784,7 +921,17 @@
         "http_status": 200,
         "sha256": "c1af88e0e7826e6083eda8baf55489df5c75b222d78f4f13338ad509b199854b",
         "scope": "HTTP retrieval only; see reviewer verification and audit ledgers for claim checks"
-      }
+      },
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:51:29.967848+00:00",
+          "requested_url": "https://huggingface.co/Qwen/Qwen3.8-27B/raw/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/README.md",
+          "response_url": "https://huggingface.co/Qwen/Qwen3.8-27B/raw/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/README.md",
+          "response_sha256": "57e4bdb258ee1a7d2635c5174ebd4e56abe392505cdb5f8bbb356b0dc4293641",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/dense-research.json",
+          "scope": "Fresh model/benchmark metadata recheck; no runtime validation."
+        }
+      ]
     },
     {
       "id": "qwen3.8-27b-CFG",
@@ -808,7 +955,17 @@
         "http_status": 200,
         "sha256": "191e0af232104ed8b65258cf3fb2b842e288008baca7633c11b82a1ac7203aab",
         "scope": "HTTP retrieval only; see reviewer verification and audit ledgers for claim checks"
-      }
+      },
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:51:29.967927+00:00",
+          "requested_url": "https://huggingface.co/Qwen/Qwen3.8-27B/raw/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/config.json",
+          "response_url": "https://huggingface.co/Qwen/Qwen3.8-27B/raw/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/config.json",
+          "response_sha256": "191e0af232104ed8b65258cf3fb2b842e288008baca7633c11b82a1ac7203aab",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/dense-research.json",
+          "scope": "Fresh model/benchmark metadata recheck; no runtime validation."
+        }
+      ]
     },
     {
       "id": "qwen3.8-flash-next-CARD",
@@ -832,7 +989,17 @@
         "http_status": 200,
         "sha256": "389cc60414157379eb4200fadbc2701195bda8875f7c09362757bbf1aeccec98",
         "scope": "HTTP retrieval only; see reviewer verification and audit ledgers for claim checks"
-      }
+      },
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:51:14.472940+00:00",
+          "requested_url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next/raw/de4b8e4d43b917e7706784d8bb445c9af86a3540/README.md",
+          "response_url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next/raw/de4b8e4d43b917e7706784d8bb445c9af86a3540/README.md",
+          "response_sha256": "35ca37ccc366f1ba478dab33841a2c0c18ce53fd62f291ca05341f7728b225b2",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/hybrid-research.json",
+          "scope": "Model benchmark planning; documentation/metadata only, no runtime validation."
+        }
+      ]
     },
     {
       "id": "qwen3.8-flash-next-CFG",
@@ -855,7 +1022,17 @@
         "http_status": 200,
         "sha256": "889658f2508e8c61d409b02e70e0d78d8d4452ec65aaafbe129805d213d2e74b",
         "scope": "HTTP retrieval only; see reviewer verification and audit ledgers for claim checks"
-      }
+      },
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:51:14.473015+00:00",
+          "requested_url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next/raw/de4b8e4d43b917e7706784d8bb445c9af86a3540/config.json",
+          "response_url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next/raw/de4b8e4d43b917e7706784d8bb445c9af86a3540/config.json",
+          "response_sha256": "889658f2508e8c61d409b02e70e0d78d8d4452ec65aaafbe129805d213d2e74b",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/hybrid-research.json",
+          "scope": "Model benchmark planning; documentation/metadata only, no runtime validation."
+        }
+      ]
     },
     {
       "id": "gemma-4-31b-it-CARD",
@@ -878,7 +1055,17 @@
         "http_status": 200,
         "sha256": "637971a848d0b32289820be8098aa890342c3eb0af81765f457d6c9bba547e2c",
         "scope": "HTTP retrieval only; see reviewer verification and audit ledgers for claim checks"
-      }
+      },
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:51:30.215088+00:00",
+          "requested_url": "https://huggingface.co/google/gemma-4-31B-it/raw/842da3794eaa0b77d5f08bae87a17459d91ff475/README.md",
+          "response_url": "https://huggingface.co/google/gemma-4-31B-it/raw/842da3794eaa0b77d5f08bae87a17459d91ff475/README.md",
+          "response_sha256": "e209f5c435b1e66055bd6d7c29185103ae8d2027a03a96b359335154f206b82b",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/dense-research.json",
+          "scope": "Fresh model/benchmark metadata recheck; no runtime validation."
+        }
+      ]
     },
     {
       "id": "gemma-4-31b-it-CFG",
@@ -901,7 +1088,17 @@
         "http_status": 200,
         "sha256": "e967dd38bc5cfd38bd09a995a7bf4a754075df2b46aba68f7fbb5a791e6d8dd1",
         "scope": "HTTP retrieval only; see reviewer verification and audit ledgers for claim checks"
-      }
+      },
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:51:30.247416+00:00",
+          "requested_url": "https://huggingface.co/google/gemma-4-31B-it/raw/842da3794eaa0b77d5f08bae87a17459d91ff475/config.json",
+          "response_url": "https://huggingface.co/google/gemma-4-31B-it/raw/842da3794eaa0b77d5f08bae87a17459d91ff475/config.json",
+          "response_sha256": "e967dd38bc5cfd38bd09a995a7bf4a754075df2b46aba68f7fbb5a791e6d8dd1",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/dense-research.json",
+          "scope": "Fresh model/benchmark metadata recheck; no runtime validation."
+        }
+      ]
     },
     {
       "id": "mistral-medium-3.5-CARD",
@@ -924,7 +1121,17 @@
         "http_status": 200,
         "sha256": "56627f3796bba25a9147ab30b59417edeb5431b834a347592441c9c6d1ada531",
         "scope": "HTTP retrieval only; see reviewer verification and audit ledgers for claim checks"
-      }
+      },
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:51:30.496312+00:00",
+          "requested_url": "https://huggingface.co/mistralai/Mistral-Medium-3.5-128B/raw/22b2b868a15677cfa6061277ed2f653d1349a9ab/README.md",
+          "response_url": "https://huggingface.co/mistralai/Mistral-Medium-3.5-128B/raw/22b2b868a15677cfa6061277ed2f653d1349a9ab/README.md",
+          "response_sha256": "6d14ac4dba5a4c8b3d652ea67742ee1b41e424772194b8088cd62603d5032465",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/dense-research.json",
+          "scope": "Fresh model/benchmark metadata recheck; no runtime validation."
+        }
+      ]
     },
     {
       "id": "mistral-medium-3.5-CFG",
@@ -947,7 +1154,17 @@
         "http_status": 200,
         "sha256": "7ca553c57c4e78f7653e8504414470a9caad884ebd495bb9f5edee66993b441f",
         "scope": "HTTP retrieval only; see reviewer verification and audit ledgers for claim checks"
-      }
+      },
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:51:30.501442+00:00",
+          "requested_url": "https://huggingface.co/mistralai/Mistral-Medium-3.5-128B/raw/22b2b868a15677cfa6061277ed2f653d1349a9ab/config.json",
+          "response_url": "https://huggingface.co/mistralai/Mistral-Medium-3.5-128B/raw/22b2b868a15677cfa6061277ed2f653d1349a9ab/config.json",
+          "response_sha256": "6ebadc48e3bdfff1a6a0b863530c68c9725a49eecd21c0527bdcb21b822f4d71",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/dense-research.json",
+          "scope": "Fresh model/benchmark metadata recheck; no runtime validation."
+        }
+      ]
     },
     {
       "id": "kimi-k3-NV",
@@ -967,7 +1184,16 @@
         "http_status": 200,
         "sha256": "f1eef2933adf487b8e14a1f3cbb86a86cad2b2950fe71020dd59835a53e9cca3",
         "scope": "HTTP retrieval only; see reviewer verification and audit ledgers for claim checks"
-      }
+      },
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:51:46.438010+00:00",
+          "requested_url": "https://huggingface.co/nvidia/Kimi-K3-NVFP4/raw/b2428a0b83a8b712ff2e1a8448a103d4175341f1/README.md",
+          "response_sha256": "b69e225f94bc0e822c5362ae1bc79bcedc75883aba9ccc4d6b573ebcb90cdbeb",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/moe-research.json",
+          "scope": "Publisher export converts routed experts to NVFP4 and selected KDA/MLA attention weights to per-block FP8. Card documents SGLang flashinfer_trtllm requirement and a separately patched vLLM route. Documentation/config/source inspection only; no local GPU or model-quality result."
+        }
+      ]
     },
     {
       "id": "kimi-k3-DRAFT",
@@ -987,7 +1213,16 @@
         "http_status": 200,
         "sha256": "db4b7b6773dafb53c2fabf1019ea4a295328374b0f9ac04e6d8d34bec171d37d",
         "scope": "HTTP retrieval only; see reviewer verification and audit ledgers for claim checks"
-      }
+      },
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:51:46.485877+00:00",
+          "requested_url": "https://huggingface.co/Inferact/Kimi-K3-DSpark/raw/cf6b8244620e7ea4b0651d214f28e89eac75bed6/README.md",
+          "response_sha256": "4734eec1b55b5b40b4050512a029808aea117f24440dcaf27815efd1127a88dc",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/moe-research.json",
+          "scope": "Inferact card documents MLA draft for vLLM and workload-specific acceptance; peak hardware-count/TP16 wording remains ambiguous. Documentation/config/source inspection only; no local GPU or model-quality result."
+        }
+      ]
     },
     {
       "id": "kimi-k3-DRAFT-SG",
@@ -1007,7 +1242,16 @@
         "http_status": 200,
         "sha256": "d24b0624a5d304495bb605784d194872e4ad34a547257eecf917ef7b00d2d091",
         "scope": "HTTP retrieval only; see reviewer verification and audit ledgers for claim checks"
-      }
+      },
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:51:46.614222+00:00",
+          "requested_url": "https://huggingface.co/RadixArk/Kimi-K3-DSpark/raw/3c5bac301d9cf392706189d82ed947feca6c2f0f/README.md",
+          "response_sha256": "22b64d04df857096a6fa0d2f1e7dbd40275973e999be9358a067211dec4bdf0a",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/moe-research.json",
+          "scope": "RadixArk card documents SGLang full-attention draft, default block size 7 and request/question-based acceptance aggregation. Documentation/config/source inspection only; no local GPU or model-quality result."
+        }
+      ]
     },
     {
       "id": "kimi-k3-VR",
@@ -1026,7 +1270,16 @@
         "http_status": 200,
         "sha256": "4053f2630d44c41cf41c6be9d03e91bb5a1cfdb158682dda77ed2f3a4915695e",
         "scope": "HTTP retrieval only; see reviewer verification and audit ledgers for claim checks"
-      }
+      },
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:51:46.806106+00:00",
+          "requested_url": "https://recipes.vllm.ai/moonshotai/Kimi-K3",
+          "response_sha256": "4053f2630d44c41cf41c6be9d03e91bb5a1cfdb158682dda77ed2f3a4915695e",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/moe-research.json",
+          "scope": "Mutable recipe distinguishes native target/draft paths and hardware/backend controls; no recipe command was executed. Documentation/config/source inspection only; no local GPU or model-quality result. Mutable recipe observation; complete image/dependency compatibility remains unverified."
+        }
+      ]
     },
     {
       "id": "kimi-k3-GR",
@@ -1045,7 +1298,16 @@
         "http_status": 200,
         "sha256": "eda082ae8483c160ba78990b224ff013aeae0fe4d40f897a2c28a8fb37b56443",
         "scope": "HTTP retrieval only; see reviewer verification and audit ledgers for claim checks"
-      }
+      },
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:51:46.830888+00:00",
+          "requested_url": "https://docs.sglang.io/cookbook/autoregressive/Moonshotai/Kimi-K3",
+          "response_sha256": "15202c3eafa51c5ebdbdbdc9c627aca9f402c494efeabc8cf0b9e53430ce7811",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/moe-research.json",
+          "scope": "Cookbook distinguishes KDA state slots, DCP-sharded target MLA cache and replicated RadixArk draft cache. B300 DSpark speed rows use SGLANG_SIMULATE_ACC_LEN=4.5; these are not natural acceptance measurements. DCP disables symmetric memory; dtype and ReplaySSM changes may alter kernels/allocation. Cookbook also names DFLASH with modal-labs/Kimi-K3-DFlash, block size 8, Blackwell-only validation and no pipeline parallelism or DP-attention support. Documentation/config/source inspection only; no local GPU or model-quality result. Mutable recipe observation; complete image/dependency compatibility remains unverified. DFLASH artifact revision, target/export compatibility and exact engine build were not audited; validation page records only a deferred candidate."
+        }
+      ]
     },
     {
       "id": "glm-5.3-NV",
@@ -1070,7 +1332,17 @@
         "http_status": 200,
         "sha256": "bc83367f89dde80b33a26a6e994165c8db10cba369ff190ce1fbbd6a68698a70",
         "scope": "HTTP retrieval only; see reviewer verification and audit ledgers for claim checks"
-      }
+      },
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:51:14.473090+00:00",
+          "requested_url": "https://huggingface.co/RedHatAI/GLM-5.3-NVFP4/raw/c8917e4258572c405575855ff53effe58c17a38e/README.md",
+          "response_url": "https://huggingface.co/RedHatAI/GLM-5.3-NVFP4/raw/c8917e4258572c405575855ff53effe58c17a38e/README.md",
+          "response_sha256": "278170e63b2b2d1167df93af014ed67469511b1ffbe01f429aa3cb3245cd1f82",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/hybrid-research.json",
+          "scope": "Model benchmark planning; documentation/metadata only, no runtime validation."
+        }
+      ]
     },
     {
       "id": "glm-5.3-VR",
@@ -1092,7 +1364,17 @@
         "http_status": 200,
         "sha256": "966f2ecd6b390ed210767c9eca8338851161786e486d9acce9a2af49cf42e157",
         "scope": "HTTP retrieval only; see reviewer verification and audit ledgers for claim checks"
-      }
+      },
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:52:22.845278+00:00",
+          "requested_url": "https://recipes.vllm.ai/zai-org/GLM-5.3",
+          "response_url": "https://recipes.vllm.ai/zai-org/GLM-5.3",
+          "response_sha256": "966f2ecd6b390ed210767c9eca8338851161786e486d9acce9a2af49cf42e157",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/hybrid-research.json",
+          "scope": "Model benchmark planning; documentation/metadata only, no runtime validation."
+        }
+      ]
     },
     {
       "id": "glm-5.3-GR",
@@ -1114,7 +1396,17 @@
         "http_status": 200,
         "sha256": "61a55ce952e9bc7ed5f7a212e2806a2e338226530a61046151bdb05ab279d701",
         "scope": "HTTP retrieval only; see reviewer verification and audit ledgers for claim checks"
-      }
+      },
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:52:22.845666+00:00",
+          "requested_url": "https://docs.sglang.io/cookbook/autoregressive/GLM/GLM-5.3",
+          "response_url": "https://docs.sglang.io/cookbook/autoregressive/GLM/GLM-5.3",
+          "response_sha256": "ca90d07edbf8f9480e366a7e54972899aef2fde1e22cc4b8f9961a2867f624ba",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/hybrid-research.json",
+          "scope": "Model benchmark planning; documentation/metadata only, no runtime validation."
+        }
+      ]
     },
     {
       "id": "glm-5.3-flash-VR",
@@ -1136,7 +1428,17 @@
         "http_status": 200,
         "sha256": "923d16c64e3836f24d65621c1ca590487fb476bb022ed12c68076c44ca4b238b",
         "scope": "HTTP retrieval only; see reviewer verification and audit ledgers for claim checks"
-      }
+      },
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:52:22.845802+00:00",
+          "requested_url": "https://recipes.vllm.ai/zai-org/GLM-5.3-Flash",
+          "response_url": "https://recipes.vllm.ai/zai-org/GLM-5.3-Flash",
+          "response_sha256": "923d16c64e3836f24d65621c1ca590487fb476bb022ed12c68076c44ca4b238b",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/hybrid-research.json",
+          "scope": "Model benchmark planning; documentation/metadata only, no runtime validation."
+        }
+      ]
     },
     {
       "id": "glm-5.3-flash-GR",
@@ -1158,7 +1460,17 @@
         "http_status": 200,
         "sha256": "861a5fbaf239aa18ea0d0a609ea4c89a87a85eb8e2cd6f780cce253cc42ad3b7",
         "scope": "HTTP retrieval only; see reviewer verification and audit ledgers for claim checks"
-      }
+      },
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:52:22.845920+00:00",
+          "requested_url": "https://docs.sglang.io/cookbook/autoregressive/GLM/GLM-5.3-Flash",
+          "response_url": "https://docs.sglang.io/cookbook/autoregressive/GLM/GLM-5.3-Flash",
+          "response_sha256": "8da11cf9b0a06e69efe646a85ea35477cf2689917ddb44a7e232302fff4e07f1",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/hybrid-research.json",
+          "scope": "Model benchmark planning; documentation/metadata only, no runtime validation."
+        }
+      ]
     },
     {
       "id": "deepseek-v4-flash-0731-VR",
@@ -1170,14 +1482,23 @@
       "notes": "",
       "immutable_url": null,
       "revision": null,
-      "verification": "TP1/DP4+EP Blackwell baseline and exact 0731 DSpark path checked. Probabilistic 7-token recipe differs from the publisher’s greedy example.",
+      "verification": "TP1/DP4+EP Blackwell baseline and exact 0731 DSpark path checked. Probabilistic 7-token recipe differs from the publisher\u2019s greedy example.",
       "initial_url_access_check": {
         "url": "https://recipes.vllm.ai/deepseek-ai/DeepSeek-V4-Flash?features=tool_calling,reasoning&hardware=b300",
         "attempted_at_utc": "2026-10-15T21:52:23.586668+00:00",
         "http_status": 200,
         "sha256": "69233fe21ba95f8ebdec131404be72277287bb023054d318c45b73a1aa664155",
         "scope": "HTTP retrieval only; see reviewer verification and audit ledgers for claim checks"
-      }
+      },
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:51:46.888843+00:00",
+          "requested_url": "https://recipes.vllm.ai/deepseek-ai/DeepSeek-V4-Flash?features=tool_calling,reasoning&hardware=b300",
+          "response_sha256": "69233fe21ba95f8ebdec131404be72277287bb023054d318c45b73a1aa664155",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/moe-research.json",
+          "scope": "Mutable recipe uses TP1/DP4+EP Blackwell path and probabilistic seven-proposal DSpark for 0731. FP4 indexer cache is independent of checkpoint expert precision; installed flag/default must be checked. Documentation/config/source inspection only; no local GPU or model-quality result. Mutable recipe observation; complete image/dependency compatibility remains unverified."
+        }
+      ]
     },
     {
       "id": "deepseek-v4-flash-0731-FAMILY",
@@ -1221,7 +1542,17 @@
         "http_status": 200,
         "sha256": "92831f2cd30390dc184041032fa8c53bd90f6c7e9d82d34b22729e1eae8c17de",
         "scope": "HTTP retrieval only; see reviewer verification and audit ledgers for claim checks"
-      }
+      },
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:51:29.968289+00:00",
+          "requested_url": "https://huggingface.co/Qwen/Qwen3.8-27B-FP8/raw/017b9c7af6b5689d5dd426a76e0bc077eb5ca20a/README.md",
+          "response_url": "https://huggingface.co/Qwen/Qwen3.8-27B-FP8/raw/017b9c7af6b5689d5dd426a76e0bc077eb5ca20a/README.md",
+          "response_sha256": "a247d876f5398eed9ae898f32a984083552de57237b5e20714657e1675e26d2e",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/dense-research.json",
+          "scope": "Fresh model/benchmark metadata recheck; no runtime validation."
+        }
+      ]
     },
     {
       "id": "qwen3.8-27b-NV",
@@ -1245,7 +1576,17 @@
         "http_status": 200,
         "sha256": "f83bd7ddc25589fe157c14f2b5b1ce71126db67e66e1a21a6f27416fbb33cb12",
         "scope": "HTTP retrieval only; see reviewer verification and audit ledgers for claim checks"
-      }
+      },
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:51:30.169376+00:00",
+          "requested_url": "https://huggingface.co/nvidia/Qwen3.8-27B-NVFP4/raw/482ca0f3832238542f8f5295dde86b5f22711d80/README.md",
+          "response_url": "https://huggingface.co/nvidia/Qwen3.8-27B-NVFP4/raw/482ca0f3832238542f8f5295dde86b5f22711d80/README.md",
+          "response_sha256": "2dc5368ce2dda4393818fc3c6e587d588ec7b7f599b1f3a326d97dc271e3866d",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/dense-research.json",
+          "scope": "Fresh model/benchmark metadata recheck; no runtime validation."
+        }
+      ]
     },
     {
       "id": "qwen3.8-27b-VR",
@@ -1313,7 +1654,17 @@
         "http_status": 200,
         "sha256": "2625c07ab7890426f7cc6b5beb6f4298b3b880890fbbe0864142407f12caf6e9",
         "scope": "HTTP retrieval only; see reviewer verification and audit ledgers for claim checks"
-      }
+      },
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:51:14.473159+00:00",
+          "requested_url": "https://huggingface.co/nvidia/Qwen3.8-Flash-Next-NVFP4/raw/fc694b54fb0174e0913e6adf86691ef85a4ead47/README.md",
+          "response_url": "https://huggingface.co/nvidia/Qwen3.8-Flash-Next-NVFP4/raw/fc694b54fb0174e0913e6adf86691ef85a4ead47/README.md",
+          "response_sha256": "e3ed0cb89950ef0f41e8df344ba1cc15c67e1baf91e1cb5305a7344e58a8d975",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/hybrid-research.json",
+          "scope": "Model benchmark planning; documentation/metadata only, no runtime validation."
+        }
+      ]
     },
     {
       "id": "qwen3.8-flash-next-VR",
@@ -1335,7 +1686,17 @@
         "http_status": 200,
         "sha256": "40c136f1e02e704b41f9e716806cc5c57ed380f74a205e2a0fa4dfe7d8dfb599",
         "scope": "HTTP retrieval only; see reviewer verification and audit ledgers for claim checks"
-      }
+      },
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:52:22.846009+00:00",
+          "requested_url": "https://recipes.vllm.ai/Qwen/Qwen3.8-Flash-Next",
+          "response_url": "https://recipes.vllm.ai/Qwen/Qwen3.8-Flash-Next",
+          "response_sha256": "40c136f1e02e704b41f9e716806cc5c57ed380f74a205e2a0fa4dfe7d8dfb599",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/hybrid-research.json",
+          "scope": "Model benchmark planning; documentation/metadata only, no runtime validation."
+        }
+      ]
     },
     {
       "id": "gemma-4-31b-it-FP8",
@@ -1358,7 +1719,17 @@
         "http_status": 200,
         "sha256": "708589b6161dae24e0c80b5195ae352577e2db10c920e7c85eb45ae2bd3644be",
         "scope": "HTTP retrieval only; see reviewer verification and audit ledgers for claim checks"
-      }
+      },
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:51:30.336119+00:00",
+          "requested_url": "https://huggingface.co/RedHatAI/gemma-4-31B-it-FP8-block/raw/d7242548c457ab4b45bd3adb8937f2659af4739d/README.md",
+          "response_url": "https://huggingface.co/RedHatAI/gemma-4-31B-it-FP8-block/raw/d7242548c457ab4b45bd3adb8937f2659af4739d/README.md",
+          "response_sha256": "4c9e4e3440cd22cb702d5f638bb595ffe6437fbe4bd84cd7208390bb51c17c99",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/dense-research.json",
+          "scope": "Fresh model/benchmark metadata recheck; no runtime validation."
+        }
+      ]
     },
     {
       "id": "gemma-4-31b-it-NV",
@@ -1381,7 +1752,17 @@
         "http_status": 200,
         "sha256": "85e1372a5408202c90e1697c1ed670515999db17b724d8bdb5701ddcf601e113",
         "scope": "HTTP retrieval only; see reviewer verification and audit ledgers for claim checks"
-      }
+      },
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:51:30.370269+00:00",
+          "requested_url": "https://huggingface.co/RedHatAI/gemma-4-31B-it-NVFP4/raw/5df75ccad9b74546f5be758a2a68acc2e16bbc9b/README.md",
+          "response_url": "https://huggingface.co/RedHatAI/gemma-4-31B-it-NVFP4/raw/5df75ccad9b74546f5be758a2a68acc2e16bbc9b/README.md",
+          "response_sha256": "353739bf71e2688b9ac6c26bd3914676543699d17f6ccb345c9373094c01353b",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/dense-research.json",
+          "scope": "Fresh model/benchmark metadata recheck; no runtime validation."
+        }
+      ]
     },
     {
       "id": "mistral-medium-3.5-TREE",
@@ -1432,7 +1813,7 @@
     {
       "id": "GREG",
       "url": "https://github.com/sgl-project/sglang/blob/877be2974aa151a984e52822c028276c2b1e9303/python/sglang/srt/models/registry.py",
-      "title": "SGLang registry, inspected lines 1–159",
+      "title": "SGLang registry, inspected lines 1\u2013159",
       "kind": "pinned source code",
       "accessed_on": "2026-10-15",
       "capture": "Rechecked by HTTPS during the audit; retrieval timestamp and response SHA-256 recorded.",
@@ -1472,7 +1853,16 @@
       "accessed_on": "2026-10-15",
       "verification": "Parsed immutable ModelOpt mixed-precision configuration: expert groups of 16 and FP8_PB_WO attention entries. Module aliases are not counted as distinct layers.",
       "capture": "Metadata/text retrieved for review; complete response body not bundled",
-      "notes": ""
+      "notes": "",
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:51:46.443169+00:00",
+          "requested_url": "https://huggingface.co/nvidia/Kimi-K3-NVFP4/raw/b2428a0b83a8b712ff2e1a8448a103d4175341f1/config.json",
+          "response_sha256": "66ff1cc0486ab1a0901ce5e1f8bc00ad075ff263fc357991d6c23b6e756706b5",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/moe-research.json",
+          "scope": "Config declares mixed quantization with expert group size 16 and FP8_PB_WO attention entries; base dtype is not a full precision map. Documentation/config/source inspection only; no local GPU or model-quality result."
+        }
+      ]
     },
     {
       "id": "kimi-k3-NV-LICENSE",
@@ -1496,7 +1886,16 @@
       "accessed_on": "2026-10-15",
       "verification": "Five K3DSparkModel layers; target feature IDs [2, 23, 47, 71, 89]. Token and positional settings checked.",
       "capture": "Metadata/text retrieved for review; complete response body not bundled",
-      "notes": ""
+      "notes": "",
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:51:46.503408+00:00",
+          "requested_url": "https://huggingface.co/Inferact/Kimi-K3-DSpark/raw/cf6b8244620e7ea4b0651d214f28e89eac75bed6/config.json",
+          "response_sha256": "5a3c2f4f91c965ed93b14de5f12a4e9c17fd98d8c99916ed2deb26ce8702f970",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/moe-research.json",
+          "scope": "Target feature IDs [2,23,47,71,89] and MLA fields distinguish this draft from the SGLang artifact. Documentation/config/source inspection only; no local GPU or model-quality result."
+        }
+      ]
     },
     {
       "id": "kimi-k3-DRAFT-SG-CFG",
@@ -1508,7 +1907,16 @@
       "accessed_on": "2026-10-15",
       "verification": "Five full-attention layers, 64 query heads, 16 KV heads, feature IDs [7, 23, 51, 67, 83] and block size 7 verified.",
       "capture": "Metadata/text retrieved for review; complete response body not bundled",
-      "notes": ""
+      "notes": "",
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:51:46.633371+00:00",
+          "requested_url": "https://huggingface.co/RadixArk/Kimi-K3-DSpark/raw/3c5bac301d9cf392706189d82ed947feca6c2f0f/config.json",
+          "response_sha256": "410dd228c75ff91b57af8a1581d44d2ea096d5604f0d37fbd400470e90d961d3",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/moe-research.json",
+          "scope": "Target feature IDs [7,23,51,67,83], 64 query/16 KV heads and block_size=7 differ from Inferact. Documentation/config/source inspection only; no local GPU or model-quality result."
+        }
+      ]
     },
     {
       "id": "KIMIVPR-MIXED",
@@ -1573,7 +1981,16 @@
       "accessed_on": "2026-10-15",
       "verification": "Reference config sets 43 target layers and 3 draft stages; mixed FP4/FP8 settings and all 46 compression entries checked.",
       "capture": "Metadata/text retrieved for review; complete response body not bundled",
-      "notes": ""
+      "notes": "",
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:51:46.765761+00:00",
+          "requested_url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/raw/7872f01b1d1fe23eabc4c98b48bffcef5a386062/inference/config.json",
+          "response_sha256": "c90861f3d10a9e4ef5954f8f1a34c529d480da1c5799f84660028f4e38e14e71",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/moe-research.json",
+          "scope": "Reference inference has three DSpark stages despite root num_nextn_predict_layers=1. Documentation/config/source inspection only; no local GPU or model-quality result."
+        }
+      ]
     },
     {
       "id": "deepseek-v4-flash-0731-INFER-SRC",
@@ -1585,7 +2002,16 @@
       "accessed_on": "2026-10-15",
       "verification": "Packed FP4 with groups of 32/E8M0 scales, FP8 blocks of 128, zero-based feature IDs and DSparkBlock construction checked. Source inspection only.",
       "capture": "Metadata/text retrieved for review; complete response body not bundled",
-      "notes": ""
+      "notes": "",
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:51:46.783809+00:00",
+          "requested_url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/raw/7872f01b1d1fe23eabc4c98b48bffcef5a386062/inference/model.py",
+          "response_sha256": "c0c19e6c9fa439bac7fbb1c5bc1868232dfd5aa2f439a548d0e33dcc2a9edd3f",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/moe-research.json",
+          "scope": "Reference source exposes bundled DSparkBlock construction, FP4 expert scaling and model-specific MoE/attention operations; not executed. Documentation/config/source inspection only; no local GPU or model-quality result."
+        }
+      ]
     },
     {
       "id": "deepseek-v4-flash-0731-ENC",
@@ -1597,7 +2023,16 @@
       "accessed_on": "2026-10-15",
       "verification": "Dedicated Python encoding/parsing contract and reasoning modes reviewed.",
       "capture": "Metadata/text retrieved for review; complete response body not bundled",
-      "notes": ""
+      "notes": "",
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:51:46.788097+00:00",
+          "requested_url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/raw/7872f01b1d1fe23eabc4c98b48bffcef5a386062/encoding/README.md",
+          "response_sha256": "294ed6493ebfe5a487f172154d60c494899997fed8806fdd3352dd8e3c33f9de",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/moe-research.json",
+          "scope": "Encoding helper has DSML tool grammar, typed arguments, call/result ordering and distinct reasoning preservation for tool versus ordinary chat. reasoning_effort is ineffective in chat mode; reference parser expects well-formed output. Documentation/config/source inspection only; no local GPU or model-quality result."
+        }
+      ]
     },
     {
       "id": "deepseek-v4-flash-0731-GR",
@@ -1609,7 +2044,16 @@
       "accessed_on": "2026-10-15",
       "verification": "Exact 0731 TP4/flashinfer_mxfp4/DSpark command; upstream reports 4 GB300 GPUs with v0.5.16. Parser names and 5 proposals/6 verification tokens checked; 304B scope unresolved.",
       "capture": "Metadata/text retrieved for review; complete response body not bundled",
-      "notes": ""
+      "notes": "",
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:51:46.914506+00:00",
+          "requested_url": "https://docs.sglang.io/cookbook/autoregressive/DeepSeek/DeepSeek-V4",
+          "response_sha256": "1ec0cc71bfaa1b4c06730ddb600c23f3e4ca147f3e54a902f28a983221732668",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/moe-research.json",
+          "scope": "Cookbook reports 0731 TP4+DSpark end-to-end on four GB300 GPUs with SGLang 0.5.16. SGLang default is five proposals/six verify positions, supports a documented 1-5 downward sweep and same-recipe target-only comparison. Cookbook also names exact NVIDIA 0731 NVFP4 derivative; new arm requires independent qualification. Family cookbook documents C4/C128 compressed-attention-state precision separately from weights/main KV: SGLANG_DSV4_COMPRESS_STATE_DTYPE with FP32 default and optional BF16 offline-compression state; automatic pool capacity can change. Documentation/config/source inspection only; no local GPU or model-quality result. Mutable recipe observation; complete image/dependency compatibility remains unverified. Compressed-state BF16 example names earlier DeepSeek-V4-Flash, so it is not exact 0731 support evidence; proposed plan records/fixes effective state dtype and qualifies any new path separately."
+        }
+      ]
     },
     {
       "id": "glm-5.3-INDEX",
@@ -1660,7 +2104,17 @@
       "retrieved_at": "2026-10-15T22:01:30.436183+00:00",
       "http_status": 200,
       "sha256": "9bdaa8b83a653f3ccac2a140d1c3880929d6f16e4a2b38d03e358b9fad0ee95f",
-      "bytes": 14214
+      "bytes": 14214,
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:52:22.846091+00:00",
+          "requested_url": "https://huggingface.co/zai-org/GLM-5.3-BF16/raw/abf42e6c0e53bc29a875511301e7b7fcd220315b/README.md",
+          "response_url": "https://huggingface.co/zai-org/GLM-5.3-BF16/raw/abf42e6c0e53bc29a875511301e7b7fcd220315b/README.md",
+          "response_sha256": "9bdaa8b83a653f3ccac2a140d1c3880929d6f16e4a2b38d03e358b9fad0ee95f",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/hybrid-research.json",
+          "scope": "Model benchmark planning; documentation/metadata only, no runtime validation."
+        }
+      ]
     },
     {
       "id": "glm-5.3-BF16-CFG",
@@ -1677,7 +2131,17 @@
       "retrieved_at": "2026-10-15T22:01:30.436256+00:00",
       "http_status": 200,
       "sha256": "ca8f2f47b07919a514c0ca223dc2ea2bc7445afaa5ac76c013a3784e096426ca",
-      "bytes": 3732
+      "bytes": 3732,
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:51:14.650439+00:00",
+          "requested_url": "https://huggingface.co/zai-org/GLM-5.3-BF16/raw/abf42e6c0e53bc29a875511301e7b7fcd220315b/config.json",
+          "response_url": "https://huggingface.co/zai-org/GLM-5.3-BF16/raw/abf42e6c0e53bc29a875511301e7b7fcd220315b/config.json",
+          "response_sha256": "ca8f2f47b07919a514c0ca223dc2ea2bc7445afaa5ac76c013a3784e096426ca",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/hybrid-research.json",
+          "scope": "Model benchmark planning; documentation/metadata only, no runtime validation."
+        }
+      ]
     },
     {
       "id": "glm-5.3-BF16-INDEX",
@@ -1719,7 +2183,17 @@
         "weights_bits": 4,
         "activation_bits": 4,
         "mtp_ignore_pattern": "re:^model\\.layers\\.78\\..*"
-      }
+      },
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:51:14.653857+00:00",
+          "requested_url": "https://huggingface.co/RedHatAI/GLM-5.3-NVFP4/raw/c8917e4258572c405575855ff53effe58c17a38e/config.json",
+          "response_url": "https://huggingface.co/RedHatAI/GLM-5.3-NVFP4/raw/c8917e4258572c405575855ff53effe58c17a38e/config.json",
+          "response_sha256": "5fd3cbff61c6c8a6f1f6bc16b8ec68e4aca4ce1ddf4a5b87b54067d6a4ab9765",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/hybrid-research.json",
+          "scope": "Model benchmark planning; documentation/metadata only, no runtime validation."
+        }
+      ]
     },
     {
       "id": "glm-5.3-NV-INDEX",
@@ -1776,7 +2250,17 @@
         "quant_algo": "NVFP4",
         "group_size": 16,
         "mtp_experts_excluded": "model.layers.78.mlp.experts"
-      }
+      },
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:51:14.659942+00:00",
+          "requested_url": "https://huggingface.co/Inferact/GLM-5.3-NVFP4/raw/ce67b36f3669192b5bb233819f0fda6c8a9837f8/config.json",
+          "response_url": "https://huggingface.co/Inferact/GLM-5.3-NVFP4/raw/ce67b36f3669192b5bb233819f0fda6c8a9837f8/config.json",
+          "response_sha256": "44ffebdc4bf4f99b74932908896da5ba1e09b88a15edebf8d065232669193d9c",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/hybrid-research.json",
+          "scope": "Model benchmark planning; documentation/metadata only, no runtime validation."
+        }
+      ]
     },
     {
       "id": "glm-5.3-INFERACT-INDEX",
@@ -1881,7 +2365,17 @@
       "retrieved_at": "2026-10-15T22:01:31.066025+00:00",
       "http_status": 200,
       "sha256": "5c48ce1a84c5901ab96d602333e9201fa385a73e9c298fab3467183b8b95a549",
-      "bytes": 8033
+      "bytes": 8033,
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:52:22.846175+00:00",
+          "requested_url": "https://huggingface.co/zai-org/GLM-5.3-Flash-BF16/raw/f9fed3bbc82291073373d67452e9f25317ef7577/README.md",
+          "response_url": "https://huggingface.co/zai-org/GLM-5.3-Flash-BF16/raw/f9fed3bbc82291073373d67452e9f25317ef7577/README.md",
+          "response_sha256": "5c48ce1a84c5901ab96d602333e9201fa385a73e9c298fab3467183b8b95a549",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/hybrid-research.json",
+          "scope": "Model benchmark planning; documentation/metadata only, no runtime validation."
+        }
+      ]
     },
     {
       "id": "glm-5.3-flash-BF16-CFG",
@@ -1898,7 +2392,17 @@
       "retrieved_at": "2026-10-15T22:01:31.068111+00:00",
       "http_status": 200,
       "sha256": "33e63ec7fe607658be712bd6dd3c16c6549960d8e7f0483d34b939881b55f943",
-      "bytes": 5939
+      "bytes": 5939,
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:51:14.663053+00:00",
+          "requested_url": "https://huggingface.co/zai-org/GLM-5.3-Flash-BF16/raw/f9fed3bbc82291073373d67452e9f25317ef7577/config.json",
+          "response_url": "https://huggingface.co/zai-org/GLM-5.3-Flash-BF16/raw/f9fed3bbc82291073373d67452e9f25317ef7577/config.json",
+          "response_sha256": "33e63ec7fe607658be712bd6dd3c16c6549960d8e7f0483d34b939881b55f943",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/hybrid-research.json",
+          "scope": "Model benchmark planning; documentation/metadata only, no runtime validation."
+        }
+      ]
     },
     {
       "id": "glm-5.3-flash-BF16-INDEX",
@@ -1932,7 +2436,17 @@
       "retrieved_at": "2026-10-15T22:01:31.232773+00:00",
       "http_status": 200,
       "sha256": "c8d3f90d37e4d0c073f182bf785f6753c2a43ef5885abce0461586f266c195e2",
-      "bytes": 3469
+      "bytes": 3469,
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:51:14.663123+00:00",
+          "requested_url": "https://huggingface.co/RedHatAI/GLM-5.3-Flash-NVFP4/raw/18d55bfd5a2194887738da73753975c9d3842f46/README.md",
+          "response_url": "https://huggingface.co/RedHatAI/GLM-5.3-Flash-NVFP4/raw/18d55bfd5a2194887738da73753975c9d3842f46/README.md",
+          "response_sha256": "c8d3f90d37e4d0c073f182bf785f6753c2a43ef5885abce0461586f266c195e2",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/hybrid-research.json",
+          "scope": "Model benchmark planning; documentation/metadata only, no runtime validation."
+        }
+      ]
     },
     {
       "id": "glm-5.3-flash-NV-CFG",
@@ -1965,7 +2479,17 @@
         ],
         "mtp_activation_bits": 8,
         "other_modules": "explicit exclusions"
-      }
+      },
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:51:14.668390+00:00",
+          "requested_url": "https://huggingface.co/RedHatAI/GLM-5.3-Flash-NVFP4/raw/18d55bfd5a2194887738da73753975c9d3842f46/config.json",
+          "response_url": "https://huggingface.co/RedHatAI/GLM-5.3-Flash-NVFP4/raw/18d55bfd5a2194887738da73753975c9d3842f46/config.json",
+          "response_sha256": "29c9f4171196910e99b9c069d6b76c56e3cdcd0f436dc1bacbc9513c9a7529ac",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/hybrid-research.json",
+          "scope": "Model benchmark planning; documentation/metadata only, no runtime validation."
+        }
+      ]
     },
     {
       "id": "glm-5.3-flash-NV-INDEX",
@@ -2015,7 +2539,17 @@
       "revision_resolution_url": "https://huggingface.co/api/models/Qwen/Qwen3.8-27B-FP8",
       "verification": "Publisher-owned repository API and immutable raw metadata retrieved successfully; no model weights downloaded.",
       "capture": "Immutable metadata bytes retrieved during audit; only retrieval hashes and observations are retained in the repository audit ledger.",
-      "notes": ""
+      "notes": "",
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:51:29.968365+00:00",
+          "requested_url": "https://huggingface.co/Qwen/Qwen3.8-27B-FP8/raw/017b9c7af6b5689d5dd426a76e0bc077eb5ca20a/config.json",
+          "response_url": "https://huggingface.co/Qwen/Qwen3.8-27B-FP8/raw/017b9c7af6b5689d5dd426a76e0bc077eb5ca20a/config.json",
+          "response_sha256": "74227dd615bf1ea975aa676bdf355a0379858c12f394b5365cd9dfa5fc2c70bc",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/dense-research.json",
+          "scope": "Fresh model/benchmark metadata recheck; no runtime validation."
+        }
+      ]
     },
     {
       "id": "qwen3.8-27b-NV-CFG",
@@ -2031,7 +2565,17 @@
       "revision_resolution_url": "https://huggingface.co/api/models/nvidia/Qwen3.8-27B-NVFP4",
       "verification": "Publisher-owned repository API and immutable raw metadata retrieved successfully; no model weights downloaded.",
       "capture": "Immutable metadata bytes retrieved during audit; only retrieval hashes and observations are retained in the repository audit ledger.",
-      "notes": ""
+      "notes": "",
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:51:30.172634+00:00",
+          "requested_url": "https://huggingface.co/nvidia/Qwen3.8-27B-NVFP4/raw/482ca0f3832238542f8f5295dde86b5f22711d80/config.json",
+          "response_url": "https://huggingface.co/nvidia/Qwen3.8-27B-NVFP4/raw/482ca0f3832238542f8f5295dde86b5f22711d80/config.json",
+          "response_sha256": "71fa01bb64de20971045cd82a82c0ebb25a54e1b0a3f09ef23cf5479e9c54df8",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/dense-research.json",
+          "scope": "Fresh model/benchmark metadata recheck; no runtime validation."
+        }
+      ]
     },
     {
       "id": "qwen3.8-27b-NV-QUANT",
@@ -2047,7 +2591,17 @@
       "revision_resolution_url": "https://huggingface.co/api/models/nvidia/Qwen3.8-27B-NVFP4",
       "verification": "Publisher-owned repository API and immutable raw metadata retrieved successfully; no model weights downloaded.",
       "capture": "Immutable metadata bytes retrieved during audit; only retrieval hashes and observations are retained in the repository audit ledger.",
-      "notes": ""
+      "notes": "",
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:53:18.320281+00:00",
+          "requested_url": "https://huggingface.co/nvidia/Qwen3.8-27B-NVFP4/raw/482ca0f3832238542f8f5295dde86b5f22711d80/hf_quant_config.json",
+          "response_url": "https://huggingface.co/nvidia/Qwen3.8-27B-NVFP4/raw/482ca0f3832238542f8f5295dde86b5f22711d80/hf_quant_config.json",
+          "response_sha256": "5f4aaa9e462ddb26a9790ab459eee69d100b9ade7541f0c86038e925c013f80b",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/dense-research.json",
+          "scope": "Fresh model/benchmark metadata recheck; no runtime validation."
+        }
+      ]
     },
     {
       "id": "qwen3.8-flash-next-FP8",
@@ -2063,7 +2617,17 @@
       "revision_resolution_url": "https://huggingface.co/api/models/Qwen/Qwen3.8-Flash-Next-FP8",
       "verification": "Publisher-owned repository API and immutable raw metadata retrieved successfully; no model weights downloaded.",
       "capture": "Immutable metadata bytes retrieved during audit; only retrieval hashes and observations are retained in the repository audit ledger.",
-      "notes": ""
+      "notes": "",
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:52:22.846257+00:00",
+          "requested_url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next-FP8/raw/236dfdf285828023ca3bcd3f37366c58a3469b13/README.md",
+          "response_url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next-FP8/raw/236dfdf285828023ca3bcd3f37366c58a3469b13/README.md",
+          "response_sha256": "3c5fcfaf37c4415dbabdbd25eaa7a17ed42f8e63fead97b8644053b1d60ea43f",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/hybrid-research.json",
+          "scope": "Model benchmark planning; documentation/metadata only, no runtime validation."
+        }
+      ]
     },
     {
       "id": "qwen3.8-flash-next-FP8-CFG",
@@ -2079,7 +2643,17 @@
       "revision_resolution_url": "https://huggingface.co/api/models/Qwen/Qwen3.8-Flash-Next-FP8",
       "verification": "Publisher-owned repository API and immutable raw metadata retrieved successfully; no model weights downloaded.",
       "capture": "Immutable metadata bytes retrieved during audit; only retrieval hashes and observations are retained in the repository audit ledger.",
-      "notes": ""
+      "notes": "",
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:51:14.668476+00:00",
+          "requested_url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next-FP8/raw/236dfdf285828023ca3bcd3f37366c58a3469b13/config.json",
+          "response_url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next-FP8/raw/236dfdf285828023ca3bcd3f37366c58a3469b13/config.json",
+          "response_sha256": "c22eb0a053eed62e18f0184d3ca62d3798f208c3e00b9feee939fc3dbacdc8ca",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/hybrid-research.json",
+          "scope": "Model benchmark planning; documentation/metadata only, no runtime validation."
+        }
+      ]
     },
     {
       "id": "qwen3.8-flash-next-NV-CFG",
@@ -2095,7 +2669,17 @@
       "revision_resolution_url": "https://huggingface.co/api/models/nvidia/Qwen3.8-Flash-Next-NVFP4",
       "verification": "Publisher-owned repository API and immutable raw metadata retrieved successfully; no model weights downloaded.",
       "capture": "Immutable metadata bytes retrieved during audit; only retrieval hashes and observations are retained in the repository audit ledger.",
-      "notes": ""
+      "notes": "",
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:51:14.674123+00:00",
+          "requested_url": "https://huggingface.co/nvidia/Qwen3.8-Flash-Next-NVFP4/raw/fc694b54fb0174e0913e6adf86691ef85a4ead47/config.json",
+          "response_url": "https://huggingface.co/nvidia/Qwen3.8-Flash-Next-NVFP4/raw/fc694b54fb0174e0913e6adf86691ef85a4ead47/config.json",
+          "response_sha256": "deef67a61f3311faf051b23dc4192f442c7fee4f9cd2f38cbcbe4da55c763a80",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/hybrid-research.json",
+          "scope": "Model benchmark planning; documentation/metadata only, no runtime validation."
+        }
+      ]
     },
     {
       "id": "qwen3.8-flash-next-NV-QUANT",
@@ -2111,7 +2695,17 @@
       "revision_resolution_url": "https://huggingface.co/api/models/nvidia/Qwen3.8-Flash-Next-NVFP4",
       "verification": "Publisher-owned repository API and immutable raw metadata retrieved successfully; no model weights downloaded.",
       "capture": "Immutable metadata bytes retrieved during audit; only retrieval hashes and observations are retained in the repository audit ledger.",
-      "notes": ""
+      "notes": "",
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:51:14.803597+00:00",
+          "requested_url": "https://huggingface.co/nvidia/Qwen3.8-Flash-Next-NVFP4/raw/fc694b54fb0174e0913e6adf86691ef85a4ead47/hf_quant_config.json",
+          "response_url": "https://huggingface.co/nvidia/Qwen3.8-Flash-Next-NVFP4/raw/fc694b54fb0174e0913e6adf86691ef85a4ead47/hf_quant_config.json",
+          "response_sha256": "331ad11d57c8bc374554579977198084e0d4d0933d5b3558f125f6f670aba0e8",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/hybrid-research.json",
+          "scope": "Model benchmark planning; documentation/metadata only, no runtime validation."
+        }
+      ]
     },
     {
       "id": "qwen3.8-flash-next-GR",
@@ -2127,7 +2721,17 @@
       "immutable_url": null,
       "verification": "Retrieved and inspected. PR 41046 adds NVIDIA TP1 B200/B300/GB300 recipes with verified=false; it explicitly claims no new GPU measurements.",
       "capture": "Documentation or GitHub API retrieved during audit; retrieval hash retained.",
-      "notes": "Cookbook narrative has stale deployment-table and thinking/sampling statements; prefer pinned generator for recipe shape and publisher card for model behavior."
+      "notes": "Cookbook narrative has stale deployment-table and thinking/sampling statements; prefer pinned generator for recipe shape and publisher card for model behavior.",
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:52:23.022526+00:00",
+          "requested_url": "https://docs.sglang.io/cookbook/autoregressive/Qwen/Qwen3.8-Flash-Next",
+          "response_url": "https://docs.sglang.io/cookbook/autoregressive/Qwen/Qwen3.8-Flash-Next",
+          "response_sha256": "a51cfe57ef8db58d950435f9ba69add0506ff42c7b8467d2d4f8bea4d08691a0",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/hybrid-research.json",
+          "scope": "Model benchmark planning; documentation/metadata only, no runtime validation."
+        }
+      ]
     },
     {
       "id": "qwen3.8-flash-next-GPR",
@@ -2158,7 +2762,17 @@
       "bytes": 66179,
       "verification": "B300 NVIDIA target-only cell inspected at lines 789-802; TP1, FlashInfer linear prefill/decode, BF16 SSM, reasoning-parser auto, verified=false.",
       "capture": "Immutable source retrieved during audit; retrieval hash retained.",
-      "notes": "Source recipe, not a tested container or local benchmark."
+      "notes": "Source recipe, not a tested container or local benchmark.",
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:51:14.807496+00:00",
+          "requested_url": "https://raw.githubusercontent.com/sgl-project/sglang/a1eb691ab51bc461378b2fcca8991883add4f1b5/docs/src/snippets/configs/Qwen/qwen3.8-flash-next.jsx",
+          "response_url": "https://raw.githubusercontent.com/sgl-project/sglang/a1eb691ab51bc461378b2fcca8991883add4f1b5/docs/src/snippets/configs/Qwen/qwen3.8-flash-next.jsx",
+          "response_sha256": "de3833beaf52bbfa5eb865542471d70870eafaae6d0f88754e82bf9d442a7d52",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/hybrid-research.json",
+          "scope": "Model benchmark planning; documentation/metadata only, no runtime validation."
+        }
+      ]
     },
     {
       "id": "gemma-4-31b-it-FP8-CFG",
@@ -2173,7 +2787,17 @@
       "sha256": "f83680dca1680f7dcc507bc801549a99f5b4346aa3fdf2a48b549b782a8ca999",
       "capture": "Retrieved with Python urllib; metadata/text snapshot held in temporary audit cache, no weight tensors fetched",
       "verification": "compressed-tensors; weight block_structure [128,128]; input group_size 128 and dynamic true; vision/lm_head/embeddings ignored.",
-      "notes": ""
+      "notes": "",
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:51:30.341329+00:00",
+          "requested_url": "https://huggingface.co/RedHatAI/gemma-4-31B-it-FP8-block/raw/d7242548c457ab4b45bd3adb8937f2659af4739d/config.json",
+          "response_url": "https://huggingface.co/RedHatAI/gemma-4-31B-it-FP8-block/raw/d7242548c457ab4b45bd3adb8937f2659af4739d/config.json",
+          "response_sha256": "f83680dca1680f7dcc507bc801549a99f5b4346aa3fdf2a48b549b782a8ca999",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/dense-research.json",
+          "scope": "Fresh model/benchmark metadata recheck; no runtime validation."
+        }
+      ]
     },
     {
       "id": "gemma-4-31b-it-NV-CFG",
@@ -2188,7 +2812,17 @@
       "sha256": "615d03da9669d63b5b1b8ef735b10a0eb1f08674e275681e6dd5c206063e1c22",
       "capture": "Retrieved with Python urllib; metadata/text snapshot held in temporary audit cache, no weight tensors fetched",
       "verification": "nvfp4-pack-quantized; W4A4 group size16, tensor_group scales, input dynamic local; vision linears/lm_head ignored. Targets are Linear, not embedding modules.",
-      "notes": ""
+      "notes": "",
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:51:30.392001+00:00",
+          "requested_url": "https://huggingface.co/RedHatAI/gemma-4-31B-it-NVFP4/raw/5df75ccad9b74546f5be758a2a68acc2e16bbc9b/config.json",
+          "response_url": "https://huggingface.co/RedHatAI/gemma-4-31B-it-NVFP4/raw/5df75ccad9b74546f5be758a2a68acc2e16bbc9b/config.json",
+          "response_sha256": "615d03da9669d63b5b1b8ef735b10a0eb1f08674e275681e6dd5c206063e1c22",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/dense-research.json",
+          "scope": "Fresh model/benchmark metadata recheck; no runtime validation."
+        }
+      ]
     },
     {
       "id": "gemma-4-31b-it-BASE-TREE",
@@ -2555,7 +3189,7 @@
     {
       "id": "VEXP-REL",
       "url": "https://github.com/vllm-project/vllm/releases/tag/v0.31.0",
-      "title": "Release v0.31.0 · vllm-project/vllm · GitHub",
+      "title": "Release v0.31.0 \u00b7 vllm-project/vllm \u00b7 GitHub",
       "kind": "primary release notes",
       "accessed_on": "2026-10-15",
       "retrieved_at": "2026-10-15T22:25:07.993881+00:00",
@@ -2566,12 +3200,22 @@
       "capture": "Response bytes captured in temporary research workspace; hash identifies retrieved body. Selected claims reviewed separately.",
       "bytes_fetched": 593309,
       "requested_response_url": "https://github.com/vllm-project/vllm/releases/latest",
-      "response_url_capture": "Resolved response URL recorded during retrieval."
+      "response_url_capture": "Resolved response URL recorded during retrieval.",
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:59:10.945274+00:00",
+          "requested_url": "https://github.com/vllm-project/vllm/releases/latest",
+          "response_url": "https://github.com/vllm-project/vllm/releases/tag/v0.31.0",
+          "response_sha256": "d8c0332cfd762ae4c46ddcdb324e0d60480ade4f1ae403f40685eae40ba4b176",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/dense-research.json",
+          "scope": "Fresh model/benchmark metadata recheck; no runtime validation."
+        }
+      ]
     },
     {
       "id": "VEXP-MAIN",
       "url": "https://github.com/vllm-project/vllm/commit/784d1fff0c491b9add10ecd732de8f707a7e7dbe",
-      "title": "[MRV2][Spec Decode] Quantized draft lm_head for drafters that share t… · vllm-project/vllm@784d1ff · GitHub",
+      "title": "[MRV2][Spec Decode] Quantized draft lm_head for drafters that share t\u2026 \u00b7 vllm-project/vllm@784d1ff \u00b7 GitHub",
       "kind": "primary source commit",
       "accessed_on": "2026-10-15",
       "retrieved_at": "2026-10-15T22:25:07.994323+00:00",
@@ -2619,7 +3263,7 @@
     {
       "id": "VEXP-59973",
       "url": "https://github.com/vllm-project/vllm/pull/59973",
-      "title": "[MRV2][Spec Decode] Quantized draft lm_head for drafters that share the target head by stecasta · Pull Request #59973 · vllm-project/vllm · GitHub",
+      "title": "[MRV2][Spec Decode] Quantized draft lm_head for drafters that share the target head by stecasta \u00b7 Pull Request #59973 \u00b7 vllm-project/vllm \u00b7 GitHub",
       "kind": "primary pull request",
       "accessed_on": "2026-10-15",
       "retrieved_at": "2026-10-15T22:25:07.994627+00:00",
@@ -2635,7 +3279,7 @@
     {
       "id": "VEXP-61161",
       "url": "https://github.com/vllm-project/vllm/pull/61161",
-      "title": "[Bugfix][Spec Decode] Avoid reusing random draws across block verification rounds by DimensionSTP · Pull Request #61161 · vllm-project/vllm · GitHub",
+      "title": "[Bugfix][Spec Decode] Avoid reusing random draws across block verification rounds by DimensionSTP \u00b7 Pull Request #61161 \u00b7 vllm-project/vllm \u00b7 GitHub",
       "kind": "primary pull request",
       "accessed_on": "2026-10-15",
       "retrieved_at": "2026-10-15T22:25:07.994699+00:00",
@@ -2651,7 +3295,7 @@
     {
       "id": "VEXP-59468",
       "url": "https://github.com/vllm-project/vllm/pull/59468",
-      "title": "[Spec Decode] Don't reserve DFlash/DSpark draft slots in the scheduler token budget by zixi-qi · Pull Request #59468 · vllm-project/vllm · GitHub",
+      "title": "[Spec Decode] Don't reserve DFlash/DSpark draft slots in the scheduler token budget by zixi-qi \u00b7 Pull Request #59468 \u00b7 vllm-project/vllm \u00b7 GitHub",
       "kind": "primary pull request",
       "accessed_on": "2026-10-15",
       "retrieved_at": "2026-10-15T22:25:07.994778+00:00",
@@ -2667,7 +3311,7 @@
     {
       "id": "VEXP-58668",
       "url": "https://github.com/vllm-project/vllm/pull/58668",
-      "title": "[Bugfix][Core] Uncount stop-trimmed spec tokens from num_computed_tokens by sawsa307 · Pull Request #58668 · vllm-project/vllm · GitHub",
+      "title": "[Bugfix][Core] Uncount stop-trimmed spec tokens from num_computed_tokens by sawsa307 \u00b7 Pull Request #58668 \u00b7 vllm-project/vllm \u00b7 GitHub",
       "kind": "primary pull request",
       "accessed_on": "2026-10-15",
       "retrieved_at": "2026-10-15T22:25:07.994870+00:00",
@@ -2683,7 +3327,7 @@
     {
       "id": "VEXP-61044",
       "url": "https://github.com/vllm-project/vllm/pull/61044",
-      "title": "[Bugfix] Create cuBLAS handles before memory profiling to avoid OOM by laithsakka · Pull Request #61044 · vllm-project/vllm · GitHub",
+      "title": "[Bugfix] Create cuBLAS handles before memory profiling to avoid OOM by laithsakka \u00b7 Pull Request #61044 \u00b7 vllm-project/vllm \u00b7 GitHub",
       "kind": "primary pull request",
       "accessed_on": "2026-10-15",
       "retrieved_at": "2026-10-15T22:25:08.286795+00:00",
@@ -2699,7 +3343,7 @@
     {
       "id": "VEXP-58737",
       "url": "https://github.com/vllm-project/vllm/pull/58737",
-      "title": "[Perf] Fuse the mamba align block-table gather into one Triton kernel, 7 kernels -> 1, 6x speedup on all shapes for this kernel by fululi12 · Pull Request #58737 · vllm-project/vllm · GitHub",
+      "title": "[Perf] Fuse the mamba align block-table gather into one Triton kernel, 7 kernels -> 1, 6x speedup on all shapes for this kernel by fululi12 \u00b7 Pull Request #58737 \u00b7 vllm-project/vllm \u00b7 GitHub",
       "kind": "primary pull request",
       "accessed_on": "2026-10-15",
       "retrieved_at": "2026-10-15T22:25:08.535207+00:00",
@@ -2715,7 +3359,7 @@
     {
       "id": "VEXP-61873",
       "url": "https://github.com/vllm-project/vllm/pull/61873",
-      "title": "[GLM5.3 Perf] Inplace update draft decode metadata, 1.7% E2E Throughput Improvement by yewentao256 · Pull Request #61873 · vllm-project/vllm · GitHub",
+      "title": "[GLM5.3 Perf] Inplace update draft decode metadata, 1.7% E2E Throughput Improvement by yewentao256 \u00b7 Pull Request #61873 \u00b7 vllm-project/vllm \u00b7 GitHub",
       "kind": "primary pull request",
       "accessed_on": "2026-10-15",
       "retrieved_at": "2026-10-15T22:25:08.737249+00:00",
@@ -2731,7 +3375,7 @@
     {
       "id": "VEXP-61538",
       "url": "https://github.com/vllm-project/vllm/pull/61538",
-      "title": "[MoE] Unify DeepGEMM MegaMoE experts behind one feature-matrix layer; add NVFP4 by zyongye · Pull Request #61538 · vllm-project/vllm · GitHub",
+      "title": "[MoE] Unify DeepGEMM MegaMoE experts behind one feature-matrix layer; add NVFP4 by zyongye \u00b7 Pull Request #61538 \u00b7 vllm-project/vllm \u00b7 GitHub",
       "kind": "primary pull request",
       "accessed_on": "2026-10-15",
       "retrieved_at": "2026-10-15T22:25:09.138719+00:00",
@@ -2747,7 +3391,7 @@
     {
       "id": "VEXP-52406",
       "url": "https://github.com/vllm-project/vllm/pull/52406",
-      "title": "[Model] Support ModelOpt FP8_PB_WO in Kimi-K3 attention by Edwardf0t1 · Pull Request #52406 · vllm-project/vllm · GitHub",
+      "title": "[Model] Support ModelOpt FP8_PB_WO in Kimi-K3 attention by Edwardf0t1 \u00b7 Pull Request #52406 \u00b7 vllm-project/vllm \u00b7 GitHub",
       "kind": "primary pull request",
       "accessed_on": "2026-10-15",
       "retrieved_at": "2026-10-15T22:25:09.346932+00:00",
@@ -2891,7 +3535,7 @@
     {
       "id": "VEXP-NIGHTLY-COMMIT",
       "url": "https://github.com/vllm-project/vllm/commit/0c2584929202353a1b2e33934611125c604b7eed",
-      "title": "[ROCm][Perf][Bugfix] Probe the preshuffled FP4 GEMM config by logical… · vllm-project/vllm@0c25849 · GitHub",
+      "title": "[ROCm][Perf][Bugfix] Probe the preshuffled FP4 GEMM config by logical\u2026 \u00b7 vllm-project/vllm@0c25849 \u00b7 GitHub",
       "kind": "primary source commit",
       "accessed_on": "2026-10-15",
       "retrieved_at": "2026-10-15T22:26:07.031927+00:00",
@@ -3243,7 +3887,7 @@
     {
       "id": "VEXP-LATEST-MAIN",
       "url": "https://github.com/vllm-project/vllm/commit/de7d70676d9a39353aab4796a6987d345c597991",
-      "title": "[Perf] Low-latency CPU all-reduce for DP metadata syncs (#61767) · vllm-project/vllm@de7d706 · GitHub",
+      "title": "[Perf] Low-latency CPU all-reduce for DP metadata syncs (#61767) \u00b7 vllm-project/vllm@de7d706 \u00b7 GitHub",
       "kind": "primary source commit",
       "accessed_on": "2026-10-15",
       "retrieved_at": "2026-10-15T22:36:06.609989+00:00",
@@ -3270,7 +3914,17 @@
       "notes": "Fresh latest-release redirect resolves v0.5.21; published 2026-10-02T01:09:04Z; release source peeled separately by git ls-remote; no image bytes inspected.",
       "requested_response_url": "https://github.com/sgl-project/sglang/releases/latest",
       "response_url_capture": "Resolved response URL recorded during retrieval.",
-      "capture": "Fresh primary-source retrieval. Selected claims inspected; response bodies are not bundled."
+      "capture": "Fresh primary-source retrieval. Selected claims inspected; response bodies are not bundled.",
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:59:10.945373+00:00",
+          "requested_url": "https://github.com/sgl-project/sglang/releases/latest",
+          "response_url": "https://github.com/sgl-project/sglang/releases/tag/v0.5.21",
+          "response_sha256": "2f6c0cc5c07c94ff363bb0807fb2c5f361faf226839b520383ffacfcb9b54d15",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/dense-research.json",
+          "scope": "Fresh model/benchmark metadata recheck; no runtime validation."
+        }
+      ]
     },
     {
       "id": "GEXP-COMMITS",
@@ -4342,7 +4996,17 @@
       "http_status": 200,
       "bytes_fetched": 333567,
       "capture": "HTTPS response bytes hashed; selected claims inspected separately.",
-      "response_url_capture": "Resolved response URL recorded during retrieval."
+      "response_url_capture": "Resolved response URL recorded during retrieval.",
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:59:10.945471+00:00",
+          "requested_url": "https://github.com/kserve/kserve/releases/latest",
+          "response_url": "https://github.com/kserve/kserve/releases/tag/v0.21.0",
+          "response_sha256": "7a39f234136418d37f5e70e6538a8cb7b519c47da036472dd5bb5088081d93a1",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/dense-research.json",
+          "scope": "Fresh model/benchmark metadata recheck; no runtime validation."
+        }
+      ]
     },
     {
       "id": "KEXP-MASTER",
@@ -4565,6 +5229,794 @@
       "capture": "Fresh HTTPS retrieval; response hash captured, body not bundled.",
       "notes": "Source observation only; no binary downloaded or executed.",
       "http_status": 200
+    },
+    {
+      "id": "MB-IFEVAL",
+      "title": "MB-IFEVAL official benchmark contract",
+      "url": "https://github.com/google-research/google-research/blob/3ef52111c1fabc301880818f5a547570e926a76b/instruction_following_eval/evaluation_lib.py",
+      "kind": "official benchmark documentation/source",
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T22:54:30.431704+00:00",
+      "response_sha256": "35decc06000718487f44d7deafa6d3f48a8ec0886281edf40162c0265b7d248c",
+      "requested_response_url": "https://raw.githubusercontent.com/google-research/google-research/3ef52111c1fabc301880818f5a547570e926a76b/instruction_following_eval/evaluation_lib.py",
+      "response_url": "https://raw.githubusercontent.com/google-research/google-research/3ef52111c1fabc301880818f5a547570e926a76b/instruction_following_eval/evaluation_lib.py",
+      "response_url_capture": "Resolved URL recorded during this request.",
+      "capture": "Fresh source retrieval; response hash retained, body not bundled.",
+      "notes": "Strict versus loose scoring and prompt-level versus instruction-level reports differ; pin answer extraction and metric. Documentation/source inspection only; no model execution, benchmark run, complete dependency lock, or dataset download."
+    },
+    {
+      "id": "MB-IFEVAL-README",
+      "title": "MB-IFEVAL-README official benchmark contract",
+      "url": "https://github.com/google-research/google-research/blob/3ef52111c1fabc301880818f5a547570e926a76b/instruction_following_eval/README.md",
+      "kind": "official benchmark documentation/source",
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T22:54:30.253759+00:00",
+      "response_sha256": "fef3c44408e4b39837af345095ccce7da798853fd60ea94a1de63afa9d3d67b3",
+      "requested_response_url": "https://raw.githubusercontent.com/google-research/google-research/3ef52111c1fabc301880818f5a547570e926a76b/instruction_following_eval/README.md",
+      "response_url": "https://raw.githubusercontent.com/google-research/google-research/3ef52111c1fabc301880818f5a547570e926a76b/instruction_following_eval/README.md",
+      "response_url_capture": "Resolved URL recorded during this request.",
+      "capture": "Fresh source retrieval; response hash retained, body not bundled.",
+      "notes": "Official evaluator consumes prompt/response JSONL; the atlas timing-only probe output is insufficient. Documentation/source inspection only; no model execution, benchmark run, complete dependency lock, or dataset download."
+    },
+    {
+      "id": "MB-LIVECODEBENCH",
+      "title": "MB-LIVECODEBENCH official benchmark contract",
+      "url": "https://github.com/LiveCodeBench/LiveCodeBench/blob/28fef95ea8c9f7a547c8329f2cd3d32b92c1fa24/README.md",
+      "kind": "official benchmark documentation/source",
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T22:54:30.254093+00:00",
+      "response_sha256": "ee0029cddc1d9051f35818f3348a4327819a3e35a9e597732519245605195cf6",
+      "requested_response_url": "https://raw.githubusercontent.com/LiveCodeBench/LiveCodeBench/28fef95ea8c9f7a547c8329f2cd3d32b92c1fa24/README.md",
+      "response_url": "https://raw.githubusercontent.com/LiveCodeBench/LiveCodeBench/28fef95ea8c9f7a547c8329f2cd3d32b92c1fa24/README.md",
+      "response_url_capture": "Resolved URL recorded during this request.",
+      "capture": "Fresh source retrieval; response hash retained, body not bundled.",
+      "notes": "Freeze release/date range, code_generation_lite versus full tests, sample design, prompt adapter and execution timeout. Latest is mutable; a date filter alone does not establish unseen training examples. Documentation/source inspection only; no model execution, benchmark run, complete dependency lock, or dataset download.",
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:59:42.548344+00:00",
+          "requested_url": "https://raw.githubusercontent.com/LiveCodeBench/LiveCodeBench/28fef95ea8c9f7a547c8329f2cd3d32b92c1fa24/README.md",
+          "response_url": "https://raw.githubusercontent.com/LiveCodeBench/LiveCodeBench/28fef95ea8c9f7a547c8329f2cd3d32b92c1fa24/README.md",
+          "response_sha256": "ee0029cddc1d9051f35818f3348a4327819a3e35a9e597732519245605195cf6",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/hybrid-research.json",
+          "scope": "Model benchmark planning; documentation/metadata only, no runtime validation."
+        },
+        {
+          "retrieved_at": "2026-10-15T22:53:59.526941+00:00",
+          "requested_url": "https://raw.githubusercontent.com/LiveCodeBench/LiveCodeBench/28fef95ea8c9f7a547c8329f2cd3d32b92c1fa24/README.md",
+          "response_sha256": "ee0029cddc1d9051f35818f3348a4327819a3e35a9e597732519245605195cf6",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/moe-research.json",
+          "scope": "Official README defines dated release selection, pass@1/pass@5 evaluation, custom-output scoring and evaluator timeout caveats. Documentation/config/source inspection only; no local GPU or model-quality result. Benchmark authors define the evaluation; Kimi/DeepSeek adapters, task data and evaluator environment were not installed or executed."
+        }
+      ]
+    },
+    {
+      "id": "MB-EVALPLUS",
+      "title": "MB-EVALPLUS official benchmark contract",
+      "url": "https://github.com/evalplus/evalplus/blob/26d6d00bb1fd0fa37f39c99d5290da67891d1c5e/README.md",
+      "kind": "official benchmark documentation/source",
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T22:54:30.258998+00:00",
+      "response_sha256": "667f3f937cf8dfa67dd6624c24c22cb0e938c9b31179cf2e40457d2708ff2260",
+      "requested_response_url": "https://raw.githubusercontent.com/evalplus/evalplus/26d6d00bb1fd0fa37f39c99d5290da67891d1c5e/README.md",
+      "response_url": "https://raw.githubusercontent.com/evalplus/evalplus/26d6d00bb1fd0fa37f39c99d5290da67891d1c5e/README.md",
+      "response_url_capture": "Resolved URL recorded during this request.",
+      "capture": "Fresh source retrieval; response hash retained, body not bundled.",
+      "notes": "HumanEval+/MBPP+ expand tests; base/chat prompt modes differ; external compatible endpoint and saved-sample evaluation are documented. Documentation/source inspection only; no model execution, benchmark run, complete dependency lock, or dataset download.",
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:59:42.606562+00:00",
+          "requested_url": "https://raw.githubusercontent.com/evalplus/evalplus/26d6d00bb1fd0fa37f39c99d5290da67891d1c5e/README.md",
+          "response_url": "https://raw.githubusercontent.com/evalplus/evalplus/26d6d00bb1fd0fa37f39c99d5290da67891d1c5e/README.md",
+          "response_sha256": "667f3f937cf8dfa67dd6624c24c22cb0e938c9b31179cf2e40457d2708ff2260",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/hybrid-research.json",
+          "scope": "Model benchmark planning; documentation/metadata only, no runtime validation."
+        }
+      ]
+    },
+    {
+      "id": "MB-EVALPLUS-EXECUTION",
+      "title": "MB-EVALPLUS-EXECUTION official benchmark contract",
+      "url": "https://github.com/evalplus/evalplus/blob/26d6d00bb1fd0fa37f39c99d5290da67891d1c5e/docs/execution.md",
+      "kind": "official benchmark documentation/source",
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T22:54:30.421542+00:00",
+      "response_sha256": "a8d8dbd755097980b1c37e72fd34afdd1468575207f91ec0db323baec4d60db7",
+      "requested_response_url": "https://raw.githubusercontent.com/evalplus/evalplus/26d6d00bb1fd0fa37f39c99d5290da67891d1c5e/docs/execution.md",
+      "response_url": "https://raw.githubusercontent.com/evalplus/evalplus/26d6d00bb1fd0fa37f39c99d5290da67891d1c5e/docs/execution.md",
+      "response_url_capture": "Resolved URL recorded during this request.",
+      "capture": "Fresh source retrieval; response hash retained, body not bundled.",
+      "notes": "Timeout/OOM count as failed solutions; scorer hardware, memory/time settings and concurrency affect execution results. Documentation/source inspection only; no model execution, benchmark run, complete dependency lock, or dataset download."
+    },
+    {
+      "id": "MB-RULER",
+      "title": "MB-RULER official benchmark contract",
+      "url": "https://github.com/NVIDIA/RULER/blob/c3f5e3b4f87f97e048793bb510a3a6b19a46bf3a/README.md",
+      "kind": "official benchmark documentation/source",
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T22:54:30.313588+00:00",
+      "response_sha256": "f3aae5bbd58fcd7de32aab099c455dd2bbc1da23a2efee9db3071eb9fbf894a3",
+      "requested_response_url": "https://raw.githubusercontent.com/NVIDIA/RULER/c3f5e3b4f87f97e048793bb510a3a6b19a46bf3a/README.md",
+      "response_url": "https://raw.githubusercontent.com/NVIDIA/RULER/c3f5e3b4f87f97e048793bb510a3a6b19a46bf3a/README.md",
+      "response_url_capture": "Resolved URL recorded during this request.",
+      "capture": "Fresh source retrieval; response hash retained, body not bundled.",
+      "notes": "Current main routes to rulerv1-ns and rulerv2-ns and deprecates the former pipeline; synthetic tasks do not replace realistic long-context applications. Documentation/source inspection only; no model execution, benchmark run, complete dependency lock, or dataset download."
+    },
+    {
+      "id": "MB-RULER1",
+      "title": "MB-RULER1 official benchmark contract",
+      "url": "https://github.com/NVIDIA/RULER/blob/e8bbff677ca2c239640dc90f93310dcf32408c93/README.md",
+      "kind": "official benchmark documentation/source",
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T22:54:30.305577+00:00",
+      "response_sha256": "3302376f861372c433d4080bd9b9d10faf20fed30ec39fd1119cf703f3269c08",
+      "requested_response_url": "https://raw.githubusercontent.com/NVIDIA/RULER/e8bbff677ca2c239640dc90f93310dcf32408c93/README.md",
+      "response_url": "https://raw.githubusercontent.com/NVIDIA/RULER/e8bbff677ca2c239640dc90f93310dcf32408c93/README.md",
+      "response_url_capture": "Resolved URL recorded during this request.",
+      "capture": "Fresh source retrieval; response hash retained, body not bundled.",
+      "notes": "RULERv1 route requires separate NeMo-Skills branch/dependency and model-tokenizer-based data generation; benchmark doc SHA does not pin evaluator environment. Documentation/source inspection only; no model execution, benchmark run, complete dependency lock, or dataset download."
+    },
+    {
+      "id": "MB-RULER2",
+      "title": "MB-RULER2 official benchmark contract",
+      "url": "https://github.com/NVIDIA/RULER/blob/4809570a2a40e803bfe341773e561524224c2e7c/README.md",
+      "kind": "official benchmark documentation/source",
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T22:54:30.305229+00:00",
+      "response_sha256": "495872cd6fbed7d730e68b59a5432c5d33fd6f19e69a7b6002051cfd07bed710",
+      "requested_response_url": "https://raw.githubusercontent.com/NVIDIA/RULER/4809570a2a40e803bfe341773e561524224c2e7c/README.md",
+      "response_url": "https://raw.githubusercontent.com/NVIDIA/RULER/4809570a2a40e803bfe341773e561524224c2e7c/README.md",
+      "response_url_capture": "Resolved URL recorded during this request.",
+      "capture": "Fresh source retrieval; response hash retained, body not bundled.",
+      "notes": "RULERv2 is a distinct route with its own NeMo-Skills dependency and generation settings; do not combine scores with RULERv1. Documentation/source inspection only; no model execution, benchmark run, complete dependency lock, or dataset download."
+    },
+    {
+      "id": "MB-BFCL",
+      "title": "MB-BFCL official benchmark contract",
+      "url": "https://github.com/ShishirPatil/gorilla/blob/6ea57973c7a6097fd7c5915698c54c17c5b1b6c8/berkeley-function-call-leaderboard/README.md",
+      "kind": "official benchmark documentation/source",
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T22:54:30.355442+00:00",
+      "response_sha256": "c6c95683cce9653788c8b3f3f5002d2f5c27b95a1288544fe82c2a2faf5e12d0",
+      "requested_response_url": "https://raw.githubusercontent.com/ShishirPatil/gorilla/6ea57973c7a6097fd7c5915698c54c17c5b1b6c8/berkeley-function-call-leaderboard/README.md",
+      "response_url": "https://raw.githubusercontent.com/ShishirPatil/gorilla/6ea57973c7a6097fd7c5915698c54c17c5b1b6c8/berkeley-function-call-leaderboard/README.md",
+      "response_url_capture": "Resolved URL recorded during this request.",
+      "capture": "Fresh source retrieval; response hash retained, body not bundled.",
+      "notes": "partial-eval skips missing IDs; unevaluated categories affect aggregate reporting. Freeze expected IDs and categories, retain coverage and denominators. Existing endpoint route still needs model handler qualification. Documentation/source inspection only; no model execution, benchmark run, complete dependency lock, or dataset download.",
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:53:59.869290+00:00",
+          "requested_url": "https://raw.githubusercontent.com/ShishirPatil/gorilla/6ea57973c7a6097fd7c5915698c54c17c5b1b6c8/berkeley-function-call-leaderboard/README.md",
+          "response_sha256": "c6c95683cce9653788c8b3f3f5002d2f5c27b95a1288544fe82c2a2faf5e12d0",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/moe-research.json",
+          "scope": "Official README supports named categories, multi-turn evaluation, existing endpoints, handler integration and warns partial-category scores differ from leaderboard totals. Documentation/config/source inspection only; no local GPU or model-quality result. Benchmark authors define the evaluation; Kimi/DeepSeek adapters, task data and evaluator environment were not installed or executed."
+        }
+      ]
+    },
+    {
+      "id": "MB-BFCL-CATEGORIES",
+      "title": "MB-BFCL-CATEGORIES official benchmark contract",
+      "url": "https://github.com/ShishirPatil/gorilla/blob/6ea57973c7a6097fd7c5915698c54c17c5b1b6c8/berkeley-function-call-leaderboard/TEST_CATEGORIES.md",
+      "kind": "official benchmark documentation/source",
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T22:54:30.560407+00:00",
+      "response_sha256": "dfdf449b1500a6452eab142433bf641bb8e5b7208d0631ce7c009ea09bef32a6",
+      "requested_response_url": "https://raw.githubusercontent.com/ShishirPatil/gorilla/6ea57973c7a6097fd7c5915698c54c17c5b1b6c8/berkeley-function-call-leaderboard/TEST_CATEGORIES.md",
+      "response_url": "https://raw.githubusercontent.com/ShishirPatil/gorilla/6ea57973c7a6097fd7c5915698c54c17c5b1b6c8/berkeley-function-call-leaderboard/TEST_CATEGORIES.md",
+      "response_url_capture": "Resolved URL recorded during this request.",
+      "capture": "Fresh source retrieval; response hash retained, body not bundled.",
+      "notes": "All/default includes changing memory/web-search categories and non-scoring format sensitivity; choose task-relevant categories instead of a floating all aggregate. Documentation/source inspection only; no model execution, benchmark run, complete dependency lock, or dataset download."
+    },
+    {
+      "id": "MB-MMMU",
+      "title": "MB-MMMU official benchmark contract",
+      "url": "https://github.com/MMMU-Benchmark/MMMU/blob/268471d0d488258990025331c7528359c324aa25/README.md",
+      "kind": "official benchmark documentation/source",
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T22:54:30.364398+00:00",
+      "response_sha256": "a4e89dd389f9b4c82b92e54b5d50a58e55a53c077a5009f7d4b4e53c09bdcc3a",
+      "requested_response_url": "https://raw.githubusercontent.com/MMMU-Benchmark/MMMU/268471d0d488258990025331c7528359c324aa25/README.md",
+      "response_url": "https://raw.githubusercontent.com/MMMU-Benchmark/MMMU/268471d0d488258990025331c7528359c324aa25/README.md",
+      "response_url_capture": "Resolved URL recorded during this request.",
+      "capture": "Fresh source retrieval; response hash retained, body not bundled.",
+      "notes": "MMMU and MMMU-Pro are distinct evaluations. MMMU test answers released 2026-02-12; public test split does not establish unseen training data. Official pipeline differs from documented third-party integration defaults. Documentation/source inspection only; no model execution, benchmark run, complete dependency lock, or dataset download."
+    },
+    {
+      "id": "MB-SWEBENCH-README",
+      "title": "MB-SWEBENCH-README official benchmark contract",
+      "url": "https://github.com/SWE-bench/SWE-bench/blob/02e7a74ffd0b707aab73d203fe87bdc7c76afc8e/README.md",
+      "kind": "official benchmark documentation/source",
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T22:54:30.402998+00:00",
+      "response_sha256": "06841624d7b5130dfe3cc6714642e9a8fd2a608c95c66ae0180e409f12b73aaa",
+      "requested_response_url": "https://raw.githubusercontent.com/SWE-bench/SWE-bench/02e7a74ffd0b707aab73d203fe87bdc7c76afc8e/README.md",
+      "response_url": "https://raw.githubusercontent.com/SWE-bench/SWE-bench/02e7a74ffd0b707aab73d203fe87bdc7c76afc8e/README.md",
+      "response_url_capture": "Resolved URL recorded during this request.",
+      "capture": "Fresh source retrieval; response hash retained, body not bundled.",
+      "notes": "Optional repository issue resolution evaluation; exact model+agent+environment+budget is the object of comparison, not model weights alone. Documentation/source inspection only; no model execution, benchmark run, complete dependency lock, or dataset download."
+    },
+    {
+      "id": "MB-SWEBENCH",
+      "title": "MB-SWEBENCH official benchmark contract",
+      "url": "https://www.swebench.com/SWE-bench/guides/evaluation/",
+      "kind": "official benchmark documentation/source",
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T22:54:30.783231+00:00",
+      "response_sha256": "a37e1a0762a6a0b646b58522170f3e80bb457221e02f2b0141503f1cdff6ea91",
+      "requested_response_url": "https://www.swebench.com/SWE-bench/guides/evaluation/",
+      "response_url": "https://www.swebench.com/SWE-bench/guides/evaluation/",
+      "response_url_capture": "Resolved URL recorded during this request.",
+      "capture": "Fresh source retrieval; response hash retained, body not bundled.",
+      "notes": "Patch application and repository tests run in Docker; reports distinguish completed/resolved/unresolved/error counts. Result cache uses run_id and instance_id, so fresh prediction evaluations need unique run IDs. Mutable documentation observation; no benchmark run."
+    },
+    {
+      "id": "BPLAN-G-MAIN",
+      "url": "https://github.com/sgl-project/sglang/commit/4cca7fcd3e644f22a61c7a6e6b57bb89b568d62a",
+      "title": "sglang benchmark-plan main reference metadata recheck",
+      "kind": "primary source metadata",
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T22:51:50.866786+00:00",
+      "requested_response_url": "https://api.github.com/repos/sgl-project/sglang/commits/main",
+      "response_url": "https://api.github.com/repos/sgl-project/sglang/commits/main",
+      "response_sha256": "c6125434d44603479a4a54b3b498a992814c9446f51f2ffdebc4b1dd64f1d7c1",
+      "http_status": 200,
+      "bytes_fetched": 8757,
+      "capture": "Direct HTTPS response bytes captured and hashed in a temporary workspace. Metadata observations only; no artifact download or execution.",
+      "notes": "Five version declarations in the commit diff change 0.4.9 to 0.4.10. This does not establish published sgl-kernel artifact contents or re-audit the complete branch changes."
+    },
+    {
+      "id": "BPLAN-V-NIGHTLY-WHEELS",
+      "url": "https://wheels.vllm.ai/nightly/cu130/vllm/",
+      "title": "vllm benchmark-plan CUDA 13 nightly wheel index recheck",
+      "kind": "primary source metadata",
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T22:51:51.007686+00:00",
+      "requested_response_url": "https://wheels.vllm.ai/nightly/cu130/vllm/",
+      "response_url": "https://wheels.vllm.ai/nightly/cu130/vllm/",
+      "response_sha256": "6f949c4c06381f6e4ab8b7942884d7b295995a2f6e52f0e1756d39777f881929",
+      "http_status": 200,
+      "bytes_fetched": 591,
+      "capture": "Direct HTTPS response bytes captured and hashed in a temporary workspace. Metadata observations only; no artifact download or execution.",
+      "notes": "Index metadata only. Advertised version and source identifiers do not verify wheel contents, source-to-binary provenance, or compatibility."
+    },
+    {
+      "id": "MB-LIVECODEBENCH-LOADER",
+      "requested_response_url": "https://raw.githubusercontent.com/LiveCodeBench/LiveCodeBench/28fef95ea8c9f7a547c8329f2cd3d32b92c1fa24/lcb_runner/benchmarks/code_generation.py",
+      "retrieved_at": "2026-10-15T22:58:48.538084+00:00",
+      "response_url": "https://raw.githubusercontent.com/LiveCodeBench/LiveCodeBench/28fef95ea8c9f7a547c8329f2cd3d32b92c1fa24/lcb_runner/benchmarks/code_generation.py",
+      "http_status": 200,
+      "response_sha256": "0bc93f5a650b55d6a1b54d3db852d80ae64891ece4ff085b2e6b469eb89f8846",
+      "bytes_fetched": 4688,
+      "url": "https://github.com/LiveCodeBench/LiveCodeBench/blob/28fef95ea8c9f7a547c8329f2cd3d32b92c1fa24/lcb_runner/benchmarks/code_generation.py",
+      "title": "MB-LIVECODEBENCH-LOADER pinned evaluator source",
+      "kind": "official benchmark source",
+      "accessed_on": "2026-10-15",
+      "capture": "Fresh pinned source retrieval; hash retained, full body not bundled.",
+      "notes": "Pinned full code-generation loader ignores release_version and loads the unfiltered test split; documentation/source review only, no evaluation executed."
+    },
+    {
+      "id": "MB-LIVECODEBENCH-ROUTER",
+      "requested_response_url": "https://raw.githubusercontent.com/LiveCodeBench/LiveCodeBench/28fef95ea8c9f7a547c8329f2cd3d32b92c1fa24/lcb_runner/runner/scenario_router.py",
+      "retrieved_at": "2026-10-15T22:58:48.538441+00:00",
+      "response_url": "https://raw.githubusercontent.com/LiveCodeBench/LiveCodeBench/28fef95ea8c9f7a547c8329f2cd3d32b92c1fa24/lcb_runner/runner/scenario_router.py",
+      "http_status": 200,
+      "response_sha256": "b3f05927fa58d83847b2ffaac34b9f722af5b47e8b930ba15830507dc76a6649",
+      "bytes_fetched": 7120,
+      "url": "https://github.com/LiveCodeBench/LiveCodeBench/blob/28fef95ea8c9f7a547c8329f2cd3d32b92c1fa24/lcb_runner/runner/scenario_router.py",
+      "title": "MB-LIVECODEBENCH-ROUTER pinned evaluator source",
+      "kind": "official benchmark source",
+      "accessed_on": "2026-10-15",
+      "capture": "Fresh pinned source retrieval; hash retained, full body not bundled.",
+      "notes": "Pinned full-mode route does not pass date filters; inspect actual item manifests before claiming a frozen release/date comparison."
+    },
+    {
+      "id": "MB-SWEBENCH-EVAL",
+      "requested_response_url": "https://raw.githubusercontent.com/SWE-bench/SWE-bench/02e7a74ffd0b707aab73d203fe87bdc7c76afc8e/swebench/harness/run_evaluation.py",
+      "retrieved_at": "2026-10-15T22:58:48.538545+00:00",
+      "response_url": "https://raw.githubusercontent.com/SWE-bench/SWE-bench/02e7a74ffd0b707aab73d203fe87bdc7c76afc8e/swebench/harness/run_evaluation.py",
+      "http_status": 200,
+      "response_sha256": "04b5dab584fbe62ae9d1ff025edf52d714e584102d587c7e647805d1efb37d84",
+      "bytes_fetched": 31442,
+      "url": "https://github.com/SWE-bench/SWE-bench/blob/02e7a74ffd0b707aab73d203fe87bdc7c76afc8e/swebench/harness/run_evaluation.py",
+      "title": "MB-SWEBENCH-EVAL pinned evaluator source",
+      "kind": "official benchmark source",
+      "accessed_on": "2026-10-15",
+      "capture": "Fresh pinned source retrieval; hash retained, full body not bundled.",
+      "notes": "Pinned evaluator can return an existing report from its run/model/task path; unique run/cache namespaces are required to prevent stale candidate results."
+    },
+    {
+      "id": "BPLAN-V-MAIN-CROSS",
+      "requested_response_url": "https://api.github.com/repos/vllm-project/vllm/commits/main",
+      "retrieved_at": "2026-10-15T22:58:48.538715+00:00",
+      "response_url": "https://api.github.com/repos/vllm-project/vllm/commits/main",
+      "http_status": 200,
+      "response_sha256": "b8a83f921f54ec3477ba2d6f51bc6592e52cfddcb5df2810fa05ddaf5eb3401e",
+      "bytes_fetched": 33306,
+      "observed_ref": "3f1e57225abec635b2ec1b513271ac385267bad3",
+      "committed_at": "2026-10-15T22:54:24Z",
+      "url": "https://github.com/vllm-project/vllm/commit/3f1e57225abec635b2ec1b513271ac385267bad3",
+      "title": "vLLM branch observation during benchmark review",
+      "kind": "official branch metadata",
+      "accessed_on": "2026-10-15",
+      "capture": "Fresh GitHub commit API retrieval; no full source tree or binary inspection.",
+      "notes": "Later main observation does not extend earlier inspected-source claims."
+    },
+    {
+      "id": "MBENCH-glm-5.3-flash-TEMPLATE",
+      "title": "MBENCH-glm-5.3-flash-TEMPLATE benchmark planning evidence",
+      "url": "https://huggingface.co/zai-org/GLM-5.3-Flash/raw/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/chat_template.jinja",
+      "kind": "publisher chat template",
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T22:51:14.970303+00:00",
+      "requested_response_url": "https://huggingface.co/zai-org/GLM-5.3-Flash/raw/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/chat_template.jinja",
+      "response_url": "https://huggingface.co/zai-org/GLM-5.3-Flash/raw/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/chat_template.jinja",
+      "response_sha256": "2614a3c896d53e265f564c23701173c0049f985dacfbae79fc4bcd9f5ba083f4",
+      "capture": "Fresh HTTPS retrieval; response hash retained, body not bundled.",
+      "notes": "effective_reasoning_effort accepts low/high, defaults max; clear_thinking defaults false; template contains no thinking conditional and assistant generation prefix includes <think>. Pinned model metadata/template evidence only; no model tensor payloads, runtime allocations or quality/performance measurements."
+    },
+    {
+      "id": "MBENCH-IFEVAL",
+      "title": "MBENCH-IFEVAL benchmark planning evidence",
+      "url": "https://raw.githubusercontent.com/google-research/google-research/master/instruction_following_eval/README.md",
+      "kind": "official benchmark documentation",
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T22:51:15.016059+00:00",
+      "requested_response_url": "https://raw.githubusercontent.com/google-research/google-research/master/instruction_following_eval/README.md",
+      "response_url": "https://raw.githubusercontent.com/google-research/google-research/master/instruction_following_eval/README.md",
+      "response_sha256": "fef3c44408e4b39837af345095ccce7da798853fd60ea94a1de63afa9d3d67b3",
+      "capture": "Fresh HTTPS retrieval; response hash retained, body not bundled.",
+      "notes": "Official evaluator consumes saved prompt/response pairs; instruction-following task is appropriate for explicit constrained-output regressions. Task/scorer documentation only; no evaluation run or adapter qualification. Dataset/code/dependency versions, samples, prompt extraction and thresholds must be frozen by operator."
+    },
+    {
+      "id": "MBENCH-RULER",
+      "title": "MBENCH-RULER benchmark planning evidence",
+      "url": "https://raw.githubusercontent.com/NVIDIA/RULER/main/README.md",
+      "kind": "official benchmark documentation",
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T22:51:15.040012+00:00",
+      "requested_response_url": "https://raw.githubusercontent.com/NVIDIA/RULER/main/README.md",
+      "response_url": "https://raw.githubusercontent.com/NVIDIA/RULER/main/README.md",
+      "response_sha256": "f3aae5bbd58fcd7de32aab099c455dd2bbc1da23a2efee9db3071eb9fbf894a3",
+      "capture": "Fresh HTTPS retrieval; response hash retained, body not bundled.",
+      "notes": "Synthetic configurable long-context tasks; categories include retrieval, variable tracking, aggregation and QA. Main README marks legacy pipeline deprecated and directs users to rulerv1-ns/rulerv2-ns. Task/scorer documentation only; no evaluation run or adapter qualification. Dataset/code/dependency versions, samples, prompt extraction and thresholds must be frozen by operator."
+    },
+    {
+      "id": "MBENCH-SWEBENCH",
+      "title": "MBENCH-SWEBENCH benchmark planning evidence",
+      "url": "https://www.swebench.com/SWE-bench/",
+      "kind": "official benchmark documentation",
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T22:51:15.056992+00:00",
+      "requested_response_url": "https://www.swebench.com/SWE-bench/",
+      "response_url": "https://www.swebench.com/SWE-bench/",
+      "response_sha256": "28230f80f93ae6f4a52c18921a69e1736e629140a692ceb99cbb49cfcd259668",
+      "capture": "Fresh HTTPS retrieval; response hash retained, body not bundled.",
+      "notes": "Official repository-issue evaluation, Docker harness, SWE-bench Verified subset. Agent/harness/tool budgets are part of application evaluation, not isolated serving speed. Task/scorer documentation only; no evaluation run or adapter qualification. Dataset/code/dependency versions, samples, prompt extraction and thresholds must be frozen by operator.",
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:52:30.275677+00:00",
+          "requested_url": "https://www.swebench.com/SWE-bench/",
+          "response_url": "https://www.swebench.com/SWE-bench/",
+          "response_sha256": "87c06307a343f83781c4656d6bc214b09e66723b1977ff3ae059fe7b9a699325",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/dense-research.json",
+          "scope": "Fresh model/benchmark metadata recheck; no runtime validation."
+        }
+      ]
+    },
+    {
+      "id": "MBENCH-DOCVQA",
+      "title": "MBENCH-DOCVQA benchmark planning evidence",
+      "url": "https://www.docvqa.org/datasets/docvqa",
+      "kind": "official benchmark documentation",
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T22:51:15.130798+00:00",
+      "requested_response_url": "https://www.docvqa.org/datasets/docvqa",
+      "response_url": "https://www.docvqa.org/datasets/docvqa",
+      "response_sha256": "ed4c377fe4469105be3a05c9ef22bfc473c6da52b64b11dab98795d46c8caddc",
+      "capture": "Fresh HTTPS retrieval; response hash retained, body not bundled.",
+      "notes": "Single document image question answering with text-span answers; selected as a proposed image/document regression task. Task/scorer documentation only; no evaluation run or adapter qualification. Dataset/code/dependency versions, samples, prompt extraction and thresholds must be frozen by operator."
+    },
+    {
+      "id": "MBENCH-RULER-V1",
+      "title": "MBENCH-RULER-V1 benchmark planning evidence",
+      "url": "https://raw.githubusercontent.com/NVIDIA/RULER/rulerv1-ns/README.md",
+      "kind": "official benchmark documentation",
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T22:52:23.197715+00:00",
+      "requested_response_url": "https://raw.githubusercontent.com/NVIDIA/RULER/rulerv1-ns/README.md",
+      "response_url": "https://raw.githubusercontent.com/NVIDIA/RULER/rulerv1-ns/README.md",
+      "response_sha256": "3302376f861372c433d4080bd9b9d10faf20fed30ec39fd1119cf703f3269c08",
+      "capture": "Fresh HTTPS retrieval; response hash retained, body not bundled.",
+      "notes": "Current v1 branch instructs using NeMo-Skills dependency and model-specific tokenizer; data generation and evaluation must both be pinned. Task/scorer documentation only; no evaluation run or adapter qualification. Dataset/code/dependency versions, samples, prompt extraction and thresholds must be frozen by operator.",
+      "benchmark_plan_rechecks": [
+        {
+          "retrieved_at": "2026-10-15T22:52:30.274746+00:00",
+          "requested_url": "https://raw.githubusercontent.com/NVIDIA/RULER/rulerv1-ns/README.md",
+          "response_url": "https://raw.githubusercontent.com/NVIDIA/RULER/rulerv1-ns/README.md",
+          "response_sha256": "3302376f861372c433d4080bd9b9d10faf20fed30ec39fd1119cf703f3269c08",
+          "ledger": "evidence/updates/2026-10-16-model-benchmarks/dense-research.json",
+          "scope": "Fresh model/benchmark metadata recheck; no runtime validation."
+        }
+      ]
+    },
+    {
+      "id": "MBENCH-DOCVQA-EVAL",
+      "title": "MBENCH-DOCVQA-EVAL benchmark planning evidence",
+      "url": "https://rrc.cvc.uab.es/?ch=17&com=tasks",
+      "kind": "official benchmark evaluation protocol",
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T22:52:23.213262+00:00",
+      "requested_response_url": "https://rrc.cvc.uab.es/?ch=17&com=tasks",
+      "response_url": "https://rrc.cvc.uab.es/?ch=17&com=tasks",
+      "response_sha256": "2ef99908166ff2a008ed8572d2de8d7c94299860742d6be4fdbc91379f860159",
+      "capture": "Fresh HTTPS retrieval; response hash retained, body not bundled.",
+      "notes": "Official task evaluation describes Average Normalized Levenshtein Similarity (ANLS). Task/scorer documentation only; no evaluation run or adapter qualification. Dataset/code/dependency versions, samples, prompt extraction and thresholds must be frozen by operator."
+    },
+    {
+      "id": "MBENCH-IFBENCH",
+      "title": "IFBench official benchmark and verifier documentation",
+      "kind": "benchmark maintainer documentation",
+      "url": "https://raw.githubusercontent.com/allenai/IFBench/main/README.md",
+      "revision": null,
+      "immutable_url": null,
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T22:52:30.275120+00:00",
+      "retrieval_status": 200,
+      "sha256": "3aeda5d9691ba92c2439a3ed881c51f342f3e609e997ee66f854f12138f73807",
+      "bytes": 4931,
+      "claims": [
+        "OOD constraints and optional two-turn isolation are described.",
+        "Maintainer reports prompt-level loose accuracy with temperature zero and final-answer extraction for thinking models; strict/loose scorer branches were separately inspected."
+      ],
+      "limitations": [
+        "Publisher model scores were not reproduced.",
+        "Qwen recommended sampled serving policies and maintainer evaluation policy must be labelled separately."
+      ],
+      "verification": "OOD constraints and optional two-turn isolation are described. Maintainer reports prompt-level loose accuracy with temperature zero and final-answer extraction for thinking models; strict/loose scorer branches were separately inspected.",
+      "capture": "Direct HTTPS metadata/text retrieval; content digest and checked claims retained. No benchmark execution.",
+      "response_sha256": "3aeda5d9691ba92c2439a3ed881c51f342f3e609e997ee66f854f12138f73807",
+      "http_status": 200,
+      "requested_response_url": "https://raw.githubusercontent.com/allenai/IFBench/main/README.md",
+      "response_url": "https://raw.githubusercontent.com/allenai/IFBench/main/README.md",
+      "notes": "OOD constraints and optional two-turn isolation are described. Maintainer reports prompt-level loose accuracy with temperature zero and final-answer extraction for thinking models; strict/loose scorer branches were separately inspected. Publisher model scores were not reproduced. Qwen recommended sampled serving policies and maintainer evaluation policy must be labelled separately."
+    },
+    {
+      "id": "MBENCH-IFBENCH-SCORER",
+      "title": "IFBench strict and loose evaluator entry point",
+      "kind": "benchmark maintainer evaluator source",
+      "url": "https://raw.githubusercontent.com/allenai/IFBench/main/run_eval.py",
+      "revision": null,
+      "immutable_url": null,
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T22:59:10.944829+00:00",
+      "retrieval_status": 200,
+      "sha256": "0842325428829a6fca8698c707d0822035292463894b57169c5056663d21bf75",
+      "bytes": 2745,
+      "claims": [
+        "run_eval.py invokes test_instruction_following_strict and test_instruction_following_loose and computes prompt accuracy."
+      ],
+      "limitations": [
+        "Mutable source inspected only; evaluator not installed or executed."
+      ],
+      "verification": "run_eval.py invokes test_instruction_following_strict and test_instruction_following_loose and computes prompt accuracy.",
+      "capture": "Direct HTTPS metadata/text retrieval; content digest and checked claims retained. No benchmark execution.",
+      "response_sha256": "0842325428829a6fca8698c707d0822035292463894b57169c5056663d21bf75",
+      "http_status": 200,
+      "requested_response_url": "https://raw.githubusercontent.com/allenai/IFBench/main/run_eval.py",
+      "response_url": "https://raw.githubusercontent.com/allenai/IFBench/main/run_eval.py",
+      "notes": "run_eval.py invokes test_instruction_following_strict and test_instruction_following_loose and computes prompt accuracy. Mutable source inspected only; evaluator not installed or executed."
+    },
+    {
+      "id": "MBENCH-LCB",
+      "title": "LiveCodeBench official releases and evaluation documentation",
+      "kind": "benchmark maintainer documentation",
+      "url": "https://raw.githubusercontent.com/LiveCodeBench/LiveCodeBench/main/README.md",
+      "revision": null,
+      "immutable_url": null,
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T22:52:30.275246+00:00",
+      "retrieval_status": 200,
+      "sha256": "ee0029cddc1d9051f35818f3348a4327819a3e35a9e597732519245605195cf6",
+      "bytes": 12825,
+      "claims": [
+        "release_v6 is a named fixed release; release_latest is the default and is unsuitable for repeated frozen A/B comparisons.",
+        "Code-generation evaluator computes pass@1/pass@5; prompt adapter, sampled attempts, test policy and resource/time limits affect comparability."
+      ],
+      "limitations": [
+        "Root shared guide has a deeper pinned loader inspection and documents full-mode filtering caveat; family pages link that guide.",
+        "Training overlap is unknown; no score reproduced."
+      ],
+      "verification": "release_v6 is a named fixed release; release_latest is the default and is unsuitable for repeated frozen A/B comparisons. Code-generation evaluator computes pass@1/pass@5; prompt adapter, sampled attempts, test policy and resource/time limits affect comparability.",
+      "capture": "Direct HTTPS metadata/text retrieval; content digest and checked claims retained. No benchmark execution.",
+      "response_sha256": "ee0029cddc1d9051f35818f3348a4327819a3e35a9e597732519245605195cf6",
+      "http_status": 200,
+      "requested_response_url": "https://raw.githubusercontent.com/LiveCodeBench/LiveCodeBench/main/README.md",
+      "response_url": "https://raw.githubusercontent.com/LiveCodeBench/LiveCodeBench/main/README.md",
+      "notes": "release_v6 is a named fixed release; release_latest is the default and is unsuitable for repeated frozen A/B comparisons. Code-generation evaluator computes pass@1/pass@5; prompt adapter, sampled attempts, test policy and resource/time limits affect comparability. Root shared guide has a deeper pinned loader inspection and documents full-mode filtering caveat; family pages link that guide. Training overlap is unknown; no score reproduced."
+    },
+    {
+      "id": "MBENCH-MMMUPRO",
+      "title": "MMMU-Pro official inference settings and image mapping",
+      "kind": "benchmark maintainer documentation",
+      "url": "https://raw.githubusercontent.com/MMMU-Benchmark/MMMU/main/mmmu-pro/README.md",
+      "revision": null,
+      "immutable_url": null,
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T22:52:30.275354+00:00",
+      "retrieval_status": 200,
+      "sha256": "9cf946409190f1b271349207073f8d83d552b13fff9667478f64d6c725dec37b",
+      "bytes": 3242,
+      "claims": [
+        "Official settings include standard with ten/four options and vision, plus direct/cot prompt modes.",
+        "Ten-option shuffling requires preserving each image placeholder to image key mapping."
+      ],
+      "limitations": [
+        "Model-specific adapters still require qualification.",
+        "Image reasoning does not evaluate temporal video behavior."
+      ],
+      "verification": "Official settings include standard with ten/four options and vision, plus direct/cot prompt modes. Ten-option shuffling requires preserving each image placeholder to image key mapping.",
+      "capture": "Direct HTTPS metadata/text retrieval; content digest and checked claims retained. No benchmark execution.",
+      "response_sha256": "9cf946409190f1b271349207073f8d83d552b13fff9667478f64d6c725dec37b",
+      "http_status": 200,
+      "requested_response_url": "https://raw.githubusercontent.com/MMMU-Benchmark/MMMU/main/mmmu-pro/README.md",
+      "response_url": "https://raw.githubusercontent.com/MMMU-Benchmark/MMMU/main/mmmu-pro/README.md",
+      "notes": "Official settings include standard with ten/four options and vision, plus direct/cot prompt modes. Ten-option shuffling requires preserving each image placeholder to image key mapping. Model-specific adapters still require qualification. Image reasoning does not evaluate temporal video behavior."
+    },
+    {
+      "id": "MBENCH-OMNIDOC-V15",
+      "title": "OmniDocBench v1.5 documentation",
+      "kind": "benchmark maintainer documentation",
+      "url": "https://raw.githubusercontent.com/opendatalab/OmniDocBench/v1_5/README.md",
+      "revision": null,
+      "immutable_url": null,
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T22:53:18.320188+00:00",
+      "retrieval_status": 200,
+      "sha256": "3b9e4d665f24a9b046ce3139d176f3c058a2dd74bc0bf499fb7d32c80fc80dd5",
+      "bytes": 92122,
+      "claims": [
+        "v1_5 branch documents text/read-order edit distance, table TEDS and formula CDM.",
+        "Its overall composite is not interchangeable with the Gemma publisher table labelled average edit distance."
+      ],
+      "limitations": [
+        "Branch and data must be pinned together before running.",
+        "The current main has later release/matching changes; no publisher reproduction inferred."
+      ],
+      "verification": "v1_5 branch documents text/read-order edit distance, table TEDS and formula CDM. Its overall composite is not interchangeable with the Gemma publisher table labelled average edit distance.",
+      "capture": "Direct HTTPS metadata/text retrieval; content digest and checked claims retained. No benchmark execution.",
+      "response_sha256": "3b9e4d665f24a9b046ce3139d176f3c058a2dd74bc0bf499fb7d32c80fc80dd5",
+      "http_status": 200,
+      "requested_response_url": "https://raw.githubusercontent.com/opendatalab/OmniDocBench/v1_5/README.md",
+      "response_url": "https://raw.githubusercontent.com/opendatalab/OmniDocBench/v1_5/README.md",
+      "notes": "v1_5 branch documents text/read-order edit distance, table TEDS and formula CDM. Its overall composite is not interchangeable with the Gemma publisher table labelled average edit distance. Branch and data must be pinned together before running. The current main has later release/matching changes; no publisher reproduction inferred."
+    },
+    {
+      "id": "MBENCH-BFCL",
+      "title": "BFCL official evaluator and endpoint documentation",
+      "kind": "benchmark maintainer documentation",
+      "url": "https://raw.githubusercontent.com/ShishirPatil/gorilla/main/berkeley-function-call-leaderboard/README.md",
+      "revision": null,
+      "immutable_url": null,
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T22:52:30.275566+00:00",
+      "retrieval_status": 200,
+      "sha256": "c6c95683cce9653788c8b3f3f5002d2f5c27b95a1288544fe82c2a2faf5e12d0",
+      "bytes": 17311,
+      "claims": [
+        "Official benchmark distinguishes function-calling categories and multi-turn evaluation; handler/environment are part of the contract.",
+        "Local plans select offline categories and distinguish semantic correctness from JSON validity."
+      ],
+      "limitations": [
+        "Category subsets are not overall leaderboard scores.",
+        "Web-search categories require separate treatment of mutable services."
+      ],
+      "verification": "Official benchmark distinguishes function-calling categories and multi-turn evaluation; handler/environment are part of the contract. Local plans select offline categories and distinguish semantic correctness from JSON validity.",
+      "capture": "Direct HTTPS metadata/text retrieval; content digest and checked claims retained. No benchmark execution.",
+      "response_sha256": "c6c95683cce9653788c8b3f3f5002d2f5c27b95a1288544fe82c2a2faf5e12d0",
+      "http_status": 200,
+      "requested_response_url": "https://raw.githubusercontent.com/ShishirPatil/gorilla/main/berkeley-function-call-leaderboard/README.md",
+      "response_url": "https://raw.githubusercontent.com/ShishirPatil/gorilla/main/berkeley-function-call-leaderboard/README.md",
+      "notes": "Official benchmark distinguishes function-calling categories and multi-turn evaluation; handler/environment are part of the contract. Local plans select offline categories and distinguish semantic correctness from JSON validity. Category subsets are not overall leaderboard scores. Web-search categories require separate treatment of mutable services."
+    },
+    {
+      "id": "MBENCH-SWE",
+      "title": "SWE-bench official benchmark overview",
+      "kind": "benchmark maintainer documentation",
+      "url": "https://www.swebench.com/SWE-bench/",
+      "revision": null,
+      "immutable_url": null,
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T22:52:30.275677+00:00",
+      "retrieval_status": 200,
+      "sha256": "87c06307a343f83781c4656d6bc214b09e66723b1977ff3ae059fe7b9a699325",
+      "bytes": 40903,
+      "claims": [
+        "SWE-bench evaluates repository issue patches using a containerized harness and includes the Verified subset.",
+        "Local proposal pins agent scaffold, tasks, environment, budgets/retries and distinguishes endpoint throughput from complete agent tasks."
+      ],
+      "limitations": [
+        "Publisher Mistral agent scores were not reproduced.",
+        "Agent/harness tooling and generated code were not run."
+      ],
+      "verification": "SWE-bench evaluates repository issue patches using a containerized harness and includes the Verified subset. Local proposal pins agent scaffold, tasks, environment, budgets/retries and distinguishes endpoint throughput from complete agent tasks.",
+      "capture": "Direct HTTPS metadata/text retrieval; content digest and checked claims retained. No benchmark execution.",
+      "response_sha256": "87c06307a343f83781c4656d6bc214b09e66723b1977ff3ae059fe7b9a699325",
+      "http_status": 200,
+      "requested_response_url": "https://www.swebench.com/SWE-bench/",
+      "response_url": "https://www.swebench.com/SWE-bench/",
+      "notes": "SWE-bench evaluates repository issue patches using a containerized harness and includes the Verified subset. Local proposal pins agent scaffold, tasks, environment, budgets/retries and distinguishes endpoint throughput from complete agent tasks. Publisher Mistral agent scores were not reproduced. Agent/harness tooling and generated code were not run."
+    },
+    {
+      "id": "mistral-medium-3.5-EAGLE-CARD",
+      "title": "Mistral Medium 3.5 publisher EAGLE card at pinned revision",
+      "kind": "publisher model card",
+      "url": "https://huggingface.co/mistralai/Mistral-Medium-3.5-128B-EAGLE/raw/d31694b0f55b51d4d962b5c3dbf0e03d1f019275/README.md",
+      "revision": "d31694b0f55b51d4d962b5c3dbf0e03d1f019275",
+      "immutable_url": "https://huggingface.co/mistralai/Mistral-Medium-3.5-128B-EAGLE/raw/d31694b0f55b51d4d962b5c3dbf0e03d1f019275/README.md",
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T22:53:18.319684+00:00",
+      "retrieval_status": 200,
+      "sha256": "fa49b3f0cabc14b54fb3f18f741ea926ed842f988129bda3c0fe7e01210188a5",
+      "bytes": 13021,
+      "claims": [
+        "Publisher names Mistral-Medium-3.5-128B target and documents both vLLM and SGLang EAGLE recipes.",
+        "vLLM example uses num_speculative_tokens=3 and draft max_model_len=65536."
+      ],
+      "limitations": [
+        "Recipes reference historical nightly/mutable image tags, not a locally qualified binary.",
+        "No atlas profile enables this drafter; compatibility with exact target/build and image-conditioned generation requires qualification."
+      ],
+      "verification": "Publisher names Mistral-Medium-3.5-128B target and documents both vLLM and SGLang EAGLE recipes. vLLM example uses num_speculative_tokens=3 and draft max_model_len=65536.",
+      "capture": "Direct HTTPS metadata/text retrieval; content digest and checked claims retained. No benchmark execution.",
+      "response_sha256": "fa49b3f0cabc14b54fb3f18f741ea926ed842f988129bda3c0fe7e01210188a5",
+      "http_status": 200,
+      "requested_response_url": "https://huggingface.co/mistralai/Mistral-Medium-3.5-128B-EAGLE/raw/d31694b0f55b51d4d962b5c3dbf0e03d1f019275/README.md",
+      "response_url": "https://huggingface.co/mistralai/Mistral-Medium-3.5-128B-EAGLE/raw/d31694b0f55b51d4d962b5c3dbf0e03d1f019275/README.md",
+      "notes": "Publisher names Mistral-Medium-3.5-128B target and documents both vLLM and SGLang EAGLE recipes. vLLM example uses num_speculative_tokens=3 and draft max_model_len=65536. Recipes reference historical nightly/mutable image tags, not a locally qualified binary. No atlas profile enables this drafter; compatibility with exact target/build and image-conditioned generation requires qualification."
+    },
+    {
+      "id": "mistral-medium-3.5-EAGLE-PARAMS",
+      "title": "Mistral Medium 3.5 publisher EAGLE native parameters",
+      "kind": "publisher configuration",
+      "url": "https://huggingface.co/mistralai/Mistral-Medium-3.5-128B-EAGLE/raw/d31694b0f55b51d4d962b5c3dbf0e03d1f019275/params.json",
+      "revision": "d31694b0f55b51d4d962b5c3dbf0e03d1f019275",
+      "immutable_url": "https://huggingface.co/mistralai/Mistral-Medium-3.5-128B-EAGLE/raw/d31694b0f55b51d4d962b5c3dbf0e03d1f019275/params.json",
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T22:53:18.320066+00:00",
+      "retrieval_status": 200,
+      "sha256": "e09c95174ad4994a08506143ea0afd8c1b76ac0583c654866e5aca6e38f377bb",
+      "bytes": 666,
+      "claims": [
+        "Native params.json at d31694b0f55b51d4d962b5c3dbf0e03d1f019275 declares two layers, FP8 E4M3 quantization metadata, YaRN fields and vision_encoder null."
+      ],
+      "limitations": [
+        "Native fields do not certify the loader mapping or prove multimodal speculation support.",
+        "No weight tensors inspected."
+      ],
+      "verification": "Native params.json at d31694b0f55b51d4d962b5c3dbf0e03d1f019275 declares two layers, FP8 E4M3 quantization metadata, YaRN fields and vision_encoder null.",
+      "capture": "Direct HTTPS metadata/text retrieval; content digest and checked claims retained. No benchmark execution.",
+      "response_sha256": "e09c95174ad4994a08506143ea0afd8c1b76ac0583c654866e5aca6e38f377bb",
+      "http_status": 200,
+      "requested_response_url": "https://huggingface.co/mistralai/Mistral-Medium-3.5-128B-EAGLE/raw/d31694b0f55b51d4d962b5c3dbf0e03d1f019275/params.json",
+      "response_url": "https://huggingface.co/mistralai/Mistral-Medium-3.5-128B-EAGLE/raw/d31694b0f55b51d4d962b5c3dbf0e03d1f019275/params.json",
+      "notes": "Native params.json at d31694b0f55b51d4d962b5c3dbf0e03d1f019275 declares two layers, FP8 E4M3 quantization metadata, YaRN fields and vision_encoder null. Native fields do not certify the loader mapping or prove multimodal speculation support. No weight tensors inspected."
+    },
+    {
+      "id": "mistral-medium-3.5-EAGLE-TREE",
+      "title": "Mistral Medium 3.5 EAGLE pinned file metadata",
+      "kind": "publisher repository metadata",
+      "url": "https://huggingface.co/api/models/mistralai/Mistral-Medium-3.5-128B-EAGLE/tree/d31694b0f55b51d4d962b5c3dbf0e03d1f019275?recursive=false&expand=false",
+      "revision": "d31694b0f55b51d4d962b5c3dbf0e03d1f019275",
+      "immutable_url": "https://huggingface.co/api/models/mistralai/Mistral-Medium-3.5-128B-EAGLE/tree/d31694b0f55b51d4d962b5c3dbf0e03d1f019275?recursive=false&expand=false",
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T22:52:46.198408+00:00",
+      "retrieval_status": 200,
+      "sha256": "8ee3a8915805eb4266a0a4ce8098f52c8af62d1b8f3cf4fb27396bdd18ee7892",
+      "bytes": 995,
+      "claims": [
+        "Pinned tree lists README.md, params.json, tekken.json, LICENSE and consolidated.safetensors; config.json is absent.",
+        "Current API resolved immutable revision d31694b0f55b51d4d962b5c3dbf0e03d1f019275."
+      ],
+      "limitations": [
+        "File metadata does not verify weight contents or serving compatibility."
+      ],
+      "verification": "Pinned tree lists README.md, params.json, tekken.json, LICENSE and consolidated.safetensors; config.json is absent. Current API resolved immutable revision d31694b0f55b51d4d962b5c3dbf0e03d1f019275.",
+      "capture": "Direct HTTPS metadata/text retrieval; content digest and checked claims retained. No benchmark execution.",
+      "response_sha256": "8ee3a8915805eb4266a0a4ce8098f52c8af62d1b8f3cf4fb27396bdd18ee7892",
+      "http_status": 200,
+      "requested_response_url": "https://huggingface.co/api/models/mistralai/Mistral-Medium-3.5-128B-EAGLE/tree/d31694b0f55b51d4d962b5c3dbf0e03d1f019275?recursive=false&expand=false",
+      "response_url": "https://huggingface.co/api/models/mistralai/Mistral-Medium-3.5-128B-EAGLE/tree/d31694b0f55b51d4d962b5c3dbf0e03d1f019275?recursive=false&expand=false",
+      "notes": "Pinned tree lists README.md, params.json, tekken.json, LICENSE and consolidated.safetensors; config.json is absent. Current API resolved immutable revision d31694b0f55b51d4d962b5c3dbf0e03d1f019275. File metadata does not verify weight contents or serving compatibility."
+    },
+    {
+      "id": "deepseek-v4-flash-0731-NV-CARD",
+      "title": "deepseek-v4-flash-0731-NV-CARD benchmark planning evidence",
+      "url": "https://huggingface.co/nvidia/DeepSeek-V4-Flash-0731-NVFP4/raw/f1caa71142bd0be02f728c79f75042ac1e461579/README.md",
+      "kind": "publisher model card",
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T22:53:58.589237+00:00",
+      "response_sha256": "145264414508fc648c0c8bc7d05a047cfbdc75e753c5395f49c93fb2e407e9a5",
+      "requested_response_url": "https://huggingface.co/nvidia/DeepSeek-V4-Flash-0731-NVFP4/raw/f1caa71142bd0be02f728c79f75042ac1e461579/README.md",
+      "response_url": "https://huggingface.co/nvidia/DeepSeek-V4-Flash-0731-NVFP4/raw/f1caa71142bd0be02f728c79f75042ac1e461579/README.md",
+      "capture": "Fresh immutable source retrieval; hash retained, full body not bundled.",
+      "notes": "Exact NVIDIA derivative identifies DeepSeek 0731 base and preserves bundled DSpark. Card expressly says speculation was not exercised during release validation; publisher target-only examples use TP8. Documentation/config/source inspection only; no local GPU or model-quality result."
+    },
+    {
+      "id": "deepseek-v4-flash-0731-NV-CFG",
+      "title": "deepseek-v4-flash-0731-NV-CFG benchmark planning evidence",
+      "url": "https://huggingface.co/nvidia/DeepSeek-V4-Flash-0731-NVFP4/raw/f1caa71142bd0be02f728c79f75042ac1e461579/config.json",
+      "kind": "publisher configuration",
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T22:53:58.744146+00:00",
+      "response_sha256": "bb0d2286d6761439e41d3cef31d16489411b816ed8688922f59730bbd5567cdb",
+      "requested_response_url": "https://huggingface.co/nvidia/DeepSeek-V4-Flash-0731-NVFP4/raw/f1caa71142bd0be02f728c79f75042ac1e461579/config.json",
+      "response_url": "https://huggingface.co/nvidia/DeepSeek-V4-Flash-0731-NVFP4/raw/f1caa71142bd0be02f728c79f75042ac1e461579/config.json",
+      "capture": "Fresh immutable source retrieval; hash retained, full body not bundled.",
+      "notes": "Mixed quantization names NVFP4 routed experts with group size 16 and ignores attention, shared experts, head and mtp.*; full tensor audit not performed. Documentation/config/source inspection only; no local GPU or model-quality result."
+    },
+    {
+      "id": "MB-RULER-V1",
+      "title": "MB-RULER-V1 benchmark planning evidence",
+      "url": "https://raw.githubusercontent.com/NVIDIA/RULER/e8bbff677ca2c239640dc90f93310dcf32408c93/README.md",
+      "kind": "benchmark author documentation",
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T22:53:59.189028+00:00",
+      "response_sha256": "3302376f861372c433d4080bd9b9d10faf20fed30ec39fd1119cf703f3269c08",
+      "requested_response_url": "https://raw.githubusercontent.com/NVIDIA/RULER/e8bbff677ca2c239640dc90f93310dcf32408c93/README.md",
+      "response_url": "https://raw.githubusercontent.com/NVIDIA/RULER/e8bbff677ca2c239640dc90f93310dcf32408c93/README.md",
+      "capture": "Fresh immutable source retrieval; hash retained, full body not bundled.",
+      "notes": "Official rulerv1-ns instructions generate data using the model tokenizer and use a NeMo-Skills pipeline; required dependency branch must be separately pinned for execution. Documentation/config/source inspection only; no local GPU or model-quality result. Benchmark authors define the evaluation; Kimi/DeepSeek adapters, task data and evaluator environment were not installed or executed."
+    },
+    {
+      "id": "MB-MMMU-PRO",
+      "title": "MB-MMMU-PRO benchmark planning evidence",
+      "url": "https://raw.githubusercontent.com/MMMU-Benchmark/MMMU/268471d0d488258990025331c7528359c324aa25/mmmu-pro/README.md",
+      "kind": "benchmark author documentation",
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T22:54:00.208277+00:00",
+      "response_sha256": "9cf946409190f1b271349207073f8d83d552b13fff9667478f64d6c725dec37b",
+      "requested_response_url": "https://raw.githubusercontent.com/MMMU-Benchmark/MMMU/268471d0d488258990025331c7528359c324aa25/mmmu-pro/README.md",
+      "response_url": "https://raw.githubusercontent.com/MMMU-Benchmark/MMMU/268471d0d488258990025331c7528359c324aa25/mmmu-pro/README.md",
+      "capture": "Fresh immutable source retrieval; hash retained, full body not bundled.",
+      "notes": "Official MMMU-Pro instructions distinguish standard ten/four-option and vision settings and explain image-token ordering/mapping. Documentation/config/source inspection only; no local GPU or model-quality result. Benchmark authors define the evaluation; Kimi/DeepSeek adapters, task data and evaluator environment were not installed or executed."
+    },
+    {
+      "id": "MBENCH-GLM53-TARGET-LOADER",
+      "title": "MBENCH-GLM53-TARGET-LOADER intentional target-only draft omission",
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/f8460ef23659afd69046a81529ec2295e4c3f686/vllm/models/deepseek_v32/nvidia/model.py",
+      "kind": "immutable source inspection",
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T23:01:17.066946+00:00",
+      "response_sha256": "e53c068dc43981c20bfd83384764b57234a7e3c5e5235b988cdecebc1b5788e4",
+      "requested_response_url": "https://raw.githubusercontent.com/vllm-project/vllm/f8460ef23659afd69046a81529ec2295e4c3f686/vllm/models/deepseek_v32/nvidia/model.py",
+      "response_url": "https://raw.githubusercontent.com/vllm-project/vllm/f8460ef23659afd69046a81529ec2295e4c3f686/vllm/models/deepseek_v32/nvidia/model.py",
+      "capture": "Fresh immutable source retrieval; hash retained, no binary executed.",
+      "notes": "Target loader deliberately omits MTP/speculative tensors; stored checkpoint inventory is not equivalent to target-only resident inventory. Selected load-path source at the retained inspected commit; no runtime execution, tensor allocation or validation of another image/build. Exact registered class must be checked for the chosen image."
+    },
+    {
+      "id": "MBENCH-GLM53F-TARGET-LOADER",
+      "title": "MBENCH-GLM53F-TARGET-LOADER intentional target-only draft omission",
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/f8460ef23659afd69046a81529ec2295e4c3f686/vllm/models/glm5next/common/model.py",
+      "kind": "immutable source inspection",
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T23:01:17.067452+00:00",
+      "response_sha256": "f337b984e25c8cb3d1546dbb4bf7ac8a5c057b19967adb0bb037c416b252b7bb",
+      "requested_response_url": "https://raw.githubusercontent.com/vllm-project/vllm/f8460ef23659afd69046a81529ec2295e4c3f686/vllm/models/glm5next/common/model.py",
+      "response_url": "https://raw.githubusercontent.com/vllm-project/vllm/f8460ef23659afd69046a81529ec2295e4c3f686/vllm/models/glm5next/common/model.py",
+      "capture": "Fresh immutable source retrieval; hash retained, no binary executed.",
+      "notes": "Target loader deliberately omits MTP/speculative tensors; stored checkpoint inventory is not equivalent to target-only resident inventory. Selected load-path source at the retained inspected commit; no runtime execution, tensor allocation or validation of another image/build. Exact registered class must be checked for the chosen image."
+    },
+    {
+      "id": "MBENCH-QFN-TARGET-LOADER",
+      "title": "MBENCH-QFN-TARGET-LOADER intentional target-only draft omission",
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/f8460ef23659afd69046a81529ec2295e4c3f686/vllm/models/qwen4_exp/nvidia/model.py",
+      "kind": "immutable source inspection",
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T23:01:17.067560+00:00",
+      "response_sha256": "57db5f72c89dcecd9f595b466e7f87cb4efc6063cf55b1c99a536fd6e5f807c5",
+      "requested_response_url": "https://raw.githubusercontent.com/vllm-project/vllm/f8460ef23659afd69046a81529ec2295e4c3f686/vllm/models/qwen4_exp/nvidia/model.py",
+      "response_url": "https://raw.githubusercontent.com/vllm-project/vllm/f8460ef23659afd69046a81529ec2295e4c3f686/vllm/models/qwen4_exp/nvidia/model.py",
+      "capture": "Fresh immutable source retrieval; hash retained, no binary executed.",
+      "notes": "Target loader deliberately omits MTP/speculative tensors; stored checkpoint inventory is not equivalent to target-only resident inventory. Selected load-path source at the retained inspected commit; no runtime execution, tensor allocation or validation of another image/build. Exact registered class must be checked for the chosen image."
     }
   ]
 }

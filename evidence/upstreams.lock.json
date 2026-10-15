@@ -15,9 +15,9 @@
       "release_commit": "db9527a46873454610df6dbedf79a36d6bf1a7f6",
       "release_checked_at": "2026-10-15T22:25:07.993881+00:00",
       "latest_branch": "main",
-      "latest_branch_ref": "de7d70676d9a39353aab4796a6987d345c597991",
-      "latest_branch_commit_date": "2026-10-15T22:29:13Z",
-      "latest_branch_checked_at": "2026-10-15T22:35:37.609877+00:00",
+      "latest_branch_ref": "3f1e57225abec635b2ec1b513271ac385267bad3",
+      "latest_branch_commit_date": "2026-10-15T22:54:24Z",
+      "latest_branch_checked_at": "2026-10-15T22:58:48.538715+00:00",
       "source_review_scope": "Selected model registry and Kimi DSpark MLA files only; see frameworks/vllm/SOURCE_REVIEW.md",
       "prior_branch_observations": [
         {
@@ -28,6 +28,12 @@
           "source_rechecked_at_current_branch": true,
           "source_files_identical_at_current_branch": true,
           "source_review_scope": "Selected model registry and Kimi DSpark MLA files only; see frameworks/vllm/SOURCE_REVIEW.md"
+        },
+        {
+          "latest_branch": "main",
+          "latest_branch_ref": "de7d70676d9a39353aab4796a6987d345c597991",
+          "latest_branch_commit_date": "2026-10-15T22:29:13Z",
+          "latest_branch_checked_at": "2026-10-15T22:35:37.609877+00:00"
         }
       ],
       "expanded_source_review": {
@@ -37,6 +43,19 @@
         "ledger": "evidence/updates/2026-10-16-engine-experiments/vllm-research.json",
         "binary_executed": false,
         "original_inspected_ref_preserved": true
+      },
+      "benchmark_plan_recheck": {
+        "release": "v0.31.0",
+        "release_checked_at": "2026-10-15T22:51:50.866393+00:00",
+        "branch_ref": "de7d70676d9a39353aab4796a6987d345c597991",
+        "branch_checked_at": "2026-10-15T22:51:50.866525+00:00",
+        "source_tree_rechecked": false,
+        "ledger": "evidence/updates/2026-10-16-model-benchmarks/upstream-recheck.json"
+      },
+      "benchmark_review_recheck": {
+        "source_id": "BPLAN-V-MAIN-CROSS",
+        "source_tree_rechecked": false,
+        "ledger": "evidence/updates/2026-10-16-model-benchmarks/shared-review-retrievals.json"
       }
     },
     {
@@ -53,9 +72,9 @@
       "release_commit": "e00930c5489053f26d86b179cee0d087f846acbb",
       "release_checked_at": "2026-10-15T22:25:15.805356+00:00",
       "latest_branch": "main",
-      "latest_branch_ref": "4e0609ea277d09393d752fcb79181e3416d94c56",
-      "latest_branch_commit_date": "2026-10-15T22:05:08Z",
-      "latest_branch_checked_at": "2026-10-15T22:38:42.878432+00:00",
+      "latest_branch_ref": "4cca7fcd3e644f22a61c7a6e6b57bb89b568d62a",
+      "latest_branch_commit_date": "2026-10-15T22:50:51Z",
+      "latest_branch_checked_at": "2026-10-15T22:51:50.866786+00:00",
       "source_review_scope": "Selected ModelOpt quantization and model registry files only; see frameworks/sglang/SOURCE_REVIEW.md",
       "prior_branch_observations": [
         {
@@ -66,6 +85,12 @@
           "source_rechecked_at_current_branch": true,
           "source_files_identical_at_current_branch": true,
           "source_review_scope": "Selected ModelOpt quantization and model registry files only; see frameworks/sglang/SOURCE_REVIEW.md"
+        },
+        {
+          "latest_branch": "main",
+          "latest_branch_ref": "4e0609ea277d09393d752fcb79181e3416d94c56",
+          "latest_branch_commit_date": "2026-10-15T22:05:08Z",
+          "latest_branch_checked_at": "2026-10-15T22:38:42.878432+00:00"
         }
       ],
       "release_tag_object": "7337b27853377544a322fd4390df332d8ca7d8cb",
@@ -76,6 +101,14 @@
         "ledger": "evidence/updates/2026-10-16-engine-experiments/sglang-research.json",
         "binary_executed": false,
         "original_inspected_ref_preserved": true
+      },
+      "benchmark_plan_recheck": {
+        "release": "v0.5.21",
+        "release_checked_at": "2026-10-15T22:51:50.866702+00:00",
+        "branch_ref": "4cca7fcd3e644f22a61c7a6e6b57bb89b568d62a",
+        "branch_checked_at": "2026-10-15T22:51:50.866786+00:00",
+        "source_tree_rechecked": false,
+        "ledger": "evidence/updates/2026-10-16-model-benchmarks/upstream-recheck.json"
       }
     },
     {
@@ -114,6 +147,14 @@
         "binary_executed": false,
         "original_inspected_ref_preserved": true,
         "also_compared_release_ref": "d1482554fc4f66dd41aee70e01f5174e24f265bd"
+      },
+      "benchmark_plan_recheck": {
+        "release": "v0.21.0",
+        "release_checked_at": "2026-10-15T22:51:50.866967+00:00",
+        "branch_ref": "22be2b0496eea4548a98395c3abccf48d8235385",
+        "branch_checked_at": "2026-10-15T22:51:51.004221+00:00",
+        "source_tree_rechecked": false,
+        "ledger": "evidence/updates/2026-10-16-model-benchmarks/upstream-recheck.json"
       }
     }
   ],
@@ -609,6 +650,28 @@
       "id": "VEXP-NIGHTLY-CROSS",
       "artifact_bytes_downloaded": false,
       "binary_verified": false
+    },
+    {
+      "retrieved_at": "2026-10-15T22:51:51.007686+00:00",
+      "response_sha256": "6f949c4c06381f6e4ab8b7942884d7b295995a2f6e52f0e1756d39777f881929",
+      "advertised_commit": "d92a4f25f270a4c9e3a4ceb5c0fad0035e200936",
+      "advertised_version": "0.32.0rc1.dev260+gd92a4f25f",
+      "wheels": [
+        {
+          "filename": "vllm-0.32.0rc1.dev260+gd92a4f25f-cp38-abi3-manylinux_2_28_aarch64.whl",
+          "url": "https://wheels.vllm.ai/d92a4f25f270a4c9e3a4ceb5c0fad0035e200936/vllm-0.32.0rc1.dev260%2Bgd92a4f25f-cp38-abi3-manylinux_2_28_aarch64.whl"
+        },
+        {
+          "filename": "vllm-0.32.0rc1.dev260+gd92a4f25f-cp38-abi3-manylinux_2_28_x86_64.whl",
+          "url": "https://wheels.vllm.ai/d92a4f25f270a4c9e3a4ceb5c0fad0035e200936/vllm-0.32.0rc1.dev260%2Bgd92a4f25f-cp38-abi3-manylinux_2_28_x86_64.whl"
+        }
+      ],
+      "limitations": "Index metadata only. Advertised version and source identifiers do not verify wheel contents, source-to-binary provenance, or compatibility.",
+      "artifact_bytes_downloaded": false,
+      "binary_verified": false,
+      "id": "BPLAN-V-NIGHTLY-WHEELS",
+      "source_id": "BPLAN-V-NIGHTLY-WHEELS",
+      "url": "https://wheels.vllm.ai/nightly/cu130/vllm/"
     }
   ],
   "nightly_observation_boundary": "Published index/registry metadata only; no wheel or image bytes executed or verified. Multiple dated observations are retained because moving channels changed during research. Source inspection applies only to the named selected refs, not every later branch or artifact.",
@@ -1017,6 +1080,80 @@
       "pulled": false,
       "source_revision_verified": false,
       "notes": "master publishing workflow targets latest; registry metadata is not proof this digest matches the observed master commit. No separate nightly KServe channel established."
+    }
+  ],
+  "model_benchmark_recheck_ledgers": [
+    {
+      "ledger": "evidence/updates/2026-10-16-model-benchmarks/hybrid-research.json",
+      "model_keys": [
+        "glm-5.3",
+        "glm-5.3-flash",
+        "qwen3.8-flash-next"
+      ],
+      "retrieval_window_utc": {
+        "first": "2026-10-15T22:51:14.472092+00:00",
+        "last": "2026-10-15T23:03:12.188767+00:00"
+      },
+      "scope": "Existing model pins rechecked; no profiles or artifact status promoted.",
+      "additional_pinned_source_scope": "Three vLLM target loaders at existing f8460ef23659afd69046a81529ec2295e4c3f686 and GLM registration trace; intentional MTP omission only, no complete engine audit."
+    },
+    {
+      "ledger": "evidence/updates/2026-10-16-model-benchmarks/dense-research.json",
+      "model_keys": [
+        "qwen3.8-27b",
+        "gemma-4-31b-it",
+        "mistral-medium-3.5"
+      ],
+      "retrieval_window_utc": [
+        "2026-10-15T22:51:29.967269+00:00",
+        "2026-10-15T22:59:10.945471+00:00"
+      ],
+      "scope": "Existing base/export pins rechecked; proposed EAGLE draft recorded separately, no launch profile added."
+    },
+    {
+      "ledger": "evidence/updates/2026-10-16-model-benchmarks/moe-research.json",
+      "model_keys": [
+        "kimi-k3",
+        "deepseek-v4-flash-0731"
+      ],
+      "retrieval_window_utc": [
+        "2026-10-15T22:51:46.266008+00:00",
+        "2026-10-15T22:54:00.208277+00:00"
+      ],
+      "scope": "Existing model/draft pins rechecked; uncatalogued export recorded separately, no launch profile added."
+    }
+  ],
+  "uncatalogued_candidate_artifacts": [
+    {
+      "model_key": "mistral-medium-3.5",
+      "hf_id": "mistralai/Mistral-Medium-3.5-128B-EAGLE",
+      "revision": "d31694b0f55b51d4d962b5c3dbf0e03d1f019275",
+      "role": "candidate speculative drafter",
+      "source_ids": [
+        "mistral-medium-3.5-EAGLE-CARD",
+        "mistral-medium-3.5-EAGLE-PARAMS",
+        "mistral-medium-3.5-EAGLE-TREE"
+      ],
+      "ledger": "evidence/updates/2026-10-16-model-benchmarks/dense-research.json",
+      "qualification_status": "metadata observed; exact target/build/runtime pairing not qualified",
+      "profile_path": null,
+      "weight_tensors_inspected": false,
+      "tested_on_target": false
+    },
+    {
+      "model_key": "deepseek-v4-flash-0731",
+      "hf_id": "nvidia/DeepSeek-V4-Flash-0731-NVFP4",
+      "revision": "f1caa71142bd0be02f728c79f75042ac1e461579",
+      "role": "candidate mixed NVFP4 target export",
+      "source_ids": [
+        "deepseek-v4-flash-0731-NV-CARD",
+        "deepseek-v4-flash-0731-NV-CFG"
+      ],
+      "ledger": "evidence/updates/2026-10-16-model-benchmarks/moe-research.json",
+      "qualification_status": "metadata observed; exact loader and full tensor map not qualified; publisher says DSpark unexercised in export validation",
+      "profile_path": null,
+      "weight_tensors_inspected": false,
+      "tested_on_target": false
     }
   ]
 }

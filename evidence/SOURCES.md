@@ -2755,3 +2755,477 @@ Captured response SHA-256: `606d591e4c6d99094c21751a3c7ef1148a4fc4390d5842abcedd
 Requested response: [retrieval endpoint](https://docs.sglang.io/developer_guide/bench_serving.html).
 Resolved response: [captured endpoint](https://docs.sglang.io/docs/developer_guide/bench_serving).
 Resolved URL recorded during this request.
+
+## Model benchmark planning follow-up
+
+Fresh retrievals for this task use their own UTC timestamps. Model/API/config rechecks and new benchmark contracts are recorded in the [benchmark update](MODEL-BENCHMARK-UPDATE-2026-10-16.md). Stable release pages were rechecked at 2026-10-15T22:51:50 UTC (VREL, GREL, KREL), with unchanged versions; exact receipts are in [upstream-recheck.json](updates/2026-10-16-model-benchmarks/upstream-recheck.json).
+
+### MB-IFEVAL: MB-IFEVAL official benchmark contract
+
+[Open primary source](https://github.com/google-research/google-research/blob/3ef52111c1fabc301880818f5a547570e926a76b/instruction_following_eval/evaluation_lib.py)
+
+Type: official benchmark documentation/source. Retrieved: 2026-10-15T22:54:30.431704+00:00 UTC.
+
+Captured response SHA-256: `35decc06000718487f44d7deafa6d3f48a8ec0886281edf40162c0265b7d248c`.
+Requested response: [retrieval endpoint](https://raw.githubusercontent.com/google-research/google-research/3ef52111c1fabc301880818f5a547570e926a76b/instruction_following_eval/evaluation_lib.py).
+Resolved response: [captured endpoint](https://raw.githubusercontent.com/google-research/google-research/3ef52111c1fabc301880818f5a547570e926a76b/instruction_following_eval/evaluation_lib.py).
+
+Strict versus loose scoring and prompt-level versus instruction-level reports differ; pin answer extraction and metric. Documentation/source inspection only; no model execution, benchmark run, complete dependency lock, or dataset download.
+
+### MB-IFEVAL-README: MB-IFEVAL-README official benchmark contract
+
+[Open primary source](https://github.com/google-research/google-research/blob/3ef52111c1fabc301880818f5a547570e926a76b/instruction_following_eval/README.md)
+
+Type: official benchmark documentation/source. Retrieved: 2026-10-15T22:54:30.253759+00:00 UTC.
+
+Captured response SHA-256: `fef3c44408e4b39837af345095ccce7da798853fd60ea94a1de63afa9d3d67b3`.
+Requested response: [retrieval endpoint](https://raw.githubusercontent.com/google-research/google-research/3ef52111c1fabc301880818f5a547570e926a76b/instruction_following_eval/README.md).
+Resolved response: [captured endpoint](https://raw.githubusercontent.com/google-research/google-research/3ef52111c1fabc301880818f5a547570e926a76b/instruction_following_eval/README.md).
+
+Official evaluator consumes prompt/response JSONL; the atlas timing-only probe output is insufficient. Documentation/source inspection only; no model execution, benchmark run, complete dependency lock, or dataset download.
+
+### MB-LIVECODEBENCH: MB-LIVECODEBENCH official benchmark contract
+
+[Open primary source](https://github.com/LiveCodeBench/LiveCodeBench/blob/28fef95ea8c9f7a547c8329f2cd3d32b92c1fa24/README.md)
+
+Type: official benchmark documentation/source. Retrieved: 2026-10-15T22:54:30.254093+00:00 UTC.
+
+Captured response SHA-256: `ee0029cddc1d9051f35818f3348a4327819a3e35a9e597732519245605195cf6`.
+Requested response: [retrieval endpoint](https://raw.githubusercontent.com/LiveCodeBench/LiveCodeBench/28fef95ea8c9f7a547c8329f2cd3d32b92c1fa24/README.md).
+Resolved response: [captured endpoint](https://raw.githubusercontent.com/LiveCodeBench/LiveCodeBench/28fef95ea8c9f7a547c8329f2cd3d32b92c1fa24/README.md).
+
+Freeze release/date range, code_generation_lite versus full tests, sample design, prompt adapter and execution timeout. Latest is mutable; a date filter alone does not establish unseen training examples. Documentation/source inspection only; no model execution, benchmark run, complete dependency lock, or dataset download.
+
+### MB-EVALPLUS: MB-EVALPLUS official benchmark contract
+
+[Open primary source](https://github.com/evalplus/evalplus/blob/26d6d00bb1fd0fa37f39c99d5290da67891d1c5e/README.md)
+
+Type: official benchmark documentation/source. Retrieved: 2026-10-15T22:54:30.258998+00:00 UTC.
+
+Captured response SHA-256: `667f3f937cf8dfa67dd6624c24c22cb0e938c9b31179cf2e40457d2708ff2260`.
+Requested response: [retrieval endpoint](https://raw.githubusercontent.com/evalplus/evalplus/26d6d00bb1fd0fa37f39c99d5290da67891d1c5e/README.md).
+Resolved response: [captured endpoint](https://raw.githubusercontent.com/evalplus/evalplus/26d6d00bb1fd0fa37f39c99d5290da67891d1c5e/README.md).
+
+HumanEval+/MBPP+ expand tests; base/chat prompt modes differ; external compatible endpoint and saved-sample evaluation are documented. Documentation/source inspection only; no model execution, benchmark run, complete dependency lock, or dataset download.
+
+### MB-EVALPLUS-EXECUTION: MB-EVALPLUS-EXECUTION official benchmark contract
+
+[Open primary source](https://github.com/evalplus/evalplus/blob/26d6d00bb1fd0fa37f39c99d5290da67891d1c5e/docs/execution.md)
+
+Type: official benchmark documentation/source. Retrieved: 2026-10-15T22:54:30.421542+00:00 UTC.
+
+Captured response SHA-256: `a8d8dbd755097980b1c37e72fd34afdd1468575207f91ec0db323baec4d60db7`.
+Requested response: [retrieval endpoint](https://raw.githubusercontent.com/evalplus/evalplus/26d6d00bb1fd0fa37f39c99d5290da67891d1c5e/docs/execution.md).
+Resolved response: [captured endpoint](https://raw.githubusercontent.com/evalplus/evalplus/26d6d00bb1fd0fa37f39c99d5290da67891d1c5e/docs/execution.md).
+
+Timeout/OOM count as failed solutions; scorer hardware, memory/time settings and concurrency affect execution results. Documentation/source inspection only; no model execution, benchmark run, complete dependency lock, or dataset download.
+
+### MB-RULER: MB-RULER official benchmark contract
+
+[Open primary source](https://github.com/NVIDIA/RULER/blob/c3f5e3b4f87f97e048793bb510a3a6b19a46bf3a/README.md)
+
+Type: official benchmark documentation/source. Retrieved: 2026-10-15T22:54:30.313588+00:00 UTC.
+
+Captured response SHA-256: `f3aae5bbd58fcd7de32aab099c455dd2bbc1da23a2efee9db3071eb9fbf894a3`.
+Requested response: [retrieval endpoint](https://raw.githubusercontent.com/NVIDIA/RULER/c3f5e3b4f87f97e048793bb510a3a6b19a46bf3a/README.md).
+Resolved response: [captured endpoint](https://raw.githubusercontent.com/NVIDIA/RULER/c3f5e3b4f87f97e048793bb510a3a6b19a46bf3a/README.md).
+
+Current main routes to rulerv1-ns and rulerv2-ns and deprecates the former pipeline; synthetic tasks do not replace realistic long-context applications. Documentation/source inspection only; no model execution, benchmark run, complete dependency lock, or dataset download.
+
+### MB-RULER1: MB-RULER1 official benchmark contract
+
+[Open primary source](https://github.com/NVIDIA/RULER/blob/e8bbff677ca2c239640dc90f93310dcf32408c93/README.md)
+
+Type: official benchmark documentation/source. Retrieved: 2026-10-15T22:54:30.305577+00:00 UTC.
+
+Captured response SHA-256: `3302376f861372c433d4080bd9b9d10faf20fed30ec39fd1119cf703f3269c08`.
+Requested response: [retrieval endpoint](https://raw.githubusercontent.com/NVIDIA/RULER/e8bbff677ca2c239640dc90f93310dcf32408c93/README.md).
+Resolved response: [captured endpoint](https://raw.githubusercontent.com/NVIDIA/RULER/e8bbff677ca2c239640dc90f93310dcf32408c93/README.md).
+
+RULERv1 route requires separate NeMo-Skills branch/dependency and model-tokenizer-based data generation; benchmark doc SHA does not pin evaluator environment. Documentation/source inspection only; no model execution, benchmark run, complete dependency lock, or dataset download.
+
+### MB-RULER2: MB-RULER2 official benchmark contract
+
+[Open primary source](https://github.com/NVIDIA/RULER/blob/4809570a2a40e803bfe341773e561524224c2e7c/README.md)
+
+Type: official benchmark documentation/source. Retrieved: 2026-10-15T22:54:30.305229+00:00 UTC.
+
+Captured response SHA-256: `495872cd6fbed7d730e68b59a5432c5d33fd6f19e69a7b6002051cfd07bed710`.
+Requested response: [retrieval endpoint](https://raw.githubusercontent.com/NVIDIA/RULER/4809570a2a40e803bfe341773e561524224c2e7c/README.md).
+Resolved response: [captured endpoint](https://raw.githubusercontent.com/NVIDIA/RULER/4809570a2a40e803bfe341773e561524224c2e7c/README.md).
+
+RULERv2 is a distinct route with its own NeMo-Skills dependency and generation settings; do not combine scores with RULERv1. Documentation/source inspection only; no model execution, benchmark run, complete dependency lock, or dataset download.
+
+### MB-BFCL: MB-BFCL official benchmark contract
+
+[Open primary source](https://github.com/ShishirPatil/gorilla/blob/6ea57973c7a6097fd7c5915698c54c17c5b1b6c8/berkeley-function-call-leaderboard/README.md)
+
+Type: official benchmark documentation/source. Retrieved: 2026-10-15T22:54:30.355442+00:00 UTC.
+
+Captured response SHA-256: `c6c95683cce9653788c8b3f3f5002d2f5c27b95a1288544fe82c2a2faf5e12d0`.
+Requested response: [retrieval endpoint](https://raw.githubusercontent.com/ShishirPatil/gorilla/6ea57973c7a6097fd7c5915698c54c17c5b1b6c8/berkeley-function-call-leaderboard/README.md).
+Resolved response: [captured endpoint](https://raw.githubusercontent.com/ShishirPatil/gorilla/6ea57973c7a6097fd7c5915698c54c17c5b1b6c8/berkeley-function-call-leaderboard/README.md).
+
+partial-eval skips missing IDs; unevaluated categories affect aggregate reporting. Freeze expected IDs and categories, retain coverage and denominators. Existing endpoint route still needs model handler qualification. Documentation/source inspection only; no model execution, benchmark run, complete dependency lock, or dataset download.
+
+### MB-BFCL-CATEGORIES: MB-BFCL-CATEGORIES official benchmark contract
+
+[Open primary source](https://github.com/ShishirPatil/gorilla/blob/6ea57973c7a6097fd7c5915698c54c17c5b1b6c8/berkeley-function-call-leaderboard/TEST_CATEGORIES.md)
+
+Type: official benchmark documentation/source. Retrieved: 2026-10-15T22:54:30.560407+00:00 UTC.
+
+Captured response SHA-256: `dfdf449b1500a6452eab142433bf641bb8e5b7208d0631ce7c009ea09bef32a6`.
+Requested response: [retrieval endpoint](https://raw.githubusercontent.com/ShishirPatil/gorilla/6ea57973c7a6097fd7c5915698c54c17c5b1b6c8/berkeley-function-call-leaderboard/TEST_CATEGORIES.md).
+Resolved response: [captured endpoint](https://raw.githubusercontent.com/ShishirPatil/gorilla/6ea57973c7a6097fd7c5915698c54c17c5b1b6c8/berkeley-function-call-leaderboard/TEST_CATEGORIES.md).
+
+All/default includes changing memory/web-search categories and non-scoring format sensitivity; choose task-relevant categories instead of a floating all aggregate. Documentation/source inspection only; no model execution, benchmark run, complete dependency lock, or dataset download.
+
+### MB-MMMU: MB-MMMU official benchmark contract
+
+[Open primary source](https://github.com/MMMU-Benchmark/MMMU/blob/268471d0d488258990025331c7528359c324aa25/README.md)
+
+Type: official benchmark documentation/source. Retrieved: 2026-10-15T22:54:30.364398+00:00 UTC.
+
+Captured response SHA-256: `a4e89dd389f9b4c82b92e54b5d50a58e55a53c077a5009f7d4b4e53c09bdcc3a`.
+Requested response: [retrieval endpoint](https://raw.githubusercontent.com/MMMU-Benchmark/MMMU/268471d0d488258990025331c7528359c324aa25/README.md).
+Resolved response: [captured endpoint](https://raw.githubusercontent.com/MMMU-Benchmark/MMMU/268471d0d488258990025331c7528359c324aa25/README.md).
+
+MMMU and MMMU-Pro are distinct evaluations. MMMU test answers released 2026-02-12; public test split does not establish unseen training data. Official pipeline differs from documented third-party integration defaults. Documentation/source inspection only; no model execution, benchmark run, complete dependency lock, or dataset download.
+
+### MB-SWEBENCH-README: MB-SWEBENCH-README official benchmark contract
+
+[Open primary source](https://github.com/SWE-bench/SWE-bench/blob/02e7a74ffd0b707aab73d203fe87bdc7c76afc8e/README.md)
+
+Type: official benchmark documentation/source. Retrieved: 2026-10-15T22:54:30.402998+00:00 UTC.
+
+Captured response SHA-256: `06841624d7b5130dfe3cc6714642e9a8fd2a608c95c66ae0180e409f12b73aaa`.
+Requested response: [retrieval endpoint](https://raw.githubusercontent.com/SWE-bench/SWE-bench/02e7a74ffd0b707aab73d203fe87bdc7c76afc8e/README.md).
+Resolved response: [captured endpoint](https://raw.githubusercontent.com/SWE-bench/SWE-bench/02e7a74ffd0b707aab73d203fe87bdc7c76afc8e/README.md).
+
+Optional repository issue resolution evaluation; exact model+agent+environment+budget is the object of comparison, not model weights alone. Documentation/source inspection only; no model execution, benchmark run, complete dependency lock, or dataset download.
+
+### MB-SWEBENCH: MB-SWEBENCH official benchmark contract
+
+[Open primary source](https://www.swebench.com/SWE-bench/guides/evaluation/)
+
+Type: official benchmark documentation/source. Retrieved: 2026-10-15T22:54:30.783231+00:00 UTC.
+
+Captured response SHA-256: `a37e1a0762a6a0b646b58522170f3e80bb457221e02f2b0141503f1cdff6ea91`.
+Requested response: [retrieval endpoint](https://www.swebench.com/SWE-bench/guides/evaluation/).
+Resolved response: [captured endpoint](https://www.swebench.com/SWE-bench/guides/evaluation/).
+
+Patch application and repository tests run in Docker; reports distinguish completed/resolved/unresolved/error counts. Result cache uses run_id and instance_id, so fresh prediction evaluations need unique run IDs. Mutable documentation observation; no benchmark run.
+
+### BPLAN-G-MAIN: sglang benchmark-plan main reference metadata recheck
+
+[Open primary source](https://github.com/sgl-project/sglang/commit/4cca7fcd3e644f22a61c7a6e6b57bb89b568d62a)
+
+Type: primary source metadata. Retrieved: 2026-10-15T22:51:50.866786+00:00 UTC.
+
+Captured response SHA-256: `c6125434d44603479a4a54b3b498a992814c9446f51f2ffdebc4b1dd64f1d7c1`.
+Requested response: [retrieval endpoint](https://api.github.com/repos/sgl-project/sglang/commits/main).
+Resolved response: [captured endpoint](https://api.github.com/repos/sgl-project/sglang/commits/main).
+
+Five version declarations in the commit diff change 0.4.9 to 0.4.10. This does not establish published sgl-kernel artifact contents or re-audit the complete branch changes.
+
+### BPLAN-V-NIGHTLY-WHEELS: vllm benchmark-plan CUDA 13 nightly wheel index recheck
+
+[Open primary source](https://wheels.vllm.ai/nightly/cu130/vllm/)
+
+Type: primary source metadata. Retrieved: 2026-10-15T22:51:51.007686+00:00 UTC.
+
+Captured response SHA-256: `6f949c4c06381f6e4ab8b7942884d7b295995a2f6e52f0e1756d39777f881929`.
+Requested response: [retrieval endpoint](https://wheels.vllm.ai/nightly/cu130/vllm/).
+Resolved response: [captured endpoint](https://wheels.vllm.ai/nightly/cu130/vllm/).
+
+Index metadata only. Advertised version and source identifiers do not verify wheel contents, source-to-binary provenance, or compatibility.
+
+### MB-LIVECODEBENCH-LOADER: MB-LIVECODEBENCH-LOADER pinned evaluator source
+
+[Open primary source](https://github.com/LiveCodeBench/LiveCodeBench/blob/28fef95ea8c9f7a547c8329f2cd3d32b92c1fa24/lcb_runner/benchmarks/code_generation.py)
+
+Type: official benchmark source. Retrieved: 2026-10-15T22:58:48.538084+00:00 UTC.
+
+Captured response SHA-256: `0bc93f5a650b55d6a1b54d3db852d80ae64891ece4ff085b2e6b469eb89f8846`.
+Requested response: [retrieval endpoint](https://raw.githubusercontent.com/LiveCodeBench/LiveCodeBench/28fef95ea8c9f7a547c8329f2cd3d32b92c1fa24/lcb_runner/benchmarks/code_generation.py).
+
+Pinned full code-generation loader ignores release_version and loads the unfiltered test split; documentation/source review only, no evaluation executed.
+
+### MB-LIVECODEBENCH-ROUTER: MB-LIVECODEBENCH-ROUTER pinned evaluator source
+
+[Open primary source](https://github.com/LiveCodeBench/LiveCodeBench/blob/28fef95ea8c9f7a547c8329f2cd3d32b92c1fa24/lcb_runner/runner/scenario_router.py)
+
+Type: official benchmark source. Retrieved: 2026-10-15T22:58:48.538441+00:00 UTC.
+
+Captured response SHA-256: `b3f05927fa58d83847b2ffaac34b9f722af5b47e8b930ba15830507dc76a6649`.
+Requested response: [retrieval endpoint](https://raw.githubusercontent.com/LiveCodeBench/LiveCodeBench/28fef95ea8c9f7a547c8329f2cd3d32b92c1fa24/lcb_runner/runner/scenario_router.py).
+
+Pinned full-mode route does not pass date filters; inspect actual item manifests before claiming a frozen release/date comparison.
+
+### MB-SWEBENCH-EVAL: MB-SWEBENCH-EVAL pinned evaluator source
+
+[Open primary source](https://github.com/SWE-bench/SWE-bench/blob/02e7a74ffd0b707aab73d203fe87bdc7c76afc8e/swebench/harness/run_evaluation.py)
+
+Type: official benchmark source. Retrieved: 2026-10-15T22:58:48.538545+00:00 UTC.
+
+Captured response SHA-256: `04b5dab584fbe62ae9d1ff025edf52d714e584102d587c7e647805d1efb37d84`.
+Requested response: [retrieval endpoint](https://raw.githubusercontent.com/SWE-bench/SWE-bench/02e7a74ffd0b707aab73d203fe87bdc7c76afc8e/swebench/harness/run_evaluation.py).
+
+Pinned evaluator can return an existing report from its run/model/task path; unique run/cache namespaces are required to prevent stale candidate results.
+
+### BPLAN-V-MAIN-CROSS: vLLM branch observation during benchmark review
+
+[Open primary source](https://github.com/vllm-project/vllm/commit/3f1e57225abec635b2ec1b513271ac385267bad3)
+
+Type: official branch metadata. Retrieved: 2026-10-15T22:58:48.538715+00:00 UTC.
+
+Captured response SHA-256: `b8a83f921f54ec3477ba2d6f51bc6592e52cfddcb5df2810fa05ddaf5eb3401e`.
+Requested response: [retrieval endpoint](https://api.github.com/repos/vllm-project/vllm/commits/main).
+
+Later main observation does not extend earlier inspected-source claims.
+
+Fresh GLM 5.3, GLM Flash and Qwen Flash Next card/config, template and artifact-revision checks are itemized by source ID and UTC retrieval time in [hybrid-research.json](updates/2026-10-16-model-benchmarks/hybrid-research.json). Matching existing source records retain their original observations and now include separate `benchmark_plan_rechecks`.
+
+### MBENCH-glm-5.3-flash-TEMPLATE: MBENCH-glm-5.3-flash-TEMPLATE benchmark planning evidence
+
+[Open primary source](https://huggingface.co/zai-org/GLM-5.3-Flash/raw/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/chat_template.jinja)
+
+Type: publisher chat template. Retrieved: 2026-10-15T22:51:14.970303+00:00 UTC.
+
+Captured response SHA-256: `2614a3c896d53e265f564c23701173c0049f985dacfbae79fc4bcd9f5ba083f4`.
+
+effective_reasoning_effort accepts low/high, defaults max; clear_thinking defaults false; template contains no thinking conditional and assistant generation prefix includes <think>. Pinned model metadata/template evidence only; no model tensor payloads, runtime allocations or quality/performance measurements.
+
+### MBENCH-IFEVAL: MBENCH-IFEVAL benchmark planning evidence
+
+[Open primary source](https://raw.githubusercontent.com/google-research/google-research/master/instruction_following_eval/README.md)
+
+Type: official benchmark documentation. Retrieved: 2026-10-15T22:51:15.016059+00:00 UTC.
+
+Captured response SHA-256: `fef3c44408e4b39837af345095ccce7da798853fd60ea94a1de63afa9d3d67b3`.
+
+Official evaluator consumes saved prompt/response pairs; instruction-following task is appropriate for explicit constrained-output regressions. Task/scorer documentation only; no evaluation run or adapter qualification. Dataset/code/dependency versions, samples, prompt extraction and thresholds must be frozen by operator.
+
+### MBENCH-RULER: MBENCH-RULER benchmark planning evidence
+
+[Open primary source](https://raw.githubusercontent.com/NVIDIA/RULER/main/README.md)
+
+Type: official benchmark documentation. Retrieved: 2026-10-15T22:51:15.040012+00:00 UTC.
+
+Captured response SHA-256: `f3aae5bbd58fcd7de32aab099c455dd2bbc1da23a2efee9db3071eb9fbf894a3`.
+
+Synthetic configurable long-context tasks; categories include retrieval, variable tracking, aggregation and QA. Main README marks legacy pipeline deprecated and directs users to rulerv1-ns/rulerv2-ns. Task/scorer documentation only; no evaluation run or adapter qualification. Dataset/code/dependency versions, samples, prompt extraction and thresholds must be frozen by operator.
+
+### MBENCH-SWEBENCH: MBENCH-SWEBENCH benchmark planning evidence
+
+[Open primary source](https://www.swebench.com/SWE-bench/)
+
+Type: official benchmark documentation. Retrieved: 2026-10-15T22:51:15.056992+00:00 UTC.
+
+Captured response SHA-256: `28230f80f93ae6f4a52c18921a69e1736e629140a692ceb99cbb49cfcd259668`.
+
+Official repository-issue evaluation, Docker harness, SWE-bench Verified subset. Agent/harness/tool budgets are part of application evaluation, not isolated serving speed. Task/scorer documentation only; no evaluation run or adapter qualification. Dataset/code/dependency versions, samples, prompt extraction and thresholds must be frozen by operator.
+
+### MBENCH-DOCVQA: MBENCH-DOCVQA benchmark planning evidence
+
+[Open primary source](https://www.docvqa.org/datasets/docvqa)
+
+Type: official benchmark documentation. Retrieved: 2026-10-15T22:51:15.130798+00:00 UTC.
+
+Captured response SHA-256: `ed4c377fe4469105be3a05c9ef22bfc473c6da52b64b11dab98795d46c8caddc`.
+
+Single document image question answering with text-span answers; selected as a proposed image/document regression task. Task/scorer documentation only; no evaluation run or adapter qualification. Dataset/code/dependency versions, samples, prompt extraction and thresholds must be frozen by operator.
+
+### MBENCH-RULER-V1: MBENCH-RULER-V1 benchmark planning evidence
+
+[Open primary source](https://raw.githubusercontent.com/NVIDIA/RULER/rulerv1-ns/README.md)
+
+Type: official benchmark documentation. Retrieved: 2026-10-15T22:52:23.197715+00:00 UTC.
+
+Captured response SHA-256: `3302376f861372c433d4080bd9b9d10faf20fed30ec39fd1119cf703f3269c08`.
+
+Current v1 branch instructs using NeMo-Skills dependency and model-specific tokenizer; data generation and evaluation must both be pinned. Task/scorer documentation only; no evaluation run or adapter qualification. Dataset/code/dependency versions, samples, prompt extraction and thresholds must be frozen by operator.
+
+### MBENCH-DOCVQA-EVAL: MBENCH-DOCVQA-EVAL benchmark planning evidence
+
+[Open primary source](https://rrc.cvc.uab.es/?ch=17&com=tasks)
+
+Type: official benchmark evaluation protocol. Retrieved: 2026-10-15T22:52:23.213262+00:00 UTC.
+
+Captured response SHA-256: `2ef99908166ff2a008ed8572d2de8d7c94299860742d6be4fdbc91379f860159`.
+
+Official task evaluation describes Average Normalized Levenshtein Similarity (ANLS). Task/scorer documentation only; no evaluation run or adapter qualification. Dataset/code/dependency versions, samples, prompt extraction and thresholds must be frozen by operator.
+
+Fresh Qwen 27B, Gemma and Mistral base/export metadata checks, current-versus-pinned comparisons and the newly observed Mistral EAGLE candidate are in [dense-research.json](updates/2026-10-16-model-benchmarks/dense-research.json), with individual UTC dates, hashes and claim limits.
+
+### MBENCH-IFBENCH: IFBench official benchmark and verifier documentation
+
+[Open primary source](https://raw.githubusercontent.com/allenai/IFBench/main/README.md)
+
+Type: benchmark maintainer documentation. Retrieved: 2026-10-15T22:52:30.275120+00:00 UTC.
+
+Captured response SHA-256: `3aeda5d9691ba92c2439a3ed881c51f342f3e609e997ee66f854f12138f73807`.
+
+OOD constraints and optional two-turn isolation are described. Maintainer reports prompt-level loose accuracy with temperature zero and final-answer extraction for thinking models; strict/loose scorer branches were separately inspected. Publisher model scores were not reproduced. Qwen recommended sampled serving policies and maintainer evaluation policy must be labelled separately.
+
+### MBENCH-IFBENCH-SCORER: IFBench strict and loose evaluator entry point
+
+[Open primary source](https://raw.githubusercontent.com/allenai/IFBench/main/run_eval.py)
+
+Type: benchmark maintainer evaluator source. Retrieved: 2026-10-15T22:59:10.944829+00:00 UTC.
+
+Captured response SHA-256: `0842325428829a6fca8698c707d0822035292463894b57169c5056663d21bf75`.
+
+run_eval.py invokes test_instruction_following_strict and test_instruction_following_loose and computes prompt accuracy. Mutable source inspected only; evaluator not installed or executed.
+
+### MBENCH-LCB: LiveCodeBench official releases and evaluation documentation
+
+[Open primary source](https://raw.githubusercontent.com/LiveCodeBench/LiveCodeBench/main/README.md)
+
+Type: benchmark maintainer documentation. Retrieved: 2026-10-15T22:52:30.275246+00:00 UTC.
+
+Captured response SHA-256: `ee0029cddc1d9051f35818f3348a4327819a3e35a9e597732519245605195cf6`.
+
+release_v6 is a named fixed release; release_latest is the default and is unsuitable for repeated frozen A/B comparisons. Code-generation evaluator computes pass@1/pass@5; prompt adapter, sampled attempts, test policy and resource/time limits affect comparability. Root shared guide has a deeper pinned loader inspection and documents full-mode filtering caveat; family pages link that guide. Training overlap is unknown; no score reproduced.
+
+### MBENCH-MMMUPRO: MMMU-Pro official inference settings and image mapping
+
+[Open primary source](https://raw.githubusercontent.com/MMMU-Benchmark/MMMU/main/mmmu-pro/README.md)
+
+Type: benchmark maintainer documentation. Retrieved: 2026-10-15T22:52:30.275354+00:00 UTC.
+
+Captured response SHA-256: `9cf946409190f1b271349207073f8d83d552b13fff9667478f64d6c725dec37b`.
+
+Official settings include standard with ten/four options and vision, plus direct/cot prompt modes. Ten-option shuffling requires preserving each image placeholder to image key mapping. Model-specific adapters still require qualification. Image reasoning does not evaluate temporal video behavior.
+
+### MBENCH-OMNIDOC-V15: OmniDocBench v1.5 documentation
+
+[Open primary source](https://raw.githubusercontent.com/opendatalab/OmniDocBench/v1_5/README.md)
+
+Type: benchmark maintainer documentation. Retrieved: 2026-10-15T22:53:18.320188+00:00 UTC.
+
+Captured response SHA-256: `3b9e4d665f24a9b046ce3139d176f3c058a2dd74bc0bf499fb7d32c80fc80dd5`.
+
+v1_5 branch documents text/read-order edit distance, table TEDS and formula CDM. Its overall composite is not interchangeable with the Gemma publisher table labelled average edit distance. Branch and data must be pinned together before running. The current main has later release/matching changes; no publisher reproduction inferred.
+
+### MBENCH-BFCL: BFCL official evaluator and endpoint documentation
+
+[Open primary source](https://raw.githubusercontent.com/ShishirPatil/gorilla/main/berkeley-function-call-leaderboard/README.md)
+
+Type: benchmark maintainer documentation. Retrieved: 2026-10-15T22:52:30.275566+00:00 UTC.
+
+Captured response SHA-256: `c6c95683cce9653788c8b3f3f5002d2f5c27b95a1288544fe82c2a2faf5e12d0`.
+
+Official benchmark distinguishes function-calling categories and multi-turn evaluation; handler/environment are part of the contract. Local plans select offline categories and distinguish semantic correctness from JSON validity. Category subsets are not overall leaderboard scores. Web-search categories require separate treatment of mutable services.
+
+### MBENCH-SWE: SWE-bench official benchmark overview
+
+[Open primary source](https://www.swebench.com/SWE-bench/)
+
+Type: benchmark maintainer documentation. Retrieved: 2026-10-15T22:52:30.275677+00:00 UTC.
+
+Captured response SHA-256: `87c06307a343f83781c4656d6bc214b09e66723b1977ff3ae059fe7b9a699325`.
+
+SWE-bench evaluates repository issue patches using a containerized harness and includes the Verified subset. Local proposal pins agent scaffold, tasks, environment, budgets/retries and distinguishes endpoint throughput from complete agent tasks. Publisher Mistral agent scores were not reproduced. Agent/harness tooling and generated code were not run.
+
+### mistral-medium-3.5-EAGLE-CARD: Mistral Medium 3.5 publisher EAGLE card at pinned revision
+
+[Open primary source](https://huggingface.co/mistralai/Mistral-Medium-3.5-128B-EAGLE/raw/d31694b0f55b51d4d962b5c3dbf0e03d1f019275/README.md)
+
+Type: publisher model card. Retrieved: 2026-10-15T22:53:18.319684+00:00 UTC.
+
+Captured response SHA-256: `fa49b3f0cabc14b54fb3f18f741ea926ed842f988129bda3c0fe7e01210188a5`.
+
+Publisher names Mistral-Medium-3.5-128B target and documents both vLLM and SGLang EAGLE recipes. vLLM example uses num_speculative_tokens=3 and draft max_model_len=65536. Recipes reference historical nightly/mutable image tags, not a locally qualified binary. No atlas profile enables this drafter; compatibility with exact target/build and image-conditioned generation requires qualification.
+
+### mistral-medium-3.5-EAGLE-PARAMS: Mistral Medium 3.5 publisher EAGLE native parameters
+
+[Open primary source](https://huggingface.co/mistralai/Mistral-Medium-3.5-128B-EAGLE/raw/d31694b0f55b51d4d962b5c3dbf0e03d1f019275/params.json)
+
+Type: publisher configuration. Retrieved: 2026-10-15T22:53:18.320066+00:00 UTC.
+
+Captured response SHA-256: `e09c95174ad4994a08506143ea0afd8c1b76ac0583c654866e5aca6e38f377bb`.
+
+Native params.json at d31694b0f55b51d4d962b5c3dbf0e03d1f019275 declares two layers, FP8 E4M3 quantization metadata, YaRN fields and vision_encoder null. Native fields do not certify the loader mapping or prove multimodal speculation support. No weight tensors inspected.
+
+### mistral-medium-3.5-EAGLE-TREE: Mistral Medium 3.5 EAGLE pinned file metadata
+
+[Open primary source](https://huggingface.co/api/models/mistralai/Mistral-Medium-3.5-128B-EAGLE/tree/d31694b0f55b51d4d962b5c3dbf0e03d1f019275?recursive=false&expand=false)
+
+Type: publisher repository metadata. Retrieved: 2026-10-15T22:52:46.198408+00:00 UTC.
+
+Captured response SHA-256: `8ee3a8915805eb4266a0a4ce8098f52c8af62d1b8f3cf4fb27396bdd18ee7892`.
+
+Pinned tree lists README.md, params.json, tekken.json, LICENSE and consolidated.safetensors; config.json is absent. Current API resolved immutable revision d31694b0f55b51d4d962b5c3dbf0e03d1f019275. File metadata does not verify weight contents or serving compatibility.
+
+Fresh Kimi and DeepSeek base/draft/export metadata checks and a separate NVIDIA DeepSeek 0731 export observation are recorded by source ID and UTC timestamp in [moe-research.json](updates/2026-10-16-model-benchmarks/moe-research.json). Existing source identities retain their original retrievals and separate rechecks.
+
+### deepseek-v4-flash-0731-NV-CARD: deepseek-v4-flash-0731-NV-CARD benchmark planning evidence
+
+[Open primary source](https://huggingface.co/nvidia/DeepSeek-V4-Flash-0731-NVFP4/raw/f1caa71142bd0be02f728c79f75042ac1e461579/README.md)
+
+Type: publisher model card. Retrieved: 2026-10-15T22:53:58.589237+00:00 UTC.
+
+Captured response SHA-256: `145264414508fc648c0c8bc7d05a047cfbdc75e753c5395f49c93fb2e407e9a5`.
+
+Exact NVIDIA derivative identifies DeepSeek 0731 base and preserves bundled DSpark. Card expressly says speculation was not exercised during release validation; publisher target-only examples use TP8. Documentation/config/source inspection only; no local GPU or model-quality result.
+
+### deepseek-v4-flash-0731-NV-CFG: deepseek-v4-flash-0731-NV-CFG benchmark planning evidence
+
+[Open primary source](https://huggingface.co/nvidia/DeepSeek-V4-Flash-0731-NVFP4/raw/f1caa71142bd0be02f728c79f75042ac1e461579/config.json)
+
+Type: publisher configuration. Retrieved: 2026-10-15T22:53:58.744146+00:00 UTC.
+
+Captured response SHA-256: `bb0d2286d6761439e41d3cef31d16489411b816ed8688922f59730bbd5567cdb`.
+
+Mixed quantization names NVFP4 routed experts with group size 16 and ignores attention, shared experts, head and mtp.*; full tensor audit not performed. Documentation/config/source inspection only; no local GPU or model-quality result.
+
+### MB-RULER-V1: MB-RULER-V1 benchmark planning evidence
+
+[Open primary source](https://raw.githubusercontent.com/NVIDIA/RULER/e8bbff677ca2c239640dc90f93310dcf32408c93/README.md)
+
+Type: benchmark author documentation. Retrieved: 2026-10-15T22:53:59.189028+00:00 UTC.
+
+Captured response SHA-256: `3302376f861372c433d4080bd9b9d10faf20fed30ec39fd1119cf703f3269c08`.
+
+Official rulerv1-ns instructions generate data using the model tokenizer and use a NeMo-Skills pipeline; required dependency branch must be separately pinned for execution. Documentation/config/source inspection only; no local GPU or model-quality result. Benchmark authors define the evaluation; Kimi/DeepSeek adapters, task data and evaluator environment were not installed or executed.
+
+### MB-MMMU-PRO: MB-MMMU-PRO benchmark planning evidence
+
+[Open primary source](https://raw.githubusercontent.com/MMMU-Benchmark/MMMU/268471d0d488258990025331c7528359c324aa25/mmmu-pro/README.md)
+
+Type: benchmark author documentation. Retrieved: 2026-10-15T22:54:00.208277+00:00 UTC.
+
+Captured response SHA-256: `9cf946409190f1b271349207073f8d83d552b13fff9667478f64d6c725dec37b`.
+
+Official MMMU-Pro instructions distinguish standard ten/four-option and vision settings and explain image-token ordering/mapping. Documentation/config/source inspection only; no local GPU or model-quality result. Benchmark authors define the evaluation; Kimi/DeepSeek adapters, task data and evaluator environment were not installed or executed.
+
+### MBENCH-GLM53-TARGET-LOADER: MBENCH-GLM53-TARGET-LOADER intentional target-only draft omission
+
+[Open primary source](https://raw.githubusercontent.com/vllm-project/vllm/f8460ef23659afd69046a81529ec2295e4c3f686/vllm/models/deepseek_v32/nvidia/model.py)
+
+Type: immutable source inspection. Retrieved: 2026-10-15T23:01:17.066946+00:00 UTC.
+
+Captured response SHA-256: `e53c068dc43981c20bfd83384764b57234a7e3c5e5235b988cdecebc1b5788e4`.
+
+Target loader deliberately omits MTP/speculative tensors; stored checkpoint inventory is not equivalent to target-only resident inventory. Selected load-path source at the retained inspected commit; no runtime execution, tensor allocation or validation of another image/build. Exact registered class must be checked for the chosen image.
+
+### MBENCH-GLM53F-TARGET-LOADER: MBENCH-GLM53F-TARGET-LOADER intentional target-only draft omission
+
+[Open primary source](https://raw.githubusercontent.com/vllm-project/vllm/f8460ef23659afd69046a81529ec2295e4c3f686/vllm/models/glm5next/common/model.py)
+
+Type: immutable source inspection. Retrieved: 2026-10-15T23:01:17.067452+00:00 UTC.
+
+Captured response SHA-256: `f337b984e25c8cb3d1546dbb4bf7ac8a5c057b19967adb0bb037c416b252b7bb`.
+
+Target loader deliberately omits MTP/speculative tensors; stored checkpoint inventory is not equivalent to target-only resident inventory. Selected load-path source at the retained inspected commit; no runtime execution, tensor allocation or validation of another image/build. Exact registered class must be checked for the chosen image.
+
+### MBENCH-QFN-TARGET-LOADER: MBENCH-QFN-TARGET-LOADER intentional target-only draft omission
+
+[Open primary source](https://raw.githubusercontent.com/vllm-project/vllm/f8460ef23659afd69046a81529ec2295e4c3f686/vllm/models/qwen4_exp/nvidia/model.py)
+
+Type: immutable source inspection. Retrieved: 2026-10-15T23:01:17.067560+00:00 UTC.
+
+Captured response SHA-256: `57db5f72c89dcecd9f595b466e7f87cb4efc6063cf55b1c99a536fd6e5f807c5`.
+
+Target loader deliberately omits MTP/speculative tensors; stored checkpoint inventory is not equivalent to target-only resident inventory. Selected load-path source at the retained inspected commit; no runtime execution, tensor allocation or validation of another image/build. Exact registered class must be checked for the chosen image.

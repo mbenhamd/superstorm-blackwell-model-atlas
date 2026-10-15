@@ -20,3 +20,5 @@ The [October 16 engine expansion](ENGINE-UPDATE-2026-10-16.md), dated in Europe/
 For each production claim retain the checkpoint SHA, image digest, effective engine class and kernels, command, hardware inventory, workload hash, quality output and raw measurements. A correct loader registry entry is one condition of support, not the entire evidence chain.
 
 No third-party weights, private repository content, tokens, proprietary PDFs or upstream font assets are bundled. Source documents remain available at their publishers. Authored prose paraphrases and explains the evidence; it is not a wholesale reproduction of model cards.
+
+The [model benchmark planning update](MODEL-BENCHMARK-UPDATE-2026-10-16.md) adds model-specific quality campaigns, evaluator provenance and fresh model/upstream rechecks. It records plans and review evidence, not executed quality or serving results.

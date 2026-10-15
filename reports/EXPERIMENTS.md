@@ -31,6 +31,8 @@ X01 is a prerequisite for every other row. X02 and X03 gate performance claims; 
 
 ## Which model to use first
 
+The [model benchmark guide](../benchmarks/MODEL-BENCHMARKS.md) maps every family to specific quality campaigns and explains the remaining evaluator work. Its linked family validation plans supply matched controls and decision gates; the rows below provide only the campaign entry points.
+
 | Atlas family | Useful first question | Existing starting point and limit |
 | --- | --- | --- |
 | Qwen 3.8 27B | Can a small hybrid target expose state/cache/scheduling regressions cheaply, then scale by replication? | [BF16 vLLM profile](../profiles/qwen3.8-27b.bf16.vllm.baseline.json), [BF16 SGLang profile](../profiles/qwen3.8-27b.bf16.sglang.baseline.json); compare the exact FP8/NVFP4 exports only after baseline quality. |

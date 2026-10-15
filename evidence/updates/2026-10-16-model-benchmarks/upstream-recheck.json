@@ -1,0 +1,489 @@
+{
+  "scope": "Fresh stable-release, branch and existing nightly/development artifact metadata recheck for model-specific benchmark planning. No repository edits.",
+  "completed_at": "2026-10-15T22:53:01.969948+00:00",
+  "date_basis": "UTC retrieval timestamps; Europe/Paris calendar date is October 16, 2026.",
+  "prior_lock": {
+    "path": "evidence/upstreams.lock.json",
+    "as_of": "2026-10-15",
+    "sha256": "fe97805a54d9a48f56e15d548f86c58992fc63c4c7f627008030ec53d1bba80c"
+  },
+  "receipts": [
+    {
+      "upstream": "vllm",
+      "kind": "release-page",
+      "requested_url": "https://github.com/vllm-project/vllm/releases/latest",
+      "retrieved_at": "2026-10-15T22:51:50.866039+00:00",
+      "http_status": 200,
+      "response_url": "https://github.com/vllm-project/vllm/releases/tag/v0.31.0",
+      "response_sha256": "43e783c36191beb2d6877cb62171a430d3f83eba83c370e74e0dcc0db4236d93",
+      "bytes_fetched": 593354,
+      "observed_release": "v0.31.0",
+      "release_commit_links": [
+        "db9527a46873454610df6dbedf79a36d6bf1a7f6"
+      ],
+      "release_same_as_lock": true,
+      "proposed_source_id": "BPLAN-V-REL"
+    },
+    {
+      "upstream": "vllm",
+      "kind": "release-api",
+      "requested_url": "https://api.github.com/repos/vllm-project/vllm/releases/latest",
+      "retrieved_at": "2026-10-15T22:51:50.866393+00:00",
+      "http_status": 200,
+      "response_url": "https://api.github.com/repos/vllm-project/vllm/releases/latest",
+      "response_sha256": "785d0f1ff7c661e32dcd1037f15cf64c50bf7080578abe72e6d33316a03e161a",
+      "bytes_fetched": 60451,
+      "observed": {
+        "tag_name": "v0.31.0",
+        "draft": false,
+        "prerelease": false,
+        "published_at": "2026-10-05T06:44:55Z",
+        "html_url": "https://github.com/vllm-project/vllm/releases/tag/v0.31.0",
+        "target_commitish": "main"
+      },
+      "proposed_source_id": "BPLAN-V-REL-API"
+    },
+    {
+      "upstream": "vllm",
+      "kind": "branch-api",
+      "requested_url": "https://api.github.com/repos/vllm-project/vllm/commits/main",
+      "retrieved_at": "2026-10-15T22:51:50.866525+00:00",
+      "http_status": 200,
+      "response_url": "https://api.github.com/repos/vllm-project/vllm/commits/main",
+      "response_sha256": "23d88a5aa8f37cb8186fd58154cffc236a0c9cc097e7b0cf86ceb07382384ea4",
+      "bytes_fetched": 18296,
+      "observed": {
+        "sha": "de7d70676d9a39353aab4796a6987d345c597991",
+        "committed_at": "2026-10-15T22:29:13Z",
+        "message": "[Perf] Low-latency CPU all-reduce for DP metadata syncs (#61767)"
+      },
+      "same_ref_as_lock": true,
+      "proposed_source_id": "BPLAN-V-MAIN",
+      "prior_locked_ref": "de7d70676d9a39353aab4796a6987d345c597991",
+      "source_tree_rechecked": false
+    },
+    {
+      "upstream": "sglang",
+      "kind": "release-page",
+      "requested_url": "https://github.com/sgl-project/sglang/releases/latest",
+      "retrieved_at": "2026-10-15T22:51:50.866620+00:00",
+      "http_status": 200,
+      "response_url": "https://github.com/sgl-project/sglang/releases/tag/v0.5.21",
+      "response_sha256": "7a1b97688824785ec222d0dd67d75dea8c2ebd6f3b7b8d9e264cebc6ed326b52",
+      "bytes_fetched": 396298,
+      "observed_release": "v0.5.21",
+      "release_commit_links": [
+        "e00930c5489053f26d86b179cee0d087f846acbb"
+      ],
+      "release_same_as_lock": true,
+      "proposed_source_id": "BPLAN-G-REL"
+    },
+    {
+      "upstream": "sglang",
+      "kind": "release-api",
+      "requested_url": "https://api.github.com/repos/sgl-project/sglang/releases/latest",
+      "retrieved_at": "2026-10-15T22:51:50.866702+00:00",
+      "http_status": 200,
+      "response_url": "https://api.github.com/repos/sgl-project/sglang/releases/latest",
+      "response_sha256": "eaf401087605280b42d2c4648a618413fb5c1150599c8b5521a92bed6b6117b9",
+      "bytes_fetched": 85534,
+      "observed": {
+        "tag_name": "v0.5.21",
+        "draft": false,
+        "prerelease": false,
+        "published_at": "2026-10-02T01:09:04Z",
+        "html_url": "https://github.com/sgl-project/sglang/releases/tag/v0.5.21",
+        "target_commitish": "main"
+      },
+      "proposed_source_id": "BPLAN-G-REL-API"
+    },
+    {
+      "upstream": "sglang",
+      "kind": "branch-api",
+      "requested_url": "https://api.github.com/repos/sgl-project/sglang/commits/main",
+      "retrieved_at": "2026-10-15T22:51:50.866786+00:00",
+      "http_status": 200,
+      "response_url": "https://api.github.com/repos/sgl-project/sglang/commits/main",
+      "response_sha256": "c6125434d44603479a4a54b3b498a992814c9446f51f2ffdebc4b1dd64f1d7c1",
+      "bytes_fetched": 8757,
+      "observed": {
+        "sha": "4cca7fcd3e644f22a61c7a6e6b57bb89b568d62a",
+        "committed_at": "2026-10-15T22:50:51Z",
+        "message": "chore: bump sgl-kernel version to 0.4.10 (#44590)"
+      },
+      "same_ref_as_lock": false,
+      "proposed_source_id": "BPLAN-G-MAIN",
+      "prior_locked_ref": "4e0609ea277d09393d752fcb79181e3416d94c56",
+      "source_tree_rechecked": false,
+      "selected_tip_diff_observation": "Five version declarations in the commit diff change 0.4.9 to 0.4.10. This does not establish published sgl-kernel artifact contents or re-audit the complete branch changes."
+    },
+    {
+      "upstream": "kserve",
+      "kind": "release-page",
+      "requested_url": "https://github.com/kserve/kserve/releases/latest",
+      "retrieved_at": "2026-10-15T22:51:50.866886+00:00",
+      "http_status": 200,
+      "response_url": "https://github.com/kserve/kserve/releases/tag/v0.21.0",
+      "response_sha256": "1ab32969c2bcc332f160e7dbb86e78d0709e05eee0d6bbf934e23946f1aca279",
+      "bytes_fetched": 333610,
+      "observed_release": "v0.21.0",
+      "release_commit_links": [
+        "d1482554fc4f66dd41aee70e01f5174e24f265bd"
+      ],
+      "release_same_as_lock": true,
+      "proposed_source_id": "BPLAN-K-REL"
+    },
+    {
+      "upstream": "kserve",
+      "kind": "release-api",
+      "requested_url": "https://api.github.com/repos/kserve/kserve/releases/latest",
+      "retrieved_at": "2026-10-15T22:51:50.866967+00:00",
+      "http_status": 200,
+      "response_url": "https://api.github.com/repos/kserve/kserve/releases/latest",
+      "response_sha256": "bcf1d82e0c53e4c2c5230f684bd65154c4f86fd254da1cdd9245ca52424eb355",
+      "bytes_fetched": 63765,
+      "observed": {
+        "tag_name": "v0.21.0",
+        "draft": false,
+        "prerelease": false,
+        "published_at": "2026-09-25T17:04:20Z",
+        "html_url": "https://github.com/kserve/kserve/releases/tag/v0.21.0",
+        "target_commitish": "master"
+      },
+      "proposed_source_id": "BPLAN-K-REL-API"
+    },
+    {
+      "upstream": "kserve",
+      "kind": "branch-api",
+      "requested_url": "https://api.github.com/repos/kserve/kserve/commits/master",
+      "retrieved_at": "2026-10-15T22:51:51.004221+00:00",
+      "http_status": 200,
+      "response_url": "https://api.github.com/repos/kserve/kserve/commits/master",
+      "response_sha256": "e100cf2cc0f35f5a6b06efb4946ff5bb8a2bda63a28e9d8b8562d287a24e10ee",
+      "bytes_fetched": 46395,
+      "observed": {
+        "sha": "22be2b0496eea4548a98395c3abccf48d8235385",
+        "committed_at": "2026-10-15T19:47:34Z",
+        "message": "chore: update urllib3 security floor to 2.8.0 (#6387)"
+      },
+      "same_ref_as_lock": true,
+      "proposed_source_id": "BPLAN-K-MASTER",
+      "prior_locked_ref": "22be2b0496eea4548a98395c3abccf48d8235385",
+      "source_tree_rechecked": false
+    },
+    {
+      "upstream": "vllm",
+      "kind": "nightly-wheel-index",
+      "requested_url": "https://wheels.vllm.ai/nightly/cu130/vllm/",
+      "retrieved_at": "2026-10-15T22:51:51.007686+00:00",
+      "http_status": 200,
+      "response_url": "https://wheels.vllm.ai/nightly/cu130/vllm/",
+      "response_sha256": "6f949c4c06381f6e4ab8b7942884d7b295995a2f6e52f0e1756d39777f881929",
+      "bytes_fetched": 591,
+      "wheel_count": 2,
+      "wheels": [
+        {
+          "filename": "vllm-0.32.0rc1.dev260+gd92a4f25f-cp38-abi3-manylinux_2_28_aarch64.whl",
+          "url": "https://wheels.vllm.ai/d92a4f25f270a4c9e3a4ceb5c0fad0035e200936/vllm-0.32.0rc1.dev260%2Bgd92a4f25f-cp38-abi3-manylinux_2_28_aarch64.whl"
+        },
+        {
+          "filename": "vllm-0.32.0rc1.dev260+gd92a4f25f-cp38-abi3-manylinux_2_28_x86_64.whl",
+          "url": "https://wheels.vllm.ai/d92a4f25f270a4c9e3a4ceb5c0fad0035e200936/vllm-0.32.0rc1.dev260%2Bgd92a4f25f-cp38-abi3-manylinux_2_28_x86_64.whl"
+        }
+      ],
+      "limitations": "Index metadata only. Advertised version and source identifiers do not verify wheel contents, source-to-binary provenance, or compatibility.",
+      "proposed_source_id": "BPLAN-V-NIGHTLY-WHEELS",
+      "advertised_version": "0.32.0rc1.dev260+gd92a4f25f",
+      "advertised_commit": "d92a4f25f270a4c9e3a4ceb5c0fad0035e200936",
+      "prior_observation_source_id": "VEXP-NIGHTLY-CROSS",
+      "prior_advertised_version": "0.32.0rc1.dev258+g9b99ccb56",
+      "prior_advertised_commit": "9b99ccb56bc90d9f6524f0861af274ea2af02f70",
+      "changed_since_latest_locked_observation": true,
+      "artifact_bytes_downloaded": false,
+      "binary_verified": false
+    },
+    {
+      "upstream": "sglang",
+      "kind": "nightly-wheel-index",
+      "requested_url": "https://sgl-project.github.io/whl/cu130/sglang/",
+      "retrieved_at": "2026-10-15T22:51:51.011932+00:00",
+      "http_status": 200,
+      "response_url": "https://sgl-project.github.io/whl/cu130/sglang/",
+      "response_sha256": "a10da2f4002744325d18590c95e6949f103bcabef9cccc1ff0c02e726c62f9ce",
+      "bytes_fetched": 54485,
+      "wheel_count": 175,
+      "latest_dated_wheels": [
+        {
+          "filename": "sglang-0.5.22.dev20261015+ga12814c158-cp312-cp312-manylinux_2_39_x86_64.whl",
+          "url": "https://github.com/sgl-project/whl/releases/download/nightly-2026-10-15-a12814c158/sglang-0.5.22.dev20261015+ga12814c158-cp312-cp312-manylinux_2_39_x86_64.whl#sha256=54a92e87a1b7edb4057e59b703acc79bb84a1dd04187e57ee940d072a2c1519d"
+        }
+      ],
+      "limitations": "Index metadata only. Advertised version and source identifiers do not verify wheel contents, source-to-binary provenance, or compatibility.",
+      "proposed_source_id": "BPLAN-G-NIGHTLY-WHEELS",
+      "advertised_version": "0.5.22.dev20261015+ga12814c158",
+      "advertised_commit_prefix": "a12814c158",
+      "same_response_sha256_as_prior_observation": true,
+      "artifact_bytes_downloaded": false,
+      "binary_verified": false
+    },
+    {
+      "upstream": "sglang",
+      "kind": "nightly-container-tags",
+      "requested_url": "https://hub.docker.com/v2/repositories/lmsysorg/sglang/tags?page_size=10&name=nightly&ordering=last_updated",
+      "retrieved_at": "2026-10-15T22:51:51.191972+00:00",
+      "http_status": 200,
+      "response_url": "https://hub.docker.com/v2/repositories/lmsysorg/sglang/tags?page_size=10&name=nightly&ordering=last_updated",
+      "response_sha256": "885583a90573b00a7a34406abe43045271fbcffd48d133357a7588a91850d267",
+      "bytes_fetched": 10520,
+      "tags": [
+        {
+          "name": "nightly-cu134",
+          "last_updated": "2026-10-15T10:52:37.843322Z",
+          "digest": "sha256:ba1cb37b0ee61e92ab2cb7657ae0fd1c31aa4874bd336c188d3f6e1284a3413c",
+          "images": [
+            {
+              "architecture": "arm64",
+              "os": "linux",
+              "variant": null,
+              "digest": "sha256:ba1cb37b0ee61e92ab2cb7657ae0fd1c31aa4874bd336c188d3f6e1284a3413c"
+            }
+          ]
+        },
+        {
+          "name": "nightly-cu134-20261015-f7ad434",
+          "last_updated": "2026-10-15T10:52:34.341872Z",
+          "digest": "sha256:ba1cb37b0ee61e92ab2cb7657ae0fd1c31aa4874bd336c188d3f6e1284a3413c",
+          "images": [
+            {
+              "architecture": "arm64",
+              "os": "linux",
+              "variant": null,
+              "digest": "sha256:ba1cb37b0ee61e92ab2cb7657ae0fd1c31aa4874bd336c188d3f6e1284a3413c"
+            }
+          ]
+        },
+        {
+          "name": "nightly-dev-cu13-20261015-a6a8c560",
+          "last_updated": "2026-10-15T00:53:20.180244Z",
+          "digest": "sha256:0a1ba33aa4e032b8c5bcebdc69c45664074c032074add4f7db01629ec1fcc381",
+          "images": [
+            {
+              "architecture": "amd64",
+              "os": "linux",
+              "variant": null,
+              "digest": "sha256:6b17a72a4c0e4fe8add1a23ea2ce203b8d3e709c41f6a3551f14502ea6be59a8"
+            },
+            {
+              "architecture": "arm64",
+              "os": "linux",
+              "variant": null,
+              "digest": "sha256:8c281367727d30a77c174a316610d3c022b66ededf44de26e7b0e659ada91512"
+            }
+          ]
+        },
+        {
+          "name": "nightly-dev-20261015-a6a8c560",
+          "last_updated": "2026-10-15T00:53:18.730025Z",
+          "digest": "sha256:0a1ba33aa4e032b8c5bcebdc69c45664074c032074add4f7db01629ec1fcc381",
+          "images": [
+            {
+              "architecture": "amd64",
+              "os": "linux",
+              "variant": null,
+              "digest": "sha256:6b17a72a4c0e4fe8add1a23ea2ce203b8d3e709c41f6a3551f14502ea6be59a8"
+            },
+            {
+              "architecture": "arm64",
+              "os": "linux",
+              "variant": null,
+              "digest": "sha256:8c281367727d30a77c174a316610d3c022b66ededf44de26e7b0e659ada91512"
+            }
+          ]
+        }
+      ],
+      "limitations": "Registry metadata only; no image manifests or layers pulled, no source revision verified, and no binary executed.",
+      "proposed_source_id": "BPLAN-G-NIGHTLY-TAGS",
+      "returned_tag_count": 10,
+      "comparison_to_prior_observation": "Latest dated nightly-cu134 and nightly-dev-cu13 names, update times, index digests and platform digests match GEXP-NIGHTLY-TAGS. Response hash changed; no material tag/digest change found in these compared entries."
+    },
+    {
+      "upstream": "kserve",
+      "kind": "development-controller-tag",
+      "requested_url": "https://hub.docker.com/v2/repositories/kserve/llmisvc-controller/tags/latest",
+      "retrieved_at": "2026-10-15T22:51:51.192187+00:00",
+      "http_status": 200,
+      "response_url": "https://hub.docker.com/v2/repositories/kserve/llmisvc-controller/tags/latest",
+      "response_sha256": "fd955f3a30f539037136d4f4d572beb08d913e4ffb96f572f08190f916f10233",
+      "bytes_fetched": 2060,
+      "tags": [
+        {
+          "name": "latest",
+          "last_updated": "2026-10-15T20:13:47.134331Z",
+          "digest": "sha256:a9bd5f40cdff8c589d07ffd59e29337f9a1e7b2714cced7b0120acb5c714206f",
+          "images": [
+            {
+              "architecture": "amd64",
+              "os": "linux",
+              "variant": null,
+              "digest": "sha256:4a2b064c83aff5cf9c56cf97832470df09bd0fb20f2a6c2b89ef78a1bfab36ee"
+            },
+            {
+              "architecture": "ppc64le",
+              "os": "linux",
+              "variant": null,
+              "digest": "sha256:5e7fca94ba1ea61ec28012c47074bf1475ab90bcad6d301f21a975626100c50c"
+            },
+            {
+              "architecture": "arm64",
+              "os": "linux",
+              "variant": null,
+              "digest": "sha256:409862297771b860b12f9a7d6b23b3cc4b4d38db27b48f3bba4cf61ff663e9d3"
+            },
+            {
+              "architecture": "s390x",
+              "os": "linux",
+              "variant": null,
+              "digest": "sha256:d2e045f72aca8e50a42bee6da89c2a1bad36400de2a233becd3071a764912bd0"
+            },
+            {
+              "architecture": "arm",
+              "os": "linux",
+              "variant": "v7",
+              "digest": "sha256:f9178eb8d65d4174491310eb4001b19d029f9711cf052a9f12b58c85a808741d"
+            }
+          ]
+        }
+      ],
+      "limitations": "Registry metadata only; no image manifests or layers pulled, no source revision verified, and no binary executed.",
+      "proposed_source_id": "BPLAN-K-DEVIMAGE",
+      "same_response_sha256_as_prior_observation": true
+    },
+    {
+      "upstream": "vllm",
+      "kind": "git-remote-refs",
+      "requested_url": "https://github.com/vllm-project/vllm.git",
+      "retrieved_at": "2026-10-15T22:51:52.303782+00:00",
+      "exit_code": 0,
+      "refs": [
+        {
+          "sha": "de7d70676d9a39353aab4796a6987d345c597991",
+          "ref": "refs/heads/main"
+        },
+        {
+          "sha": "db9527a46873454610df6dbedf79a36d6bf1a7f6",
+          "ref": "refs/tags/v0.31.0"
+        }
+      ],
+      "response_sha256": "9f338d622b5d89508483d14e1581c4b78670d4ae33175b69d8852632b5923c08",
+      "proposed_source_id": "BPLAN-V-REFS"
+    },
+    {
+      "upstream": "sglang",
+      "kind": "git-remote-refs",
+      "requested_url": "https://github.com/sgl-project/sglang.git",
+      "retrieved_at": "2026-10-15T22:51:52.303844+00:00",
+      "exit_code": 0,
+      "refs": [
+        {
+          "sha": "4cca7fcd3e644f22a61c7a6e6b57bb89b568d62a",
+          "ref": "refs/heads/main"
+        },
+        {
+          "sha": "7337b27853377544a322fd4390df332d8ca7d8cb",
+          "ref": "refs/tags/v0.5.21"
+        },
+        {
+          "sha": "e00930c5489053f26d86b179cee0d087f846acbb",
+          "ref": "refs/tags/v0.5.21^{}"
+        }
+      ],
+      "response_sha256": "e530222c70fd6a74f7953d0b048d4346963299f8dfbe347d5cb03a617b1aa5d4",
+      "proposed_source_id": "BPLAN-G-REFS"
+    },
+    {
+      "upstream": "kserve",
+      "kind": "git-remote-refs",
+      "requested_url": "https://github.com/kserve/kserve.git",
+      "retrieved_at": "2026-10-15T22:51:52.307807+00:00",
+      "exit_code": 0,
+      "refs": [
+        {
+          "sha": "22be2b0496eea4548a98395c3abccf48d8235385",
+          "ref": "refs/heads/master"
+        },
+        {
+          "sha": "d1482554fc4f66dd41aee70e01f5174e24f265bd",
+          "ref": "refs/tags/v0.21.0"
+        }
+      ],
+      "response_sha256": "bb996edb9a63f85f747a68a1bc1727d8a16d47886352b896cde2909e18a56915",
+      "proposed_source_id": "BPLAN-K-REFS"
+    }
+  ],
+  "limitations": [
+    "Only release/commit and published index/registry metadata was inspected.",
+    "No complete upstream source tree review, model weights, GPU test, wheel download, image pull, or binary execution.",
+    "Inspected source snapshots in the existing atlas remain historical; a newer main/master reference does not extend that inspection.",
+    "KServe latest development controller is an existing observed channel; this check does not establish a separately named KServe nightly channel."
+  ],
+  "raw_response_directory": "/tmp/benchmark-upstream-recheck-responses",
+  "proposed_sources": [
+    {
+      "id": "BPLAN-G-MAIN",
+      "url": "https://github.com/sgl-project/sglang/commit/4cca7fcd3e644f22a61c7a6e6b57bb89b568d62a",
+      "title": "sglang benchmark-plan main reference metadata recheck",
+      "kind": "primary source metadata",
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T22:51:50.866786+00:00",
+      "requested_response_url": "https://api.github.com/repos/sgl-project/sglang/commits/main",
+      "response_url": "https://api.github.com/repos/sgl-project/sglang/commits/main",
+      "response_sha256": "c6125434d44603479a4a54b3b498a992814c9446f51f2ffdebc4b1dd64f1d7c1",
+      "http_status": 200,
+      "bytes_fetched": 8757,
+      "capture": "Direct HTTPS response bytes captured and hashed in a temporary workspace. Metadata observations only; no artifact download or execution.",
+      "notes": "Five version declarations in the commit diff change 0.4.9 to 0.4.10. This does not establish published sgl-kernel artifact contents or re-audit the complete branch changes."
+    },
+    {
+      "id": "BPLAN-V-NIGHTLY-WHEELS",
+      "url": "https://wheels.vllm.ai/nightly/cu130/vllm/",
+      "title": "vllm benchmark-plan CUDA 13 nightly wheel index recheck",
+      "kind": "primary source metadata",
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T22:51:51.007686+00:00",
+      "requested_response_url": "https://wheels.vllm.ai/nightly/cu130/vllm/",
+      "response_url": "https://wheels.vllm.ai/nightly/cu130/vllm/",
+      "response_sha256": "6f949c4c06381f6e4ab8b7942884d7b295995a2f6e52f0e1756d39777f881929",
+      "http_status": 200,
+      "bytes_fetched": 591,
+      "capture": "Direct HTTPS response bytes captured and hashed in a temporary workspace. Metadata observations only; no artifact download or execution.",
+      "notes": "Index metadata only. Advertised version and source identifiers do not verify wheel contents, source-to-binary provenance, or compatibility."
+    }
+  ],
+  "timestamp_semantics": "retrieved_at is the UTC request initiation time. Each response was captured before completed_at.",
+  "material_changes": [
+    {
+      "upstream": "sglang",
+      "channel": "main",
+      "previous_ref": "4e0609ea277d09393d752fcb79181e3416d94c56",
+      "observed_ref": "4cca7fcd3e644f22a61c7a6e6b57bb89b568d62a",
+      "committed_at": "2026-10-15T22:50:51Z",
+      "observation": "Main advanced. Selected tip diff bumps kernel package version declarations from 0.4.9 to 0.4.10; no runtime or artifact verification."
+    },
+    {
+      "upstream": "vllm",
+      "channel": "nightly cu130 wheel index",
+      "previous_advertised_version": "0.32.0rc1.dev258+g9b99ccb56",
+      "observed_advertised_version": "0.32.0rc1.dev260+gd92a4f25f",
+      "observed_advertised_commit": "d92a4f25f270a4c9e3a4ceb5c0fad0035e200936",
+      "observation": "Mutable index changed. The wheel links advertise aarch64 and x86_64 builds; no wheel bytes downloaded or checked."
+    }
+  ],
+  "unchanged_observations": [
+    "Latest stable releases remain vLLM v0.31.0, SGLang v0.5.21, KServe v0.21.0; all release API flags draft=false and prerelease=false.",
+    "vLLM main de7d70676d9a39353aab4796a6987d345c597991 and KServe master 22be2b0496eea4548a98395c3abccf48d8235385 match the lock.",
+    "SGLang wheel index response hash is unchanged; latest dated wheel remains 0.5.22.dev20261015+ga12814c158.",
+    "Compared SGLang nightly tags and digests and KServe development-controller latest tag digest are unchanged."
+  ],
+  "web_browse_observation_note": "Official releases/latest pages independently opened in web browsing and agree with direct HTTPS. Web-rendered vLLM wheel index showed dev242 while direct fresh HTTPS advertised dev260; because the browser result has no exact crawl timestamp or response hash it is not used as the latest artifact record. Main commit-list browsing was restricted; direct GitHub API and git ls-remote agreed on each branch SHA.",
+  "proposed_source_note": "Two complete proposed source records are included for materially changed observations. Every receipt includes a unique suggested source ID if fresh observation entries are preferred to dated recheck records attached to existing sources."
+}
