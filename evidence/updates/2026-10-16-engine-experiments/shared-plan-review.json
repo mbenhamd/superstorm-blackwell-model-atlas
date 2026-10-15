@@ -1,0 +1,97 @@
+{
+  "review_kind": "independent_read_only_experiment_plan_review",
+  "reviewed_at_utc": "2026-10-15T22:29:50.918037+00:00",
+  "scope": [
+    "reports/EXPERIMENTS.md",
+    "benchmarks/experiment.template.json",
+    "README.md",
+    "START_HERE.md",
+    "benchmarks/PROTOCOL.md"
+  ],
+  "file_sha256": {
+    "reports/EXPERIMENTS.md": "edeea7b85e6d81839f3fdc51c1eb87254c6d676db77c490f0694580a5f59f063",
+    "benchmarks/experiment.template.json": "2d784f8f84631b2d20d23acbf97e3209dfb3c73c5699a4566e77756c6e77d186",
+    "README.md": "a76e0893ced67df6a1ee88116f24c6895f79d88546b5e6c259fd6a63ce85ea08",
+    "START_HERE.md": "b54fae9c5e859fdfc0df061b4f6271d26aed0df4e1ba6f10cab5c3720101b6fd",
+    "benchmarks/PROTOCOL.md": "fbf180f854a474dd4619bb01046697783c87401e1105ccd4f99c6bda6e541038"
+  },
+  "verdict": "No unresolved findings. Two material consistency issues and one optional statistical clarification were corrected and rechecked.",
+  "findings": [],
+  "resolved_findings": [
+    {
+      "id": "EXP-01",
+      "severity": "P2",
+      "status": "resolved",
+      "title": "DeepSeek SGLang link mislabeled the local TP8 probe as TP4",
+      "location": "reports/EXPERIMENTS.md:42",
+      "evidence": [
+        "profiles/deepseek-v4-flash-0731.native.sglang.baseline.json records --tp-size 8, gpu_count 8 and compatibility-probe status.",
+        "companies/deepseek/deepseek-v4-flash-0731/serving.md distinguishes the publisher TP4 + DSpark recipe from the local TP8 target-only profile."
+      ],
+      "impact": "The old label could cause an unequal four-versus-eight-GPU comparison to be mistaken for the documented TP4 comparator.",
+      "fix_verified": "The row now labels the link local SGLang TP8 target-only probe and separately links the publisher TP4 + DSpark explanation."
+    },
+    {
+      "id": "EXP-02",
+      "severity": "P2",
+      "status": "resolved",
+      "title": "Initial input-length sweep exceeded the linked profile context caps",
+      "location": "reports/EXPERIMENTS.md:53 and benchmarks/PROTOCOL.md minimum experiment matrix",
+      "evidence": [
+        "Qwen 27B, Gemma 31B and Mistral starting profiles cap total context at 32768 tokens.",
+        "A full 32K-token input plus generated output exceeds a 32768-token context; the same issue applies to a full 64K input at a 65536 cap."
+      ],
+      "impact": "Invalid or truncated requests could contaminate correctness and service results before a larger-context configuration was qualified.",
+      "fix_verified": "The roadmap and protocol now constrain every point by complete serialized input plus requested output against actual model/profile caps, with reduce/skip behavior and separate qualification for cap increases."
+    }
+  ],
+  "recommendations": [],
+  "checks": [
+    "Read README.md, START_HERE.md, LIMITATIONS.md, profiles/README.md and scripts/README.md as scope and evidence context.",
+    "Reviewed the new roadmap and run-record template, and inspected only the new README/START_HERE/PROTOCOL changes plus the subsequently corrected context-sweep wording.",
+    "Read the linked profile identities, GPU topologies, context caps, statuses and engine arguments; checked the DeepSeek serving explanation.",
+    "Confirmed explicit distinction between released/main/nightly identity, same-build feature toggles and full-build comparisons; equal-resource and tuning-budget controls; qualified export boundaries; cold/warm cache treatment; natural acceptance and fake-KV exclusions; failed-run retention; tail-sample and percentile caveats.",
+    "Fresh official vLLM benchmark documentation confirms arrival-rate controls, percentile selection and request-level latency goodput options.",
+    "Fresh official SGLang benchmark documentation confirms native and OpenAI-compatible backends and locally generated fake KV for fake-prefill decode microbenchmarks."
+  ],
+  "primary_sources_rechecked": [
+    {
+      "url": "https://docs.vllm.ai/en/latest/cli/bench/serve/",
+      "claims_checked": [
+        "--request-rate",
+        "--metric-percentiles",
+        "--percentile-metrics",
+        "--goodput"
+      ]
+    },
+    {
+      "url": "https://docs.sglang.io/developer_guide/bench_serving.html",
+      "resolved_url": "https://docs.sglang.io/docs/developer_guide/bench_serving",
+      "claims_checked": [
+        "native and OpenAI-compatible backends",
+        "--fake-prefill",
+        "post-run speculative acceptance counter observation"
+      ]
+    }
+  ],
+  "limits": [
+    "No repository edits, engine execution, deployment, or tests were performed by this reviewer.",
+    "The three engine-specific EXPERIMENTS.md files were still being written by other agents and were not independently reviewed in this scoped pass; their temporarily missing links are not findings.",
+    "This review confirms plan consistency and documented interfaces, not binary compatibility, correctness or measured serving performance.",
+    "Latest-release and model-currentness research is assigned to the separate framework research agents; this pass does not re-audit the prior repository audit."
+  ],
+  "resolved_recommendations": [
+    {
+      "id": "EXP-C01",
+      "severity": "P3",
+      "status": "resolved",
+      "location": "reports/EXPERIMENTS.md promotion paragraph; benchmarks/experiment.template.json predeclared_acceptance",
+      "title": "Define uncertainty on the comparison effect",
+      "evidence": "The promotion paragraph currently says overlapping baseline and candidate observed variation is inconclusive; the template stores run_to_run_uncertainty after the run but does not predeclare the analysis method.",
+      "rationale": "Overlap of raw ranges or separate intervals does not establish whether an improvement exceeds the minimum useful difference, especially with paired or blocked A/B runs.",
+      "suggested_change": "Predeclare the comparison estimator and uncertainty method, evaluate uncertainty of the candidate-minus-baseline difference or ratio against the minimum useful improvement, and retain inconclusive when the evidence cannot resolve that threshold. This is a methodological clarification, not evidence of false performance claims.",
+      "fix_verified": "The roadmap now predeclares pairing/aggregation and uncertainty estimation, evaluates uncertainty on the improvement against the useful-improvement threshold, and explicitly rejects raw-range overlap as the decision rule. The template adds analysis_method_and_uncertainty and repetition_pairing_or_aggregation."
+    }
+  ],
+  "record_role": "Independent Astra max review; see update report for final integration resolutions."
+}

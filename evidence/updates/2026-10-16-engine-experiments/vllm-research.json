@@ -1,0 +1,307 @@
+{
+  "as_of": "2026-10-15",
+  "reviewed_at": "2026-10-15T22:36:38.021148+00:00",
+  "date_basis": "UTC; October 16 local Europe/Paris",
+  "files_changed": [
+    "frameworks/vllm/SOURCE_REVIEW.md",
+    "frameworks/vllm/EXPERIMENTS.md"
+  ],
+  "sources_path": "evidence/sources.json",
+  "source_count": 44,
+  "capture_directory": "Temporary raw research captures; not bundled.",
+  "upstream_snapshot": {
+    "key": "vllm",
+    "repo": "https://github.com/vllm-project/vllm.git",
+    "release": "v0.31.0",
+    "release_commit": "db9527a46873454610df6dbedf79a36d6bf1a7f6",
+    "release_published_at": "2026-10-05T06:44:55Z",
+    "release_checked_at": "2026-10-15T22:25:07.993881+00:00",
+    "release_prerelease": false,
+    "latest_branch": "main",
+    "latest_branch_ref": "de7d70676d9a39353aab4796a6987d345c597991",
+    "latest_branch_commit_date": "2026-10-15T22:29:13Z",
+    "latest_branch_checked_at": "2026-10-15T22:35:37.609877+00:00",
+    "selected_review_ref": "784d1fff0c491b9add10ecd732de8f707a7e7dbe",
+    "selected_source_checked_at": "2026-10-15T22:27:36.353751+00:00",
+    "source_review_scope": "Selected speculative/engine config, quantized draft head and loader hook, recurrent block-table gather, sparse-MLA metadata, GPU startup, MegaMoE matrix and scale handling, rejection sampling, stop-accounting diffs; no complete source tree audit or binary execution.",
+    "preserve_original_inspected_ref": true,
+    "nightly_artifact_verified": false,
+    "image_digest": null,
+    "selected_review_commit_date": "2026-10-15T22:06:40.000Z",
+    "selected_review_observed_at": "2026-10-15T22:25:07.994323+00:00"
+  },
+  "git_reference_receipt": {
+    "command": [
+      "git",
+      "ls-remote",
+      "https://github.com/vllm-project/vllm.git",
+      "refs/heads/main",
+      "refs/tags/v0.31.0",
+      "refs/tags/v0.31.0^{}"
+    ],
+    "checked_at": "2026-10-15T22:35:37.609877+00:00",
+    "exit_code": 0,
+    "stdout": "de7d70676d9a39353aab4796a6987d345c597991\trefs/heads/main\ndb9527a46873454610df6dbedf79a36d6bf1a7f6\trefs/tags/v0.31.0\n",
+    "stdout_sha256": "9f338d622b5d89508483d14e1581c4b78670d4ae33175b69d8852632b5923c08"
+  },
+  "pull_requests": [
+    {
+      "repo": "vllm-project/vllm",
+      "number": 59973,
+      "state": "merged",
+      "merge_commit": "784d1fff0c491b9add10ecd732de8f707a7e7dbe",
+      "merged_at": "2026-10-15T22:06:41Z",
+      "retrieved_at": "2026-10-15T22:25:07.994627+00:00",
+      "source_id": "VEXP-59973",
+      "immutable_diff_source_id": "VEXP-DIFF-59973",
+      "status_basis": "GitHub PR HTML merge event; relevant merged diff and selected current-source functions inspected",
+      "release_relation": "Merge event is after v0.31.0 release publication; not a claim that every change is in the observed nightly wheel."
+    },
+    {
+      "repo": "vllm-project/vllm",
+      "number": 61161,
+      "state": "merged",
+      "merge_commit": "9edcc7fa7ec858e13d4dc10ed968b741e2c95d6a",
+      "merged_at": "2026-10-15T21:46:38Z",
+      "retrieved_at": "2026-10-15T22:25:07.994699+00:00",
+      "source_id": "VEXP-61161",
+      "immutable_diff_source_id": "VEXP-DIFF-61161",
+      "status_basis": "GitHub PR HTML merge event; relevant merged diff and selected current-source functions inspected",
+      "release_relation": "Merge event is after v0.31.0 release publication; not a claim that every change is in the observed nightly wheel."
+    },
+    {
+      "repo": "vllm-project/vllm",
+      "number": 59468,
+      "state": "merged",
+      "merge_commit": "7cd7982dfda0d29c68f73c54cd343b674b290a47",
+      "merged_at": "2026-10-15T17:23:58Z",
+      "retrieved_at": "2026-10-15T22:25:07.994778+00:00",
+      "source_id": "VEXP-59468",
+      "immutable_diff_source_id": "VEXP-DIFF-59468",
+      "status_basis": "GitHub PR HTML merge event; relevant merged diff and selected current-source functions inspected",
+      "release_relation": "Merge event is after v0.31.0 release publication; not a claim that every change is in the observed nightly wheel."
+    },
+    {
+      "repo": "vllm-project/vllm",
+      "number": 58668,
+      "state": "merged",
+      "merge_commit": "d486219fc2f27a981d6eda53eb2b95bfde1a1d63",
+      "merged_at": "2026-10-15T19:50:07Z",
+      "retrieved_at": "2026-10-15T22:25:07.994870+00:00",
+      "source_id": "VEXP-58668",
+      "immutable_diff_source_id": "VEXP-DIFF-58668",
+      "status_basis": "GitHub PR HTML merge event; relevant merged diff and selected current-source functions inspected",
+      "release_relation": "Merge event is after v0.31.0 release publication; not a claim that every change is in the observed nightly wheel."
+    },
+    {
+      "repo": "vllm-project/vllm",
+      "number": 61044,
+      "state": "merged",
+      "merge_commit": "9cede34a674c392092134e34218b127d6bbb3679",
+      "merged_at": "2026-10-15T12:59:22Z",
+      "retrieved_at": "2026-10-15T22:25:08.286795+00:00",
+      "source_id": "VEXP-61044",
+      "immutable_diff_source_id": "VEXP-DIFF-61044",
+      "status_basis": "GitHub PR HTML merge event; relevant merged diff and selected current-source functions inspected",
+      "release_relation": "Merge event is after v0.31.0 release publication; not a claim that every change is in the observed nightly wheel."
+    },
+    {
+      "repo": "vllm-project/vllm",
+      "number": 58737,
+      "state": "merged",
+      "merge_commit": "c825e1d235896694ca50160286440859ed46d7d3",
+      "merged_at": "2026-10-15T16:02:54Z",
+      "retrieved_at": "2026-10-15T22:25:08.535207+00:00",
+      "source_id": "VEXP-58737",
+      "immutable_diff_source_id": "VEXP-DIFF-58737",
+      "status_basis": "GitHub PR HTML merge event; relevant merged diff and selected current-source functions inspected",
+      "release_relation": "Merge event is after v0.31.0 release publication; not a claim that every change is in the observed nightly wheel."
+    },
+    {
+      "repo": "vllm-project/vllm",
+      "number": 61873,
+      "state": "merged",
+      "merge_commit": "54d9b1cb487c2a2f12506942820f0ae443807093",
+      "merged_at": "2026-10-15T20:20:13Z",
+      "retrieved_at": "2026-10-15T22:25:08.737249+00:00",
+      "source_id": "VEXP-61873",
+      "immutable_diff_source_id": "VEXP-DIFF-61873",
+      "status_basis": "GitHub PR HTML merge event; relevant merged diff and selected current-source functions inspected",
+      "release_relation": "Merge event is after v0.31.0 release publication; not a claim that every change is in the observed nightly wheel."
+    },
+    {
+      "repo": "vllm-project/vllm",
+      "number": 61538,
+      "state": "merged",
+      "merge_commit": "4d58fa254a869a5d9d0aab250ab125503d3cef26",
+      "merged_at": "2026-10-15T19:02:02Z",
+      "retrieved_at": "2026-10-15T22:25:09.138719+00:00",
+      "source_id": "VEXP-61538",
+      "immutable_diff_source_id": "VEXP-DIFF-61538",
+      "status_basis": "GitHub PR HTML merge event; relevant merged diff and selected current-source functions inspected",
+      "release_relation": "Merge event is after v0.31.0 release publication; not a claim that every change is in the observed nightly wheel."
+    },
+    {
+      "repo": "vllm-project/vllm",
+      "number": 52406,
+      "state": "open",
+      "merged_at": null,
+      "merge_commit": null,
+      "retrieved_at": "2026-10-15T22:25:09.346932+00:00",
+      "source_id": "VEXP-52406",
+      "status_basis": "Fresh PR HTML status says Open; head revision not re-resolved in this workstream."
+    }
+  ],
+  "nightly_metadata_observations": [
+    {
+      "id": "VEXP-NIGHTLY",
+      "url": "https://wheels.vllm.ai/nightly/cu130/vllm/",
+      "resolved_url": "https://wheels.vllm.ai/nightly/cu130/vllm/",
+      "retrieved_at": "2026-10-15T22:25:07.994551+00:00",
+      "sha256": "24bbecfed3f835a33e6419b20dd69fce547631d13e78c5a22f30f9f5e4b2dfac",
+      "bytes_fetched": 591,
+      "links": [
+        "../../../0c2584929202353a1b2e33934611125c604b7eed/vllm-0.32.0rc1.dev256%2Bg0c2584929-cp38-abi3-manylinux_2_28_aarch64.whl",
+        "../../../0c2584929202353a1b2e33934611125c604b7eed/vllm-0.32.0rc1.dev256%2Bg0c2584929-cp38-abi3-manylinux_2_28_x86_64.whl"
+      ],
+      "source_commit": "0c2584929202353a1b2e33934611125c604b7eed",
+      "source_commit_date": "2026-10-15T21:11:33.000Z",
+      "wheel_version": "0.32.0rc1.dev256+g0c2584929",
+      "wheel_downloaded": false,
+      "binary_verified": false,
+      "image_digest": null
+    }
+  ],
+  "findings": [
+    {
+      "id": "vllm-nightly-identity",
+      "finding": "Selected source inspection covers main snapshot 784d1fff. A later branch lookup at 22:35:37 UTC returned de7d7067; that later source tree was not reviewed. The cu130 index captured at 22:25:07 advertises 0c258492. No wheel was downloaded.",
+      "source_ids": [
+        "VEXP-REL",
+        "VEXP-MAIN",
+        "VEXP-NIGHTLY",
+        "VEXP-NIGHTLY-COMMIT",
+        "VEXP-LATEST-MAIN"
+      ],
+      "experiment_ids": [
+        "V01"
+      ]
+    },
+    {
+      "id": "vllm-speculation-correctness",
+      "finding": "Merged fixes remove cross-round reused random draws and undo stop-trimmed token accounting; distinguish resumable input sessions from ordinary SSE output. DSpark also gets a separate draft-buffer request cap rather than duplicate target-slot charging.",
+      "source_ids": [
+        "VEXP-61161",
+        "VEXP-DIFF-58668",
+        "VEXP-DIFF-59468"
+      ],
+      "experiment_ids": [
+        "V04",
+        "V05"
+      ]
+    },
+    {
+      "id": "vllm-precision-scope",
+      "finding": "New quantized shared draft head is MRV2 EAGLE/MTP only and excludes Gemma4 MTP and DSpark/DFlash. MegaMoE NVFP4 row has no model caller in that merge and only SwiGLU; it does not establish Kimi NVFP4/SiTU integration.",
+      "source_ids": [
+        "VEXP-59973",
+        "VEXP-SRC-SPECCONFIG",
+        "VEXP-61538",
+        "VEXP-SRC-MEGA"
+      ],
+      "experiment_ids": [
+        "V02",
+        "V06",
+        "V08"
+      ]
+    },
+    {
+      "id": "vllm-metadata-scope",
+      "finding": "GLM sparse-MLA metadata update is gated to DCP=1, PCP=1 and no HiSparse. Shared recurrent align-gather fusion has stride and row-index correctness requirements; an MI355X kernel microbenchmark is not a B300 end-to-end gain.",
+      "source_ids": [
+        "VEXP-DIFF-61873",
+        "VEXP-SRC-STATE",
+        "VEXP-58737"
+      ],
+      "experiment_ids": [
+        "V03",
+        "V07"
+      ]
+    },
+    {
+      "id": "vllm-startup-and-pd",
+      "finding": "Merged cuBLAS initialization is before init_snapshot, contrary to stale PR-description placement. GPU weight preloading and experimental TP1 process snapshots have different state/lifetime boundaries. GLM Flash 4+4 NIXL recipe requires matching DS/HND layouts and MTP5 on both roles.",
+      "source_ids": [
+        "VEXP-DIFF-61044",
+        "VEXP-PRELOAD",
+        "VEXP-SNAPSHOT",
+        "VEXP-GLMFLASH-RECIPE"
+      ],
+      "experiment_ids": [
+        "V01",
+        "V09",
+        "V10"
+      ]
+    }
+  ],
+  "experiments": [
+    {
+      "id": "V01",
+      "status": "designed-not-executed"
+    },
+    {
+      "id": "V02",
+      "status": "designed-not-executed"
+    },
+    {
+      "id": "V03",
+      "status": "designed-not-executed"
+    },
+    {
+      "id": "V04",
+      "status": "designed-not-executed"
+    },
+    {
+      "id": "V05",
+      "status": "designed-not-executed"
+    },
+    {
+      "id": "V06",
+      "status": "designed-not-executed"
+    },
+    {
+      "id": "V07",
+      "status": "designed-not-executed"
+    },
+    {
+      "id": "V08",
+      "status": "designed-not-executed"
+    },
+    {
+      "id": "V09",
+      "status": "designed-not-executed"
+    },
+    {
+      "id": "V10",
+      "status": "designed-not-executed"
+    }
+  ],
+  "verification": {
+    "primary_sources_freshly_retrieved": true,
+    "selected_immutable_sources_read": true,
+    "tests_run": false,
+    "engines_installed_or_executed": false,
+    "weights_downloaded": false,
+    "nightly_wheel_or_container_downloaded": false,
+    "gpu_measurements": false,
+    "deployments": false,
+    "commit_or_push": false
+  },
+  "integration_notes": [
+    "Preserve historical inspected_ref and existing profile reviewed_source_commit identities; new docs label the expansion separately.",
+    "Only owned framework files were edited. Root must merge source records and lock observations into shared evidence register.",
+    "Source body hashes are actual retrieval receipts. Bodies are in temporary captures, not bundled into the repository.",
+    "All artifact, quality and service-level gates remain planned; no measured serving result."
+  ],
+  "record_role": "First-pass engine research by an Astra max subagent; later integration and independent cross-review are recorded separately."
+}

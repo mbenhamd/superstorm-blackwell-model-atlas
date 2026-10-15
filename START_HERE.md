@@ -41,3 +41,5 @@ BF16 uses 16 bits per represented element. FP8 usually uses eight. NVFP4 and MXF
 ## Reading paths
 
 For understanding, read [the comparison](reports/comparison.md), [the precision primer](reports/precision-and-kernels.md) and [the glossary](GLOSSARY.md). For deployment, read [hardware](hardware/B300-8GPU.md), [engine decisions](frameworks/DECISION.md), [profiles](profiles/README.md) and [benchmark protocol](benchmarks/PROTOCOL.md). For auditability, read [the evidence register](evidence/README.md) and [limitations](LIMITATIONS.md).
+
+For hands-on investigation, follow the [experiment roadmap](reports/EXPERIMENTS.md): qualify an exact build, check quality and state correctness, measure the workload, then introduce speculation, parallelism or KServe. The engine experiment pages explain which recent changes motivate each test and what would count as a useful result.

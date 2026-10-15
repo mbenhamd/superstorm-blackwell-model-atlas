@@ -1,0 +1,181 @@
+{
+  "review_kind": "independent_read_only_integration_review",
+  "reviewed_at_utc": "2026-10-15T22:46:50.823361+00:00",
+  "date_basis": "UTC; the engine-expansion document date is October 16 Europe/Paris.",
+  "verdict": "No unresolved findings. Shared source, artifact and review metadata are consistent with the dated research and independent-review receipts.",
+  "findings": [],
+  "reviewed_files": [
+    {
+      "path": "reports/nightly-readiness.md",
+      "sha256": "aee41e532cf4287ea9d8db07d38c1d0bd2042325f509ef747893b18f6ab561df"
+    },
+    {
+      "path": "evidence/sources.json",
+      "sha256": "01b5dd92544569aa1e60e0690f55094f9f90558966c4c0c219dce4889ecb7e8a"
+    },
+    {
+      "path": "evidence/SOURCES.md",
+      "sha256": "32754414b0398a9acb6753d1138817b4851917c03e09e0860b61b9ec07923759"
+    },
+    {
+      "path": "evidence/upstreams.lock.json",
+      "sha256": "fe97805a54d9a48f56e15d548f86c58992fc63c4c7f627008030ec53d1bba80c"
+    },
+    {
+      "path": "evidence/ENGINE-UPDATE-2026-10-16.md",
+      "sha256": "ec00a86c576811ebd4d1449b26f8c01e1d906db4f1ae62099939ce1d797b3180"
+    },
+    {
+      "path": "README.md",
+      "sha256": "6b578b66ca013394016e737231a0b92d2d30e2be46f44c96f0f6f041d3f93273"
+    },
+    {
+      "path": "START_HERE.md",
+      "sha256": "b54fae9c5e859fdfc0df061b4f6271d26aed0df4e1ba6f10cab5c3720101b6fd"
+    },
+    {
+      "path": "LIMITATIONS.md",
+      "sha256": "007bad48418023dc174058d102eeab9e11659fc947f20f299648e63f8e9e9e58"
+    },
+    {
+      "path": "VALIDATION.md",
+      "sha256": "4de133d4059bbb7f8af1cec339b476164455e8435312521a26b88b8c2bed0a5f"
+    },
+    {
+      "path": "evidence/README.md",
+      "sha256": "3f911b6004bbfc5425186e433e0c9a9ca3522c415e2c22c9de2e19d0c6c52787"
+    },
+    {
+      "path": "frameworks/DECISION.md",
+      "sha256": "5a55d40234c197894b78424f30944bbb6a7d186e9d0f895b47854a4220041a86"
+    },
+    {
+      "path": "frameworks/vllm/SOURCE_REVIEW.md",
+      "sha256": "2fb506c02aec4307eb78e3f66bd069e86a215b1d9fd55bb5aa169583ec7a40fe"
+    },
+    {
+      "path": "reports/EXPERIMENTS.md",
+      "sha256": "edeea7b85e6d81839f3fdc51c1eb87254c6d676db77c490f0694580a5f59f063"
+    },
+    {
+      "path": "benchmarks/experiment.template.json",
+      "sha256": "2d784f8f84631b2d20d23acbf97e3209dfb3c73c5699a4566e77756c6e77d186"
+    },
+    {
+      "path": "benchmarks/PROTOCOL.md",
+      "sha256": "fbf180f854a474dd4619bb01046697783c87401e1105ccd4f99c6bda6e541038"
+    }
+  ],
+  "resolved_recommendations": [
+    {
+      "id": "INT-01",
+      "priority": "P3",
+      "status": "resolved_and_rechecked",
+      "path": "evidence/upstreams.lock.json",
+      "record": "pull_requests: vllm-project/vllm#52406",
+      "title": "Keep the unrechecked PR head with its original observation time",
+      "detail": "The first integrated record retained head_commit 271aa8deeb723650932f609b8291e4299f0d504b while updating retrieved_at for a fresh open-status check; the research receipt explicitly said the head had not been re-resolved.",
+      "resolution": "The current PR record carries the fresh open-status observation at 2026-10-15T22:25:09.346932+00:00 without head_commit. The old head exists only in prior_observations with its original 2026-10-15T21:52:51.228510+00:00 timestamp. The engine update record describes this refinement."
+    }
+  ],
+  "checks": [
+    {
+      "id": "source_register_counts_and_history",
+      "result": "pass",
+      "details": "261 source records comprise 135 byte-equivalent historical JSON records plus 126 new records. No historical source was removed or changed, and no source ID is duplicated."
+    },
+    {
+      "id": "source_receipt_integration",
+      "result": "pass",
+      "details": "All fields from 44 vLLM, 47 SGLang, 32 KServe and one later vLLM nightly source receipt match the integrated records; the two coordinator benchmark-document records account for the remaining new entries. All new records have October 15 UTC retrieval timestamps, HTTP 200, response hashes and requested/resolved endpoints."
+    },
+    {
+      "id": "markdown_source_projection",
+      "result": "pass",
+      "details": "All 261 Markdown source sections retain the corresponding JSON title, source URL, retrieval time, response hash, requested/resolved endpoint and notes. Rechecked after the SGLang notes were clarified."
+    },
+    {
+      "id": "stable_and_branch_identities",
+      "result": "pass",
+      "details": "Stable refs and times agree with research receipts: vLLM v0.31.0 db9527a46873454610df6dbedf79a36d6bf1a7f6, SGLang v0.5.21 e00930c5489053f26d86b179cee0d087f846acbb, KServe v0.21.0 d1482554fc4f66dd41aee70e01f5174e24f265bd. SGLang annotated tag object is preserved separately. UTC publication dates and local update date are distinguished."
+    },
+    {
+      "id": "vllm_source_and_later_head",
+      "result": "pass",
+      "details": "Expanded function inspection remains at 784d1fff0c491b9add10ecd732de8f707a7e7dbe. Later main de7d70676d9a39353aab4796a6987d345c597991 is explicitly a 22:35:37 UTC branch observation, not an expanded source-tree audit. Lock and prose preserve this distinction."
+    },
+    {
+      "id": "vllm_moving_nightly",
+      "result": "pass",
+      "details": "The first 22:25:07.994551 UTC dev256 / 0c2584929202353a1b2e33934611125c604b7eed index response and independent 22:35:40.697876 UTC dev258 / 9b99ccb56bc90d9f6524f0861af274ea2af02f70 response retain distinct times and hashes. Full later wheel links match the independent receipt. The newly added vLLM SOURCE_REVIEW paragraph accurately states that no source-tree inspection or wheel-byte verification at the later advertised commit occurred."
+    },
+    {
+      "id": "sglang_artifact_platforms",
+      "result": "pass",
+      "details": "SGLang wheel identity, CPython 3.12/x86_64 scope, separate a6a8c560 CUDA 13 development container and arm64 f7ad434 CUDA 13.4 observation agree with the receipt. The prose does not substitute latest publication time for node-architecture compatibility."
+    },
+    {
+      "id": "kserve_development_image",
+      "result": "pass",
+      "details": "KServe master 22be2b0496eea4548a98395c3abccf48d8235385 and controller latest-tag metadata remain separate. Index/platform digests match the research receipt; the documents do not claim a verified source-to-image mapping or a separate established nightly stack."
+    },
+    {
+      "id": "historical_lock_scope",
+      "result": "pass",
+      "details": "Old inspected refs and their commit dates, prior branch observations, old nightly observations and all model_artifacts remain preserved. New selected source scopes are recorded under expanded_source_review. Git diff shows no changes to profiles, catalogs or clone_upstreams.py."
+    },
+    {
+      "id": "pr_and_observation_merge",
+      "result": "pass",
+      "details": "Integrated upstream fields, newly researched PR observations, first-pass nightly records and KServe controller metadata match the research ledgers; the later vLLM nightly matches the independent ledger. Only the explicitly historical open-PR head needed the resolved clarification."
+    },
+    {
+      "id": "synthesis_scope_and_evidence_limits",
+      "result": "pass",
+      "details": "The nightly summary keeps lower-level kernels, exact architecture gates, released-source inclusion and selected-template activation distinct from runtime support and B300 performance. The summarized research findings agree with the independent framework reviews. No test, binary or GPU result is invented."
+    },
+    {
+      "id": "shared_methodology_recheck",
+      "result": "pass",
+      "details": "The roadmap still preserves profile/probe/block statuses, serialized-input-plus-output context budgets, exact artifact identity, natural acceptance, equal hardware budgets and the predeclared uncertainty-on-improvement decision. The manual template includes analysis_method_and_uncertainty and repetition_pairing_or_aggregation and remains not_run."
+    },
+    {
+      "id": "navigation_and_explicit_citations",
+      "result": "pass",
+      "details": "The reviewed additions explain planned experiments and link the matching source/experiment documents. Twenty-eight explicit new source-ID citations in the scoped prose match registered URLs after raw/blob normalization. No missing ID or mismatched URL was found."
+    },
+    {
+      "id": "expansion_report_counts_and_refinements",
+      "result": "pass",
+      "details": "The reported baseline commit 5dfbab0 matches repository HEAD. The 30 detailed cards are V01-V10, G01-G12 and K01-K08, in addition to X01-X09. The report distinguishes 261 records from distinct URLs/reproductions and accurately recounts the shared-plan, vLLM P/D, SGLang dummy-weight/acceptance and PR-head refinements."
+    },
+    {
+      "id": "independent_review_status",
+      "result": "pass",
+      "details": "vLLM cross-review has no blocking findings and its optional hybrid-manager clarification is resolved. SGLang cross-review records both P3 recipe/acceptance clarifications as resolved_and_rechecked. KServe cross-review verdict is APPROVE with no findings."
+    }
+  ],
+  "receipt_files_used": [
+    "Temporary research artifact (not bundled): atlas-vllm-exp-review.json",
+    "Temporary research artifact (not bundled): atlas-sglang-exp-review.json",
+    "Temporary research artifact (not bundled): atlas-kserve-exp-review.json",
+    "Temporary research artifact (not bundled): atlas-exp-cross-vllm.json",
+    "Temporary research artifact (not bundled): atlas-exp-cross-sglang.json",
+    "Temporary research artifact (not bundled): atlas-exp-cross-kserve.json",
+    "Temporary research artifact (not bundled): atlas-vllm-exp-sources.json",
+    "Temporary research artifact (not bundled): atlas-sglang-exp-sources.json",
+    "Temporary research artifact (not bundled): atlas-kserve-exp-sources.json",
+    "Temporary research artifact (not bundled): atlas-exp-cross-vllm-sources.json",
+    "Temporary research artifact (not bundled): records.json",
+    "Temporary research artifact (not bundled): atlas-exp-plan-review.json"
+  ],
+  "limits": [
+    "Read-only repository review; only this review artifact was written under /tmp.",
+    "No repository validator, unit tests, engine, GPU workload, benchmark, wheel/container binary, cluster or deployment was run by this reviewer. Small local scripts only read and reconciled existing evidence data.",
+    "This integration pass compares timestamped receipts and prose; it does not refresh or extend those upstream snapshots, independently repeat every external retrieval, or audit complete engine source trees.",
+    "The full engine experiment cards were independently reviewed by the assigned framework cross-reviewers. This pass checks their integration and the scoped shared methodology rather than replacing those reviews.",
+    "Final HTML regeneration, actual static/test outputs, checksums and final archive copying were explicitly left to the coordinator after review; their expected temporary incompleteness was not reported as a finding.",
+    "Local consistency and upstream source inspection do not certify binary contents, checkpoint compatibility, numerical correctness, quality or serving performance."
+  ],
+  "record_role": "Independent Astra max review; see update report for final integration resolutions."
+}

@@ -29,6 +29,10 @@ Kimi K3's native release is MXFP4/MXFP8, not NVFP4; NVIDIA's NVFP4 export is a d
 
 [Profiles](profiles/README.md) contain 34 launch experiments, including blocked/probe statuses rather than fake guarantees. [Benchmark protocol](benchmarks/PROTOCOL.md) defines fair comparisons. [Evidence](evidence/README.md) includes source IDs, upstream references and retrieval limitations.
 
+The [experiment roadmap](reports/EXPERIMENTS.md) connects stable/main/nightly changes to an ordered B300 investigation. Detailed [vLLM experiments](frameworks/vllm/EXPERIMENTS.md), [SGLang experiments](frameworks/sglang/EXPERIMENTS.md) and [KServe experiments](frameworks/kserve/EXPERIMENTS.md) explain mechanisms, controls, metrics and rejection criteria. Copy the [run-record template](benchmarks/experiment.template.json) to plan a reproducible comparison; these are proposed experiments, not measured results.
+
+The [engine update record](evidence/ENGINE-UPDATE-2026-10-16.md) documents the fresh research, source/version distinctions and independent review of this expansion.
+
 ```bash
 python scripts/validate_repo.py
 python -m unittest discover -s tests -v

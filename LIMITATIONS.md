@@ -6,6 +6,8 @@
 
 Eight model-family directories contain architecture dimensions, technical explanations, precision variants, serving hypotheses, validation plans and source links. The audit resolved exact publisher and derivative revisions, checked immutable metadata, revisited engine releases and main references, and rechecked selected implementation files and relevant PRs. Local code and document checks are reported in [VALIDATION](VALIDATION.md). HTTP success alone is not counted as verification of a claim; retrieval receipts and reviewer findings are recorded separately.
 
+The subsequent [engine experiment roadmap](reports/EXPERIMENTS.md) expands the stable/main/nightly research into proposed investigations. It includes a manual experiment-record template, not a new execution system. Its applicability checks and promotion thresholds must be completed for the actual image, node and workload. Existing profile source references remain their original reviewed snapshots; new research does not silently certify those profiles against a newer nightly.
+
 ## Not completed or not available
 
 No model weight tensors were downloaded and no inference engine was installed or run. Limited safetensors header metadata was read to check GLM parameter accounting. No B300 node was exercised, and no GPU correctness, throughput, latency, memory or power measurement was performed. No deployed KServe cluster was changed or validated. No nightly container was pulled or tested; source inspection does not certify a nightly binary.

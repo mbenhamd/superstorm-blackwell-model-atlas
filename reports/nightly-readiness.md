@@ -1,39 +1,61 @@
-# Stable, main and nightly are different objects
+# Stable, main and nightly: what to test next
 
-Release pages and GitHub metadata were rechecked October 15, 2026 UTC. Branch snapshots below were retrieved at 21:52 UTC; they are observations at that time, not promises that a moving branch remains unchanged.
+Refreshed October 16, 2026 Europe/Paris, with retrievals on October 15 UTC. These are timestamped source and publication observations. **No wheel, container or GPU-serving configuration was executed.** Exact retrieval records are in the [source register](../evidence/SOURCES.md) and [upstream lock](../evidence/upstreams.lock.json).
 
-| Component | Latest stable release | Inspected source snapshot | Separately observed main/master | Binary tested here |
-| --- | --- | --- | --- | --- |
-| vLLM | 0.31.0, October 5 | `f8460ef23659afd69046a81529ec2295e4c3f686` | `e711723352670e811b0e904300d771471e28930d` | None |
-| SGLang | 0.5.21, October 2 | `877be2974aa151a984e52822c028276c2b1e9303` | `91f6ef23223d8415724b1bbfab415bb5977fca0c` | None |
-| KServe | 0.21.0, September 25 | Selected release CRD/constants files at `d1482554fc4f66dd41aee70e01f5174e24f265bd`; no full controller review | `22be2b0496eea4548a98395c3abccf48d8235385` (master) | None |
+## Release identities and inspected branch snapshots
 
-[VREL](https://github.com/vllm-project/vllm/releases/tag/v0.31.0) [GREL](https://github.com/sgl-project/sglang/releases/tag/v0.5.21) [KREL](https://github.com/kserve/kserve/releases/tag/v0.21.0) [VHEAD](https://github.com/vllm-project/vllm/commit/f8460ef23659afd69046a81529ec2295e4c3f686) [GHEAD](https://github.com/sgl-project/sglang/commit/877be2974aa151a984e52822c028276c2b1e9303)
+| Component | Latest stable observed | Stable source commit | Main/master inspected for this update |
+| --- | --- | --- | --- |
+| vLLM | 0.31.0, October 5 | `db9527a46873454610df6dbedf79a36d6bf1a7f6` | `784d1fff0c491b9add10ecd732de8f707a7e7dbe` |
+| SGLang | 0.5.21, October 2 | `e00930c5489053f26d86b179cee0d087f846acbb` | `4e0609ea277d09393d752fcb79181e3416d94c56` |
+| KServe | 0.21.0, September 25 | `d1482554fc4f66dd41aee70e01f5174e24f265bd` | `22be2b0496eea4548a98395c3abccf48d8235385` (master) |
 
-[VMAIN](https://github.com/vllm-project/vllm/commit/e711723352670e811b0e904300d771471e28930d) [GMAIN](https://github.com/sgl-project/sglang/commit/91f6ef23223d8415724b1bbfab415bb5977fca0c) [KMAIN](https://github.com/kserve/kserve/commit/22be2b0496eea4548a98395c3abccf48d8235385). The two vLLM and two SGLang files in the source reviews were also fetched at these branch snapshots; each matched the earlier inspected file byte for byte. This does not extend the review to other files or dependencies.
+[vLLM release](https://github.com/vllm-project/vllm/releases/tag/v0.31.0), [SGLang release](https://github.com/sgl-project/sglang/releases/tag/v0.5.21), [KServe release](https://github.com/kserve/kserve/releases/tag/v0.21.0), [vLLM main snapshot](https://github.com/vllm-project/vllm/commit/784d1fff0c491b9add10ecd732de8f707a7e7dbe), [SGLang main snapshot](https://github.com/sgl-project/sglang/commit/4e0609ea277d09393d752fcb79181e3416d94c56), [KServe master snapshot](https://github.com/kserve/kserve/commit/22be2b0496eea4548a98395c3abccf48d8235385).
 
-A nightly tag can move, lag main, include additional patches or use a different dependency set. Its architecture-specific kernels can differ by CUDA build. Pin a digest and record the embedded engine commit, torch/CUDA versions, FlashInfer/FlashMLA/DeepGEMM versions, compiler target and model revision. A source SHA does not make a binary reproducible unless its dependencies and build are also fixed.
+The earlier audit inspected vLLM `f8460ef23659afd69046a81529ec2295e4c3f686` and SGLang `877be2974aa151a984e52822c028276c2b1e9303`. Existing profile `reviewed_source_commit` values and the cloner's inspected references retain those identities. This follow-up examines additional code at newer snapshots; it does not certify existing profile arguments against every new binary. The framework reports identify the selected files and restrictions actually reviewed.
 
-## Published nightly metadata checked separately
+During review, vLLM main advanced again: the 22:35:37 UTC remote-ref check observed `de7d70676d9a39353aab4796a6987d345c597991`, committed at 22:29:13 UTC. The expanded function inspection remains at `784d1fff…`; the later branch observation does not extend that inspection to the newer code. [VEXP-LATEST-MAIN](https://github.com/vllm-project/vllm/commit/de7d70676d9a39353aab4796a6987d345c597991).
 
-The official installation pages describe nightly distribution channels. Their indexes were checked at approximately 21:58 UTC, without downloading or executing the wheels or container layers. A filename or registry record establishes a published reference, not the behavior or embedded dependencies of its binary. [VNIGHTLY-DOC](https://docs.vllm.ai/en/latest/getting_started/installation/gpu/) [GNIGHTLY-DOC](https://docs.sglang.io/docs/get-started/install)
+## Published development artifacts are separate snapshots
 
-| Channel | Observed reference | Evidence boundary |
+| Channel | Fresh observation | Consequence for an experiment |
 | --- | --- | --- |
-| vLLM CUDA 13 wheel index | `0.32.0rc1.dev255+gf8460ef23`, x86_64 and aarch64 wheel links | The published link refers to the older inspected source, not the later main snapshot |
-| SGLang CUDA 13 wheel index | `0.5.22.dev20261015+ga12814c158`, CPython 3.12, x86_64 | Version and checksum are index metadata; wheel bytes were not checked |
-| SGLang CUDA 13 development image | `nightly-dev-cu13-20261015-a6a8c560`, amd64 and arm64 manifests | Registry index digest `sha256:0a1ba33aa4e032b8c5bcebdc69c45664074c032074add4f7db01629ec1fcc381`; no image was pulled |
+| vLLM CUDA 13 nightly wheel index, 22:25 UTC | `0.32.0rc1.dev256+g0c2584929`, commit reference `0c2584929202353a1b2e33934611125c604b7eed` | The index moved beyond the original audit's `dev255` observation. Preserve this first-pass receipt. |
+| Same vLLM index, independent review at 22:35 UTC | `0.32.0rc1.dev258+g9b99ccb56`, commit reference `9b99ccb56bc90d9f6524f0861af274ea2af02f70` | The index moved again. This later publication was captured separately; its source tree and wheel bytes were not inspected. Check feature inclusion at that exact reference before testing. |
+| SGLang CUDA 13 wheel index | `0.5.22.dev20261015+ga12814c158`, CPython 3.12, x86_64 | Check Python, architecture and platform requirements; retain the downloaded wheel hash and dependency resolution. The index checksum has not been checked against downloaded bytes here. |
+| SGLang CUDA 13 development container | `nightly-dev-cu13-20261015-a6a8c560`, amd64 and arm64 manifests | Different source label from the wheel and current main. Pin the correct platform manifest, not only a mutable tag. |
+| SGLang CUDA 13.4 nightly container | Observed `nightly-cu134-20261015-f7ad434` has an arm64 manifest | Newer publication time does not select the correct image for an x86_64 host. Inventory the actual node architecture first. |
+| KServe controller development publication | `llmisvc-controller:latest` registry metadata observed separately from release and master source | A mutable development image is not a verified source-to-image mapping or a selected production/nightly stack. Pin controller, router, CRDs and engine independently. |
 
-[VNIGHTLY-INDEX](https://wheels.vllm.ai/nightly/cu130/vllm/) [GNIGHTLY-INDEX](https://sgl-project.github.io/whl/cu130/sglang/) [GNIGHTLY-TAGS](https://hub.docker.com/v2/repositories/lmsysorg/sglang/tags?page_size=5&name=nightly&ordering=last_updated)
+[VEXP-NIGHTLY](https://wheels.vllm.ai/nightly/cu130/vllm/), [VEXP-NIGHTLY-CROSS](https://wheels.vllm.ai/nightly/cu130/vllm/), [GEXP-NIGHTLY-WHEELS](https://sgl-project.github.io/whl/cu130/sglang/), [GEXP-NIGHTLY-TAGS](https://hub.docker.com/v2/repositories/lmsysorg/sglang/tags?page_size=10&name=nightly&ordering=last_updated). The two vLLM response hashes and times are distinct records in the evidence register. KServe's exact registry reference and its limits are recorded in the [KServe source review](../frameworks/kserve/ARCHITECTURE.md).
 
-These channels carry different source identifiers. The same registry listing also contains a newer CUDA 13.4 nightly with only an arm64 manifest; newest publication time alone does not select an image for an x86_64 B300 node. KServe has no nightly binary selected or tested in this atlas.
+The lock preserves observed registry index/platform digests and wheel metadata. Those identify published references; no container layers or wheel bodies were pulled. An embedded source commit, CUDA/PyTorch build, compiler targets and kernel dependencies still need inspection in the chosen artifact before an experiment is reproducible.
 
-## Concrete update checks from this research
+## Recent changes that justify targeted experiments
 
-SGLang Kimi mixed NVFP4 support PR #35077 merged August 19. vLLM Kimi FP8-attention PR #52406 remains open. vLLM Flash Next mixed MTP PR #55513 merged September 8. GitHub ancestry checks place the two merged fixes in the v0.5.21 and v0.31.0 source histories respectively. That establishes release-source inclusion, not the contents or correctness of an installed image. NVIDIA’s separately patched Kimi vLLM container must be evaluated on its own terms. [KIMIPR](https://github.com/sgl-project/sglang/pull/35077) [KIMIVPR](https://github.com/vllm-project/vllm/pull/52406) [QPR](https://github.com/vllm-project/vllm/pull/55513) [GREL-KIMI-ANCESTRY](https://github.com/sgl-project/sglang/compare/5f128395910dafb98c34083dc26cb790c7674d34...v0.5.21) [VREL-QWEN-ANCESTRY](https://github.com/vllm-project/vllm/compare/60ad959b6f1a5c8f602edbd608c8decbc0788c50...v0.31.0) [kimi-k3-NV](https://huggingface.co/nvidia/Kimi-K3-NVFP4/blob/b2428a0b83a8b712ff2e1a8448a103d4175341f1/README.md)
+| Engine/layer | Change worth investigating | What the experiment must establish |
+| --- | --- | --- |
+| vLLM speculation | Random-draw reuse, stop-trim accounting and draft-slot budgeting fixes on main | Sampling correctness, stop/reuse/cancellation state and goodput under the same natural acceptance workload; a throughput-only smoke test misses these failures. |
+| vLLM memory/state | cuBLAS initialization before the memory snapshot; Mamba block-table gather fusion | Real memory headroom and applicable hybrid-state overhead. A local kernel improvement is not an equal end-to-end gain. |
+| vLLM model-specific paths | GLM draft-metadata optimization and quantized shared draft heads | Respect the gates: the reviewed GLM path requires DCP=1, PCP=1 and no HiSparse; the shared-head change excludes the Gemma4 MTP and DSpark/DFlash paths reviewed. |
+| SGLang caches/graphs | Recurrent-state, HiCache/SWA backup and Qwen draft/verification graph work | Reuse correctness after eviction/cancellation and the applicable architecture's pool/graph cost; do not assume every cache backend serves every model. |
+| SGLang parallel paths | Expert-routing sentinel, Kimi graph-input and DeepSeek compressed-length fixes | Correct rank mapping, replay inputs and sparse-context behavior on the selected backend. Several paths bypass the changed code. |
+| KServe master | Specific SGLang runtime templates, DisaggregatedSet rollout/scaling work and dependency changes | Stable versus master API availability, rendered configuration, engine/router compatibility, startup/recovery and routing behavior. These are control-plane experiments. |
 
-## Upgrade gate
+Primary changes, immutable source links and applicability details are in the expanded [vLLM source review](../frameworks/vllm/SOURCE_REVIEW.md), [SGLang source review](../frameworks/sglang/SOURCE_REVIEW.md) and [KServe architecture review](../frameworks/kserve/ARCHITECTURE.md). The corresponding [vLLM](../frameworks/vllm/EXPERIMENTS.md), [SGLang](../frameworks/sglang/EXPERIMENTS.md) and [KServe](../frameworks/kserve/EXPERIMENTS.md) experiment cards define controls, measurements and rejection criteria.
 
-Resolve the new artifact to a digest, inventory its actual versions, load the exact pinned checkpoint, run target-only and speculative correctness, compare quality and long-context behavior, then benchmark the fixed workload. Include cancellation, prefix eviction and graph replay. Promote only after the regression threshold and latency objective pass; retain the previous digest and model metadata for rollback.
+## Three traps exposed by source review
 
-`scripts/clone_upstreams.py` can materialize the inspected revisions without modifying an existing checkout and defaults to printing commands. `scripts/fetch_metadata.py` resolves immutable model revisions without downloading weights. Selected source files and metadata were successfully retrieved over HTTPS during this audit; the earlier full-clone failure remains a historical event. Neither metadata retrieval nor cloning constitutes a serving test.
+**Merged before publication does not prove release inclusion.** A release branch can omit a commit merged to main before its publication time. SGLang's Qwen graph-preparation change is a concrete example in the refreshed source review. Check the release's actual file or ancestry rather than comparing dates alone.
+
+**A kernel row does not prove a model uses it.** The reviewed vLLM MegaMoE NVFP4 feature-matrix change adds a lower-level path without a model caller in that patch. It is useful future implementation evidence, not permission to invent a backend flag or claim that every NVFP4 checkpoint is faster. [VEXP-61538](https://github.com/vllm-project/vllm/pull/61538).
+
+**A template does not prove it is active.** KServe's endpoint-picker configuration depends on image/version selection. The stable default and master dependency stack can select different paths even when similarly named preset files exist. Inspect the rendered deployment and effective scheduler configuration; the [KServe review](../frameworks/kserve/ARCHITECTURE.md) gives the exact selection gate.
+
+## Upgrade procedure and promotion decision
+
+Follow [X01–X09 in the experiment roadmap](EXPERIMENTS.md). First qualify the exact artifact with target-only loading and representative quality checks. Compare baseline and candidate using identical effective precision, topology, serialized workload, cache state and objectives. Then isolate features within the candidate where supported. Include long context, cancellation, eviction, stop handling and graph replay before a speed claim; measure natural speculative acceptance and keep the target-only baseline.
+
+Use the [run-record template](../benchmarks/experiment.template.json) for immutable identities, dependency versions, effective flags, workload hashes, predeclared thresholds and results. Promote only after repeated measurements meet quality, latency, error and capacity requirements. A regression can justify keeping stable even when main contains a promising optimization. Preserve the previous artifact and rollback procedure.
+
+No profile has been promoted to tested status by this update. No missing model support has been inferred from a neighboring architecture, and no engine was installed or launched.

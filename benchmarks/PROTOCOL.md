@@ -1,5 +1,7 @@
 # Benchmark and correctness protocol
 
+Use the [experiment roadmap](../reports/EXPERIMENTS.md) to choose an ordered comparison, then the engine-specific [vLLM](../frameworks/vllm/EXPERIMENTS.md), [SGLang](../frameworks/sglang/EXPERIMENTS.md) or [KServe](../frameworks/kserve/EXPERIMENTS.md) plan for current hypotheses. [experiment.template.json](experiment.template.json) records controls, artifact identities, predeclared thresholds and eventual evidence. It is a manual run-record template, not an executable profile or a completed result.
+
 ## Define the decision before measuring
 
 Choose a service-level objective and quality threshold. For example, compare request goodput while meeting a declared p95 first-token and generation-latency budget. Do not replace those budgets with convenient measured numbers after a run. Store the exact values in each experiment manifest; this atlas supplies no invented production SLA.
@@ -16,7 +18,7 @@ For 0731 DeepSeek use its encoding and DSpark contract, not a preview model's MT
 
 ## Minimum experiment matrix
 
-Run target-only first. Sweep input lengths 4K, 16K, 32K and 64K; extend to 128K and the native maximum only after capacity and accuracy gates pass. Sweep output lengths representative of the application, such as 128 and 1,024 tokens, plus the real trace. Include concurrency 1, 8, 32 and the point just before saturation. Repeat independent runs, randomize order and retain failures.
+Run target-only first. Select feasible input lengths from 4K, 16K, 32K and 64K; the complete serialized input, including template and image tokens, plus requested output must fit both the configured context cap and model limit. Reduce or skip infeasible points. Raising a cap, including extension toward 128K or the native maximum, requires separate capacity and accuracy gates. Sweep output lengths representative of the application, such as 128 and 1,024 tokens, plus the real trace. Include concurrency 1, 8, 32 and the point just before saturation. Repeat independent runs, randomize order and retain failures.
 
 For dense Qwen/Gemma compare TP1 replicas with TP2/4 as total-node capacity, not only one process's throughput. For large MoE compare the documented TP/DP/EP topologies before introducing cross-node communication. For hybrid models sweep the state/KV pool split only with measured pool demand. For DSpark/MTP record acceptance, verification work and queueing at each load, not a single best batch-one speedup.
 

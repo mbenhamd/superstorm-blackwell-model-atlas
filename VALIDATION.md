@@ -1,12 +1,12 @@
 # Local validation results
 
-Audit date: **October 15, 2026 UTC** (continuing into October 16 in Europe/Paris). Final supported interpreter: **Python 3.12.14**.
+Audit and engine-expansion retrieval date: **October 15, 2026 UTC** (October 16 in Europe/Paris for the expansion). Supported interpreter used for the recorded local checks: **Python 3.12.14**.
 
 ## Actual executions
 
 **68 unit tests passed on Python 3.12.14.** The documented supported minimum remains Python 3.10. The suite covers memory arithmetic, immutable metadata identity, launch/probe gates, profile topology and context consistency, synthetic-acceptance rejection, redirect handling, exclusive checkout destinations, KServe rendering guards, streaming completion semantics, catalog integrity and offline HTML generation. Network behavior and engine invocations in the tests use mocks.
 
-The repository validator passes for **8 model families**, **6 companies**, **34 profiles** and **135 source records**. Model JSON records and individual profile JSON files match their catalog copies. JSON parsing, Python compilation, source IDs and local Markdown links pass. Exact final file/link counts are in [local-validation.json](evidence/local-validation.json).
+The repository validator passes for **8 model families**, **6 companies** and **34 profiles**. Model JSON records and individual profile JSON files match their catalog copies. JSON parsing, Python compilation, source IDs and local Markdown links pass. Exact current file/link/source counts are in [local-validation.json](evidence/local-validation.json). The engine expansion adds documentation and a manual JSON run-record template; it adds no execution code or measured serving results.
 
 Seven [CLI smoke checks](evidence/audits/2026-10-15/cli-smoke.json) passed: weight arithmetic, ordinary GQA KV arithmetic, guarded dry-run launch, dry-run clone commands, metadata listing without network, benchmark help and KServe renderer help. The illustrative calculations returned 2.8e12 bytes for uniform FP8 at 2.8T parameters and 88 GiB for the stated Mistral KV example. These are calculations, not GPU allocation measurements.
 
@@ -14,9 +14,9 @@ The offline edition is rebuilt from the corrected Markdown. `build_atlas.py --ch
 
 ## Primary-source retrieval and review
 
-All eight base model APIs and immutable configurations were independently retrieved by the coordinator, confirming revision, layer count and hidden size. Model reviewers checked the full curated projections and exact derivative metadata. The initial 62 source URLs and all 135 URLs in the integrated register returned HTTP 200 in separate access checks. See the [audit report](evidence/AUDIT-2026-10-15.md) for the independent reviews and correction records. Accessibility alone does not establish claim accuracy.
+During the original audit, all eight base model APIs and immutable configurations were independently retrieved by the coordinator, confirming revision, layer count and hidden size. Model reviewers checked the full curated projections and exact derivative metadata. The initial 62 source URLs and all 135 URLs in that audit's integrated register returned HTTP 200 in separate access checks. See the [audit report](evidence/AUDIT-2026-10-15.md) for those independent reviews and corrections. The subsequent [engine update](evidence/ENGINE-UPDATE-2026-10-16.md) records its additional primary-source research and reviews separately. Accessibility alone does not establish claim accuracy.
 
-Actual Hub and GitHub HTTPS retrieval succeeded in this audit. The original full-clone failures remain historical evidence; full upstream clones were not repeated. The metadata downloader's mocked tests are distinct from an end-to-end integration test of that command against the Hub.
+Actual Hub and GitHub HTTPS retrieval succeeded. During the engine expansion, GitHub REST requests hit an unauthenticated rate limit; official HTML, raw files and Git references supplied the cited alternatives. Temporary filtered/shallow upstream Git metadata was used where documented for release-versus-main source comparison. The original full-clone failures remain historical evidence; complete upstream clones were not repeated. The metadata downloader's mocked tests are distinct from an end-to-end integration test of that command against the Hub.
 
 ## Explicitly not tested
 

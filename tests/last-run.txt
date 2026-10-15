@@ -68,6 +68,6 @@ test_relative_document_and_asset_links (test_build_atlas.OfflineAtlasTests.test_
 test_table_lists_and_duplicate_headings (test_build_atlas.OfflineAtlasTests.test_table_lists_and_duplicate_headings) ... ok
 
 ----------------------------------------------------------------------
-Ran 68 tests in 0.277s
+Ran 68 tests in 0.357s
 
 OK

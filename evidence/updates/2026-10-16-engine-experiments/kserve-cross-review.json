@@ -1,0 +1,419 @@
+{
+  "review_kind": "Independent read-only KServe documentation cross review",
+  "requested_model": "Astra max",
+  "reviewed_at_utc": "2026-10-15T22:42:05.042897+00:00",
+  "repository": "/Users/mbenhamd/Projects/superstorm-blackwell-model-atlas",
+  "verdict": "APPROVE",
+  "findings": [],
+  "summary": "No material correctness or experiment-design defects found in the two scoped documents. Material release, runtime, routing, scaling and migration claims match independently retrieved immutable primary sources. Experiments remain explicitly proposed and preserve equal resource, quality and provenance boundaries.",
+  "reviewed_files": [
+    {
+      "path": "frameworks/kserve/ARCHITECTURE.md",
+      "sha256": "3edf3617bd56ad6db992e747d8047ad9861baa89740614212f66969c926064eb",
+      "line_count": 101
+    },
+    {
+      "path": "frameworks/kserve/EXPERIMENTS.md",
+      "sha256": "c11ac08625c2851785cde1ddc2b448384e8b1db1d1642b6a7bda2fc6d7f740b7",
+      "line_count": 118
+    }
+  ],
+  "context_read": [
+    "AGENTS.md instructions supplied in task",
+    "README.md",
+    "START_HERE.md",
+    "LIMITATIONS.md",
+    "benchmarks/PROTOCOL.md",
+    "deploy/kserve/README.md",
+    "Temporary research artifact (not bundled): atlas-kserve-exp-sources.json",
+    "Temporary research artifact (not bundled): atlas-kserve-exp-review.json"
+  ],
+  "codegraph": "Repository has no .codegraph directory; no index queried or created.",
+  "refs": {
+    "stable_release": "v0.21.0",
+    "stable_commit": "d1482554fc4f66dd41aee70e01f5174e24f265bd",
+    "master_commit": "22be2b0496eea4548a98395c3abccf48d8235385"
+  },
+  "checks": [
+    {
+      "topic": "Current releases and branch identity",
+      "result": "Confirmed official releases/latest redirects: KServe v0.21.0, vLLM v0.31.0, SGLang v0.5.21. KServe page identifies September 25 publication; git ls-remote independently matches stable and master refs. Local immutable Git commit metadata agrees with the master October 15 19:47:34 UTC time.",
+      "document_locations": [
+        "frameworks/kserve/ARCHITECTURE.md:7"
+      ],
+      "sources": [
+        "KXC-REL",
+        "KXC-VREL",
+        "KXC-GREL"
+      ],
+      "evidence": {
+        "output": "22be2b0496eea4548a98395c3abccf48d8235385\trefs/heads/master\nd1482554fc4f66dd41aee70e01f5174e24f265bd\trefs/tags/v0.21.0\n",
+        "sha256": "bb996edb9a63f85f747a68a1bc1727d8a16d47886352b896cde2909e18a56915"
+      }
+    },
+    {
+      "topic": "API and website versions",
+      "result": "Public overview metadata and visible version label are 0.20. Both stable LLMInferenceService and LLMInferenceServiceConfig CRDs serve v1alpha1 and v1alpha2, with v1alpha2 storage true.",
+      "document_locations": [
+        "frameworks/kserve/ARCHITECTURE.md:9"
+      ],
+      "sources": [
+        "KEXP-DOCS",
+        "KEXP-CRD21",
+        "KEXP-CFGCRD21"
+      ]
+    },
+    {
+      "topic": "SGLang availability and selector scope",
+      "result": "Stable raw template/runtime URLs return 404 and immutable git ls-tree has neither file. Stable API lacks spec.runtime. Master API adds runtime; config_merge.go lines 169-184 and 632-670 select kserve-config-sglang-template only for non-P/D without worker when runtime is kserve-llm-sglang. Runtime image is lmsysorg/sglang:v0.5.14; the template leaves image override precedence explicit. K08 correctly requires separately qualified current image and does not claim P/D or multi-node support.",
+      "document_locations": [
+        "frameworks/kserve/ARCHITECTURE.md:35",
+        "frameworks/kserve/EXPERIMENTS.md:110"
+      ],
+      "sources": [
+        "KXC-SGLANG21",
+        "KXC-SGLANGRT21",
+        "KEXP-API21",
+        "KEXP-APIMASTER",
+        "KEXP-COMPOSEMASTER",
+        "KEXP-SGLANGMASTER",
+        "KEXP-SGLANGRUNTIME"
+      ]
+    },
+    {
+      "topic": "Stable routing preset version gate",
+      "result": "Stable config_merge.go lines 128-164 and 415-451 require the scheduler version annotation >=0.11.0 for preset injection and avoid overriding explicit configuration. Stable scheduler template declares image/annotation 0.10.0. scheduler.go lines 544-648 defines legacy queue/KV-utilization/prefix scoring and preserves existing configuration with the stated priority. Master scheduler template declares 0.11.0. K02 correctly calls for inspecting rendered policy and isolates router/controller changes.",
+      "document_locations": [
+        "frameworks/kserve/ARCHITECTURE.md:53",
+        "frameworks/kserve/EXPERIMENTS.md:42"
+      ],
+      "sources": [
+        "KEXP-COMPOSE21",
+        "KEXP-EPPSERVICE21",
+        "KEXP-EPP21",
+        "KEXP-SCHEDULER21",
+        "KXC-SCHEDTEMPLATEMASTER"
+      ]
+    },
+    {
+      "topic": "Dependency and engine image identity",
+      "result": "Stable/master dependency values match the table, including LWS 0.8.0/0.11.0, Gateway API 1.5.1, GIE 1.5.0/1.6.2, router 0.10.0/0.11.0 and KEDA 2.20.2. Base workload image remains llm-d-cuda:v0.9.0 in both; the document correctly refuses to equate that tag with a vLLM package version.",
+      "document_locations": [
+        "frameworks/kserve/ARCHITECTURE.md:41"
+      ],
+      "sources": [
+        "KEXP-DEPS21",
+        "KEXP-DEPSMASTER",
+        "KEXP-TEMPLATE21",
+        "KXC-TEMPLATEMASTER"
+      ]
+    },
+    {
+      "topic": "WVA removal and KEDA behavior",
+      "result": "Stable scaling.go has WVA HPA/KEDA and direct KEDA reconciliation. Master validation allows retained WVA unchanged/removal and rejects additions/modifications; scaling.go removes prior HPA, removes ScaledObject when direct KEDA is absent, and reports WVA unsupported/disabled. Master config_merge.go lines 413-420 uses dry-run UPDATE for retained WVA so CREATE admission does not prevent cleanup. Direct KEDA targets Deployment, LWS or DisaggregatedSetRoleScaler according to the workload backend, with independent prefill scaling configuration. Upgrade warnings and K05/K07 migration controls are accurate.",
+      "document_locations": [
+        "frameworks/kserve/ARCHITECTURE.md:69",
+        "frameworks/kserve/EXPERIMENTS.md:74",
+        "frameworks/kserve/EXPERIMENTS.md:98"
+      ],
+      "sources": [
+        "KXC-SCALING21",
+        "KEXP-VALIDATIONMASTER",
+        "KEXP-SCALINGMASTER",
+        "KEXP-COMPOSEMASTER"
+      ]
+    },
+    {
+      "topic": "DisaggregatedSet feature gate and migration",
+      "result": "config_loader.go defaults the gate off and documents old version-pinned presets retaining previous behavior. Master decode single-node and data-parallel presets request the backend. workload_disaggregated.go lines 92-115 checks gate, CRD, prefill and RoleScaler availability; lines 123-149 explicitly warn that switching backends deletes workloads before replacement readiness. The documents use can-migrate wording and require an outage budget rather than promising uninterrupted migration.",
+      "document_locations": [
+        "frameworks/kserve/ARCHITECTURE.md:67",
+        "frameworks/kserve/EXPERIMENTS.md:102"
+      ],
+      "sources": [
+        "KEXP-DSCONFIGMASTER",
+        "KEXP-DSMASTER"
+      ],
+      "additional_primary_read": "Immutable git grep of config/llmisvcconfig found enable-disaggregated-set=true at config-llm-decode-template.yaml:20 and config-llm-decode-worker-data-parallel.yaml:20."
+    },
+    {
+      "topic": "Zero replicas and zero-surge rollout",
+      "result": "Read immutable diffs for #6378 and #6390 and current master disaggregatedRollingUpdateConfig (lines 377-440). Zero-role sizing is resolved with at least one replica; zero-surge percentage unavailability is normalized to a fixed count of at least one. The proposed zero-to-one-to-many and small replica rollout cases target these changes accurately without presenting source fixes as measured availability.",
+      "document_locations": [
+        "frameworks/kserve/ARCHITECTURE.md:61",
+        "frameworks/kserve/EXPERIMENTS.md:78",
+        "frameworks/kserve/EXPERIMENTS.md:102"
+      ],
+      "sources": [
+        "KEXP-DSMASTER"
+      ],
+      "immutable_commits": [
+        "05061768dc803dbff9c287bd6558b25f944452c6",
+        "a10e88ae379f51e508e3e47cbcb756c13510c8bb"
+      ]
+    },
+    {
+      "topic": "P/D transfer selection",
+      "result": "Stable decode/prefill scripts choose NixlConnector consumer/producer only when the KV-transfer flag remains unset and NIXL imports. User transfer settings and built-in offloading configuration take precedence. Missing NIXL can leave transfer disabled; K04 requires actual transfer evidence and detects unexpected prefill recomputation. Neither document treats healthy pods as transfer validation.",
+      "document_locations": [
+        "frameworks/kserve/ARCHITECTURE.md:81",
+        "frameworks/kserve/EXPERIMENTS.md:64"
+      ],
+      "sources": [
+        "KEXP-DEC21",
+        "KEXP-PREFILL21"
+      ]
+    },
+    {
+      "topic": "Development image provenance",
+      "result": "Publishing workflow maps master pushes to latest. Fresh registry metadata exactly matches documented update time and index digest. Workflow has provenance:false, so timestamp proximity is not an attestation to the inspected source revision. Documentation correctly leaves source-revision and runtime qualification unverified and requires platform-specific digest/build provenance.",
+      "document_locations": [
+        "frameworks/kserve/ARCHITECTURE.md:11",
+        "frameworks/kserve/EXPERIMENTS.md:11"
+      ],
+      "sources": [
+        "KEXP-PUBLISHMASTER",
+        "KEXP-DEVIMAGE"
+      ]
+    },
+    {
+      "topic": "GPU budget and experimental attribution",
+      "result": "K01 fixes engine/pod identity; K02-K03 fix replica count and GPU budget while separating load and cache signals; K04 requires both model copies/topologies fit within equal total GPUs and treats TP8+TP8 as sixteen GPUs; K05 fixes maximum capacity and measures GPU-seconds/startup signals; K06 distinguishes cancellation propagation from client timeout; K07 budgets rollout spare capacity/outage and schema rollback; K08 holds the SGLang image constant. Shared protocol definitions, quality gates, failures, open-loop caveat and proposed-status boundary are consistent.",
+      "document_locations": [
+        "frameworks/kserve/ARCHITECTURE.md:71",
+        "frameworks/kserve/EXPERIMENTS.md:28",
+        "frameworks/kserve/EXPERIMENTS.md:58",
+        "frameworks/kserve/EXPERIMENTS.md:70",
+        "frameworks/kserve/EXPERIMENTS.md:82",
+        "frameworks/kserve/EXPERIMENTS.md:94",
+        "frameworks/kserve/EXPERIMENTS.md:106"
+      ],
+      "sources": [
+        "benchmarks/PROTOCOL.md",
+        "deploy/kserve/README.md"
+      ],
+      "calculation": "Two independent role allocations of eight GPUs require 2 * 8 = 16 GPUs; no runtime fit measurement inferred."
+    }
+  ],
+  "fresh_retrieval": {
+    "receipts_path": "Temporary research artifact (not bundled): receipts.json",
+    "bodies_directory": "Temporary research artifact (not bundled): atlas-exp-cross-kserve-sources",
+    "response_count": 32,
+    "successful_responses": 30,
+    "expected_404_responses": 2,
+    "method": "Independent HTTPS GETs with Cache-Control:no-cache, official release web browsing and fresh git ls-remote. Selected immutable Git tree/history inspection supplemented fresh source retrieval."
+  },
+  "source_consistency": [
+    {
+      "id": "KEXP-DEPS21",
+      "ref": "d1482554fc4f66dd41aee70e01f5174e24f265bd",
+      "path": "kserve-deps.env",
+      "fresh_response_matches_git_blob": true
+    },
+    {
+      "id": "KEXP-DEPSMASTER",
+      "ref": "22be2b0496eea4548a98395c3abccf48d8235385",
+      "path": "kserve-deps.env",
+      "fresh_response_matches_git_blob": true
+    },
+    {
+      "id": "KEXP-API21",
+      "ref": "d1482554fc4f66dd41aee70e01f5174e24f265bd",
+      "path": "pkg/apis/serving/v1alpha2/llm_inference_service_types.go",
+      "fresh_response_matches_git_blob": true
+    },
+    {
+      "id": "KEXP-APIMASTER",
+      "ref": "22be2b0496eea4548a98395c3abccf48d8235385",
+      "path": "pkg/apis/serving/v1alpha2/llm_inference_service_types.go",
+      "fresh_response_matches_git_blob": true
+    },
+    {
+      "id": "KEXP-CRD21",
+      "ref": "d1482554fc4f66dd41aee70e01f5174e24f265bd",
+      "path": "config/crd/full/llmisvc/serving.kserve.io_llminferenceservices.yaml",
+      "fresh_response_matches_git_blob": true
+    },
+    {
+      "id": "KEXP-CFGCRD21",
+      "ref": "d1482554fc4f66dd41aee70e01f5174e24f265bd",
+      "path": "config/crd/full/llmisvc/serving.kserve.io_llminferenceserviceconfigs.yaml",
+      "fresh_response_matches_git_blob": true
+    },
+    {
+      "id": "KEXP-COMPOSE21",
+      "ref": "d1482554fc4f66dd41aee70e01f5174e24f265bd",
+      "path": "pkg/controller/v1alpha2/llmisvc/config_merge.go",
+      "fresh_response_matches_git_blob": true
+    },
+    {
+      "id": "KEXP-COMPOSEMASTER",
+      "ref": "22be2b0496eea4548a98395c3abccf48d8235385",
+      "path": "pkg/controller/v1alpha2/llmisvc/config_merge.go",
+      "fresh_response_matches_git_blob": true
+    },
+    {
+      "id": "KEXP-EPP21",
+      "ref": "d1482554fc4f66dd41aee70e01f5174e24f265bd",
+      "path": "config/llmisvcconfig/config-llm-scheduler-eppconfig-default.yaml",
+      "fresh_response_matches_git_blob": true
+    },
+    {
+      "id": "KEXP-EPPSERVICE21",
+      "ref": "d1482554fc4f66dd41aee70e01f5174e24f265bd",
+      "path": "config/llmisvcconfig/config-llm-scheduler.yaml",
+      "fresh_response_matches_git_blob": true
+    },
+    {
+      "id": "KEXP-DEC21",
+      "ref": "d1482554fc4f66dd41aee70e01f5174e24f265bd",
+      "path": "config/llmisvcconfig/config-llm-decode-template.yaml",
+      "fresh_response_matches_git_blob": true
+    },
+    {
+      "id": "KEXP-PREFILL21",
+      "ref": "d1482554fc4f66dd41aee70e01f5174e24f265bd",
+      "path": "config/llmisvcconfig/config-llm-prefill-template.yaml",
+      "fresh_response_matches_git_blob": true
+    },
+    {
+      "id": "KEXP-TEMPLATE21",
+      "ref": "d1482554fc4f66dd41aee70e01f5174e24f265bd",
+      "path": "config/llmisvcconfig/config-llm-template.yaml",
+      "fresh_response_matches_git_blob": true
+    },
+    {
+      "id": "KEXP-SGLANGMASTER",
+      "ref": "22be2b0496eea4548a98395c3abccf48d8235385",
+      "path": "config/llmisvcconfig/config-sglang-template.yaml",
+      "fresh_response_matches_git_blob": true
+    },
+    {
+      "id": "KEXP-SGLANGRUNTIME",
+      "ref": "22be2b0496eea4548a98395c3abccf48d8235385",
+      "path": "config/runtimes/kserve-llm-sglang.yaml",
+      "fresh_response_matches_git_blob": true
+    },
+    {
+      "id": "KEXP-SCALINGMASTER",
+      "ref": "22be2b0496eea4548a98395c3abccf48d8235385",
+      "path": "pkg/controller/v1alpha2/llmisvc/scaling.go",
+      "fresh_response_matches_git_blob": true
+    },
+    {
+      "id": "KEXP-VALIDATIONMASTER",
+      "ref": "22be2b0496eea4548a98395c3abccf48d8235385",
+      "path": "pkg/apis/serving/v1alpha2/llm_inference_service_validation.go",
+      "fresh_response_matches_git_blob": true
+    },
+    {
+      "id": "KEXP-DSMASTER",
+      "ref": "22be2b0496eea4548a98395c3abccf48d8235385",
+      "path": "pkg/controller/v1alpha2/llmisvc/workload_disaggregated.go",
+      "fresh_response_matches_git_blob": true
+    },
+    {
+      "id": "KEXP-DSCONFIGMASTER",
+      "ref": "22be2b0496eea4548a98395c3abccf48d8235385",
+      "path": "pkg/controller/v1alpha2/llmisvc/config_loader.go",
+      "fresh_response_matches_git_blob": true
+    },
+    {
+      "id": "KEXP-PUBLISHMASTER",
+      "ref": "22be2b0496eea4548a98395c3abccf48d8235385",
+      "path": ".github/workflows/kserve-llmisvc-controller-docker-publish.yml",
+      "fresh_response_matches_git_blob": true
+    },
+    {
+      "id": "KEXP-SCHEDULER21",
+      "ref": "d1482554fc4f66dd41aee70e01f5174e24f265bd",
+      "path": "pkg/controller/v1alpha2/llmisvc/scheduler.go",
+      "fresh_response_matches_git_blob": true
+    },
+    {
+      "id": "KXC-TEMPLATEMASTER",
+      "ref": "22be2b0496eea4548a98395c3abccf48d8235385",
+      "path": "config/llmisvcconfig/config-llm-template.yaml",
+      "fresh_response_matches_git_blob": true
+    },
+    {
+      "id": "KXC-SCHEDTEMPLATEMASTER",
+      "ref": "22be2b0496eea4548a98395c3abccf48d8235385",
+      "path": "config/llmisvcconfig/config-llm-scheduler.yaml",
+      "fresh_response_matches_git_blob": true
+    },
+    {
+      "id": "KXC-SCALING21",
+      "ref": "d1482554fc4f66dd41aee70e01f5174e24f265bd",
+      "path": "pkg/controller/v1alpha2/llmisvc/scaling.go",
+      "fresh_response_matches_git_blob": true
+    },
+    {
+      "id": "KXC-PREFILLMASTER",
+      "ref": "22be2b0496eea4548a98395c3abccf48d8235385",
+      "path": "config/llmisvcconfig/config-llm-prefill-template.yaml",
+      "fresh_response_matches_git_blob": true
+    }
+  ],
+  "commit_ancestry": [
+    {
+      "commit": "32055d172ea48ea57c94c9f24db81a2911fc2d64",
+      "ancestor_of_stable": false,
+      "exit_stable": 1,
+      "ancestor_of_master": true,
+      "exit_master": 0
+    },
+    {
+      "commit": "75060774371f6d956207a3587fa5690949b739af",
+      "ancestor_of_stable": false,
+      "exit_stable": 1,
+      "ancestor_of_master": true,
+      "exit_master": 0
+    },
+    {
+      "commit": "393c8349e6d5d88537b8786f8cd90f0c2ddc6cc1",
+      "ancestor_of_stable": false,
+      "exit_stable": 1,
+      "ancestor_of_master": true,
+      "exit_master": 0
+    },
+    {
+      "commit": "a10e88ae379f51e508e3e47cbcb756c13510c8bb",
+      "ancestor_of_stable": false,
+      "exit_stable": 1,
+      "ancestor_of_master": true,
+      "exit_master": 0
+    },
+    {
+      "commit": "05061768dc803dbff9c287bd6558b25f944452c6",
+      "ancestor_of_stable": false,
+      "exit_stable": 1,
+      "ancestor_of_master": true,
+      "exit_master": 0
+    },
+    {
+      "commit": "b77d836e120bcde08f46bba2427914e54e47ad53",
+      "ancestor_of_stable": false,
+      "exit_stable": 1,
+      "ancestor_of_master": true,
+      "exit_master": 0
+    },
+    {
+      "commit": "786c91ad2912724de94ecbcf6908d73e18ee862f",
+      "ancestor_of_stable": false,
+      "exit_stable": 1,
+      "ancestor_of_master": true,
+      "exit_master": 0
+    }
+  ],
+  "limits": [
+    "Read-only review of the final two documents, with supporting root/protocol/deployment context; no claim of exhaustive upstream controller or dependency audit.",
+    "No repository file changed, no tests added/run, no engines installed/run, no image pulled, no Kubernetes API/cluster used, no benchmark run and no commit created.",
+    "Raw source and Git agreement confirms the selected bytes/ref comparison; it does not certify binary provenance, engine compatibility, accuracy, availability or performance.",
+    "The existing temporary filtered shallow bare KServe repository was used for immutable tree/history inspection; negative ancestry alone is not proof of content absence, so stable feature availability was checked against trees and fresh raw sources.",
+    "Repository-wide evidence register, lockfile and nightly report integration are assigned to the parent agent and excluded from this review verdict.",
+    "No source/model image can be promoted to measured serving status from this review."
+  ],
+  "required_fixes": [],
+  "record_role": "Independent Astra max review; see update report for final integration resolutions."
+}

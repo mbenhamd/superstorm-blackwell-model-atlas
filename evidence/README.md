@@ -15,6 +15,8 @@ Read [LIMITATIONS](../LIMITATIONS.md) before using this atlas for a purchasing o
 
 The [October 15 audit](AUDIT-2026-10-15.md) records findings and coverage. Its [source-access receipts](audits/2026-10-15/source-access.json) cover all 62 URLs in the initial register. A successful HTTP response establishes accessibility only; the accompanying reviewer ledgers document which content claims were checked. Response hashes identify retrieved bytes, whose complete bodies are not bundled. The historical clone-failure log does not describe the current audit environment.
 
+The [October 16 engine expansion](ENGINE-UPDATE-2026-10-16.md), dated in Europe/Paris with UTC retrieval timestamps, adds stable/main/nightly research and planned experiments. Its receipts and independent reviews are kept separately from the original audit. Existing profile inspection commits remain historical identities; the lock separately records the new branch inspections and development artifact metadata.
+
 For each production claim retain the checkpoint SHA, image digest, effective engine class and kernels, command, hardware inventory, workload hash, quality output and raw measurements. A correct loader registry entry is one condition of support, not the entire evidence chain.
 
 No third-party weights, private repository content, tokens, proprietary PDFs or upstream font assets are bundled. Source documents remain available at their publishers. Authored prose paraphrases and explains the evidence; it is not a wholesale reproduction of model cards.

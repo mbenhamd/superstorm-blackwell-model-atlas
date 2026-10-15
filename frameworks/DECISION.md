@@ -24,6 +24,8 @@ KServe adds declarative deployment, lifecycle reconciliation and integration wit
 
 For this eight-GPU single-node task, a custom-container InferenceService is a transparent initial path for either engine. For advanced vLLM/llm-d routing and transfer, use the compatible LLMInferenceService configuration rather than pretending that replacing a container name certifies SGLang integration. A dedicated SGLang-aware orchestration design must explicitly preserve its transfer and cache semantics.
 
+The refreshed [KServe source review](kserve/ARCHITECTURE.md) separates stable capabilities from newer master templates and controller changes. An SGLang runtime template, where present, establishes a particular integration path; prefill/decode transfer, routing metrics and scaling still need their own version-specific qualification.
+
 ## Decision matrix
 
 | Requirement | Preferred initial route | Promotion condition |
@@ -37,3 +39,9 @@ For this eight-GPU single-node task, a custom-container InferenceService is a tr
 | Advanced prefill/decode or cluster routing | Version-matched LLM orchestration | Correct state transfer and measured crossover |
 
 Every recommendation is conditional. Actual measurements are intentionally absent until run on the target hardware.
+
+## Turn the choice into an experiment
+
+Use the [shared roadmap](../reports/EXPERIMENTS.md) to compare stable and pinned candidate builds, then compare qualified vLLM/SGLang configurations under the same application objective. The detailed [vLLM](vllm/EXPERIMENTS.md) and [SGLang](sglang/EXPERIMENTS.md) plans connect recent source changes to expected mechanisms, controlled variables and reasons to reject a candidate. Apply the [KServe plan](kserve/EXPERIMENTS.md) after the direct-engine baseline, so routing and lifecycle effects remain identifiable.
+
+A newer nightly can contain a relevant correctness fix and still regress another workload. A kernel implementation can exist before a model calls it. A model-specific improvement can exclude the atlas's exact export or speculative method. The experiment record must establish those prerequisites before treating a release note as an available optimization.

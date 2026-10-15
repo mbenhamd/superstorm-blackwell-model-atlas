@@ -1,0 +1,507 @@
+{
+  "as_of_utc": "2026-10-15T22:38:42.878432+00:00",
+  "date_basis": "UTC; local review date is October 16 Europe/Paris",
+  "files_owned": [
+    "frameworks/sglang/SOURCE_REVIEW.md",
+    "frameworks/sglang/EXPERIMENTS.md"
+  ],
+  "upstream": {
+    "key": "sglang",
+    "repo": "https://github.com/sgl-project/sglang.git",
+    "release": "v0.5.21",
+    "release_published_at": "2026-10-02T01:09:04Z",
+    "release_commit": "e00930c5489053f26d86b179cee0d087f846acbb",
+    "release_tag_object": "7337b27853377544a322fd4390df332d8ca7d8cb",
+    "release_checked_at": "2026-10-15T22:25:15.805356+00:00",
+    "latest_branch": "main",
+    "latest_branch_ref": "4e0609ea277d09393d752fcb79181e3416d94c56",
+    "latest_branch_commit_date": "2026-10-15T22:05:08Z",
+    "latest_branch_checked_at": "2026-10-15T22:38:42.878432+00:00",
+    "expanded_inspected_ref": "4e0609ea277d09393d752fcb79181e3416d94c56",
+    "historical_profile_inspected_ref": "877be2974aa151a984e52822c028276c2b1e9303",
+    "profile_refs_changed": false,
+    "clone_completed": false,
+    "nightly_artifact_verified": false,
+    "image_digest": null,
+    "scope": "Selected current-main cache, quantization, model registry, routing, graph/profiling and scheduling source; no full runtime audit."
+  },
+  "nightly_metadata_observations": [
+    {
+      "id": "GEXP-NIGHTLY-WHEELS",
+      "url": "https://sgl-project.github.io/whl/cu130/sglang/",
+      "retrieved_at": "2026-10-15T22:25:15.805894+00:00",
+      "sha256": "a10da2f4002744325d18590c95e6949f103bcabef9cccc1ff0c02e726c62f9ce",
+      "wheel_count": 175,
+      "latest_wheel_links": [
+        "https://github.com/sgl-project/whl/releases/download/nightly-2026-10-15-a12814c158/sglang-0.5.22.dev20261015+ga12814c158-cp312-cp312-manylinux_2_39_x86_64.whl#sha256=54a92e87a1b7edb4057e59b703acc79bb84a1dd04187e57ee940d072a2c1519d",
+        "https://github.com/sgl-project/whl/releases/download/nightly-2026-10-14-44b44774c3/sglang-0.5.22.dev20261014+g44b44774c3-cp312-cp312-manylinux_2_39_x86_64.whl#sha256=d7cfc7b5a9eb7e6c05c3a02cfdb320e0638fcfebc5b32f092e88fbbf7b9ada98",
+        "https://github.com/sgl-project/whl/releases/download/nightly-2026-10-13-43e4e84731/sglang-0.5.22.dev20261013+g43e4e84731-cp312-cp312-manylinux_2_39_x86_64.whl#sha256=d03d56cdd060715fdeee8eec480fd6f696e94d5448968c81e08f87d4e55b9aed"
+      ],
+      "artifact_bytes_downloaded": false
+    },
+    {
+      "id": "GEXP-NIGHTLY-TAGS",
+      "url": "https://hub.docker.com/v2/repositories/lmsysorg/sglang/tags?page_size=10&name=nightly&ordering=last_updated",
+      "retrieved_at": "2026-10-15T22:25:15.806005+00:00",
+      "sha256": "c365b04d878bcb38c084e49c1d832f6ef1a52ca821dcc829bad6c9fbd7f1b65c",
+      "tags": [
+        {
+          "name": "nightly-cu134-20261015-f7ad434",
+          "last_updated": "2026-10-15T10:52:34.341872Z",
+          "digest": "sha256:ba1cb37b0ee61e92ab2cb7657ae0fd1c31aa4874bd336c188d3f6e1284a3413c",
+          "images": [
+            {
+              "architecture": "arm64",
+              "os": "linux",
+              "digest": "sha256:ba1cb37b0ee61e92ab2cb7657ae0fd1c31aa4874bd336c188d3f6e1284a3413c",
+              "size": 15355840264
+            }
+          ]
+        },
+        {
+          "name": "nightly-dev-cu13-20261015-a6a8c560",
+          "last_updated": "2026-10-15T00:53:20.180244Z",
+          "digest": "sha256:0a1ba33aa4e032b8c5bcebdc69c45664074c032074add4f7db01629ec1fcc381",
+          "images": [
+            {
+              "architecture": "amd64",
+              "os": "linux",
+              "digest": "sha256:6b17a72a4c0e4fe8add1a23ea2ce203b8d3e709c41f6a3551f14502ea6be59a8",
+              "size": 16033398453
+            },
+            {
+              "architecture": "arm64",
+              "os": "linux",
+              "digest": "sha256:8c281367727d30a77c174a316610d3c022b66ededf44de26e7b0e659ada91512",
+              "size": 15503827479
+            }
+          ]
+        }
+      ],
+      "artifact_bytes_downloaded": false
+    }
+  ],
+  "pull_requests": [
+    {
+      "repo": "sgl-project/sglang",
+      "number": 36810,
+      "state": "merged",
+      "merge_commit": "87211088c98ae4f5b60625eebcce007db36aa6af",
+      "merged_at": "2026-10-15T19:09:10Z",
+      "retrieved_at": "2026-10-15T22:26:28.318077+00:00",
+      "source_id": "GEXP-PR36810"
+    },
+    {
+      "repo": "sgl-project/sglang",
+      "number": 38726,
+      "state": "merged",
+      "merge_commit": "5bb24e399d471dbb4f3d461972f7614a12a1484e",
+      "merged_at": "2026-09-24T16:30:02Z",
+      "retrieved_at": "2026-10-15T22:26:28.962225+00:00",
+      "source_id": "GEXP-PR38726",
+      "included_in_release_notes": "v0.5.21"
+    },
+    {
+      "repo": "sgl-project/sglang",
+      "number": 39627,
+      "state": "merged",
+      "merge_commit": "77091cea68d0701d6cc71edfb45f2815c4f8d791",
+      "merged_at": "2026-09-29T02:18:58Z",
+      "retrieved_at": "2026-10-15T22:26:28.727899+00:00",
+      "source_id": "GEXP-PR39627",
+      "included_in_release_notes": "v0.5.21"
+    },
+    {
+      "repo": "sgl-project/sglang",
+      "number": 40498,
+      "state": "merged",
+      "merge_commit": "4e0609ea277d09393d752fcb79181e3416d94c56",
+      "merged_at": "2026-10-15T22:05:08Z",
+      "retrieved_at": "2026-10-15T22:26:28.146440+00:00",
+      "source_id": "GEXP-PR40498"
+    },
+    {
+      "repo": "sgl-project/sglang",
+      "number": 40517,
+      "state": "merged",
+      "merge_commit": "0cb37c018c2227c4c41685587b840a3bb06dbc6b",
+      "merged_at": "2026-09-21T17:34:08Z",
+      "retrieved_at": "2026-10-15T22:26:28.348973+00:00",
+      "source_id": "GEXP-PR40517",
+      "included_in_release_notes": "v0.5.21"
+    },
+    {
+      "repo": "sgl-project/sglang",
+      "number": 40965,
+      "state": "open",
+      "merge_commit": null,
+      "merged_at": null,
+      "retrieved_at": "2026-10-15T22:26:29.175671+00:00",
+      "source_id": "GEXP-PR40965",
+      "head_commit": "9f9415c5072aaf89f3359c238649eac7bc85acc7",
+      "head_evidence": "First From line of freshly retrieved pull-request patch; no GitHub API used."
+    },
+    {
+      "repo": "sgl-project/sglang",
+      "number": 41175,
+      "state": "merged",
+      "merge_commit": "67eab57057062e05eabd4227a943b1aa777e563f",
+      "merged_at": "2026-10-02T00:17:35Z",
+      "retrieved_at": "2026-10-15T22:26:29.168711+00:00",
+      "source_id": "GEXP-PR41175",
+      "release_content_check": "New prepare_verify_commit_outputs and prepare_draft_extend_inputs functions absent from pinned v0.5.21 eagle.py; present in pinned current-main eagle.py. Merge time before publication does not establish release inclusion.",
+      "release_content_source_ids": [
+        "GEXP-STABLE-QWENPREP",
+        "GEXP-MAIN-QWENPREP",
+        "GEXP-PR41175-COMPARE"
+      ]
+    },
+    {
+      "repo": "sgl-project/sglang",
+      "number": 43604,
+      "state": "merged",
+      "merge_commit": "d59c3448b085173aeebee9b60e400b7e3854db93",
+      "merged_at": "2026-10-15T09:03:28Z",
+      "retrieved_at": "2026-10-15T22:26:28.146548+00:00",
+      "source_id": "GEXP-PR43604"
+    },
+    {
+      "repo": "sgl-project/sglang",
+      "number": 44093,
+      "state": "merged",
+      "merge_commit": "c4870d98cfefa80f5cbf83de2ff6a6745032f86c",
+      "merged_at": "2026-10-15T13:53:32Z",
+      "retrieved_at": "2026-10-15T22:26:28.347130+00:00",
+      "source_id": "GEXP-PR44093"
+    },
+    {
+      "repo": "sgl-project/sglang",
+      "number": 44173,
+      "state": "merged",
+      "merge_commit": "173e0f2e9b29225384dcda89e858671851652d80",
+      "merged_at": "2026-10-15T19:03:00Z",
+      "retrieved_at": "2026-10-15T22:26:28.146368+00:00",
+      "source_id": "GEXP-PR44173"
+    },
+    {
+      "repo": "sgl-project/sglang",
+      "number": 44557,
+      "state": "merged",
+      "merge_commit": "bc76a6b8193c2a7fce321c87ed893286019e68a6",
+      "merged_at": "2026-10-15T19:45:57Z",
+      "retrieved_at": "2026-10-15T22:26:28.146619+00:00",
+      "source_id": "GEXP-PR44557"
+    }
+  ],
+  "source_inspection": [
+    {
+      "source_id": "GEXP-SRC-REG",
+      "line_ranges": [
+        [
+          1,
+          159
+        ]
+      ],
+      "source_commit": "4e0609ea277d09393d752fcb79181e3416d94c56"
+    },
+    {
+      "source_id": "GEXP-SRC-QUANT",
+      "line_ranges": [
+        [
+          802,
+          968
+        ],
+        [
+          1032,
+          1093
+        ]
+      ],
+      "source_commit": "4e0609ea277d09393d752fcb79181e3416d94c56"
+    },
+    {
+      "source_id": "GEXP-SRC-TREECORE",
+      "line_ranges": [
+        [
+          1,
+          189
+        ]
+      ],
+      "source_commit": "4e0609ea277d09393d752fcb79181e3416d94c56"
+    },
+    {
+      "source_id": "GEXP-SRC-CACHE",
+      "line_ranges": [
+        [
+          175,
+          325
+        ]
+      ],
+      "source_commit": "4e0609ea277d09393d752fcb79181e3416d94c56"
+    },
+    {
+      "source_id": "GEXP-SRC-MAMBA",
+      "line_ranges": [
+        [
+          1,
+          355
+        ]
+      ],
+      "source_commit": "4e0609ea277d09393d752fcb79181e3416d94c56"
+    },
+    {
+      "source_id": "GEXP-SRC-SWA",
+      "line_ranges": [
+        [
+          279,
+          292
+        ],
+        [
+          520,
+          605
+        ]
+      ],
+      "source_commit": "4e0609ea277d09393d752fcb79181e3416d94c56"
+    },
+    {
+      "source_id": "GEXP-SRC-EP",
+      "line_ranges": [
+        [
+          94,
+          180
+        ]
+      ],
+      "source_commit": "4e0609ea277d09393d752fcb79181e3416d94c56"
+    },
+    {
+      "source_id": "GEXP-SRC-DSV4",
+      "line_ranges": [
+        [
+          536,
+          585
+        ]
+      ],
+      "source_commit": "4e0609ea277d09393d752fcb79181e3416d94c56"
+    },
+    {
+      "source_id": "GEXP-SRC-KIMI",
+      "line_ranges": [
+        [
+          3005,
+          3010
+        ]
+      ],
+      "source_commit": "4e0609ea277d09393d752fcb79181e3416d94c56"
+    },
+    {
+      "source_id": "GEXP-SRC-DYNAMIC",
+      "line_ranges": [
+        [
+          133,
+          258
+        ]
+      ],
+      "source_commit": "4e0609ea277d09393d752fcb79181e3416d94c56"
+    },
+    {
+      "source_id": "GEXP-SRC-CC",
+      "line_ranges": [
+        [
+          1,
+          106
+        ]
+      ],
+      "source_commit": "4e0609ea277d09393d752fcb79181e3416d94c56"
+    },
+    {
+      "source_id": "GEXP-MAIN-QWENPREP",
+      "line_ranges": [
+        [
+          140,
+          183
+        ],
+        [
+          235,
+          266
+        ],
+        [
+          298,
+          345
+        ]
+      ],
+      "source_commit": "4e0609ea277d09393d752fcb79181e3416d94c56",
+      "additional_scope": "Immutable #41175 patch and complete pinned v0.5.21 counterpart inspected."
+    },
+    {
+      "source_id": "GEXP-STABLE-MAMBA",
+      "line_ranges": [
+        [
+          244,
+          277
+        ]
+      ],
+      "source_commit": "e00930c5489053f26d86b179cee0d087f846acbb",
+      "additional_scope": "Direct stable-source confirmation of checkpoint conversion, restoration and accounting."
+    }
+  ],
+  "priority_recent_changes": [
+    {
+      "pr": 41175,
+      "status": "merged main; new helper functions not in pinned stable source",
+      "mechanism": "Fused NEXTN verify/draft graph-input preparation",
+      "scope": "Qwen Flash Next qualified path; combined-series B200 NEXTN speed uses simulated acceptance length 3.3, accuracy uses natural acceptance. Neither isolates this patch gain nor establishes B300 qualification.",
+      "experiment_ids": [
+        "G06",
+        "G07"
+      ]
+    },
+    {
+      "pr": 44173,
+      "status": "merged main",
+      "mechanism": "Opt-in tail-only SWA storage backups in buffer_only HiCache",
+      "scope": "Only actual supported SWA component/pool; validate keys, rows, sidecars and internal-prefix/split behavior",
+      "experiment_ids": [
+        "G10"
+      ]
+    },
+    {
+      "pr": 43604,
+      "status": "merged main",
+      "mechanism": "Kimi text wrapper PP range plus bounded profiling and cleanup",
+      "scope": "Author synthetic six-layer B200 evidence; full K3 capacity and quality still unqualified",
+      "experiment_ids": [
+        "G07",
+        "G08"
+      ]
+    },
+    {
+      "pr": 40498,
+      "status": "merged main",
+      "mechanism": "Preserves negative drop sentinel in local EP expert mapping",
+      "scope": "Inspected FlashInfer global-ID dispatcher paths bypass mapping; no universal speed claim",
+      "experiment_ids": [
+        "G08"
+      ]
+    },
+    {
+      "pr": 44557,
+      "status": "merged main",
+      "mechanism": "Asynchronous compressed-length metadata H2D staging",
+      "scope": "Trace actual DeepSeek 0731 path; CPU-length-unavailable fallback still invokes device-to-host read",
+      "experiment_ids": [
+        "G07"
+      ]
+    }
+  ],
+  "other_scoped_findings": [
+    "PR 36810 CC-only worker path; ordinary B300 operation does not establish applicability.",
+    "PR 40965 remains open; optional isolated API-compatibility probe only.",
+    "Int8 cached recurrent-state pool exists in v0.5.21; separate from active state dtype and not a new nightly feature.",
+    "Existing Kimi target-only TP and speculative DCP profiles do not isolate speculation unless topology is aligned.",
+    "No model catalog/profile revisions or compatibility status upgraded.",
+    "GLM Flash PD evidence is dummy-only TP2+TP2 on four GB300 with NIXL/BF16 KV/TileLang DSA/Triton MoE. G09 4+4 is a proposed scaling adaptation; no speculation or prefill CP; Mooncake Playground is separate. Current non-PD speculative paths also exclude DP attention."
+  ],
+  "experiments": [
+    {
+      "id": "G01",
+      "status": "planned_not_executed"
+    },
+    {
+      "id": "G02",
+      "status": "planned_not_executed"
+    },
+    {
+      "id": "G03",
+      "status": "planned_not_executed"
+    },
+    {
+      "id": "G04",
+      "status": "planned_not_executed"
+    },
+    {
+      "id": "G05",
+      "status": "planned_not_executed"
+    },
+    {
+      "id": "G06",
+      "status": "planned_not_executed"
+    },
+    {
+      "id": "G07",
+      "status": "planned_not_executed"
+    },
+    {
+      "id": "G08",
+      "status": "planned_not_executed"
+    },
+    {
+      "id": "G09",
+      "status": "planned_not_executed"
+    },
+    {
+      "id": "G10",
+      "status": "planned_not_executed"
+    },
+    {
+      "id": "G11",
+      "status": "planned_not_executed"
+    },
+    {
+      "id": "G12",
+      "status": "planned_not_executed"
+    }
+  ],
+  "no_execution": {
+    "engines_installed": false,
+    "weights_downloaded": false,
+    "gpu_runs": false,
+    "deployments": false,
+    "tests_run": false,
+    "commits": false
+  },
+  "retrieval_failures": [
+    {
+      "id": "GEXP-SRC-HYBRID",
+      "title": "python/sglang/srt/mem_cache/hybrid_pool_assembler.py",
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/4e0609ea277d09393d752fcb79181e3416d94c56/python/sglang/srt/mem_cache/hybrid_pool_assembler.py",
+      "kind": "primary immutable source",
+      "accessed_on": "2026-10-15",
+      "retrieved_at": "2026-10-15T22:27:31.375371+00:00",
+      "error": "HTTP Error 404: Not Found"
+    }
+  ],
+  "limitations": [
+    "HTML/registry/index and selected immutable raw source retrieved; no nightly binary contents inspected.",
+    "GitHub compare HTML could not render full diff; no ancestry claim based on merge time.",
+    "No B300 service measurements or independent reproduction of PR author results."
+  ],
+  "post_review_resolutions": [
+    {
+      "resolved_at_utc": "2026-10-15T22:44:28.398118+00:00",
+      "reviewer": "/root/vllm_experiments",
+      "finding": "G09 left material GLM Flash PD preview controls implicit and could be mistaken for a documented 4+4 recipe.",
+      "resolution": "SOURCE_REVIEW and G09 now identify upstream dummy-only TP2+TP2 on 4xGB300 with NIXL/BF16 KV/TileLang DSA/Triton MoE; 4+4 is explicitly the atlas scaling adaptation. Speculation and prefill CP stay off, TP sizes match, NCCL ports differ, router bootstrap port matches, single-node UCX settings are retained. Mooncake Playground and flashinfer_trtllm PD remain separate unqualified paths. Colocated control uses matching KV/DSA/MoE settings.",
+      "source_ids": [
+        "GEXP-GLMFLASH"
+      ],
+      "evidence_read": "Temporary research artifact (not bundled): GEXP-GLMFLASH.txt lines 230-276",
+      "files": [
+        "frameworks/sglang/SOURCE_REVIEW.md",
+        "frameworks/sglang/EXPERIMENTS.md"
+      ]
+    },
+    {
+      "resolved_at_utc": "2026-10-15T22:44:28.398118+00:00",
+      "reviewer": "/root/vllm_experiments",
+      "finding": "Qwen combined-series speed and accuracy evidence needed distinct acceptance labels.",
+      "resolution": "SOURCE_REVIEW table states combined-series B200 NEXTN speed used simulated acceptance length 3.3 and accuracy used natural acceptance; neither isolates the PR gain nor qualifies B300.",
+      "source_ids": [
+        "GEXP-PR41175"
+      ],
+      "evidence_read": "Temporary research artifact (not bundled): GEXP-PR41175.txt lines 135-190",
+      "files": [
+        "frameworks/sglang/SOURCE_REVIEW.md"
+      ]
+    }
+  ],
+  "record_role": "First-pass engine research by an Astra max subagent; later integration and independent cross-review are recorded separately."
+}
