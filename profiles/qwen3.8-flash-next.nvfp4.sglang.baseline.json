@@ -1,0 +1,37 @@
+{
+  "id": "qwen3.8-flash-next.nvfp4.sglang.baseline",
+  "model_key": "qwen3.8-flash-next",
+  "variant": "nvfp4",
+  "engine": "sglang",
+  "hf_id": "nvidia/Qwen3.8-Flash-Next-NVFP4",
+  "engine_args": [
+    "--tp-size",
+    "4",
+    "--context-length",
+    "65536",
+    "--mem-fraction-static",
+    "0.82",
+    "--max-running-requests",
+    "32"
+  ],
+  "gpu_count": 4,
+  "tensor_parallel_size": 4,
+  "data_parallel_size": 1,
+  "context_cap": 65536,
+  "status": "compatibility-probe",
+  "reason": "Exact NVIDIA PLE/MTP mixed loader requires independent verification; TP4 is a hypothesis, not an endorsement.",
+  "source_ids": [
+    "qwen3.8-flash-next-CARD",
+    "qwen3.8-flash-next-CFG",
+    "qwen3.8-flash-next-NV",
+    "qwen3.8-flash-next-VR"
+  ],
+  "reviewed_source_commit": "877be2974aa151a984e52822c028276c2b1e9303",
+  "model_revision": null,
+  "draft_hf_id": null,
+  "draft_revision": null,
+  "requires_reviewed_remote_code": true,
+  "tested_on_target": false,
+  "requires_image_compatibility_check": true,
+  "notes": "A starting experiment, not a measured optimum. Local execution requires immutable preloaded model metadata, an installed compatible engine and explicit acknowledgement."
+}

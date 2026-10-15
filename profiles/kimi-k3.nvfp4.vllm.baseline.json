@@ -1,0 +1,40 @@
+{
+  "id": "kimi-k3.nvfp4.vllm.baseline",
+  "model_key": "kimi-k3",
+  "variant": "nvfp4",
+  "engine": "vllm",
+  "hf_id": "nvidia/Kimi-K3-NVFP4",
+  "engine_args": [
+    "--tensor-parallel-size",
+    "8",
+    "--max-model-len",
+    "65536",
+    "--gpu-memory-utilization",
+    "0.85",
+    "--max-num-seqs",
+    "32"
+  ],
+  "gpu_count": 8,
+  "tensor_parallel_size": 8,
+  "data_parallel_size": 1,
+  "context_cap": 65536,
+  "status": "blocked",
+  "reason": "Exact mixed FP8-attention compatibility not certified: complementary PR 52406 remains open. Do not execute on generic main without an audited compatibility path.",
+  "source_ids": [
+    "kimi-k3-CARD",
+    "kimi-k3-CFG",
+    "kimi-k3-NV",
+    "kimi-k3-DRAFT",
+    "kimi-k3-DRAFT-SG",
+    "kimi-k3-VR",
+    "kimi-k3-GR"
+  ],
+  "reviewed_source_commit": "f8460ef23659afd69046a81529ec2295e4c3f686",
+  "model_revision": null,
+  "draft_hf_id": null,
+  "draft_revision": null,
+  "requires_reviewed_remote_code": true,
+  "tested_on_target": false,
+  "requires_image_compatibility_check": true,
+  "notes": "A starting experiment, not a measured optimum. Local execution requires immutable preloaded model metadata, an installed compatible engine and explicit acknowledgement."
+}

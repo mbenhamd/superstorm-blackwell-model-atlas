@@ -1,0 +1,37 @@
+{
+  "id": "gemma-4-31b-it.nvfp4.sglang.baseline",
+  "model_key": "gemma-4-31b-it",
+  "variant": "nvfp4",
+  "engine": "sglang",
+  "hf_id": "RedHatAI/gemma-4-31B-it-NVFP4",
+  "engine_args": [
+    "--tp-size",
+    "1",
+    "--context-length",
+    "32768",
+    "--mem-fraction-static",
+    "0.82",
+    "--max-running-requests",
+    "32"
+  ],
+  "gpu_count": 1,
+  "tensor_parallel_size": 1,
+  "data_parallel_size": 1,
+  "context_cap": 32768,
+  "status": "compatibility-probe",
+  "reason": "Exact RedHat mixed export integration must be tested; a model-card UI widget is insufficient support evidence.",
+  "source_ids": [
+    "gemma-4-31b-it-CARD",
+    "gemma-4-31b-it-CFG",
+    "gemma-4-31b-it-FP8",
+    "gemma-4-31b-it-NV"
+  ],
+  "reviewed_source_commit": "877be2974aa151a984e52822c028276c2b1e9303",
+  "model_revision": null,
+  "draft_hf_id": null,
+  "draft_revision": null,
+  "requires_reviewed_remote_code": false,
+  "tested_on_target": false,
+  "requires_image_compatibility_check": true,
+  "notes": "A starting experiment, not a measured optimum. Local execution requires immutable preloaded model metadata, an installed compatible engine and explicit acknowledgement."
+}

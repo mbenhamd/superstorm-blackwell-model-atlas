@@ -1,0 +1,60 @@
+{
+  "as_of": "2026-10-15",
+  "upstreams": [
+    {
+      "key": "vllm",
+      "repo": "https://github.com/vllm-project/vllm.git",
+      "release": "v0.31.0",
+      "release_published_at": "2026-10-05T06:44:55Z",
+      "inspected_ref": "f8460ef23659afd69046a81529ec2295e4c3f686",
+      "commit_date": "2026-10-15T20:58:25Z",
+      "clone_completed": false,
+      "nightly_artifact_verified": false,
+      "image_digest": null
+    },
+    {
+      "key": "sglang",
+      "repo": "https://github.com/sgl-project/sglang.git",
+      "release": "v0.5.21",
+      "release_published_at": "2026-10-02T01:09:04Z",
+      "inspected_ref": "877be2974aa151a984e52822c028276c2b1e9303",
+      "commit_date": "2026-10-15T20:34:49Z",
+      "clone_completed": false,
+      "nightly_artifact_verified": false,
+      "image_digest": null
+    },
+    {
+      "key": "kserve",
+      "repo": "https://github.com/kserve/kserve.git",
+      "release": "v0.21.0",
+      "release_published_at": "2026-09-25T17:04:20Z",
+      "inspected_ref": null,
+      "clone_completed": false,
+      "nightly_artifact_verified": false,
+      "image_digest": null
+    }
+  ],
+  "pull_requests": [
+    {
+      "repo": "sgl-project/sglang",
+      "number": 35077,
+      "state": "merged",
+      "merged_at": "2026-08-19T15:13:45Z",
+      "merge_commit": "5f128395910dafb98c34083dc26cb790c7674d34"
+    },
+    {
+      "repo": "vllm-project/vllm",
+      "number": 52406,
+      "state": "open",
+      "head_commit": "271aa8deeb723650932f609b8291e4299f0d504b",
+      "merged_at": null
+    },
+    {
+      "repo": "vllm-project/vllm",
+      "number": 55513,
+      "state": "merged",
+      "merged_at": "2026-09-08T22:47:22Z",
+      "merge_commit": "60ad959b6f1a5c8f602edbd608c8decbc0788c50"
+    }
+  ]
+}

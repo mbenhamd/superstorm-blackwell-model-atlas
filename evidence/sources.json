@@ -1,0 +1,563 @@
+{
+  "as_of": "2026-10-15",
+  "sources": [
+    {
+      "id": "HW",
+      "url": "https://docs.nvidia.com/dgx/dgxb300-user-guide/introduction-to-dgxb300.html",
+      "title": "NVIDIA DGX B300 user guide",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "CC",
+      "url": "https://developer.nvidia.com/cuda/gpus",
+      "title": "NVIDIA CUDA GPU compute capabilities",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "NV4",
+      "url": "https://developer.nvidia.com/blog/introducing-nvfp4-for-efficient-and-accurate-low-precision-inference/",
+      "title": "NVIDIA NVFP4 format explanation",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "TE",
+      "url": "https://docs.nvidia.com/deeplearning/transformer-engine/examples/fp8_primer.html",
+      "title": "Transformer Engine FP8/FP4 primer",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "TE4",
+      "url": "https://docs.nvidia.com/deeplearning/transformer-engine/features/low_precision_training/nvfp4/nvfp4.html",
+      "title": "Transformer Engine NVFP4 scaling",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "CUDNN",
+      "url": "https://docs.nvidia.com/deeplearning/cudnn/latest/operations/BlockScaling.html",
+      "title": "cuDNN block scaling",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "VREL",
+      "url": "https://github.com/vllm-project/vllm/releases/tag/v0.31.0",
+      "title": "vLLM 0.31.0 release",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "GREL",
+      "url": "https://github.com/sgl-project/sglang/releases/tag/v0.5.21",
+      "title": "SGLang 0.5.21 release",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "KREL",
+      "url": "https://github.com/kserve/kserve/releases/tag/v0.21.0",
+      "title": "KServe 0.21.0 release",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "VHEAD",
+      "url": "https://github.com/vllm-project/vllm/commit/f8460ef23659afd69046a81529ec2295e4c3f686",
+      "title": "vLLM inspected main commit",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "GHEAD",
+      "url": "https://github.com/sgl-project/sglang/commit/877be2974aa151a984e52822c028276c2b1e9303",
+      "title": "SGLang inspected main commit",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "VREG",
+      "url": "https://github.com/vllm-project/vllm/blob/f8460ef23659afd69046a81529ec2295e4c3f686/vllm/model_executor/models/registry.py",
+      "title": "vLLM model registry, inspected lines 1–350",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "VDS",
+      "url": "https://github.com/vllm-project/vllm/blob/f8460ef23659afd69046a81529ec2295e4c3f686/vllm/models/kimi_k3/nvidia/dspark_mla.py",
+      "title": "Kimi DSpark MLA implementation, inspected lines 1–190",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "GQUANT",
+      "url": "https://github.com/sgl-project/sglang/blob/877be2974aa151a984e52822c028276c2b1e9303/python/sglang/srt/layers/quantization/modelopt_quant.py",
+      "title": "SGLang ModelOpt quantization, inspected lines 1–240",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "KIMIPR",
+      "url": "https://github.com/sgl-project/sglang/pull/35077",
+      "title": "Kimi NVFP4/FP8 compatibility fix; merged 2026-08-19",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "KIMIVPR",
+      "url": "https://github.com/vllm-project/vllm/pull/52406",
+      "title": "Kimi FP8_PB_WO attention support; OPEN at retrieval",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "QPR",
+      "url": "https://github.com/vllm-project/vllm/pull/55513",
+      "title": "Mixed ModelOpt block-FP8 MTP fix; merged 2026-09-08",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "KS",
+      "url": "https://kserve.github.io/website/docs/intro",
+      "title": "KServe overview",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "KSRT",
+      "url": "https://kserve.github.io/website/docs/model-serving/generative-inference/overview",
+      "title": "KServe generative runtime overview",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "KSLLM",
+      "url": "https://kserve.github.io/website/docs/model-serving/generative-inference/llmisvc/llmisvc-overview",
+      "title": "LLMInferenceService architecture",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": "Page contains simplified sizing examples and broad InferenceService limitations; do not treat its 7B/405B numbers as hardware limits. Other official multi-node guide documents an older InferenceService path."
+    },
+    {
+      "id": "KSCFG",
+      "url": "https://kserve.github.io/website/docs/model-serving/generative-inference/llmisvc/llmisvc-configuration",
+      "title": "LLMInferenceService configuration",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "KSAPI",
+      "url": "https://kserve.github.io/website/docs/reference/crd-api",
+      "title": "KServe CRD API",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "KSMULTI",
+      "url": "https://kserve.github.io/website/docs/model-serving/generative-inference/multi-node",
+      "title": "KServe multi-node guide",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "kimi-k3-CARD",
+      "url": "https://huggingface.co/moonshotai/Kimi-K3",
+      "title": "Kimi K3 publisher model card",
+      "kind": "publisher model card",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "kimi-k3-CFG",
+      "url": "https://huggingface.co/moonshotai/Kimi-K3/raw/main/config.json",
+      "title": "Kimi K3 configuration",
+      "kind": "publisher configuration",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "glm-5.3-CARD",
+      "url": "https://huggingface.co/zai-org/GLM-5.3",
+      "title": "GLM 5.3 publisher model card",
+      "kind": "publisher model card",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "glm-5.3-CFG",
+      "url": "https://huggingface.co/zai-org/GLM-5.3/raw/main/config.json",
+      "title": "GLM 5.3 configuration",
+      "kind": "publisher configuration",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "glm-5.3-flash-CARD",
+      "url": "https://huggingface.co/zai-org/GLM-5.3-Flash",
+      "title": "GLM 5.3 Flash publisher model card",
+      "kind": "publisher model card",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "glm-5.3-flash-CFG",
+      "url": "https://huggingface.co/zai-org/GLM-5.3-Flash/raw/main/config.json",
+      "title": "GLM 5.3 Flash configuration",
+      "kind": "publisher configuration",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "deepseek-v4-flash-0731-CARD",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731",
+      "title": "DeepSeek V4 Flash 0731 publisher model card",
+      "kind": "publisher model card",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "deepseek-v4-flash-0731-CFG",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/raw/main/config.json",
+      "title": "DeepSeek V4 Flash 0731 configuration",
+      "kind": "publisher configuration",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "qwen3.8-27b-CARD",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-27B",
+      "title": "Qwen 3.8 27B publisher model card",
+      "kind": "publisher model card",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "qwen3.8-27b-CFG",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-27B/raw/main/config.json",
+      "title": "Qwen 3.8 27B configuration",
+      "kind": "publisher configuration",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "qwen3.8-flash-next-CARD",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next",
+      "title": "Qwen 3.8 Flash Next publisher model card",
+      "kind": "publisher model card",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "qwen3.8-flash-next-CFG",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next/raw/de4b8e4d43b917e7706784d8bb445c9af86a3540/config.json",
+      "title": "Qwen 3.8 Flash Next configuration",
+      "kind": "publisher configuration",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "gemma-4-31b-it-CARD",
+      "url": "https://huggingface.co/google/gemma-4-31B-it",
+      "title": "Gemma 4 31B IT publisher model card",
+      "kind": "publisher model card",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "gemma-4-31b-it-CFG",
+      "url": "https://huggingface.co/google/gemma-4-31B-it/raw/main/config.json",
+      "title": "Gemma 4 31B IT configuration",
+      "kind": "publisher configuration",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "mistral-medium-3.5-CARD",
+      "url": "https://huggingface.co/mistralai/Mistral-Medium-3.5-128B",
+      "title": "Mistral Medium 3.5 publisher model card",
+      "kind": "publisher model card",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "mistral-medium-3.5-CFG",
+      "url": "https://huggingface.co/mistralai/Mistral-Medium-3.5-128B/blob/main/config.json",
+      "title": "Mistral Medium 3.5 configuration",
+      "kind": "publisher configuration",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "kimi-k3-NV",
+      "url": "https://huggingface.co/nvidia/Kimi-K3-NVFP4",
+      "title": "NVIDIA Kimi mixed NVFP4 export",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "kimi-k3-DRAFT",
+      "url": "https://huggingface.co/Inferact/Kimi-K3-DSpark",
+      "title": "Inferact MLA-native DSpark drafter",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "kimi-k3-DRAFT-SG",
+      "url": "https://huggingface.co/RadixArk/Kimi-K3-DSpark",
+      "title": "RadixArk SGLang DSpark drafter",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "kimi-k3-VR",
+      "url": "https://recipes.vllm.ai/moonshotai/Kimi-K3",
+      "title": "vLLM Kimi K3 recipe",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "kimi-k3-GR",
+      "url": "https://docs.sglang.io/cookbook/autoregressive/Moonshotai/Kimi-K3",
+      "title": "SGLang Kimi K3 cookbook",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": "Some B300 DSpark results use simulated acceptance; exact verified cells distinguished from extrapolations."
+    },
+    {
+      "id": "glm-5.3-NV",
+      "url": "https://huggingface.co/RedHatAI/GLM-5.3-NVFP4",
+      "title": "RedHat GLM NVFP4 card",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "glm-5.3-VR",
+      "url": "https://recipes.vllm.ai/zai-org/GLM-5.3",
+      "title": "vLLM GLM 5.3 recipe",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": "Recipe inconsistent minimum-version labels (0.29.0+ badge versus 0.28.0 text). Treat known current releases separately; not a reason to pin 0.28 blindly."
+    },
+    {
+      "id": "glm-5.3-GR",
+      "url": "https://docs.sglang.io/cookbook/autoregressive/GLM/GLM-5.3",
+      "title": "SGLang GLM 5.3 cookbook",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "glm-5.3-flash-VR",
+      "url": "https://recipes.vllm.ai/zai-org/GLM-5.3-Flash",
+      "title": "vLLM GLM Flash recipe",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "glm-5.3-flash-GR",
+      "url": "https://docs.sglang.io/cookbook/autoregressive/GLM/GLM-5.3-Flash",
+      "title": "SGLang GLM Flash cookbook",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "deepseek-v4-flash-0731-VR",
+      "url": "https://recipes.vllm.ai/deepseek-ai/DeepSeek-V4-Flash?features=tool_calling,reasoning&hardware=b300",
+      "title": "vLLM DeepSeek V4 Flash B300 recipe",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "deepseek-v4-flash-0731-FAMILY",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash",
+      "title": "DeepSeek V4 Flash family card",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "qwen3.8-27b-FP8",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-27B-FP8",
+      "title": "Official Qwen FP8 card",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "qwen3.8-27b-NV",
+      "url": "https://huggingface.co/nvidia/Qwen3.8-27B-NVFP4",
+      "title": "NVIDIA mixed NVFP4/FP8 Qwen 27B",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "qwen3.8-27b-VR",
+      "url": "https://recipes.vllm.ai/Qwen/Qwen3.8-27B",
+      "title": "vLLM Qwen 27B recipe",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "qwen3.8-27b-GR",
+      "url": "https://docs.sglang.io/cookbook/autoregressive/Qwen/Qwen3.8-27B",
+      "title": "SGLang Qwen 27B cookbook",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "qwen3.8-flash-next-NV",
+      "url": "https://huggingface.co/nvidia/Qwen3.8-Flash-Next-NVFP4",
+      "title": "NVIDIA mixed Flash Next export",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "qwen3.8-flash-next-VR",
+      "url": "https://recipes.vllm.ai/Qwen/Qwen3.8-Flash-Next",
+      "title": "vLLM Flash Next recipe",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "gemma-4-31b-it-FP8",
+      "url": "https://huggingface.co/RedHatAI/gemma-4-31B-it-FP8-block",
+      "title": "RedHat Gemma block FP8",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "gemma-4-31b-it-NV",
+      "url": "https://huggingface.co/RedHatAI/gemma-4-31B-it-NVFP4",
+      "title": "RedHat Gemma NVFP4",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": "Example includes an audio limit; base 31B config has audio_config null. Do not infer audio capability."
+    },
+    {
+      "id": "mistral-medium-3.5-TREE",
+      "url": "https://huggingface.co/mistralai/Mistral-Medium-3.5-128B/tree/main",
+      "title": "Mistral dual-layout checkpoint tree",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "mistral-medium-3.5-FIXCFG",
+      "url": "https://huggingface.co/mistralai/Mistral-Medium-3.5-128B/blob/main/config.json",
+      "title": "Corrected Mistral Transformers configuration",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    },
+    {
+      "id": "GREG",
+      "url": "https://github.com/sgl-project/sglang/blob/877be2974aa151a984e52822c028276c2b1e9303/python/sglang/srt/models/registry.py",
+      "title": "SGLang registry, inspected lines 1–180",
+      "kind": "pinned source code",
+      "accessed_on": "2026-10-15",
+      "capture": "Read through web or GitHub connector; original bytes not archived",
+      "notes": ""
+    }
+  ]
+}

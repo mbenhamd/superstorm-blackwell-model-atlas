@@ -1,0 +1,9 @@
+# Deployment rendering boundary
+
+Read [architecture](../../frameworks/kserve/ARCHITECTURE.md) first. The renderer emits a custom-container `InferenceService` in **Standard** mode. It does not apply, install controllers, create PVCs, label nodes or download models. It is not a fabricated validated `LLMInferenceService` disaggregation deployment.
+
+Provide a real digest, prepopulated read-only model PVC, measured CPU/host-memory requests and a node label actually present in the cluster. The default `superstorm.ai/gpu-class=B300` is a label you must deliberately assign after inventory, not an automatic NVIDIA label. A single pod allocates the entire profile's GPU group on one node. Eight TP1 replicas require eight separate allocations/routing; this example keeps replicas at one.
+
+The initial 8Gi shared-memory size and 30-minute startup allowance are editable safety candidates, not measured needs or a promise about cold-start time. Shared memory consumes the pod's host-memory budget. Startup/readiness health paths and graceful termination must be exercised against the actual image and KServe version. GPU topology and CPU locality require cluster scheduling policies beyond a label.
+
+The renderer requires exact image syntax but does not contact the registry to prove that digest exists. It does not mount credentials or access external services. Its local tests validate structure and guards, not admission against your installed CRDs. Before deploying, use `kubectl apply --dry-run=server`, inspect the rendered pod and confirm offline checkpoint/drafter availability, parser correctness, runtime cache paths and resource headroom. Require gateway authentication before external exposure.

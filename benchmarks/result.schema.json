@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Superstorm closed-loop probe result",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "measurement_kind",
+    "model",
+    "concurrency",
+    "wall_seconds",
+    "requests",
+    "summary"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "measurement_kind": {
+      "const": "closed-loop HTTP/SSE client probe"
+    },
+    "model": {
+      "type": "string"
+    },
+    "concurrency": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "wall_seconds": {
+      "type": "number",
+      "minimum": 0
+    },
+    "requests": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "ok",
+          "latency_seconds",
+          "completion_tokens"
+        ],
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "latency_seconds": {
+            "type": "number",
+            "minimum": 0
+          },
+          "completion_tokens": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0
+          }
+        }
+      }
+    },
+    "summary": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}

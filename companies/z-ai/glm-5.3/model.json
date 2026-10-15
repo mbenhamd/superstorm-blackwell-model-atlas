@@ -1,0 +1,92 @@
+{
+  "key": "glm-5.3",
+  "company": "z-ai",
+  "name": "GLM 5.3",
+  "hf_id": "zai-org/GLM-5.3",
+  "headline": "Approximately 743B main / 39B active; MLA with DSA; native FP8 packaging",
+  "config_projection": {
+    "architecture_class": "GlmMoeDsaForCausalLM",
+    "model_type": "glm_moe_dsa",
+    "layers": 78,
+    "dense_prefix_layers": 3,
+    "hidden_size": 6144,
+    "dense_intermediate_size": 12288,
+    "moe_intermediate_size": 2048,
+    "routed_experts": 256,
+    "experts_per_token": 8,
+    "shared_experts": 1,
+    "attention_heads": 64,
+    "q_lora_rank": 2048,
+    "kv_lora_rank": 512,
+    "qk_nope_head_dim": 192,
+    "qk_rope_head_dim": 64,
+    "v_head_dim": 256,
+    "index_heads": 32,
+    "index_head_dim": 128,
+    "index_topk": 2048,
+    "index_selection_frequency": 4,
+    "nextn_layers": 1,
+    "max_position_embeddings": 1048576,
+    "vocab_size": 154880,
+    "router_dtype": "float32",
+    "router_score": "sigmoid",
+    "router_scale": 2.5,
+    "quant_method": "fp8",
+    "fp8_format": "e4m3",
+    "weight_block_size": [
+      128,
+      128
+    ],
+    "activation_scheme": "dynamic"
+  },
+  "total_b": 743,
+  "active_b": 39,
+  "context": 1048576,
+  "layout": "sparse-mla-moe",
+  "license": "GLM-5.3 custom license (not inferred from previous GLM releases)",
+  "recommended": "vLLM FP8 and RedHat/Inferact NVFP4 first; SGLang challenger",
+  "baseline_tp": 8,
+  "variants": [
+    {
+      "key": "fp8",
+      "hf_id": "zai-org/GLM-5.3",
+      "precision": "Block FP8 with exclusions",
+      "status": "verified official default",
+      "revision": null
+    },
+    {
+      "key": "bf16",
+      "hf_id": "zai-org/GLM-5.3-BF16",
+      "precision": "BF16 reference",
+      "status": "linked by official engine recipe; not separately audited",
+      "revision": null
+    },
+    {
+      "key": "nvfp4",
+      "hf_id": "RedHatAI/GLM-5.3-NVFP4",
+      "precision": "Routed experts W4A4; other layers retained",
+      "status": "verified RedHat derivative",
+      "revision": null
+    },
+    {
+      "key": "nvfp4-inferact",
+      "hf_id": "Inferact/GLM-5.3-NVFP4",
+      "precision": "Expert-only NVFP4; about 465 GB reported",
+      "status": "engine recipe evidence; exporter differs",
+      "revision": null
+    }
+  ],
+  "path": "companies/z-ai/glm-5.3",
+  "source_ids": [
+    "glm-5.3-CARD",
+    "glm-5.3-CFG",
+    "glm-5.3-flash-CARD",
+    "glm-5.3-flash-CFG",
+    "glm-5.3-NV",
+    "glm-5.3-VR",
+    "glm-5.3-GR"
+  ],
+  "revision": null,
+  "evidence_status": "Publisher configuration and cards reviewed; not loaded or benchmarked on hardware",
+  "source_projection_is_complete_original_config": false
+}

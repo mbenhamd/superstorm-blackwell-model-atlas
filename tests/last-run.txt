@@ -1,0 +1,44 @@
+test_invalid_negative (test_atlas.ArithmeticTests.test_invalid_negative) ... ok
+test_invalid_nonfinite (test_atlas.ArithmeticTests.test_invalid_nonfinite) ... ok
+test_invalid_slots (test_atlas.ArithmeticTests.test_invalid_slots) ... ok
+test_kimi_414mib_matrix (test_atlas.ArithmeticTests.test_kimi_414mib_matrix) ... ok
+test_kimi_exceeds_node (test_atlas.ArithmeticTests.test_kimi_exceeds_node) ... ok
+test_kimi_fp8_weight_floor (test_atlas.ArithmeticTests.test_kimi_fp8_weight_floor) ... ok
+test_mistral_88gib_kv (test_atlas.ArithmeticTests.test_mistral_88gib_kv) ... ok
+test_mxfp4_scale_overhead (test_atlas.ArithmeticTests.test_mxfp4_scale_overhead) ... ok
+test_nvfp4_scale_overhead (test_atlas.ArithmeticTests.test_nvfp4_scale_overhead) ... ok
+test_qwen_144mib_matrix (test_atlas.ArithmeticTests.test_qwen_144mib_matrix) ... ok
+test_qwen_16gib_kv (test_atlas.ArithmeticTests.test_qwen_16gib_kv) ... ok
+test_state_ratio (test_atlas.ArithmeticTests.test_state_ratio) ... ok
+test_absolute_path_rejected (test_atlas.DeploymentTests.test_absolute_path_rejected) ... ok
+test_mutable_image_rejected (test_atlas.DeploymentTests.test_mutable_image_rejected) ... ok
+test_path_traversal_rejected (test_atlas.DeploymentTests.test_path_traversal_rejected) ... ok
+test_placeholder_digest_rejected (test_atlas.DeploymentTests.test_placeholder_digest_rejected) ... ok
+test_unknown_resources_rejected (test_atlas.DeploymentTests.test_unknown_resources_rejected) ... ok
+test_valid_structure (test_atlas.DeploymentTests.test_valid_structure) ... ok
+test_blocked (test_atlas.GuardTests.test_blocked) ... ok
+test_candidate (test_atlas.GuardTests.test_candidate) ... ok
+test_clone_pins (test_atlas.GuardTests.test_clone_pins) ... ok
+test_draft_placeholder_requires_path (test_atlas.GuardTests.test_draft_placeholder_requires_path) ... ok
+test_forbidden_identity (test_atlas.GuardTests.test_forbidden_identity) ... ok
+test_local_bind_and_no_trust (test_atlas.GuardTests.test_local_bind_and_no_trust) ... ok
+test_local_provenance_and_tamper (test_atlas.GuardTests.test_local_provenance_and_tamper) ... ok
+test_probe_requires_opt_in (test_atlas.GuardTests.test_probe_requires_opt_in) ... ok
+test_redirect_refuses_http (test_atlas.GuardTests.test_redirect_refuses_http) ... ok
+test_redirect_strips_auth (test_atlas.GuardTests.test_redirect_strips_auth) ... ok
+test_simulated_acceptance (test_atlas.GuardTests.test_simulated_acceptance) ... ok
+test_empty_delta (test_atlas.ProbeTests.test_empty_delta) ... ok
+test_failed_denominator (test_atlas.ProbeTests.test_failed_denominator) ... ok
+test_missing_usage_no_fake_tokens (test_atlas.ProbeTests.test_missing_usage_no_fake_tokens) ... ok
+test_network_failure_is_recorded (test_atlas.ProbeTests.test_network_failure_is_recorded) ... ok
+test_percentiles (test_atlas.ProbeTests.test_percentiles) ... ok
+test_semantic_answer (test_atlas.ProbeTests.test_semantic_answer) ... ok
+test_semantic_reasoning (test_atlas.ProbeTests.test_semantic_reasoning) ... ok
+test_hybrid_layer_counts (test_atlas.RepositoryTests.test_hybrid_layer_counts) ... ok
+test_links_json_and_profiles (test_atlas.RepositoryTests.test_links_json_and_profiles) ... ok
+test_no_weights_or_fabricated_measurements (test_atlas.RepositoryTests.test_no_weights_or_fabricated_measurements) ... ok
+
+----------------------------------------------------------------------
+Ran 39 tests in 0.045s
+
+OK

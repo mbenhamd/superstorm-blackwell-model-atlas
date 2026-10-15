@@ -1,0 +1,13 @@
+{
+  "ok": true,
+  "files_checked": 145,
+  "json_files": 48,
+  "python_files": 13,
+  "local_links_checked": 206,
+  "model_families": 8,
+  "companies": 6,
+  "sources": 62,
+  "profiles": 34,
+  "failures": [],
+  "boundary": "Static/local checks only; no external links, engine flags, GPU inference, cluster schema admission or network retrieval certified."
+}

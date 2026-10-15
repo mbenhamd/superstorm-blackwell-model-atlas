@@ -1,0 +1,93 @@
+{
+  "key": "qwen3.8-flash-next",
+  "company": "alibaba-qwen",
+  "name": "Qwen 3.8 Flash Next",
+  "hf_id": "Qwen/Qwen3.8-Flash-Next",
+  "headline": "125B main + 51B n-gram + 4B MTP; 6B active main; GDN + QSA",
+  "config_projection": {
+    "architecture_class": "Qwen4ExpForConditionalGeneration",
+    "model_type": "qwen4_exp",
+    "layers": 48,
+    "hidden_size": 2560,
+    "linear_attention_layers": 36,
+    "sparse_attention_layers": 12,
+    "full_attention_interval": 4,
+    "attention_heads": 24,
+    "num_key_value_heads": 2,
+    "head_dim": 256,
+    "rotary_dim": 64,
+    "linear_key_heads": 16,
+    "linear_value_heads": 48,
+    "linear_head_dim": 128,
+    "linear_conv_width": 4,
+    "mamba_ssm_dtype": "float32",
+    "routed_experts": 512,
+    "experts_per_token": 10,
+    "shared_experts": 1,
+    "moe_intermediate_size": 640,
+    "indexer_budget": 2048,
+    "indexer_compress_ratio": 4,
+    "indexer_heads": 4,
+    "indexer_kv_heads": 1,
+    "indexer_head_dim": 128,
+    "hc_count": 4,
+    "hc_lowrank": 320,
+    "ngram_vocab_size_base": 20000000,
+    "ngram_size": 3,
+    "heads_per_ngram": 8,
+    "ple_layer_ids": [
+      2
+    ],
+    "ple_embed_dim": 2560,
+    "split_ngram_parts": 128,
+    "mtp_layers": 1,
+    "max_position_embeddings": 262144,
+    "advertised_extended_context": 1000000,
+    "vocab_size": 248320,
+    "vision_layers": 27,
+    "vision_hidden_size": 1152,
+    "vision_heads": 16,
+    "vision_patch_size": 16,
+    "vision_output_size": 2560
+  },
+  "total_b": 180,
+  "active_b": 6,
+  "context": 262144,
+  "layout": "hybrid-ngram-moe",
+  "license": "Qwen Community License 1.0; NVIDIA derivative also names NVIDIA Open Model License",
+  "recommended": "vLLM first for the exact NVIDIA mixed NVFP4 export; qualify SGLang separately",
+  "baseline_tp": 4,
+  "revision": "de4b8e4d43b917e7706784d8bb445c9af86a3540",
+  "variants": [
+    {
+      "key": "bf16",
+      "hf_id": "Qwen/Qwen3.8-Flash-Next",
+      "precision": "BF16 reference with large n-gram embeddings",
+      "status": "verified base",
+      "revision": null
+    },
+    {
+      "key": "fp8",
+      "hf_id": "Qwen/Qwen3.8-Flash-Next-FP8",
+      "precision": "Mixed FP8 export",
+      "status": "referenced by NVIDIA and engine recipe",
+      "revision": null
+    },
+    {
+      "key": "nvfp4",
+      "hf_id": "nvidia/Qwen3.8-Flash-Next-NVFP4",
+      "precision": "Main routed experts NVFP4; MTP experts and PLE FP8; attention/shared BF16",
+      "status": "verified NVIDIA derivative",
+      "revision": null
+    }
+  ],
+  "path": "companies/alibaba-qwen/qwen3.8-flash-next",
+  "source_ids": [
+    "qwen3.8-flash-next-CARD",
+    "qwen3.8-flash-next-CFG",
+    "qwen3.8-flash-next-NV",
+    "qwen3.8-flash-next-VR"
+  ],
+  "evidence_status": "Publisher configuration and cards reviewed; not loaded or benchmarked on hardware",
+  "source_projection_is_complete_original_config": false
+}

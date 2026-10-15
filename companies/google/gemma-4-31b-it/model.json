@@ -1,0 +1,78 @@
+{
+  "key": "gemma-4-31b-it",
+  "company": "google",
+  "name": "Gemma 4 31B IT",
+  "hf_id": "google/gemma-4-31B-it",
+  "headline": "Dense multimodal 31B; 5 sliding layers per global-attention layer",
+  "config_projection": {
+    "architecture_class": "Gemma4ForConditionalGeneration",
+    "model_type": "gemma4",
+    "layers": 60,
+    "hidden_size": 5376,
+    "intermediate_size": 21504,
+    "enable_moe_block": false,
+    "local_attention_layers": 50,
+    "global_attention_layers": 10,
+    "attention_heads": 32,
+    "local_kv_heads": 16,
+    "local_head_dim": 256,
+    "global_kv_heads": 4,
+    "global_head_dim": 512,
+    "attention_k_eq_v": true,
+    "sliding_window": 1024,
+    "max_position_embeddings": 262144,
+    "vocab_size": 262144,
+    "tie_word_embeddings": true,
+    "activation": "gelu_pytorch_tanh",
+    "final_logit_softcapping": 30,
+    "full_rope_theta": 1000000,
+    "full_partial_rotary_factor": 0.25,
+    "local_rope_theta": 10000,
+    "num_kv_shared_layers": 0,
+    "audio_config": null,
+    "vision_hidden_size": 1152,
+    "vision_head_dim": 72,
+    "vision_intermediate_size": 4304,
+    "vision_default_output_length": 280
+  },
+  "total_b": 31,
+  "active_b": 31,
+  "context": 262144,
+  "layout": "windowed-dense",
+  "license": "Apache-2.0 metadata observed on RedHat derivative; confirm base and derivative files",
+  "recommended": "vLLM TP1 BF16/FP8/NVFP4 comparison; SGLang challenger with export-level probe",
+  "baseline_tp": 1,
+  "variants": [
+    {
+      "key": "bf16",
+      "hf_id": "google/gemma-4-31B-it",
+      "precision": "BF16",
+      "status": "verified official base",
+      "revision": null
+    },
+    {
+      "key": "fp8",
+      "hf_id": "RedHatAI/gemma-4-31B-it-FP8-block",
+      "precision": "W8A8, 128×128 weight blocks, dynamic activation groups of 128",
+      "status": "verified RedHat derivative",
+      "revision": null
+    },
+    {
+      "key": "nvfp4",
+      "hf_id": "RedHatAI/gemma-4-31B-it-NVFP4",
+      "precision": "Transformer block W4A4 group 16; vision/embedding/head retain precision",
+      "status": "verified RedHat derivative",
+      "revision": null
+    }
+  ],
+  "path": "companies/google/gemma-4-31b-it",
+  "source_ids": [
+    "gemma-4-31b-it-CARD",
+    "gemma-4-31b-it-CFG",
+    "gemma-4-31b-it-FP8",
+    "gemma-4-31b-it-NV"
+  ],
+  "revision": null,
+  "evidence_status": "Publisher configuration and cards reviewed; not loaded or benchmarked on hardware",
+  "source_projection_is_complete_original_config": false
+}
