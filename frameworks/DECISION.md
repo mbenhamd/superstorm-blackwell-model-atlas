@@ -40,6 +40,20 @@ The refreshed [KServe source review](kserve/ARCHITECTURE.md) separates stable ca
 
 Every recommendation is conditional. Actual measurements are intentionally absent until run on the target hardware.
 
+## FP8 with FA4: compare the actual execution paths
+
+The October 16 source recheck does not support treating “FP8 + FA4” as one interchangeable configuration across engines.
+
+| Question | vLLM 0.31.0 / selected main | SGLang 0.5.21 / selected main |
+| --- | --- | --- |
+| Does an FP8 checkpoint select FP8 attention? | No; runtime attention operands and cache settings determine that path | No; checkpoint precision and attention/cache support remain separate |
+| Ordinary FP8 KV with generic FA4 on B300 | Eligible BF16 activation/output path quantizes Q and uses FP8 Q/K/V; head geometry and feature restrictions apply | Complete ordinary MHA/GQA FA4 prefill with FP8 KV is not established: the inspected prefill conversion differs from decode, and the documentation marks this combination unsupported |
+| Can prefill and decode use different implementations? | Yes, selected backends can dispatch phases internally; the CLI is not a description of every kernel call | Explicit prefill/decode controls exist, but the pair must share a supported cache layout, dtype and page size |
+| Is installing standalone FA4 sufficient? | No; the inspected generic route uses vLLM's pinned fork | No; engine integration and its vendored implementation determine supported features |
+| Does a generic FA4 override apply to all eight families? | No; sparse MLA, QSA, compressed and recurrent paths have model-specific selection | No; DSA, QSA, compressed and recurrent paths likewise have their own contracts |
+
+The detailed [vLLM trace](vllm/SOURCE_REVIEW.md) and [SGLang trace](sglang/SOURCE_REVIEW.md) provide immutable source links and the exact exclusions. An FP8 checkpoint with a compatible higher precision attention/cache path remains a distinct candidate; native FP8 attention is an additional choice. Select by exact model path, numerical requirements and supported phase pairing before assigning a performance preference. The [workload guide](../reports/optimization.md#when-fp8-plus-fa4-is-a-useful-candidate) explains where each mechanism can help without asserting an unmeasured engine ranking.
+
 ## Optimization reasoning
 
 The [optimization guide](../reports/optimization.md) connects engine mechanisms to unique prompts, multi-turn chat and coding agents. The source reviews above explain the recent changes, affected code paths and exclusions. Execution and results belong in the separate implementation repository.

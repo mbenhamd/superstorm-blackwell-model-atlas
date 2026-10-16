@@ -22,6 +22,23 @@ For GLM BF16, the full-count illustration is **1,506,659,880,960 bytes**; the pi
 
 Qwen Flash Next’s 125B + 51B + 4B subtotal covers the publisher’s main/n-gram/MTP quantities; it does not separately count vision. DeepSeek’s vLLM recipe uses a 284B family headline while SGLang’s 0731 cookbook says 304B. The different scopes have not been reconciled into an exact tensor census, so the table leaves that row unset. The hypothetical precision columns do not assert that those artifact variants exist. [Qwen accounting](../companies/alibaba-qwen/qwen3.8-flash-next/architecture.md) [DeepSeek accounting](../companies/deepseek/deepseek-v4-flash-0731/architecture.md)
 
+### FP8 capacity examples do not specify a deployment
+
+A **hypothetical** uniformly FP8 70B or 72B parameter payload is respectively **70 or 72 decimal GB** (about 65.19 or 67.06 GiB). This is one byte per parameter, before scales, higher precision exclusions and resident repacking. It is not a claim that a particular 72B checkpoint exists or occupies exactly 72 GB at runtime. On the advertised 288 GB reference, `288 − 72 = 216 GB` is only a payload subtraction. Assigning 200 GB to KV would leave 16 GB for every other allocation and headroom under that simplified model; no such reserve is guaranteed. The [hardware comparison](../hardware/B300-8GPU.md#capacity-bandwidth-and-fp8-peaks) explains the advertised-capacity assumptions.
+
+For a separate **671B uniform-FP8 illustration**, the ideal weight payload is 671 GB. The table considers full GPU residency and perfect weight distribution, with no other allocations:
+
+| Advertised per-GPU capacity used | Arithmetic minimum `ceil(671 / capacity)` | First capacity candidate among 1/2/4/8 GPUs | Candidate aggregate capacity minus 671 GB |
+| --- | --- | --- | --- |
+| B300: 288 GB | 3 | 4 | 481 GB |
+| DGX B200 basis: 180 GB | 4 | 4 | 49 GB |
+| Blackwell chip-maximum basis: 192 GB | 4 | 4 | 97 GB |
+| H200: 141 GB | 5 | 8 | 457 GB |
+
+The capacity inputs retain their publisher scopes. [FP8H-B300-GUIDE](https://docs.nvidia.com/dgx/dgxb300-user-guide/introduction-to-dgxb300.html), [FP8H-B200-GUIDE](https://docs.nvidia.com/dgx/dgxb200-user-guide/introduction-to-dgxb200.html), [FP8H-BWULTRA](https://developer.nvidia.com/blog/inside-nvidia-blackwell-ultra-the-chip-powering-the-ai-factory-era/), [FP8H-H200](https://www.nvidia.com/en-us/data-center/h200/).
+
+Four B300s are therefore a plausible weight-capacity candidate. “Eight H200s are required” follows only after restricting this illustration to 1/2/4/8-way choices; the payload-only arithmetic minimum is five, and four H200s offer only 564 GB. Neither three B300s nor five H200s is thereby a supported sharding configuration. Four B300s and eight H200s have similar advertised aggregate memory (1,152 versus 1,128 GB), but different compute and communication resources. TP4, EP4 and TP4 combined with EP are different process-group arrangements: expert placement, replicated modules, cache geometry and runtime peaks determine whether a real checkpoint fits. The residual column is not available KV memory or a guarantee of comfortable operation.
+
 ## Scale overhead
 
 For an ideal one-dimensional payload, MXFP4 with one byte of scale per 32 four-bit values consumes `0.5 + 1/32 = 0.53125` bytes per value. NVFP4 with one byte per 16 values consumes `0.5625` bytes per value before the outer tensor scale. These correspond to 4.25 and 4.5 effective bits for those parts. Real exports can add padding, layouts and mixed modules. The Transformer Engine training recipe also describes 16×16 weight scaling; the one-dimensional estimate here must not be applied to every NVFP4 recipe. [NV4](https://developer.nvidia.com/blog/introducing-nvfp4-for-efficient-and-accurate-low-precision-inference/) [TE4](https://docs.nvidia.com/deeplearning/transformer-engine/features/low_precision_training/nvfp4/nvfp4.html) [CUDNN](https://docs.nvidia.com/deeplearning/cudnn/latest/operations/BlockScaling.html)
@@ -38,6 +55,21 @@ KV bytes = 2 × layers × KV_heads × head_dim
 ```
 
 Use it only where those assumptions hold. At 262,144 tokens and one sequence, Mistral’s `2 × 88 × 8 × 128 × 262144 × 2` gives **88 GiB**. Qwen 27B’s `2 × 16 × 4 × 256 × 262144 × 2` gives **16 GiB** for its full-attention layers, plus separate linear state. These are aggregate, unsharded BF16 payloads; the engine determines per-rank allocation and any replication. A factor-of-two precision change affects element payload, not necessarily every allocation. [mistral-medium-3.5-CFG](https://huggingface.co/mistralai/Mistral-Medium-3.5-128B/blob/22b2b868a15677cfa6061277ed2f653d1349a9ab/config.json) [qwen3.8-27b-CFG](https://huggingface.co/Qwen/Qwen3.8-27B/raw/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/config.json)
+
+### Turning an FP8 cache budget into token slots
+
+For an explicitly **illustrative** dense GQA geometry of 80 layers, eight KV heads and head dimension 128, one FP8 cache token costs `2 × 80 × 8 × 128 × 1 = 163,840 bytes` (**160 KiB**). An independently established **200 decimal GB KV budget** therefore holds at most `floor(200,000,000,000 / 163,840) = 1,220,703` payload token slots before scales, page rounding and other cache metadata. BF16 doubles the element payload and halves this ideal token capacity. The calculation assumes the same effective one-byte storage for both K and V; an FP8 weight export does not select that cache format.
+
+Those 1.22 million slots are an **aggregate over concurrently cached sequence tokens**, not an authorized 1.22-million-token context or a throughput prediction. With unequal sequence lengths, replace `tokens_per_sequence × concurrent_sequences` by the sum of cached lengths; prompt tokens and generated tokens both occupy slots. Actual allocator behavior, prefix sharing, eviction, per-rank sharding and supported model context constrain the result.
+
+The atlas's pinned configurations give different payloads, freshly rechecked on October 16, 2026:
+
+| Pinned model geometry | FP8 bytes per cached token, aggregate | FP8 payload at 262,144 tokens, one sequence |
+| --- | --- | --- |
+| Mistral Medium 3.5: 88 full-attention layers, eight KV heads, dimension 128 | 180,224 bytes (176 KiB) | 44 GiB |
+| Qwen 3.8 27B: 16 full-attention layers, four KV heads, dimension 256 | 32,768 bytes (32 KiB) | 8 GiB, plus recurrent state |
+
+Both inspected text configurations set `max_position_embeddings` to **262,144**. These values define the cited configuration scope; spare cache memory alone neither raises that context limit nor establishes acceptable long-context quality. The table assumes a compatible FP8 KV backend and excludes auxiliary state and cache metadata. [FP8H-MISTRAL-CFG](https://huggingface.co/mistralai/Mistral-Medium-3.5-128B/resolve/22b2b868a15677cfa6061277ed2f653d1349a9ab/config.json), [FP8H-QWEN-CFG](https://huggingface.co/Qwen/Qwen3.8-27B/resolve/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/config.json).
 
 Do not apply this formula unchanged to Kimi MLA, DeepSeek compressed attention, GLM sparse indexers or Gemma’s heterogeneous local/global and key/value-sharing behavior. A head count in config is not an allocator specification. [kimi-k3-CFG](https://huggingface.co/moonshotai/Kimi-K3/raw/f831ab66814297da540d832a5235f8e904f29d06/config.json) [deepseek-v4-flash-0731-CFG](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/raw/7872f01b1d1fe23eabc4c98b48bffcef5a386062/config.json) [gemma-4-31b-it-CFG](https://huggingface.co/google/gemma-4-31B-it/raw/842da3794eaa0b77d5f08bae87a17459d91ff475/config.json)
 

@@ -45,3 +45,5 @@ For understanding, read [the comparison](reports/comparison.md), [the precision 
 For optimization, read [the workload guide](reports/optimization.md) and [configuration reference](reports/configuration-reference.md). They connect architecture and engine behavior to unique prompts, multi-turn chat and coding agents. Execution and benchmark results are maintained in a separate repository.
 
 For the GPU mechanisms underneath those choices, read [NVFP4 and GEMM execution](reports/precision-and-kernels.md), followed by [FlashAttention and FA4](reports/attention-and-fa4.md). Weight compression, attention computation, cache precision and sparse selection are separate decisions; the attention page explains how they interact on B300.
+
+For the FP8-on-B300 question specifically, follow [hardware limits](hardware/B300-8GPU.md), [cache-capacity arithmetic](reports/memory-math.md), then the FP8 sections in the [vLLM](frameworks/vllm/SOURCE_REVIEW.md) and [SGLang](frameworks/sglang/SOURCE_REVIEW.md) reviews. “FP8 model” alone does not identify the dtype used by attention or the KV cache.

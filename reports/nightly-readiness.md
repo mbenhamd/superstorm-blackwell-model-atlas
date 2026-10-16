@@ -7,7 +7,7 @@
 | Project | Latest stable observed | Selected source inspected in this review | Development artifact observation |
 | --- | --- | --- | --- |
 | vLLM | **0.31.0**, October 5; `db9527a46873454610df6dbedf79a36d6bf1a7f6` | `07f3857fb93772fed64e06642cdb0b8c03e0b249` for attention/quantization; earlier cache review at `fa75d345…` | CUDA 13 wheel index advertises `0.32.0rc1.dev284+gfa75d3456` |
-| SGLang | **0.5.21**, October 2; `e00930c5489053f26d86b179cee0d087f846acbb` | `56a3c4fa16765f591c9eb5dbf10761f31111dfa2` | CUDA 13 wheel index advertises `0.5.23.dev20261016+gf9df33494a` |
+| SGLang | **0.5.21**, October 2; `e00930c5489053f26d86b179cee0d087f846acbb` | `baf451fcd6f54962c7db7dc30c636cb534ba1f2a` for FP8/FA4; earlier cache review at `56a3c4…` | CUDA 13 wheel index advertises `0.5.23.dev20261016+gf9df33494a` |
 | KServe | **0.21.0**, September 25; `d1482554fc4f66dd41aee70e01f5174e24f265bd` | Current master metadata/template checks at `0f3f1b0e8c88f78e2966e5e73be70224bb7c20dd`; broader comparison retains October 15 source | Development controller publishing uses `latest`; a separate qualified nightly stack is not established |
 
 [vLLM release](https://github.com/vllm-project/vllm/releases/tag/v0.31.0), [SGLang release](https://github.com/sgl-project/sglang/releases/tag/v0.5.21), [KServe release](https://github.com/kserve/kserve/releases/tag/v0.21.0), [vLLM wheel index](https://wheels.vllm.ai/nightly/cu130/vllm/), [SGLang wheel index](https://sgl-project.github.io/whl/cu130/sglang/).
@@ -16,7 +16,7 @@ The submitted report's SGLang 0.5.20 baseline is stale: 0.5.21 predates its Octo
 
 The retained [configuration references](configuration-reference.md) preserve earlier source-inspection commits. New observations do not silently requalify those arguments against a different binary.
 
-A fresh attention/precision review beginning 09:29 UTC confirmed the same three stable releases and advertised wheel versions. It observed vLLM main at `07f3857fb93772fed64e06642cdb0b8c03e0b249` and SGLang main at `42eb556e66f1d5f288ee8b232a8a545431a25226`. The selected SGLang cache review remains at `56a3c4…`, with attention factory/cache-dtype definitions checked at release 0.5.21. The lock separates these scopes and earlier observations. [ATTR-V-HEAD](https://api.github.com/repos/vllm-project/vllm/commits/main), [ATTR-S-HEAD](https://api.github.com/repos/sgl-project/sglang/commits/main).
+The FP8/FA4 recheck at **09:47 UTC** confirmed the same three stable releases and advertised wheel versions. vLLM main remained at `07f3857fb93772fed64e06642cdb0b8c03e0b249`; SGLang main advanced to `baf451fcd6f54962c7db7dc30c636cb534ba1f2a`. The selected SGLang cache review remains at `56a3c4…`; the newer FP8/FA4 review compares release 0.5.21 with `baf451…`. The lock preserves earlier observations and their narrower review scopes. [FP8R-V-HEAD](https://api.github.com/repos/vllm-project/vllm/commits/main), [FP8R-S-HEAD](https://api.github.com/repos/sgl-project/sglang/commits/main), [FP8R-K-HEAD](https://api.github.com/repos/kserve/kserve/commits/master).
 
 ## A concrete main-versus-nightly gap
 

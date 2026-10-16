@@ -33,6 +33,17 @@ flowchart LR
 
 An NVFP4 export may quantize some of these linears while leaving others in FP8 or BF16. It does not make all Q/K/V operands, the cache or recurrent state four-bit. The [precision report](precision-and-kernels.md) and each model's precision page identify those boundaries.
 
+### Four precision choices to specify separately
+
+| Choice | What must be identified |
+| --- | --- |
+| Checkpoint weights | Stored values, scale granularity, exporter and excluded layers |
+| Runtime activations | Projection input/output dtypes and any conversion of Q/K/V before attention |
+| KV storage | Cached values, scale layout and how the reader reconstructs them |
+| Attention arithmetic | Actual `QKᵀ` and `PV` operands, accumulation dtype and output dtype |
+
+These choices must form a compatible path, but an FP8 or MXFP8 weight label does not specify all four. In particular, FP8 cache storage can feed different arithmetic depending on the reader. Conversely, native FP8 attention requires appropriate runtime operands even when the checkpoint uses another weight format. The [vLLM source review](../frameworks/vllm/SOURCE_REVIEW.md#attention-backends-fa4-and-nvfp4-cache) traces the conversions performed by the engine; the standalone FA4 contract below starts at its input tensors.
+
 ### Dense, masked, token sparse and block sparse
 
 **Dense attention** evaluates every pair allowed by its rule. In a causal language model this usually means all earlier tokens, not future tokens. A triangular causal mask still leaves quadratic prefill work. **Static masks**, such as a sliding window, select pairs from position rules. Whole tiles outside the rule can be skipped, while boundary tiles may still require element masks.
@@ -138,7 +149,7 @@ This is an **approximation**, even though the tiling algorithm preserves exact a
 
 Softmax sensitivity depends on **relative** score errors. If quantization changes score `s_i` by `δ_i`, then the ratio of two attention probabilities changes by `exp(δ_i−δ_j)`. A common offset cancels exactly. Unequal errors can change close competitions or distort a small but useful probability tail, but every small error is not catastrophic. Errors in `QKᵀ` affect the attention weights; errors in the probabilities or `V` additionally affect their weighted sum. Their effect on a complete model requires quality evidence.
 
-**B300 qualification:** the paper reports 32 exponential operations/cycle/SM for B300/GB300, twice B200's figure. Current `flash_fwd_sm100.py` recognizes the SM103 family and defaults software exponential emulation off there. It can also use `tcgen05.ld.red` for the row maximum when score/mask modifications and head geometry permit. Thus the B200 tuning explanation is not an instruction to enable polynomial exponentials on B300. [ATTF-FA4-PAPER](https://arxiv.org/html/2603.05451v1), [ATTF-FA4-FLASH-FWD-SM100-PY](https://raw.githubusercontent.com/Dao-AILab/flash-attention/e9d8944c855489e03c66262d07ba4c81d9d8dd31/flash_attn/cute/flash_fwd_sm100.py).
+**B300 qualification:** the paper reports 32 exponential operations/cycle/SM for B300/GB300, twice B200's figure. Current `flash_fwd_sm100.py` recognizes the SM103 family and defaults software exponential emulation off there, including its ordinary FP8 tuning. It can also use `tcgen05.ld.red` for the row maximum when score/mask modifications and head geometry permit. Thus the B200 tuning explanation is not an instruction to enable polynomial exponentials on B300, or proof that softmax can never limit B300 attention. [ATTF-FA4-PAPER](https://arxiv.org/html/2603.05451v1), [FP8A-FA4-SM100](https://raw.githubusercontent.com/Dao-AILab/flash-attention/e9d8944c855489e03c66262d07ba4c81d9d8dd31/flash_attn/cute/flash_fwd_sm100.py).
 
 ### Conditional rescaling keeps a persistent reference
 
@@ -156,7 +167,41 @@ If the reference is retained, `α=1`; the old output needs no scaling. Both the 
 
 The threshold compares the new scores with the **retained reference**, not merely with the previous tile's maximum. Several small increases therefore accumulate toward the threshold. For example, scores rising by three log2 units per tile eventually exceed an eight-unit reference gap; they are not allowed to drift upward forever because each adjacent jump is small. The source implements this by leaving `row_max` unchanged when it skips a rescale. [ATTF-FA4-SOFTMAX-PY](https://raw.githubusercontent.com/Dao-AILab/flash-attention/e9d8944c855489e03c66262d07ba4c81d9d8dd31/flash_attn/cute/softmax.py).
 
-The pinned SM100 forward code uses an eight-unit **log2** threshold for 16-bit inputs, giving up to a factor of `2^8=256` of exponential scale slack. For FP8 inputs it instead uses zero threshold and an additional probability offset of eight log2 units. It checks that offset plus slack stays below the input format's finite range. This matters because overflow or saturation in converted probabilities cannot be repaired by a final denominator; neither can rounding or polynomial approximation error. The setting is an implementation-specific numerical tradeoff, not a promise of full precision for arbitrary inputs or precision formats. [ATTF-FA4-FLASH-FWD-SM100-PY](https://raw.githubusercontent.com/Dao-AILab/flash-attention/e9d8944c855489e03c66262d07ba4c81d9d8dd31/flash_attn/cute/flash_fwd_sm100.py).
+The pinned SM100 forward code uses an eight-unit **log2** threshold for 16-bit inputs, giving up to a factor of `2^8=256` of exponential scale slack. For FP8 inputs it instead uses zero threshold and an additional probability offset of eight log2 units. It checks that offset plus slack stays below the input format's finite range. This matters because overflow or saturation in converted probabilities cannot be repaired by a final denominator; neither can rounding or polynomial approximation error. The setting is an implementation-specific numerical tradeoff, not a promise of full precision for arbitrary inputs or precision formats. [FP8A-FA4-SM100](https://raw.githubusercontent.com/Dao-AILab/flash-attention/e9d8944c855489e03c66262d07ba4c81d9d8dd31/flash_attn/cute/flash_fwd_sm100.py).
+
+## Ordinary FP8 in the current standalone FA4
+
+Fresh inspection on October 16 resolves main to the same **`e9d8944c…`** revision used below. Its ordinary FP8 path has this contract; it is distinct from the later MXFP8 implementation. [FP8A-FA4-HEAD](https://api.github.com/repos/Dao-AILab/flash-attention/commits/main).
+
+| Part | Inspected contract |
+| --- | --- |
+| Inputs and device | Standard Q/K/V must share `float8_e4m3fn` or `float8_e5m2`; FP8 forward is restricted to compute capability 10.x and rejects gradients. Geometry and feature checks still apply |
+| Optional descales | Low-level `_flash_attn_fwd` accepts FP32 CUDA `q_descale`, `k_descale`, `v_descale`, each shaped `(batch_size, num_kv_heads)`; omitted scales mean one. Q descales follow the associated KV head in GQA |
+| Public wrapper boundary | `flash_attn_func` and `flash_attn_varlen_func` do **not** expose these descale arguments at this revision; an engine's private-wrapper integration is a separate interface |
+| Arithmetic and result | Both `QKᵀ` and `PV` use FP8 MMA operands with FP32 accumulators. The shifted exponential tile is converted to the input FP8 dtype for `PV`. Output is BF16, including validation of a supplied output tensor |
+
+Sources: [FP8A-FA4-INTERFACE](https://raw.githubusercontent.com/Dao-AILab/flash-attention/e9d8944c855489e03c66262d07ba4c81d9d8dd31/flash_attn/cute/interface.py), [FP8A-FA4-SM100](https://raw.githubusercontent.com/Dao-AILab/flash-attention/e9d8944c855489e03c66262d07ba4c81d9d8dd31/flash_attn/cute/flash_fwd_sm100.py), [FP8A-FA4-SOFTMAX](https://raw.githubusercontent.com/Dao-AILab/flash-attention/e9d8944c855489e03c66262d07ba4c81d9d8dd31/flash_attn/cute/softmax.py).
+
+### When a descale can be folded into another scale
+
+For reconstructed operands with one dequantization multiplier per batch/KV head, write `Q̂=sQ·q`, `K̂=sK·k`, `V̂=sV·v`. Ignoring subsequent rounding, the algebra is
+
+$$
+O=s_V\operatorname{softmax}\!\left(\frac{s_Qs_K}{\sqrt d}qk^T+M\right)v.
+$$
+
+The code combines `sQ·sK` with the score multiplier and `sV` with the final reciprocal row sum. This avoids expanding every FP8 operand into a separate higher precision tensor. It still loads and combines descales; the source does not establish **zero extra instructions** or zero cost. [FP8A-FA4-SM100](https://raw.githubusercontent.com/Dao-AILab/flash-attention/e9d8944c855489e03c66262d07ba4c81d9d8dd31/flash_attn/cute/flash_fwd_sm100.py).
+
+For feature blocks `b` with different scales, instead
+
+$$
+\widehat Q_i\cdot\widehat K_j
+=\sum_b s^Q_{i,b}s^K_{j,b}\sum_{r\in b}q_{i,r}k_{j,r}.
+$$
+
+In general, no single multiplier can be pulled outside that sum unless the scale products are constant across blocks. Scales varying by token also require the corresponding score/value treatment. Native block-scaled MMA supports this structure; it does not make quantization, scale traffic or layout preparation free. MXFP8 therefore requires its own operand-and-scale contract, regardless of a checkpoint's weight label. NVIDIA's MXFP8 attention description explicitly assigns different scale axes to Q/K and V. [FP8A-CUDNN-MX-SCALES](https://nvidia.github.io/cudnn-frontend/mxfp8-attention-scaling/).
+
+FP32 accumulation and BF16 output do not restore information lost in FP8 conversion. Neither these formats nor the kernel source establish a universal “near-lossless” result or quality ranking against NVFP4 weights or caches. Those quantize different parts of the model. Likewise, a 2× matrix-throughput opportunity cannot imply 2× attention speed: exponentials, reductions, transfers, conversion and synchronization remain, with different costs across shapes and phases.
 
 ## Python kernel source, compiled GPU execution
 
@@ -169,6 +214,8 @@ The authors report **20–30× faster compilation than their traditional C++ tem
 The contraction axes differ: `QKᵀ` reduces over head features, whereas `PV` reduces over key-token positions. Block scales must match the operand orientation consumed by each matrix multiply. The September extension therefore gives `V` the appropriate sequence-axis scaling and converts the online probability tile to MXFP8 with compatible scales; it describes dynamic scaling of 32-element probability groups. These intermediate shifted exponentials need not be normalized into `[0,1]`, as the rescaling discussion explains. [ATTF-FA4-MXFP8](https://pytorch.org/blog/low-precision-flash-attention-4-end-to-end-block-scaled-attention-for-blackwell/).
 
 Scale factors themselves consume TMEM. In the later public implementation's two-query-stage layout, score and output regions already occupy all 512 columns. The kernel reuses regions only after their contents are consumed: early QK scales use output space before outputs become live; later scales use drained score regions, with synchronization before reuse. This is a storage-lifetime and scheduling problem, not simply changing a BF16 type to FP8. That separate repository is pinned at `868a2dc7775a4c58194a9e3efd4f7b218c7a6df0`; its README labels the initial noncausal, head-dimension-128 MXFP8 API an unpublished release candidate. [ATTF-MX-FLASH-FWD-SM100-PY](https://raw.githubusercontent.com/facebookresearch/ads_model_kernel_library/868a2dc7775a4c58194a9e3efd4f7b218c7a6df0/lp_fa4/src/lp_fa4/cute/flash_fwd_sm100.py), [ATTF-MX-README-MD](https://raw.githubusercontent.com/facebookresearch/ads_model_kernel_library/868a2dc7775a4c58194a9e3efd4f7b218c7a6df0/lp_fa4/README.md).
+
+The separately inspected **SGLang MXFP8 FA4 route** has another contract: block-scaled FP8 QK, followed by in-kernel conversion of V and **BF16 PV**. It does not inherit the later fork's end-to-end MXFP8 arithmetic or performance result merely by sharing the MXFP8 name. The [SGLang trace](../frameworks/sglang/SOURCE_REVIEW.md#fp8-kv-and-fa4-phase-specific-source-findings) identifies its cache, operands and implementation.
 
 ## What the reported performance establishes
 

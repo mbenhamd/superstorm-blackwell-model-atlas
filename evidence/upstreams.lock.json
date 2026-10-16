@@ -12,11 +12,11 @@
       "image_digest": null,
       "release_prerelease": false,
       "release_commit": "db9527a46873454610df6dbedf79a36d6bf1a7f6",
-      "release_checked_at": "2026-10-16T09:30:02.244735+00:00",
+      "release_checked_at": "2026-10-16T09:47:42.620878+00:00",
       "latest_branch": "main",
       "latest_branch_ref": "07f3857fb93772fed64e06642cdb0b8c03e0b249",
       "latest_branch_commit_date": "2026-10-16T09:07:05Z",
-      "latest_branch_checked_at": "2026-10-16T09:30:02.249357+00:00",
+      "latest_branch_checked_at": "2026-10-16T09:47:42.596098+00:00",
       "source_review_scope": "Selected model registry and Kimi DSpark MLA files only; see frameworks/vllm/SOURCE_REVIEW.md",
       "prior_branch_observations": [
         {
@@ -53,13 +53,48 @@
         "scope": "Selected cache/configuration/scheduler and model-specific source; no binary or whole-tree certification",
         "review_completed_at": "2026-10-16T09:09:05.186135+00:00"
       },
-      "release_source_id": "ATTR-V-RELEASE",
-      "latest_branch_source_id": "ATTR-V-HEAD",
+      "release_source_id": "FP8R-V-RELEASE",
+      "latest_branch_source_id": "FP8R-V-HEAD",
       "attention_precision_review": {
         "release_ref": "db9527a46873454610df6dbedf79a36d6bf1a7f6",
         "development_ref": "07f3857fb93772fed64e06642cdb0b8c03e0b249",
         "scope": "Selected NVFP4 dispatch, cache formats, attention selection and FA4 integration; source only, not model or binary qualification",
         "binary_executed": false
+      },
+      "fp8_fa4_review": {
+        "release_ref": "db9527a46873454610df6dbedf79a36d6bf1a7f6",
+        "development_ref": "07f3857fb93772fed64e06642cdb0b8c03e0b249",
+        "scope": "Selected ordinary FP8 attention operands and output gates, vendored FA4 binding, MoE selector, Model Runner V2, DSA exclusions and phase-specific dispatch",
+        "binary_executed": false,
+        "source_ids": [
+          "FP8V-S-FA",
+          "FP8V-S-FA-API",
+          "FP8V-S-FA-UTIL",
+          "FP8V-S-ENV",
+          "FP8V-S-CONFIG-KERNEL",
+          "FP8V-S-ATTENTION",
+          "FP8V-S-BUILD",
+          "FP8V-S-CONFIG",
+          "FP8V-M-FA",
+          "FP8V-M-FA-API",
+          "FP8V-M-ENV",
+          "FP8V-M-FA4-MLA",
+          "FP8V-M-BUILD",
+          "FP8V-M-CONFIG",
+          "FP8V-S-MOE",
+          "FP8V-S-RUNNER-DOC",
+          "FP8V-M-MOE",
+          "FP8V-S-FORK-API",
+          "FP8V-S-FORK-SM100",
+          "FP8V-M-FORK-API",
+          "FP8V-S-ARGS",
+          "FP8V-S-FI",
+          "FP8V-S-DSV3",
+          "FP8V-S-BASE",
+          "FP8V-S-MLA-SELECT",
+          "FP8V-S-FORK-SM90"
+        ],
+        "retrieved_through": "2026-10-16T09:59:39.891067+00:00"
       }
     },
     {
@@ -73,11 +108,11 @@
       "image_digest": null,
       "release_prerelease": false,
       "release_commit": "e00930c5489053f26d86b179cee0d087f846acbb",
-      "release_checked_at": "2026-10-16T09:30:02.451611+00:00",
+      "release_checked_at": "2026-10-16T09:47:42.769995+00:00",
       "latest_branch": "main",
-      "latest_branch_ref": "42eb556e66f1d5f288ee8b232a8a545431a25226",
-      "latest_branch_commit_date": "2026-10-16T09:28:31Z",
-      "latest_branch_checked_at": "2026-10-16T09:30:02.243840+00:00",
+      "latest_branch_ref": "baf451fcd6f54962c7db7dc30c636cb534ba1f2a",
+      "latest_branch_commit_date": "2026-10-16T09:47:41Z",
+      "latest_branch_checked_at": "2026-10-16T09:47:42.950366+00:00",
       "source_review_scope": "Selected ModelOpt quantization and model registry files only; see frameworks/sglang/SOURCE_REVIEW.md",
       "prior_branch_observations": [
         {
@@ -106,6 +141,13 @@
           "latest_branch_ref": "f0ff18353d2c6bd8d0c1896563e197d3f4fcfa2b",
           "latest_branch_commit_date": "2026-10-16T08:58:00Z",
           "latest_branch_checked_at": "2026-10-16T08:58:18.906301+00:00"
+        },
+        {
+          "latest_branch": "main",
+          "latest_branch_ref": "42eb556e66f1d5f288ee8b232a8a545431a25226",
+          "latest_branch_commit_date": "2026-10-16T09:28:31Z",
+          "latest_branch_checked_at": "2026-10-16T09:30:02.243840+00:00",
+          "latest_branch_source_id": "ATTR-S-HEAD"
         }
       ],
       "release_tag_object": "7337b27853377544a322fd4390df332d8ca7d8cb",
@@ -121,8 +163,8 @@
         "scope": "Selected cache/configuration/scheduler and model-specific source; no binary or whole-tree certification",
         "review_completed_at": "2026-10-16T09:09:05.186135+00:00"
       },
-      "latest_branch_source_id": "ATTR-S-HEAD",
-      "release_source_id": "ATTR-S-RELEASE",
+      "latest_branch_source_id": "FP8R-S-HEAD",
+      "release_source_id": "FP8R-S-RELEASE",
       "attention_precision_review": {
         "release_ref": "e00930c5489053f26d86b179cee0d087f846acbb",
         "scope": "Selected attention factories, attention compatibility hook and cache dtype definitions; current main is metadata-only for this addition",
@@ -132,6 +174,37 @@
           "ATTR-S-MODEL-FIELDS"
         ],
         "binary_executed": false
+      },
+      "fp8_fa4_review": {
+        "release_ref": "e00930c5489053f26d86b179cee0d087f846acbb",
+        "development_ref": "baf451fcd6f54962c7db7dc30c636cb534ba1f2a",
+        "scope": "Selected FA4 prefill/decode FP8 conversions, MXFP8 arithmetic, cache/page/backend-pair restrictions, speculative routing and memory budgeting",
+        "binary_executed": false,
+        "source_ids": [
+          "FP8S-M-ATTDOC",
+          "FP8S-M-DSAOVERRIDE",
+          "FP8S-M-DSARECIPE",
+          "FP8S-M-FA",
+          "FP8S-M-FAINTERFACE",
+          "FP8S-M-FAKERNEL",
+          "FP8S-M-HYBRID",
+          "FP8S-M-KVHOOK",
+          "FP8S-M-OVERRIDES",
+          "FP8S-M-REGISTRY",
+          "FP8S-M-SPEC",
+          "FP8S-M-SPECHOOK",
+          "FP8S-S-FA",
+          "FP8S-S-FI",
+          "FP8S-S-FP4CONTRACT",
+          "FP8S-S-KVCFG",
+          "FP8S-S-MHA",
+          "FP8S-S-MODEL",
+          "FP8S-S-POOL",
+          "FP8S-S-RADIX",
+          "FP8S-S-SPEC",
+          "FP8S-S-UNIFIED"
+        ],
+        "retrieved_through": "2026-10-16T09:53:38.543543+00:00"
       }
     },
     {
@@ -144,11 +217,11 @@
       "image_digest": null,
       "release_prerelease": false,
       "release_commit": "d1482554fc4f66dd41aee70e01f5174e24f265bd",
-      "release_checked_at": "2026-10-16T09:30:02.210225+00:00",
+      "release_checked_at": "2026-10-16T09:47:42.797374+00:00",
       "latest_branch": "master",
       "latest_branch_ref": "0f3f1b0e8c88f78e2966e5e73be70224bb7c20dd",
       "latest_branch_commit_date": "2026-10-16T01:27:12Z",
-      "latest_branch_checked_at": "2026-10-16T09:30:02.254051+00:00",
+      "latest_branch_checked_at": "2026-10-16T09:47:42.806099+00:00",
       "commit_date": "2026-09-24T20:10:37Z",
       "source_review_scope": "LLMInferenceService/Config version declarations and deployment-mode constants only; no full controller review",
       "documentation_version_observed": "0.20",
@@ -174,8 +247,8 @@
         "scope": "Current master metadata/SGLang template and readiness-commit scope; broader branch inspection remains at its historical snapshot",
         "review_completed_at": "2026-10-16T09:11:38.868152+00:00"
       },
-      "release_source_id": "ATTR-K-RELEASE",
-      "latest_branch_source_id": "ATTR-K-HEAD"
+      "release_source_id": "FP8R-K-RELEASE",
+      "latest_branch_source_id": "FP8R-K-HEAD"
     }
   ],
   "pull_requests": [
@@ -1105,22 +1178,22 @@
   "development_artifact_observations": [
     {
       "engine": "vllm",
-      "checked_at": "2026-10-16T09:30:02.456699+00:00",
+      "checked_at": "2026-10-16T09:47:43.080909+00:00",
       "channel": "CUDA13 wheel index",
       "version": "0.32.0rc1.dev284+gfa75d3456",
       "advertised_source": "fa75d3456d60a5ffe923818c4b495295675b38e1",
       "downloaded_or_executed": false,
-      "source_id": "ATTR-V-WHEELS"
+      "source_id": "FP8R-V-WHEELS"
     },
     {
       "engine": "sglang",
-      "checked_at": "2026-10-16T09:30:02.096615+00:00",
+      "checked_at": "2026-10-16T09:47:42.703800+00:00",
       "channel": "CUDA13 wheel index",
       "version": "0.5.23.dev20261016+gf9df33494a",
       "advertised_source_prefix": "f9df33494a",
       "downloaded_or_executed": false,
       "scope": "Does not contain later fad7d95 V4.1 DSpark fix; index metadata only.",
-      "source_id": "ATTR-S-WHEELS"
+      "source_id": "FP8R-S-WHEELS"
     },
     {
       "engine": "vllm",
@@ -1387,7 +1460,19 @@
         "ATTF-FA4-PYPROJECT-TOML"
       ],
       "scope": "Standalone FA4 source; separate from engine-bundled forks",
-      "binary_executed": false
+      "binary_executed": false,
+      "fp8_followup": {
+        "retrieved_at": "2026-10-16T09:47:57.363870+00:00",
+        "ref": "e9d8944c855489e03c66262d07ba4c81d9d8dd31",
+        "source_ids": [
+          "FP8A-FA4-HEAD",
+          "FP8A-FA4-INTERFACE",
+          "FP8A-FA4-SM100",
+          "FP8A-FA4-SOFTMAX",
+          "FP8A-CUDNN-MX-SCALES"
+        ],
+        "scope": "Ordinary FP8 input/output contract, public versus low-level descale API, scale folding and SM103 numerical choices; source inspection only"
+      }
     },
     {
       "project": "vllm-project/flash-attention",

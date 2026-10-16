@@ -79,6 +79,22 @@ For example, doubling a component responsible for 60% of time gives **1.43×**, 
 
 Keep the model's trained attention semantics fixed when comparing implementations. A dense model does not acquire a learned sparse indexer by selecting a different kernel, and a GDN/KDA layer does not become softmax attention by selecting FA4.
 
+### When FP8 plus FA4 is a useful candidate
+
+FP8 can be a useful intermediate choice when its exact export preserves the required task quality and reduces a material weight, activation or history cost. FA4 can improve eligible attention work. Calling the combination a universal “near-lossless sweet spot” goes beyond that evidence: the exporter, cache scales, attention implementation and workload determine both numerical behavior and speed. The [precision explanation](precision-and-kernels.md) separates these choices, and the [FA4 explanation](attention-and-fa4.md) traces the actual arithmetic.
+
+| Workload condition | Why the combination may help | What remains a separate decision |
+| --- | --- | --- |
+| Long, uncached full-attention prefill | Efficient attention tiling and eligible FP8 arithmetic can reduce attention time | Head dimensions, mask, actual input dtype and projection/FFN cost |
+| Low-concurrency decode | Lower-byte weights or history can reduce HBM traffic | Small GEMM efficiency, quantization work, launches and communication can dominate |
+| Concurrent independent requests | Larger batches can improve matrix utilization and amortize some overhead | Queueing, admission, replicas and memory pressure; there is no universal concurrency-16 crossover |
+| Chat with a long reused prefix | Prefix reuse avoids repeated prefill; compressed history may increase resident capacity | Page granularity, eviction and routing can matter more than peak prefill FLOP/s |
+| Coding agent | Reduced inference time can shorten model turns | Tool correctness, reasoning quality and retries determine useful completed work |
+
+These are mechanisms to investigate, not measured rankings. Prefill is often compute intensive and long-context decode often stresses bandwidth, but neither is **strictly** one kind of workload. Sparse indexing, recurrent updates, MoE routing, collective communication and CPU scheduling can set the limit. B300's higher exponential throughput changes one balance inside attention; it does not remove every softmax or serving bottleneck. See [hardware scope](../hardware/B300-8GPU.md) and [FA4's SM103-specific choices](attention-and-fa4.md).
+
+The submitted claims of **30–40% lower SGLang TTFT**, **5–10% higher vLLM throughput**, or **50%+ from a runner switch** lack a matched, traceable experiment for these models on this node. They are not retained as engine-selection facts. Likewise, prefix-overlap percentages alone cannot establish a winner: matching pages, retained state, request arrival patterns and routing determine the reuse that is actually available. The [engine source reviews](../frameworks/DECISION.md) describe supported controls and their applicability.
+
 An NVFP4 model name does not describe every tensor or operation. Keep separate: target weights, activations, KV/history, sparse-index state, recurrent state and draft weights/state. PLE tables, embeddings, shared experts, routers, heads and vision modules can stay at different precision. The loaded representation can also differ from on-disk packing. [Precision and kernels](precision-and-kernels.md)
 
 Speculation replaces some sequential target steps with proposal and verification work. Its value depends on accepted length, draft cost, verification cost, extra memory and batching. A high acceptance ratio can still lose overall. Native MTP, bundled DSpark, an external DSpark draft, DFlash and EAGLE have different model/state contracts; a generic speculation flag does not make them interchangeable.

@@ -458,3 +458,74 @@ Compact index of the sources cited by this knowledge repository. Exact metadata 
 | ATTF-PAGEDATTENTION | [Efficient Memory Management for Large Language Model Serving with PagedAttention](https://arxiv.org/abs/2309.06180v1) | 2026-10-16 |
 | ATTF-FLASHATTENTION | [FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness](https://arxiv.org/abs/2205.14135v2) | 2026-10-16 |
 | ATTF-FA4-RECORD | [FA4 arXiv submission history](https://arxiv.org/abs/2603.05451) | 2026-10-16 |
+| FP8R-V-RELEASE | [vllm-project/vllm latest release metadata](https://api.github.com/repos/vllm-project/vllm/releases/latest) | 2026-10-16 |
+| FP8R-V-HEAD | [vllm-project/vllm moving branch observation](https://api.github.com/repos/vllm-project/vllm/commits/main) | 2026-10-16 |
+| FP8R-S-RELEASE | [sgl-project/sglang latest release metadata](https://api.github.com/repos/sgl-project/sglang/releases/latest) | 2026-10-16 |
+| FP8R-S-HEAD | [sgl-project/sglang moving branch observation](https://api.github.com/repos/sgl-project/sglang/commits/main) | 2026-10-16 |
+| FP8R-K-RELEASE | [kserve/kserve latest release metadata](https://api.github.com/repos/kserve/kserve/releases/latest) | 2026-10-16 |
+| FP8R-K-HEAD | [kserve/kserve moving branch observation](https://api.github.com/repos/kserve/kserve/commits/master) | 2026-10-16 |
+| FP8R-V-WHEELS | [vLLM CUDA 13 nightly wheel index](https://wheels.vllm.ai/nightly/cu130/vllm/) | 2026-10-16 |
+| FP8R-S-WHEELS | [SGLang CUDA 13 development wheel index](https://sgl-project.github.io/whl/cu130/sglang/) | 2026-10-16 |
+| FP8H-B300-GUIDE | [Introduction to NVIDIA DGX B300 System](https://docs.nvidia.com/dgx/dgxb300-user-guide/introduction-to-dgxb300.html) | 2026-10-16 |
+| FP8H-B200-GUIDE | [Introduction to NVIDIA DGX B200 Systems](https://docs.nvidia.com/dgx/dgxb200-user-guide/introduction-to-dgxb200.html) | 2026-10-16 |
+| FP8H-H200 | [NVIDIA H200 Tensor Core GPU](https://www.nvidia.com/en-us/data-center/h200/) | 2026-10-16 |
+| FP8H-BWULTRA | [Inside NVIDIA Blackwell Ultra: The Chip Powering the AI Factory Era](https://developer.nvidia.com/blog/inside-nvidia-blackwell-ultra-the-chip-powering-the-ai-factory-era/) | 2026-10-16 |
+| FP8H-HGX | [NVIDIA HGX Platform specifications](https://www.nvidia.com/en-us/data-center/hgx/) | 2026-10-16 |
+| FP8H-PTX94 | [PTX ISA 9.4](https://docs.nvidia.com/cuda/parallel-thread-execution/index.html) | 2026-10-16 |
+| FP8H-PTX88 | [CUDA 12.9.0 PTX ISA 8.8](https://docs.nvidia.com/cuda/archive/12.9.0/parallel-thread-execution/index.html) | 2026-10-16 |
+| FP8H-MISTRAL-CFG | [Mistral Medium 3.5 128B pinned configuration](https://huggingface.co/mistralai/Mistral-Medium-3.5-128B/resolve/22b2b868a15677cfa6061277ed2f653d1349a9ab/config.json) | 2026-10-16 |
+| FP8H-QWEN-CFG | [Qwen3.8 27B pinned configuration](https://huggingface.co/Qwen/Qwen3.8-27B/resolve/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/config.json) | 2026-10-16 |
+| FP8H-B200-PRODUCT | [NVIDIA DGX B200 specifications](https://www.nvidia.com/en-us/data-center/dgx-b200/) | 2026-10-16 |
+| FP8A-FA4-HEAD | [Dao-AILab FlashAttention current main revision](https://api.github.com/repos/Dao-AILab/flash-attention/commits/main) | 2026-10-16 |
+| FP8A-FA4-INTERFACE | [FA4 source: flash_attn/cute/interface.py](https://raw.githubusercontent.com/Dao-AILab/flash-attention/e9d8944c855489e03c66262d07ba4c81d9d8dd31/flash_attn/cute/interface.py) | 2026-10-16 |
+| FP8A-FA4-SM100 | [FA4 source: flash_attn/cute/flash_fwd_sm100.py](https://raw.githubusercontent.com/Dao-AILab/flash-attention/e9d8944c855489e03c66262d07ba4c81d9d8dd31/flash_attn/cute/flash_fwd_sm100.py) | 2026-10-16 |
+| FP8A-FA4-SOFTMAX | [FA4 source: flash_attn/cute/softmax.py](https://raw.githubusercontent.com/Dao-AILab/flash-attention/e9d8944c855489e03c66262d07ba4c81d9d8dd31/flash_attn/cute/softmax.py) | 2026-10-16 |
+| FP8A-CUDNN-MX-SCALES | [NVIDIA cuDNN Frontend: How Scales Are Applied in MXFP8 Attention](https://nvidia.github.io/cudnn-frontend/mxfp8-attention-scaling/) | 2026-10-16 |
+| FP8V-S-FA | [vLLM v0.31.0: vllm/v1/attention/backends/flash_attn.py](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/v1/attention/backends/flash_attn.py) | 2026-10-16 |
+| FP8V-S-FA-API | [vLLM v0.31.0: vllm/vllm_flash_attn/flash_attn_interface.py](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/vllm_flash_attn/flash_attn_interface.py) | 2026-10-16 |
+| FP8V-S-FA-UTIL | [vLLM v0.31.0: vllm/v1/attention/backends/fa_utils.py](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/v1/attention/backends/fa_utils.py) | 2026-10-16 |
+| FP8V-S-ENV | [vLLM v0.31.0: vllm/envs.py](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/envs.py) | 2026-10-16 |
+| FP8V-S-CONFIG-KERNEL | [vLLM v0.31.0: vllm/config/kernel.py](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/config/kernel.py) | 2026-10-16 |
+| FP8V-S-ATTENTION | [vLLM v0.31.0: vllm/model_executor/layers/attention/attention.py](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/model_executor/layers/attention/attention.py) | 2026-10-16 |
+| FP8V-S-BUILD | [vLLM v0.31.0: cmake/external_projects/vllm_flash_attn.cmake](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/cmake/external_projects/vllm_flash_attn.cmake) | 2026-10-16 |
+| FP8V-S-CONFIG | [vLLM v0.31.0: vllm/config/vllm.py](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/config/vllm.py) | 2026-10-16 |
+| FP8V-M-FA | [vLLM selected main: vllm/v1/attention/backends/flash_attn.py](https://raw.githubusercontent.com/vllm-project/vllm/07f3857fb93772fed64e06642cdb0b8c03e0b249/vllm/v1/attention/backends/flash_attn.py) | 2026-10-16 |
+| FP8V-M-FA-API | [vLLM selected main: vllm/vllm_flash_attn/flash_attn_interface.py](https://raw.githubusercontent.com/vllm-project/vllm/07f3857fb93772fed64e06642cdb0b8c03e0b249/vllm/vllm_flash_attn/flash_attn_interface.py) | 2026-10-16 |
+| FP8V-M-ENV | [vLLM selected main: vllm/envs.py](https://raw.githubusercontent.com/vllm-project/vllm/07f3857fb93772fed64e06642cdb0b8c03e0b249/vllm/envs.py) | 2026-10-16 |
+| FP8V-M-FA4-MLA | [vLLM selected main: vllm/v1/attention/backends/mla/flashattn_mla_sparse.py](https://raw.githubusercontent.com/vllm-project/vllm/07f3857fb93772fed64e06642cdb0b8c03e0b249/vllm/v1/attention/backends/mla/flashattn_mla_sparse.py) | 2026-10-16 |
+| FP8V-M-BUILD | [vLLM selected main: cmake/external_projects/vllm_flash_attn.cmake](https://raw.githubusercontent.com/vllm-project/vllm/07f3857fb93772fed64e06642cdb0b8c03e0b249/cmake/external_projects/vllm_flash_attn.cmake) | 2026-10-16 |
+| FP8V-M-CONFIG | [vLLM selected main: vllm/config/vllm.py](https://raw.githubusercontent.com/vllm-project/vllm/07f3857fb93772fed64e06642cdb0b8c03e0b249/vllm/config/vllm.py) | 2026-10-16 |
+| FP8V-S-MOE | [vLLM v0.31.0: vllm/model_executor/layers/fused_moe/oracle/fp8.py](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/model_executor/layers/fused_moe/oracle/fp8.py) | 2026-10-16 |
+| FP8V-S-RUNNER-DOC | [vLLM v0.31.0: docs/design/model_runner_v2.md](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/docs/design/model_runner_v2.md) | 2026-10-16 |
+| FP8V-M-MOE | [vLLM selected main: vllm/model_executor/layers/fused_moe/oracle/fp8.py](https://raw.githubusercontent.com/vllm-project/vllm/07f3857fb93772fed64e06642cdb0b8c03e0b249/vllm/model_executor/layers/fused_moe/oracle/fp8.py) | 2026-10-16 |
+| FP8V-S-FORK-API | [vLLM-pinned FlashAttention fork: flash_attn/cute/interface.py](https://raw.githubusercontent.com/vllm-project/flash-attention/9cd61de38763d712bb6ce56e2a02cc2bf718c89f/flash_attn/cute/interface.py) | 2026-10-16 |
+| FP8V-S-FORK-SM100 | [vLLM-pinned FlashAttention fork: flash_attn/cute/flash_fwd_sm100.py](https://raw.githubusercontent.com/vllm-project/flash-attention/9cd61de38763d712bb6ce56e2a02cc2bf718c89f/flash_attn/cute/flash_fwd_sm100.py) | 2026-10-16 |
+| FP8V-M-FORK-API | [vLLM-pinned FlashAttention fork: flash_attn/cute/interface.py](https://raw.githubusercontent.com/vllm-project/flash-attention/b273a02621d3c94bc747df67204f591b67f38fae/flash_attn/cute/interface.py) | 2026-10-16 |
+| FP8V-S-ARGS | [vLLM v0.31.0: vllm/engine/arg_utils.py](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/engine/arg_utils.py) | 2026-10-16 |
+| FP8V-S-FI | [vLLM v0.31.0: vllm/v1/attention/backends/flashinfer.py](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/v1/attention/backends/flashinfer.py) | 2026-10-16 |
+| FP8V-S-DSV3 | [vLLM v0.31.0: vllm/model_executor/models/deepseek_v2.py](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/model_executor/models/deepseek_v2.py) | 2026-10-16 |
+| FP8V-S-BASE | [vLLM v0.31.0: vllm/v1/attention/backend.py](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/v1/attention/backend.py) | 2026-10-16 |
+| FP8V-S-MLA-SELECT | [vLLM v0.31.0: vllm/v1/attention/backends/mla/prefill/selector.py](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/v1/attention/backends/mla/prefill/selector.py) | 2026-10-16 |
+| FP8S-M-ATTDOC | [SGLang main baf451 attention backend guide](https://raw.githubusercontent.com/sgl-project/sglang/baf451fcd6f54962c7db7dc30c636cb534ba1f2a/docs/docs/advanced_features/attention_backend.mdx) | 2026-10-16 |
+| FP8S-M-DSAOVERRIDE | [SGLang main baf451 DeepSeek DSA model defaults](https://raw.githubusercontent.com/sgl-project/sglang/baf451fcd6f54962c7db7dc30c636cb534ba1f2a/python/sglang/srt/arg_groups/model_overrides/deepseek_v2.py) | 2026-10-16 |
+| FP8S-M-DSARECIPE | [SGLang main baf451 DeepSeek V3.2 DSA recipe](https://raw.githubusercontent.com/sgl-project/sglang/baf451fcd6f54962c7db7dc30c636cb534ba1f2a/docs/cookbook/autoregressive/DeepSeek/DeepSeek-V3_2.mdx) | 2026-10-16 |
+| FP8S-M-FA | [SGLang main baf451 FA4 SGLang backend phase dispatch](https://raw.githubusercontent.com/sgl-project/sglang/baf451fcd6f54962c7db7dc30c636cb534ba1f2a/python/sglang/srt/layers/attention/flashattention_backend.py) | 2026-10-16 |
+| FP8S-M-FAINTERFACE | [SGLang main baf451 Vendored FA4 input/output contract](https://raw.githubusercontent.com/sgl-project/sglang/baf451fcd6f54962c7db7dc30c636cb534ba1f2a/python/sglang/kernels/ops/attention/flash_attn/cute/interface.py) | 2026-10-16 |
+| FP8S-M-FAKERNEL | [SGLang main baf451 Vendored SM100 FA4 arithmetic](https://raw.githubusercontent.com/sgl-project/sglang/baf451fcd6f54962c7db7dc30c636cb534ba1f2a/python/sglang/kernels/ops/attention/flash_attn/cute/flash_fwd_sm100.py) | 2026-10-16 |
+| FP8S-M-HYBRID | [SGLang main baf451 Hybrid attention phase routing](https://raw.githubusercontent.com/sgl-project/sglang/baf451fcd6f54962c7db7dc30c636cb534ba1f2a/python/sglang/srt/layers/attention/hybrid_attn_backend.py) | 2026-10-16 |
+| FP8S-M-KVHOOK | [SGLang main baf451 KV dtype and backend compatibility resolution](https://raw.githubusercontent.com/sgl-project/sglang/baf451fcd6f54962c7db7dc30c636cb534ba1f2a/python/sglang/srt/arg_groups/kv_cache_hook.py) | 2026-10-16 |
+| FP8S-M-OVERRIDES | [SGLang main baf451 Resolved attention page/dtype constraints](https://raw.githubusercontent.com/sgl-project/sglang/baf451fcd6f54962c7db7dc30c636cb534ba1f2a/python/sglang/srt/arg_groups/overrides.py) | 2026-10-16 |
+| FP8S-M-REGISTRY | [SGLang main baf451 Attention backend registry gates](https://raw.githubusercontent.com/sgl-project/sglang/baf451fcd6f54962c7db7dc30c636cb534ba1f2a/python/sglang/srt/layers/attention/attention_registry.py) | 2026-10-16 |
+| FP8S-M-SPEC | [SGLang main baf451 Speculative attention field defaults](https://raw.githubusercontent.com/sgl-project/sglang/baf451fcd6f54962c7db7dc30c636cb534ba1f2a/python/sglang/srt/arg_groups/fields/spec.py) | 2026-10-16 |
+| FP8S-M-SPECHOOK | [SGLang main baf451 Speculative backend guardrails](https://raw.githubusercontent.com/sgl-project/sglang/baf451fcd6f54962c7db7dc30c636cb534ba1f2a/python/sglang/srt/arg_groups/speculative_hook.py) | 2026-10-16 |
+| FP8S-S-FA | [SGLang v0.5.21 FA4 SGLang backend phase dispatch](https://raw.githubusercontent.com/sgl-project/sglang/e00930c5489053f26d86b179cee0d087f846acbb/python/sglang/srt/layers/attention/flashattention_backend.py) | 2026-10-16 |
+| FP8S-S-FI | [SGLang v0.5.21 FlashInfer global workspaces](https://raw.githubusercontent.com/sgl-project/sglang/e00930c5489053f26d86b179cee0d087f846acbb/python/sglang/srt/layers/attention/flashinfer_backend.py) | 2026-10-16 |
+| FP8S-S-FP4CONTRACT | [SGLang v0.5.21 KV cache quantization access contracts](https://raw.githubusercontent.com/sgl-project/sglang/e00930c5489053f26d86b179cee0d087f846acbb/python/sglang/srt/layers/quantization/fp4_kv_cache_quant_method.py) | 2026-10-16 |
+| FP8S-S-KVCFG | [SGLang v0.5.21 Static pool memory budget](https://raw.githubusercontent.com/sgl-project/sglang/e00930c5489053f26d86b179cee0d087f846acbb/python/sglang/srt/mem_cache/kv_cache_configurator.py) | 2026-10-16 |
+| FP8S-S-MHA | [SGLang v0.5.21 TRTLLM MHA backend constraints](https://raw.githubusercontent.com/sgl-project/sglang/e00930c5489053f26d86b179cee0d087f846acbb/python/sglang/srt/layers/attention/trtllm_mha_backend.py) | 2026-10-16 |
+| FP8S-S-MODEL | [SGLang v0.5.21 Model/cache precision fields](https://raw.githubusercontent.com/sgl-project/sglang/e00930c5489053f26d86b179cee0d087f846acbb/python/sglang/srt/arg_groups/fields/model.py) | 2026-10-16 |
+| FP8S-S-POOL | [SGLang v0.5.21 Cache pool reader/writer contract](https://raw.githubusercontent.com/sgl-project/sglang/e00930c5489053f26d86b179cee0d087f846acbb/python/sglang/srt/mem_cache/memory_pool.py) | 2026-10-16 |
+| FP8S-S-RADIX | [SGLang v0.5.21 Radix key page alignment](https://raw.githubusercontent.com/sgl-project/sglang/e00930c5489053f26d86b179cee0d087f846acbb/python/sglang/srt/mem_cache/radix_cache.py) | 2026-10-16 |
+| FP8S-S-SPEC | [SGLang v0.5.21 Speculative attention field defaults](https://raw.githubusercontent.com/sgl-project/sglang/e00930c5489053f26d86b179cee0d087f846acbb/python/sglang/srt/arg_groups/fields/spec.py) | 2026-10-16 |
+| FP8S-S-UNIFIED | [SGLang v0.5.21 Unified radix page alignment](https://raw.githubusercontent.com/sgl-project/sglang/e00930c5489053f26d86b179cee0d087f846acbb/python/sglang/srt/mem_cache/unified_radix_cache.py) | 2026-10-16 |
+| FP8V-S-FORK-SM90 | [vLLM pinned FA4 Hopper FP8-cache dequantization kernel](https://raw.githubusercontent.com/vllm-project/flash-attention/9cd61de38763d712bb6ce56e2a02cc2bf718c89f/flash_attn/cute/flash_fwd_sm90.py) | 2026-10-16 |

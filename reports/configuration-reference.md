@@ -52,3 +52,7 @@ Each reference is untested on the target node. Read the current family serving p
 - Newly identified NVIDIA GLM, DeepSeek NVFP4 and separate assistant/draft artifacts remain separate observations in the [upstream identities](../evidence/upstreams.lock.json), with details in their family pages.
 
 See [optimization reasoning](optimization.md), [framework selection](../frameworks/DECISION.md), and [the supplied-report corrections](report-review.md).
+
+## Applying the FP8/FA4 findings
+
+The newly supplied generic commands are not added as production configurations. Use the source-reviewed controls in the [vLLM](../frameworks/vllm/SOURCE_REVIEW.md) and [SGLang](../frameworks/sglang/SOURCE_REVIEW.md) pages: vLLM's field is `flash_attn_version`, an ordinary FA4 override does not select DeepSeek DSA, and SGLang's cache/page/phase restrictions must be resolved together. An FP8 checkpoint, FP8 cache and native FP8 attention are separate configuration choices. The historical catalog above remains tied to its own inspected sources; the new findings do not certify those references against a newer binary.
