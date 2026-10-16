@@ -4,13 +4,13 @@
 
 GLM 5.3 is the text-oriented sparse-MLA member of this pair. It should not inherit GLM 5.3 Flash’s KDA, vision, or mHC assumptions merely because their names share a version number. [glm-5.3-CARD](https://huggingface.co/zai-org/GLM-5.3/raw/ba32f8c19c8738e2c57c71798c601d477a7bf844/README.md) [glm-5.3-CFG](https://huggingface.co/zai-org/GLM-5.3/raw/ba32f8c19c8738e2c57c71798c601d477a7bf844/config.json)
 
-**First serving candidate:** vLLM FP8 and RedHat/Inferact NVFP4 first; SGLang challenger. This is a reasoned deployment starting point, not a measured winner on your hardware.
+**First serving candidate:** vLLM FP8 and RedHat/Inferact NVFP4 first; SGLang challenger. This is an unbenchmarked candidate for the target B300 node; relative performance remains workload-dependent.
 
 [Architecture](architecture.md) · [Precision and variants](precision.md) · [Serving decisions](serving.md) · [Sources](sources.md) · [Model catalog](../../../catalog/models.json)
 
-## The mental model
+## Architecture and serving implications
 
-A specialist library first compresses its catalog entries, then uses a fast librarian to choose the relevant shelves. Reading only selected shelves saves retrieval work; it does not mean the other books can be removed from storage.
+MLA compresses attention-history representations; DSA selects entries for attention computation. These mechanisms have different effects on storage and execution. The sparse indexer, routed/shared experts and MTP require separate precision and memory accounting. See [architecture and index reuse](architecture.md), [export differences](precision.md) and [serving tradeoffs](serving.md).
 
 ## Practical identity
 

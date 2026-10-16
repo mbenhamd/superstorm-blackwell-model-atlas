@@ -103,7 +103,7 @@ For how attention consumes the resulting activations and history, continue with 
 
 Weight precision changes model operations. KV precision changes stored attention history. Recurrent-state precision changes an additional state representation. Test these separately: baseline weights + baseline cache; low-precision weights + unchanged cache; then lower-precision cache/state. Otherwise an accuracy difference cannot be assigned to its cause.
 
-The SGLang Qwen recipe gives a concrete metadata trap: some derivative exports default `auto` KV to FP8, whereas NVIDIA’s export leaves it BF16 without an explicit setting. Matching command text with `auto` therefore does not necessarily match effective precision. [qwen3.8-27b-GR](https://docs.sglang.io/cookbook/autoregressive/Qwen/Qwen3.8-27B)
+The SGLang Qwen recipe identifies an exporter-dependent default: some derivative exports default `auto` KV to FP8, whereas NVIDIA’s export leaves it BF16 without an explicit setting. Matching command text with `auto` therefore does not necessarily match effective precision. [qwen3.8-27b-GR](https://docs.sglang.io/cookbook/autoregressive/Qwen/Qwen3.8-27B)
 
 “Always use FP8 cache/indexers and never FP4” is not a supported rule across these architectures. The inspected vLLM release exposes distinct ordinary FP8, NVFP4 and model-specific compressed-cache formats; the reader, scale layout and model determine which is valid. A main-KV flag does not also configure a sparse indexer or recurrent state. QSA's indexer setting has its own restricted contract, and a supported four-bit main-cache path does not imply four-bit top-k indexing. Conversely, a hypothetical lower-precision indexer cannot be declared corrupt without an implementation and quality evidence. [TOPR-V-CACHE](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/config/cache.py), [Qwen sparse-state details](../companies/alibaba-qwen/qwen3.8-flash-next/serving.md).
 
@@ -127,7 +127,7 @@ This follows by summing each expert's probability of being chosen at least once.
 
 Neither “NVFP4 loses less than 1%” nor “FP8 varies less than 0.3%” is a property of the format. Retain the exact exporter, task, baseline and absolute-versus-relative score convention with any such observation. The [Gemma variants](../companies/google/gemma-4-31b-it/precision.md) and [Kimi mixed export](../companies/moonshot-ai/kimi-k3/precision.md) illustrate why precision labels alone do not establish those quality or speed bounds.
 
-The decision metric is successful, quality-accepted work under a latency objective. A faster kernel with a regression in tool arguments or retrieval is not a production improvement. Publisher results can establish plausibility, but they do not certify your prompts, image distribution, sampling settings or software bill of materials.
+The decision metric is successful, quality-accepted work under a latency objective. A faster kernel with a regression in tool arguments or retrieval is not a production improvement. Publisher results can establish plausibility, but they do not establish quality or performance for a different prompt/image distribution, sampling configuration or software dependency set.
 
 ## Calibration and quality gates
 

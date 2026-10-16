@@ -4,13 +4,13 @@
 
 The July 31 checkpoint is the target of this report. Do not silently substitute the preview, the unsuffixed repository, or another release when resolving a launch command. [deepseek-v4-flash-0731-CARD](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/blob/7872f01b1d1fe23eabc4c98b48bffcef5a386062/README.md) [deepseek-v4-flash-0731-CFG](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/raw/7872f01b1d1fe23eabc4c98b48bffcef5a386062/config.json)
 
-**First serving candidate:** vLLM TP1/DP4+EP baseline and SGLang documented TP4 comparator; qualify eight-GPU adaptations. This is a reasoned deployment starting point, not a measured winner on your hardware.
+**First serving candidate:** vLLM TP1/DP4+EP baseline and SGLang documented TP4 comparator; qualify eight-GPU adaptations. This is an unbenchmarked candidate for the target B300 node; relative performance remains workload-dependent.
 
 [Architecture](architecture.md) · [Precision and variants](precision.md) · [Serving decisions](serving.md) · [Sources](sources.md) · [Model catalog](../../../catalog/models.json)
 
-## The mental model
+## Architecture and serving implications
 
-The archive keeps the most recent pages nearby, condensed summaries of older pages, and an index that chooses what to reopen. A writing assistant can suggest a phrase, but the main author checks it using the same archive and state.
+Attention combines recent-window state with compressed, selected history. Routed experts and mHC add model-specific execution requirements; bundled DSpark introduces proposal and verification state. Cache sizing and speculative integration must follow the exact July-31 checkpoint and engine path. See [architecture](architecture.md) and [serving constraints](serving.md).
 
 ## Practical identity
 

@@ -8,9 +8,9 @@ This is the small dense baseline in the requested set. Its architecture class st
 
 [Architecture](architecture.md) · [Precision and variants](precision.md) · [Serving decisions](serving.md) · [Sources](sources.md) · [Model catalog](../../../catalog/models.json)
 
-## The mental model
+## Architecture and serving implications
 
-A compact editor updates a notebook for several steps and then rereads the detailed conversation. There is one full editing team rather than a large directory of specialists. Eight copies of that editor may serve a queue better than forcing eight people to cooperate on every word.
+Dense feed-forward blocks accompany a repeated Gated DeltaNet/full-attention pattern. Recurrent and convolution state coexist with token-history KV. Capacity analysis must account for both state types; TP1 replication and wider TP remain workload-dependent comparisons. See [architecture and state layout](architecture.md) and [serving tradeoffs](serving.md).
 
 ## Practical identity
 

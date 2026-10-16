@@ -4,13 +4,13 @@
 
 Flash is a different multimodal hybrid base, not merely a faster decoding option for GLM 5.3. Its combined recurrent-state and sparse-attention behavior creates different allocation and correctness requirements. [glm-5.3-flash-CARD](https://huggingface.co/zai-org/GLM-5.3-Flash/raw/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/README.md) [glm-5.3-flash-CFG](https://huggingface.co/zai-org/GLM-5.3-Flash/raw/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/config.json)
 
-**First serving candidate:** SGLang Blackwell FP8 initial candidate; vLLM FP8 and NVFP4 head-to-head. This is a reasoned deployment starting point, not a measured winner on your hardware.
+**First serving candidate:** SGLang Blackwell FP8 initial candidate; vLLM FP8 and NVFP4 head-to-head. This is an unbenchmarked candidate for the target B300 node; relative performance remains workload-dependent.
 
 [Architecture](architecture.md) · [Precision and variants](precision.md) · [Serving decisions](serving.md) · [Sources](sources.md) · [Model catalog](../../../catalog/models.json)
 
-## The mental model
+## Architecture and serving implications
 
-Imagine a team using a short running notebook, occasional archive lookups and four coordinated whiteboards. The whiteboards make collaboration richer, but moving their contents correctly matters as much as moving the archive records.
+KDA layers maintain recurrent state, NoPE sparse-MLA layers retrieve selected history, and mHC mixes multiple residual streams. Serving must preserve those transformations and account separately for recurrent, attention, multimodal and speculative state. See [architecture](architecture.md), [mixed precision](precision.md) and [serving constraints](serving.md).
 
 ## Practical identity
 

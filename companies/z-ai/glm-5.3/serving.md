@@ -1,6 +1,6 @@
 # GLM 5.3: serving on 8×B300
 
-**Status: unbenchmarked local recommendations.** The upstream recipes are evidence of documented support, not a benchmark of your node.
+**Status: unbenchmarked local recommendations.** The upstream recipes are evidence of documented support, not a benchmark of the target B300 node.
 
 ## Engine and topology
 

@@ -1,10 +1,10 @@
 # Superstorm · Blackwell model atlas
 
-Deep understanding of eight model families on one **8×NVIDIA B300** node: architecture, memory, precision, inference engines and optimization tradeoffs.
+Technical reference for eight model families on one **8×NVIDIA B300** node: architecture, memory, precision, inference engines and optimization tradeoffs, with dated sources and explicit applicability limits.
 
 **Infrastructure requirement: KServe is mandatory.** All deployment guidance assumes the existing KServe platform, with vLLM or SGLang providing inference.
 
-Start with [START_HERE](START_HERE.md), then [compare the models](reports/comparison.md). [LIMITATIONS](LIMITATIONS.md) distinguishes known facts, publisher claims and unresolved questions. Research refreshed **October 16, 2026 UTC**.
+The [retrieval map and analysis procedure](START_HERE.md) connects model reports, catalogs, implementation reviews and source identities. [LIMITATIONS](LIMITATIONS.md) distinguishes known facts, publisher claims and unresolved questions. Research refreshed **October 16, 2026 UTC**.
 
 ## Hardware → model → precision → engine
 

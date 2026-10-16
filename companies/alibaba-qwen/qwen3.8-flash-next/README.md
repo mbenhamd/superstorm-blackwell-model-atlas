@@ -8,9 +8,9 @@ Flash Next advertises the main model, n-gram table and MTP module separately. Th
 
 [Architecture](architecture.md) · [Precision and variants](precision.md) · [Serving decisions](serving.md) · [Sources](sources.md) · [Model catalog](../../../catalog/models.json)
 
-## The mental model
+## Architecture and serving implications
 
-A specialist team uses a very large phrasebook in addition to its expert knowledge. The phrasebook takes up shelf space even when only a few experts work on each word. The assistant’s edition of the phrasebook and the main editor’s edition must agree.
+The backbone combines Gated DeltaNet, Qwen Sparse Attention and MoE layers with a separate n-gram/PLE lookup component. The table, experts, recurrent state, sparse history and MTP have different precision and placement requirements. Active-expert counts alone cannot establish residency or latency. See [architecture and component accounting](architecture.md), [precision](precision.md) and [serving tradeoffs](serving.md).
 
 ## Practical identity
 

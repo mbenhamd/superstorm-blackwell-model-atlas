@@ -24,7 +24,7 @@ RedHat publishes selected reasoning benchmark scores but no paired FP8 table in 
 
 SGLang's CUDA recipe pairs Blackwell FP8 KV with TRT-LLM DSA, or BF16 KV with TileLang DSA. Change the dtype and both DSA backends together; the cookbook says CUDA TileLang DSA plus FP8 KV is not a valid pairing for this model. Verify the exact image because this is a documented path, not a local execution result. [glm-5.3-flash-GR](https://docs.sglang.io/cookbook/autoregressive/GLM/GLM-5.3-Flash)
 
-Pin the model, tokenizer/processor, config and engine/container revisions together. Establish target-only quality before comparing quantized KV or speculation. A root BF16 `dtype` does not mean every stored tensor is BF16, and casting quantized weights does not recover the original reference. See the [precision primer](../../../reports/precision-and-kernels.md).
+Pin the model, tokenizer/processor, config and engine/container revisions together. Establish target-only quality before comparing quantized KV or speculation. A root BF16 `dtype` does not mean every stored tensor is BF16, and casting quantized weights does not recover the original reference. See the [precision analysis](../../../reports/precision-and-kernels.md).
 
 ## License provenance
 

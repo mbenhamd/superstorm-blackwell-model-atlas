@@ -27,7 +27,7 @@ NVIDIA describes an MXFP4-to-NVFP4 weight cast plus calibrated activation ranges
 
 Pin the model and tokenizer revisions, quantization configuration, runtime commit and image digest together. Root BF16 metadata can coexist with quantized weights. Inspect serialized tensors, scales, excluded modules, activation precision and runtime repacking. Casting a quantized checkpoint to BF16 does not reconstruct an original BF16 reference.
 
-Compare target-only quality before changing cache precision or enabling DSpark. The [precision primer](../../../reports/precision-and-kernels.md) explains the formats, and the [serving report](serving.md) keeps publisher recipes separate from local experiments.
+Compare target-only quality before changing cache precision or enabling DSpark. The [precision analysis](../../../reports/precision-and-kernels.md) explains the formats, and the [serving report](serving.md) keeps publisher recipes separate from local experiments.
 
 ## License provenance
 

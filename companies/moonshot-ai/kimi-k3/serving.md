@@ -18,7 +18,7 @@ The claim that K3 has no documented DSpark or DFlash pair is incorrect. The base
 
 These are documented family pairings, not locally verified target/draft/build tuples. DFlash's card reports generic training data without tools or agent traces; that makes tool-heavy acceptance an open question. The cookbook limits its DFlash recipes to Blackwell without pipeline parallelism or DP attention. Its native-K3 example does not establish equal behavior on NVIDIA's different export. [Inferact config](https://huggingface.co/Inferact/Kimi-K3-DSpark/raw/cf6b8244620e7ea4b0651d214f28e89eac75bed6/config.json), [RadixArk config](https://huggingface.co/RadixArk/Kimi-K3-DSpark/raw/3c5bac301d9cf392706189d82ed947feca6c2f0f/config.json), [DFlash card](https://huggingface.co/modal-labs/Kimi-K3-DFlash/raw/c192d15a43407bf758b5ae0880d5c72052fef1de/README.md), [DFlash config](https://huggingface.co/modal-labs/Kimi-K3-DFlash/raw/c192d15a43407bf758b5ae0880d5c72052fef1de/config.json).
 
-Compare separate target-only and DSpark runs with natural acceptance. The SGLang cookbook marks some B300 rows as verified and other layouts as extrapolations; its simulated-acceptance results are capacity/performance experiments, not observed application acceptance. The published Inferact peak figure is not a measurement of your eight-B300 node, and its written hardware count and TP degree need clarification; see the [DSpark audit](dspark.md).
+Compare separate target-only and DSpark runs with natural acceptance. The SGLang cookbook marks some B300 rows as verified and other layouts as extrapolations; its simulated-acceptance results are capacity/performance experiments, not observed application acceptance. The published Inferact peak figure is not a measurement of the target eight-B300 node, and its written hardware count and TP degree need clarification; see the [DSpark audit](dspark.md).
 
 [kimi-k3-VR](https://recipes.vllm.ai/moonshotai/Kimi-K3) [kimi-k3-GR](https://docs.sglang.io/cookbook/autoregressive/Moonshotai/Kimi-K3) [kimi-k3-CARD](https://huggingface.co/moonshotai/Kimi-K3/blob/f831ab66814297da540d832a5235f8e904f29d06/README.md) [HW](https://docs.nvidia.com/dgx/dgxb300-user-guide/introduction-to-dgxb300.html)
 
@@ -56,4 +56,4 @@ For any external experiment, record the actual GPU memory, topology, model/draft
 
 ## Remaining uncertainty
 
-Exact B300 SXM6-AC OEM topology; all-FP8 artifact availability; exact installed-image ancestry of mixed-format fixes; maximum safe long-context concurrency; native-versus-NVFP4 quality on your tools and languages; actual DSpark acceptance on your workload.
+Exact B300 SXM6-AC OEM topology; all-FP8 artifact availability; exact installed-image ancestry of mixed-format fixes; maximum safe long-context concurrency; native-versus-NVFP4 quality for the target tool/language distribution; actual DSpark acceptance for the target workload.

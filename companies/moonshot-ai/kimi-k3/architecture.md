@@ -10,7 +10,7 @@ Text / vision features → KDA or gated MLA → attention-residual mixing → de
 
 The text backbone alternates frequent Kimi Delta Attention (KDA) updates with periodic gated multi-head latent attention (MLA). KDA carries a recurrent summary forward; the MLA layers retain access to token history through compressed attention representations. This combination makes the model neither ordinary full attention everywhere nor a constant-memory model everywhere. A long conversation still consumes token-cache memory in the MLA layers.
 
-The feed-forward path is a latent mixture of experts. Routing selects specialists, but the specialist computation is represented in a narrower latent space rather than treating every expert as a full-width dense feed-forward network. The dense prefix, shared experts, routers, normalization, and residual machinery still perform work. The number of selected experts therefore does not by itself determine end-to-end FLOPs or latency.
+The feed-forward path is a latent mixture of experts. Routing selects experts whose computation uses a narrower latent space rather than treating every expert as a full-width dense feed-forward network. The dense prefix, shared experts, routers, normalization, and residual machinery still perform work. The number of selected experts therefore does not by itself determine end-to-end FLOPs or latency.
 
 The configuration also exposes block attention-residual organization. Do not substitute a plain residual-add implementation simply because tensor shapes happen to agree. Likewise, SiTU is not interchangeable with a default SwiGLU activation: the checkpoint-dependent activation and scaling must survive expert dispatch, quantization, fusion, and reduction.
 
@@ -72,6 +72,6 @@ The numeric examples are calculations from stated dimensions and assumptions, no
 
 ## What this report does not establish
 
-Exact B300 SXM6-AC OEM topology; all-FP8 artifact availability; exact installed-image ancestry of mixed-format fixes; maximum safe long-context concurrency; native-versus-NVFP4 quality on your tools and languages; actual DSpark acceptance on your workload.
+Exact B300 SXM6-AC OEM topology; all-FP8 artifact availability; exact installed-image ancestry of mixed-format fixes; maximum safe long-context concurrency; native-versus-NVFP4 quality for the target tool/language distribution; actual DSpark acceptance for the target workload.
 
 The public artifacts do not disclose every training-data, optimization or implementation detail. This report does not fill missing details with assumptions or present a complete formal reconstruction of private training.

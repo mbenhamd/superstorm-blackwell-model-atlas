@@ -33,7 +33,7 @@ Keep the weight format and kernel backend as separate choices. The vLLM FP8 reci
 
 Pin the model, tokenizer/processor, quantization config, engine commit and container digest together. A BF16 root `dtype` can coexist with quantized tensors. Serialized tensor types, scales, grouping, exclusions, activation precision and loader repacking jointly determine the execution contract. Casting an FP8 checkpoint to BF16 does not recover the original BF16 weights.
 
-Establish target-only quality before adding lower-precision KV or speculation. [Precision primer](../../../reports/precision-and-kernels.md) explains the format distinctions.
+Establish target-only quality before adding lower-precision KV or speculation. [Precision analysis](../../../reports/precision-and-kernels.md) explains the format distinctions.
 
 ## License provenance
 

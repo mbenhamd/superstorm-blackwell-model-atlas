@@ -6,15 +6,15 @@ The 31B instruction-tuned variant is dense. Its configuration explicitly disable
 
 The publisher's rounded component counts are 30.7B for the text model, about 550M for vision and about 500M for a separate drafter. Dense describes the text layers' computation; it does not mean every stored parameter, including vision, is used for every generated token. [TOPM-GEMMA-PAPER](https://arxiv.org/html/2607.02770v2#S1.T1)
 
-**First serving candidate:** vLLM TP1 BF16/FP8/NVFP4 comparison; SGLang challenger with export-level probe. This is a reasoned deployment starting point, not a measured winner on your hardware.
+**First serving candidate:** vLLM TP1 BF16/FP8/NVFP4 comparison; SGLang challenger with export-level probe. This is an unbenchmarked candidate for the target B300 node; relative performance remains workload-dependent.
 
 The existing Red Hat exports remain the comparison references. [Precision](precision.md) now also distinguishes NVIDIA's ModelOpt export, Unsloth's mixed FP8/NVFP4 export and LilaRest's text-only Turbo export. Turbo's 18.5 GiB and throughput figures describe its publisher's RTX PRO 6000 experiment; they do not establish B300 memory or performance. [Serving](serving.md) explains why the matching assistant, quantization format and attention backend must be qualified together.
 
 [Architecture](architecture.md) · [Precision and variants](precision.md) · [Serving decisions](serving.md) · [Sources](sources.md) · [Model catalog](../../../catalog/models.json)
 
-## The mental model
+## Architecture and serving implications
 
-An editor reads the nearby paragraph most of the time and periodically scans the entire manuscript. The same dictionary serves both reading and writing. A label on a shared control panel does not mean this particular machine has a microphone attached.
+Dense feed-forward blocks accompany interleaved local and global attention layers with different cache geometry. Input embeddings and the output head share weights; vision capability and the separate assistant require variant-specific accounting. Shared family token identifiers do not establish an audio encoder in this checkpoint. See [architecture and assistant integration](architecture.md), [export differences](precision.md) and [backend constraints](serving.md).
 
 ## Practical identity
 

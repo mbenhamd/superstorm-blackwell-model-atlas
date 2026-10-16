@@ -41,7 +41,7 @@ NVIDIA reports GPQA Diamond **93.21% native versus 92.77% mixed export**, a **0.
 
 Pin the target and tokenizer/processor revisions, quantization configuration, runtime commit, compatibility patch where used, and image digest together. Root BF16 metadata can coexist with quantized weights. Check serialized tensor types, scales, grouping, excluded modules, activation precision and runtime repacking; casting this checkpoint to BF16 does not reconstruct an original BF16 reference.
 
-Compare target-only quality before changing KV precision or enabling speculation. The [precision primer](../../../reports/precision-and-kernels.md) explains the formats; the [serving report](serving.md) describes the comparisons still needed.
+Compare target-only quality before changing KV precision or enabling speculation. The [precision analysis](../../../reports/precision-and-kernels.md) explains the formats; the [serving report](serving.md) describes the comparisons still needed.
 
 ## License provenance
 
