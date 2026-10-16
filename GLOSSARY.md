@@ -1,6 +1,6 @@
 # Glossary: meaning, purpose and analogy
 
-Use the analogies to build intuition, not as exact mathematics. Architecture-specific terms link back to the company reports; numeric and kernel claims are sourced in [the evidence register](evidence/SOURCES.md), [precision report](reports/precision-and-kernels.md) and [framework reviews](frameworks/DECISION.md). Unverified expansions are explicitly left as project/configuration names.
+Use the analogies to build intuition, not as exact mathematics. Architecture-specific terms link back to the company reports; numeric and kernel claims are sourced in [the evidence register](evidence/sources.json), [precision report](reports/precision-and-kernels.md) and [framework reviews](frameworks/DECISION.md). Unverified expansions are explicitly left as project/configuration names.
 
 ## Token
 

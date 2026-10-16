@@ -1,6 +1,14 @@
 # Primary evidence
 
-[Sources](SOURCES.md) is the readable index; [sources.json](sources.json) retains retrieval dates and response identities. [upstreams.lock.json](upstreams.lock.json) records releases, selected source commits, main/nightly observations, model revisions and additional candidate artifacts.
+[sources.json](sources.json) is the source registry, keyed by source ID under `sources`. Each entry contains its URL, title, retrieval dates and evidence metadata. Catalogs and reports refer to these stable IDs. [upstreams.lock.json](upstreams.lock.json) records releases, selected source commits, main/nightly observations, model revisions and additional candidate artifacts.
+
+Look up a source URL from the repository root:
+
+```bash
+jq -r '.sources["HW"].url' evidence/sources.json
+```
+
+Add or update the entry under its existing ID. Preserve original retrieval metadata and record later checks separately; keep the registry in this single JSON file.
 
 | Label | Meaning |
 | --- | --- |
