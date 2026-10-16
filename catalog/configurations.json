@@ -38,10 +38,8 @@
     "model_revision": "f831ab66814297da540d832a5235f8e904f29d06",
     "draft_hf_id": null,
     "draft_revision": null,
-    "requires_reviewed_remote_code": true,
     "tested_on_target": false,
-    "requires_image_compatibility_check": true,
-    "notes": "A starting experiment, not a measured optimum. Local execution requires immutable preloaded model metadata, an installed compatible engine and explicit acknowledgement."
+    "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository."
   },
   {
     "id": "kimi-k3.native.vllm.baseline",
@@ -83,10 +81,8 @@
     "model_revision": "f831ab66814297da540d832a5235f8e904f29d06",
     "draft_hf_id": null,
     "draft_revision": null,
-    "requires_reviewed_remote_code": true,
     "tested_on_target": false,
-    "requires_image_compatibility_check": true,
-    "notes": "A starting experiment, not a measured optimum. Local execution requires immutable preloaded model metadata, an installed compatible engine and explicit acknowledgement."
+    "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository."
   },
   {
     "id": "kimi-k3.nvfp4.sglang.baseline",
@@ -129,10 +125,8 @@
     "model_revision": "b2428a0b83a8b712ff2e1a8448a103d4175341f1",
     "draft_hf_id": null,
     "draft_revision": null,
-    "requires_reviewed_remote_code": true,
     "tested_on_target": false,
-    "requires_image_compatibility_check": true,
-    "notes": "A starting experiment, not a measured optimum. Local execution requires immutable preloaded model metadata, an installed compatible engine and explicit acknowledgement."
+    "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository."
   },
   {
     "id": "kimi-k3.nvfp4.vllm.baseline",
@@ -169,10 +163,8 @@
     "model_revision": "b2428a0b83a8b712ff2e1a8448a103d4175341f1",
     "draft_hf_id": null,
     "draft_revision": null,
-    "requires_reviewed_remote_code": true,
     "tested_on_target": false,
-    "requires_image_compatibility_check": true,
-    "notes": "A starting experiment, not a measured optimum. Local execution requires immutable preloaded model metadata, an installed compatible engine and explicit acknowledgement."
+    "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository."
   },
   {
     "id": "kimi-k3.nvfp4.sglang.dspark",
@@ -224,10 +216,8 @@
     "model_revision": "b2428a0b83a8b712ff2e1a8448a103d4175341f1",
     "draft_hf_id": "RadixArk/Kimi-K3-DSpark",
     "draft_revision": "3c5bac301d9cf392706189d82ed947feca6c2f0f",
-    "requires_reviewed_remote_code": true,
     "tested_on_target": false,
-    "requires_image_compatibility_check": true,
-    "notes": "A starting experiment, not a measured optimum. Local execution requires immutable preloaded model metadata, an installed compatible engine and explicit acknowledgement."
+    "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository."
   },
   {
     "id": "glm-5.3.fp8.vllm.baseline",
@@ -271,10 +261,8 @@
     "model_revision": "ba32f8c19c8738e2c57c71798c601d477a7bf844",
     "draft_hf_id": null,
     "draft_revision": null,
-    "requires_reviewed_remote_code": false,
     "tested_on_target": false,
-    "requires_image_compatibility_check": true,
-    "notes": "A starting experiment, not a measured optimum. Local execution requires immutable preloaded model metadata, an installed compatible engine and explicit acknowledgement."
+    "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository."
   },
   {
     "id": "glm-5.3.nvfp4.vllm.baseline",
@@ -316,10 +304,8 @@
     "model_revision": "c8917e4258572c405575855ff53effe58c17a38e",
     "draft_hf_id": null,
     "draft_revision": null,
-    "requires_reviewed_remote_code": false,
     "tested_on_target": false,
-    "requires_image_compatibility_check": true,
-    "notes": "A starting experiment, not a measured optimum. Local execution requires immutable preloaded model metadata, an installed compatible engine and explicit acknowledgement. KV dtype is not explicitly set here; the FP8 baseline selects FP8 KV. Record and align effective cache dtype before a controlled weight-precision comparison, or report it as a separate variable."
+    "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository."
   },
   {
     "id": "glm-5.3.fp8.vllm.mtp",
@@ -365,10 +351,8 @@
     "model_revision": "ba32f8c19c8738e2c57c71798c601d477a7bf844",
     "draft_hf_id": null,
     "draft_revision": null,
-    "requires_reviewed_remote_code": false,
     "tested_on_target": false,
-    "requires_image_compatibility_check": true,
-    "notes": "A starting experiment, not a measured optimum. Local execution requires immutable preloaded model metadata, an installed compatible engine and explicit acknowledgement."
+    "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository."
   },
   {
     "id": "glm-5.3.fp8.sglang.baseline",
@@ -409,10 +393,8 @@
     "model_revision": "ba32f8c19c8738e2c57c71798c601d477a7bf844",
     "draft_hf_id": null,
     "draft_revision": null,
-    "requires_reviewed_remote_code": false,
     "tested_on_target": false,
-    "requires_image_compatibility_check": true,
-    "notes": "A starting experiment, not a measured optimum. Local execution requires immutable preloaded model metadata, an installed compatible engine and explicit acknowledgement."
+    "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository."
   },
   {
     "id": "glm-5.3-flash.fp8.sglang.baseline",
@@ -448,10 +430,8 @@
     "model_revision": "46a050bec13002ad29ee795c16e61cf4fa3c4a9c",
     "draft_hf_id": null,
     "draft_revision": null,
-    "requires_reviewed_remote_code": false,
     "tested_on_target": false,
-    "requires_image_compatibility_check": true,
-    "notes": "A starting experiment, not a measured optimum. Local execution requires immutable preloaded model metadata, an installed compatible engine and explicit acknowledgement."
+    "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository."
   },
   {
     "id": "glm-5.3-flash.fp8.sglang.mtp",
@@ -495,10 +475,8 @@
     "model_revision": "46a050bec13002ad29ee795c16e61cf4fa3c4a9c",
     "draft_hf_id": null,
     "draft_revision": null,
-    "requires_reviewed_remote_code": false,
     "tested_on_target": false,
-    "requires_image_compatibility_check": true,
-    "notes": "A starting experiment, not a measured optimum. Local execution requires immutable preloaded model metadata, an installed compatible engine and explicit acknowledgement."
+    "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository."
   },
   {
     "id": "glm-5.3-flash.fp8.vllm.baseline",
@@ -532,10 +510,8 @@
     "model_revision": "46a050bec13002ad29ee795c16e61cf4fa3c4a9c",
     "draft_hf_id": null,
     "draft_revision": null,
-    "requires_reviewed_remote_code": false,
     "tested_on_target": false,
-    "requires_image_compatibility_check": true,
-    "notes": "A starting experiment, not a measured optimum. Local execution requires immutable preloaded model metadata, an installed compatible engine and explicit acknowledgement."
+    "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository."
   },
   {
     "id": "glm-5.3-flash.nvfp4.vllm.baseline",
@@ -571,10 +547,8 @@
     "model_revision": "18d55bfd5a2194887738da73753975c9d3842f46",
     "draft_hf_id": null,
     "draft_revision": null,
-    "requires_reviewed_remote_code": false,
     "tested_on_target": false,
-    "requires_image_compatibility_check": true,
-    "notes": "A starting experiment, not a measured optimum. Local execution requires immutable preloaded model metadata, an installed compatible engine and explicit acknowledgement."
+    "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository."
   },
   {
     "id": "deepseek-v4-flash-0731.native.vllm.ep4",
@@ -624,10 +598,8 @@
     "model_revision": "7872f01b1d1fe23eabc4c98b48bffcef5a386062",
     "draft_hf_id": null,
     "draft_revision": null,
-    "requires_reviewed_remote_code": false,
     "tested_on_target": false,
-    "requires_image_compatibility_check": true,
-    "notes": "A starting experiment, not a measured optimum. Local execution requires immutable preloaded model metadata, an installed compatible engine and explicit acknowledgement."
+    "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository."
   },
   {
     "id": "deepseek-v4-flash-0731.native.vllm.ep8",
@@ -677,10 +649,8 @@
     "model_revision": "7872f01b1d1fe23eabc4c98b48bffcef5a386062",
     "draft_hf_id": null,
     "draft_revision": null,
-    "requires_reviewed_remote_code": false,
     "tested_on_target": false,
-    "requires_image_compatibility_check": true,
-    "notes": "A starting experiment, not a measured optimum. Local execution requires immutable preloaded model metadata, an installed compatible engine and explicit acknowledgement."
+    "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository."
   },
   {
     "id": "deepseek-v4-flash-0731.native.vllm.dspark",
@@ -732,10 +702,8 @@
     "model_revision": "7872f01b1d1fe23eabc4c98b48bffcef5a386062",
     "draft_hf_id": null,
     "draft_revision": null,
-    "requires_reviewed_remote_code": false,
     "tested_on_target": false,
-    "requires_image_compatibility_check": true,
-    "notes": "A starting experiment, not a measured optimum. Local execution requires immutable preloaded model metadata, an installed compatible engine and explicit acknowledgement."
+    "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository."
   },
   {
     "id": "deepseek-v4-flash-0731.native.sglang.baseline",
@@ -769,10 +737,8 @@
     "model_revision": "7872f01b1d1fe23eabc4c98b48bffcef5a386062",
     "draft_hf_id": null,
     "draft_revision": null,
-    "requires_reviewed_remote_code": false,
     "tested_on_target": false,
-    "requires_image_compatibility_check": true,
-    "notes": "A starting experiment, not a measured optimum. Local execution requires immutable preloaded model metadata, an installed compatible engine and explicit acknowledgement."
+    "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository."
   },
   {
     "id": "qwen3.8-27b.bf16.vllm.baseline",
@@ -810,10 +776,8 @@
     "model_revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
     "draft_hf_id": null,
     "draft_revision": null,
-    "requires_reviewed_remote_code": false,
     "tested_on_target": false,
-    "requires_image_compatibility_check": true,
-    "notes": "A starting experiment, not a measured optimum. Local execution requires immutable preloaded model metadata, an installed compatible engine and explicit acknowledgement."
+    "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository."
   },
   {
     "id": "qwen3.8-27b.fp8.vllm.baseline",
@@ -851,10 +815,8 @@
     "model_revision": "017b9c7af6b5689d5dd426a76e0bc077eb5ca20a",
     "draft_hf_id": null,
     "draft_revision": null,
-    "requires_reviewed_remote_code": false,
     "tested_on_target": false,
-    "requires_image_compatibility_check": true,
-    "notes": "A starting experiment, not a measured optimum. Local execution requires immutable preloaded model metadata, an installed compatible engine and explicit acknowledgement."
+    "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository."
   },
   {
     "id": "qwen3.8-27b.nvfp4.vllm.baseline",
@@ -892,10 +854,8 @@
     "model_revision": "482ca0f3832238542f8f5295dde86b5f22711d80",
     "draft_hf_id": null,
     "draft_revision": null,
-    "requires_reviewed_remote_code": false,
     "tested_on_target": false,
-    "requires_image_compatibility_check": true,
-    "notes": "A starting experiment, not a measured optimum. Local execution requires immutable preloaded model metadata, an installed compatible engine and explicit acknowledgement."
+    "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository."
   },
   {
     "id": "qwen3.8-27b.bf16.sglang.baseline",
@@ -933,10 +893,8 @@
     "model_revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
     "draft_hf_id": null,
     "draft_revision": null,
-    "requires_reviewed_remote_code": false,
     "tested_on_target": false,
-    "requires_image_compatibility_check": true,
-    "notes": "A starting experiment, not a measured optimum. Local execution requires immutable preloaded model metadata, an installed compatible engine and explicit acknowledgement. BF16 KV is a local controlled-comparison choice; the current SGLang cookbook pins FP8 E4M3 KV. This profile does not reproduce the cookbook measurements."
+    "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository."
   },
   {
     "id": "qwen3.8-27b.fp8.sglang.baseline",
@@ -974,10 +932,8 @@
     "model_revision": "017b9c7af6b5689d5dd426a76e0bc077eb5ca20a",
     "draft_hf_id": null,
     "draft_revision": null,
-    "requires_reviewed_remote_code": false,
     "tested_on_target": false,
-    "requires_image_compatibility_check": true,
-    "notes": "A starting experiment, not a measured optimum. Local execution requires immutable preloaded model metadata, an installed compatible engine and explicit acknowledgement. BF16 KV is a local controlled-comparison choice; the current SGLang cookbook pins FP8 E4M3 KV. This profile does not reproduce the cookbook measurements."
+    "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository."
   },
   {
     "id": "qwen3.8-27b.nvfp4.sglang.baseline",
@@ -1015,10 +971,8 @@
     "model_revision": "482ca0f3832238542f8f5295dde86b5f22711d80",
     "draft_hf_id": null,
     "draft_revision": null,
-    "requires_reviewed_remote_code": false,
     "tested_on_target": false,
-    "requires_image_compatibility_check": true,
-    "notes": "A starting experiment, not a measured optimum. Local execution requires immutable preloaded model metadata, an installed compatible engine and explicit acknowledgement. BF16 KV is a local controlled-comparison choice; the current SGLang cookbook pins FP8 E4M3 KV. This profile does not reproduce the cookbook measurements."
+    "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository."
   },
   {
     "id": "qwen3.8-27b.nvfp4.sglang.mtp",
@@ -1064,10 +1018,8 @@
     "model_revision": "482ca0f3832238542f8f5295dde86b5f22711d80",
     "draft_hf_id": null,
     "draft_revision": null,
-    "requires_reviewed_remote_code": false,
     "tested_on_target": false,
-    "requires_image_compatibility_check": true,
-    "notes": "A starting experiment, not a measured optimum. Local execution requires immutable preloaded model metadata, an installed compatible engine and explicit acknowledgement. BF16 KV is a local controlled-comparison choice; the current SGLang cookbook pins FP8 E4M3 KV. This profile does not reproduce the cookbook measurements."
+    "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository."
   },
   {
     "id": "gemma-4-31b-it.bf16.vllm.baseline",
@@ -1101,10 +1053,8 @@
     "model_revision": "842da3794eaa0b77d5f08bae87a17459d91ff475",
     "draft_hf_id": null,
     "draft_revision": null,
-    "requires_reviewed_remote_code": false,
     "tested_on_target": false,
-    "requires_image_compatibility_check": true,
-    "notes": "A starting experiment, not a measured optimum. Local execution requires immutable preloaded model metadata, an installed compatible engine and explicit acknowledgement."
+    "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository."
   },
   {
     "id": "gemma-4-31b-it.fp8.vllm.baseline",
@@ -1138,10 +1088,8 @@
     "model_revision": "d7242548c457ab4b45bd3adb8937f2659af4739d",
     "draft_hf_id": null,
     "draft_revision": null,
-    "requires_reviewed_remote_code": false,
     "tested_on_target": false,
-    "requires_image_compatibility_check": true,
-    "notes": "A starting experiment, not a measured optimum. Local execution requires immutable preloaded model metadata, an installed compatible engine and explicit acknowledgement."
+    "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository."
   },
   {
     "id": "gemma-4-31b-it.nvfp4.vllm.baseline",
@@ -1175,10 +1123,8 @@
     "model_revision": "5df75ccad9b74546f5be758a2a68acc2e16bbc9b",
     "draft_hf_id": null,
     "draft_revision": null,
-    "requires_reviewed_remote_code": false,
     "tested_on_target": false,
-    "requires_image_compatibility_check": true,
-    "notes": "A starting experiment, not a measured optimum. Local execution requires immutable preloaded model metadata, an installed compatible engine and explicit acknowledgement."
+    "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository."
   },
   {
     "id": "gemma-4-31b-it.nvfp4.sglang.baseline",
@@ -1212,10 +1158,8 @@
     "model_revision": "5df75ccad9b74546f5be758a2a68acc2e16bbc9b",
     "draft_hf_id": null,
     "draft_revision": null,
-    "requires_reviewed_remote_code": false,
     "tested_on_target": false,
-    "requires_image_compatibility_check": true,
-    "notes": "A starting experiment, not a measured optimum. Local execution requires immutable preloaded model metadata, an installed compatible engine and explicit acknowledgement."
+    "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository."
   },
   {
     "id": "mistral-medium-3.5.fp8.vllm.baseline",
@@ -1256,10 +1200,8 @@
     "model_revision": "22b2b868a15677cfa6061277ed2f653d1349a9ab",
     "draft_hf_id": null,
     "draft_revision": null,
-    "requires_reviewed_remote_code": false,
     "tested_on_target": false,
-    "requires_image_compatibility_check": true,
-    "notes": "A starting experiment, not a measured optimum. Local execution requires immutable preloaded model metadata, an installed compatible engine and explicit acknowledgement."
+    "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository."
   },
   {
     "id": "mistral-medium-3.5.fp8.vllm.tp2-probe",
@@ -1293,10 +1235,8 @@
     "model_revision": "22b2b868a15677cfa6061277ed2f653d1349a9ab",
     "draft_hf_id": null,
     "draft_revision": null,
-    "requires_reviewed_remote_code": false,
     "tested_on_target": false,
-    "requires_image_compatibility_check": true,
-    "notes": "A starting experiment, not a measured optimum. Local execution requires immutable preloaded model metadata, an installed compatible engine and explicit acknowledgement."
+    "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository."
   },
   {
     "id": "mistral-medium-3.5.fp8.sglang.baseline",
@@ -1330,10 +1270,8 @@
     "model_revision": "22b2b868a15677cfa6061277ed2f653d1349a9ab",
     "draft_hf_id": null,
     "draft_revision": null,
-    "requires_reviewed_remote_code": false,
     "tested_on_target": false,
-    "requires_image_compatibility_check": true,
-    "notes": "A starting experiment, not a measured optimum. Local execution requires immutable preloaded model metadata, an installed compatible engine and explicit acknowledgement."
+    "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository."
   },
   {
     "id": "qwen3.8-flash-next.nvfp4.vllm.baseline",
@@ -1371,10 +1309,8 @@
     "model_revision": "fc694b54fb0174e0913e6adf86691ef85a4ead47",
     "draft_hf_id": null,
     "draft_revision": null,
-    "requires_reviewed_remote_code": true,
     "tested_on_target": false,
-    "requires_image_compatibility_check": true,
-    "notes": "A starting experiment, not a measured optimum. Local execution requires immutable preloaded model metadata, an installed compatible engine and explicit acknowledgement."
+    "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository."
   },
   {
     "id": "qwen3.8-flash-next.nvfp4.vllm.mtp",
@@ -1416,10 +1352,8 @@
     "model_revision": "fc694b54fb0174e0913e6adf86691ef85a4ead47",
     "draft_hf_id": null,
     "draft_revision": null,
-    "requires_reviewed_remote_code": true,
     "tested_on_target": false,
-    "requires_image_compatibility_check": true,
-    "notes": "A starting experiment, not a measured optimum. Local execution requires immutable preloaded model metadata, an installed compatible engine and explicit acknowledgement."
+    "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository."
   },
   {
     "id": "qwen3.8-flash-next.nvfp4.sglang.baseline",
@@ -1464,9 +1398,7 @@
     "model_revision": "fc694b54fb0174e0913e6adf86691ef85a4ead47",
     "draft_hf_id": null,
     "draft_revision": null,
-    "requires_reviewed_remote_code": true,
     "tested_on_target": false,
-    "requires_image_compatibility_check": true,
-    "notes": "A starting experiment, not a measured optimum. Local execution requires immutable preloaded model metadata, an installed compatible engine and explicit acknowledgement. TP1 and FlashInfer linear-attention/BF16-state flags follow the pinned recipe generator. The 65,536 context cap, 32-request cap and 0.82 memory fraction are local unbenchmarked choices absent from that source cell."
+    "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository."
   }
 ]

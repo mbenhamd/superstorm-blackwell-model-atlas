@@ -60,9 +60,17 @@ Source for the extraction: [qwen3.8-27b-CFG](https://huggingface.co/Qwen/Qwen3.8
 
 A TP1 process is a memory-planning candidate on a 288 GB GPU. Multiplying the publisher's rounded 27B language-model headline by two bytes gives approximately 54 GB (50.3 GiB) at BF16. This is not a checkpoint byte census or a strict lower bound; vision, auxiliary modules and runtime allocations need separate accounting. Compare independent replicas with sharded layouts for total node goodput at the same workload and latency target.
 
+The pinned checkpoint index separately declares `total_size = 55,562,855,904` bytes, or about 51.75 GiB. This is publisher index metadata for the serialized checkpoint, not a tensor-header census or a GPU allocation. It must not replace the runtime accounting for loaded vision/MTP components, caches and workspaces. [RR-QWEN-27-PIN-RESOLVED-INDEX](https://huggingface.co/Qwen/Qwen3.8-27B/resolve/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/model.safetensors.index.json)
+
 For the 16 full-attention layers, conventional unpadded BF16 KV payload is `2 × 16 × 4 × 256 × 262144 × 2` bytes, or 16 GiB per native-length sequence. The recurrent matrix alone is `48 × 48 × 128 × 128 × 4` bytes, or 144 MiB per state slot at FP32. Convolution state, cached snapshots, speculative verification and allocator overhead are additional. Neither calculation measures an engine's complete state pool.
 
 The numeric examples are calculations from stated dimensions and assumptions, not measured allocations. [Memory mathematics](../../../reports/memory-math.md) explains the formulas and their limits. [qwen3.8-27b-CARD](https://huggingface.co/Qwen/Qwen3.8-27B/raw/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/README.md) [qwen3.8-27b-CFG](https://huggingface.co/Qwen/Qwen3.8-27B/raw/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/config.json) [HW](https://docs.nvidia.com/dgx/dgxb300-user-guide/introduction-to-dgxb300.html)
+
+## Revision and conversation format
+
+The October 16 recheck retains base revision `1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0`. The supplied report's `366a23fd246985933964e9d21ac63eb3a93190ab` exists, but its history adds an off-main commit titled `testing`. Its card, config, tokenizer configuration and resolved weight index match the atlas snapshot; its standalone chat template changes `content is string` to `content is tiger_royal`. Matching architecture metadata therefore does not establish an interchangeable serving artifact. [RR-QWEN-27-COMMITS](https://huggingface.co/api/models/Qwen/Qwen3.8-27B/commits/main), [RR-QWEN-27-ALT-COMMITS](https://huggingface.co/api/models/Qwen/Qwen3.8-27B/commits/366a23fd246985933964e9d21ac63eb3a93190ab), [RR-QWEN-27-PIN-CHAT_TEMPLATE](https://huggingface.co/Qwen/Qwen3.8-27B/raw/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/chat_template.jinja), [RR-QWEN-27-ALT-CHAT_TEMPLATE](https://huggingface.co/Qwen/Qwen3.8-27B/raw/366a23fd246985933964e9d21ac63eb3a93190ab/chat_template.jinja).
+
+This difference can affect the normal Hugging Face loading path: Transformers 5.16.0 gives a standalone template precedence over the embedded `tokenizer_config.json` template. The unfamiliar test is a source-level compatibility concern; no template execution or engine failure was observed here. Pin and inspect the resolved template alongside the model and tokenizer. [RR-QWEN-TRANSFORMERS-TOKENIZER](https://raw.githubusercontent.com/huggingface/transformers/v5.16.0/src/transformers/tokenization_utils_base.py)
 
 ## What this report does not establish
 

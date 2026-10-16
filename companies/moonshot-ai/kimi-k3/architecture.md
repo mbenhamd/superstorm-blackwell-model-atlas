@@ -1,5 +1,7 @@
 # Kimi K3: architecture
 
+Fresh report review: **2026-10-16 (UTC)**. The report's base revision `c5d1dd4c428bd1ce8b88c5044f3b6ccde9e3b721` resolves and appears in the publisher's current commit history. Its `config.json` is byte-identical to the retained atlas pin `f831ab66814297da540d832a5235f8e904f29d06`; the card and encoding history have changed. This verifies the listed architecture fields across those snapshots, not equality of every weight or helper file. [Alternate config](https://huggingface.co/moonshotai/Kimi-K3/raw/c5d1dd4c428bd1ce8b88c5044f3b6ccde9e3b721/config.json), [publisher history](https://huggingface.co/api/models/moonshotai/Kimi-K3/commits/main).
+
 ## Data flow
 
 Text / vision features → KDA or gated MLA → attention-residual mixing → dense or latent MoE → repeat → output head; optional DSpark proposes → target verifies → commit accepted state.
@@ -41,6 +43,8 @@ This is a **selected, normalized projection**, not a byte-for-byte copy of the c
 | kda_head_dim | 128 |
 | kda_conv_width | 4 |
 | activation | SiTU / SiTU-GLU |
+| activation_situ_beta / activation_situ_linear_beta | 4.0 / 25.0 |
+| num_nextn_predict_layers | 0 |
 | attn_res_block_size | 12 |
 | max_position_embeddings | 1048576 |
 | vision_encoder | MoonViT-V2 |
@@ -50,11 +54,15 @@ This is a **selected, normalized projection**, not a byte-for-byte copy of the c
 
 Most rows are config extractions; the vision encoder name and 401M count come from the publisher card, and SiTU-GLU is the card’s activation label. The 24 MLA and 69 KDA counts agree with the config’s explicit layer lists.
 
+`num_nextn_predict_layers=0` supports the narrow conclusion that this target config does not declare an attached native next-token prediction stack. It does **not** rule out external speculative decoding. The documented paths use separate Inferact DSpark, RadixArk DSpark or Modal DFlash checkpoints with their own attention, features and verification requirements. These are distinct from a built-in MTP head and from each other. The [serving report](serving.md) identifies the pairs and their evidence boundaries.
+
 Source for the extraction: [kimi-k3-CFG](https://huggingface.co/moonshotai/Kimi-K3/raw/f831ab66814297da540d832a5235f8e904f29d06/config.json). Headline counts, modality descriptions and advertised extended context are additionally drawn from [kimi-k3-CARD](https://huggingface.co/moonshotai/Kimi-K3/blob/f831ab66814297da540d832a5235f8e904f29d06/README.md). A `transformers_version` metadata field is not by itself proof of a minimum compatible package version.
 
 ## Memory and performance consequences
 
 The state pool is a separate concurrency limit from the MLA KV pool. Adding DCP can improve one pool without sharding the recurrent state in the same way. In a head-sharded thought experiment, 69 layers × 96 heads × 128 × 128 FP32 entries is exactly 434,110,464 bytes (414 MiB) of matrix state per sequence before convolution state, speculative snapshots, padding, and implementation-specific sharing. This is an illustrative formula, not an allocator measurement. Divide only by a parallelism dimension that the actual implementation uses to shard those heads.
+
+Attention Residuals also retain intermediate residual streams during a forward pass; those activations and MoE communication buffers are separate from persistent KDA state. SGLang's pool model includes ordinary cache/overlap slots and speculative verification slots. In its DCP path, target MLA token cache is sharded while RadixArk draft KV remains replicated. Thus weight capacity, token-cache capacity and concurrent state slots can each become the limiting resource at a different workload shape. [SGLang K3 pool model](https://docs.sglang.io/cookbook/autoregressive/Moonshotai/Kimi-K3), [v0.5.21 K3 implementation](https://raw.githubusercontent.com/sgl-project/sglang/e00930c5489053f26d86b179cee0d087f846acbb/python/sglang/srt/models/kimi_k3.py).
 
 Using the rounded publisher count, a hypothetical all-FP8 2.8T model needs approximately 2.8 TB (decimal) for idealized weights alone. That does not fit into the advertised 2.304 TB aggregate of eight B300 GPUs. Native MXFP4 and the mixed NVFP4 export change that conclusion, but usable KV and state capacity must still be established after loading and CUDA graph capture.
 

@@ -6,7 +6,7 @@ This is the small dense baseline in the requested set. Its architecture class st
 
 **Serving candidates:** compare vLLM and SGLang TP1 BF16, FP8 and NVIDIA mixed NVFP4. These are deployment experiments; no winner was measured on the target hardware.
 
-[Architecture](architecture.md) · [Precision and variants](precision.md) · [Serving decisions](serving.md) · [Validation](validation.md) · [Sources](sources.md) · [Machine-readable record](model.json)
+[Architecture](architecture.md) · [Precision and variants](precision.md) · [Serving decisions](serving.md) · [Sources](sources.md) · [Model catalog](../../../catalog/models.json)
 
 ## The mental model
 

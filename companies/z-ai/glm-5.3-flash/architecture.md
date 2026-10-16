@@ -14,6 +14,8 @@ The MoE has many more resident experts than each token activates. Its shared pat
 
 The native MTP layer is served through different APIs in the two engines. SGLang’s current recipe uses the EAGLE algorithm spelling for this native MTP path. That does not mean the model is using an unrelated external EAGLE checkpoint.
 
+The public config supplies substantially more detail than an approximate 300B label: 45 main text layers, a separate next-token-prediction layer, a 24-layer vision encoder and the dimensions below. Preserve the official `text_config.linear_attn_config.gate_lower_bound=-5.0` and the enabled pooled-index tail selection. The RedHat derivative and serving guidance also expose the `linear_lower_bound` alias. Changing either changes model behavior; they are not free memory or speed controls. The four mHC streams are internal residual representations, not four requests or replicas. [glm-5.3-flash-CFG](https://huggingface.co/zai-org/GLM-5.3-Flash/raw/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/config.json)
+
 The architecture facts above are drawn from the publisher card and configuration; the workload consequences are analytical interpretation. [glm-5.3-flash-CARD](https://huggingface.co/zai-org/GLM-5.3-Flash/raw/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/README.md) [glm-5.3-flash-CFG](https://huggingface.co/zai-org/GLM-5.3-Flash/raw/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/config.json)
 
 ## Configuration extraction
@@ -63,7 +65,7 @@ This is a **selected, normalized projection**, not a byte-for-byte copy of the c
 | native_precision | FP8 |
 
 
-Source for the extraction, rechecked on 2026-10-15 at `46a050bec13002ad29ee795c16e61cf4fa3c4a9c`: [glm-5.3-flash-CFG](https://huggingface.co/zai-org/GLM-5.3-Flash/raw/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/config.json). Headline counts, modality descriptions and advertised extended context are additionally drawn from [glm-5.3-flash-CARD](https://huggingface.co/zai-org/GLM-5.3-Flash/raw/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/README.md). A `transformers_version` metadata field is not by itself proof of a minimum compatible package version.
+Source for the extraction, rechecked on 2026-10-16 at `46a050bec13002ad29ee795c16e61cf4fa3c4a9c`: [glm-5.3-flash-CFG](https://huggingface.co/zai-org/GLM-5.3-Flash/raw/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/config.json). Headline counts, modality descriptions and advertised extended context are additionally drawn from [glm-5.3-flash-CARD](https://huggingface.co/zai-org/GLM-5.3-Flash/raw/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/README.md). A `transformers_version` metadata field is not by itself proof of a minimum compatible package version.
 
 ## Memory and performance consequences
 
@@ -74,6 +76,8 @@ The official FP8 index reports 328,326,771,576 serialized tensor bytes (328.33 d
 Budget recurrent KDA state and sparse token cache independently. SGLang’s cookbook explicitly warns that its default Mamba-to-full-memory ratio is generic. Too little state capacity caps running requests; too much starves token history. Derive a candidate split from real request lengths and boot-log pool sizes instead of blindly maximizing the ratio.
 
 For a simple state-size illustration, 34 × 64 × 128 × 128 × 4 bytes is 142,606,336 bytes = 136 MiB per sequence for the FP32 state matrices alone, excluding convolution state, MTP state and implementation overhead. This is not the final CUDA allocation and cannot be divided by EP or DCP unless the source path shards that state accordingly.
+
+That calculation is for one logical, unsharded state snapshot. Prefix caching, branching and speculative verification can retain additional snapshots. A rejected draft must restore the KDA matrix and convolution history while discarding the rejected sparse-cache writes; copying only token KV cannot restore this hybrid model. Measure the actual per-rank state pool and token pool before deriving concurrency. [glm-5.3-flash-GR](https://docs.sglang.io/cookbook/autoregressive/GLM/GLM-5.3-Flash)
 
 The numeric examples are calculations from stated dimensions and assumptions, not measured allocations. [Memory mathematics](../../../reports/memory-math.md) explains the formulas and their limits. [glm-5.3-flash-CARD](https://huggingface.co/zai-org/GLM-5.3-Flash/raw/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/README.md) [glm-5.3-flash-CFG](https://huggingface.co/zai-org/GLM-5.3-Flash/raw/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/config.json) [HW](https://docs.nvidia.com/dgx/dgxb300-user-guide/introduction-to-dgxb300.html)
 

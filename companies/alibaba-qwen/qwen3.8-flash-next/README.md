@@ -6,7 +6,7 @@ Flash Next advertises the main model, n-gram table and MTP module separately. Th
 
 **Serving candidates:** vLLM TP8 baseline for the NVIDIA mixed export; SGLang documented TP1 candidate, unverified on B300. These are deployment experiments; no winner was measured on the target hardware.
 
-[Architecture](architecture.md) · [Precision and variants](precision.md) · [Serving decisions](serving.md) · [Validation](validation.md) · [Sources](sources.md) · [Machine-readable record](model.json)
+[Architecture](architecture.md) · [Precision and variants](precision.md) · [Serving decisions](serving.md) · [Sources](sources.md) · [Model catalog](../../../catalog/models.json)
 
 ## The mental model
 

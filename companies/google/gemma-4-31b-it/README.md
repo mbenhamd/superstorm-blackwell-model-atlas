@@ -6,7 +6,7 @@ The 31B instruction-tuned variant is dense. Its configuration explicitly disable
 
 **First serving candidate:** vLLM TP1 BF16/FP8/NVFP4 comparison; SGLang challenger with export-level probe. This is a reasoned deployment starting point, not a measured winner on your hardware.
 
-[Architecture](architecture.md) · [Precision and variants](precision.md) · [Serving decisions](serving.md) · [Validation](validation.md) · [Sources](sources.md) · [Machine-readable record](model.json)
+[Architecture](architecture.md) · [Precision and variants](precision.md) · [Serving decisions](serving.md) · [Sources](sources.md) · [Model catalog](../../../catalog/models.json)
 
 ## The mental model
 

@@ -1,5 +1,7 @@
 # Mistral Medium 3.5: architecture
 
+The report's abbreviated revision `22b2b86` was resolved again on 2026-10-16: the Hugging Face revision API returns the full atlas pin `22b2b868a15677cfa6061277ed2f653d1349a9ab`, also the current target revision. The short-pin uncertainty is closed for this retrieval; runs must still record the full SHA. [RR-GM-MISTRAL-SHORT](https://huggingface.co/api/models/mistralai/Mistral-Medium-3.5-128B/revision/22b2b86), [RR-GM-MISTRAL-PIN](https://huggingface.co/api/models/mistralai/Mistral-Medium-3.5-128B/revision/22b2b868a15677cfa6061277ed2f653d1349a9ab).
+
 ## Data flow
 
 Text / Pixtral vision → projector → 88 dense GQA blocks with YaRN → output head → Mistral encoding/tool/reasoning protocol.
@@ -67,7 +69,18 @@ At the pinned revision, each of the Transformers and consolidated indexes report
 
 For one 262,144-token sequence, separate BF16 keys and values give `2 × 88 layers × 8 KV heads × 128 elements × 2 bytes × 262144 tokens = 94,489,280,512 bytes = 88 GiB` across the model. At 32,768 tokens the same ideal element payload is 11 GiB. These calculations exclude padding, any head replication, cache scales and engine overhead. FP8 KV would halve the element payload if supported and validated; quantized weights do not automatically imply FP8 KV.
 
+| Total cached tokens per sequence | Ideal BF16 KV across the model |
+| ---: | ---: |
+| 32,768 | 11 GiB |
+| 65,536 | 22 GiB |
+| 131,072 | 44 GiB |
+| 262,144 | 88 GiB |
+
+These are derived payloads, not cache reservations. Sixteen full 32,768-token sequences would require 176 GiB of KV before weights; adding the 124.430 GiB index payload already exceeds a nominal 288 GB B300. An active-request limit of 32 therefore cannot be read as capacity for 32 simultaneously full contexts on TP1.
+
 A single B300 can plausibly accommodate the FP8 weights and a constrained short-context workload, but this is not a long-context/concurrency guarantee. Establish correctness with the publisher’s TP8 example, then compare TP2, TP4 and a constrained TP1 probe under the same workload and total GPU budget.
+
+The fresh SGLang cookbook states a TP2 Blackwell requirement and reports validation on four H200s. Treat TP1 as an additional capacity experiment outside that recipe; do not replace its recommendation with file-size arithmetic. The physical node and exact loader must settle whether the constrained case works. [mistral-medium-3.5-GR](https://docs.sglang.io/cookbook/autoregressive/Mistral/Mistral-Medium-3.5).
 
 The numeric examples are calculations from stated dimensions and assumptions, not measured allocations. [Memory mathematics](../../../reports/memory-math.md) explains the formulas and their limits. [mistral-medium-3.5-CARD](https://huggingface.co/mistralai/Mistral-Medium-3.5-128B/blob/22b2b868a15677cfa6061277ed2f653d1349a9ab/README.md) [mistral-medium-3.5-CFG](https://huggingface.co/mistralai/Mistral-Medium-3.5-128B/raw/22b2b868a15677cfa6061277ed2f653d1349a9ab/config.json) [HW](https://docs.nvidia.com/dgx/dgxb300-user-guide/introduction-to-dgxb300.html)
 

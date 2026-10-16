@@ -40,8 +40,8 @@ The refreshed [KServe source review](kserve/ARCHITECTURE.md) separates stable ca
 
 Every recommendation is conditional. Actual measurements are intentionally absent until run on the target hardware.
 
-## Turn the choice into an experiment
+## Optimization reasoning
 
-Use the [shared roadmap](../reports/EXPERIMENTS.md) to compare stable and pinned candidate builds, then compare qualified vLLM/SGLang configurations under the same application objective. The detailed [vLLM](vllm/EXPERIMENTS.md) and [SGLang](sglang/EXPERIMENTS.md) plans connect recent source changes to expected mechanisms, controlled variables and reasons to reject a candidate. Apply the [KServe plan](kserve/EXPERIMENTS.md) after the direct-engine baseline, so routing and lifecycle effects remain identifiable.
+The [optimization guide](../reports/optimization.md) connects engine mechanisms to unique prompts, multi-turn chat and coding agents. The source reviews above explain the recent changes, affected code paths and exclusions. Execution and results belong in the separate implementation repository.
 
-A newer nightly can contain a relevant correctness fix and still regress another workload. A kernel implementation can exist before a model calls it. A model-specific improvement can exclude the atlas's exact export or speculative method. The experiment record must establish those prerequisites before treating a release note as an available optimization.
+A newer nightly can contain a useful correctness fix and still regress another workload. A kernel can exist before a model calls it. Keep exact export, engine and workload applicability with every recommendation.

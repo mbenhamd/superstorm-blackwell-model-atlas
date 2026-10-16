@@ -6,7 +6,7 @@ The July 31 checkpoint is the target of this report. Do not silently substitute 
 
 **First serving candidate:** vLLM TP1/DP4+EP baseline and SGLang documented TP4 comparator; qualify eight-GPU adaptations. This is a reasoned deployment starting point, not a measured winner on your hardware.
 
-[Architecture](architecture.md) · [Precision and variants](precision.md) · [Serving decisions](serving.md) · [Validation](validation.md) · [Sources](sources.md) · [Machine-readable record](model.json)
+[Architecture](architecture.md) · [Precision and variants](precision.md) · [Serving decisions](serving.md) · [Sources](sources.md) · [Model catalog](../../../catalog/models.json)
 
 ## The mental model
 

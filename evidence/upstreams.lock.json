@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-10-15",
+  "as_of": "2026-10-16",
   "upstreams": [
     {
       "key": "vllm",
@@ -8,16 +8,15 @@
       "release_published_at": "2026-10-05T06:44:55Z",
       "inspected_ref": "f8460ef23659afd69046a81529ec2295e4c3f686",
       "commit_date": "2026-10-15T20:58:25Z",
-      "clone_completed": false,
       "nightly_artifact_verified": false,
       "image_digest": null,
       "release_prerelease": false,
       "release_commit": "db9527a46873454610df6dbedf79a36d6bf1a7f6",
-      "release_checked_at": "2026-10-15T22:25:07.993881+00:00",
+      "release_checked_at": "2026-10-16T08:57:19.540799+00:00",
       "latest_branch": "main",
-      "latest_branch_ref": "3f1e57225abec635b2ec1b513271ac385267bad3",
-      "latest_branch_commit_date": "2026-10-15T22:54:24Z",
-      "latest_branch_checked_at": "2026-10-15T22:58:48.538715+00:00",
+      "latest_branch_ref": "fa75d3456d60a5ffe923818c4b495295675b38e1",
+      "latest_branch_commit_date": "2026-10-16T06:17:51Z",
+      "latest_branch_checked_at": "2026-10-16T08:57:19.541270+00:00",
       "source_review_scope": "Selected model registry and Kimi DSpark MLA files only; see frameworks/vllm/SOURCE_REVIEW.md",
       "prior_branch_observations": [
         {
@@ -40,22 +39,13 @@
         "selected_ref": "784d1fff0c491b9add10ecd732de8f707a7e7dbe",
         "checked_at": "2026-10-15T22:27:36.353751+00:00",
         "scope": "Selected speculative/engine config, quantized draft head and loader hook, recurrent block-table gather, sparse-MLA metadata, GPU startup, MegaMoE matrix and scale handling, rejection sampling, stop-accounting diffs; no complete source tree audit or binary execution.",
-        "ledger": "evidence/updates/2026-10-16-engine-experiments/vllm-research.json",
         "binary_executed": false,
         "original_inspected_ref_preserved": true
       },
-      "benchmark_plan_recheck": {
-        "release": "v0.31.0",
-        "release_checked_at": "2026-10-15T22:51:50.866393+00:00",
-        "branch_ref": "de7d70676d9a39353aab4796a6987d345c597991",
-        "branch_checked_at": "2026-10-15T22:51:50.866525+00:00",
-        "source_tree_rechecked": false,
-        "ledger": "evidence/updates/2026-10-16-model-benchmarks/upstream-recheck.json"
-      },
-      "benchmark_review_recheck": {
-        "source_id": "BPLAN-V-MAIN-CROSS",
-        "source_tree_rechecked": false,
-        "ledger": "evidence/updates/2026-10-16-model-benchmarks/shared-review-retrievals.json"
+      "report_review_source": {
+        "ref": "fa75d3456d60a5ffe923818c4b495295675b38e1",
+        "scope": "Selected cache/configuration/scheduler and model-specific source; no binary or whole-tree certification",
+        "review_completed_at": "2026-10-16T09:09:05.186135+00:00"
       }
     },
     {
@@ -65,16 +55,15 @@
       "release_published_at": "2026-10-02T01:09:04Z",
       "inspected_ref": "877be2974aa151a984e52822c028276c2b1e9303",
       "commit_date": "2026-10-15T20:34:49Z",
-      "clone_completed": false,
       "nightly_artifact_verified": false,
       "image_digest": null,
       "release_prerelease": false,
       "release_commit": "e00930c5489053f26d86b179cee0d087f846acbb",
-      "release_checked_at": "2026-10-15T22:25:15.805356+00:00",
+      "release_checked_at": "2026-10-16T08:57:19.541149+00:00",
       "latest_branch": "main",
-      "latest_branch_ref": "4cca7fcd3e644f22a61c7a6e6b57bb89b568d62a",
-      "latest_branch_commit_date": "2026-10-15T22:50:51Z",
-      "latest_branch_checked_at": "2026-10-15T22:51:50.866786+00:00",
+      "latest_branch_ref": "f0ff18353d2c6bd8d0c1896563e197d3f4fcfa2b",
+      "latest_branch_commit_date": "2026-10-16T08:58:00Z",
+      "latest_branch_checked_at": "2026-10-16T08:58:18.906301+00:00",
       "source_review_scope": "Selected ModelOpt quantization and model registry files only; see frameworks/sglang/SOURCE_REVIEW.md",
       "prior_branch_observations": [
         {
@@ -91,6 +80,12 @@
           "latest_branch_ref": "4e0609ea277d09393d752fcb79181e3416d94c56",
           "latest_branch_commit_date": "2026-10-15T22:05:08Z",
           "latest_branch_checked_at": "2026-10-15T22:38:42.878432+00:00"
+        },
+        {
+          "latest_branch": "main",
+          "latest_branch_ref": "56a3c4fa16765f591c9eb5dbf10761f31111dfa2",
+          "latest_branch_commit_date": "2026-10-16T08:55:41Z",
+          "latest_branch_checked_at": "2026-10-16T08:57:19.541368+00:00"
         }
       ],
       "release_tag_object": "7337b27853377544a322fd4390df332d8ca7d8cb",
@@ -98,18 +93,15 @@
         "selected_ref": "4e0609ea277d09393d752fcb79181e3416d94c56",
         "checked_at": "2026-10-15T22:38:42.878432+00:00",
         "scope": "Selected current-main cache, quantization, model registry, routing, graph/profiling and scheduling source; no full runtime audit.",
-        "ledger": "evidence/updates/2026-10-16-engine-experiments/sglang-research.json",
         "binary_executed": false,
         "original_inspected_ref_preserved": true
       },
-      "benchmark_plan_recheck": {
-        "release": "v0.5.21",
-        "release_checked_at": "2026-10-15T22:51:50.866702+00:00",
-        "branch_ref": "4cca7fcd3e644f22a61c7a6e6b57bb89b568d62a",
-        "branch_checked_at": "2026-10-15T22:51:50.866786+00:00",
-        "source_tree_rechecked": false,
-        "ledger": "evidence/updates/2026-10-16-model-benchmarks/upstream-recheck.json"
-      }
+      "report_review_source": {
+        "ref": "56a3c4fa16765f591c9eb5dbf10761f31111dfa2",
+        "scope": "Selected cache/configuration/scheduler and model-specific source; no binary or whole-tree certification",
+        "review_completed_at": "2026-10-16T09:09:05.186135+00:00"
+      },
+      "latest_branch_source_id": "RR-QWEN-SGLANG-MAIN"
     },
     {
       "key": "kserve",
@@ -117,16 +109,15 @@
       "release": "v0.21.0",
       "release_published_at": "2026-09-25T17:04:20Z",
       "inspected_ref": "d1482554fc4f66dd41aee70e01f5174e24f265bd",
-      "clone_completed": false,
       "nightly_artifact_verified": false,
       "image_digest": null,
       "release_prerelease": false,
       "release_commit": "d1482554fc4f66dd41aee70e01f5174e24f265bd",
-      "release_checked_at": "2026-10-15T22:34:08.193438+00:00",
+      "release_checked_at": "2026-10-16T08:59:52.096905+00:00",
       "latest_branch": "master",
-      "latest_branch_ref": "22be2b0496eea4548a98395c3abccf48d8235385",
-      "latest_branch_commit_date": "2026-10-15T19:47:34Z",
-      "latest_branch_checked_at": "2026-10-15T22:34:08.193438+00:00",
+      "latest_branch_ref": "0f3f1b0e8c88f78e2966e5e73be70224bb7c20dd",
+      "latest_branch_commit_date": "2026-10-16T01:27:12Z",
+      "latest_branch_checked_at": "2026-10-16T08:59:51.995599+00:00",
       "commit_date": "2026-09-24T20:10:37Z",
       "source_review_scope": "LLMInferenceService/Config version declarations and deployment-mode constants only; no full controller review",
       "documentation_version_observed": "0.20",
@@ -143,18 +134,14 @@
         "selected_ref": "22be2b0496eea4548a98395c3abccf48d8235385",
         "checked_at": "2026-10-15T22:34:08.193438+00:00",
         "scope": "Selected stable/master LLM API types and stable CRD versions; dependency defaults; template selection and scheduler version gate; vLLM/NIXL role templates; master SGLang single-node template and runtime; master DisaggregatedSet, scaling and WVA admission; controller publishing workflow. Not a full controller or engine compatibility audit.",
-        "ledger": "evidence/updates/2026-10-16-engine-experiments/kserve-research.json",
         "binary_executed": false,
         "original_inspected_ref_preserved": true,
         "also_compared_release_ref": "d1482554fc4f66dd41aee70e01f5174e24f265bd"
       },
-      "benchmark_plan_recheck": {
-        "release": "v0.21.0",
-        "release_checked_at": "2026-10-15T22:51:50.866967+00:00",
-        "branch_ref": "22be2b0496eea4548a98395c3abccf48d8235385",
-        "branch_checked_at": "2026-10-15T22:51:51.004221+00:00",
-        "source_tree_rechecked": false,
-        "ledger": "evidence/updates/2026-10-16-model-benchmarks/upstream-recheck.json"
+      "report_review_source": {
+        "ref": "0f3f1b0e8c88f78e2966e5e73be70224bb7c20dd",
+        "scope": "Current master metadata/SGLang template and readiness-commit scope; broader branch inspection remains at its historical snapshot",
+        "review_completed_at": "2026-10-16T09:11:38.868152+00:00"
       }
     }
   ],
@@ -1034,7 +1021,7 @@
       "verification": "Pinned metadata reviewed; weight payload and runtime behavior untested"
     }
   ],
-  "date_basis": "UTC observation timestamps; October 16 Europe/Paris engine-expansion record.",
+  "date_basis": "UTC; source-specific retrieval timestamps retained.",
   "development_controller_metadata_observations": [
     {
       "id": "KEXP-DEVIMAGE",
@@ -1082,48 +1069,198 @@
       "notes": "master publishing workflow targets latest; registry metadata is not proof this digest matches the observed master commit. No separate nightly KServe channel established."
     }
   ],
-  "model_benchmark_recheck_ledgers": [
+  "development_artifact_observations": [
     {
-      "ledger": "evidence/updates/2026-10-16-model-benchmarks/hybrid-research.json",
-      "model_keys": [
-        "glm-5.3",
-        "glm-5.3-flash",
-        "qwen3.8-flash-next"
-      ],
-      "retrieval_window_utc": {
-        "first": "2026-10-15T22:51:14.472092+00:00",
-        "last": "2026-10-15T23:03:12.188767+00:00"
-      },
-      "scope": "Existing model pins rechecked; no profiles or artifact status promoted.",
-      "additional_pinned_source_scope": "Three vLLM target loaders at existing f8460ef23659afd69046a81529ec2295e4c3f686 and GLM registration trace; intentional MTP omission only, no complete engine audit."
+      "engine": "vllm",
+      "checked_at": "2026-10-16T08:57:19.541793+00:00",
+      "channel": "CUDA13 wheel index",
+      "version": "0.32.0rc1.dev284+gfa75d3456",
+      "advertised_source": "fa75d3456d60a5ffe923818c4b495295675b38e1",
+      "downloaded_or_executed": false,
+      "source_id": "VNIGHTLY-INDEX"
     },
     {
-      "ledger": "evidence/updates/2026-10-16-model-benchmarks/dense-research.json",
-      "model_keys": [
-        "qwen3.8-27b",
-        "gemma-4-31b-it",
-        "mistral-medium-3.5"
-      ],
-      "retrieval_window_utc": [
-        "2026-10-15T22:51:29.967269+00:00",
-        "2026-10-15T22:59:10.945471+00:00"
-      ],
-      "scope": "Existing base/export pins rechecked; proposed EAGLE draft recorded separately, no launch profile added."
+      "engine": "sglang",
+      "checked_at": "2026-10-16T08:57:19.787409+00:00",
+      "channel": "CUDA13 wheel index",
+      "version": "0.5.23.dev20261016+gf9df33494a",
+      "advertised_source_prefix": "f9df33494a",
+      "downloaded_or_executed": false,
+      "scope": "Does not contain later fad7d95 V4.1 DSpark fix; index metadata only.",
+      "source_id": "GNIGHTLY-INDEX"
     },
     {
-      "ledger": "evidence/updates/2026-10-16-model-benchmarks/moe-research.json",
-      "model_keys": [
-        "kimi-k3",
-        "deepseek-v4-flash-0731"
+      "engine": "vllm",
+      "channel": "registry metadata",
+      "checked_at": "2026-10-16T08:57:19.952223+00:00",
+      "records": [
+        {
+          "name": "cu134-nightly-49cb2bbf71cfd36ee5aa33d1e184b1cddff55294",
+          "last_updated": "2026-10-16T06:57:17.409568Z",
+          "digest": "sha256:08f3c7c1c9289f94d325ab8308c0a995a45ab0c6fe297382b86ed79c1eb6fab6",
+          "images": [
+            {
+              "architecture": "amd64",
+              "os": "linux",
+              "digest": "sha256:745d45a384dc27c46b412fd966dbb7e2876336e7691d3b27acbe2437cad1db0b"
+            },
+            {
+              "architecture": "arm64",
+              "os": "linux",
+              "digest": "sha256:f783d176892b71b827f7826f04cea55be8d335473bd03155df26d983067e1a9b"
+            }
+          ]
+        },
+        {
+          "name": "cu134-nightly",
+          "last_updated": "2026-10-16T06:57:15.942614Z",
+          "digest": "sha256:08f3c7c1c9289f94d325ab8308c0a995a45ab0c6fe297382b86ed79c1eb6fab6",
+          "images": [
+            {
+              "architecture": "amd64",
+              "os": "linux",
+              "digest": "sha256:745d45a384dc27c46b412fd966dbb7e2876336e7691d3b27acbe2437cad1db0b"
+            },
+            {
+              "architecture": "arm64",
+              "os": "linux",
+              "digest": "sha256:f783d176892b71b827f7826f04cea55be8d335473bd03155df26d983067e1a9b"
+            }
+          ]
+        },
+        {
+          "name": "cu134-nightly-aarch64",
+          "last_updated": "2026-10-16T06:57:13.57384Z",
+          "digest": "sha256:f783d176892b71b827f7826f04cea55be8d335473bd03155df26d983067e1a9b",
+          "images": [
+            {
+              "architecture": "arm64",
+              "os": "linux",
+              "digest": "sha256:f783d176892b71b827f7826f04cea55be8d335473bd03155df26d983067e1a9b"
+            }
+          ]
+        },
+        {
+          "name": "cu134-nightly-x86_64",
+          "last_updated": "2026-10-16T06:45:23.786734Z",
+          "digest": "sha256:745d45a384dc27c46b412fd966dbb7e2876336e7691d3b27acbe2437cad1db0b",
+          "images": [
+            {
+              "architecture": "amd64",
+              "os": "linux",
+              "digest": "sha256:745d45a384dc27c46b412fd966dbb7e2876336e7691d3b27acbe2437cad1db0b"
+            }
+          ]
+        },
+        {
+          "name": "nightly-49cb2bbf71cfd36ee5aa33d1e184b1cddff55294",
+          "last_updated": "2026-10-16T06:37:16.498853Z",
+          "digest": "sha256:a8d84c552462d1c60da4d7fc97f8f8f48a8fbfbf6820f73477fa0efe2571bf9d",
+          "images": [
+            {
+              "architecture": "amd64",
+              "os": "linux",
+              "digest": "sha256:8c1434bfee7d7626eef78ef70600434ffba4a1b8813cb1d1c8707ad25f47035e"
+            },
+            {
+              "architecture": "arm64",
+              "os": "linux",
+              "digest": "sha256:53377c87ef734ad0aa7eadc630605930c23b36ebc4785d161e05a7823a6a69d2"
+            }
+          ]
+        }
       ],
-      "retrieval_window_utc": [
-        "2026-10-15T22:51:46.266008+00:00",
-        "2026-10-15T22:54:00.208277+00:00"
+      "downloaded_or_executed": false,
+      "scope": "Registry index/platform digest metadata; no verified mapping to inspected runtime source.",
+      "source_id": "RR-ENG-VNIGHTLY-TAGS"
+    },
+    {
+      "engine": "sglang",
+      "channel": "registry metadata",
+      "checked_at": "2026-10-16T08:57:20.022743+00:00",
+      "records": [
+        {
+          "name": "nightly-dev-efa-20261016-a93f16f0",
+          "last_updated": "2026-10-16T02:22:20.056162Z",
+          "digest": "sha256:c06365309e1ed91f6bfac9140f3cb031cfdeaca83ea0bcee780866188884b13c",
+          "images": [
+            {
+              "architecture": "amd64",
+              "os": "linux",
+              "digest": "sha256:f1f9a2ed88b758c329a632059c0d0268c0b69228af9928d0c3bd72cd02d3c2cb"
+            },
+            {
+              "architecture": "arm64",
+              "os": "linux",
+              "digest": "sha256:9281d20121220d1d0b8ef62fe16523ed5b1d6d965f293405de043273ae52cf98"
+            }
+          ]
+        },
+        {
+          "name": "nightly-dev-cu13-20261016-a93f16f0",
+          "last_updated": "2026-10-16T01:19:10.844796Z",
+          "digest": "sha256:0b3e39704480c423d8a00ca15ebee63154defc62944df2d4b11c594563bab457",
+          "images": [
+            {
+              "architecture": "amd64",
+              "os": "linux",
+              "digest": "sha256:ae814587473f87b1ffb8c0a1d59c9e3653c26e9ed1db6960baea651aa0f0cc2a"
+            },
+            {
+              "architecture": "arm64",
+              "os": "linux",
+              "digest": "sha256:35206090eb0ab73a8dc7c7b807c8d344fac0988093ed72333f45d64bf04e887d"
+            }
+          ]
+        },
+        {
+          "name": "nightly-dev-20261016-a93f16f0",
+          "last_updated": "2026-10-16T01:19:09.307352Z",
+          "digest": "sha256:0b3e39704480c423d8a00ca15ebee63154defc62944df2d4b11c594563bab457",
+          "images": [
+            {
+              "architecture": "amd64",
+              "os": "linux",
+              "digest": "sha256:ae814587473f87b1ffb8c0a1d59c9e3653c26e9ed1db6960baea651aa0f0cc2a"
+            },
+            {
+              "architecture": "arm64",
+              "os": "linux",
+              "digest": "sha256:35206090eb0ab73a8dc7c7b807c8d344fac0988093ed72333f45d64bf04e887d"
+            }
+          ]
+        },
+        {
+          "name": "nightly-cu134",
+          "last_updated": "2026-10-15T10:52:37.843322Z",
+          "digest": "sha256:ba1cb37b0ee61e92ab2cb7657ae0fd1c31aa4874bd336c188d3f6e1284a3413c",
+          "images": [
+            {
+              "architecture": "arm64",
+              "os": "linux",
+              "digest": "sha256:ba1cb37b0ee61e92ab2cb7657ae0fd1c31aa4874bd336c188d3f6e1284a3413c"
+            }
+          ]
+        },
+        {
+          "name": "nightly-cu134-20261015-f7ad434",
+          "last_updated": "2026-10-15T10:52:34.341872Z",
+          "digest": "sha256:ba1cb37b0ee61e92ab2cb7657ae0fd1c31aa4874bd336c188d3f6e1284a3413c",
+          "images": [
+            {
+              "architecture": "arm64",
+              "os": "linux",
+              "digest": "sha256:ba1cb37b0ee61e92ab2cb7657ae0fd1c31aa4874bd336c188d3f6e1284a3413c"
+            }
+          ]
+        }
       ],
-      "scope": "Existing model/draft pins rechecked; uncatalogued export recorded separately, no launch profile added."
+      "downloaded_or_executed": false,
+      "scope": "Registry index/platform digest metadata; no verified mapping to inspected runtime source.",
+      "source_id": "GEXP-NIGHTLY-TAGS"
     }
   ],
-  "uncatalogued_candidate_artifacts": [
+  "additional_artifacts": [
     {
       "model_key": "mistral-medium-3.5",
       "hf_id": "mistralai/Mistral-Medium-3.5-128B-EAGLE",
@@ -1134,9 +1271,7 @@
         "mistral-medium-3.5-EAGLE-PARAMS",
         "mistral-medium-3.5-EAGLE-TREE"
       ],
-      "ledger": "evidence/updates/2026-10-16-model-benchmarks/dense-research.json",
       "qualification_status": "metadata observed; exact target/build/runtime pairing not qualified",
-      "profile_path": null,
       "weight_tensors_inspected": false,
       "tested_on_target": false
     },
@@ -1149,10 +1284,63 @@
         "deepseek-v4-flash-0731-NV-CARD",
         "deepseek-v4-flash-0731-NV-CFG"
       ],
-      "ledger": "evidence/updates/2026-10-16-model-benchmarks/moe-research.json",
       "qualification_status": "metadata observed; exact loader and full tensor map not qualified; publisher says DSpark unexercised in export validation",
-      "profile_path": null,
       "weight_tensors_inspected": false,
+      "tested_on_target": false
+    },
+    {
+      "model_key": "glm-5.3",
+      "hf_id": "nvidia/GLM-5.3-NVFP4",
+      "revision": "e3b8f9f2fad29727dfa95e766c5cac18ea1414bf",
+      "role": "additional mixed NVFP4 target export",
+      "source_ids": [
+        "RR-GLM-NVIDIA-CARD",
+        "RR-GLM-NVIDIA-CFG",
+        "RR-GLM-NVIDIA-HFQUANT",
+        "RR-GLM-NVIDIA-INDEX"
+      ],
+      "serialized_index_bytes": 464115789896,
+      "qualification_status": "Metadata reviewed; publisher two-four-GPU-node evaluation is not a reproduced single-node result; no qualified runtime configuration added",
+      "tested_on_target": false
+    },
+    {
+      "model_key": "gemma-4-31b-it",
+      "hf_id": "google/gemma-4-31B-it-assistant",
+      "revision": "627c5ec1458b9086b841a91e0512fd31fd2fbbf1",
+      "role": "official speculative assistant",
+      "source_ids": [
+        "RR-GM-GEMMA-DRAFT-CARD",
+        "RR-GM-GEMMA-DRAFT-CFG",
+        "RR-GM-GEMMA-DRAFT-TREE",
+        "RR-GM-VLLM-DRAFT-SOURCE"
+      ],
+      "qualification_status": "Metadata and selected source reviewed; exact build/target/export pairing unqualified",
+      "tested_on_target": false
+    },
+    {
+      "model_key": "kimi-k3",
+      "hf_id": "modal-labs/Kimi-K3-DFlash",
+      "revision": "c192d15a43407bf758b5ae0880d5c72052fef1de",
+      "role": "external DFlash drafter",
+      "source_ids": [
+        "RR-KD-DFLASH-CARD",
+        "RR-KD-DFLASH-CFG"
+      ],
+      "qualification_status": "Metadata reviewed; SGLang native-target recipe distinct from DSpark; tool/agent workload acceptance unmeasured",
+      "tested_on_target": false
+    },
+    {
+      "model_key": "qwen3.8-flash-next",
+      "hf_id": "nvidia/Qwen3.8-Flash-Next-FP4-Local",
+      "revision": "b9ce18a6887e18c089fdea8509a33e63429a3300",
+      "role": "separate quantization-aware-distilled local export",
+      "source_ids": [
+        "RR-QWEN-LOCAL-CARD",
+        "RR-QWEN-LOCAL-CFG",
+        "RR-QWEN-LOCAL-RESOLVED-INDEX"
+      ],
+      "serialized_index_bytes": 102138950916,
+      "qualification_status": "Metadata reviewed; publisher requires community container for compressed scales; no generic upstream B300 support established",
       "tested_on_target": false
     }
   ]

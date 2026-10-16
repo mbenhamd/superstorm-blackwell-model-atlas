@@ -6,7 +6,7 @@ GLM 5.3 is the text-oriented sparse-MLA member of this pair. It should not inher
 
 **First serving candidate:** vLLM FP8 and RedHat/Inferact NVFP4 first; SGLang challenger. This is a reasoned deployment starting point, not a measured winner on your hardware.
 
-[Architecture](architecture.md) · [Precision and variants](precision.md) · [Serving decisions](serving.md) · [Validation](validation.md) · [Sources](sources.md) · [Machine-readable record](model.json)
+[Architecture](architecture.md) · [Precision and variants](precision.md) · [Serving decisions](serving.md) · [Sources](sources.md) · [Model catalog](../../../catalog/models.json)
 
 ## The mental model
 

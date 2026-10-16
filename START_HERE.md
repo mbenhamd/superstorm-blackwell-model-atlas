@@ -40,6 +40,6 @@ BF16 uses 16 bits per represented element. FP8 usually uses eight. NVFP4 and MXF
 
 ## Reading paths
 
-For understanding, read [the comparison](reports/comparison.md), [the precision primer](reports/precision-and-kernels.md) and [the glossary](GLOSSARY.md). For deployment, read [hardware](hardware/B300-8GPU.md), [engine decisions](frameworks/DECISION.md), [profiles](profiles/README.md) and [benchmark protocol](benchmarks/PROTOCOL.md). For auditability, read [the evidence register](evidence/README.md) and [limitations](LIMITATIONS.md).
+For understanding, read [the comparison](reports/comparison.md), [the precision primer](reports/precision-and-kernels.md) and [the glossary](GLOSSARY.md). For deployment, read [hardware](hardware/B300-8GPU.md), [engine decisions](frameworks/DECISION.md), [configuration references](reports/configuration-reference.md) and [optimization tradeoffs](reports/optimization.md). For auditability, read [the evidence register](evidence/README.md) and [limitations](LIMITATIONS.md).
 
-For hands-on investigation, select a model-specific quality campaign from the [benchmark guide](benchmarks/MODEL-BENCHMARKS.md), then follow the [experiment roadmap](reports/EXPERIMENTS.md): qualify an exact build, check quality and state correctness, measure the workload, then introduce speculation, parallelism or KServe. The engine experiment pages explain which recent changes motivate each test and what would count as a useful result.
+For optimization, read [the workload guide](reports/optimization.md) and [configuration reference](reports/configuration-reference.md). They connect architecture and engine behavior to unique prompts, multi-turn chat and coding agents. Execution and benchmark results are maintained in a separate repository.

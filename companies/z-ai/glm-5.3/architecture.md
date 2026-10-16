@@ -2,7 +2,7 @@
 
 ## Data flow
 
-Tokens → dense prefix → MLA latent cache + DSA index selection → routed/shared experts → repeat → output; optional MTP → target verification.
+Tokens → embeddings → 78 attention/feed-forward blocks → output head. Every main block uses MLA with DSA; the first three feed-forward blocks are dense and the remaining 75 use routed/shared experts. The separate MTP layer proposes tokens for target verification.
 
 ## How the parts work together
 
@@ -11,6 +11,8 @@ The configuration describes MLA with a separate sparse-attention indexer. The mo
 A dense prefix is followed by routed MoE layers. Shared experts provide a common feed-forward contribution while selected routed experts specialize the token transformation. The router uses its own numerical precision and score function; expert quantization is not permission to quantize router decisions without validation.
 
 The index-selection frequency exposes reuse across layers. Reusing index selections can avoid repeated work, but correctness depends on the implementation’s layer boundaries and index cache. It is not equivalent to asking every layer to select a fresh arbitrary top-k set.
+
+The explicit `indexer_types` array resolves that schedule: zero-based layers 0, 1, 2 and 6, 10, …, 74 perform full index selection; the other 57 layers reuse selections. Thus `index_topk_freq=4` does not describe four-token chunks. `index_share_for_mtp_iteration=true` additionally permits reuse across draft iterations; the SGLang recipe limits that optimization to draft top-k one. Selecting at most 2,048 entries for sparse attention does not make the complete history, index scoring or serving memory constant-sized. [glm-5.3-CFG](https://huggingface.co/zai-org/GLM-5.3/raw/ba32f8c19c8738e2c57c71798c601d477a7bf844/config.json) [glm-5.3-GR](https://docs.sglang.io/cookbook/autoregressive/GLM/GLM-5.3)
 
 The multi-token-prediction (MTP) extension can propose multiple steps for speculative serving. It does not convert the main model into a dense small model. Generation remains a target-model process with draft verification and cache bookkeeping.
 
@@ -54,7 +56,7 @@ This is a **selected, normalized projection**, not a byte-for-byte copy of the c
 | activation_scheme | dynamic |
 
 
-Source for the extraction, rechecked on 2026-10-15 at `ba32f8c19c8738e2c57c71798c601d477a7bf844`: [glm-5.3-CFG](https://huggingface.co/zai-org/GLM-5.3/raw/ba32f8c19c8738e2c57c71798c601d477a7bf844/config.json). Headline counts, modality descriptions and advertised extended context are additionally drawn from [glm-5.3-CARD](https://huggingface.co/zai-org/GLM-5.3/raw/ba32f8c19c8738e2c57c71798c601d477a7bf844/README.md). A `transformers_version` metadata field is not by itself proof of a minimum compatible package version.
+Source for the extraction, rechecked on 2026-10-16 at `ba32f8c19c8738e2c57c71798c601d477a7bf844`: [glm-5.3-CFG](https://huggingface.co/zai-org/GLM-5.3/raw/ba32f8c19c8738e2c57c71798c601d477a7bf844/config.json). Headline counts, modality descriptions and advertised extended context are additionally drawn from [glm-5.3-CARD](https://huggingface.co/zai-org/GLM-5.3/raw/ba32f8c19c8738e2c57c71798c601d477a7bf844/README.md). A `transformers_version` metadata field is not by itself proof of a minimum compatible package version.
 
 ## Memory and performance consequences
 

@@ -1,6 +1,6 @@
 # Kimi K3: precision and provenance
 
-Reverified 2026-10-15 (UTC) against immutable publisher files. No checkpoint was loaded locally.
+Reverified 2026-10-16 (UTC) against immutable publisher files and official release/PR metadata. No checkpoint was loaded locally.
 
 | Variant | Exact artifact and revision | Precision evidence | Local status |
 | --- | --- | --- | --- |
@@ -14,17 +14,21 @@ Moonshot describes MXFP4/MXFP8 quantization-aware training. The serialized confi
 
 The derivative's config declares ModelOpt `MIXED_PRECISION`: expert weight/activation groups of 16 and separate `FP8_PB_WO` attention entries. NVIDIA reports an approximately 1.6 TB download. Download size is not resident GPU memory; scales, runtime repacking, caches and temporary allocations require separate accounting. [Derivative config](https://huggingface.co/nvidia/Kimi-K3-NVFP4/raw/b2428a0b83a8b712ff2e1a8448a103d4175341f1/config.json), [NVIDIA card](https://huggingface.co/nvidia/Kimi-K3-NVFP4/blob/b2428a0b83a8b712ff2e1a8448a103d4175341f1/README.md).
 
+The export changes two important paths: routed experts and selected KDA/MLA attention projections. NVIDIA says it used no calibration dataset, set expert `input_scale=1.0`, and quantized attention weights into 128×128 FP8 blocks. A native-versus-NVFP4 quality change therefore cannot be attributed only to four-bit expert storage. The release-source SGLang path passes the checkpoint's SiTU constants into expert execution; its Blackwell native recipe selects FlashInfer MXFP4 W4A8 kernels. The NVIDIA export instead requires `flashinfer_trtllm`, including the appropriate SiTU scaling/finalization path. Automatic selection or `flashinfer_cutlass` is not an equivalent replacement for that export's documented recipe. [NVIDIA conversion and runtime instructions](https://huggingface.co/nvidia/Kimi-K3-NVFP4/blob/b2428a0b83a8b712ff2e1a8448a103d4175341f1/README.md), [SGLang recipe](https://docs.sglang.io/cookbook/autoregressive/Moonshotai/Kimi-K3), [immutable SGLang source](https://raw.githubusercontent.com/sgl-project/sglang/e00930c5489053f26d86b179cee0d087f846acbb/python/sglang/srt/models/kimi_k3.py).
+
 ## Runtime evidence
 
 SGLang PR #35077 merged on 2026-08-19 and is an ancestor of the v0.5.21 tag. Its author reports a correctness run on 8×GB300 and explicitly reports no speed measurement. Release-source inclusion is established; the exact installed wheel or image and its dependency stack have not been tested here. The current cookbook still points this export to the mutable `lmsysorg/sglang:dev-dev-kimi-k3-nvfp4` image. Do not repeat the older model card's blanket statement that pip SGLang cannot load it as a current release conclusion. [Compatibility PR](https://github.com/sgl-project/sglang/pull/35077), [release ancestry](https://github.com/sgl-project/sglang/compare/5f128395910dafb98c34083dc26cb790c7674d34...v0.5.21), [cookbook](https://docs.sglang.io/cookbook/autoregressive/Moonshotai/Kimi-K3).
 
-NVIDIA also documents a patched vLLM path on 8×B300, using its bundled `runtime_patches/sitecustomize.py` and the mutable `vllm/vllm-openai:kimi-k3` image. This is publisher-reported compatibility, not a local reproduction. The three linked upstream PRs — mixed dispatch #50617, attention support #52406 and SiTU scaling #52405 — remain open at this audit. The included generic vLLM NVFP4 profile therefore stays blocked pending an audited compatible image; the publisher's patched route is a separate option. [NVIDIA instructions](https://huggingface.co/nvidia/Kimi-K3-NVFP4/blob/b2428a0b83a8b712ff2e1a8448a103d4175341f1/README.md), [#50617](https://github.com/vllm-project/vllm/pull/50617), [#52406](https://github.com/vllm-project/vllm/pull/52406), [#52405](https://github.com/vllm-project/vllm/pull/52405).
+NVIDIA also documents a patched vLLM path on 8×B300, using its bundled `runtime_patches/sitecustomize.py` and the mutable `vllm/vllm-openai:kimi-k3` image. This is publisher-reported compatibility, not a local reproduction. The three linked upstream PRs — mixed dispatch #50617, attention support #52406 and SiTU scaling #52405 — remain open at this audit. A generic vLLM NVFP4 launch therefore remains unqualified pending an audited compatible image; the publisher's patched route is a separate option. [NVIDIA instructions](https://huggingface.co/nvidia/Kimi-K3-NVFP4/blob/b2428a0b83a8b712ff2e1a8448a103d4175341f1/README.md), [#50617](https://github.com/vllm-project/vllm/pull/50617), [#52406](https://github.com/vllm-project/vllm/pull/52406), [#52405](https://github.com/vllm-project/vllm/pull/52405).
+
+Those three PRs were still open/unmerged on the fresh check. Latest stable releases were vLLM **0.31.0** and SGLang **0.5.21**; neither a current version string nor a successful load certifies this export. The vLLM release source includes native K3 SiTU handling, while NVIDIA's mixed-format recipe still has its separate patch requirements. Preserve the patch, dependency versions and image digest in the run identity. [vLLM release](https://github.com/vllm-project/vllm/releases/tag/v0.31.0), [SGLang release](https://github.com/sgl-project/sglang/releases/tag/v0.5.21), [vLLM release K3 source](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/models/kimi_k3/nvidia/model.py).
 
 ## Deployment rule
 
 Pin the target and tokenizer/processor revisions, quantization configuration, runtime commit, compatibility patch where used, and image digest together. Root BF16 metadata can coexist with quantized weights. Check serialized tensor types, scales, grouping, excluded modules, activation precision and runtime repacking; casting this checkpoint to BF16 does not reconstruct an original BF16 reference.
 
-Compare target-only quality before changing KV precision or enabling speculation. The [precision primer](../../../reports/precision-and-kernels.md) explains the formats; the [validation ledger](validation.md) defines the local evidence still needed.
+Compare target-only quality before changing KV precision or enabling speculation. The [precision primer](../../../reports/precision-and-kernels.md) explains the formats; the [serving report](serving.md) describes the comparisons still needed.
 
 ## License provenance
 

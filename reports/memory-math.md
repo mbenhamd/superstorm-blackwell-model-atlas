@@ -18,6 +18,8 @@ For `P` parameters represented uniformly at `b` bits, the ideal payload is `P ×
 
 The [catalog](../catalog/models.json) distinguishes these scopes. GLM 5.3’s 753,329,940,480 reported parameters include 9,952,920,576 MTP parameters identified from the pinned BF16 shard headers, leaving 743,377,019,904 for the main model. Its familiar 743B headline therefore cannot describe the whole checkpoint. Flash’s 320B publisher headline is rounded; the Hub metadata reports 321,323,031,390. These metadata counts and derived illustrations are not measured GPU allocations. [glm-5.3-META](https://huggingface.co/api/models/zai-org/GLM-5.3/revision/ba32f8c19c8738e2c57c71798c601d477a7bf844) [GLM parameter accounting](../companies/z-ai/glm-5.3/architecture.md) [glm-5.3-flash-META](https://huggingface.co/api/models/zai-org/GLM-5.3-Flash/revision/46a050bec13002ad29ee795c16e61cf4fa3c4a9c)
 
+For GLM BF16, the full-count illustration is **1,506,659,880,960 bytes**; the pinned weight index reports **1,506,659,919,872 bytes** because the checkpoint is not literally uniform BF16. Both are about 1.507 decimal TB. Four advertised 288 GB GPUs provide only 1.152 TB, so this BF16 payload rules out TP4 with full GPU residency before caches. TP8 is the conventional capacity candidate among TP1/2/4/8; this arithmetic does not prove that TP8 is the only possible sharding arrangement or that an engine can load it. Serialized bytes, modules loaded, temporary repacking and final per-rank residency remain separate quantities. The main model without the separately counted MTP is still about 1.487 TB under uniform BF16. [glm-5.3-BF16-INDEX](https://huggingface.co/zai-org/GLM-5.3-BF16/resolve/abf42e6c0e53bc29a875511301e7b7fcd220315b/model.safetensors.index.json) [GLM parameter accounting](../companies/z-ai/glm-5.3/architecture.md)
+
 Qwen Flash Next’s 125B + 51B + 4B subtotal covers the publisher’s main/n-gram/MTP quantities; it does not separately count vision. DeepSeek’s vLLM recipe uses a 284B family headline while SGLang’s 0731 cookbook says 304B. The different scopes have not been reconciled into an exact tensor census, so the table leaves that row unset. The hypothetical precision columns do not assert that those artifact variants exist. [Qwen accounting](../companies/alibaba-qwen/qwen3.8-flash-next/architecture.md) [DeepSeek accounting](../companies/deepseek/deepseek-v4-flash-0731/architecture.md)
 
 ## Scale overhead
@@ -62,6 +64,26 @@ A state pool may reserve multiple slots per running request for prefix checkpoin
 
 ## Practical capacity workflow
 
-Measure post-load free memory, graph-capture peak, KV token capacity, state-slot capacity and maximum running requests separately. Increase request length with batch fixed, then batch with length fixed. Repeat after changing speculation, cache dtype or multimodal input shape. Leave a documented safety margin and test cancellation/eviction paths under load.
+Budget seven distinct allocation groups before adding safety headroom: target weights and their scales/repacked copies; draft/MTP weights; token KV, attention indices and compressed caches; recurrent/conv state and all snapshots; temporary activations; graph/kernel/library/allocator overhead; communication and expert-routing buffers. Avoid double-counting a workspace already included in a measured graph peak. Measure the largest rank, not just the node average; tensor replication, unequal expert placement and auxiliary modules can prevent an even split.
 
-Run `python scripts/memory.py --help` for the tested analytic calculator. It refuses to present a universal hybrid-cache estimate and labels all numbers as payload estimates.
+Measure post-load free memory, graph-capture peak, KV token capacity, state-slot capacity and maximum running requests separately. Increase request length with batch fixed, then batch with length fixed. Repeat after changing speculation, cache dtype or multimodal input shape. Record the peak during load/repacking as well as steady state, and test cancellation/eviction paths under load. A seven-part ledger is an accounting framework; the engine logs and allocator measurements establish the actual values.
+
+## Executor fractions are not reserved memory
+
+For illustration only, take the advertised memory as 288 decimal GB per GPU:
+
+| Fraction | Fraction × 288 GB | Arithmetic complement per GPU | Complement over eight GPUs |
+| --- | --- | --- | --- |
+| 0.88 | 253.44 GB | 34.56 GB | 276.48 GB |
+| 0.90 | 259.20 GB | 28.80 GB | 230.40 GB |
+| 0.92 | 264.96 GB | 23.04 GB | 184.32 GB |
+
+These complements are **not a hard reservation** or guaranteed free memory. Substitute the actual driver-visible capacity and units, account for other processes, and observe the engine's runtime peak. Do not add the complement to an already measured safety margin a second time.
+
+At vLLM **0.31.0**, commit `db9527a46873454610df6dbedf79a36d6bf1a7f6`, `gpu_memory_utilization` is a per-instance executor budget; its source default is **0.92**. The startup helper computes `ceil(total_device_memory × fraction)` and checks available memory. The worker subtracts profiled non-KV memory and any applied graph estimate to size the cache. Thus `0.88` is an explicit experimental choice, and it does not give 88% of memory to KV alone. An explicit `kv_cache_memory_bytes` overrides automatic cache sizing, so record it too. [RR-ENG-V-STABLE-CACHE-PIN](https://github.com/vllm-project/vllm/blob/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/config/cache.py) [RR-ENG-V-STABLE-UTILS](https://github.com/vllm-project/vllm/blob/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/v1/worker/utils.py) [RR-ENG-V-STABLE-GPU_WORKER-PIN](https://github.com/vllm-project/vllm/blob/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/v1/worker/gpu_worker.py)
+
+At SGLang **0.5.21**, commit `e00930c5489053f26d86b179cee0d087f846acbb`, the inspected allocator starts from post-load free memory, subtracts `pre_model_load_memory × (1 − mem_fraction_static)` and a multimodal reserve, then handles recurrent-state budgets where applicable. Already resident target and draft weights therefore reduce cache capacity. This differs from vLLM's total-device executor calculation. Equal numeric fractions do not establish equal cache, runtime headroom or concurrency; compare effective token/state capacities and observed peaks. [RR-ENG-G-STABLE-KV_CACHE_CONFIGURATOR](https://github.com/sgl-project/sglang/blob/e00930c5489053f26d86b179cee0d087f846acbb/python/sglang/srt/mem_cache/kv_cache_configurator.py)
+
+Conditional reserves also matter: the vLLM worker applies a multimodal IPC reserve after its automatic cache calculation; SGLang's hybrid post-capture path floors runtime slack at its configured pre-capture activation reserve. The simple fraction formulas do not include every branch-specific deduction. The pinned worker and allocator sources above define those branches.
+
+The formulas describe payloads under their stated assumptions. A universal hybrid-cache estimate cannot be derived from parameter count and context length alone.

@@ -1,5 +1,9 @@
 # Gemma 4 31B IT: architecture
 
+## Revision check, 2026-10-16
+
+The supplied report's `fb9ae262347c3945692f09a612f8bb189def854f` is a valid older snapshot. The current repository still resolves to the atlas pin `842da3794eaa0b77d5f08bae87a17459d91ff475`. Their retrieved `config.json` bytes match, and the pinned tree metadata identifies the same weight LFS objects, index, processor and tokenizer vocabulary. Their cards, `chat_template.jinja` and `tokenizer_config.json` differ; the newer tokenizer configuration adds `response_template`. This is material protocol drift even without evidence of changed weight objects. Preserve the chosen target and template hashes in each run. No tensors were downloaded. [RR-GM-GEMMA-USER-REV](https://huggingface.co/api/models/google/gemma-4-31B-it/revision/fb9ae262347c3945692f09a612f8bb189def854f), [RR-GM-GEMMA-USER-TREE](https://huggingface.co/api/models/google/gemma-4-31B-it/tree/fb9ae262347c3945692f09a612f8bb189def854f?recursive=false&expand=false), [gemma-4-31b-it-BASE-TREE](https://huggingface.co/api/models/google/gemma-4-31B-it/tree/842da3794eaa0b77d5f08bae87a17459d91ff475?recursive=false&expand=false).
+
 ## Data flow
 
 Vision/text → [five local sliding layers → one global layer] ×10 with dense MLPs → tied output head + logit soft-cap → sampling.
@@ -68,5 +72,9 @@ Repository file metadata and any cache calculations are not measured GPU allocat
 ## What this report does not establish
 
 Physical KV allocation under attention_k_eq_v in the selected engine; exact export-level SGLang compatibility; correct tool template at the final image revision; local B300 quality and latency.
+
+## Separate assistant checkpoint
+
+Fresh inspection identifies Google's matching `google/gemma-4-31B-it-assistant` at `627c5ec1458b9086b841a91e0512fd31fd2fbbf1`. Its configuration declares `Gemma4AssistantForCausalLM`, BF16, four decoder layers, hidden size 1,024, backbone hidden size 5,376 and four KV-sharing layers. The reviewed vLLM implementation uses Q-only draft attention that reads the target's KV cache. This makes cache mapping and rollback part of qualification; it is not an independent generic draft model. The single listed weight file is 939,042,560 bytes including its header, not a measured GPU allocation. Existing atlas profiles remain target-only. [RR-GM-GEMMA-DRAFT-CFG](https://huggingface.co/google/gemma-4-31B-it-assistant/raw/627c5ec1458b9086b841a91e0512fd31fd2fbbf1/config.json), [RR-GM-GEMMA-DRAFT-TREE](https://huggingface.co/api/models/google/gemma-4-31B-it-assistant/tree/627c5ec1458b9086b841a91e0512fd31fd2fbbf1?recursive=false&expand=false), [RR-GM-VLLM-DRAFT-SOURCE](https://github.com/vllm-project/vllm/blob/f8460ef23659afd69046a81529ec2295e4c3f686/vllm/model_executor/models/gemma4_mtp.py).
 
 The public artifacts do not disclose every training-data, optimization or implementation detail. This report does not fill missing details with assumptions or present a complete formal reconstruction of private training.

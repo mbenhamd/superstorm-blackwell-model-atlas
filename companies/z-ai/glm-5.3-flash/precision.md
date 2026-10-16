@@ -1,6 +1,6 @@
 # GLM 5.3 Flash: precision and provenance
 
-The official FP8 and BF16 variants and the exact RedHat derivative were checked at immutable revisions on 2026-10-15.
+The official FP8 and BF16 variants and the exact RedHat derivative were rechecked at immutable revisions on 2026-10-16; the repository heads still resolve to the retained pins.
 
 | Variant | Pinned artifact | Precision contract from configuration | Index tensor bytes |
 | --- | --- | --- | --- |
@@ -13,6 +13,8 @@ The figures come from `metadata.total_size` in each pinned index, linked in [sou
 ## Exact RedHat contract
 
 The NVFP4 group targets the routed-expert projection weights and activations in zero-based main layers 3–44, with group size 16. A second group targets MTP layer 45's routed experts using 8-bit floating-point weights in 128×128 blocks and dynamic 8-bit activations. The remaining modules are excluded from these quantization groups. This narrows the card's statement that MTP is kept in FP8 to the scope directly visible in the config. [glm-5.3-flash-NV-CFG](https://huggingface.co/RedHatAI/GLM-5.3-Flash-NVFP4/raw/18d55bfd5a2194887738da73753975c9d3842f46/config.json)
+
+An exclusion records where the exporter did not apply those groups; it does not establish one dtype for every remaining tensor. In particular, retain separate evidence for vision, KDA, router, sparse attention, mHC and MTP. The Hub's parameter total for a packed derivative is not a replacement for the official checkpoint count, and the mixed NVFP4 target must not be treated as a uniformly four-bit recurrent model.
 
 RedHat publishes selected reasoning benchmark scores but no paired FP8 table in this pinned card. Those scores do not establish lossless conversion, multimodal quality or B300 performance. NVIDIA and RadixArk exports named by the SGLang cookbook require their own config and calibration checks. [glm-5.3-flash-NV](https://huggingface.co/RedHatAI/GLM-5.3-Flash-NVFP4/raw/18d55bfd5a2194887738da73753975c9d3842f46/README.md)
 

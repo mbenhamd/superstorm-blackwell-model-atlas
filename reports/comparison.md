@@ -32,4 +32,4 @@ Choose a starting engine using evidence of the exact checkpoint path and the tea
 
 For short interactive chat, prioritize first-content latency and stable output pacing; include target-only baselines because drafting is not free. For coding agents, preserve multi-turn reasoning/tool serialization and measure actual draft acceptance. For long documents, constrain context and concurrency explicitly and measure retrieval quality. For multimodal tasks, include image preprocessing/encoder time and enforce input limits. For high-volume endpoints, compare independent small-model replicas against wider TP groups at equal node occupancy.
 
-[Benchmark protocol](../benchmarks/PROTOCOL.md) defines a reproducible experiment rather than claiming an unmeasured result.
+The [optimization guide](optimization.md) explains the mechanisms and workload tradeoffs behind these choices.

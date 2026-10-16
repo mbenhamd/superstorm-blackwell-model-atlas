@@ -1,9 +1,0 @@
-Cloning into '/mnt/data/_attempted_vllm_clone'...
-fatal: unable to access 'https://github.com/vllm-project/vllm.git/': Could not resolve host: github.com
-
-exit_code=128
-
-SGLang local clone attempt (2026-10-15; shallow public checkout):
-Cloning into '/mnt/data/_attempted_sglang_clone'...
-fatal: unable to access 'https://github.com/sgl-project/sglang.git/': Could not resolve host: github.com
-exit=128

@@ -8,25 +8,35 @@ Use vLLM first because the producer explicitly recommends it and documents the M
 
 Resolve the correct tokenizer and Mistral encoding dependencies in the image. Do not copy an old nightly-install command and label it reproducible: pin the wheel or image digest and record the loaded config checksum. The card’s historical dependency minima are not a complete tested bill of materials.
 
+The publisher's target and EAGLE cards specify vLLM nightly with `mistral_common >= 1.11.1` and `transformers >= 5.4.0`; their SGLang section names the Blackwell tag `lmsysorg/sglang:dev-cu13-mistral-medium-3.5` (CUDA 13.0). These are documented setup requirements, not immutable runtime identities. The latest stable releases rechecked on 2026-10-16 are [vLLM 0.31.0](https://github.com/vllm-project/vllm/releases/tag/v0.31.0) and [SGLang 0.5.21](https://github.com/sgl-project/sglang/releases/tag/v0.5.21); a release number alone does not qualify the target/draft path.
+
 The pinned publisher card also supplies a SGLang TP8 command with `--tool-call-parser mistral` and `--reasoning-parser mistral`. The official SGLang cookbook documents this exact FP8 model, the alternate checkpoint layouts and H200 validation runs. This establishes documented support; it does not certify the atlas’s B300 image or settings. The local SGLang profile remains a compatibility probe until loaded and tested, and a parser-free probe cannot establish reasoning or tool-call correctness. [mistral-medium-3.5-GR](https://docs.sglang.io/cookbook/autoregressive/Mistral/Mistral-Medium-3.5)
 
 [mistral-medium-3.5-CARD](https://huggingface.co/mistralai/Mistral-Medium-3.5-128B/blob/22b2b868a15677cfa6061277ed2f653d1349a9ab/README.md) [HW](https://docs.nvidia.com/dgx/dgxb300-user-guide/introduction-to-dgxb300.html)
 
-## Experiment sequence
+## What the EAGLE recipes actually configure
+
+The exact target is `mistralai/Mistral-Medium-3.5-128B` at `22b2b868a15677cfa6061277ed2f653d1349a9ab`; the matching draft is `mistralai/Mistral-Medium-3.5-128B-EAGLE` at `d31694b0f55b51d4d962b5c3dbf0e03d1f019275`. Both revisions were rechecked on 2026-10-16. The publisher recipes use repository names without revision pins; a reproducible deployment must supply the corresponding immutable snapshots. [mistral-medium-3.5-EAGLE-CARD](https://huggingface.co/mistralai/Mistral-Medium-3.5-128B-EAGLE/raw/d31694b0f55b51d4d962b5c3dbf0e03d1f019275/README.md).
+
+| Setting | Publisher vLLM example | Publisher SGLang example |
+| --- | --- | --- |
+| Target parallelism | `--tensor-parallel-size 8` | `--tp 8` |
+| Protocol | `--tool-call-parser mistral --reasoning-parser mistral --enable-auto-tool-choice` | `--tool-call-parser mistral --reasoning-parser mistral` |
+| Draft selection | `--speculative-config` with draft model, `method: eagle` | `--speculative-algorithm EAGLE --speculative-draft-model-path` with official draft |
+| Draft extent | `num_speculative_tokens: 3` | `--speculative-num-steps 3 --speculative-eagle-topk 1 --speculative-num-draft-tokens 4` |
+| Explicit dtype | No dtype override in example | `--dtype bfloat16` |
+| Explicit context setting | Draft `max_model_len: 65536` inside speculative config | No context cap in publisher command |
+| Capacity settings | 16,384 batched tokens, 128 sequences, utilization 0.8 | No corresponding limits set in publisher command |
+
+These counts describe different engine interfaces; three steps and four draft tokens are not interchangeable with vLLM's three speculative tokens. The 65,536 value belongs to vLLM's draft configuration and does not establish full-window speculative support. The atlas's 32K/32-request references are separate target-only adaptations.
+
+SGLang explicitly requires BF16 here because the native draft `params.json` has no dtype field: its automatic fallback can choose FP16, conflicting with the BF16 target's shared embedding/head. The target remains a serialized static-FP8 export. The cookbook auto-detects target layouts and prefers Transformers files when both are present; the draft instead has native `params.json` and `consolidated.safetensors`. A missing draft `config.json` is expected, not evidence that the artifact is absent. Select one target layout and retain its manifest; never add both alternatives as one resident weight allocation. [mistral-medium-3.5-GR](https://docs.sglang.io/cookbook/autoregressive/Mistral/Mistral-Medium-3.5), [mistral-medium-3.5-EAGLE-PARAMS](https://huggingface.co/mistralai/Mistral-Medium-3.5-128B-EAGLE/raw/d31694b0f55b51d4d962b5c3dbf0e03d1f019275/params.json).
+
+First compare target-only TP1/2/4 where the workload fits, retaining TP8 as the publisher reference. Then compare EAGLE off/on in the same build, GPU group and admission budget: low-concurrency long code/reasoning, short tool turns, long-context prefill and saturated batching can respond differently. Count naturally accepted proposals, verification cycles, extra memory and useful request latency separately. A draft that shortens decoding can still reduce whole-node capacity by consuming cache/workspace headroom. No local measurement selects a winner.
+
+## Optimization questions
 
 After the TP8 correctness baseline, measure TP1 if it fits the workload, TP2, TP4 and TP8 with the same total node GPU budget. Keep KV precision fixed while comparing native FP8 weights; cover 4K/32K/128K prompts, one versus multiple images, and `reasoning_effort=none` versus `high`. Include a regression that records `mscale_all_dim=0.0` and checks long-context output quality.
-
-First capture actual GPU memory, compute capability, peer topology and software versions with `python scripts/preflight.py`. Then resolve immutable model metadata, inspect the rendered profile and run the target-only correctness suite. Profiles live in [profiles](../../../profiles/README.md).
-
-## Acceptance gates
-
-A successful load is necessary but insufficient. Require valid streaming framing, finite outputs, correctly separated reasoning, valid tool calls where supported, repeatable quality tests, bounded memory at load, and correct cache/state behavior after cancellation. Only then compare latency and throughput.
-
-For production, place one sharded model process group inside a pod that owns its whole GPU group. Do not make eight independent KServe replicas and expect them to form TP8. Start with colocated prefill and decode; adopt disaggregation only after it wins the workload comparison and state transfer is correct. [KS](https://kserve.github.io/website/docs/intro) [KSLLM](https://kserve.github.io/website/docs/model-serving/generative-inference/llmisvc/llmisvc-overview)
-
-## Parameters are not magic constants
-
-The profile’s context cap is an application policy. Tensor parallelism is a starting layout. Memory utilization reserves room for non-weight allocations; changing it can trade cache space against startup headroom. Batch-token and sequence caps trade prefill efficiency against memory and queueing. Speculative depth trades draft/verification cost against naturally accepted tokens. Each must be varied one at a time before interaction testing.
 
 ## Remaining uncertainty
 

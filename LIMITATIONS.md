@@ -1,29 +1,26 @@
-# Verification boundaries and unresolved work
+# What is known and what remains open
 
-**This is a research and engineering atlas. Exact checkpoint/image compatibility still requires runtime validation.** It was assembled and audited on October 15, 2026 using publisher cards and configurations, engine recipes, selected source files and pull-request/release metadata. The audit record documents corrections and file coverage.
+This atlas explains architectures and serving tradeoffs using publisher cards, immutable configurations, selected engine source and release metadata. It contains **no reproduced B300 inference or quality results**.
 
-## Completed
+## Evidence boundaries
 
-Eight model-family directories contain architecture dimensions, technical explanations, precision variants, serving hypotheses, validation plans and source links. The audit resolved exact publisher and derivative revisions, checked immutable metadata, revisited engine releases and main references, and rechecked selected implementation files and relevant PRs. Local code and document checks are reported in [VALIDATION](VALIDATION.md). HTTP success alone is not counted as verification of a claim; retrieval receipts and reviewer findings are recorded separately.
+- A publisher benchmark describes its own model revision, hardware and workload. It does not establish an engine winner on this node.
+- A supported architecture or existing kernel does not establish support for every exporter, precision, draft or cache mode.
+- A main commit, release tag, wheel index and container digest identify different objects. Source inspection does not certify an unexamined binary.
+- Parameter counts, serialized file bytes and resident per-GPU memory are different quantities. Target-only loaders can legitimately omit stored MTP tensors.
+- Configured context limits do not establish useful accuracy, concurrency or capacity at that length.
+- Current source observations are dated. Retained configuration records preserve their own earlier inspected commits and remain untested.
 
-The subsequent [engine experiment roadmap](reports/EXPERIMENTS.md) expands the stable/main/nightly research into proposed investigations. It includes a manual experiment-record template, not a new execution system. Its applicability checks and promotion thresholds must be completed for the actual image, node and workload. Existing profile source references remain their original reviewed snapshots; new research does not silently certify those profiles against a newer nightly.
+## Hardware and artifacts
 
-## Not completed or not available
+The user supplied **B300 SXM6-AC**, eight GPUs. The atlas uses NVIDIA B300 reference specifications conditionally. Actual usable HBM, CPU/NUMA, NVLink/NVSwitch, NICs, storage, power and cooling are unknown; a DGX reference does not identify this server.
 
-No model weight tensors were downloaded and no inference engine was installed or run. Limited safetensors header metadata was read to check GLM parameter accounting. No B300 node was exercised, and no GPU correctness, throughput, latency, memory or power measurement was performed. No deployed KServe cluster was changed or validated. No nightly container was pulled or tested; source inspection does not certify a nightly binary.
+No model weight payloads, serving containers or nightly wheels were downloaded or executed here. Limited metadata and safetensors headers support selected accounting claims. No Kubernetes cluster was deployed or validated. Full upstream trees and original source bodies are not bundled.
 
-The original assembly failed to clone vLLM and SGLang because that environment could not resolve GitHub; [clone-attempt.log](evidence/clone-attempt.log) preserves that historical result. HTTPS retrieval and the atlas repository's Git fetch succeeded during this audit. Full upstream clones were not repeated. Selected immutable source files were retrieved directly, and [clone_upstreams.py](scripts/clone_upstreams.py) remains available for pinned checkouts. Complete upstream repositories are not bundled.
+The exact DeepSeek July-31 target-plus-draft tensor census remains unresolved. A fully FP8 Kimi K3 artifact is not established. New exports and drafters are identified separately until their exact engine pairing is understood. Template, tokenizer and processor revisions matter even when model configurations or weight listings match.
 
-The exact OEM string “B300 SXM6-AC” was supplied by the user and was not independently identified. The hardware discussion uses NVIDIA’s B300 documentation conditionally; CPU, networking, physical topology, cooling, firmware, power limits and usable memory need actual node inventory. A DGX B300 reference specification does not identify the user's server.
+## How to read recommendations
 
-Configuration fields are curated projections, not complete original configs. Exact model and variant revisions resolved in the audit are recorded in the model records, profiles and evidence lock. Hypothetical or unidentified variants retain null identities. Immutable links and response hashes improve traceability, but complete raw cards/configs and source trees are not bundled. Mutable recipes and branch heads remain dated observations. Local checksums establish consistency of local files, not historical authenticity or model quality.
+“Candidate” means a justified configuration to investigate. “Compatibility probe” means an integration question remains. “Blocked” identifies a known unresolved prerequisite. None means production-ready.
 
-Several precision requests have no independently audited exact release: in particular a fully FP8 Kimi K3 is not established. Some derivative repositories are supported by an engine recipe rather than a separately inspected complete export. These distinctions remain visible in the catalog and profiles; missing facts are not filled with neighboring model values.
-
-DeepSeek's family parameter headlines are not an exact July-31 tensor census. GLM's approximately 743B target and 753B full checkpoint are distinguished using the extra MTP layer's header metadata; the accounting is not a GPU memory measurement. Advertised context limits do not establish accuracy or practical concurrency at that length. Licenses in the catalog are identification notes; the applicable base and derivative terms require separate inspection.
-
-## Meaning of “best” in this repository
-
-Recommendations are starting hypotheses justified by memory architecture, available implementation paths and source evidence. A winner requires the same workload, input/output distribution, quality threshold, latency target, hardware, effective precision and natural speculative acceptance. Published author benchmarks are not reproduced results. In particular, simulated-acceptance Kimi DSpark results cannot certify application speedup.
-
-The [model benchmark guide](benchmarks/MODEL-BENCHMARKS.md) and expanded family validation plans propose quality suites and matched experiments. Named suites have not been installed or executed, and their endpoint adapters have not been qualified for these checkpoints. The streaming probe does not retain answers for later scoring; an external evaluator must capture and score outputs. Newly identified candidate exports/drafters in a validation plan are not catalogued launch profiles or established runtime support.
+Optimization questions are explained in [the workload guide](reports/optimization.md). Execution, measurements and benchmark results live in the separate execution repository. This atlas retains the reasoning, known constraints and primary evidence needed to choose those experiments.

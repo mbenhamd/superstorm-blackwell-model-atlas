@@ -6,6 +6,25 @@
 | fp8 | RedHatAI/gemma-4-31B-it-FP8-block | W8A8, 128×128 weight blocks, dynamic activation groups of 128 | Pinned exporter card/config inspected |
 | nvfp4 | RedHatAI/gemma-4-31B-it-NVFP4 | Text Linear W4A4 group 16, local activation scaling; vision/embedding/head retain precision | Pinned exporter card/config inspected |
 
+Fresh metadata on 2026-10-16 still resolves BF16 to `842da3794eaa0b77d5f08bae87a17459d91ff475`, FP8 to `d7242548c457ab4b45bd3adb8937f2659af4739d` and NVFP4 to `5df75ccad9b74546f5be758a2a68acc2e16bbc9b`. The supplied older BF16 revision has unchanged retrieved model configuration and weight-object metadata but different protocol assets; see [architecture](architecture.md). The exporter cards name the base repository without establishing that their evaluation reference used either of these exact base revisions.
+
+## Published quality is task dependent
+
+Red Hat's pinned cards report these **publisher measurements with thinking enabled**; they have not been reproduced here. Differences are percentage points, with each card's Google baseline as the denominator for its recovery column.
+
+| BFCLv4 category | Google baseline | FP8-block | FP8 change | NVFP4 | NVFP4 change |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Overall | 70.77% | 67.59% | −3.18 | 71.24% | +0.47 |
+| Single Turn | 84.99% | 85.15% | +0.16 | 84.92% | −0.07 |
+| Multi-Turn | 66.25% | 67.62% | +1.37 | 68.50% | +2.25 |
+| Agentic | 65.82% | 56.53% | −9.29 | 64.50% | −1.32 |
+
+For FP8 Agentic, `56.53 / 65.82 = 85.89%` recovery means a 14.11% relative reduction, not a 9.29% relative reduction. Close instruction/reasoning scores do not erase this tool-workflow regression. These tables also do not establish that NVFP4 causally improves overall quality: paired item outputs and uncertainty are absent. [gemma-4-31b-it-FP8](https://huggingface.co/RedHatAI/gemma-4-31B-it-FP8-block/raw/d7242548c457ab4b45bd3adb8937f2659af4739d/README.md), [gemma-4-31b-it-NV](https://huggingface.co/RedHatAI/gemma-4-31B-it-NVFP4/raw/5df75ccad9b74546f5be758a2a68acc2e16bbc9b/README.md).
+
+BFCLv4's documented overall formula weights Agentic 40%, Multi-Turn 30%, Live 10%, Non-Live 10% and Hallucination 10%. The four exporter rows therefore cannot be averaged to recover Overall. Its card does not pin the evaluator commit, item counts, external search state or evaluated base SHA, so the benchmark site's current 5,088 scored cases cannot be assumed to be that run's denominator. Require per-category sample counts and item-level results in a reproduction. [RR-GM-BFCL-METHOD](https://gorilla.cs.berkeley.edu/blogs/15_bfcl_v4_web_search.html).
+
+The cards describe repeated seeds and provide a text-only server command, but their lighteval examples request 65,536 output tokens against a 32,768 total-token server cap. A reproduction must resolve input-plus-output budgeting, rejection/truncation behavior and thinking mode explicitly. It must also pin the template and parser, evaluator/data revisions and base/quantized models. Any repaired budget is a documented new experiment, not an exact reproduction. [optimization guide](../../../reports/optimization.md).
+
 
 ## Interpretation
 
