@@ -8,6 +8,8 @@ This is a research atlas, not a serving implementation. Start with `README.md`, 
 
 Keep this repository focused on hardware, models, architectures, precision, frameworks and optimization knowledge. Execution tools, tests, benchmark results and detailed run campaigns belong in the separate execution repository. Do not recreate those folders or generated audit/report bundles here. Keep configuration references consolidated in `catalog/configurations.json`; explain mechanisms and tradeoffs in the model/framework pages.
 
+KServe is mandatory in the user's existing infrastructure. All deployment recommendations must use KServe, with vLLM or SGLang as the execution engine. Treat the installed KServe version, resource kind and runtime integration as unknown until provided; the atlas's upstream reference versions do not identify the user's cluster. Frame optimization and configuration guidance within that required platform.
+
 ## Research, Comparison, and Maintenance
 
 Explore the related report, catalog record, configuration reference, source IDs, and limitations before editing. When changing a fact, update every affected view and keep prose and consolidated catalogs consistent. If evidence supports fixing a gap, fix it; otherwise record the unknown and the evidence needed to resolve it. Never fill missing values from a neighboring model or derivative.

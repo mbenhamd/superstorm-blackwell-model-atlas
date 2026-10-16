@@ -133,6 +133,6 @@ Chunked prefill and batching manage competition among requests. Their benefit de
 
 ## KServe's role on this node
 
-KServe can manage service lifecycle, routing and integration with a Kubernetes platform. It does not create GPU capacity or replace the inference engine. A single TP8 instance leaves no GPUs for a concurrent replacement; two TP4 instances likewise consume the node. Prefill/decode disaggregation needs model-specific state transfer and a total allocation that fits eight GPUs. Begin with the engine's known behavior before adding orchestration. [KServe architecture](../frameworks/kserve/ARCHITECTURE.md)
+**KServe is the required platform for this infrastructure.** Establish the baseline with colocated prefill/decode inside a KServe-managed workload, then compare engine, precision and topology candidates through the intended service path. Account for routing and queueing separately from engine execution. A single TP8 instance leaves no GPUs for a concurrent replacement; two TP4 instances likewise consume the node. Prefill/decode disaggregation needs model-specific state transfer and a total allocation that fits eight GPUs. [KServe architecture](../frameworks/kserve/ARCHITECTURE.md)
 
 The research priority is to explain why a change could help and where it can fail. Benchmark implementation and results are maintained separately; this repository records no unmeasured speedup as fact.

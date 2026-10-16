@@ -2,7 +2,7 @@
 
 ## Decision
 
-Use **vLLM and SGLang as competing execution engines**. Use **KServe as the optional Kubernetes lifecycle layer**. Begin with a single-node colocated prefill/decode service. Select an engine per exact artifact, not by brand loyalty. Introduce disaggregation when measured queueing and transfer economics justify it. [KS](https://kserve.github.io/website/docs/intro) [KSRT](https://kserve.github.io/website/docs/model-serving/generative-inference/overview) [KSLLM](https://kserve.github.io/website/docs/model-serving/generative-inference/llmisvc/llmisvc-overview)
+**KServe is mandatory in the user's existing infrastructure.** Choose **vLLM or SGLang as the execution engine within KServe**. Begin with a single-node colocated prefill/decode service and select the engine per exact artifact. Introduce disaggregation when measured queueing and transfer economics justify it. [KS](https://kserve.github.io/website/docs/intro) [KSRT](https://kserve.github.io/website/docs/model-serving/generative-inference/overview) [KSLLM](https://kserve.github.io/website/docs/model-serving/generative-inference/llmisvc/llmisvc-overview)
 
 ## Why vLLM is a strong first path here
 
@@ -20,9 +20,9 @@ The inspected SGLang registry can discover an architecture through package entry
 
 ## What KServe contributes
 
-KServe adds declarative deployment, lifecycle reconciliation and integration with Kubernetes resources. Its LLMInferenceService path adds composable LLM configuration, specialized scheduling, distributed workloads and prefill/decode orchestration. This is a control-plane choice, not an FP4 arithmetic choice. [KS](https://kserve.github.io/website/docs/intro) [KSLLM](https://kserve.github.io/website/docs/model-serving/generative-inference/llmisvc/llmisvc-overview) [KSCFG](https://kserve.github.io/website/docs/model-serving/generative-inference/llmisvc/llmisvc-configuration)
+KServe supplies the required deployment and lifecycle layer. Its LLMInferenceService path adds composable LLM configuration, specialized scheduling, distributed workloads and prefill/decode orchestration. Engine precision and kernels remain separate configuration decisions. [KS](https://kserve.github.io/website/docs/intro) [KSLLM](https://kserve.github.io/website/docs/model-serving/generative-inference/llmisvc/llmisvc-overview) [KSCFG](https://kserve.github.io/website/docs/model-serving/generative-inference/llmisvc/llmisvc-configuration)
 
-For this eight-GPU single-node task, a custom-container InferenceService is a transparent initial path for either engine. For advanced vLLM/llm-d routing and transfer, use the compatible LLMInferenceService configuration rather than pretending that replacing a container name certifies SGLang integration. A dedicated SGLang-aware orchestration design must explicitly preserve its transfer and cache semantics.
+Match the integration to the existing cluster's resource kind and installed version. A custom-container InferenceService and an LLMInferenceService runtime are separate KServe paths; requiring KServe does not determine which is installed. For advanced vLLM/llm-d routing and transfer, use the compatible LLMInferenceService configuration. An SGLang integration must explicitly preserve its command, ports, readiness, metrics, transfer and cache semantics.
 
 The refreshed [KServe source review](kserve/ARCHITECTURE.md) separates stable capabilities from newer master templates and controller changes. An SGLang runtime template, where present, establishes a particular integration path; prefill/decode transfer, routing metrics and scaling still need their own version-specific qualification.
 
@@ -38,7 +38,7 @@ The refreshed [KServe source review](kserve/ARCHITECTURE.md) separates stable ca
 | Basic Kubernetes service | Custom-container InferenceService | Server-side schema dry run and readiness test |
 | Advanced prefill/decode or cluster routing | Version-matched LLM orchestration | Correct state transfer and measured crossover |
 
-Every recommendation is conditional. Actual measurements are intentionally absent until run on the target hardware.
+The KServe requirement is fixed; engine, topology and integration recommendations remain conditional. Actual measurements are intentionally absent until run on the target hardware.
 
 ## FP8 with FA4: compare the actual execution paths
 

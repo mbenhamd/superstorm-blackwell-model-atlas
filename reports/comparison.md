@@ -26,7 +26,7 @@ Primary extraction sources: [kimi-k3-CFG](https://huggingface.co/moonshotai/Kimi
 
 A useful comparison fixes the task distribution, prompt/output lengths, quality threshold, reasoning settings and latency objective. Compare per-node goodput for capacity planning and per-request latency for interactivity. Do not rank engines by unrelated benchmark rows from B200, GB300, RTX Blackwell and an unspecified B300 OEM node.
 
-Choose a starting engine using evidence of the exact checkpoint path and the team’s operational constraints. Promote a candidate only after correctness and workload tests. vLLM and SGLang can both be benchmarked without changing the KServe lifecycle design for a basic single-node service; advanced disaggregation and routing require engine-specific integrations. [KSRT](https://kserve.github.io/website/docs/model-serving/generative-inference/overview) [KSLLM](https://kserve.github.io/website/docs/model-serving/generative-inference/llmisvc/llmisvc-overview)
+Choose a starting engine using evidence of the exact checkpoint path within the **required KServe infrastructure**. Promote a candidate only after correctness and workload tests. Compare vLLM and SGLang through the intended KServe service path, accounting for each runtime's command, readiness, metrics and routing integration. Advanced disaggregation and routing require engine-specific integrations. [KSRT](https://kserve.github.io/website/docs/model-serving/generative-inference/overview) [KSLLM](https://kserve.github.io/website/docs/model-serving/generative-inference/llmisvc/llmisvc-overview)
 
 ## What the six-family topology proposal establishes
 

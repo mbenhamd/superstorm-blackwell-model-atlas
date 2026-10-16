@@ -18,7 +18,7 @@ A tokenizer turns text into numbered pieces called tokens. An embedding turns ea
 | CUDA / kernels | The operations executed on the GPU | Motors, gears and specialized tools |
 | KServe | Kubernetes resources, rollout and routing lifecycle | Warehouse and dispatch management |
 
-KServe is not a third arithmetic engine competing with vLLM and SGLang. It can manage a service whose container runs one of them. Advanced LLM orchestration has its own resources and integration requirements. [KS](https://kserve.github.io/website/docs/intro) [KSRT](https://kserve.github.io/website/docs/model-serving/generative-inference/overview) [KSLLM](https://kserve.github.io/website/docs/model-serving/generative-inference/llmisvc/llmisvc-overview)
+**KServe is required by the user's infrastructure.** The engine choice is vLLM or SGLang within that platform. KServe manages the service lifecycle; the selected engine executes inference. Advanced LLM orchestration has its own resources and integration requirements. [KS](https://kserve.github.io/website/docs/intro) [KSRT](https://kserve.github.io/website/docs/model-serving/generative-inference/overview) [KSLLM](https://kserve.github.io/website/docs/model-serving/generative-inference/llmisvc/llmisvc-overview)
 
 ## Dense versus mixture of experts
 

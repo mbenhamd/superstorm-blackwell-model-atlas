@@ -2,6 +2,8 @@
 
 Deep understanding of eight model families on one **8×NVIDIA B300** node: architecture, memory, precision, inference engines and optimization tradeoffs.
 
+**Infrastructure requirement: KServe is mandatory.** All deployment guidance assumes the existing KServe platform, with vLLM or SGLang providing inference.
+
 Start with [START_HERE](START_HERE.md), then [compare the models](reports/comparison.md). [LIMITATIONS](LIMITATIONS.md) distinguishes known facts, publisher claims and unresolved questions. Research refreshed **October 16, 2026 UTC**.
 
 ## Hardware → model → precision → engine

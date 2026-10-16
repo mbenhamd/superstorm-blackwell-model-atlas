@@ -4,6 +4,8 @@ These **34 source-derived references** consolidate the former per-file launch pr
 
 Each reference is untested on the target node. Read the current family serving page before using an older reference: new research can identify restrictions or additional candidates without silently rewriting its historical source identity. Memory fractions, context caps and admission limits are starting hypotheses, not universal defaults.
 
+**KServe is mandatory for all eight families and all 34 references.** The argument arrays describe the inference process inside a KServe-managed workload. Completing a deployment also requires the installed resource kind and runtime template, image, GPU allocation, model mount, ports, probes and routing contract. Follow the [KServe integration analysis](../frameworks/kserve/ARCHITECTURE.md); an engine argument list alone does not establish a deployable KServe service.
+
 ## Retained configuration snapshots
 
 | ID | Engine | GPUs / TP / DP | Context cap | Status | Rationale |

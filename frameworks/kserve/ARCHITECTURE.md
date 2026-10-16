@@ -1,5 +1,7 @@
 # KServe deployment architecture
 
+**KServe is mandatory in the user's existing infrastructure.** This page evaluates how to integrate the model/engine candidates into that platform. The installed KServe release and resource kind remain unspecified; the source versions below are reference evidence.
+
 KServe manages the Kubernetes service lifecycle. vLLM or SGLang still loads the checkpoint, schedules token work, owns the caches and executes GPU kernels. An engine's supported model format does not establish the surrounding controller, routing or state-transfer integration. This page explains those boundaries; no cluster deployment is established by the source review.
 
 ## Release, branch and development image are separate observations
