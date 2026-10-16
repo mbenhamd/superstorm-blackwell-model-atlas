@@ -1,6 +1,6 @@
 # Qwen 3.8 27B: sources
 
-Rechecked 2026-10-15 UTC. Publisher metadata was retrieved at the immutable revisions below. No model weights were downloaded or tensor payloads audited. Engine recipe statements remain upstream evidence.
+Rechecked 2026-10-16 UTC; the earlier retrieval entries below remain dated to their original captures. Publisher metadata was retrieved at the immutable revisions below. No model weights were downloaded or tensor payloads audited. Engine recipe statements remain upstream evidence.
 
 ## Checkpoint revisions
 
@@ -9,6 +9,18 @@ Rechecked 2026-10-15 UTC. Publisher metadata was retrieved at the immutable revi
 | Qwen/Qwen3.8-27B | `1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0` |
 | Qwen/Qwen3.8-27B-FP8 | `017b9c7af6b5689d5dd426a76e0bc077eb5ca20a` |
 | nvidia/Qwen3.8-27B-NVFP4 | `482ca0f3832238542f8f5295dde86b5f22711d80` |
+
+## October 16 claim recheck
+
+| Observation | Fresh primary evidence |
+| --- | --- |
+| Current identities (all unchanged) | [TOPQ-27-API](https://huggingface.co/api/models/Qwen/Qwen3.8-27B) [TOPQ-27FP8-API](https://huggingface.co/api/models/Qwen/Qwen3.8-27B-FP8) [TOPQ-27NV-API](https://huggingface.co/api/models/nvidia/Qwen3.8-27B-NVFP4) |
+| Serialized quantized sizes | [TOPQ-27FP8-TREE](https://huggingface.co/api/models/Qwen/Qwen3.8-27B-FP8/tree/017b9c7af6b5689d5dd426a76e0bc077eb5ca20a?recursive=true&expand=false) [TOPQ-27NV-TREE](https://huggingface.co/api/models/nvidia/Qwen3.8-27B-NVFP4/tree/482ca0f3832238542f8f5295dde86b5f22711d80?recursive=true&expand=false) |
+| Native MTP inventory | [TOPQ-27-INDEX](https://huggingface.co/Qwen/Qwen3.8-27B/resolve/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/model.safetensors.index.json) [TOPQ-27FP8-INDEX](https://huggingface.co/Qwen/Qwen3.8-27B-FP8/resolve/017b9c7af6b5689d5dd426a76e0bc077eb5ca20a/model.safetensors.index.json) [TOPQ-27NV-INDEX](https://huggingface.co/nvidia/Qwen3.8-27B-NVFP4/resolve/482ca0f3832238542f8f5295dde86b5f22711d80/model.safetensors.index.json) |
+| Current recipe and cache-scale scope | [TOPQ-27-VR-SOURCE](https://raw.githubusercontent.com/vllm-project/recipes/b3d267608417e41bbbeddccdadb5040b64a8c93f/models/Qwen/Qwen3.8-27B.yaml) [TOPQ-SGL-STABLE-RECIPE27](https://raw.githubusercontent.com/sgl-project/sglang/e00930c5489053f26d86b179cee0d087f846acbb/docs/src/snippets/configs/Qwen/qwen3.8-27b.jsx) [TOPQ-27NV-QUANT](https://huggingface.co/nvidia/Qwen3.8-27B-NVFP4/raw/482ca0f3832238542f8f5295dde86b5f22711d80/hf_quant_config.json) |
+| NVIDIA modality and evaluation scope | [TOPQ-27NV-CARD](https://huggingface.co/nvidia/Qwen3.8-27B-NVFP4/raw/482ca0f3832238542f8f5295dde86b5f22711d80/README.md) |
+
+Stable source inspection uses vLLM 0.31.0 (`db9527a46873454610df6dbedf79a36d6bf1a7f6`) and SGLang 0.5.21 (`e00930c5489053f26d86b179cee0d087f846acbb`). Recipe assertions and source support remain separate from measured behavior on this node.
 
 ## Source register
 

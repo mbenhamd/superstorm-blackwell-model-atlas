@@ -1,6 +1,6 @@
 # Qwen 3.8 27B
 
-**As of 2026-10-15.** Dense 27B language model; Gated DeltaNet + gated full attention; multimodal.
+**As of 2026-10-16.** Dense 27B language model; Gated DeltaNet + gated full attention; multimodal.
 
 This is the small dense baseline in the requested set. Its architecture class still says Qwen3_5; the public model version and the loader class need not have the same spelling. [qwen3.8-27b-CARD](https://huggingface.co/Qwen/Qwen3.8-27B/raw/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/README.md) [qwen3.8-27b-CFG](https://huggingface.co/Qwen/Qwen3.8-27B/raw/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/config.json)
 

@@ -24,6 +24,26 @@ Compare separate target-only and DSpark runs with natural acceptance. The SGLang
 
 NVIDIA also publishes a vLLM route using a bundled runtime patch. Its existence prevents a blanket claim that this derivative is unsupported by vLLM; it does not validate a generic unpatched vLLM launch. The [precision report](precision.md) records the patch and still-open upstream PRs.
 
+## Keep the export and recipe together
+
+| Publisher route | Required distinction |
+| --- | --- |
+| NVIDIA mixed export, vLLM | Bundled patch; `modelopt_mixed`; `flashinfer_trtllm`; TP8, FP8 KV, memory utilization 0.90, context 196,608 and maximum 32 sequences |
+| NVIDIA mixed export, SGLang | `flashinfer_trtllm`; config selects mixed quantization without a CLI quantization override; published recipe uses TP8/DCP8 with external RadixArk DSpark block 7 |
+| Native MXFP4, vLLM MegaMoE | Separate native-format path requiring expert parallelism and the model's SiTU constants; its backend is not interchangeable with the NVIDIA path |
+
+The proposed NVIDIA launch with `--quantization modelopt`, `deep_gemm_mega_moe`, expert-parallel all-to-all and memory utilization 0.93 is not the publisher-validated combination. Likewise, `modelopt_fp4` plus EP8 does not reproduce the mixed-export SGLang recipe. SGLang's stable mixed-config dispatcher identifies `modelopt_mixed`; DCP8 splits the attention history and is a different choice from EP8. The mutable development image is a historical recipe identity, not a release or digest pin. [NVIDIA recipe](https://huggingface.co/nvidia/Kimi-K3-NVFP4/blob/b2428a0b83a8b712ff2e1a8448a103d4175341f1/README.md), [stable SGLang mixed dispatcher](https://raw.githubusercontent.com/sgl-project/sglang/e00930c5489053f26d86b179cee0d087f846acbb/python/sglang/srt/layers/quantization/modelopt_quant.py), [native vLLM caller](https://raw.githubusercontent.com/vllm-project/vllm/9a16d43ef0413b0a2a222e7f5baa4498c291ae5b/vllm/models/kimi_k3/nvidia/model.py).
+
+NVIDIA reports `fastsafetensors` brought its validated 8×B300 startup **to about 18 minutes**. That does not mean an 18-minute reduction, faster token generation, or the same cold-download time on another storage system. [Publisher loading observation](https://huggingface.co/nvidia/Kimi-K3-NVFP4/blob/b2428a0b83a8b712ff2e1a8448a103d4175341f1/README.md).
+
+## Scope of the published AgentX figures
+
+InferenceX reports **4,051 total tokens/s/GPU at 100 tokens/s/user** and **6,083 at 50** for its August 16, 2026 B300 frontier. Its API identifies P90 interactivity, one eight-GPU node, TP8/DCP8, EP1 and concurrency 1–70; it labels the runs as Mooncake DRAM offload with a reported 2,249 GB host allocation. Requests have varying conversation lengths. [Publisher summary](https://inferencex.semianalysis.com/run/kimi-k3-on-b300), [rows and workload metrics](https://inferencex.semianalysis.com/api/v1/benchmarks?model=Kimi-K3), [chart scope](https://inferencex.semianalysis.com/api/v1/views/inference?model=Kimi-K3&gpus=b300&sequence=agentic&metric=tpPerGpu&best=false&allPoints=true).
+
+The retrieved server log identifies **native MXFP4**, FlashInfer TRT-LLM MXFP4/MXFP8, `TOKENSPEED_MLA`, FP8 KV, a 1,048,576-token cap, and image build `5894fdf98`. Its Mooncake connector also prints `enable_offload=False`, which conflicts with the API's offload labels; the effective host-offload behavior remains unresolved. DSpark proposes seven tokens with **synthetic acceptance length 3.84**; target and tokenizer revisions are unset. This cannot qualify the NVIDIA export or natural draft acceptance. [Published server-log excerpt](https://inferencex.semianalysis.com/api/v1/server-log?id=439935&file=results%2Fserver.log&offset=0&limit=28000).
+
+Throughput includes input plus output tokens, with extensive prefix reuse. For example, concurrency eight records 5,180 total but only **40.63 generated tokens/s/GPU**. The two headline thresholds are frontier values rather than raw concurrency rows. Dividing them by per-user output speed does not yield a concurrent-user count. These remain externally reported results, with no local reproduction or immutable target/build qualification. [Underlying metrics](https://inferencex.semianalysis.com/api/v1/benchmarks?model=Kimi-K3).
+
 A generic native command containing only TP8, memory utilization `0.86` and a 131,072-token cap is a load hypothesis, not an evidence-backed stable recommendation. The cap and memory fraction are tuning choices. The selected build must execute KDA, gated MLA, Attention Residuals and SiTU with the checkpoint's `4.0/25.0` constants, and use the `kimi_k3` reasoning/tool parsers for chat. The current vLLM recipe pairs FP8 KV with an MLA prefill backend and `use_prefill_query_quantization`; its Blackwell route names `TOKENSPEED_MLA`. Changing those settings needs its own qualification. Latest stable vLLM 0.31.0 contains native K3 source, but this does not discharge NVIDIA mixed-export patch requirements. [vLLM recipe](https://recipes.vllm.ai/moonshotai/Kimi-K3), [release source](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/models/kimi_k3/nvidia/model.py).
 
 ## Optimization questions

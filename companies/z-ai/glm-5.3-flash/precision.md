@@ -8,7 +8,9 @@ The official FP8 and BF16 variants and the exact RedHat derivative were rechecke
 | bf16 | [zai-org/GLM-5.3-Flash-BF16](https://huggingface.co/zai-org/GLM-5.3-Flash-BF16/raw/f9fed3bbc82291073373d67452e9f25317ef7577/config.json) | BF16 reference with a small FP32 component; no quantization config | 642,646,653,816 |
 | nvfp4 | [RedHatAI/GLM-5.3-Flash-NVFP4](https://huggingface.co/RedHatAI/GLM-5.3-Flash-NVFP4/raw/18d55bfd5a2194887738da73753975c9d3842f46/config.json) | compressed-tensors: main routed experts NVFP4 W4A4; MTP routed experts FP8 W8A8; other modules excluded | 197,816,133,372 |
 
-The figures come from `metadata.total_size` in each pinned index, linked in [sources](sources.md). They are serialized tensor bytes, not measured GPU allocations. RedHat's export is about 39.75% smaller by this metric than the official FP8 artifact; a four-bit label does not imply a 50% reduction for the whole mixed checkpoint.
+The figures come from `metadata.total_size` in each pinned index, linked in [sources](sources.md). Native FP8 is **305.78 GiB** and RedHat NVFP4 is **184.23 GiB** of serialized tensors. Thus approximately 306 GiB and 185 GiB are useful rounded payload references, not measured GPU allocations. RedHat's export is about 39.75% smaller by this metric than the official FP8 artifact; a four-bit label does not imply a 50% reduction for the whole mixed checkpoint. [TOPG-FLASH-INDEX](https://huggingface.co/zai-org/GLM-5.3-Flash/resolve/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/model.safetensors.index.json) [TOPG-FLASH-NV-INDEX](https://huggingface.co/RedHatAI/GLM-5.3-Flash-NVFP4/resolve/18d55bfd5a2194887738da73753975c9d3842f46/model.safetensors.index.json)
+
+FP8 is a useful native-artifact baseline, but the 18B active headline does not establish that execution is dominated by kernel launches or that FP8 outperforms NVFP4. Batch size, prompt length, expert traffic, cache/state work and the selected kernels can change the limiting cost. The payload reduction creates potential memory headroom; a latency or throughput advantage remains a workload hypothesis.
 
 ## Exact RedHat contract
 

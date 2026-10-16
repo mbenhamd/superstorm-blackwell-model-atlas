@@ -1,10 +1,12 @@
 # Kimi K3
 
-**Reverified 2026-10-15 (UTC).** Publisher reports 2.8T total / 104B active; hybrid KDA + gated MLA; latent MoE.
+**Reverified 2026-10-16 (UTC).** Publisher reports 2.8T total / 104B active; hybrid KDA + gated MLA; latent MoE. The current publisher and NVIDIA repository heads still match the retained immutable revisions. [Publisher identity](https://huggingface.co/api/models/moonshotai/Kimi-K3), [NVIDIA identity](https://huggingface.co/api/models/nvidia/Kimi-K3-NVFP4).
 
 Treat K3 as a large hybrid system, not as a conventional trillion-parameter Transformer with a smaller file format. The ordinary release is already a low-precision, quantization-aware-trained artifact. The NVIDIA NVFP4 release is a different mixed-format artifact with a different loading and kernel contract. [kimi-k3-CARD](https://huggingface.co/moonshotai/Kimi-K3/blob/f831ab66814297da540d832a5235f8e904f29d06/README.md) [kimi-k3-CFG](https://huggingface.co/moonshotai/Kimi-K3/raw/f831ab66814297da540d832a5235f8e904f29d06/config.json)
 
 **First serving candidate:** SGLang initial candidate for NVIDIA mixed NVFP4; compare vLLM and SGLang for native MXFP4. This is a reasoned deployment starting point, not a measured winner on your hardware.
+
+Native MXFP4 already makes single-node weight storage plausible; NVIDIA NVFP4 is a separate option. The [precision report](precision.md) separates checkpoint bytes from residency, and the [serving report](serving.md) explains why the published AgentX throughput figures do not measure fresh output-token capacity or this NVIDIA export.
 
 [Architecture](architecture.md) · [Precision and variants](precision.md) · [Serving decisions](serving.md) · [Sources](sources.md) · [Model catalog](../../../catalog/models.json)
 

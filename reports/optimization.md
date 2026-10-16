@@ -40,6 +40,28 @@ On eight physical GPUs, feasible independent placements include 1×TP8, 2×TP4, 
 
 The actual NVLink/NVSwitch and CPU/NUMA layout matters. Do not import the topology of a DGX B300 or Grace-based GB300 into the user's unspecified SXM6-AC node. [Hardware](../hardware/B300-8GPU.md)
 
+### Two TP4 replicas and DP2 with TP4/EP are different layouts
+
+In the inspected vLLM release, **MoE `DP=2, TP=4` with EP creates one expert group of eight ranks**. Attention is divided into two TP4 groups with separate request/cache state, but expert execution synchronizes across both groups. An idle attention group can still need dummy forwards while another group is active. Two independent four-GPU services instead each hold a complete model across their own TP4/EP4 group. “TEP4” is shorthand that needs this process-group definition; it is not a portable independent-replica flag. [TOPR-V-EP](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/docs/serving/expert_parallel_deployment.md), [TOPR-V-DP](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/docs/serving/data_parallel_deployment.md).
+
+```mermaid
+flowchart TB
+  subgraph coupled["One vLLM MoE deployment: DP2 × TP4 with EP"]
+    A["Attention/cache group A · four GPUs"] --> E["Expert layer · EP8 across all eight GPUs"]
+    B["Attention/cache group B · four GPUs"] --> E
+  end
+  subgraph separate["Two independent deployments"]
+    C["Service A · TP4 / EP4 · complete target"]
+    D["Service B · TP4 / EP4 · complete target"]
+  end
+```
+
+These are layer/group views of the same eight-GPU budget, not additional GPUs per box. The independent layout duplicates the complete expert set; the coupled layout can distribute it across eight ranks. They differ in memory, synchronization, failure scope and routing, so they cannot be assigned the same performance expectation.
+
+SGLang's **ordinary DP controller**, with `enable_dp_attention` false, launches separate TP groups and advances GPU placement by `TP × PP` per replica. Its **DP-attention mode** instead partitions attention inside a shared TP world. Thus identical-looking DP/TP numbers can have different meanings across engines or modes. Resolve model/backend overrides and the effective mode before counting GPUs; never multiply EP as a third independent factor. [TOPR-S-DP](https://raw.githubusercontent.com/sgl-project/sglang/e00930c5489053f26d86b179cee0d087f846acbb/python/sglang/srt/managers/data_parallel_controller.py), [TOPR-S-DPATTN](https://raw.githubusercontent.com/sgl-project/sglang/e00930c5489053f26d86b179cee0d087f846acbb/python/sglang/srt/layers/dp_attention.py).
+
+For the dense Qwen27/Gemma31 targets, TP1 replicas avoid cross-GPU target-layer collectives, but request routing, CPU work, cache locality and optional draft execution still cost time. vLLM's `max_num_seqs` applies **per DP rank**: eight ranks with a cap of 256 permit up to 2,048 scheduled sequences in that accounting, not 2,048 guaranteed maximum-context conversations. [TOPR-V-DP](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/docs/serving/data_parallel_deployment.md), [cache-capacity arithmetic](memory-math.md#turning-an-fp8-cache-budget-into-token-slots).
+
 ## Family-specific optimization questions
 
 | Family | Evidence-backed starting point | Unique prompt | Multi-turn chat | Coding agents |
@@ -49,7 +71,7 @@ The actual NVLink/NVSwitch and CPU/NUMA layout matters. Do not import the topolo
 | [GLM 5.3 Flash](../companies/z-ai/glm-5.3-flash/serving.md) | Exact hybrid-model recipe; TP4 candidate | KDA/sparse-MLA kernels and native MTP route | Recurrent and sparse pools, reuse boundaries | Mixed draft precision, multimodal/tools and reasoning policy |
 | [DeepSeek 0731](../companies/deepseek/deepseek-v4-flash-0731/serving.md) | Native documented TP/DP/EP paths; NVIDIA derivative has separate TP8 evidence | Native DSpark and compressed attention | Exact July-31 encoding and compressed/SWA state | Target-only quality before derivative speculation; no V4.1 support transfer |
 | [Qwen 27B](../companies/alibaba-qwen/qwen3.8-27b/serving.md) | TP1 BF16, official FP8 or exact NVIDIA mixed export | Precision/kernel choice; TP2 only a comparison | GDN snapshots plus full-attention cache; faithful template | Native MTP versus target-only, correct tools and reasoning serialization |
-| [Qwen Flash Next](../companies/alibaba-qwen/qwen3.8-flash-next/serving.md) | NVIDIA vLLM TP8 recipe; SGLang TP1 is an unverified B300 candidate | PLE placement, QSA constraints and MTP | Ngram, recurrent and sparse history costs | Retained thinking policy and mixed MTP; no exporter substitution |
+| [Qwen Flash Next](../companies/alibaba-qwen/qwen3.8-flash-next/serving.md) | Official FP8 vLLM TP4/EP candidate; separate NVIDIA TP8 recipe; SGLang exact-export B300 cells unverified | PLE placement, QSA constraints and MTP | Ngram, recurrent and sparse history costs; independent replicas versus shared EP | Retained thinking policy, explicit IndexShare and mixed MTP; no exporter substitution |
 | [Gemma 31B](../companies/google/gemma-4-31b-it/serving.md) | TP1 base/FP8/NVFP4 references | Local/global attention and newly identified assistant | Heterogeneous cache plus template revision | Task-specific quantization quality, exact tool template and assistant pairing |
 | [Mistral Medium](../companies/mistral-ai/mistral-medium-3.5/serving.md) | Publisher FP8 TP8 reference; narrower TP remains a capacity/performance question | Full-history KV and separate EAGLE cost | Context length, replica cache locality and vision | EAGLE embedding/head alignment, tools and complete-task quality |
 

@@ -5,12 +5,12 @@
 | Model | Architecture identity and parameter scope | Configured positional limit | First engine/topology decision |
 | --- | --- | --- | --- |
 | [Kimi K3](../companies/moonshot-ai/kimi-k3/README.md) | Rounded 2.8T total / 104B active; hybrid KDA + gated MLA; latent MoE | 1,048,576 | SGLang initial candidate for NVIDIA mixed NVFP4; compare vLLM and SGLang for native MXFP4 |
-| [GLM 5.3](../companies/z-ai/glm-5.3/README.md) | Approximately 743.38B main + 9.95B serialized MTP; 39B active headline; MLA with DSA; native FP8 packaging | 1,048,576 | vLLM FP8 and RedHat/Inferact NVFP4 first; SGLang challenger |
+| [GLM 5.3](../companies/z-ai/glm-5.3/README.md) | Approximately 743.38B main + 9.95B serialized MTP; 39B active in the vLLM recipe, 40B in NVIDIA's card, scopes unresolved; MLA with DSA; native FP8 packaging | 1,048,576 | vLLM FP8 and RedHat/Inferact NVFP4 first; SGLang challenger |
 | [GLM 5.3 Flash](../companies/z-ai/glm-5.3-flash/README.md) | Rounded 320B / 18B active; 321.323B Hub count; KDA + NoPE sparse MLA + mHC; multimodal | 1,048,576 | SGLang Blackwell FP8 initial candidate; compare vLLM FP8 and NVFP4 |
 | [DeepSeek V4 Flash 0731](../companies/deepseek/deepseek-v4-flash-0731/README.md) | Exact count unresolved; compressed/sparse attention, mHC, built-in DSpark | 1,048,576 | vLLM TP1/DP4+EP baseline and SGLang documented TP4 comparator; qualify eight-GPU adaptations |
-| [Qwen 3.8 27B](../companies/alibaba-qwen/qwen3.8-27b/README.md) | Rounded 27B dense language model; Gated DeltaNet + gated full attention; multimodal | 262,144 | vLLM TP1 BF16/FP8 and SGLang TP1; evaluate NVFP4 at equal quality |
-| [Qwen 3.8 Flash Next](../companies/alibaba-qwen/qwen3.8-flash-next/README.md) | Approximately 125B main + 51B n-gram + 4B MTP, vision not separately counted; 6B active main; GDN + QSA | 262,144 | vLLM TP8 baseline for the NVIDIA mixed export; SGLang documented TP1 candidate, unverified on B300 |
-| [Gemma 4 31B IT](../companies/google/gemma-4-31b-it/README.md) | Rounded 31B dense multimodal model; 5 sliding layers per global-attention layer | 262,144 | vLLM TP1 BF16/FP8/NVFP4 comparison; SGLang challenger with export-level probe |
+| [Qwen 3.8 27B](../companies/alibaba-qwen/qwen3.8-27b/README.md) | Rounded 27B language-model headline; Hub lists 27.781B BF16 parameters; Gated DeltaNet + gated full attention; multimodal | 262,144 | vLLM TP1 BF16/FP8 and SGLang TP1; evaluate NVFP4 at equal quality |
+| [Qwen 3.8 Flash Next](../companies/alibaba-qwen/qwen3.8-flash-next/README.md) | Approximately 125B main + 51B n-gram + 4B MTP = 180B, vision not separately counted; 6B active main; GDN + QSA | 262,144 | vLLM FP8 TP4/EP candidate and NVIDIA mixed-export TP8 recipe; compare independent replicas with shared EP explicitly |
+| [Gemma 4 31B IT](../companies/google/gemma-4-31b-it/README.md) | Rounded paper breakdown: 30.700B text + 0.550B vision; separate 0.500B assistant; 5 sliding layers per global layer | 262,144 | vLLM TP1 BF16/FP8/NVFP4 comparison; SGLang challenger with export-level probe |
 | [Mistral Medium 3.5](../companies/mistral-ai/mistral-medium-3.5/README.md) | Rounded 128B dense model; 88 language layers, GQA, Pixtral vision; static FP8 export | 262,144 | vLLM publisher TP8 baseline; compare TP2/4 and publisher-documented SGLang at equal workload |
 
 
@@ -27,6 +27,21 @@ Primary extraction sources: [kimi-k3-CFG](https://huggingface.co/moonshotai/Kimi
 A useful comparison fixes the task distribution, prompt/output lengths, quality threshold, reasoning settings and latency objective. Compare per-node goodput for capacity planning and per-request latency for interactivity. Do not rank engines by unrelated benchmark rows from B200, GB300, RTX Blackwell and an unspecified B300 OEM node.
 
 Choose a starting engine using evidence of the exact checkpoint path and the team’s operational constraints. Promote a candidate only after correctness and workload tests. vLLM and SGLang can both be benchmarked without changing the KServe lifecycle design for a basic single-node service; advanced disaggregation and routing require engine-specific integrations. [KSRT](https://kserve.github.io/website/docs/model-serving/generative-inference/overview) [KSLLM](https://kserve.github.io/website/docs/model-serving/generative-inference/llmisvc/llmisvc-overview)
+
+## What the six-family topology proposal establishes
+
+The October 16 recheck supports these narrower choices. Linked family pages contain the pinned primary sources and explain the differences between publisher recipes, serialized bytes and inferred deployment candidates.
+
+| Family | Useful configuration candidate | Correction that changes the decision |
+| --- | --- | --- |
+| [Qwen Flash Next](../companies/alibaba-qwen/qwen3.8-flash-next/serving.md) | Official FP8 with TP4/EP; compare two independent groups with one shared EP8 deployment | In vLLM, DP2 × TP4 with EP spans all eight GPUs for experts. PLE offload has host-memory and transfer costs; MTP3 does not itself enable IndexShare. |
+| [Qwen 27B](../companies/alibaba-qwen/qwen3.8-27b/precision.md) | TP1 baseline; up to eight independently routed replicas | Official FP8 shard files total 28.75 GiB; NVIDIA mixed NVFP4 files total 20.42 GiB. These are neither resident weights nor free cache capacity. |
+| [Kimi K3](../companies/moonshot-ai/kimi-k3/serving.md) | Native MXFP4 TP8 or the exact NVIDIA mixed-format route | NVFP4 is not essential for storage: native MXFP4 already exists. The AgentX headline uses native MXFP4, total-token accounting and synthetic draft acceptance; API/log offload settings disagree. |
+| [GLM 5.3](../companies/z-ai/glm-5.3/serving.md) | Native FP8 TP8; exact-export NVFP4 alternatives | Native and NVIDIA index totals are about 703.72 and 432.24 GiB. Five-token MTP is a recipe choice; the NVIDIA 400K reference used two four-GPU nodes. |
+| [GLM Flash](../companies/z-ai/glm-5.3-flash/serving.md) | FP8/NVFP4 TP4 versus TP8, with explicit throughput or latency objective | Multimodality and MIT licensing are real distinctions. Published task scores do not establish the fastest local serving precision or topology. |
+| [Gemma 31B](../companies/google/gemma-4-31b-it/precision.md) | TP1 baseline; eight-replica candidate; exact exporter and optional assistant selected separately | NVIDIA, Unsloth and Turbo use different formats/exclusions. Turbo's speed claims concern RTX PRO 6000; its text-only export does not preserve multimodality. |
+
+The [topology diagram](optimization.md#two-tp4-replicas-and-dp2-with-tp4ep-are-different-layouts) shows the DP/EP distinction. The [memory explanation](memory-math.md) separates aggregate HBM, checkpoint storage and request capacity. Context, concurrency, draft depth and memory fractions remain workload choices; their largest values cannot be combined into a guaranteed-capacity command.
 
 ## Suggested workload portfolios
 

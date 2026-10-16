@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "as_of": "2026-10-15",
+  "as_of": "2026-10-16",
   "models": [
     {
       "key": "kimi-k3",
@@ -57,7 +57,8 @@
         "max_position_embeddings": 1048576,
         "vision_encoder": "MoonViT-V2",
         "vision_parameters_millions": 401,
-        "vocab_size": 163840
+        "vocab_size": 163840,
+        "num_nextn_predict_layers": 0
       },
       "total_b": 2800,
       "active_b": 104,
@@ -72,7 +73,9 @@
           "hf_id": "moonshotai/Kimi-K3",
           "precision": "MXFP4 routed-expert weights; retained non-expert precision; publisher MXFP8 QAT claim does not fix runtime activation dtype",
           "status": "verified immutable publisher card/config; no GPU test",
-          "revision": "f831ab66814297da540d832a5235f8e904f29d06"
+          "revision": "f831ab66814297da540d832a5235f8e904f29d06",
+          "index_tensor_bytes": 1560860324864,
+          "index_tensor_bytes_source_id": "TOPK-BASE-INDEX-RANGE"
         },
         {
           "key": "nvfp4",
@@ -80,7 +83,9 @@
           "precision": "NVFP4 experts + FP8_PB_WO attention + retained higher precision",
           "status": "verified immutable NVIDIA card/config; backend-specific fixes; no local GPU test",
           "revision": "b2428a0b83a8b712ff2e1a8448a103d4175341f1",
-          "license": "NVIDIA Open Model Agreement named in card; Kimi K3 LICENSE file also present"
+          "license": "NVIDIA Open Model Agreement named in card; Kimi K3 LICENSE file also present",
+          "index_tensor_bytes": 1609777087808,
+          "index_tensor_bytes_source_id": "TOPK-NV-INDEX-RANGE"
         },
         {
           "key": "fp8",
@@ -109,13 +114,18 @@
         "KIMIVPR-MIXED",
         "KIMIVPR-SCALE",
         "GREL-KIMI-ANCESTRY",
-        "VDS"
+        "VDS",
+        "TOPK-BASE-API",
+        "TOPK-NV-API",
+        "TOPK-BASE-INDEX-RANGE",
+        "TOPK-NV-INDEX-RANGE"
       ],
       "revision": "f831ab66814297da540d832a5235f8e904f29d06",
       "evidence_status": "Publisher cards, configurations and license files retrieved at immutable revisions on 2026-10-15; not loaded or benchmarked on hardware",
       "source_projection_is_complete_original_config": false,
       "config_projection_source_note": "Configuration fields verified at the pinned base revision; vision encoder name, 401M vision count and SiTU-GLU label also use the publisher card. Layer counts derive from the explicit lists.",
-      "parameter_count_note": "2.8T total and 104B active are rounded publisher headlines, not a checkpoint tensor census."
+      "parameter_count_note": "2.8T total and 104B active are rounded publisher headlines, not a checkpoint tensor census.",
+      "weight_file_bytes_note": "Index metadata prefixes only; serialized tensor bytes exclude file headers and runtime allocations. Native and NVIDIA index totals do not measure resident HBM or available KV memory."
     },
     {
       "key": "glm-5.3",
@@ -215,7 +225,12 @@
         "glm-5.3-NV-CFG",
         "glm-5.3-NV-INDEX",
         "glm-5.3-INFERACT-CFG",
-        "glm-5.3-INFERACT-INDEX"
+        "glm-5.3-INFERACT-INDEX",
+        "TOPG-GLM-MAIN",
+        "TOPG-GLM-INDEX",
+        "TOPG-GLM-NVIDIA-CARD",
+        "TOPG-GLM-NVIDIA-INDEX",
+        "TOPG-GLM-TEMPLATE"
       ],
       "revision": "ba32f8c19c8738e2c57c71798c601d477a7bf844",
       "evidence_status": "Pinned publisher cards, configurations and checkpoint metadata rechecked 2026-10-15; no model tensor payloads downloaded or GPU execution measured",
@@ -232,7 +247,8 @@
       },
       "main_b": 743.377019904,
       "mtp_b": 9.952920576,
-      "verified_on_timezone": "UTC"
+      "verified_on_timezone": "UTC",
+      "parameter_count_note": "Approximately 743.38B main plus 9.95B serialized MTP gives 753.33B in this scope. active_b=39 retains the vLLM recipe headline; NVIDIA reports 40B active, whose counting scope is not reconciled. Neither is a tensor-operation count."
     },
     {
       "key": "glm-5.3-flash",
@@ -339,7 +355,11 @@
         "glm-5.3-flash-BF16-INDEX",
         "glm-5.3-flash-NV",
         "glm-5.3-flash-NV-CFG",
-        "glm-5.3-flash-NV-INDEX"
+        "glm-5.3-flash-NV-INDEX",
+        "TOPG-FLASH-MAIN",
+        "TOPG-FLASH-INDEX",
+        "TOPG-FLASH-NV-INDEX",
+        "TOPG-FLASH-TEMPLATE"
       ],
       "revision": "46a050bec13002ad29ee795c16e61cf4fa3c4a9c",
       "evidence_status": "Pinned publisher cards, configurations and checkpoint metadata rechecked 2026-10-15; no model tensor payloads downloaded or GPU execution measured",
@@ -553,7 +573,9 @@
           "hf_id": "Qwen/Qwen3.8-27B-FP8",
           "precision": "E4M3 FP8 with 128x128 weight blocks and excluded modules",
           "status": "Publisher card and pinned configuration metadata inspected; no weight load",
-          "revision": "017b9c7af6b5689d5dd426a76e0bc077eb5ca20a"
+          "revision": "017b9c7af6b5689d5dd426a76e0bc077eb5ca20a",
+          "listed_weight_file_bytes": 30866866928,
+          "weight_file_bytes_source_id": "TOPQ-27FP8-TREE"
         },
         {
           "key": "nvfp4",
@@ -563,7 +585,9 @@
           "revision": "482ca0f3832238542f8f5295dde86b5f22711d80",
           "provenance_notes": [
             "Card states ModelOpt 0.48.0; config.json and hf_quant_config.json record 0.47.0.dev80+g913f5e224. Exporter-version discrepancy unresolved."
-          ]
+          ],
+          "listed_weight_file_bytes": 21921697280,
+          "weight_file_bytes_source_id": "TOPQ-27NV-TREE"
         }
       ],
       "path": "companies/alibaba-qwen/qwen3.8-27b",
@@ -576,12 +600,15 @@
         "qwen3.8-27b-NV-CFG",
         "qwen3.8-27b-NV-QUANT",
         "qwen3.8-27b-VR",
-        "qwen3.8-27b-GR"
+        "qwen3.8-27b-GR",
+        "TOPQ-27FP8-TREE",
+        "TOPQ-27NV-TREE",
+        "TOPQ-27-API"
       ],
       "revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
       "evidence_status": "Publisher cards and immutable configuration metadata rechecked on 2026-10-15; weights not inspected; no GPU load or benchmark",
       "source_projection_is_complete_original_config": false,
-      "metadata_retrieved_on": "2026-10-15",
+      "metadata_retrieved_on": "2026-10-16",
       "config_projection_provenance": {
         "configuration_source_id": "qwen3.8-27b-CFG",
         "publisher_card_source_id": "qwen3.8-27b-CARD",
@@ -597,7 +624,13 @@
           "nextn_layers": "text_config.mtp_num_hidden_layers"
         }
       },
-      "parameter_count_scope": "Rounded publisher language-model headline; vision and auxiliary-module accounting require a tensor census. active_b uses the dense-model headline convention, not a count of parameters read for one token."
+      "parameter_count_scope": "Rounded publisher language-model headline; vision and auxiliary-module accounting require a tensor census. active_b uses the dense-model headline convention, not a count of parameters read for one token.",
+      "weight_file_bytes_note": "Pinned Hub tree sums of safetensors shard file bytes, including headers; not index tensor payload, target-only residency, MTP-enabled residency or free KV capacity.",
+      "stored_artifact_parameter_count": {
+        "value": 27781427952,
+        "scope": "Hub BF16 parameter metadata for stored artifact; broader than rounded 27B language-model headline; not per-token active count",
+        "source_id": "TOPQ-27-API"
+      }
     },
     {
       "key": "qwen3.8-flash-next",
@@ -656,7 +689,7 @@
       "context": 262144,
       "layout": "hybrid-ngram-moe",
       "license": "Qwen Community License 1.0; NVIDIA derivative also names NVIDIA Open Model License",
-      "recommended": "vLLM TP8 baseline for the NVIDIA mixed export; SGLang documented TP1 candidate, unverified on B300",
+      "recommended": "Official FP8 vLLM TP4/EP candidate and separate NVIDIA mixed-export TP8 recipe; distinguish independent replicas from shared EP; SGLang B300 cells remain unverified",
       "baseline_tp": 8,
       "revision": "de4b8e4d43b917e7706784d8bb445c9af86a3540",
       "variants": [
@@ -672,7 +705,9 @@
           "hf_id": "Qwen/Qwen3.8-Flash-Next-FP8",
           "precision": "FP8 routed experts and PLE embedding; attention/shared experts excluded",
           "status": "Publisher card and pinned configuration metadata inspected; no weight load",
-          "revision": "236dfdf285828023ca3bcd3f37366c58a3469b13"
+          "revision": "236dfdf285828023ca3bcd3f37366c58a3469b13",
+          "listed_weight_file_bytes": 185523317458,
+          "weight_file_bytes_source_id": "TOPQ-NEXTFP8-TREE"
         },
         {
           "key": "nvfp4",
@@ -697,11 +732,16 @@
         "qwen3.8-flash-next-VR",
         "qwen3.8-flash-next-GR",
         "qwen3.8-flash-next-GPR",
-        "qwen3.8-flash-next-GR-SOURCE"
+        "qwen3.8-flash-next-GR-SOURCE",
+        "TOPQ-NEXTFP8-TREE",
+        "TOPQ-NEXT-API",
+        "TOPQ-NEXTFP8-API",
+        "TOPQ-NEXTNV-API",
+        "TOPQ-NEXT-VR-SOURCE"
       ],
       "evidence_status": "Publisher cards and immutable configuration metadata rechecked on 2026-10-15; weights not inspected; no GPU load or benchmark",
       "source_projection_is_complete_original_config": false,
-      "metadata_retrieved_on": "2026-10-15",
+      "metadata_retrieved_on": "2026-10-16",
       "config_projection_provenance": {
         "configuration_source_id": "qwen3.8-flash-next-CFG",
         "publisher_card_source_id": "qwen3.8-flash-next-CARD",
@@ -719,7 +759,8 @@
           "ple_layer_ids": "One-based [2]; NVIDIA quantization metadata names the zero-based tensor path layers.1.ple"
         }
       },
-      "parameter_count_scope": "Approximate sum of rounded publisher language-model components: 125B main + 51B n-gram + 4B MTP; not a tensor census and no separate vision count. active_b=6 applies only to the main path."
+      "parameter_count_scope": "Publisher rounded main125B + PLE51B =176B before MTP4B; approximately180B including MTP, with vision not separately accounted. active_b6 describes main-path headline only.",
+      "weight_file_bytes_note": "Pinned Hub tree sums of safetensors shard file bytes, including headers; not index tensor payload, target-only residency, MTP-enabled residency or free KV capacity."
     },
     {
       "key": "gemma-4-31b-it",
@@ -792,6 +833,51 @@
           "revision": "5df75ccad9b74546f5be758a2a68acc2e16bbc9b",
           "listed_weight_file_bytes": 23265401144,
           "weight_file_bytes_source_id": "gemma-4-31b-it-NV-TREE"
+        },
+        {
+          "key": "nvidia-nvfp4",
+          "hf_id": "nvidia/Gemma-4-31B-IT-NVFP4",
+          "precision": "ModelOpt NVFP4 group16 MLPs; self-attention, vision and lm_head excluded",
+          "status": "Additional export pinned and metadata inspected 2026-10-16; not loaded or benchmarked on B300",
+          "revision": "4135a98a9b728a548947683219633b25682223ac",
+          "listed_weight_file_bytes": 32633477808,
+          "weight_file_bytes_source_id": "TOPM-GEMMA-NVIDIA-TREE",
+          "source_ids": [
+            "TOPM-GEMMA-NVIDIA-META",
+            "TOPM-GEMMA-NVIDIA-CARD",
+            "TOPM-GEMMA-NVIDIA-CFG",
+            "TOPM-GEMMA-NVIDIA-TREE"
+          ]
+        },
+        {
+          "key": "unsloth-nvfp4",
+          "hf_id": "unsloth/gemma-4-31B-it-NVFP4",
+          "precision": "compressed-tensors mixed precision: FP8 attention and MLP layers1/57/58/59; group16 NVFP4 remaining MLPs; vision retained",
+          "status": "Additional export pinned and metadata inspected 2026-10-16; not loaded or benchmarked on B300",
+          "revision": "373c00b5ecb0a8ee43942b5ca08b93805de8eee4",
+          "listed_weight_file_bytes": 24765757504,
+          "weight_file_bytes_source_id": "TOPM-GEMMA-UNSLOTH-TREE",
+          "source_ids": [
+            "TOPM-GEMMA-UNSLOTH-META",
+            "TOPM-GEMMA-UNSLOTH-CARD",
+            "TOPM-GEMMA-UNSLOTH-CFG",
+            "TOPM-GEMMA-UNSLOTH-TREE"
+          ]
+        },
+        {
+          "key": "nvfp4-turbo",
+          "hf_id": "LilaRest/gemma-4-31B-it-NVFP4-turbo",
+          "precision": "Text-only ModelOpt group16 W4A4; publisher describes RTN attention with inherited calibrated MLP NVFP4",
+          "status": "Additional export pinned and metadata inspected 2026-10-16; not loaded or benchmarked on B300",
+          "revision": "782d58ea7f9cf3a148be86e153f5689a2d73238b",
+          "listed_weight_file_bytes": 19295277512,
+          "weight_file_bytes_source_id": "TOPM-GEMMA-TURBO-TREE",
+          "source_ids": [
+            "TOPM-GEMMA-TURBO-META",
+            "TOPM-GEMMA-TURBO-CARD",
+            "TOPM-GEMMA-TURBO-CFG",
+            "TOPM-GEMMA-TURBO-TREE"
+          ]
         }
       ],
       "path": "companies/google/gemma-4-31b-it",
@@ -805,12 +891,26 @@
         "gemma-4-31b-it-BASE-TREE",
         "gemma-4-31b-it-FP8-TREE",
         "gemma-4-31b-it-NV-TREE",
-        "gemma-4-31b-it-LICENSE"
+        "gemma-4-31b-it-LICENSE",
+        "TOPM-GEMMA-PAPER",
+        "TOPM-GEMMA-BASE-CFG",
+        "TOPM-GEMMA-NVIDIA-META",
+        "TOPM-GEMMA-NVIDIA-CARD",
+        "TOPM-GEMMA-NVIDIA-CFG",
+        "TOPM-GEMMA-NVIDIA-TREE",
+        "TOPM-GEMMA-UNSLOTH-META",
+        "TOPM-GEMMA-UNSLOTH-CARD",
+        "TOPM-GEMMA-UNSLOTH-CFG",
+        "TOPM-GEMMA-UNSLOTH-TREE",
+        "TOPM-GEMMA-TURBO-META",
+        "TOPM-GEMMA-TURBO-CARD",
+        "TOPM-GEMMA-TURBO-CFG",
+        "TOPM-GEMMA-TURBO-TREE"
       ],
       "revision": "842da3794eaa0b77d5f08bae87a17459d91ff475",
       "evidence_status": "Pinned publisher cards/configurations and repository file metadata rechecked 2026-10-15; not loaded or benchmarked on hardware",
       "source_projection_is_complete_original_config": false,
-      "parameter_count_note": "31B is a rounded family label, not an audited unique-parameter census; use exact artifact metadata for weight storage",
+      "parameter_count_note": "total_b31 and active_b31 are rounded dense text-family shorthand, not an exact count of parameters used per token. Publisher Table1 rounds text embedding1.410B+einsums29.290B=30.700B; vision0.550B and separate drafter0.500B are additional components. No exact tensor census; do not add rounded counts as measured residency.",
       "weight_file_bytes_note": "Sum of .safetensors file sizes listed by the pinned Hugging Face tree API, including headers; not a local tensor census or runtime memory measurement"
     },
     {

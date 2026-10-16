@@ -1,6 +1,6 @@
 # Qwen 3.8 Flash Next: sources
 
-Rechecked 2026-10-15 UTC. Publisher metadata was retrieved at the immutable revisions below. No model weights were downloaded or tensor payloads audited. Engine recipe statements remain upstream evidence.
+Rechecked 2026-10-16 UTC; the earlier retrieval entries below remain dated to their original captures. Publisher metadata was retrieved at the immutable revisions below. No model weights were downloaded or tensor payloads audited. Engine recipe statements remain upstream evidence.
 
 ## Checkpoint revisions
 
@@ -9,6 +9,20 @@ Rechecked 2026-10-15 UTC. Publisher metadata was retrieved at the immutable revi
 | Qwen/Qwen3.8-Flash-Next | `de4b8e4d43b917e7706784d8bb445c9af86a3540` |
 | Qwen/Qwen3.8-Flash-Next-FP8 | `236dfdf285828023ca3bcd3f37366c58a3469b13` |
 | nvidia/Qwen3.8-Flash-Next-NVFP4 | `fc694b54fb0174e0913e6adf86691ef85a4ead47` |
+
+## October 16 claim recheck
+
+| Observation | Fresh primary evidence |
+| --- | --- |
+| Current identities (all unchanged) | [TOPQ-NEXT-API](https://huggingface.co/api/models/Qwen/Qwen3.8-Flash-Next) [TOPQ-NEXTFP8-API](https://huggingface.co/api/models/Qwen/Qwen3.8-Flash-Next-FP8) [TOPQ-NEXTNV-API](https://huggingface.co/api/models/nvidia/Qwen3.8-Flash-Next-NVFP4) |
+| Serialized FP8 bytes | [TOPQ-NEXTFP8-TREE](https://huggingface.co/api/models/Qwen/Qwen3.8-Flash-Next-FP8/tree/236dfdf285828023ca3bcd3f37366c58a3469b13?recursive=true&expand=false) [TOPQ-NEXTFP8-INDEX](https://huggingface.co/Qwen/Qwen3.8-Flash-Next-FP8/resolve/236dfdf285828023ca3bcd3f37366c58a3469b13/model.safetensors.index.json) |
+| Current vLLM recipe and block alignment | [TOPQ-NEXT-VR-SOURCE](https://raw.githubusercontent.com/vllm-project/recipes/b3d267608417e41bbbeddccdadb5040b64a8c93f/models/Qwen/Qwen3.8-Flash-Next.yaml) [TOPQ-VLLM-STABLE-FP8-ORACLE](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/model_executor/layers/fused_moe/oracle/fp8.py) |
+| PLE placement and the H200 benchmark | [TOPQ-SGL-BLOG](https://www.lmsys.org/blog/2026-08-26-qwen-flash-next) [TOPQ-VLLM-STABLE-ENGRAM](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/config/engram.py) |
+| MTP reuse and defaults | [TOPQ-VLLM-STABLE-SPEC-CONFIG](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/config/speculative.py) [TOPQ-VLLM-STABLE-PROPOSER](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/v1/spec_decode/llm_base_proposer.py) [TOPQ-SGL-STABLE-NEXT-MODEL](https://raw.githubusercontent.com/sgl-project/sglang/e00930c5489053f26d86b179cee0d087f846acbb/python/sglang/srt/models/qwen4_exp.py) |
+| SGLang NVIDIA cells and topology defaults | [TOPQ-SGL-STABLE-RECIPE](https://raw.githubusercontent.com/sgl-project/sglang/e00930c5489053f26d86b179cee0d087f846acbb/docs/src/snippets/configs/Qwen/qwen3.8-flash-next.jsx) [TOPQ-SGL-STABLE-OVERRIDE-QWEN4](https://raw.githubusercontent.com/sgl-project/sglang/e00930c5489053f26d86b179cee0d087f846acbb/python/sglang/srt/arg_groups/model_overrides/qwen4_exp.py) [TOPQ-SGL-STABLE-OVERRIDE-QWENMOE](https://raw.githubusercontent.com/sgl-project/sglang/e00930c5489053f26d86b179cee0d087f846acbb/python/sglang/srt/arg_groups/model_overrides/qwen3_moe.py) |
+| Resolved SM120/SM121 issue | [TOPQ-SGL-36537](https://api.github.com/repos/sgl-project/sglang/issues/36537) [TOPQ-SGL-36537-COMMENTS](https://api.github.com/repos/sgl-project/sglang/issues/36537/comments) [TOPQ-SGL-36806](https://api.github.com/repos/sgl-project/sglang/pulls/36806) [TOPQ-SGL-37500](https://api.github.com/repos/sgl-project/sglang/pulls/37500) [TOPQ-SGL-36845](https://api.github.com/repos/sgl-project/sglang/pulls/36845) |
+
+Stable source inspection uses vLLM 0.31.0 (`db9527a46873454610df6dbedf79a36d6bf1a7f6`) and SGLang 0.5.21 (`e00930c5489053f26d86b179cee0d087f846acbb`). Recipe assertions and source support remain separate from measured behavior on this node.
 
 ## Source register
 

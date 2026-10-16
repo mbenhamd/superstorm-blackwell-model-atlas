@@ -529,3 +529,134 @@ Compact index of the sources cited by this knowledge repository. Exact metadata 
 | FP8S-S-SPEC | [SGLang v0.5.21 Speculative attention field defaults](https://raw.githubusercontent.com/sgl-project/sglang/e00930c5489053f26d86b179cee0d087f846acbb/python/sglang/srt/arg_groups/fields/spec.py) | 2026-10-16 |
 | FP8S-S-UNIFIED | [SGLang v0.5.21 Unified radix page alignment](https://raw.githubusercontent.com/sgl-project/sglang/e00930c5489053f26d86b179cee0d087f846acbb/python/sglang/srt/mem_cache/unified_radix_cache.py) | 2026-10-16 |
 | FP8V-S-FORK-SM90 | [vLLM pinned FA4 Hopper FP8-cache dequantization kernel](https://raw.githubusercontent.com/vllm-project/flash-attention/9cd61de38763d712bb6ce56e2a02cc2bf718c89f/flash_attn/cute/flash_fwd_sm90.py) | 2026-10-16 |
+| TOPG-FLASH-API | [GLM 5.3 Flash hosted API guide](https://docs.z.ai/guides/vlm/glm-5.3-flash) | 2026-10-16 |
+| TOPG-FLASH-BENCH | [Z.ai GLM 5.3 Flash benchmark graphic at immutable commit](https://raw.githubusercontent.com/zai-org/GLM-5/83c03d317378f86f0a012f7c4cd48b6243c7e69b/resources/bench_53.png) | 2026-10-16 |
+| TOPG-FLASH-INDEX | [GLM 5.3 Flash pinned FP8 index](https://huggingface.co/zai-org/GLM-5.3-Flash/resolve/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/model.safetensors.index.json) | 2026-10-16 |
+| TOPG-FLASH-MAIN | [GLM 5.3 Flash current Hub main metadata](https://huggingface.co/api/models/zai-org/GLM-5.3-Flash) | 2026-10-16 |
+| TOPG-FLASH-NV-INDEX | [RedHat GLM 5.3 Flash NVFP4 pinned index](https://huggingface.co/RedHatAI/GLM-5.3-Flash-NVFP4/resolve/18d55bfd5a2194887738da73753975c9d3842f46/model.safetensors.index.json) | 2026-10-16 |
+| TOPG-FLASH-SGLANG | [SGLang GLM 5.3 Flash cookbook recheck](https://docs.sglang.io/cookbook/autoregressive/GLM/GLM-5.3-Flash) | 2026-10-16 |
+| TOPG-FLASH-TEMPLATE | [GLM 5.3 Flash pinned chat template](https://huggingface.co/zai-org/GLM-5.3-Flash/raw/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/chat_template.jinja) | 2026-10-16 |
+| TOPG-FLASH-VLLM | [vLLM GLM 5.3 Flash recipe recheck](https://recipes.vllm.ai/zai-org/GLM-5.3-Flash) | 2026-10-16 |
+| TOPG-GLM-API | [GLM 5.3 hosted API guide](https://docs.z.ai/guides/llm/glm-5.3) | 2026-10-16 |
+| TOPG-GLM-CARD | [GLM 5.3 pinned publisher card](https://huggingface.co/zai-org/GLM-5.3/raw/ba32f8c19c8738e2c57c71798c601d477a7bf844/README.md) | 2026-10-16 |
+| TOPG-GLM-INDEX | [GLM 5.3 pinned FP8 index](https://huggingface.co/zai-org/GLM-5.3/resolve/ba32f8c19c8738e2c57c71798c601d477a7bf844/model.safetensors.index.json) | 2026-10-16 |
+| TOPG-GLM-MAIN | [GLM 5.3 current Hub main metadata](https://huggingface.co/api/models/zai-org/GLM-5.3) | 2026-10-16 |
+| TOPG-GLM-NVIDIA-CARD | [NVIDIA GLM 5.3 NVFP4 pinned card](https://huggingface.co/nvidia/GLM-5.3-NVFP4/raw/e3b8f9f2fad29727dfa95e766c5cac18ea1414bf/README.md) | 2026-10-16 |
+| TOPG-GLM-NVIDIA-INDEX | [NVIDIA GLM 5.3 NVFP4 pinned index](https://huggingface.co/nvidia/GLM-5.3-NVFP4/resolve/e3b8f9f2fad29727dfa95e766c5cac18ea1414bf/model.safetensors.index.json) | 2026-10-16 |
+| TOPG-GLM-SGLANG | [SGLang GLM 5.3 cookbook recheck](https://docs.sglang.io/cookbook/autoregressive/GLM/GLM-5.3) | 2026-10-16 |
+| TOPG-GLM-TEMPLATE | [GLM 5.3 pinned chat template](https://huggingface.co/zai-org/GLM-5.3/raw/ba32f8c19c8738e2c57c71798c601d477a7bf844/chat_template.jinja) | 2026-10-16 |
+| TOPG-GLM-VLLM | [vLLM GLM 5.3 recipe recheck](https://recipes.vllm.ai/zai-org/GLM-5.3) | 2026-10-16 |
+| TOPG-SGLANG-MODELOPT | [SGLang main ModelOpt quantization dispatch](https://raw.githubusercontent.com/sgl-project/sglang/2adc76ad61a9c036304716a4548093b1b27b10fb/python/sglang/srt/layers/quantization/modelopt_quant.py) | 2026-10-16 |
+| TOPG-VLLM-CUDA | [vLLM 0.31.0 pinned CUDA requirements](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/requirements/cuda.txt) | 2026-10-16 |
+| TOPK-BASE-API | [Moonshot Kimi K3 current repository identity](https://huggingface.co/api/models/moonshotai/Kimi-K3) | 2026-10-16 |
+| TOPK-BASE-INDEX-RANGE | [Native Kimi K3 immutable safetensors index metadata prefix](https://huggingface.co/moonshotai/Kimi-K3/resolve/f831ab66814297da540d832a5235f8e904f29d06/model.safetensors.index.json) | 2026-10-16 |
+| TOPK-IX-PAGE | [InferenceX Kimi K3 on B300 publisher summary](https://inferencex.semianalysis.com/run/kimi-k3-on-b300) | 2026-10-16 |
+| TOPK-IX-ROWS | [InferenceX public Kimi K3 benchmark rows](https://inferencex.semianalysis.com/api/v1/benchmarks?model=Kimi-K3) | 2026-10-16 |
+| TOPK-IX-SERVER | [InferenceX bounded published B300 server log row439935](https://inferencex.semianalysis.com/api/v1/server-log?id=439935&file=results%2Fserver.log&offset=0&limit=28000) | 2026-10-16 |
+| TOPK-IX-VIEW | [InferenceX scoped B300 AgentX throughput view](https://inferencex.semianalysis.com/api/v1/views/inference?model=Kimi-K3&gpus=b300&sequence=agentic&metric=tpPerGpu&best=false&allPoints=true) | 2026-10-16 |
+| TOPK-LINEAR-PAPER-PIN | [Kimi Linear paper, arXiv 2510.26692v2](https://arxiv.org/abs/2510.26692v2) | 2026-10-16 |
+| TOPK-NV-API | [NVIDIA Kimi K3 NVFP4 current repository identity](https://huggingface.co/api/models/nvidia/Kimi-K3-NVFP4) | 2026-10-16 |
+| TOPK-NV-INDEX-RANGE | [NVIDIA Kimi K3 immutable safetensors index metadata prefix](https://huggingface.co/nvidia/Kimi-K3-NVFP4/resolve/b2428a0b83a8b712ff2e1a8448a103d4175341f1/model.safetensors.index.json) | 2026-10-16 |
+| TOPK-S-MODELOPT-STABLE | [SGLang 0.5.21 ModelOpt mixed-precision dispatcher](https://raw.githubusercontent.com/sgl-project/sglang/e00930c5489053f26d86b179cee0d087f846acbb/python/sglang/srt/layers/quantization/modelopt_quant.py) | 2026-10-16 |
+| TOPK-V-KIMI-MAIN | [Current-main vLLM Kimi K3 native MegaMoE caller](https://raw.githubusercontent.com/vllm-project/vllm/9a16d43ef0413b0a2a222e7f5baa4498c291ae5b/vllm/models/kimi_k3/nvidia/model.py) | 2026-10-16 |
+| TOPK-V-KIMI-STABLE | [vLLM 0.31.0 Kimi K3 native MegaMoE adapter](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/models/kimi_k3/nvidia/model.py) | 2026-10-16 |
+| TOPK-V-MEGA-MAIN | [Current-main vLLM MegaMoE format and activation matrix](https://raw.githubusercontent.com/vllm-project/vllm/9a16d43ef0413b0a2a222e7f5baa4498c291ae5b/vllm/model_executor/layers/fused_moe/deep_gemm_mega_moe.py) | 2026-10-16 |
+| TOPM-GEMMA-BASE-CFG | [google/gemma-4-31B-it config.json](https://huggingface.co/google/gemma-4-31B-it/raw/842da3794eaa0b77d5f08bae87a17459d91ff475/config.json) | 2026-10-16 |
+| TOPM-GEMMA-BASE-META | [google/gemma-4-31B-it current Hub metadata](https://huggingface.co/api/models/google/gemma-4-31B-it) | 2026-10-16 |
+| TOPM-GEMMA-DRAFT-CARD | [google/gemma-4-31B-it-assistant README.md](https://huggingface.co/google/gemma-4-31B-it-assistant/raw/627c5ec1458b9086b841a91e0512fd31fd2fbbf1/README.md) | 2026-10-16 |
+| TOPM-GEMMA-DRAFT-CFG | [google/gemma-4-31B-it-assistant config.json](https://huggingface.co/google/gemma-4-31B-it-assistant/raw/627c5ec1458b9086b841a91e0512fd31fd2fbbf1/config.json) | 2026-10-16 |
+| TOPM-GEMMA-DRAFT-META | [google/gemma-4-31B-it-assistant current Hub metadata](https://huggingface.co/api/models/google/gemma-4-31B-it-assistant) | 2026-10-16 |
+| TOPM-GEMMA-DRAFT-TREE | [google/gemma-4-31B-it-assistant pinned file metadata](https://huggingface.co/api/models/google/gemma-4-31B-it-assistant/tree/627c5ec1458b9086b841a91e0512fd31fd2fbbf1?recursive=true&expand=false) | 2026-10-16 |
+| TOPM-GEMMA-G-COOKBOOK | [sgl-project/sglang docs/cookbook/autoregressive/Google/Gemma4.mdx](https://raw.githubusercontent.com/sgl-project/sglang/e00930c5489053f26d86b179cee0d087f846acbb/docs/cookbook/autoregressive/Google/Gemma4.mdx) | 2026-10-16 |
+| TOPM-GEMMA-G-DRAFT | [SGLang v0.5.21 python/sglang/srt/models/gemma4_mtp.py](https://raw.githubusercontent.com/sgl-project/sglang/e00930c5489053f26d86b179cee0d087f846acbb/python/sglang/srt/models/gemma4_mtp.py) | 2026-10-16 |
+| TOPM-GEMMA-G-HOOK | [sgl-project/sglang python/sglang/srt/arg_groups/speculative_hook.py](https://raw.githubusercontent.com/sgl-project/sglang/e00930c5489053f26d86b179cee0d087f846acbb/python/sglang/srt/arg_groups/speculative_hook.py) | 2026-10-16 |
+| TOPM-GEMMA-G-HOOK-MAIN | [sgl-project/sglang current main python/sglang/srt/arg_groups/speculative_hook.py](https://raw.githubusercontent.com/sgl-project/sglang/2adc76ad61a9c036304716a4548093b1b27b10fb/python/sglang/srt/arg_groups/speculative_hook.py) | 2026-10-16 |
+| TOPM-GEMMA-G-MODELOPT | [SGLang v0.5.21 python/sglang/srt/layers/quantization/modelopt_quant.py](https://raw.githubusercontent.com/sgl-project/sglang/e00930c5489053f26d86b179cee0d087f846acbb/python/sglang/srt/layers/quantization/modelopt_quant.py) | 2026-10-16 |
+| TOPM-GEMMA-NVIDIA-CARD | [nvidia/Gemma-4-31B-IT-NVFP4 README.md](https://huggingface.co/nvidia/Gemma-4-31B-IT-NVFP4/raw/4135a98a9b728a548947683219633b25682223ac/README.md) | 2026-10-16 |
+| TOPM-GEMMA-NVIDIA-CFG | [nvidia/Gemma-4-31B-IT-NVFP4 config.json](https://huggingface.co/nvidia/Gemma-4-31B-IT-NVFP4/raw/4135a98a9b728a548947683219633b25682223ac/config.json) | 2026-10-16 |
+| TOPM-GEMMA-NVIDIA-META | [nvidia/Gemma-4-31B-IT-NVFP4 current Hub metadata](https://huggingface.co/api/models/nvidia/Gemma-4-31B-IT-NVFP4) | 2026-10-16 |
+| TOPM-GEMMA-NVIDIA-RESULTS | [LilaRest/gemma-4-31B-it-NVFP4-turbo bench/results/nvidia--Gemma-4-31B-IT-NVFP4.csv](https://huggingface.co/LilaRest/gemma-4-31B-it-NVFP4-turbo/raw/782d58ea7f9cf3a148be86e153f5689a2d73238b/bench/results/nvidia--Gemma-4-31B-IT-NVFP4.csv) | 2026-10-16 |
+| TOPM-GEMMA-NVIDIA-TREE | [nvidia/Gemma-4-31B-IT-NVFP4 pinned file metadata](https://huggingface.co/api/models/nvidia/Gemma-4-31B-IT-NVFP4/tree/4135a98a9b728a548947683219633b25682223ac?recursive=true&expand=false) | 2026-10-16 |
+| TOPM-GEMMA-PAPER | [Gemma 4 Technical Report version 2, 2026-07-24](https://arxiv.org/html/2607.02770v2) | 2026-10-16 |
+| TOPM-GEMMA-PAPER-RECORD | [Gemma 4 Technical Report arXiv revision record](https://arxiv.org/abs/2607.02770) | 2026-10-16 |
+| TOPM-GEMMA-RHFP8-META | [RedHatAI/gemma-4-31B-it-FP8-block current Hub metadata](https://huggingface.co/api/models/RedHatAI/gemma-4-31B-it-FP8-block) | 2026-10-16 |
+| TOPM-GEMMA-RHNV-META | [RedHatAI/gemma-4-31B-it-NVFP4 current Hub metadata](https://huggingface.co/api/models/RedHatAI/gemma-4-31B-it-NVFP4) | 2026-10-16 |
+| TOPM-GEMMA-TURBO-BENCH | [LilaRest/gemma-4-31B-it-NVFP4-turbo bench/bench.sh](https://huggingface.co/LilaRest/gemma-4-31B-it-NVFP4-turbo/raw/782d58ea7f9cf3a148be86e153f5689a2d73238b/bench/bench.sh) | 2026-10-16 |
+| TOPM-GEMMA-TURBO-CARD | [LilaRest/gemma-4-31B-it-NVFP4-turbo README.md](https://huggingface.co/LilaRest/gemma-4-31B-it-NVFP4-turbo/raw/782d58ea7f9cf3a148be86e153f5689a2d73238b/README.md) | 2026-10-16 |
+| TOPM-GEMMA-TURBO-CFG | [LilaRest/gemma-4-31B-it-NVFP4-turbo config.json](https://huggingface.co/LilaRest/gemma-4-31B-it-NVFP4-turbo/raw/782d58ea7f9cf3a148be86e153f5689a2d73238b/config.json) | 2026-10-16 |
+| TOPM-GEMMA-TURBO-INDEX | [LilaRest/gemma-4-31B-it-NVFP4-turbo model.safetensors.index.json](https://huggingface.co/LilaRest/gemma-4-31B-it-NVFP4-turbo/raw/782d58ea7f9cf3a148be86e153f5689a2d73238b/model.safetensors.index.json) | 2026-10-16 |
+| TOPM-GEMMA-TURBO-META | [LilaRest/gemma-4-31B-it-NVFP4-turbo current Hub metadata](https://huggingface.co/api/models/LilaRest/gemma-4-31B-it-NVFP4-turbo) | 2026-10-16 |
+| TOPM-GEMMA-TURBO-RESULTS | [LilaRest/gemma-4-31B-it-NVFP4-turbo bench/results/LilaRest--gemma-4-31B-it-NVFP4-turbo.csv](https://huggingface.co/LilaRest/gemma-4-31B-it-NVFP4-turbo/raw/782d58ea7f9cf3a148be86e153f5689a2d73238b/bench/results/LilaRest--gemma-4-31B-it-NVFP4-turbo.csv) | 2026-10-16 |
+| TOPM-GEMMA-TURBO-TREE | [LilaRest/gemma-4-31B-it-NVFP4-turbo pinned file metadata](https://huggingface.co/api/models/LilaRest/gemma-4-31B-it-NVFP4-turbo/tree/782d58ea7f9cf3a148be86e153f5689a2d73238b?recursive=true&expand=false) | 2026-10-16 |
+| TOPM-GEMMA-UNSLOTH-CARD | [unsloth/gemma-4-31B-it-NVFP4 README.md](https://huggingface.co/unsloth/gemma-4-31B-it-NVFP4/raw/373c00b5ecb0a8ee43942b5ca08b93805de8eee4/README.md) | 2026-10-16 |
+| TOPM-GEMMA-UNSLOTH-CFG | [unsloth/gemma-4-31B-it-NVFP4 config.json](https://huggingface.co/unsloth/gemma-4-31B-it-NVFP4/raw/373c00b5ecb0a8ee43942b5ca08b93805de8eee4/config.json) | 2026-10-16 |
+| TOPM-GEMMA-UNSLOTH-META | [unsloth/gemma-4-31B-it-NVFP4 current Hub metadata](https://huggingface.co/api/models/unsloth/gemma-4-31B-it-NVFP4) | 2026-10-16 |
+| TOPM-GEMMA-UNSLOTH-TREE | [unsloth/gemma-4-31B-it-NVFP4 pinned file metadata](https://huggingface.co/api/models/unsloth/gemma-4-31B-it-NVFP4/tree/373c00b5ecb0a8ee43942b5ca08b93805de8eee4?recursive=true&expand=false) | 2026-10-16 |
+| TOPM-GEMMA-V-CONFIG | [vllm-project/vllm vllm/model_executor/models/config.py](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/model_executor/models/config.py) | 2026-10-16 |
+| TOPM-GEMMA-V-DRAFT | [vLLM v0.31.0 vllm/model_executor/models/gemma4_mtp.py](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/model_executor/models/gemma4_mtp.py) | 2026-10-16 |
+| TOPM-GEMMA-V-FAUTIL | [vllm-project/vllm vllm/v1/attention/backends/fa_utils.py](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/v1/attention/backends/fa_utils.py) | 2026-10-16 |
+| TOPM-GEMMA-V-FAUTIL-MAIN | [vllm-project/vllm current main vllm/v1/attention/backends/fa_utils.py](https://raw.githubusercontent.com/vllm-project/vllm/9a16d43ef0413b0a2a222e7f5baa4498c291ae5b/vllm/v1/attention/backends/fa_utils.py) | 2026-10-16 |
+| TOPM-GEMMA-V-GEMMA | [vLLM v0.31.0 vllm/model_executor/models/gemma4.py](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/model_executor/models/gemma4.py) | 2026-10-16 |
+| TOPM-GEMMA-V-OVERRIDE | [vllm-project/vllm vllm/config/model.py](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/config/model.py) | 2026-10-16 |
+| TOPM-GEMMA-V-PROPOSER | [vllm-project/vllm vllm/v1/spec_decode/gemma4.py](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/v1/spec_decode/gemma4.py) | 2026-10-16 |
+| TOPM-GEMMA-V-RECIPE | [Live vLLM Gemma 4 31B recipe](https://recipes.vllm.ai/Google/gemma-4-31B-it) | 2026-10-16 |
+| TOPM-GEMMA-V-REQUIRE | [vLLM v0.31.0 requirements/common.txt](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/requirements/common.txt) | 2026-10-16 |
+| TOPM-GEMMA-V-SPEC | [vLLM v0.31.0 vllm/config/speculative.py](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/config/speculative.py) | 2026-10-16 |
+| TOPM-GEMMA-V-SPEC-MAIN | [vllm-project/vllm current main vllm/config/speculative.py](https://raw.githubusercontent.com/vllm-project/vllm/9a16d43ef0413b0a2a222e7f5baa4498c291ae5b/vllm/config/speculative.py) | 2026-10-16 |
+| TOPQ-27-API | [Current Qwen 27B identity](https://huggingface.co/api/models/Qwen/Qwen3.8-27B) | 2026-10-16 |
+| TOPQ-27-CFG | [Qwen/Qwen3.8-27B configuration](https://huggingface.co/Qwen/Qwen3.8-27B/raw/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/config.json) | 2026-10-16 |
+| TOPQ-27-INDEX | [Qwen/Qwen3.8-27B serialized weight index](https://huggingface.co/Qwen/Qwen3.8-27B/resolve/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/model.safetensors.index.json) | 2026-10-16 |
+| TOPQ-27-VR-SOURCE | [Pinned vLLM Qwen3.8-27B recipe](https://raw.githubusercontent.com/vllm-project/recipes/b3d267608417e41bbbeddccdadb5040b64a8c93f/models/Qwen/Qwen3.8-27B.yaml) | 2026-10-16 |
+| TOPQ-27FP8-API | [Current Qwen 27B FP8 identity](https://huggingface.co/api/models/Qwen/Qwen3.8-27B-FP8) | 2026-10-16 |
+| TOPQ-27FP8-INDEX | [Qwen/Qwen3.8-27B-FP8 serialized weight index](https://huggingface.co/Qwen/Qwen3.8-27B-FP8/resolve/017b9c7af6b5689d5dd426a76e0bc077eb5ca20a/model.safetensors.index.json) | 2026-10-16 |
+| TOPQ-27FP8-TREE | [Qwen/Qwen3.8-27B-FP8 pinned file listing](https://huggingface.co/api/models/Qwen/Qwen3.8-27B-FP8/tree/017b9c7af6b5689d5dd426a76e0bc077eb5ca20a?recursive=true&expand=false) | 2026-10-16 |
+| TOPQ-27NV-API | [Current NVIDIA Qwen 27B NVFP4 identity](https://huggingface.co/api/models/nvidia/Qwen3.8-27B-NVFP4) | 2026-10-16 |
+| TOPQ-27NV-CARD | [nvidia/Qwen3.8-27B-NVFP4 publisher model card](https://huggingface.co/nvidia/Qwen3.8-27B-NVFP4/raw/482ca0f3832238542f8f5295dde86b5f22711d80/README.md) | 2026-10-16 |
+| TOPQ-27NV-INDEX | [nvidia/Qwen3.8-27B-NVFP4 serialized weight index](https://huggingface.co/nvidia/Qwen3.8-27B-NVFP4/resolve/482ca0f3832238542f8f5295dde86b5f22711d80/model.safetensors.index.json) | 2026-10-16 |
+| TOPQ-27NV-QUANT | [nvidia/Qwen3.8-27B-NVFP4 quantization metadata](https://huggingface.co/nvidia/Qwen3.8-27B-NVFP4/raw/482ca0f3832238542f8f5295dde86b5f22711d80/hf_quant_config.json) | 2026-10-16 |
+| TOPQ-27NV-TREE | [nvidia/Qwen3.8-27B-NVFP4 pinned file listing](https://huggingface.co/api/models/nvidia/Qwen3.8-27B-NVFP4/tree/482ca0f3832238542f8f5295dde86b5f22711d80?recursive=true&expand=false) | 2026-10-16 |
+| TOPQ-NEXT-API | [Current Qwen Flash Next model identity](https://huggingface.co/api/models/Qwen/Qwen3.8-Flash-Next) | 2026-10-16 |
+| TOPQ-NEXT-CFG | [Qwen/Qwen3.8-Flash-Next configuration](https://huggingface.co/Qwen/Qwen3.8-Flash-Next/raw/de4b8e4d43b917e7706784d8bb445c9af86a3540/config.json) | 2026-10-16 |
+| TOPQ-NEXT-VR-SOURCE | [Pinned vLLM Qwen3.8-Flash-Next recipe](https://raw.githubusercontent.com/vllm-project/recipes/b3d267608417e41bbbeddccdadb5040b64a8c93f/models/Qwen/Qwen3.8-Flash-Next.yaml) | 2026-10-16 |
+| TOPQ-NEXTFP8-API | [Current Qwen Flash Next FP8 identity](https://huggingface.co/api/models/Qwen/Qwen3.8-Flash-Next-FP8) | 2026-10-16 |
+| TOPQ-NEXTFP8-CFG | [Qwen/Qwen3.8-Flash-Next-FP8 configuration](https://huggingface.co/Qwen/Qwen3.8-Flash-Next-FP8/raw/236dfdf285828023ca3bcd3f37366c58a3469b13/config.json) | 2026-10-16 |
+| TOPQ-NEXTFP8-INDEX | [Qwen/Qwen3.8-Flash-Next-FP8 serialized weight index](https://huggingface.co/Qwen/Qwen3.8-Flash-Next-FP8/resolve/236dfdf285828023ca3bcd3f37366c58a3469b13/model.safetensors.index.json) | 2026-10-16 |
+| TOPQ-NEXTFP8-TREE | [Qwen/Qwen3.8-Flash-Next-FP8 pinned file listing](https://huggingface.co/api/models/Qwen/Qwen3.8-Flash-Next-FP8/tree/236dfdf285828023ca3bcd3f37366c58a3469b13?recursive=true&expand=false) | 2026-10-16 |
+| TOPQ-NEXTNV-API | [Current NVIDIA Flash Next NVFP4 identity](https://huggingface.co/api/models/nvidia/Qwen3.8-Flash-Next-NVFP4) | 2026-10-16 |
+| TOPQ-SGL-36537 | [SGLang issue 36537 report and status](https://api.github.com/repos/sgl-project/sglang/issues/36537) | 2026-10-16 |
+| TOPQ-SGL-36537-COMMENTS | [SGLang issue 36537 discussion](https://api.github.com/repos/sgl-project/sglang/issues/36537/comments) | 2026-10-16 |
+| TOPQ-SGL-36806 | [SGLang SM120 QSA fix pull request 36806](https://api.github.com/repos/sgl-project/sglang/pulls/36806) | 2026-10-16 |
+| TOPQ-SGL-36845 | [SGLang SM121 QSA fallback pull request 36845](https://api.github.com/repos/sgl-project/sglang/pulls/36845) | 2026-10-16 |
+| TOPQ-SGL-37500 | [SGLang QSA fix integration pull request 37500](https://api.github.com/repos/sgl-project/sglang/pulls/37500) | 2026-10-16 |
+| TOPQ-SGL-BLOG | [SGLang day-zero Flash Next architecture and performance report](https://www.lmsys.org/blog/2026-08-26-qwen-flash-next) | 2026-10-16 |
+| TOPQ-SGL-STABLE-NEXT-MODEL | [SGL-STABLE python/sglang/srt/models/qwen4_exp.py](https://raw.githubusercontent.com/sgl-project/sglang/e00930c5489053f26d86b179cee0d087f846acbb/python/sglang/srt/models/qwen4_exp.py) | 2026-10-16 |
+| TOPQ-SGL-STABLE-OVERRIDE-QWEN4 | [OVERRIDE-QWEN4 stable source](https://raw.githubusercontent.com/sgl-project/sglang/e00930c5489053f26d86b179cee0d087f846acbb/python/sglang/srt/arg_groups/model_overrides/qwen4_exp.py) | 2026-10-16 |
+| TOPQ-SGL-STABLE-OVERRIDE-QWENMOE | [OVERRIDE-QWENMOE stable source](https://raw.githubusercontent.com/sgl-project/sglang/e00930c5489053f26d86b179cee0d087f846acbb/python/sglang/srt/arg_groups/model_overrides/qwen3_moe.py) | 2026-10-16 |
+| TOPQ-SGL-STABLE-PARALLEL | [SGL-STABLE-PARALLEL python/sglang/srt/arg_groups/fields/parallel.py](https://raw.githubusercontent.com/sgl-project/sglang/e00930c5489053f26d86b179cee0d087f846acbb/python/sglang/srt/arg_groups/fields/parallel.py) | 2026-10-16 |
+| TOPQ-SGL-STABLE-RECIPE | [SGL-STABLE docs/src/snippets/configs/Qwen/qwen3.8-flash-next.jsx](https://raw.githubusercontent.com/sgl-project/sglang/e00930c5489053f26d86b179cee0d087f846acbb/docs/src/snippets/configs/Qwen/qwen3.8-flash-next.jsx) | 2026-10-16 |
+| TOPQ-SGL-STABLE-RECIPE27 | [SGL-STABLE-RECIPE27 docs/src/snippets/configs/Qwen/qwen3.8-27b.jsx](https://raw.githubusercontent.com/sgl-project/sglang/e00930c5489053f26d86b179cee0d087f846acbb/docs/src/snippets/configs/Qwen/qwen3.8-27b.jsx) | 2026-10-16 |
+| TOPQ-SGL-STABLE-SPEC-HOOK | [SGL-STABLE-SPEC-HOOK python/sglang/srt/arg_groups/speculative_hook.py](https://raw.githubusercontent.com/sgl-project/sglang/e00930c5489053f26d86b179cee0d087f846acbb/python/sglang/srt/arg_groups/speculative_hook.py) | 2026-10-16 |
+| TOPQ-VLLM-STABLE-ENGRAM | [VLLM-STABLE vllm/config/engram.py](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/config/engram.py) | 2026-10-16 |
+| TOPQ-VLLM-STABLE-FP8 | [FP8 stable source](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/model_executor/layers/quantization/fp8.py) | 2026-10-16 |
+| TOPQ-VLLM-STABLE-FP8-ORACLE | [vLLM stable FP8 MoE block-grid resolution](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/model_executor/layers/fused_moe/oracle/fp8.py) | 2026-10-16 |
+| TOPQ-VLLM-STABLE-PROPOSER | [VLLM-STABLE-PROPOSER source](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/v1/spec_decode/llm_base_proposer.py) | 2026-10-16 |
+| TOPQ-VLLM-STABLE-SPEC-CONFIG | [VLLM-STABLE-SPEC-CONFIG vllm/config/speculative.py](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/config/speculative.py) | 2026-10-16 |
+| TOPR-CUDA-129 | [CUDA 12.9 release notes: SM103 targets](https://docs.nvidia.com/cuda/archive/12.9.0/cuda-toolkit-release-notes/index.html) | 2026-10-16 |
+| TOPR-CUDA-COMPAT | [NVIDIA CUDA minor-version compatibility](https://docs.nvidia.com/deploy/cuda-compatibility/minor-version-compatibility.html) | 2026-10-16 |
+| TOPR-CUDA-QUEUES | [CUDA execution-queue environment variables](https://docs.nvidia.com/cuda/cuda-programming-guide/05-appendices/environment-variables.html) | 2026-10-16 |
+| TOPR-K-HEAD | [KServe main identity at 10:02 UTC](https://api.github.com/repos/kserve/kserve/commits/master) | 2026-10-16 |
+| TOPR-K-RELEASE | [KServe latest stable release identity](https://api.github.com/repos/kserve/kserve/releases/latest) | 2026-10-16 |
+| TOPR-NCCL-ENV | [NVIDIA NCCL environment-variable reference](https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/env.html) | 2026-10-16 |
+| TOPR-S-DP | [SGLang 0.5.21 ordinary DP controller](https://raw.githubusercontent.com/sgl-project/sglang/e00930c5489053f26d86b179cee0d087f846acbb/python/sglang/srt/managers/data_parallel_controller.py) | 2026-10-16 |
+| TOPR-S-DPATTN | [SGLang 0.5.21 DP-attention groups](https://raw.githubusercontent.com/sgl-project/sglang/e00930c5489053f26d86b179cee0d087f846acbb/python/sglang/srt/layers/dp_attention.py) | 2026-10-16 |
+| TOPR-S-HEAD | [SGLang main identity at 10:02 UTC](https://api.github.com/repos/sgl-project/sglang/commits/main) | 2026-10-16 |
+| TOPR-S-RELEASE | [SGLang latest stable release identity](https://api.github.com/repos/sgl-project/sglang/releases/latest) | 2026-10-16 |
+| TOPR-S-WHEELS | [SGLang development wheel-index observation](https://sgl-project.github.io/whl/cu130/sglang/) | 2026-10-16 |
+| TOPR-V-CACHE | [vLLM 0.31 cache precision configuration](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/config/cache.py) | 2026-10-16 |
+| TOPR-V-DP | [vLLM 0.31 data-parallel deployment](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/docs/serving/data_parallel_deployment.md) | 2026-10-16 |
+| TOPR-V-ENV | [vLLM 0.31 model-runner environment selection](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/envs.py) | 2026-10-16 |
+| TOPR-V-EP | [vLLM 0.31 expert-parallel group semantics](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/docs/serving/expert_parallel_deployment.md) | 2026-10-16 |
+| TOPR-V-HEAD | [vLLM main identity at 10:02 UTC](https://api.github.com/repos/vllm-project/vllm/commits/main) | 2026-10-16 |
+| TOPR-V-RELEASE | [vLLM latest stable release identity](https://api.github.com/repos/vllm-project/vllm/releases/latest) | 2026-10-16 |
+| TOPR-V-RELEASE-PAGE | [vLLM 0.31 official release and CUDA packaging](https://github.com/vllm-project/vllm/releases/tag/v0.31.0) | 2026-10-16 |
+| TOPR-V-WHEELS | [vLLM CUDA13 nightly wheel-index observation](https://wheels.vllm.ai/nightly/cu130/vllm/) | 2026-10-16 |

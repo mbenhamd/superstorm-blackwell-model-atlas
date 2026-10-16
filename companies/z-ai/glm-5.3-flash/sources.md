@@ -1,6 +1,6 @@
 # GLM 5.3 Flash: sources
 
-Rechecked on **2026-10-15 UTC**. Artifact links below identify immutable commits. The engine recipe pages remain mutable documentation; a retrieved recipe is not a tested image.
+Rechecked on **2026-10-16 UTC**. Artifact links below identify immutable commits. The engine recipe pages remain mutable documentation; a retrieved recipe is not a tested image.
 
 | Source ID | Inspected artifact | Revision |
 | --- | --- | --- |
@@ -18,7 +18,19 @@ Rechecked on **2026-10-15 UTC**. Artifact links below identify immutable commits
 
 ## Engine documentation
 
-- [glm-5.3-flash-VR: vLLM recipe](https://recipes.vllm.ai/zai-org/GLM-5.3-Flash) — Contains inconsistent historical version guidance; verify selected release/image.
-- [glm-5.3-flash-GR: SGLang cookbook](https://docs.sglang.io/cookbook/autoregressive/GLM/GLM-5.3-Flash) — Inspect hardware/backend and parser conditions; cookbook options are not local performance measurements.
+- [TOPG-FLASH-VLLM: freshly retrieved vLLM recipe](https://recipes.vllm.ai/zai-org/GLM-5.3-Flash) — Historical FlashInfer minima differ within the page; verify the selected build's dependency set.
+- [TOPG-FLASH-SGLANG: freshly retrieved SGLang cookbook](https://docs.sglang.io/cookbook/autoregressive/GLM/GLM-5.3-Flash) — Native MTP uses EAGLE; latency and throughput presets differ. Its proposed thinking toggle is not consumed by the pinned publisher template.
+
+## Claim-specific rechecks
+
+| Source ID | Evidence and scope |
+| --- | --- |
+| TOPG-FLASH-MAIN | [Current Hub main metadata](https://huggingface.co/api/models/zai-org/GLM-5.3-Flash) resolves to the retained `46a050b…` pin. |
+| TOPG-FLASH-BENCH | [Publisher benchmark graphic at `83c03d3…`](https://raw.githubusercontent.com/zai-org/GLM-5/83c03d317378f86f0a012f7c4cd48b6243c7e69b/resources/bench_53.png), visually inspected: Flash 84.3/63.4 and Opus 4.8 85.0/58.0 on Terminal Bench 2.1/DeepSWE v1.1. The immutable image pin avoids the card's mutable `main` image reference. |
+| TOPG-FLASH-INDEX | [Pinned FP8 index](https://huggingface.co/zai-org/GLM-5.3-Flash/resolve/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/model.safetensors.index.json): 305.78 GiB serialized tensor payload. |
+| TOPG-FLASH-NV-INDEX | [Pinned RedHat NVFP4 index](https://huggingface.co/RedHatAI/GLM-5.3-Flash-NVFP4/resolve/18d55bfd5a2194887738da73753975c9d3842f46/model.safetensors.index.json): 184.23 GiB serialized tensor payload. |
+| TOPG-FLASH-TEMPLATE | [Pinned local chat template](https://huggingface.co/zai-org/GLM-5.3-Flash/raw/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/chat_template.jinja): effort defaults, retained reasoning and unconditional opening reasoning tag. |
+| TOPG-FLASH-API | [Hosted API guide](https://docs.z.ai/guides/vlm/glm-5.3-flash): enabled-only reasoning and a `clear_thinking` recommendation that differs from the model card; mutable hosted-service documentation. |
+| TOPG-VLLM-CUDA | [Released vLLM 0.31.0 CUDA requirements](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/requirements/cuda.txt): FlashInfer Python/cubin 0.7.0.post1 pins; no installation or execution. |
 
 The global [source register](../../../evidence/sources.json), [upstream lock](../../../evidence/upstreams.lock.json) and [limits](../../../LIMITATIONS.md) distinguish source observations from unperformed execution.

@@ -10,10 +10,13 @@ The October 16 lookup identifies **v0.31.0**, published October 5 at 06:44:55 UT
 | --- | --- | --- |
 | Report main and initial retrieval | `fa75d3456d60a5ffe923818c4b495295675b38e1`, committed 06:17:51 UTC | Resolved at the earlier retrieval; its DeepSeek **V4.1** PCP change does not establish V4 Flash **0731** support |
 | Main retrieved again at 09:30 UTC | `07f3857fb93772fed64e06642cdb0b8c03e0b249`, committed 09:07:05 UTC | New head adds an XPU MXFP4 linear-backend change; the attention inspection below uses this exact source |
-| CUDA 13 nightly wheel index | `0.32.0rc1.dev284+gfa75d3456`, advertised full commit `fa75d3456d60a5ffe923818c4b495295675b38e1`; x86-64 and aarch64 | Index advertisement matches this main commit; no wheel bytes or dependencies inspected |
+| Main observed at 10:02 UTC | `9a16d43ef0413b0a2a222e7f5baa4498c291ae5b`, committed 09:54:48 UTC | Later model/topology review snapshot; does not replace the attention inspection's pin |
+| CUDA 13 nightly wheel index at 10:02 UTC | `0.32.0rc1.dev285+g07f3857fb`, advertised full commit `07f3857fb93772fed64e06642cdb0b8c03e0b249`; x86-64 and aarch64 | Advanced from the earlier `dev284+gfa75d3456`; no wheel bytes or dependencies inspected |
 | Dated default nightly container | `nightly-49cb2bbf71cfd36ee5aa33d1e184b1cddff55294`, last updated 06:37:16 UTC | Registry manifest metadata, with distinct amd64/arm64 image digests; source abbreviation differs from the wheel and main |
 
 [ATTV-MAIN](https://api.github.com/repos/vllm-project/vllm/commits/main), [RR-ENG-VMAIN-REPORT](https://api.github.com/repos/vllm-project/vllm/commits/fa75d3456d60a5ffe923818c4b495295675b38e1), [VNIGHTLY-INDEX](https://wheels.vllm.ai/nightly/cu130/vllm/), [RR-ENG-VNIGHTLY-TAGS](https://hub.docker.com/v2/repositories/vllm/vllm-openai/tags?page_size=10&name=nightly&ordering=last_updated).
+
+Latest metadata recheck: [TOPR-V-HEAD](https://api.github.com/repos/vllm-project/vllm/commits/main), [TOPR-V-WHEELS](https://wheels.vllm.ai/nightly/cu130/vllm/). The [topology explanation](../../reports/optimization.md#two-tp4-replicas-and-dp2-with-tp4ep-are-different-layouts) distinguishes independent services from coupled MoE DP/EP groups.
 
 The earlier function review in “What the source inspection actually covered” remains pinned to the **October 15** snapshot `784d1fff0c491b9add10ecd732de8f707a7e7dbe`. Earlier atlas inspections at `f8460ef23659afd69046a81529ec2295e4c3f686` and `e711723352670e811b0e904300d771471e28930d`, and earlier nightly advertisements, remain historical evidence. They are not the current head or newest artifact. [VEXP-MAIN](https://github.com/vllm-project/vllm/commit/784d1fff0c491b9add10ecd732de8f707a7e7dbe), [VHEAD](https://github.com/vllm-project/vllm/commit/f8460ef23659afd69046a81529ec2295e4c3f686), [VMAIN](https://github.com/vllm-project/vllm/commit/e711723352670e811b0e904300d771471e28930d).
 

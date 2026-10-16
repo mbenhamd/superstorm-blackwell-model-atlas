@@ -6,7 +6,7 @@
 
 | Project | Latest stable observed | Selected source inspected in this review | Development artifact observation |
 | --- | --- | --- | --- |
-| vLLM | **0.31.0**, October 5; `db9527a46873454610df6dbedf79a36d6bf1a7f6` | `07f3857fb93772fed64e06642cdb0b8c03e0b249` for attention/quantization; earlier cache review at `fa75d345…` | CUDA 13 wheel index advertises `0.32.0rc1.dev284+gfa75d3456` |
+| vLLM | **0.31.0**, October 5; `db9527a46873454610df6dbedf79a36d6bf1a7f6` | `07f3857fb93772fed64e06642cdb0b8c03e0b249` for attention/quantization; earlier cache review at `fa75d345…` | CUDA 13 wheel index now advertises `0.32.0rc1.dev285+g07f3857fb` |
 | SGLang | **0.5.21**, October 2; `e00930c5489053f26d86b179cee0d087f846acbb` | `baf451fcd6f54962c7db7dc30c636cb534ba1f2a` for FP8/FA4; earlier cache review at `56a3c4…` | CUDA 13 wheel index advertises `0.5.23.dev20261016+gf9df33494a` |
 | KServe | **0.21.0**, September 25; `d1482554fc4f66dd41aee70e01f5174e24f265bd` | Current master metadata/template checks at `0f3f1b0e8c88f78e2966e5e73be70224bb7c20dd`; broader comparison retains October 15 source | Development controller publishing uses `latest`; a separate qualified nightly stack is not established |
 
@@ -17,6 +17,8 @@ The submitted report's SGLang 0.5.20 baseline is stale: 0.5.21 predates its Octo
 The retained [configuration references](configuration-reference.md) preserve earlier source-inspection commits. New observations do not silently requalify those arguments against a different binary.
 
 The FP8/FA4 recheck at **09:47 UTC** confirmed the same three stable releases and advertised wheel versions. vLLM main remained at `07f3857fb93772fed64e06642cdb0b8c03e0b249`; SGLang main advanced to `baf451fcd6f54962c7db7dc30c636cb534ba1f2a`. The selected SGLang cache review remains at `56a3c4…`; the newer FP8/FA4 review compares release 0.5.21 with `baf451…`. The lock preserves earlier observations and their narrower review scopes. [FP8R-V-HEAD](https://api.github.com/repos/vllm-project/vllm/commits/main), [FP8R-S-HEAD](https://api.github.com/repos/sgl-project/sglang/commits/main), [FP8R-K-HEAD](https://api.github.com/repos/kserve/kserve/commits/master).
+
+The model/topology recheck at **10:02 UTC** again found the same stable releases. It observed vLLM main `9a16d43ef0413b0a2a222e7f5baa4498c291ae5b`, SGLang main `2adc76ad61a9c036304716a4548093b1b27b10fb`, and unchanged KServe master. The vLLM wheel index advanced to `0.32.0rc1.dev285+g07f3857fb`; SGLang's advertised wheel remained `0.5.23.dev20261016+gf9df33494a`. Selected model-source additions name their own revisions; this observation does not requalify earlier attention results against these newer main commits. [TOPR-V-HEAD](https://api.github.com/repos/vllm-project/vllm/commits/main), [TOPR-S-HEAD](https://api.github.com/repos/sgl-project/sglang/commits/main), [TOPR-K-HEAD](https://api.github.com/repos/kserve/kserve/commits/master), [TOPR-V-WHEELS](https://wheels.vllm.ai/nightly/cu130/vllm/), [TOPR-S-WHEELS](https://sgl-project.github.io/whl/cu130/sglang/).
 
 ## A concrete main-versus-nightly gap
 
@@ -39,7 +41,7 @@ The [vLLM](../frameworks/vllm/SOURCE_REVIEW.md) and [SGLang](../frameworks/sglan
 
 ## Attention-specific stable/main differences
 
-The [vLLM attention section](../frameworks/vllm/SOURCE_REVIEW.md) distinguishes released FA4 integration from newer sparse-MLA and NVFP4-cache paths. An ordinary dense FA4 option does not select every newer sparse implementation. The [attention explanation](attention-and-fa4.md) also separates the FA4 paper, later low-precision research and the engine's packaged implementation. The advertised vLLM wheel still identifies `fa75d3456`, so the newer main snapshot is not established by that wheel name alone.
+The [vLLM attention section](../frameworks/vllm/SOURCE_REVIEW.md) distinguishes released FA4 integration from newer sparse-MLA and NVFP4-cache paths. An ordinary dense FA4 option does not select every newer sparse implementation. The [attention explanation](attention-and-fa4.md) also separates the FA4 paper, later low-precision research and the engine's packaged implementation. The newly advertised vLLM wheel identifies `07f3857fb`, matching the earlier attention-source snapshot by source label; its contents and dependencies were not executed, and the newer `9a16d43…` tip is a separate observation.
 
 ## What makes an upgrade justified
 

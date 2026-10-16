@@ -105,6 +105,8 @@ Weight precision changes model operations. KV precision changes stored attention
 
 The SGLang Qwen recipe gives a concrete metadata trap: some derivative exports default `auto` KV to FP8, whereas NVIDIA’s export leaves it BF16 without an explicit setting. Matching command text with `auto` therefore does not necessarily match effective precision. [qwen3.8-27b-GR](https://docs.sglang.io/cookbook/autoregressive/Qwen/Qwen3.8-27B)
 
+“Always use FP8 cache/indexers and never FP4” is not a supported rule across these architectures. The inspected vLLM release exposes distinct ordinary FP8, NVFP4 and model-specific compressed-cache formats; the reader, scale layout and model determine which is valid. A main-KV flag does not also configure a sparse indexer or recurrent state. QSA's indexer setting has its own restricted contract, and a supported four-bit main-cache path does not imply four-bit top-k indexing. Conversely, a hypothetical lower-precision indexer cannot be declared corrupt without an implementation and quality evidence. [TOPR-V-CACHE](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/config/cache.py), [Qwen sparse-state details](../companies/alibaba-qwen/qwen3.8-flash-next/serving.md).
+
 ### Where `nvfp4_4over6` belongs
 
 In both the inspected stable release and main, `nvfp4_4over6` is a **KV-cache dtype**, selected with **`--kv-cache-dtype nvfp4_4over6`**. It is not an NVFP4 weight quantizer or a value for `--linear-backend`. The cache writer evaluates two E4M3-rounded scale candidates derived from the 16-value block maximum divided by 6 or by 4, reconstructs their E2M1 values, and picks the lower squared-error candidate (ties retain the `/6` candidate). It stores the same packed values and block-scale layout as ordinary `nvfp4`; the reader does not need a separate four-over-six data format. Local reconstruction-error selection does not guarantee better perplexity or latency. [ATTQ-V-CACHE-STABLE](https://github.com/vllm-project/vllm/blob/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/config/cache.py#L123), [ATTQ-V-FP4KVCUDA-STABLE](https://github.com/vllm-project/vllm/blob/db9527a46873454610df6dbedf79a36d6bf1a7f6/csrc/libtorch_stable/nvfp4_kv_cache_kernels.cu#L74), [ATTQ-V-CACHE-MAIN](https://github.com/vllm-project/vllm/blob/07f3857fb93772fed64e06642cdb0b8c03e0b249/vllm/config/cache.py).
@@ -115,10 +117,20 @@ In **v0.31.0**, the inspected ordinary NVFP4 cache integration requires FlashInf
 
 A lower-byte representation may reduce weight bandwidth and let a larger useful batch or cache fit. It can also introduce scale handling, conversion, padding, calibration error and backend constraints. At low concurrency, synchronization and launch overhead may dominate the saved arithmetic. At long context, attention-history traffic can dominate expert weights. These are reasons to measure, not reasons to reject quantization.
 
+The active-parameter count alone cannot establish that an MoE is launch-bound or that FP8 must beat NVFP4. As an illustrative routing model, if each of $B$ tokens independently chooses $k$ of $N$ experts uniformly, the expected number of distinct experts used in that layer is
+
+$$
+\mathbb{E}[U] = N\left[1-\left(1-\frac{k}{N}\right)^B\right].
+$$
+
+This follows by summing each expert's probability of being chosen at least once. Real routing is neither uniform nor independent, but the example shows why a batch can touch far more weights than one token's active count suggests. Expert reuse, tokens per expert, cache residency, communication and kernel shape jointly determine the bottleneck. A dense model's total count likewise includes tensors such as embeddings or modality-specific modules that need not all participate as full matrix multiplications for every text token.
+
+Neither “NVFP4 loses less than 1%” nor “FP8 varies less than 0.3%” is a property of the format. Retain the exact exporter, task, baseline and absolute-versus-relative score convention with any such observation. The [Gemma variants](../companies/google/gemma-4-31b-it/precision.md) and [Kimi mixed export](../companies/moonshot-ai/kimi-k3/precision.md) illustrate why precision labels alone do not establish those quality or speed bounds.
+
 The decision metric is successful, quality-accepted work under a latency objective. A faster kernel with a regression in tool arguments or retrieval is not a production improvement. Publisher results can establish plausibility, but they do not certify your prompts, image distribution, sampling settings or software bill of materials.
 
 ## Calibration and quality gates
 
 Use a representative holdout with coding, tool use, instruction following, multilingual questions, long context and vision where supported. Freeze the tokenizer, chat serialization and reasoning effort. Include repeated seeds for stochastic tests and paired comparisons. Report absolute differences, sample sizes and uncertainty rather than only a rounded “recovery” percentage.
 
-A native quantization-aware-trained release and a post-training quantized derivative are not the same intervention. Do not attribute the former’s quality to an exporter conversion that was never evaluated. [kimi-k3-CARD](https://huggingface.co/moonshotai/Kimi-K3) [qwen3.8-27b-NV](https://huggingface.co/nvidia/Qwen3.8-27B-NVFP4) [glm-5.3-NV](https://huggingface.co/RedHatAI/GLM-5.3-NVFP4)
+A native quantization-aware-trained release and a post-training quantized derivative are not the same intervention. Do not attribute the former’s quality to an exporter conversion that was never evaluated. [kimi-k3-CARD](https://huggingface.co/moonshotai/Kimi-K3/blob/f831ab66814297da540d832a5235f8e904f29d06/README.md) [qwen3.8-27b-NV](https://huggingface.co/nvidia/Qwen3.8-27B-NVFP4/raw/482ca0f3832238542f8f5295dde86b5f22711d80/README.md) [glm-5.3-NV](https://huggingface.co/RedHatAI/GLM-5.3-NVFP4/raw/c8917e4258572c405575855ff53effe58c17a38e/README.md)

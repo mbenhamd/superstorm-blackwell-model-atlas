@@ -1,6 +1,6 @@
 # Kimi K3: sources
 
-Re-retrieved on 2026-10-15 (UTC). Model cards, configurations and licenses below are linked to immutable repository revisions. Engine recipes and PR state are dated observations; they can change.
+Cards, configurations, engine recipes and compatibility state rechecked on **2026-10-16 (UTC)**; license review retained from October 15. Model artifacts are linked to immutable revisions. Mutable API and recipe observations have retrieval dates and response hashes in the evidence register.
 
 | Source ID | Primary artifact | Evidence boundary |
 | --- | --- | --- |
@@ -22,5 +22,19 @@ Re-retrieved on 2026-10-15 (UTC). Model cards, configurations and licenses below
 | `KIMIVPR-SCALE` | [vLLM TRTLLM NVFP4 SiTU scaling PR](https://github.com/vllm-project/vllm/pull/52405) | Official API confirms open/unmerged state. NVIDIA tracks this as part of the replacement for its runtime patch. |
 | `GREL-KIMI-ANCESTRY` | [SGLang compatibility merge ancestry](https://github.com/sgl-project/sglang/compare/5f128395910dafb98c34083dc26cb790c7674d34...v0.5.21) | Official compare API confirms the merge is an ancestor of v0.5.21. This establishes source inclusion, not a tested wheel or image. |
 | `VDS` | [vLLM Kimi DSpark implementation](https://github.com/vllm-project/vllm/blob/f8460ef23659afd69046a81529ec2295e4c3f686/vllm/models/kimi_k3/nvidia/dspark_mla.py) | Immutable source inspected: dense MLA, context projection, embedding alias, confidence/Markov heads, noncausal draft attention and fused reductions. |
+
+## Capacity, topology and performance-claim recheck
+
+| Source ID | Primary artifact | Evidence boundary |
+| --- | --- | --- |
+| `TOPK-BASE-API`, `TOPK-NV-API` | [Moonshot current identity](https://huggingface.co/api/models/moonshotai/Kimi-K3), [NVIDIA current identity](https://huggingface.co/api/models/nvidia/Kimi-K3-NVFP4) | Current heads remain the retained base and derivative revisions. |
+| `TOPK-BASE-INDEX-RANGE` | [Native immutable safetensors index](https://huggingface.co/moonshotai/Kimi-K3/resolve/f831ab66814297da540d832a5235f8e904f29d06/model.safetensors.index.json) | First 4,096 bytes only; `metadata.total_size` = 1,560,860,324,864 bytes. Serialized tensor bytes, not GPU residency. |
+| `TOPK-NV-INDEX-RANGE` | [NVIDIA immutable safetensors index](https://huggingface.co/nvidia/Kimi-K3-NVFP4/resolve/b2428a0b83a8b712ff2e1a8448a103d4175341f1/model.safetensors.index.json) | First 4,096 bytes only; `metadata.total_size` = 1,609,777,087,808 bytes. No weight payload retrieved. |
+| `TOPK-LINEAR-PAPER-PIN` | [Kimi Linear arXiv 2510.26692v2](https://arxiv.org/abs/2510.26692v2) | November 1, 2025 revision. Up-to-75% cache claim concerns the earlier 48B/3B study, not a measured K3 allocation. |
+| `TOPK-V-KIMI-MAIN`, `TOPK-V-MEGA-MAIN` | [K3 caller](https://raw.githubusercontent.com/vllm-project/vllm/9a16d43ef0413b0a2a222e7f5baa4498c291ae5b/vllm/models/kimi_k3/nvidia/model.py), [MegaMoE format matrix](https://raw.githubusercontent.com/vllm-project/vllm/9a16d43ef0413b0a2a222e7f5baa4498c291ae5b/vllm/model_executor/layers/fused_moe/deep_gemm_mega_moe.py) | Current-main K3 chooses MXFP4/SiTU. Generic NVFP4 MegaMoE lists SwiGLU only. Source inspection does not certify an image. |
+| `TOPK-V-KIMI-STABLE` | [vLLM 0.31.0 K3 adapter](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/models/kimi_k3/nvidia/model.py) | Native MegaMoE preparation uses group-32 UE8M0 scales and the FP8×FP4 kernel. |
+| `TOPK-S-MODELOPT-STABLE` | [SGLang 0.5.21 mixed dispatcher](https://raw.githubusercontent.com/sgl-project/sglang/e00930c5489053f26d86b179cee0d087f846acbb/python/sglang/srt/layers/quantization/modelopt_quant.py) | Mixed config resolves to `modelopt_mixed` and dispatches block-FP8 layers separately. |
+| `TOPK-IX-PAGE`, `TOPK-IX-ROWS`, `TOPK-IX-VIEW` | [InferenceX B300 summary](https://inferencex.semianalysis.com/run/kimi-k3-on-b300), [underlying rows](https://inferencex.semianalysis.com/api/v1/benchmarks?model=Kimi-K3), [scoped chart](https://inferencex.semianalysis.com/api/v1/views/inference?model=Kimi-K3&gpus=b300&sequence=agentic&metric=tpPerGpu&best=false&allPoints=true) | Primary benchmark-author evidence: total-token throughput, P90 interactivity, single 8-GPU TP8/DCP8 node, variable conversation lengths, concurrency 1–70 and host offload. No local reproduction. |
+| `TOPK-IX-SERVER` | [Bounded server-log excerpt for row 439935](https://inferencex.semianalysis.com/api/v1/server-log?id=439935&file=results%2Fserver.log&offset=0&limit=28000) | Native MXFP4, named effective backends, seven-token DSpark with synthetic acceptance 3.84, 1M context cap; unset model/tokenizer revisions. Not NVIDIA-export or natural-acceptance evidence. |
 
 The global [source register](../../../evidence/sources.json) records these identifiers. [optimization guide](../../../reports/optimization.md) distinguishes retrieved metadata and source inspection from GPU results. No full upstream checkout or model weights were produced by this audit.

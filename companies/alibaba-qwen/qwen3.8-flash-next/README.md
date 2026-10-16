@@ -1,8 +1,8 @@
 # Qwen 3.8 Flash Next
 
-**As of 2026-10-15.** 125B main + 51B n-gram + 4B MTP; 6B active main; GDN + QSA.
+**As of 2026-10-16.** 125B main + 51B n-gram + 4B MTP; 6B active main; GDN + QSA.
 
-Flash Next advertises the main model, n-gram table and MTP module separately. Their rounded language-model counts add to approximately 180B, without a separate vision count or an exact tensor census. [qwen3.8-flash-next-CARD](https://huggingface.co/Qwen/Qwen3.8-Flash-Next/raw/de4b8e4d43b917e7706784d8bb445c9af86a3540/README.md) [qwen3.8-flash-next-CFG](https://huggingface.co/Qwen/Qwen3.8-Flash-Next/raw/de4b8e4d43b917e7706784d8bb445c9af86a3540/config.json)
+Flash Next advertises the main model, n-gram table and MTP module separately. The rounded main-plus-n-gram count is 176B; adding the separately advertised 4B MTP gives approximately 180B. Calling `125 + 51 + 4` “176B total” mixes these scopes. Neither rounded sum is an exact tensor census or a separate vision count. [qwen3.8-flash-next-CARD](https://huggingface.co/Qwen/Qwen3.8-Flash-Next/raw/de4b8e4d43b917e7706784d8bb445c9af86a3540/README.md) [qwen3.8-flash-next-CFG](https://huggingface.co/Qwen/Qwen3.8-Flash-Next/raw/de4b8e4d43b917e7706784d8bb445c9af86a3540/config.json)
 
 **Serving candidates:** vLLM TP8 baseline for the NVIDIA mixed export; SGLang documented TP1 candidate, unverified on B300. These are deployment experiments; no winner was measured on the target hardware.
 
