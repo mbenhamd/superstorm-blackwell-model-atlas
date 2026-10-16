@@ -362,6 +362,22 @@ Use the analogies to build intuition, not as exact mathematics. Architecture-spe
 
 *Analogy:* A toolkit may contain the correct wrench, but the mechanic still has to use it.
 
+## FlashAttention / FA4
+
+**Tiled attention algorithms and kernel implementations.** They avoid materializing the complete attention-score matrix in HBM. FA4 adds hardware-specific scheduling and softmax optimizations. The package name does not establish which kernel an engine selects or whether a model uses dense, sparse or recurrent attention. [Mechanisms and B300 applicability](reports/attention-and-fa4.md).
+
+## Online softmax
+
+**Incremental normalized accumulation across tiles.** Running maxima, normalization sums and output sums let attention process chunks without storing all scores. Rescaling these quantities consistently is essential; conditional rescaling is not permission to discard normalization corrections. [Equations](reports/attention-and-fa4.md).
+
+## SMEM / TMEM / TMA
+
+**Shared memory / tensor memory / Tensor Memory Accelerator.** SMEM stages data accessible to cooperating threads; supported Blackwell paths use TMEM for Tensor Core accumulators and scales; TMA moves tensor tiles asynchronously. These are different resources. B300 and RTX Blackwell do not expose identical kernel targets. [Hardware and FA4](reports/attention-and-fa4.md).
+
+## Sparse attention versus paged storage
+
+**Selection of history versus placement of history.** Sparsity limits the entries an attention operation uses. Paging maps logical cache positions to physical storage blocks. A token-sparse operation can gather individual entries from paged storage; a paged dense operation can still use the entire eligible history. [Dense and sparse paths](reports/attention-and-fa4.md).
+
 ## TRT-LLM / CUTLASS
 
 **TensorRT-LLM / CUDA templates for linear-algebra subroutines.** Kernel/backend families may be called by vLLM or SGLang; using a TRT-LLM MoE kernel does not replace the entire serving engine.

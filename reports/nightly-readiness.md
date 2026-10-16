@@ -6,7 +6,7 @@
 
 | Project | Latest stable observed | Selected source inspected in this review | Development artifact observation |
 | --- | --- | --- | --- |
-| vLLM | **0.31.0**, October 5; `db9527a46873454610df6dbedf79a36d6bf1a7f6` | `fa75d3456d60a5ffe923818c4b495295675b38e1` | CUDA 13 wheel index advertises `0.32.0rc1.dev284+gfa75d3456` |
+| vLLM | **0.31.0**, October 5; `db9527a46873454610df6dbedf79a36d6bf1a7f6` | `07f3857fb93772fed64e06642cdb0b8c03e0b249` for attention/quantization; earlier cache review at `fa75d345…` | CUDA 13 wheel index advertises `0.32.0rc1.dev284+gfa75d3456` |
 | SGLang | **0.5.21**, October 2; `e00930c5489053f26d86b179cee0d087f846acbb` | `56a3c4fa16765f591c9eb5dbf10761f31111dfa2` | CUDA 13 wheel index advertises `0.5.23.dev20261016+gf9df33494a` |
 | KServe | **0.21.0**, September 25; `d1482554fc4f66dd41aee70e01f5174e24f265bd` | Current master metadata/template checks at `0f3f1b0e8c88f78e2966e5e73be70224bb7c20dd`; broader comparison retains October 15 source | Development controller publishing uses `latest`; a separate qualified nightly stack is not established |
 
@@ -16,7 +16,7 @@ The submitted report's SGLang 0.5.20 baseline is stale: 0.5.21 predates its Octo
 
 The retained [configuration references](configuration-reference.md) preserve earlier source-inspection commits. New observations do not silently requalify those arguments against a different binary.
 
-A later metadata check at 08:58 UTC observed SGLang main at `f0ff18353d2c6bd8d0c1896563e197d3f4fcfa2b`. The selected implementation review remains at `56a3c4…`; the lock records the later head separately. [RR-QWEN-SGLANG-MAIN](https://api.github.com/repos/sgl-project/sglang/commits/main)
+A fresh attention/precision review beginning 09:29 UTC confirmed the same three stable releases and advertised wheel versions. It observed vLLM main at `07f3857fb93772fed64e06642cdb0b8c03e0b249` and SGLang main at `42eb556e66f1d5f288ee8b232a8a545431a25226`. The selected SGLang cache review remains at `56a3c4…`, with attention factory/cache-dtype definitions checked at release 0.5.21. The lock separates these scopes and earlier observations. [ATTR-V-HEAD](https://api.github.com/repos/vllm-project/vllm/commits/main), [ATTR-S-HEAD](https://api.github.com/repos/sgl-project/sglang/commits/main).
 
 ## A concrete main-versus-nightly gap
 
@@ -36,6 +36,10 @@ KServe's current tip changes port handling in the v1beta1 InferenceService recon
 | KServe routing and state transfer | Controller configuration selects the engine, gateway, scheduler and connector | Release-matched composition; healthy pods do not prove cache-aware routing or working P/D |
 
 The [vLLM](../frameworks/vllm/SOURCE_REVIEW.md) and [SGLang](../frameworks/sglang/SOURCE_REVIEW.md) pages retain specific PRs, source links, relevant functions and exclusions. They explain why each change might matter without assigning an unmeasured speedup.
+
+## Attention-specific stable/main differences
+
+The [vLLM attention section](../frameworks/vllm/SOURCE_REVIEW.md) distinguishes released FA4 integration from newer sparse-MLA and NVFP4-cache paths. An ordinary dense FA4 option does not select every newer sparse implementation. The [attention explanation](attention-and-fa4.md) also separates the FA4 paper, later low-precision research and the engine's packaged implementation. The advertised vLLM wheel still identifies `fa75d3456`, so the newer main snapshot is not established by that wheel name alone.
 
 ## What makes an upgrade justified
 

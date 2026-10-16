@@ -57,6 +57,28 @@ Each linked serving page supplies the primary evidence and exact caveats. A docu
 
 ## Precision and speculation are component decisions
 
+### Why faster GEMMs do not imply equally faster serving
+
+NVFP4 can reduce the bytes and arithmetic cost of eligible linear and expert operations. FlashAttention reorganizes attention data movement and computation; sparse architectures additionally change which history entries are attended to. Lower-precision KV changes stored history. None of these removes the cost of every other component. [Numeric formats and execution](precision-and-kernels.md), [attention mechanisms](attention-and-fa4.md).
+
+For a simple serial cost model, if a fraction $f$ of request time is improved by a factor $s$, the resulting speedup is
+
+$$
+S = \frac{1}{(1-f)+f/s}.
+$$
+
+For example, doubling a component responsible for 60% of time gives **1.43×**, not 2×, before adding conversion overhead or considering overlap. This is an illustrative calculation, not a measurement. Real serving also changes batching, communication overlap and the available cache when a format changes.
+
+| Situation | Mechanism that may matter most | What limits the inference |
+| --- | --- | --- |
+| Short unique prompt, low concurrency | Weight traffic, GEMM shape, launch latency and draft cost | Quantization overhead or synchronization can dominate a small operation |
+| Long unique prefill | Attention arithmetic/data movement and projection/FFN throughput | FA4 kernel results depend on head shape, mask, sequence length and GPU; they do not rank whole models |
+| Long-context decode | History traffic, cache precision, selected-token count and indexer cost | Dense, sparse/compressed and recurrent layers have different costs; decode is not universally bandwidth-bound |
+| Reused chat prefix | Avoided prefill plus locality of cached history/state | Prefix reuse does not eliminate reading needed history during later full-attention decode |
+| Coding agent | All of the above plus tool/reasoning quality and time outside inference | A faster kernel can have little effect on an episode dominated by tools, tests or retries |
+
+Keep the model's trained attention semantics fixed when comparing implementations. A dense model does not acquire a learned sparse indexer by selecting a different kernel, and a GDN/KDA layer does not become softmax attention by selecting FA4.
+
 An NVFP4 model name does not describe every tensor or operation. Keep separate: target weights, activations, KV/history, sparse-index state, recurrent state and draft weights/state. PLE tables, embeddings, shared experts, routers, heads and vision modules can stay at different precision. The loaded representation can also differ from on-disk packing. [Precision and kernels](precision-and-kernels.md)
 
 Speculation replaces some sequential target steps with proposal and verification work. Its value depends on accepted length, draft cost, verification cost, extra memory and batching. A high acceptance ratio can still lose overall. Native MTP, bundled DSpark, an external DSpark draft, DFlash and EAGLE have different model/state contracts; a generic speculation flag does not make them interchangeable.

@@ -12,11 +12,11 @@
       "image_digest": null,
       "release_prerelease": false,
       "release_commit": "db9527a46873454610df6dbedf79a36d6bf1a7f6",
-      "release_checked_at": "2026-10-16T08:57:19.540799+00:00",
+      "release_checked_at": "2026-10-16T09:30:02.244735+00:00",
       "latest_branch": "main",
-      "latest_branch_ref": "fa75d3456d60a5ffe923818c4b495295675b38e1",
-      "latest_branch_commit_date": "2026-10-16T06:17:51Z",
-      "latest_branch_checked_at": "2026-10-16T08:57:19.541270+00:00",
+      "latest_branch_ref": "07f3857fb93772fed64e06642cdb0b8c03e0b249",
+      "latest_branch_commit_date": "2026-10-16T09:07:05Z",
+      "latest_branch_checked_at": "2026-10-16T09:30:02.249357+00:00",
       "source_review_scope": "Selected model registry and Kimi DSpark MLA files only; see frameworks/vllm/SOURCE_REVIEW.md",
       "prior_branch_observations": [
         {
@@ -33,6 +33,12 @@
           "latest_branch_ref": "de7d70676d9a39353aab4796a6987d345c597991",
           "latest_branch_commit_date": "2026-10-15T22:29:13Z",
           "latest_branch_checked_at": "2026-10-15T22:35:37.609877+00:00"
+        },
+        {
+          "latest_branch": "main",
+          "latest_branch_ref": "fa75d3456d60a5ffe923818c4b495295675b38e1",
+          "latest_branch_commit_date": "2026-10-16T06:17:51Z",
+          "latest_branch_checked_at": "2026-10-16T08:57:19.541270+00:00"
         }
       ],
       "expanded_source_review": {
@@ -46,6 +52,14 @@
         "ref": "fa75d3456d60a5ffe923818c4b495295675b38e1",
         "scope": "Selected cache/configuration/scheduler and model-specific source; no binary or whole-tree certification",
         "review_completed_at": "2026-10-16T09:09:05.186135+00:00"
+      },
+      "release_source_id": "ATTR-V-RELEASE",
+      "latest_branch_source_id": "ATTR-V-HEAD",
+      "attention_precision_review": {
+        "release_ref": "db9527a46873454610df6dbedf79a36d6bf1a7f6",
+        "development_ref": "07f3857fb93772fed64e06642cdb0b8c03e0b249",
+        "scope": "Selected NVFP4 dispatch, cache formats, attention selection and FA4 integration; source only, not model or binary qualification",
+        "binary_executed": false
       }
     },
     {
@@ -59,11 +73,11 @@
       "image_digest": null,
       "release_prerelease": false,
       "release_commit": "e00930c5489053f26d86b179cee0d087f846acbb",
-      "release_checked_at": "2026-10-16T08:57:19.541149+00:00",
+      "release_checked_at": "2026-10-16T09:30:02.451611+00:00",
       "latest_branch": "main",
-      "latest_branch_ref": "f0ff18353d2c6bd8d0c1896563e197d3f4fcfa2b",
-      "latest_branch_commit_date": "2026-10-16T08:58:00Z",
-      "latest_branch_checked_at": "2026-10-16T08:58:18.906301+00:00",
+      "latest_branch_ref": "42eb556e66f1d5f288ee8b232a8a545431a25226",
+      "latest_branch_commit_date": "2026-10-16T09:28:31Z",
+      "latest_branch_checked_at": "2026-10-16T09:30:02.243840+00:00",
       "source_review_scope": "Selected ModelOpt quantization and model registry files only; see frameworks/sglang/SOURCE_REVIEW.md",
       "prior_branch_observations": [
         {
@@ -86,6 +100,12 @@
           "latest_branch_ref": "56a3c4fa16765f591c9eb5dbf10761f31111dfa2",
           "latest_branch_commit_date": "2026-10-16T08:55:41Z",
           "latest_branch_checked_at": "2026-10-16T08:57:19.541368+00:00"
+        },
+        {
+          "latest_branch": "main",
+          "latest_branch_ref": "f0ff18353d2c6bd8d0c1896563e197d3f4fcfa2b",
+          "latest_branch_commit_date": "2026-10-16T08:58:00Z",
+          "latest_branch_checked_at": "2026-10-16T08:58:18.906301+00:00"
         }
       ],
       "release_tag_object": "7337b27853377544a322fd4390df332d8ca7d8cb",
@@ -101,7 +121,18 @@
         "scope": "Selected cache/configuration/scheduler and model-specific source; no binary or whole-tree certification",
         "review_completed_at": "2026-10-16T09:09:05.186135+00:00"
       },
-      "latest_branch_source_id": "RR-QWEN-SGLANG-MAIN"
+      "latest_branch_source_id": "ATTR-S-HEAD",
+      "release_source_id": "ATTR-S-RELEASE",
+      "attention_precision_review": {
+        "release_ref": "e00930c5489053f26d86b179cee0d087f846acbb",
+        "scope": "Selected attention factories, attention compatibility hook and cache dtype definitions; current main is metadata-only for this addition",
+        "source_ids": [
+          "ATTR-S-ATTENTION-HOOK",
+          "ATTR-S-ATTENTION-REGISTRY",
+          "ATTR-S-MODEL-FIELDS"
+        ],
+        "binary_executed": false
+      }
     },
     {
       "key": "kserve",
@@ -113,11 +144,11 @@
       "image_digest": null,
       "release_prerelease": false,
       "release_commit": "d1482554fc4f66dd41aee70e01f5174e24f265bd",
-      "release_checked_at": "2026-10-16T08:59:52.096905+00:00",
+      "release_checked_at": "2026-10-16T09:30:02.210225+00:00",
       "latest_branch": "master",
       "latest_branch_ref": "0f3f1b0e8c88f78e2966e5e73be70224bb7c20dd",
       "latest_branch_commit_date": "2026-10-16T01:27:12Z",
-      "latest_branch_checked_at": "2026-10-16T08:59:51.995599+00:00",
+      "latest_branch_checked_at": "2026-10-16T09:30:02.254051+00:00",
       "commit_date": "2026-09-24T20:10:37Z",
       "source_review_scope": "LLMInferenceService/Config version declarations and deployment-mode constants only; no full controller review",
       "documentation_version_observed": "0.20",
@@ -142,7 +173,9 @@
         "ref": "0f3f1b0e8c88f78e2966e5e73be70224bb7c20dd",
         "scope": "Current master metadata/SGLang template and readiness-commit scope; broader branch inspection remains at its historical snapshot",
         "review_completed_at": "2026-10-16T09:11:38.868152+00:00"
-      }
+      },
+      "release_source_id": "ATTR-K-RELEASE",
+      "latest_branch_source_id": "ATTR-K-HEAD"
     }
   ],
   "pull_requests": [
@@ -1072,22 +1105,22 @@
   "development_artifact_observations": [
     {
       "engine": "vllm",
-      "checked_at": "2026-10-16T08:57:19.541793+00:00",
+      "checked_at": "2026-10-16T09:30:02.456699+00:00",
       "channel": "CUDA13 wheel index",
       "version": "0.32.0rc1.dev284+gfa75d3456",
       "advertised_source": "fa75d3456d60a5ffe923818c4b495295675b38e1",
       "downloaded_or_executed": false,
-      "source_id": "VNIGHTLY-INDEX"
+      "source_id": "ATTR-V-WHEELS"
     },
     {
       "engine": "sglang",
-      "checked_at": "2026-10-16T08:57:19.787409+00:00",
+      "checked_at": "2026-10-16T09:30:02.096615+00:00",
       "channel": "CUDA13 wheel index",
       "version": "0.5.23.dev20261016+gf9df33494a",
       "advertised_source_prefix": "f9df33494a",
       "downloaded_or_executed": false,
       "scope": "Does not contain later fad7d95 V4.1 DSpark fix; index metadata only.",
-      "source_id": "GNIGHTLY-INDEX"
+      "source_id": "ATTR-S-WHEELS"
     },
     {
       "engine": "vllm",
@@ -1342,6 +1375,58 @@
       "serialized_index_bytes": 102138950916,
       "qualification_status": "Metadata reviewed; publisher requires community container for compressed scales; no generic upstream B300 support established",
       "tested_on_target": false
+    }
+  ],
+  "attention_library_observations": [
+    {
+      "project": "Dao-AILab/flash-attention",
+      "ref": "e9d8944c855489e03c66262d07ba4c81d9d8dd31",
+      "source_ids": [
+        "ATTF-FA4-INTERFACE-PY",
+        "ATTF-FA4-FLASH-FWD-SM100-PY",
+        "ATTF-FA4-PYPROJECT-TOML"
+      ],
+      "scope": "Standalone FA4 source; separate from engine-bundled forks",
+      "binary_executed": false
+    },
+    {
+      "project": "vllm-project/flash-attention",
+      "bindings": [
+        {
+          "engine_ref": "db9527a46873454610df6dbedf79a36d6bf1a7f6",
+          "kernel_ref": "9cd61de38763d712bb6ce56e2a02cc2bf718c89f"
+        },
+        {
+          "engine_ref": "07f3857fb93772fed64e06642cdb0b8c03e0b249",
+          "kernel_ref": "b273a02621d3c94bc747df67204f591b67f38fae"
+        }
+      ],
+      "source_ids": [
+        "ATTV-S-BUILD",
+        "ATTV-M-BUILD"
+      ],
+      "scope": "CMake source pins for vllm.vllm_flash_attn.cute; not inspected wheel contents",
+      "binary_executed": false
+    },
+    {
+      "project": "vllm-project/tml-fa4",
+      "ref": "75765e76a9c2c012c1f6ecd64577eb646eb4d303",
+      "source_ids": [
+        "ATTV-S-TML",
+        "ATTV-M-TML-CALL"
+      ],
+      "scope": "Separate private namespace and inspected Inkling call path; not universal FLASH_ATTN selection",
+      "binary_executed": false
+    },
+    {
+      "project": "facebookresearch/ads_model_kernel_library",
+      "ref": "868a2dc7775a4c58194a9e3efd4f7b218c7a6df0",
+      "source_ids": [
+        "ATTF-MX-README-MD",
+        "ATTF-MX-FLASH-FWD-SM100-PY"
+      ],
+      "scope": "Later low-precision FA4 source; initial MXFP8 release-candidate restrictions, not qualified vLLM integration",
+      "binary_executed": false
     }
   ]
 }

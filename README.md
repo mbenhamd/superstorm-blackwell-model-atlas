@@ -12,6 +12,7 @@ Start with [START_HERE](START_HERE.md), then [compare the models](reports/compar
 | Architecture | [Cross-model comparison](reports/comparison.md), then a family below |
 | Memory | [Weights, KV, recurrent state and workspaces](reports/memory-math.md) |
 | Quantization | [NVFP4, MXFP4, FP8 and actual kernel execution](reports/precision-and-kernels.md) |
+| Attention | [FlashAttention, FA4, paging and model-specific sparsity](reports/attention-and-fa4.md) |
 | Engines | [vLLM](frameworks/vllm/SOURCE_REVIEW.md), [SGLang](frameworks/sglang/SOURCE_REVIEW.md), [selection tradeoffs](frameworks/DECISION.md) |
 | Deployment layer | [KServe architecture and integration limits](frameworks/kserve/ARCHITECTURE.md) |
 | Optimization | [Unique prompts, multi-turn chat and coding agents](reports/optimization.md) |

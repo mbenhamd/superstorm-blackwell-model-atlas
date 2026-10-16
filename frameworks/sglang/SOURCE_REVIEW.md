@@ -4,6 +4,8 @@
 
 ## Released source, main and published artifacts
 
+For the underlying mathematics and B300-specific kernel distinctions, see [attention and FA4](../../reports/attention-and-fa4.md) and [NVFP4 execution](../../reports/precision-and-kernels.md).
+
 | Object | Fresh observation | Evidence boundary |
 | --- | --- | --- |
 | Latest stable release | **v0.5.21**, published October 2 at 01:09:04 UTC; peeled tag `e00930c5489053f26d86b179cee0d087f846acbb`; NVIDIA image documented as CUDA 13 | The report's **v0.5.20** claim was already stale before its cutoff. A release name does not identify a tested image |
@@ -93,3 +95,12 @@ The October 15 inspection below is pinned at `4e0609ea277d09393d752fcb79181e3416
 | [GEXP-MAIN-QWENPREP: NEXTN helpers](https://raw.githubusercontent.com/sgl-project/sglang/4e0609ea277d09393d752fcb79181e3416d94c56/python/sglang/kernels/ops/speculative/eagle.py) | #41175 patch and named-function comparison with complete v0.5.21 file | Main/release distinction |
 
 Response hashes identify the retrieved material. Release-note figures, PR author tests and recipe badges retain their upstream scope. All experiment outcomes remain unmeasured.
+
+
+## Attention and quantization controls are separate contracts
+
+The v0.5.21 registry has distinct `fa4`, `flashinfer`, `dsa`, `qsa` and `dsv4` factories. Its `nsa` spelling is a deprecated alias for DSA; it does not establish support for every algorithm published under “Native Sparse Attention.” The CUDA DeepSeek V4 route selects its specialized backend. Hybrid models additionally wrap full/sparse attention with GDN or KDA state handling. Selecting `fa4` therefore does not replace every attention-like layer in these models. [ATTR-S-ATTENTION-REGISTRY](https://raw.githubusercontent.com/sgl-project/sglang/e00930c5489053f26d86b179cee0d087f846acbb/python/sglang/srt/layers/attention/attention_registry.py).
+
+SGLang can resolve different prefill and decode backends, and its linear-attention controls have separate decode/prefill/verification constraints. Kernel-library names also overlap: FlashInfer supplies recurrent kernels as well as softmax attention and GEMMs. A FlashInfer GDN log entry is not evidence that a layer uses FlashAttention. Compare the effective layer and phase, then its cache/state layout, before transferring a vLLM backend recommendation. [ATTR-S-ATTENTION-HOOK](https://raw.githubusercontent.com/sgl-project/sglang/e00930c5489053f26d86b179cee0d087f846acbb/python/sglang/srt/arg_groups/attention_hook.py).
+
+The released cache-dtype field includes `mxfp8`, `nvfp4` and `fp4_mx_block16` alongside the FP8/BF16 choices. These are distinct cache recipes; accepting the argument is not proof of support for an arbitrary model, speculative path or attention backend. They also do not select weight/activation quantization. Use the release-matched implementation when the moving documentation matrix differs. [ATTR-S-MODEL-FIELDS](https://raw.githubusercontent.com/sgl-project/sglang/e00930c5489053f26d86b179cee0d087f846acbb/python/sglang/srt/arg_groups/fields/model.py), [current backend documentation](https://docs.sglang.io/docs/advanced_features/attention_backend).
