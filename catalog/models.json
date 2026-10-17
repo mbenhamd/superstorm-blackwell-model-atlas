@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "as_of": "2026-10-16",
+  "as_of": "2026-10-17",
   "models": [
     {
       "key": "kimi-k3",
@@ -118,14 +118,35 @@
         "TOPK-BASE-API",
         "TOPK-NV-API",
         "TOPK-BASE-INDEX-RANGE",
-        "TOPK-NV-INDEX-RANGE"
+        "TOPK-NV-INDEX-RANGE",
+        "RR-KD-VLLM-KIMI-MODEL",
+        "Q31-CAT-V031-VLLM-MODELS-KIMI-K3-NVIDIA-KDA-PY",
+        "Q31-CAT-KIMI-NV-SITECUSTOMIZE-PY",
+        "Q31-CAT-KIMI-SPECIALIZED-COMPARE-JSON"
       ],
       "revision": "f831ab66814297da540d832a5235f8e904f29d06",
       "evidence_status": "Publisher cards, configurations and license files retrieved at immutable revisions on 2026-10-15; not loaded or benchmarked on hardware",
       "source_projection_is_complete_original_config": false,
       "config_projection_source_note": "Configuration fields verified at the pinned base revision; vision encoder name, 401M vision count and SiTU-GLU label also use the publisher card. Layer counts derive from the explicit lists.",
       "parameter_count_note": "2.8T total and 104B active are rounded publisher headlines, not a checkpoint tensor census.",
-      "weight_file_bytes_note": "Index metadata prefixes only; serialized tensor bytes exclude file headers and runtime allocations. Native and NVIDIA index totals do not measure resident HBM or available KV memory."
+      "weight_file_bytes_note": "Index metadata prefixes only; serialized tensor bytes exclude file headers and runtime allocations. Native and NVIDIA index totals do not measure resident HBM or available KV memory.",
+      "vllm_v031_b300_review": {
+        "reviewed_on": "2026-10-17",
+        "engine_release": "v0.31.0",
+        "source_commit": "db9527a46873454610df6dbedf79a36d6bf1a7f6",
+        "deployment_layer": "KServe",
+        "first_candidate": "Native MXFP4 TP8; one eight-GPU KServe model group.",
+        "next_optimization": "Compare external Inferact DSpark for latency; native TP8+EP/MegaMoE for batching.",
+        "constraints": "NVIDIA mixed is integration-unqualified, not proven blocked by open PRs. Old publisher patch imports removed classes; do not apply unchanged. New latency_specialized decoder is outside v0.31. Native MegaMoE is not interchangeable with NVFP4 kernels.",
+        "source_ids": [
+          "RR-KD-VLLM-KIMI-MODEL",
+          "Q31-CAT-V031-VLLM-MODELS-KIMI-K3-NVIDIA-KDA-PY",
+          "Q31-CAT-KIMI-NV-SITECUSTOMIZE-PY",
+          "Q31-CAT-KIMI-SPECIALIZED-COMPARE-JSON"
+        ],
+        "tested_on_target": false
+      },
+      "recommended_vllm_v031_b300": "Native MXFP4 TP8; one eight-GPU KServe model group. Compare external Inferact DSpark for latency; native TP8+EP/MegaMoE for batching."
     },
     {
       "key": "glm-5.3",
@@ -230,7 +251,9 @@
         "TOPG-GLM-INDEX",
         "TOPG-GLM-NVIDIA-CARD",
         "TOPG-GLM-NVIDIA-INDEX",
-        "TOPG-GLM-TEMPLATE"
+        "TOPG-GLM-TEMPLATE",
+        "Q31-CAT-GLM-5-3-RECIPE-YAML",
+        "Q31-CAT-V031-VLLM-MODELS-DEEPSEEK-V32-NVIDIA-MTP-PY"
       ],
       "revision": "ba32f8c19c8738e2c57c71798c601d477a7bf844",
       "evidence_status": "Pinned publisher cards, configurations and checkpoint metadata rechecked 2026-10-15; no model tensor payloads downloaded or GPU execution measured",
@@ -248,7 +271,24 @@
       "main_b": 743.377019904,
       "mtp_b": 9.952920576,
       "verified_on_timezone": "UTC",
-      "parameter_count_note": "Approximately 743.38B main plus 9.95B serialized MTP gives 753.33B in this scope. active_b=39 retains the vLLM recipe headline; NVIDIA reports 40B active, whose counting scope is not reconciled. Neither is a tensor-operation count."
+      "parameter_count_note": "Approximately 743.38B main plus 9.95B serialized MTP gives 753.33B in this scope. active_b=39 retains the vLLM recipe headline; NVIDIA reports 40B active, whose counting scope is not reconciled. Neither is a tensor-operation count.",
+      "vllm_v031_b300_review": {
+        "reviewed_on": "2026-10-17",
+        "engine_release": "v0.31.0",
+        "source_commit": "db9527a46873454610df6dbedf79a36d6bf1a7f6",
+        "deployment_layer": "KServe",
+        "first_candidate": "Official FP8 TP8 reference versus two independent TP4 KServe replicas.",
+        "next_optimization": "Compare RedHat or Inferact NVFP4 at TP4; native MTP 1/3/5 separately.",
+        "constraints": "Match KV precision before attributing differences to the exporter. NVFP4 TP2 is only a memory probe; approximately 232 GB serialized weights/rank precede cache/workspace. DSA requires its sparse MLA path, not ordinary FA4.",
+        "source_ids": [
+          "glm-5.3-CARD",
+          "glm-5.3-NV",
+          "Q31-CAT-GLM-5-3-RECIPE-YAML",
+          "Q31-CAT-V031-VLLM-MODELS-DEEPSEEK-V32-NVIDIA-MTP-PY"
+        ],
+        "tested_on_target": false
+      },
+      "recommended_vllm_v031_b300": "Official FP8 TP8 reference versus two independent TP4 KServe replicas. Compare RedHat or Inferact NVFP4 at TP4; native MTP 1/3/5 separately."
     },
     {
       "key": "glm-5.3-flash",
@@ -359,7 +399,8 @@
         "TOPG-FLASH-MAIN",
         "TOPG-FLASH-INDEX",
         "TOPG-FLASH-NV-INDEX",
-        "TOPG-FLASH-TEMPLATE"
+        "TOPG-FLASH-TEMPLATE",
+        "Q31-CAT-V031-VLLM-MODELS-GLM5NEXT-COMMON-MTP-PY"
       ],
       "revision": "46a050bec13002ad29ee795c16e61cf4fa3c4a9c",
       "evidence_status": "Pinned publisher cards, configurations and checkpoint metadata rechecked 2026-10-15; no model tensor payloads downloaded or GPU execution measured",
@@ -371,7 +412,24 @@
         "active_b_scope": "Publisher or engine-recipe headline; active path not independently counted"
       },
       "publisher_total_b": 320,
-      "verified_on_timezone": "UTC"
+      "verified_on_timezone": "UTC",
+      "vllm_v031_b300_review": {
+        "reviewed_on": "2026-10-17",
+        "engine_release": "v0.31.0",
+        "source_commit": "db9527a46873454610df6dbedf79a36d6bf1a7f6",
+        "deployment_layer": "KServe",
+        "first_candidate": "Official FP8: two TP4 KServe replicas versus one TP8 group.",
+        "next_optimization": "Investigate FP8 TP2 ×4 replicas, then RedHat mixed NVFP4 TP1 ×8 if runtime memory/kernels permit; MTP separately.",
+        "constraints": "These narrower layouts are hypotheses. FP8 payload about 328 GB excludes TP1 full residency; mixed payload about 198 GB makes TP1 plausible, not guaranteed. Preserve NVFP4 main experts and FP8 MTP experts.",
+        "source_ids": [
+          "glm-5.3-flash-INDEX",
+          "glm-5.3-flash-NV-INDEX",
+          "glm-5.3-flash-NV-CFG",
+          "Q31-CAT-V031-VLLM-MODELS-GLM5NEXT-COMMON-MTP-PY"
+        ],
+        "tested_on_target": false
+      },
+      "recommended_vllm_v031_b300": "Official FP8: two TP4 KServe replicas versus one TP8 group. Investigate FP8 TP2 ×4 replicas, then RedHat mixed NVFP4 TP1 ×8 if runtime memory/kernels permit; MTP separately."
     },
     {
       "key": "deepseek-v4-flash-0731",
@@ -505,7 +563,11 @@
         "deepseek-v4-flash-0731-INFER-CFG",
         "deepseek-v4-flash-0731-INFER-SRC",
         "deepseek-v4-flash-0731-ENC",
-        "deepseek-v4-flash-0731-GR"
+        "deepseek-v4-flash-0731-GR",
+        "VLLM031-CATALOG-vllm-models-deepseek_v4-nvidia-model",
+        "VLLM031-CATALOG-vllm-models-deepseek_v4-attention",
+        "VLLM031-CATALOG-recipe-deepseek",
+        "deepseek-v4-flash-0731-NV-CARD"
       ],
       "revision": "7872f01b1d1fe23eabc4c98b48bffcef5a386062",
       "evidence_status": "Exact publisher card, configuration, reference inference files and license retrieved at immutable revision on 2026-10-15; both engines have documented 0731 paths; no local GPU test",
@@ -513,7 +575,24 @@
       "family_total_b": 284,
       "family_active_b": 13,
       "parameter_count_note": "284B/13B is the vLLM recipe preview-family headline; the SGLang cookbook lists 304B/13B for 0731. Exact 0731 main+draft logical-parameter census is not performed, so total_b and active_b remain null; serialized tensor-element counts are not substituted.",
-      "config_projection_source_note": "Root config num_nextn_predict_layers is 1 (retained as nextn_layers metadata); pinned inference/config.json independently sets n_mtp_layers=3 and inference/model.py constructs three DSparkBlock stages. dspark_target_layer_ids are zero-based in that implementation."
+      "config_projection_source_note": "Root config num_nextn_predict_layers is 1 (retained as nextn_layers metadata); pinned inference/config.json independently sets n_mtp_layers=3 and inference/model.py constructs three DSparkBlock stages. dspark_target_layer_ids are zero-based in that implementation.",
+      "vllm_v031_b300_review": {
+        "reviewed_on": "2026-10-17",
+        "engine_release": "v0.31.0",
+        "source_commit": "db9527a46873454610df6dbedf79a36d6bf1a7f6",
+        "deployment_layer": "KServe",
+        "first_candidate": "Native TP1/DP4+EP reference; compare DP8+EP as an eight-GPU adaptation.",
+        "next_optimization": "Compare target-only with bundled DSpark; seven proposals are a recipe candidate, with explicit matching draft revision and sampling.",
+        "constraints": "Use v0.31 indexer_kv_dtype=mxfp4, not obsolete use_fp4_indexer_cache. Default V4 FlashMLA uses packed fp8_ds_mla, not generic FP8/FA4. NVIDIA NVFP4 target-only TP8 is separate; its DSpark pairing remains unresolved.",
+        "source_ids": [
+          "VLLM031-CATALOG-vllm-models-deepseek_v4-nvidia-model",
+          "VLLM031-CATALOG-vllm-models-deepseek_v4-attention",
+          "VLLM031-CATALOG-recipe-deepseek",
+          "deepseek-v4-flash-0731-NV-CARD"
+        ],
+        "tested_on_target": false
+      },
+      "recommended_vllm_v031_b300": "Native TP1/DP4+EP reference; compare DP8+EP as an eight-GPU adaptation. Compare target-only with bundled DSpark; seven proposals are a recipe candidate, with explicit matching draft revision and sampling."
     },
     {
       "key": "qwen3.8-27b",
@@ -558,7 +637,7 @@
       "context": 262144,
       "layout": "hybrid-dense",
       "license": "Apache-2.0 on base; also review derivative terms",
-      "recommended": "Compare vLLM and SGLang TP1 BF16, FP8 and NVIDIA mixed NVFP4; no measured winner",
+      "recommended": "KServe TP1: compare BF16, official FP8 and NVIDIA mixed with FlashInfer/BF16 KV; then FlashInfer/FP8 KV and FA4/BF16 KV separately. Native MTP is optional and revision-pinned; no measured B300 winner.",
       "baseline_tp": 1,
       "variants": [
         {
@@ -603,12 +682,19 @@
         "qwen3.8-27b-GR",
         "TOPQ-27FP8-TREE",
         "TOPQ-27NV-TREE",
-        "TOPQ-27-API"
+        "TOPQ-27-API",
+        "ATTQ-V-MODELOPT-STABLE",
+        "ATTV-S-FA",
+        "ATTV-S-FA-UTIL",
+        "ATTV-S-FI",
+        "Q31-V-STABLE-QWEN-MTP",
+        "Q31-V-STABLE-KVSCALES",
+        "TOPQ-VLLM-STABLE-SPEC-CONFIG"
       ],
       "revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
-      "evidence_status": "Publisher cards and immutable configuration metadata rechecked on 2026-10-15; weights not inspected; no GPU load or benchmark",
+      "evidence_status": "Publisher identities, cards, metadata and selected vLLM v0.31 implementation rechecked 2026-10-17; no weights loaded, engine execution or B300 measurement.",
       "source_projection_is_complete_original_config": false,
-      "metadata_retrieved_on": "2026-10-16",
+      "metadata_retrieved_on": "2026-10-17",
       "config_projection_provenance": {
         "configuration_source_id": "qwen3.8-27b-CFG",
         "publisher_card_source_id": "qwen3.8-27b-CARD",
@@ -630,7 +716,24 @@
         "value": 27781427952,
         "scope": "Hub BF16 parameter metadata for stored artifact; broader than rounded 27B language-model headline; not per-token active count",
         "source_id": "TOPQ-27-API"
-      }
+      },
+      "vllm_v031_b300_review": {
+        "reviewed_on": "2026-10-17",
+        "engine_release": "v0.31.0",
+        "source_commit": "db9527a46873454610df6dbedf79a36d6bf1a7f6",
+        "deployment_layer": "KServe",
+        "first_candidate": "TP1 per KServe replica; matched BF16, official FP8 and NVIDIA mixed comparisons.",
+        "next_optimization": "FlashInfer/BF16 KV control; then FlashInfer/FP8 KV, FA4/BF16 KV and optional MTP 1/2/3.",
+        "constraints": "Forced FlashAttention with hd256/FP8 KV is rejected. Pin native draft revision and use align with prefix caching. Match serialized token IDs/padding across export tokenizers; no measured FP8/NVFP4 winner.",
+        "source_ids": [
+          "ATTV-S-FA",
+          "ATTV-S-FA-UTIL",
+          "Q31-V-STABLE-QWEN-MTP",
+          "ATTQ-V-MODELOPT-STABLE"
+        ],
+        "tested_on_target": false
+      },
+      "recommended_vllm_v031_b300": "TP1 per KServe replica; matched BF16, official FP8 and NVIDIA mixed comparisons. FlashInfer/BF16 KV control; then FlashInfer/FP8 KV, FA4/BF16 KV and optional MTP 1/2/3."
     },
     {
       "key": "qwen3.8-flash-next",
@@ -737,7 +840,12 @@
         "TOPQ-NEXT-API",
         "TOPQ-NEXTFP8-API",
         "TOPQ-NEXTNV-API",
-        "TOPQ-NEXT-VR-SOURCE"
+        "TOPQ-NEXT-VR-SOURCE",
+        "RR-QWEN-VLLM-STABLE-QSA",
+        "B300V31-FLASHNEXT-MTP",
+        "B300V31-FLASHNEXT-MTP-ANCESTRY",
+        "B300V31-MOE-EP-WORLD",
+        "TOPQ-VLLM-STABLE-ENGRAM"
       ],
       "evidence_status": "Publisher cards and immutable configuration metadata rechecked on 2026-10-15; weights not inspected; no GPU load or benchmark",
       "source_projection_is_complete_original_config": false,
@@ -760,7 +868,25 @@
         }
       },
       "parameter_count_scope": "Publisher rounded main125B + PLE51B =176B before MTP4B; approximately180B including MTP, with vision not separately accounted. active_b6 describes main-path headline only.",
-      "weight_file_bytes_note": "Pinned Hub tree sums of safetensors shard file bytes, including headers; not index tensor payload, target-only residency, MTP-enabled residency or free KV capacity."
+      "weight_file_bytes_note": "Pinned Hub tree sums of safetensors shard file bytes, including headers; not index tensor payload, target-only residency, MTP-enabled residency or free KV capacity.",
+      "vllm_v031_b300_review": {
+        "reviewed_on": "2026-10-17",
+        "engine_release": "v0.31.0",
+        "source_commit": "db9527a46873454610df6dbedf79a36d6bf1a7f6",
+        "deployment_layer": "KServe",
+        "first_candidate": "Official FP8 TP4+EP candidate; NVIDIA mixed TP8 is its separate publisher reference.",
+        "next_optimization": "Compare two independent four-GPU KServe groups; isolate PLE placement, native MTP and explicit IndexShare.",
+        "constraints": "TP4+DP2+EP creates expert world8, not two independent EP4 groups. PLE offload already defaults on. Custom QSA uses sparse Triton; generic FA4 rules do not transfer. Prefix MTP uses align, not all. NVIDIA prerequisite fixes are in v0.31.",
+        "source_ids": [
+          "RR-QWEN-VLLM-STABLE-QSA",
+          "B300V31-FLASHNEXT-MTP",
+          "B300V31-FLASHNEXT-MTP-ANCESTRY",
+          "B300V31-MOE-EP-WORLD",
+          "TOPQ-VLLM-STABLE-ENGRAM"
+        ],
+        "tested_on_target": false
+      },
+      "recommended_vllm_v031_b300": "Official FP8 TP4+EP candidate; NVIDIA mixed TP8 is its separate publisher reference. Compare two independent four-GPU KServe groups; isolate PLE placement, native MTP and explicit IndexShare."
     },
     {
       "key": "gemma-4-31b-it",
@@ -905,13 +1031,34 @@
         "TOPM-GEMMA-TURBO-META",
         "TOPM-GEMMA-TURBO-CARD",
         "TOPM-GEMMA-TURBO-CFG",
-        "TOPM-GEMMA-TURBO-TREE"
+        "TOPM-GEMMA-TURBO-TREE",
+        "B300V31-GEMMA-TRITON-FLASHINFER",
+        "B300V31-ATTENTION-COMPOSITE",
+        "TOPM-GEMMA-V-PROPOSER",
+        "TOPQ-VLLM-STABLE-SPEC-CONFIG"
       ],
       "revision": "842da3794eaa0b77d5f08bae87a17459d91ff475",
       "evidence_status": "Pinned publisher cards/configurations and repository file metadata rechecked 2026-10-15; not loaded or benchmarked on hardware",
       "source_projection_is_complete_original_config": false,
       "parameter_count_note": "total_b31 and active_b31 are rounded dense text-family shorthand, not an exact count of parameters used per token. Publisher Table1 rounds text embedding1.410B+einsums29.290B=30.700B; vision0.550B and separate drafter0.500B are additional components. No exact tensor census; do not add rounded counts as measured residency.",
-      "weight_file_bytes_note": "Sum of .safetensors file sizes listed by the pinned Hugging Face tree API, including headers; not a local tensor census or runtime memory measurement"
+      "weight_file_bytes_note": "Sum of .safetensors file sizes listed by the pinned Hugging Face tree API, including headers; not a local tensor census or runtime memory measurement",
+      "vllm_v031_b300_review": {
+        "reviewed_on": "2026-10-17",
+        "engine_release": "v0.31.0",
+        "source_commit": "db9527a46873454610df6dbedf79a36d6bf1a7f6",
+        "deployment_layer": "KServe",
+        "first_candidate": "TP1 per KServe replica; BF16 quality anchor versus exact FP8/NVFP4 exports.",
+        "next_optimization": "Evaluate TRITON_FLASHINFER for mixed 256/512 head shapes; then the official separate assistant for decode latency.",
+        "constraints": "Generic all-layer FA4 is unsuitable. Stable includes assistant support despite stale nightly-only recipe wording; method=mtp alone does not identify the separate assistant. Qualify quantized-target pairings independently.",
+        "source_ids": [
+          "B300V31-GEMMA-TRITON-FLASHINFER",
+          "B300V31-ATTENTION-COMPOSITE",
+          "TOPM-GEMMA-V-PROPOSER",
+          "TOPQ-VLLM-STABLE-SPEC-CONFIG"
+        ],
+        "tested_on_target": false
+      },
+      "recommended_vllm_v031_b300": "TP1 per KServe replica; BF16 quality anchor versus exact FP8/NVFP4 exports. Evaluate TRITON_FLASHINFER for mixed 256/512 head shapes; then the official separate assistant for decode latency."
     },
     {
       "key": "mistral-medium-3.5",
@@ -985,7 +1132,11 @@
         "mistral-medium-3.5-HF-INDEX",
         "mistral-medium-3.5-NATIVE-INDEX",
         "mistral-medium-3.5-LICENSE",
-        "mistral-medium-3.5-GR"
+        "mistral-medium-3.5-GR",
+        "VLLM031-CATALOG-vllm-model_executor-models-mistral_eagle",
+        "TOPQ-VLLM-STABLE-SPEC-CONFIG",
+        "VLLM031-CATALOG-recipe-mistral",
+        "TOPM-GEMMA-V-REQUIRE"
       ],
       "revision": "22b2b868a15677cfa6061277ed2f653d1349a9ab",
       "evidence_status": "Pinned publisher cards/configurations and repository file metadata rechecked 2026-10-15; not loaded or benchmarked on hardware",
@@ -999,7 +1150,25 @@
           "mistral-medium-3.5-HF-INDEX",
           "mistral-medium-3.5-NATIVE-INDEX"
         ]
-      }
+      },
+      "vllm_v031_b300_review": {
+        "reviewed_on": "2026-10-17",
+        "engine_release": "v0.31.0",
+        "source_commit": "db9527a46873454610df6dbedf79a36d6bf1a7f6",
+        "deployment_layer": "KServe",
+        "first_candidate": "Publisher FP8 TP8 reference; investigate TP2/TP4 and corresponding independent replicas.",
+        "next_optimization": "Compare target-only with official EAGLE, three proposals, separately pinned draft revision.",
+        "constraints": "Stable contains EagleMistral; nightly is not required merely by old recipe wording. Omit draft max_model_len=65536 on a 32768 target, or reduce it: v0.31 rejects draft cap above target. TP1 and FP8 KV remain capacity/quality probes.",
+        "source_ids": [
+          "VLLM031-CATALOG-vllm-model_executor-models-mistral_eagle",
+          "TOPQ-VLLM-STABLE-SPEC-CONFIG",
+          "VLLM031-CATALOG-recipe-mistral",
+          "TOPM-GEMMA-V-REQUIRE"
+        ],
+        "tested_on_target": false
+      },
+      "recommended_vllm_v031_b300": "Publisher FP8 TP8 reference; investigate TP2/TP4 and corresponding independent replicas. Compare target-only with official EAGLE, three proposals, separately pinned draft revision."
     }
-  ]
+  ],
+  "date_basis": "UTC; per-model metadata and runtime review dates identify scope; no blanket refresh or runtime qualification."
 }

@@ -1,10 +1,10 @@
 # Qwen 3.8 27B
 
-**As of 2026-10-16.** Dense 27B language model; Gated DeltaNet + gated full attention; multimodal.
+**Qwen/vLLM v0.31 review: 2026-10-17.** Dense 27B language model; Gated DeltaNet + gated full attention; multimodal.
 
 This is the small dense baseline in the requested set. Its architecture class still says Qwen3_5; the public model version and the loader class need not have the same spelling. [qwen3.8-27b-CARD](https://huggingface.co/Qwen/Qwen3.8-27B/raw/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/README.md) [qwen3.8-27b-CFG](https://huggingface.co/Qwen/Qwen3.8-27B/raw/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/config.json)
 
-**Serving candidates:** compare vLLM and SGLang TP1 BF16, FP8 and NVIDIA mixed NVFP4. These are deployment experiments; no winner was measured on the target hardware.
+**Serving candidates:** under KServe, compare TP1 BF16, official FP8 and NVIDIA mixed NVFP4 with FlashInfer/BF16 KV first. Then assess FlashInfer/FP8 KV, FA4/BF16 KV and native MTP separately. v0.31.0 rejects forced FlashAttention with this model's hd256/FP8-KV combination. No production winner was measured; [the release-specific guidance](serving.md) records the source constraints and matched controls.
 
 [Architecture](architecture.md) · [Precision and variants](precision.md) · [Serving decisions](serving.md) · [Sources](sources.md) · [Model catalog](../../../catalog/models.json)
 

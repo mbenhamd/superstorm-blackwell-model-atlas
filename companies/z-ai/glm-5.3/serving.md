@@ -2,6 +2,12 @@
 
 **Status: unbenchmarked local recommendations.** The upstream recipes are evidence of documented support, not a benchmark of the target B300 node.
 
+## B300 / vLLM v0.31.0 priority (October 17)
+
+Official FP8 TP8 reference versus two independent TP4 KServe replicas. Compare RedHat or Inferact NVFP4 at TP4; native MTP 1/3/5 separately.
+
+Match KV precision before attributing differences to the exporter. NVFP4 TP2 is only a memory probe; approximately 232 GB serialized weights/rank precede cache/workspace. DSA requires its sparse MLA path, not ordinary FA4. These are selected-source candidates inside mandatory KServe, with no engine execution or measured B300 winner. [glm-5.3-CARD](https://huggingface.co/zai-org/GLM-5.3/raw/ba32f8c19c8738e2c57c71798c601d477a7bf844/README.md) [glm-5.3-NV](https://huggingface.co/RedHatAI/GLM-5.3-NVFP4/raw/c8917e4258572c405575855ff53effe58c17a38e/README.md) [Q31-CAT-GLM-5-3-RECIPE-YAML](https://raw.githubusercontent.com/vllm-project/recipes/d5fc1f55cee70f4e1944f2dd4f7569cb8276ad94/models/zai-org/GLM-5.3.yaml) [Q31-CAT-V031-VLLM-MODELS-DEEPSEEK-V32-NVIDIA-MTP-PY](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/models/deepseek_v32/nvidia/mtp.py)
+
 ## Engine and topology
 
 Begin with the official FP8 checkpoint at TP8 and a deliberately capped 64K application context on each engine. Align effective KV precision, parsers, template and workload before interpreting an engine difference. The publisher BF16 checkpoint at TP8 is a useful separately qualified reference: its 1.507 TB serialized payload fits within the reference node's aggregate capacity, but actual load, cache and graph headroom remain gates. Casting FP8 weights is not this reference.

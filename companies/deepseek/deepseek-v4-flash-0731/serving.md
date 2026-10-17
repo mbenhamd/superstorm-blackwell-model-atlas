@@ -2,6 +2,12 @@
 
 **Status: unbenchmarked candidates, rechecked 2026-10-16 (UTC).** The upstream recipes document serving paths; none was run on this node.
 
+## B300 / vLLM v0.31.0 priority (October 17)
+
+Native TP1/DP4+EP reference; compare DP8+EP as an eight-GPU adaptation. Compare target-only with bundled DSpark; seven proposals are a recipe candidate, with explicit matching draft revision and sampling.
+
+Use v0.31 indexer_kv_dtype=mxfp4, not obsolete use_fp4_indexer_cache. Default V4 FlashMLA uses packed fp8_ds_mla, not generic FP8/FA4. NVIDIA NVFP4 target-only TP8 is separate; its DSpark pairing remains unresolved. These are selected-source candidates inside mandatory KServe, with no engine execution or measured B300 winner. [VLLM031-CATALOG-vllm-models-deepseek_v4-nvidia-model](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/models/deepseek_v4/nvidia/model.py) [VLLM031-CATALOG-vllm-models-deepseek_v4-attention](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/models/deepseek_v4/attention.py) [VLLM031-CATALOG-recipe-deepseek](https://raw.githubusercontent.com/vllm-project/recipes/d5fc1f55cee70f4e1944f2dd4f7569cb8276ad94/models/deepseek-ai/DeepSeek-V4-Flash.yaml) [deepseek-v4-flash-0731-NV-CARD](https://huggingface.co/nvidia/DeepSeek-V4-Flash-0731-NVFP4/raw/f1caa71142bd0be02f728c79f75042ac1e461579/README.md)
+
 ## Engine and topology
 
 Use the documented vLLM TP1/DP4 plus expert-parallel layout as the initial four-GPU baseline. DP8/EP is a separate eight-GPU adaptation. Expert parallelism reuses the data-parallel group; it is not another factor multiplying the GPU count. A 64K total-context cap is an initial workload choice; the recipe specifies FP8 KV and the DeepGEMM MegaMoE backend. The chosen image still needs to pass correctness checks for this exact revision. [vLLM recipe](https://recipes.vllm.ai/deepseek-ai/DeepSeek-V4-Flash?features=tool_calling,reasoning&hardware=b300).

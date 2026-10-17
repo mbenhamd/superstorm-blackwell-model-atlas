@@ -2,6 +2,12 @@
 
 **Status: unbenchmarked local recommendations.** The upstream recipes are evidence of documented support, not a benchmark of the target B300 node.
 
+## B300 / vLLM v0.31.0 priority (October 17)
+
+TP1 per KServe replica; BF16 quality anchor versus exact FP8/NVFP4 exports. Evaluate TRITON_FLASHINFER for mixed 256/512 head shapes; then the official separate assistant for decode latency.
+
+Generic all-layer FA4 is unsuitable. Stable includes assistant support despite stale nightly-only recipe wording; method=mtp alone does not identify the separate assistant. Qualify quantized-target pairings independently. These are selected-source candidates inside mandatory KServe, with no engine execution or measured B300 winner. [B300V31-GEMMA-TRITON-FLASHINFER](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/v1/attention/backends/triton_flashinfer.py) [B300V31-ATTENTION-COMPOSITE](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/v1/attention/backends/composite.py) [TOPM-GEMMA-V-PROPOSER](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/v1/spec_decode/gemma4.py) [TOPQ-VLLM-STABLE-SPEC-CONFIG](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/config/speculative.py)
+
 ## Engine and topology
 
 Start with vLLM TP1, 32K context and restrained concurrency. Compare BF16, RedHat block FP8 and RedHat NVFP4. The exact tool template is a versioned deployment asset, not a path guaranteed to exist inside every image; the baseline reference therefore does not blindly reference a source-tree-relative example file.

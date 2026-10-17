@@ -121,3 +121,9 @@ At SGLang **0.5.21**, commit `e00930c5489053f26d86b179cee0d087f846acbb`, the ins
 Conditional reserves also matter: the vLLM worker applies a multimodal IPC reserve after its automatic cache calculation; SGLang's hybrid post-capture path floors runtime slack at its configured pre-capture activation reserve. The simple fraction formulas do not include every branch-specific deduction. The pinned worker and allocator sources above define those branches.
 
 The formulas describe payloads under their stated assumptions. A universal hybrid-cache estimate cannot be derived from parameter count and context length alone.
+
+## Qwen27: admission caps versus native-context payload
+
+For the pinned 16 full-attention layers, 4 KV heads and 256-dimensional heads, ordinary KV costs 65,536 bytes/token in BF16 or 32,768 in FP8 at TP1. A 262,144-token independent history therefore uses 16 GiB or 8 GiB respectively. **16 BF16 histories and 32 FP8 histories both require 256 GiB of payload**, excluding weights, recurrent state, graphs and all other allocations. A literal 288 GB reference GPU with a 0.90 executor fraction supplies about 241.4 GiB under that simplified budget. These settings cannot guarantee all histories reach the cap concurrently. `max-num-seqs` and `max-model-len` are distinct controls; shared prefixes can reduce physical cache use but cannot be assumed for unique histories. Actual reported HBM and allocator behavior determine capacity. [qwen3.8-27b-CFG](https://huggingface.co/Qwen/Qwen3.8-27B/raw/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/config.json)
+
+This also explains why changing the original examples from 32 FP8 sequences to 16 BF16 sequences does not isolate backend latency. Use matched admission/batching first, then explore the capacity tradeoff separately. [v0.31 comparison](../companies/alibaba-qwen/qwen3.8-27b/serving.md).

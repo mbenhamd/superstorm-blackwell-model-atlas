@@ -1,10 +1,23 @@
 # Configuration reference
 
-These **34 source-derived references** consolidate the former per-file launch profiles. Full argument arrays, exact model/draft revisions, source IDs and inspected source commits are in [catalog/configurations.json](../catalog/configurations.json). This file is reference data; no launcher is included.
+These **40 source-derived references** include 34 retained historical launch profiles and six Qwen27 comparisons inspected against vLLM v0.31.0 on October 17. Full argument arrays, exact model/draft revisions, source IDs and inspected source commits are in [catalog/configurations.json](../catalog/configurations.json). This file is reference data; no launcher is included.
 
 Each reference is untested on the target node. Read the current family serving page before using an older reference: new research can identify restrictions or additional candidates without silently rewriting its historical source identity. Memory fractions, context caps and admission limits are starting hypotheses, not universal defaults.
 
-**KServe is mandatory for all eight families and all 34 references.** The argument arrays describe the inference process inside a KServe-managed workload. Completing a deployment also requires the installed resource kind and runtime template, image, GPU allocation, model mount, ports, probes and routing contract. Follow the [KServe integration analysis](../frameworks/kserve/ARCHITECTURE.md); an engine argument list alone does not establish a deployable KServe service.
+**KServe is mandatory for all eight families and all 40 references.** The argument arrays describe the inference process inside a KServe-managed workload. Completing a deployment also requires the installed resource kind and runtime template, image, GPU allocation, model mount, ports, probes and routing contract. Follow the [KServe integration analysis](../frameworks/kserve/ARCHITECTURE.md); an engine argument list alone does not establish a deployable KServe service.
+
+## Qwen27 release-specific comparisons (October 17)
+
+These six target-only references use vLLM **v0.31.0**, TP1, BF16 activation boundaries, 32K context, 32 sequences, a 16K batching budget, 0.90 memory utilization and the same prefix/chunked-prefill and parser controls. They carry exact model/tokenizer revision arguments and a separate source identity. They do not rewrite or certify the older snapshots below. [Mechanisms, restrictions and optional MTP delta](../companies/alibaba-qwen/qwen3.8-27b/serving.md).
+
+| ID | Weight export | Full-attention backend | KV dtype |
+| --- | --- | --- | --- |
+| `qwen3.8-27b.bf16.vllm.v031.fi-bf16-kv` | bf16 | FlashInfer | bfloat16 |
+| `qwen3.8-27b.fp8.vllm.v031.fi-bf16-kv` | fp8 | FlashInfer | bfloat16 |
+| `qwen3.8-27b.nvfp4.vllm.v031.fi-bf16-kv` | nvfp4 | FlashInfer | bfloat16 |
+| `qwen3.8-27b.fp8.vllm.v031.fi-fp8-kv` | fp8 | FlashInfer | fp8_e4m3 |
+| `qwen3.8-27b.nvfp4.vllm.v031.fi-fp8-kv` | nvfp4 | FlashInfer | fp8_e4m3 |
+| `qwen3.8-27b.nvfp4.vllm.v031.fa4-bf16-kv` | nvfp4 | FA4 | bfloat16 |
 
 ## Retained configuration snapshots
 
@@ -13,7 +26,7 @@ Each reference is untested on the target node. Read the current family serving p
 | `kimi-k3.native.sglang.baseline` | sglang | 8 / 8 / 1 | 65536 | candidate | Native publisher MXFP4 path; 64K conservative cap. Symmetric memory is a separate topology-specific experiment. |
 | `kimi-k3.native.vllm.baseline` | vllm | 8 / 8 / 1 | 65536 | candidate | Native checkpoint baseline; confirm the exact Kimi release recipe and kernels in the selected image. |
 | `kimi-k3.nvfp4.sglang.baseline` | sglang | 8 / 8 / 1 | 65536 | candidate | Merged mixed NVFP4/FP8 compatibility fix; target-only correctness before drafting. No B300 speed claim. |
-| `kimi-k3.nvfp4.vllm.baseline` | vllm | 8 / 8 / 1 | 65536 | blocked | Exact mixed FP8-attention compatibility not certified: complementary PR 52406 remains open. Do not execute on generic main without an audited compatibility path. |
+| `kimi-k3.nvfp4.vllm.baseline` | vllm | 8 / 8 / 1 | 65536 | compatibility-probe | October 17 corrects the old open-PR blocker rationale: selected fixes exist in v0.31, but exact mixed-export image is unqualified and the old patch is not drop-in. Historical arguments retained. |
 | `kimi-k3.nvfp4.sglang.dspark` | sglang | 8 / 8 / 1 | 65536 | candidate | Model-specific draft candidate, separate from target-only baseline. Natural acceptance only; no simulated acceptance environment. |
 | `glm-5.3.fp8.vllm.baseline` | vllm | 8 / 8 / 1 | 65536 | candidate | Model-specific vLLM recipe, context/concurrency reduced for initial verification. |
 | `glm-5.3.nvfp4.vllm.baseline` | vllm | 8 / 8 / 1 | 65536 | candidate | RedHat export. Use loader auto-detection, inspect effective quantization and compare quality to official FP8. |

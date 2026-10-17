@@ -1,6 +1,6 @@
 # Qwen 3.8 27B: sources
 
-Rechecked 2026-10-16 UTC; the earlier retrieval entries below remain dated to their original captures. Publisher metadata was retrieved at the immutable revisions below. No model weights were downloaded or tensor payloads audited. Engine recipe statements remain upstream evidence.
+Checkpoint identity and selected vLLM v0.31 source rechecked 2026-10-17 UTC; the earlier retrieval entries below remain dated to their original captures. Publisher metadata was retrieved at the immutable revisions below. No model weights were downloaded or tensor payloads audited. Engine recipe statements remain upstream evidence.
 
 ## Checkpoint revisions
 
@@ -9,6 +9,19 @@ Rechecked 2026-10-16 UTC; the earlier retrieval entries below remain dated to th
 | Qwen/Qwen3.8-27B | `1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0` |
 | Qwen/Qwen3.8-27B-FP8 | `017b9c7af6b5689d5dd426a76e0bc077eb5ca20a` |
 | nvidia/Qwen3.8-27B-NVFP4 | `482ca0f3832238542f8f5295dde86b5f22711d80` |
+
+## October 17 v0.31 claim recheck
+
+| Scope | Primary evidence |
+| --- | --- |
+| Release identity and SM103 attention selection | [ATTV-TAG](https://api.github.com/repos/vllm-project/vllm/git/ref/tags/v0.31.0) [ATTV-S-CUDA](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/platforms/cuda.py) |
+| hd256 FA4/FP8 validation and page geometry | [ATTV-S-FA-UTIL](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/v1/attention/backends/fa_utils.py) [ATTV-S-FA](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/v1/attention/backends/flash_attn.py) |
+| Mixed loader and independent linear kernels | [ATTQ-V-MODELOPT-STABLE](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/model_executor/layers/quantization/modelopt.py) [ATTQ-V-LINEAR-STABLE](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/model_executor/kernels/linear/__init__.py) |
+| Native MTP, explicit draft revision and align mode | [Q31-V-STABLE-QWEN-MTP](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/model_executor/models/qwen3_5_mtp.py) [TOPQ-VLLM-STABLE-SPEC-CONFIG](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/config/speculative.py) [TOPM-GEMMA-V-CONFIG](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/model_executor/models/config.py) |
+| Removed scale flag, historical issue and current scales | [Q31-V-KVSCALE-ISSUE](https://api.github.com/repos/vllm-project/vllm/issues/37554) [Q31-V-KVSCALE-REMOVAL-IN-STABLE](https://api.github.com/repos/vllm-project/vllm/compare/dd11df04f3b7046c40f13e586ac38a3725bc3c03...db9527a46873454610df6dbedf79a36d6bf1a7f6?per_page=1) [Q31-V-STABLE-KVSCALES](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/model_executor/layers/quantization/kv_cache.py) |
+| GDN dispatch and graph constraints | [Q31-S-GDN](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/model_executor/layers/mamba/gdn/qwen_gdn_linear_attn.py) [Q31-V-STABLE-GDN-META](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/v1/attention/backends/gdn_attn.py) |
+
+Three separate source reviews covered attention, precision and MTP/scale handling; cross-checks challenged version inclusion, shared-head precision, comparisons and memory arithmetic. This is selected source corroboration, not independent measured B300 validation. Artifact heads remain unchanged. The JSON registry retains the original captures and dated rechecks.
 
 ## October 16 claim recheck
 

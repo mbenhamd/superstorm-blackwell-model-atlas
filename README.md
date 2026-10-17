@@ -4,7 +4,7 @@ Technical reference for eight model families on one **8×NVIDIA B300** node: arc
 
 **Infrastructure requirement: KServe is mandatory.** All deployment guidance assumes the existing KServe platform, with vLLM or SGLang providing inference.
 
-The [retrieval map and analysis procedure](START_HERE.md) connects model reports, catalogs, implementation reviews and source identities. [LIMITATIONS](LIMITATIONS.md) distinguishes known facts, publisher claims and unresolved questions. Research refreshed **October 16, 2026 UTC**.
+The [retrieval map and analysis procedure](START_HERE.md) connects model reports, catalogs, implementation reviews and source identities. [LIMITATIONS](LIMITATIONS.md) distinguishes known facts, publisher claims and unresolved questions. Core research refreshed **October 16, 2026 UTC**; selected B300/vLLM v0.31 guidance across all eight families and upstream identities were rechecked **October 17**.
 
 ## Hardware → model → precision → engine
 

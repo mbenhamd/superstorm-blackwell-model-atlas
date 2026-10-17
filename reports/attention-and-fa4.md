@@ -266,3 +266,7 @@ This table reuses the linked architecture reports and their immutable model evid
 | [Mistral Medium 3.5](../companies/mistral-ai/mistral-medium-3.5/architecture.md) | 88 full-history GQA layers, head dimension 128 | Conventional GQA attention is the relevant comparison, with prefill and decode assessed separately |
 
 Long prefill supplies many query rows and substantial matrix work. Decode supplies few query rows and reuses a growing history, making cache traffic and available parallelism different constraints. Sparse gathering adds index work and irregular reads; hybrid models also spend time in recurrent updates and feed-forward layers. Consequently, choose an attention backend by its supported model operation, phase, cache representation, precision and actual workload—not by the largest isolated-kernel FLOP/s headline. The [optimization guide](optimization.md) connects these choices to the node workload.
+
+## Qwen27 release-specific consequence
+
+For vLLM v0.31.0 and Qwen3.8-27B, explicit FA4/FP8 KV is rejected after the hd256 version-resolution check; it is not a usable fallback to FA2. Compare **FlashInfer/BF16 KV**, **FlashInfer/FP8 KV** and **FA4/BF16 KV** with matched scheduling. These settings apply to the 16 full-attention layers; the 48 GDN layers have independent implementation and state precision. This restriction does not automatically transfer to another family's QSA/MLA/custom attention path. [Source trace and configurations](../companies/alibaba-qwen/qwen3.8-27b/serving.md#backend-and-cache-constraints).

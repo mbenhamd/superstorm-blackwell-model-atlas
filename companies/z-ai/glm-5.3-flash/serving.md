@@ -2,6 +2,12 @@
 
 **Status: unbenchmarked local recommendations.** The upstream recipes are evidence of documented support, not a benchmark of the target B300 node.
 
+## B300 / vLLM v0.31.0 priority (October 17)
+
+Official FP8: two TP4 KServe replicas versus one TP8 group. Investigate FP8 TP2 ×4 replicas, then RedHat mixed NVFP4 TP1 ×8 if runtime memory/kernels permit; MTP separately.
+
+These narrower layouts are hypotheses. FP8 payload about 328 GB excludes TP1 full residency; mixed payload about 198 GB makes TP1 plausible, not guaranteed. Preserve NVFP4 main experts and FP8 MTP experts. These are selected-source candidates inside mandatory KServe, with no engine execution or measured B300 winner. [glm-5.3-flash-INDEX](https://huggingface.co/zai-org/GLM-5.3-Flash/resolve/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/model.safetensors.index.json) [glm-5.3-flash-NV-INDEX](https://huggingface.co/RedHatAI/GLM-5.3-Flash-NVFP4/resolve/18d55bfd5a2194887738da73753975c9d3842f46/model.safetensors.index.json) [glm-5.3-flash-NV-CFG](https://huggingface.co/RedHatAI/GLM-5.3-Flash-NVFP4/raw/18d55bfd5a2194887738da73753975c9d3842f46/config.json) [Q31-CAT-V031-VLLM-MODELS-GLM5NEXT-COMMON-MTP-PY](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/models/glm5next/common/mtp.py)
+
 ## Engine and topology
 
 Use one TP4 target-only process as a starting candidate, then compare a second independent TP4 replica against a TP8 process. TP4 is a workload hypothesis, not a demonstrated optimum or minimum. SGLang’s Blackwell cookbook selects FlashInfer TRT-LLM MoE; vLLM provides an explicit TP4 FP8 recipe and an optional TP4-prefill plus TP4-decode layout.

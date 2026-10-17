@@ -2,6 +2,12 @@
 
 **Status: unbenchmarked local candidates.** Publisher and engine recipes document support; this audit did not run an engine or benchmark the node.
 
+## B300 / vLLM v0.31.0 priority (October 17)
+
+Official FP8 TP4+EP candidate; NVIDIA mixed TP8 is its separate publisher reference. Compare two independent four-GPU KServe groups; isolate PLE placement, native MTP and explicit IndexShare.
+
+TP4+DP2+EP creates expert world8, not two independent EP4 groups. PLE offload already defaults on. Custom QSA uses sparse Triton; generic FA4 rules do not transfer. Prefix MTP uses align, not all. NVIDIA prerequisite fixes are in v0.31. These are selected-source candidates inside mandatory KServe, with no engine execution or measured B300 winner. [RR-QWEN-VLLM-STABLE-QSA](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/models/qwen4_exp/nvidia/qsa.py) [B300V31-FLASHNEXT-MTP](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/models/qwen4_exp/nvidia/mtp.py) [B300V31-FLASHNEXT-MTP-ANCESTRY](https://api.github.com/repos/vllm-project/vllm/compare/60ad959b6f1a5c8f602edbd608c8decbc0788c50...db9527a46873454610df6dbedf79a36d6bf1a7f6?per_page=1) [B300V31-MOE-EP-WORLD](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/model_executor/layers/fused_moe/config.py) [TOPQ-VLLM-STABLE-ENGRAM](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/config/engram.py)
+
 ## Engine and topology
 
 The supplied vLLM target-only candidate uses the exact NVIDIA export at TP8 and 65,536 tokens. The separate TP8 MTP candidate adds expert parallelism and one speculative token, following NVIDIA's layout while using a lower context cap. The supplied SGLang profile adapts its documented B300 TP1 target-only cell, with local caps of 65,536 tokens, 32 requests and a 0.82 static-memory fraction.

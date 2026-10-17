@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-10-16",
+  "as_of": "2026-10-17",
   "upstreams": [
     {
       "key": "vllm",
@@ -12,11 +12,11 @@
       "image_digest": null,
       "release_prerelease": false,
       "release_commit": "db9527a46873454610df6dbedf79a36d6bf1a7f6",
-      "release_checked_at": "2026-10-16T10:02:43.944381+00:00",
+      "release_checked_at": "2026-10-17T09:46:31.063803+00:00",
       "latest_branch": "main",
-      "latest_branch_ref": "9a16d43ef0413b0a2a222e7f5baa4498c291ae5b",
-      "latest_branch_commit_date": "2026-10-16T09:54:48Z",
-      "latest_branch_checked_at": "2026-10-16T10:02:43.923991+00:00",
+      "latest_branch_ref": "026f6ab2689397e64c1f53a5ac57d37c4dc46b67",
+      "latest_branch_commit_date": "2026-10-17T09:37:56Z",
+      "latest_branch_checked_at": "2026-10-17T09:46:31.049596+00:00",
       "source_review_scope": "Selected model registry and Kimi DSpark MLA files only; see frameworks/vllm/SOURCE_REVIEW.md",
       "prior_branch_observations": [
         {
@@ -46,6 +46,13 @@
           "latest_branch_commit_date": "2026-10-16T09:07:05Z",
           "latest_branch_checked_at": "2026-10-16T09:47:42.596098+00:00",
           "latest_branch_source_id": "FP8R-V-HEAD"
+        },
+        {
+          "latest_branch": "main",
+          "latest_branch_ref": "9a16d43ef0413b0a2a222e7f5baa4498c291ae5b",
+          "latest_branch_commit_date": "2026-10-16T09:54:48Z",
+          "latest_branch_checked_at": "2026-10-16T10:02:43.923991+00:00",
+          "latest_branch_source_id": "TOPR-V-HEAD"
         }
       ],
       "expanded_source_review": {
@@ -116,6 +123,72 @@
           "TOPM-GEMMA-V-SPEC-MAIN"
         ],
         "scope": "Selected DP/EP, Qwen block alignment/IndexShare, Kimi MegaMoE format/activation and Gemma assistant exclusions; source inspection only."
+      },
+      "qwen27_v031_review": {
+        "reviewed_on": "2026-10-17",
+        "release_ref": "db9527a46873454610df6dbedf79a36d6bf1a7f6",
+        "development_ref": "026f6ab2689397e64c1f53a5ac57d37c4dc46b67",
+        "scope": "Selected Qwen27 mixed loader/linear kernels, hd256 attention, GDN, MTP draft pin/precision, scale flag removal and issue scope. Main comparison is limited to CUDA/attention/GDN paths. No full-tree or binary qualification.",
+        "source_ids": [
+          "ATTQ-V-MODELOPT-STABLE",
+          "ATTV-S-FA",
+          "ATTV-S-FA-UTIL",
+          "ATTV-S-FI",
+          "Q31-V-STABLE-QWEN-MTP",
+          "Q31-V-STABLE-KVSCALES",
+          "TOPQ-VLLM-STABLE-SPEC-CONFIG"
+        ],
+        "binary_executed": false
+      },
+      "b300_catalog_review": {
+        "reviewed_on": "2026-10-17",
+        "release_ref": "db9527a46873454610df6dbedf79a36d6bf1a7f6",
+        "model_keys": [
+          "kimi-k3",
+          "glm-5.3",
+          "glm-5.3-flash",
+          "deepseek-v4-flash-0731",
+          "qwen3.8-27b",
+          "qwen3.8-flash-next",
+          "gemma-4-31b-it",
+          "mistral-medium-3.5"
+        ],
+        "scope": "Bounded per-family optimization review: precision/topology, attention/cache and draft/version constraints. No full-tree or binary qualification.",
+        "source_ids": [
+          "RR-KD-VLLM-KIMI-MODEL",
+          "Q31-CAT-V031-VLLM-MODELS-KIMI-K3-NVIDIA-KDA-PY",
+          "Q31-CAT-KIMI-NV-SITECUSTOMIZE-PY",
+          "Q31-CAT-KIMI-SPECIALIZED-COMPARE-JSON",
+          "glm-5.3-CARD",
+          "glm-5.3-NV",
+          "Q31-CAT-GLM-5-3-RECIPE-YAML",
+          "Q31-CAT-V031-VLLM-MODELS-DEEPSEEK-V32-NVIDIA-MTP-PY",
+          "glm-5.3-flash-INDEX",
+          "glm-5.3-flash-NV-INDEX",
+          "glm-5.3-flash-NV-CFG",
+          "Q31-CAT-V031-VLLM-MODELS-GLM5NEXT-COMMON-MTP-PY",
+          "VLLM031-CATALOG-vllm-models-deepseek_v4-nvidia-model",
+          "VLLM031-CATALOG-vllm-models-deepseek_v4-attention",
+          "VLLM031-CATALOG-recipe-deepseek",
+          "deepseek-v4-flash-0731-NV-CARD",
+          "ATTV-S-FA",
+          "ATTV-S-FA-UTIL",
+          "Q31-V-STABLE-QWEN-MTP",
+          "ATTQ-V-MODELOPT-STABLE",
+          "RR-QWEN-VLLM-STABLE-QSA",
+          "B300V31-FLASHNEXT-MTP",
+          "B300V31-FLASHNEXT-MTP-ANCESTRY",
+          "B300V31-MOE-EP-WORLD",
+          "TOPQ-VLLM-STABLE-ENGRAM",
+          "B300V31-GEMMA-TRITON-FLASHINFER",
+          "B300V31-ATTENTION-COMPOSITE",
+          "TOPM-GEMMA-V-PROPOSER",
+          "TOPQ-VLLM-STABLE-SPEC-CONFIG",
+          "VLLM031-CATALOG-vllm-model_executor-models-mistral_eagle",
+          "VLLM031-CATALOG-recipe-mistral",
+          "TOPM-GEMMA-V-REQUIRE"
+        ],
+        "binary_executed": false
       }
     },
     {
@@ -129,11 +202,11 @@
       "image_digest": null,
       "release_prerelease": false,
       "release_commit": "e00930c5489053f26d86b179cee0d087f846acbb",
-      "release_checked_at": "2026-10-16T10:02:43.918765+00:00",
+      "release_checked_at": "2026-10-17T09:46:31.063115+00:00",
       "latest_branch": "main",
-      "latest_branch_ref": "2adc76ad61a9c036304716a4548093b1b27b10fb",
-      "latest_branch_commit_date": "2026-10-16T09:55:25Z",
-      "latest_branch_checked_at": "2026-10-16T10:02:43.924437+00:00",
+      "latest_branch_ref": "a126e8d640c707f855e8da31f906035883f4ff70",
+      "latest_branch_commit_date": "2026-10-17T09:45:53Z",
+      "latest_branch_checked_at": "2026-10-17T09:46:31.048997+00:00",
       "source_review_scope": "Selected ModelOpt quantization and model registry files only; see frameworks/sglang/SOURCE_REVIEW.md",
       "prior_branch_observations": [
         {
@@ -176,6 +249,13 @@
           "latest_branch_commit_date": "2026-10-16T09:47:41Z",
           "latest_branch_checked_at": "2026-10-16T09:47:42.950366+00:00",
           "latest_branch_source_id": "FP8R-S-HEAD"
+        },
+        {
+          "latest_branch": "main",
+          "latest_branch_ref": "2adc76ad61a9c036304716a4548093b1b27b10fb",
+          "latest_branch_commit_date": "2026-10-16T09:55:25Z",
+          "latest_branch_checked_at": "2026-10-16T10:02:43.924437+00:00",
+          "latest_branch_source_id": "TOPR-S-HEAD"
         }
       ],
       "release_tag_object": "7337b27853377544a322fd4390df332d8ca7d8cb",
@@ -257,11 +337,11 @@
       "image_digest": null,
       "release_prerelease": false,
       "release_commit": "d1482554fc4f66dd41aee70e01f5174e24f265bd",
-      "release_checked_at": "2026-10-16T10:02:43.957091+00:00",
+      "release_checked_at": "2026-10-17T09:46:31.067284+00:00",
       "latest_branch": "master",
-      "latest_branch_ref": "0f3f1b0e8c88f78e2966e5e73be70224bb7c20dd",
-      "latest_branch_commit_date": "2026-10-16T01:27:12Z",
-      "latest_branch_checked_at": "2026-10-16T10:02:44.143202+00:00",
+      "latest_branch_ref": "5d738906d22e003166d09ae28733366420e30d8d",
+      "latest_branch_commit_date": "2026-10-17T03:20:35Z",
+      "latest_branch_checked_at": "2026-10-17T09:46:31.227244+00:00",
       "commit_date": "2026-09-24T20:10:37Z",
       "source_review_scope": "LLMInferenceService/Config version declarations and deployment-mode constants only; no full controller review",
       "documentation_version_observed": "0.20",
@@ -272,6 +352,13 @@
           "latest_branch_commit_date": "2026-10-15T19:47:34Z",
           "latest_branch_checked_at": "2026-10-15T21:52:51.512389+00:00",
           "source_review_scope": "LLMInferenceService/Config version declarations and deployment-mode constants only; no full controller review"
+        },
+        {
+          "latest_branch": "master",
+          "latest_branch_ref": "0f3f1b0e8c88f78e2966e5e73be70224bb7c20dd",
+          "latest_branch_commit_date": "2026-10-16T01:27:12Z",
+          "latest_branch_checked_at": "2026-10-16T10:02:44.143202+00:00",
+          "latest_branch_source_id": "TOPR-K-HEAD"
         }
       ],
       "expanded_source_review": {
@@ -961,10 +1048,18 @@
       "verification": "Pinned metadata reviewed; weight payload and runtime behavior untested",
       "latest_identity_recheck": {
         "revision": "482ca0f3832238542f8f5295dde86b5f22711d80",
-        "retrieved_at": "2026-10-16T10:02:40.481949Z",
-        "source_id": "TOPQ-27NV-API",
-        "scope": "Current Hub head resolves to retained pin; no weight load or runtime qualification."
-      }
+        "retrieved_at": "2026-10-17T09:47:03.333482+00:00",
+        "source_id": "RR-QWEN-27NV-API",
+        "scope": "Current head matches retained immutable pin; no weight load or runtime qualification."
+      },
+      "prior_identity_rechecks": [
+        {
+          "revision": "482ca0f3832238542f8f5295dde86b5f22711d80",
+          "retrieved_at": "2026-10-16T10:02:40.481949Z",
+          "source_id": "TOPQ-27NV-API",
+          "scope": "Current Hub head resolves to retained pin; no weight load or runtime qualification."
+        }
+      ]
     },
     {
       "hf_id": "nvidia/Qwen3.8-Flash-Next-NVFP4",
@@ -1004,10 +1099,18 @@
       "verification": "Pinned metadata reviewed; weight payload and runtime behavior untested",
       "latest_identity_recheck": {
         "revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
-        "retrieved_at": "2026-10-16T10:02:40.483132Z",
-        "source_id": "TOPQ-27-API",
-        "scope": "Current Hub head resolves to retained pin; no weight load or runtime qualification."
-      }
+        "retrieved_at": "2026-10-17T09:47:03.165626+00:00",
+        "source_id": "RR-QWEN-27-API",
+        "scope": "Current head matches retained immutable pin; no weight load or runtime qualification."
+      },
+      "prior_identity_rechecks": [
+        {
+          "revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
+          "retrieved_at": "2026-10-16T10:02:40.483132Z",
+          "source_id": "TOPQ-27-API",
+          "scope": "Current Hub head resolves to retained pin; no weight load or runtime qualification."
+        }
+      ]
     },
     {
       "hf_id": "Qwen/Qwen3.8-27B-FP8",
@@ -1025,10 +1128,18 @@
       "verification": "Pinned metadata reviewed; weight payload and runtime behavior untested",
       "latest_identity_recheck": {
         "revision": "017b9c7af6b5689d5dd426a76e0bc077eb5ca20a",
-        "retrieved_at": "2026-10-16T10:02:40.489945Z",
-        "source_id": "TOPQ-27FP8-API",
-        "scope": "Current Hub head resolves to retained pin; no weight load or runtime qualification."
-      }
+        "retrieved_at": "2026-10-17T09:47:03.159339+00:00",
+        "source_id": "RR-QWEN-27FP8-API",
+        "scope": "Current head matches retained immutable pin; no weight load or runtime qualification."
+      },
+      "prior_identity_rechecks": [
+        {
+          "revision": "017b9c7af6b5689d5dd426a76e0bc077eb5ca20a",
+          "retrieved_at": "2026-10-16T10:02:40.489945Z",
+          "source_id": "TOPQ-27FP8-API",
+          "scope": "Current Hub head resolves to retained pin; no weight load or runtime qualification."
+        }
+      ]
     },
     {
       "hf_id": "Qwen/Qwen3.8-Flash-Next",
@@ -1245,7 +1356,7 @@
       "verification": "Pinned metadata reviewed; weight payload and runtime behavior untested"
     }
   ],
-  "date_basis": "UTC; source-specific retrieval timestamps retained.",
+  "date_basis": "UTC; October 17 selected B300/vLLM v0.31 per-family reviews and upstream identities; older captures and inspection scopes retained.",
   "development_controller_metadata_observations": [
     {
       "id": "KEXP-DEVIMAGE",
@@ -1482,6 +1593,33 @@
       "downloaded_or_executed": false,
       "scope": "Registry index/platform digest metadata; no verified mapping to inspected runtime source.",
       "source_id": "GEXP-NIGHTLY-TAGS"
+    },
+    {
+      "engine": "vllm",
+      "checked_at": "2026-10-17T09:47:30.270923+00:00",
+      "channel": "CUDA13 wheel index",
+      "version": "0.32.0rc1.dev341+g2067297b2",
+      "advertised_source_prefix": "2067297b2",
+      "advertised_wheel_links": [
+        "../../../2067297b2f15f0776be6d2a7e1b435bd20af60c1/vllm-0.32.0rc1.dev341+g2067297b2-cp38-abi3-manylinux_2_28_aarch64.whl",
+        "../../../2067297b2f15f0776be6d2a7e1b435bd20af60c1/vllm-0.32.0rc1.dev341+g2067297b2-cp38-abi3-manylinux_2_28_x86_64.whl"
+      ],
+      "downloaded_or_executed": false,
+      "source_id": "TOPR-V-WHEELS",
+      "scope": "Index metadata only; no binary digest or runtime qualification; not the current branch head."
+    },
+    {
+      "engine": "sglang",
+      "checked_at": "2026-10-17T09:47:30.036868+00:00",
+      "channel": "CUDA13 wheel index",
+      "version": "0.5.23.dev20261017+g2d3dd3168d",
+      "advertised_source_prefix": "2d3dd3168d",
+      "advertised_wheel_links": [
+        "https://github.com/sgl-project/whl/releases/download/nightly-2026-10-17-2d3dd3168d/sglang-0.5.23.dev20261017+g2d3dd3168d-cp312-cp312-manylinux_2_39_x86_64.whl#sha256=f30638ab02b3a92ac03bfec0fabd2bf58b27dc0b8113b50b4e1e962f4706698d"
+      ],
+      "downloaded_or_executed": false,
+      "source_id": "TOPR-S-WHEELS",
+      "scope": "Index metadata only; no binary digest or runtime qualification; not the current branch head."
     }
   ],
   "additional_artifacts": [

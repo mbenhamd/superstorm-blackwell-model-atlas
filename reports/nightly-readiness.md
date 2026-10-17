@@ -1,8 +1,16 @@
 # Stable, main and nightly: what the differences mean
 
-**Fresh observations: October 16, 2026 UTC.** These identify released source, selected development source and advertised artifacts. No wheel or container was downloaded or run. Exact identities and retrieval dates are retained in the [upstream lock](../evidence/upstreams.lock.json).
+**Latest scoped refresh: October 17, 2026 UTC; earlier comparisons below retain their October 16 scope.** These identify released source, selected development source and advertised artifacts. No wheel or container was downloaded or run. Exact identities and retrieval dates are retained in the [upstream lock](../evidence/upstreams.lock.json).
 
-## Release and development snapshots
+## October 17: v0.31 remains the release baseline
+
+Fresh release APIs still identify vLLM **0.31.0**, SGLang **0.5.21** and KServe **0.21.0**. The latest observed branch heads were vLLM `026f6ab2689397e64c1f53a5ac57d37c4dc46b67`, SGLang `a126e8d640c707f855e8da31f906035883f4ff70` and KServe `5d738906d22e003166d09ae28733366420e30d8d` around 09:46 UTC. These are timestamped metadata observations, not whole-tree reviews. [TOPR-V-RELEASE](https://api.github.com/repos/vllm-project/vllm/releases/latest) [TOPR-S-RELEASE](https://api.github.com/repos/sgl-project/sglang/releases/latest) [TOPR-K-RELEASE](https://api.github.com/repos/kserve/kserve/releases/latest) [TOPR-V-HEAD](https://api.github.com/repos/vllm-project/vllm/commits/main) [TOPR-S-HEAD](https://api.github.com/repos/sgl-project/sglang/commits/main) [TOPR-K-HEAD](https://api.github.com/repos/kserve/kserve/commits/master)
+
+The CUDA13 indexes advertised vLLM `0.32.0rc1.dev341+g2067297b2` and SGLang `0.5.23.dev20261017+g2d3dd3168d`. Neither identity equals the observed branch tip; no wheel was downloaded or executed. The lock preserves earlier observations. [TOPR-V-WHEELS](https://wheels.vllm.ai/nightly/cu130/vllm/) [TOPR-S-WHEELS](https://sgl-project.github.io/whl/cu130/sglang/)
+
+The new [Qwen27 review](../companies/alibaba-qwen/qwen3.8-27b/serving.md) is explicitly against vLLM **0.31.0**. NVIDIA's mutable nightly example does not itself require abandoning this release: selected stable source contains its mixed loader and native MTP path. Main's GDN mid-prefill checkpoint addition is a separate optimization lead, while the hd256 FA4/FP8 restriction remains. A selected source path is still not an image qualification. [Q31-M-GDN](https://raw.githubusercontent.com/vllm-project/vllm/026f6ab2689397e64c1f53a5ac57d37c4dc46b67/vllm/model_executor/layers/mamba/gdn/qwen_gdn_linear_attn.py) [Q31-M-FA-UTIL](https://raw.githubusercontent.com/vllm-project/vllm/026f6ab2689397e64c1f53a5ac57d37c4dc46b67/vllm/v1/attention/backends/fa_utils.py)
+
+## October 16 release and development snapshots
 
 | Project | Latest stable observed | Selected source inspected in this review | Development artifact observation |
 | --- | --- | --- | --- |
@@ -24,7 +32,7 @@ The model/topology recheck at **10:02 UTC** again found the same stable releases
 
 SGLang commit `fad7d95a7f1a942e039f74eb2d319da29311b8cb` addresses draft sliding-window state in a **DeepSeek V4.1 DSpark** path. The source review traced its model/backend/cache applicability. The advertised October 16 wheel's source reference does **not** contain it. A date in a wheel name therefore does not establish inclusion of every fix merged that day. It also does not establish a bug or fix in DeepSeek V4 Flash **0731**. [DSpark fix](https://github.com/sgl-project/sglang/commit/fad7d95a7f1a942e039f74eb2d319da29311b8cb), [SGLang source review](../frameworks/sglang/SOURCE_REVIEW.md)
 
-KServe's current tip changes port handling in the v1beta1 InferenceService reconciler. It is not evidence for LLMInferenceService SGLang readiness. The SGLang runtime template on master is a separate feature absent from the inspected 0.21.0 release. [KServe source review](../frameworks/kserve/ARCHITECTURE.md)
+The October 16 KServe tip changes port handling in the v1beta1 InferenceService reconciler. It is not evidence for LLMInferenceService SGLang readiness. The SGLang runtime template on master is a separate feature absent from the inspected 0.21.0 release. [KServe source review](../frameworks/kserve/ARCHITECTURE.md)
 
 ## Changes with a plausible optimization consequence
 

@@ -2,6 +2,12 @@
 
 **Status: unbenchmarked local recommendations.** The upstream recipes are evidence of documented support, not a benchmark of the target B300 node.
 
+## B300 / vLLM v0.31.0 priority (October 17)
+
+Publisher FP8 TP8 reference; investigate TP2/TP4 and corresponding independent replicas. Compare target-only with official EAGLE, three proposals, separately pinned draft revision.
+
+Stable contains EagleMistral; nightly is not required merely by old recipe wording. Omit draft max_model_len=65536 on a 32768 target, or reduce it: v0.31 rejects draft cap above target. TP1 and FP8 KV remain capacity/quality probes. These are selected-source candidates inside mandatory KServe, with no engine execution or measured B300 winner. [VLLM031-CATALOG-vllm-model_executor-models-mistral_eagle](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/model_executor/models/mistral_eagle.py) [TOPQ-VLLM-STABLE-SPEC-CONFIG](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/config/speculative.py) [VLLM031-CATALOG-recipe-mistral](https://raw.githubusercontent.com/vllm-project/recipes/d5fc1f55cee70f4e1944f2dd4f7569cb8276ad94/models/mistralai/Mistral-Medium-3.5-128B.yaml) [TOPM-GEMMA-V-REQUIRE](https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/requirements/common.txt)
+
 ## Engine and topology
 
 Use vLLM first because the producer explicitly recommends it and documents the Mistral reasoning and tool parsers. Establish the TP8 publisher baseline with the atlas’s 32K cap, then compare the TP2 probe and a TP4 experiment. Keep a fixed number of total node GPUs when comparing independent replicas against tensor sharding.
