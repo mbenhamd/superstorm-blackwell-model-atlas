@@ -6,6 +6,22 @@ Each reference is untested on the target node. Read the current family serving p
 
 **KServe is mandatory for all eight families and all 40 references.** The argument arrays describe the inference process inside a KServe-managed workload. Completing a deployment also requires the installed resource kind and runtime template, image, GPU allocation, model mount, ports, probes and routing contract. Follow the [KServe integration analysis](../frameworks/kserve/ARCHITECTURE.md); an engine argument list alone does not establish a deployable KServe service.
 
+## Choosing a record for analysis
+
+`reference_scope` distinguishes the **34 historical source snapshots** from the **six release-specific comparisons**. `status` describes a candidate/probe; it does not certify compatibility with the latest release. A `status_recheck` can correct a previous conclusion without changing recorded arguments or the original `reviewed_source_commit`.
+
+For B300/vLLM v0.31, first read the selected model's `vllm_v031_b300_review` in `catalog/models.json`, including constraints and source IDs. This analysis covers all eight families; only Qwen27 currently has six explicit `.vllm.v031.` argument records. Reconcile other retained arguments with their family review before execution.
+
+```bash
+# Release-scoped analysis for one family
+jq '.models[] | select(.key == "kimi-k3") | .vllm_v031_b300_review' catalog/models.json
+
+# Explicit release-specific argument references
+jq '.[] | select(.reference_scope == "release-specific-comparison") | {id, engine_release, model_revision, engine_args, tested_on_target}' catalog/configurations.json
+```
+
+`recommended` is the broader multi-engine summary; `recommended_vllm_v031_b300` is the release-scoped summary. Read their evidence and constraints before applying either. Preserve the reviewed source SHA, model/draft/tokenizer revisions and actual image identity separately.
+
 ## Qwen27 release-specific comparisons (October 17)
 
 These six target-only references use vLLM **v0.31.0**, TP1, BF16 activation boundaries, 32K context, 32 sequences, a 16K batching budget, 0.90 memory utilization and the same prefix/chunked-prefill and parser controls. They carry exact model/tokenizer revision arguments and a separate source identity. They do not rewrite or certify the older snapshots below. [Mechanisms, restrictions and optional MTP delta](../companies/alibaba-qwen/qwen3.8-27b/serving.md).

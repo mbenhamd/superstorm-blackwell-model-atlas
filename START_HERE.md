@@ -18,7 +18,7 @@ This atlas documents eight model families on an 8×NVIDIA B300 reference node, w
 | Evidence and revisions | [Evidence conventions](evidence/README.md), [source registry](evidence/sources.json), [upstream identities](evidence/upstreams.lock.json), [release/main/nightly analysis](reports/nightly-readiness.md) | Supporting artifact, retrieval date, immutable identity and scope of verification |
 | Definitions and corrections | [Glossary](GLOSSARY.md), [report review](reports/report-review.md) | Terminology, corrected claims and remaining discrepancies |
 
-Resolve each cited source ID through `sources[ID]` in `evidence/sources.json`. Catalogs support discovery; the cited primary artifact establishes what a claim actually supports. A historical configuration can retain an older source identity after a family report gains newer findings.
+Resolve each cited source ID through `sources[ID]` in `evidence/sources.json`. Catalogs support discovery; the cited primary artifact establishes what a claim actually supports. A historical configuration can retain an older source identity after a family report gains newer findings. For B300/vLLM v0.31, read `vllm_v031_b300_review` first, then filter configurations by `reference_scope`; [catalog interpretation and lookup examples](reports/configuration-reference.md#choosing-a-record-for-analysis) explain the distinction.
 
 ## System boundaries
 

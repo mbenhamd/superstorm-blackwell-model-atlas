@@ -8,6 +8,8 @@ Look up a source URL from the repository root:
 jq -r '.sources["HW"].url' evidence/sources.json
 ```
 
+Original retrieval metadata and `last_recheck` describe different observations. Read the latest applicable claim/scope and revision; a newer retrieval date alone does not broaden what was inspected.
+
 Add or update the entry under its existing ID. Preserve original retrieval metadata and record later checks separately; keep the registry in this single JSON file.
 
 | Label | Meaning |

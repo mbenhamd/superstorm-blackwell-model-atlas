@@ -94,10 +94,11 @@
       "capture": "Rechecked by HTTPS during the audit; retrieval timestamp and response SHA-256 recorded.",
       "notes": "Official releases/latest page and API checked; prerelease=false, draft=false; published 2026-10-05T06:44:55Z.",
       "last_recheck": {
-        "retrieved_at": "2026-10-16T10:05:25.885517+00:00",
-        "response_sha256": "bfcdd6198dd6c81742a7b7f38d1d1d1f3dbba2f70d46490a688f92d42ce1fc24",
-        "scope": "Selected documentation or source inspected; no package installation, engine execution or B300 measurement.",
-        "claim": "Release defaults to CUDA13.0 and also publishes CUDA12.9 artifacts; generic pip installation is not necessarily CUDA12."
+        "retrieved_at": "2026-10-17T10:12:30.915845+00:00",
+        "method": "web page retrieval",
+        "requested_url": "https://github.com/vllm-project/vllm/releases/latest",
+        "resolved_url": "https://github.com/vllm-project/vllm/releases/tag/v0.31.0",
+        "scope": "Latest-release redirect and page identity confirmed. No API response hash, branch refresh or binary qualification."
       },
       "prior_rechecks": [
         {
@@ -106,6 +107,12 @@
           "verification": "Page access verified; substantive current state uses RR-KD API entries, not HTTP status alone.",
           "claim": "Official page retrieved as provenance; release/PR claim checked through separate API receipt.",
           "scope": "Research evidence only. No model tensors downloaded, no inference engines installed/run, no GPU/quality measurements, no nightly image tested."
+        },
+        {
+          "retrieved_at": "2026-10-16T10:05:25.885517+00:00",
+          "response_sha256": "bfcdd6198dd6c81742a7b7f38d1d1d1f3dbba2f70d46490a688f92d42ce1fc24",
+          "scope": "Selected documentation or source inspected; no package installation, engine execution or B300 measurement.",
+          "claim": "Release defaults to CUDA13.0 and also publishes CUDA12.9 artifacts; generic pip installation is not necessarily CUDA12."
         }
       ]
     },
@@ -119,12 +126,21 @@
       "capture": "Rechecked by HTTPS during the audit; retrieval timestamp and response SHA-256 recorded.",
       "notes": "Official releases/latest page and API checked; prerelease=false, draft=false; published 2026-10-02T01:09:04Z.",
       "last_recheck": {
-        "retrieved_at": "2026-10-16T08:58:05.403925+00:00",
-        "response_sha256": "61bfa52b6daf8fc7b9d06d0c0e8e3aa7f0954447381a505f35d332a071ab0c01",
-        "verification": "Page access verified; substantive current state uses RR-KD API entries, not HTTP status alone.",
-        "claim": "Official page retrieved as provenance; release/PR claim checked through separate API receipt.",
-        "scope": "Research evidence only. No model tensors downloaded, no inference engines installed/run, no GPU/quality measurements, no nightly image tested."
-      }
+        "retrieved_at": "2026-10-17T10:12:30.915845+00:00",
+        "method": "web page retrieval",
+        "requested_url": "https://github.com/sgl-project/sglang/releases/latest",
+        "resolved_url": "https://github.com/sgl-project/sglang/releases/tag/v0.5.21",
+        "scope": "Latest-release redirect and page identity confirmed. No API response hash, branch refresh or binary qualification."
+      },
+      "prior_rechecks": [
+        {
+          "retrieved_at": "2026-10-16T08:58:05.403925+00:00",
+          "response_sha256": "61bfa52b6daf8fc7b9d06d0c0e8e3aa7f0954447381a505f35d332a071ab0c01",
+          "verification": "Page access verified; substantive current state uses RR-KD API entries, not HTTP status alone.",
+          "claim": "Official page retrieved as provenance; release/PR claim checked through separate API receipt.",
+          "scope": "Research evidence only. No model tensors downloaded, no inference engines installed/run, no GPU/quality measurements, no nightly image tested."
+        }
+      ]
     },
     "KREL": {
       "url": "https://github.com/kserve/kserve/releases/tag/v0.21.0",
@@ -136,12 +152,21 @@
       "capture": "Rechecked by HTTPS during the audit; retrieval timestamp and response SHA-256 recorded.",
       "notes": "Official releases/latest page and API checked; prerelease=false, draft=false; published 2026-09-25T17:04:20Z.",
       "last_recheck": {
-        "retrieved_at": "2026-10-16T08:59:51.813890+00:00",
-        "response_sha256": "d835c120d35e53944583a280a48a1619d15575952ceb59bc92ac04b7e051f116",
-        "verification": "Official release page and latest redirect checked; no binary inspected.",
-        "claim": "Official stable release page identifies v0.21.0, September25 publication; latest status separately confirmed through official API.",
-        "scope": "Primary documentation/source/metadata inspection only. No GPU inference, binary qualification, Kubernetes admission, deployment, tests or benchmark run."
-      }
+        "retrieved_at": "2026-10-17T10:12:30.915845+00:00",
+        "method": "web page retrieval",
+        "requested_url": "https://github.com/kserve/kserve/releases/latest",
+        "resolved_url": "https://github.com/kserve/kserve/releases/tag/v0.21.0",
+        "scope": "Latest-release redirect and page identity confirmed. No API response hash, branch refresh or binary qualification."
+      },
+      "prior_rechecks": [
+        {
+          "retrieved_at": "2026-10-16T08:59:51.813890+00:00",
+          "response_sha256": "d835c120d35e53944583a280a48a1619d15575952ceb59bc92ac04b7e051f116",
+          "verification": "Official release page and latest redirect checked; no binary inspected.",
+          "claim": "Official stable release page identifies v0.21.0, September25 publication; latest status separately confirmed through official API.",
+          "scope": "Primary documentation/source/metadata inspection only. No GPU inference, binary qualification, Kubernetes admission, deployment, tests or benchmark run."
+        }
+      ]
     },
     "VHEAD": {
       "url": "https://github.com/vllm-project/vllm/commit/f8460ef23659afd69046a81529ec2295e4c3f686",
