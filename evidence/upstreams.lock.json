@@ -9,7 +9,7 @@
       "inspected_ref": "f8460ef23659afd69046a81529ec2295e4c3f686",
       "commit_date": "2026-10-15T20:58:25Z",
       "nightly_artifact_verified": false,
-      "image_digest": null,
+      "image_digest": "sha256:befccf0e7e4089aa23926bb6f887a85c0d46c2a99e6de5c5ffdf5cb7957c5b34",
       "release_prerelease": false,
       "release_commit": "5df63a7203cdb9328d824a27b682e77c7b9928be",
       "release_checked_at": "2026-10-18T14:03:39.685591+00:00",
@@ -244,10 +244,12 @@
           "SP32-SRC-vllm-platforms-interface-py",
           "SP32-SRC-vllm-v1-attention-backends-mla-flashattn_mla_sparse-py",
           "SP32-SRC-vllm-v1-attention-backends-mla-flashinfer_mla_sparse-py",
+          "SP32-SRC-vllm-v1-attention-backends-mla-flashmla_sparse-py",
           "SP32-SRC-vllm-v1-attention-backends-mla-indexer-py",
           "SP32-SRC-vllm-v1-worker-gpu-spec_decode-speculator-py",
           "TOPM-GEMMA-V-CONFIG",
           "TOPM-GEMMA-V-PROPOSER",
+          "TOPQ-NEXTFP8-CFG",
           "V032-CUTLASS-EP",
           "V032-H-FAUTIL",
           "V032-H-GDN",
@@ -261,6 +263,7 @@
           "V032-H-PR-59533",
           "V032-H-QSA",
           "V032-H-SPEC",
+          "V032-KM-COMPILATION",
           "V032-KM-ENVS",
           "V032-KM-KDA",
           "V032-KM-MAIN-SPECIALIZED",
@@ -274,12 +277,95 @@
           "V032-KM-PR57531",
           "V032-KM-PR57633",
           "V032-KM-PR59733",
+          "V032-R-ABSTRACT-PARSER",
+          "V032-R-API-LAUNCHER",
+          "V032-R-CONFIG-UTILS",
+          "V032-R-ENGINE-ARGS",
+          "V032-R-MM-NORM",
+          "V032-R-MROPE",
+          "V032-R-PARALLEL",
+          "V032-R-PARSER-MANAGER",
+          "V032-R-QWEN-MTP",
+          "V032-R-QWEN-VL",
+          "V032-R-QWEN35",
+          "V032-R-REPO-UTILS",
+          "V032-R-RESPONSE-TEMPLATE",
+          "V032-R-ROPE-CACHE",
+          "V032-R-SAMPLING",
+          "V032-R-SHM-ARENA",
+          "V032-R-SHM-BROADCAST",
+          "V032-R-TOOL-FILTER",
+          "V032-R-TOOL-STREAM",
           "VLLM031-CATALOG-vllm-model_executor-models-mistral_eagle",
           "deepseek-v4-flash-0731-NV-CARD",
-          "deepseek-v4-flash-0731-NV-CFG"
+          "deepseek-v4-flash-0731-NV-CFG",
+          "qwen3.8-27b-NV-CFG"
         ],
         "scope": "Selected release-tree diffs and exact model applicability, independent adversarial review; no whole-tree correctness or binary qualification.",
-        "binary_executed": false
+        "binary_executed": false,
+        "release_wide_changes": {
+          "compatibility": "Removed compiler SP/AsyncTP PassConfig fields reject stale values; cascade flag is a warning/no-op. Model-level HC/MoE SP is separate.",
+          "agent_protocol": "Startup parser/tokenizer validation; hf requires compatible response_template; Responses single-call filtering and required-tool streaming changes. Existing Chat filtering predates v0.32.",
+          "shared_memory": "Contrary to release notes, enable_shm_tensor_arena is false/experimental opt-in in pinned source; eligible all-local queues reserve about 2 GiB plus metadata each, pages populated lazily.",
+          "host_paths": "Local non-weight tokenizer snapshots and best-effort open-connection balancing with multiple Python API workers; not KServe replica/GPU-load balancing.",
+          "source_ids": [
+            "V032-KM-COMPILATION",
+            "V032-R-CONFIG-UTILS",
+            "V032-R-ENGINE-ARGS",
+            "V032-R-PARSER-MANAGER",
+            "V032-R-RESPONSE-TEMPLATE",
+            "V032-R-TOOL-FILTER",
+            "V032-R-ABSTRACT-PARSER",
+            "V032-R-TOOL-STREAM",
+            "V032-R-SAMPLING",
+            "V032-R-PARALLEL",
+            "V032-R-SHM-ARENA",
+            "V032-R-SHM-BROADCAST",
+            "V032-R-REPO-UTILS",
+            "V032-R-API-LAUNCHER"
+          ]
+        },
+        "adversarial_recheck": {
+          "reviewed_on": "2026-10-18",
+          "scope": "Selected model/kernel, Qwen preprocessing/cache precision, release-wide API and configuration omissions; two independent reviewers plus integration review. No exhaustive whole-tree or runtime qualification.",
+          "binary_executed": false
+        }
+      },
+      "image_digest_scope": "Registry manifest-list identity only; image contents and runtime unqualified.",
+      "release_image_metadata": {
+        "tag": "vllm/vllm-openai:v0.32.0",
+        "retrieved_at": "2026-10-18T14:41:52.302435+00:00",
+        "index_digest": "sha256:befccf0e7e4089aa23926bb6f887a85c0d46c2a99e6de5c5ffdf5cb7957c5b34",
+        "platform_manifests": [
+          {
+            "digest": "sha256:6ff5ff0ddf3658d2c2d677dac5ca2d4726ce0156b4371166d918181b210bd4bc",
+            "platform": {
+              "architecture": "arm64",
+              "os": "linux"
+            }
+          },
+          {
+            "digest": "sha256:6ee133356d49ed24cee03dd0cda3d3980279a11c107ce3e752c89e76540f41c9",
+            "platform": {
+              "architecture": "amd64",
+              "os": "linux"
+            }
+          }
+        ],
+        "source_ids": [
+          "V032-R-IMAGE-METADATA",
+          "V032-R-IMAGE-INDEX"
+        ],
+        "image_layers_downloaded": false,
+        "image_config_inspected": false,
+        "binary_executed": false,
+        "source_provenance_attested": false
+      },
+      "latest_release_page_recheck": {
+        "retrieved_at": "2026-10-18T14:43:30.630607+00:00",
+        "resolved_url": "https://github.com/vllm-project/vllm/releases/tag/v0.32.0",
+        "source_id": "V032-R-VLLM-LATEST",
+        "scope": "Fresh latest-release redirect only; original API observation retained."
       }
     },
     {
@@ -432,7 +518,13 @@
           "release_checked_at": "2026-10-17T09:46:31.063115+00:00",
           "release_source_id": "TOPR-S-RELEASE"
         }
-      ]
+      ],
+      "latest_release_page_recheck": {
+        "retrieved_at": "2026-10-18T14:43:30.804895+00:00",
+        "resolved_url": "https://github.com/sgl-project/sglang/releases/tag/v0.5.21",
+        "source_id": "GEXP-REL",
+        "scope": "Fresh latest-release redirect only; original API observation retained."
+      }
     },
     {
       "key": "kserve",
@@ -498,7 +590,13 @@
           "release_checked_at": "2026-10-17T09:46:31.067284+00:00",
           "release_source_id": "TOPR-K-RELEASE"
         }
-      ]
+      ],
+      "latest_release_page_recheck": {
+        "retrieved_at": "2026-10-18T14:43:30.203217+00:00",
+        "resolved_url": "https://github.com/kserve/kserve/releases/tag/v0.21.0",
+        "source_id": "V032-R-KSERVE-LATEST",
+        "scope": "Fresh latest-release redirect only; original API observation retained."
+      }
     }
   ],
   "pull_requests": [

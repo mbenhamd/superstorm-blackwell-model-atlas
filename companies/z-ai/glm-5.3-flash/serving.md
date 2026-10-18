@@ -2,7 +2,7 @@
 
 ## vLLM v0.32.0 update (October 18)
 
-Fixed TP4 target-only: FP32 versus newly honored BF16 KDA state; then DCP1/2/4 with interleave4. KDA layer and model cache specification honor mamba_ssm_cache_dtype; auto stays FP32.
+Fixed TP4 target-only: FP32 versus newly honored BF16 KDA state; then DCP1/2/4 with interleave4, PCP1 and resolved `FLASHINFER_MLA_SPARSE` on B300. The NoPE-512 path is rejected by `FLASHMLA_SPARSE` on SM10x. KDA layer and model cache specification honor mamba_ssm_cache_dtype; auto stays FP32.
 
 BF16 halves recurrent-state tensors and their recurrent checkpoint/rollback buffers; convolution and other memory do not necessarily shrink. Long-context/rollback quality must pass. See the [v0.32 B300 source review and experiment priorities](../../../reports/vllm-v032-upgrade.md) and `vllm_v032_b300_review` in the [model catalog](../../../catalog/models.json). The version-specific analysis below retains its original scope; no runtime result or launch-array migration is implied.
 
@@ -34,7 +34,7 @@ MTP is optional and separate from reasoning. The cookbook starts its latency pro
 
 ## Build and exporter-specific settings
 
-The current SGLang cookbook requires a build containing Flash support, described as **0.5.20 or later**; the freshly observed stable release is 0.5.21. vLLM's latest release is 0.31.0, but its cookbook still contains older special-image guidance. Keep a stable build comparison and a separately pinned candidate build if required fixes are missing. No release or nightly container was executed here. [glm-5.3-flash-GR](https://docs.sglang.io/cookbook/autoregressive/GLM/GLM-5.3-Flash) [RR-GLM-SGLANG-RELEASE](https://github.com/sgl-project/sglang/releases/tag/v0.5.21) [RR-GLM-VLLM-RELEASE](https://github.com/vllm-project/vllm/releases/tag/v0.31.0)
+The current SGLang cookbook requires a build containing Flash support, described as **0.5.20 or later**; the freshly observed stable release is 0.5.21. The October 16 review used vLLM 0.31.0 and found older special-image guidance in the cookbook; the v0.32 comparison above has a separate source basis. Keep a stable build comparison and a separately pinned candidate build if required fixes are missing. No release or nightly container was executed here. [glm-5.3-flash-GR](https://docs.sglang.io/cookbook/autoregressive/GLM/GLM-5.3-Flash) [RR-GLM-SGLANG-RELEASE](https://github.com/sgl-project/sglang/releases/tag/v0.5.21) [RR-GLM-VLLM-RELEASE](https://github.com/vllm-project/vllm/releases/tag/v0.31.0)
 
 The RedHat card's target-only recipe uses `vllm/vllm-openai:glm53-flash`, TP4, `--no-enable-flashinfer-autotune`, `--tool-call-parser glm47`, `--enable-auto-tool-choice` and **`--reasoning-parser glm45`**. Its MTP example additionally sets five speculative tokens, `--disable-custom-all-reduce`, expandable CUDA allocations and `--gpu-memory-utilization 0.85`. It does not prescribe 0.88. These are source settings for that export/image tag, not universal options for current vLLM. Resolve the tag to a digest and inspect dependency versions before proposing an executable replacement; the stored probe does not certify this special image. [glm-5.3-flash-NV](https://huggingface.co/RedHatAI/GLM-5.3-Flash-NVFP4/raw/18d55bfd5a2194887738da73753975c9d3842f46/README.md)
 

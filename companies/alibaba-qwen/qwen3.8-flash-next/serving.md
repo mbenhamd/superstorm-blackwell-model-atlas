@@ -6,6 +6,8 @@ Official FP8 TP4+EP release control; then HC/PLE sequence parallelism at fixed t
 
 PR59214 new plans target SM100/B200; B300 had its own plans in v0.31. Kernel ratios are not end-to-end gains. See the [v0.32 B300 source review and experiment priorities](../../../reports/vllm-v032-upgrade.md) and `vllm_v032_b300_review` in the [model catalog](../../../catalog/models.json). The version-specific analysis below retains its original scope; no runtime result or launch-array migration is implied.
 
+Both Qwen families also change image normalization and M-RoPE table allocation in v0.32. Record resolved CPU/GPU preprocessing, processor revision and video-pruning state; the smaller shared rotary table is not a model-wide memory multiplier. For supported MTP, compare FP8 target/draft KV with `--kv-cache-dtype-skip-layers 48` to retain BF16 draft KV; indexer and PLE precision are separate. Details and source identities are in the [v0.32 Qwen additions](../../../reports/vllm-v032-upgrade.md#changes-shared-by-both-qwen-families).
+
 **Status: unbenchmarked local candidates.** Publisher and engine recipes document support; this audit did not run an engine or benchmark the node.
 
 ## B300 / vLLM v0.31.0 priority (October 17)

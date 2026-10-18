@@ -161,7 +161,8 @@
         "constraints": [
           "SM10x, callable packed kernel, supported local heads, dimension128/conv4, BF16 input/conv, bounded gate and SD layout; RecoverSSM disabled. Mixed prefill/decode falls back.",
           "20-to-4 cache-group headline is ROCm, not NVIDIA grouping. latency_specialized remains outside v0.32.",
-          "NVIDIA mixed export is separately unqualified; old bundled patch imports removed classes. DeepEPv2 shared sharding requires opt-in plus SP gates; plain TP8/DP1 does not meet them."
+          "NVIDIA mixed export is separately unqualified; old bundled patch imports removed classes. DeepEPv2 shared sharding requires opt-in plus SP gates; plain TP8/DP1 does not meet them.",
+          "Packed speculative KDA requires no prefill and no ordinary non-speculative decode rows in the batch."
         ],
         "source_ids": [
           "V032-KM-KDA",
@@ -505,7 +506,7 @@
       },
       "recommended_vllm_v031_b300": "Official FP8: two TP4 KServe replicas versus one TP8 group. Investigate FP8 TP2 \u00d74 replicas, then RedHat mixed NVFP4 TP1 \u00d78 if runtime memory/kernels permit; MTP separately.",
       "vllm_v032_b300_review": {
-        "first_candidate": "Fixed TP4 target-only: FP32 versus newly honored BF16 KDA state; then DCP1/2/4 with interleave4.",
+        "first_candidate": "Fixed TP4 target-only: FP32 versus newly honored BF16 KDA state; then DCP1/2/4 with interleave4, PCP1 and FLASHINFER_MLA_SPARSE on B300.",
         "release_changes": [
           "KDA layer and model cache specification honor mamba_ssm_cache_dtype; auto stays FP32.",
           "Compressed k-pool indexer DCP and internal FlashKDA prefill checkpoints; MTP index sharing restored after in-cycle regression."
@@ -518,7 +519,8 @@
         "constraints": [
           "BF16 halves recurrent-state tensors and their recurrent checkpoint/rollback buffers; convolution and other memory do not necessarily shrink. Long-context/rollback quality must pass.",
           "DCP leaves KDA and short k-pool tail replicated; no combined PCP+DCP FlashInfer sparse path.",
-          "GLM flagship FP8-default hook does not apply. Index sharing existed via v0.31 forwarding config; do not call it new support."
+          "GLM flagship FP8-default hook does not apply. Index sharing existed via v0.31 forwarding config; do not call it new support.",
+          "The proposed B300 NoPE-512 DCP comparison uses the reviewed FLASHINFER_MLA_SPARSE path with supported BF16/plain FP8 KV; FLASHMLA_SPARSE rejects that geometry on SM10x."
         ],
         "source_ids": [
           "SP32-SRC-vllm-models-glm5next-common-kda-py",
@@ -529,7 +531,8 @@
           "SP32-PR-59147",
           "SP32-PR-59211",
           "SP32-PR-60032",
-          "SP32-PR-61079"
+          "SP32-PR-61079",
+          "SP32-SRC-vllm-v1-attention-backends-mla-flashmla_sparse-py"
         ],
         "reviewed_on": "2026-10-18",
         "engine_release": "v0.32.0",
@@ -540,7 +543,7 @@
         "model_artifact_policy": "Retain existing target/export/draft revisions for release-controlled comparisons; no artifact upgrade implied.",
         "tested_on_target": false
       },
-      "recommended_vllm_v032_b300": "Fixed TP4 target-only: FP32 versus newly honored BF16 KDA state; then DCP1/2/4 with interleave4."
+      "recommended_vllm_v032_b300": "Fixed TP4 target-only: FP32 versus newly honored BF16 KDA state; then DCP1/2/4 with interleave4, PCP1 and FLASHINFER_MLA_SPARSE on B300."
     },
     {
       "key": "deepseek-v4-flash-0731",
@@ -883,17 +886,21 @@
         "first_candidate": "Pinned NVIDIA mixed NVFP4 TP1, FlashInfer/BF16 KV and matched compile/admission controls across v0.31/v0.32; inspect activation-quant fusion.",
         "release_changes": [
           "ModelOpt mixed NVFP4 optimization predicate repaired; mixed loader support already existed.",
-          "GDN zero-draft-state correction applies to the ngram no-match trigger, not proof of native-MTP bug repair."
+          "GDN zero-draft-state correction applies to the ngram no-match trigger, not proof of native-MTP bug repair.",
+          "Device-side image normalization enabled on ordinary Python/native path; Rust forces it off.",
+          "M-RoPE allocation multiplier changes 4 to 1 without video pruning; 96 MiB derived saving per shared BF16 table for pinned default configs, not per layer."
         ],
         "experimental_parameters": [
           "Matched official FP8 versus NVIDIA mixed weights at fixed BF16 KV",
           "FlashInfer/FP8 KV and FA4/BF16 KV separately",
-          "Native MTP1/2/3 with exact draft revision and align prefix state"
+          "Native MTP1/2/3 with exact draft revision and align prefix state",
+          "Resolved mm_device_do_normalize off/on for media traffic with pinned processor and output parity; text decoding is a separate workload."
         ],
         "constraints": [
           "Eligible compilation/fusion required; no B300 performance transfer from SM121 PR.",
           "FA4 hd256 with quantized KV restriction unchanged. Qwen internal-prefill-checkpoint path not established active by generic Mamba release notes.",
-          "Keep token IDs/padding and parser/thinking settings matched; TP1 independent KServe replicas remain throughput candidates."
+          "Keep token IDs/padding and parser/thinking settings matched; TP1 independent KServe replicas remain throughput candidates.",
+          "Video pruning retains rotary multiplier4; drafts follow target pruning. Count shared rope objects, not attention layers; keep YaRN separate."
         ],
         "source_ids": [
           "V032-H-MODEL-CONFIG",
@@ -902,7 +909,13 @@
           "V032-H-GDN",
           "V032-H-MAMBA-BASE",
           "V032-H-SPEC",
-          "V032-H-PR-56531"
+          "V032-H-PR-56531",
+          "V032-R-QWEN-VL",
+          "V032-R-QWEN35",
+          "V032-R-MROPE",
+          "V032-R-ROPE-CACHE",
+          "V032-R-MM-NORM",
+          "qwen3.8-27b-NV-CFG"
         ],
         "reviewed_on": "2026-10-18",
         "engine_release": "v0.32.0",
@@ -1071,17 +1084,24 @@
         "first_candidate": "Official FP8 TP4+EP release control; then HC/PLE sequence parallelism at fixed topology and workload.",
         "release_changes": [
           "Merged QSA projections and fused preparation; relevant merged TP4 shape added to SM103 plan.",
-          "HC/PLE SP selectable at TP>1; existing MoE SP can also activate it. NIXL PLE page length fixed on optional P/D path."
+          "HC/PLE SP selectable at TP>1; existing MoE SP can also activate it. NIXL PLE page length fixed on optional P/D path.",
+          "Device-side image normalization enabled on ordinary Python/native path; Rust forces it off.",
+          "M-RoPE allocation multiplier changes 4 to 1 without video pruning; 96 MiB derived saving per shared BF16 table for pinned default configs, not per layer.",
+          "QSA now honors numeric kv_cache_dtype_skip_layers; target48 plus one MTP layer allows independent draft KV precision."
         ],
         "experimental_parameters": [
           "--enable-hc-sp resolved off versus on for long-prefill and low-concurrency decode",
           "Two independent TP4+EP4 KServe groups versus a wider group, separately from precision",
-          "MTP and main/indexer KV precision remain independent; NIXL only if P/D is required"
+          "MTP and main/indexer KV precision remain independent; NIXL only if P/D is required",
+          "Resolved mm_device_do_normalize off/on for media traffic with pinned processor and output parity; text decoding is a separate workload.",
+          "--kv-cache-dtype fp8 with/without --kv-cache-dtype-skip-layers 48 on supported MTP: FP8 target KV versus BF16 draft KV, same target precision."
         ],
         "constraints": [
           "PR59214 new plans target SM100/B200; B300 had its own plans in v0.31. Kernel ratios are not end-to-end gains.",
           "HC SP adds collectives, requires supported CUDA/PP1 topology; not universal latency improvement.",
-          "TP4*DP2+EP is expert world8, not two independent groups. QSA is not generic FA4."
+          "TP4*DP2+EP is expert world8, not two independent groups. QSA is not generic FA4.",
+          "Video pruning retains rotary multiplier4; drafts follow target pruning. Count shared rope objects, not attention layers; keep YaRN separate.",
+          "Skip48 does not change indexer or PLE precision; no GB10/other-export acceptance number transfers to B300."
         ],
         "source_ids": [
           "V032-H-QSA",
@@ -1090,7 +1110,15 @@
           "V032-H-PR-56322",
           "V032-H-MODEL-CONFIG",
           "V032-H-NIXL",
-          "V032-CUTLASS-EP"
+          "V032-CUTLASS-EP",
+          "V032-R-QWEN-VL",
+          "V032-R-QWEN35",
+          "V032-R-MROPE",
+          "V032-R-ROPE-CACHE",
+          "V032-R-MM-NORM",
+          "V032-R-QWEN-MTP",
+          "V032-R-ENGINE-ARGS",
+          "TOPQ-NEXTFP8-CFG"
         ],
         "reviewed_on": "2026-10-18",
         "engine_release": "v0.32.0",

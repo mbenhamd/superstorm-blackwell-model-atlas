@@ -6,6 +6,8 @@ Pinned NVIDIA mixed NVFP4 TP1, FlashInfer/BF16 KV and matched compile/admission 
 
 Eligible compilation/fusion required; no B300 performance transfer from SM121 PR. See the [v0.32 B300 source review and experiment priorities](../../../reports/vllm-v032-upgrade.md) and `vllm_v032_b300_review` in the [model catalog](../../../catalog/models.json). The version-specific analysis below retains its original scope; no runtime result or launch-array migration is implied.
 
+Both Qwen families also change image normalization and M-RoPE table allocation in v0.32. Record resolved CPU/GPU preprocessing, processor revision and video-pruning state; the smaller shared rotary table is not a model-wide memory multiplier. Details and source identities are in the [v0.32 Qwen additions](../../../reports/vllm-v032-upgrade.md#changes-shared-by-both-qwen-families).
+
 **Review: October 17, 2026 UTC.** Scope: immutable checkpoints and selected vLLM release source, not an executed serving image. All candidates run inside the required **KServe** platform. No B300 correctness, quality or performance result was reproduced.
 
 ## Recommended investigation order

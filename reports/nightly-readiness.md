@@ -12,9 +12,20 @@ Around 14:03 UTC, branch metadata reported vLLM `371745ebd6c12f314402c6c319de2e7
 
 Kimi's `latency_specialized` path is a concrete boundary: it exists in the separately inspected main tree but remains absent from the v0.32 release tree. The released packed speculative KDA path is a different optimization. Use separate image identities and comparisons for these candidates. [V032-KM-MAIN-SPECIALIZED](https://raw.githubusercontent.com/vllm-project/vllm/371745ebd6c12f314402c6c319de2e7ef82c2981/vllm/models/kimi_k3/nvidia/specialized_decode/runtime/__init__.py), [V032-KM-KDA](https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/models/kimi_k3/nvidia/kda.py).
 
+### v0.32 image metadata
+
+The default `vllm/vllm-openai:v0.32.0` tag was inspected at **14:41 UTC on October 18**. Docker Hub metadata and the registry manifest agree on index digest `sha256:befccf0e7e4089aa23926bb6f887a85c0d46c2a99e6de5c5ffdf5cb7957c5b34`; the manifest bytes independently hash to that value.
+
+| Platform | Platform manifest digest |
+| --- | --- |
+| Linux amd64 | `sha256:6ee133356d49ed24cee03dd0cda3d3980279a11c107ce3e752c89e76540f41c9` |
+| Linux arm64 | `sha256:6ff5ff0ddf3658d2c2d677dac5ca2d4726ce0156b4371166d918181b210bd4bc` |
+
+Select the platform matching the actual host CPU. These are registry identities for a candidate KServe engine image, not runtime qualification or a source-provenance attestation. No image layers or configuration blob were inspected. [V032-R-IMAGE-METADATA](https://hub.docker.com/v2/repositories/vllm/vllm-openai/tags/v0.32.0), [V032-R-IMAGE-INDEX](https://registry-1.docker.io/v2/vllm/vllm-openai/manifests/v0.32.0).
+
 ## October 17: v0.31 remains the release baseline
 
-Fresh release APIs still identify vLLM **0.31.0**, SGLang **0.5.21** and KServe **0.21.0**. The latest observed branch heads were vLLM `026f6ab2689397e64c1f53a5ac57d37c4dc46b67`, SGLang `a126e8d640c707f855e8da31f906035883f4ff70` and KServe `5d738906d22e003166d09ae28733366420e30d8d` around 09:46 UTC. These are timestamped metadata observations, not whole-tree reviews. [TOPR-V-RELEASE](https://api.github.com/repos/vllm-project/vllm/releases/latest) [TOPR-S-RELEASE](https://api.github.com/repos/sgl-project/sglang/releases/latest) [TOPR-K-RELEASE](https://api.github.com/repos/kserve/kserve/releases/latest) [TOPR-V-HEAD](https://api.github.com/repos/vllm-project/vllm/commits/main) [TOPR-S-HEAD](https://api.github.com/repos/sgl-project/sglang/commits/main) [TOPR-K-HEAD](https://api.github.com/repos/kserve/kserve/commits/master)
+At the October 17 retrieval, release APIs identified vLLM **0.31.0**, SGLang **0.5.21** and KServe **0.21.0**. The latest observed branch heads were vLLM `026f6ab2689397e64c1f53a5ac57d37c4dc46b67`, SGLang `a126e8d640c707f855e8da31f906035883f4ff70` and KServe `5d738906d22e003166d09ae28733366420e30d8d` around 09:46 UTC. These are timestamped metadata observations, not whole-tree reviews. [TOPR-V-RELEASE](https://api.github.com/repos/vllm-project/vllm/releases/latest) [TOPR-S-RELEASE](https://api.github.com/repos/sgl-project/sglang/releases/latest) [TOPR-K-RELEASE](https://api.github.com/repos/kserve/kserve/releases/latest) [TOPR-V-HEAD](https://api.github.com/repos/vllm-project/vllm/commits/main) [TOPR-S-HEAD](https://api.github.com/repos/sgl-project/sglang/commits/main) [TOPR-K-HEAD](https://api.github.com/repos/kserve/kserve/commits/master)
 
 The CUDA13 indexes advertised vLLM `0.32.0rc1.dev341+g2067297b2` and SGLang `0.5.23.dev20261017+g2d3dd3168d`. Neither identity equals the observed branch tip; no wheel was downloaded or executed. The lock preserves earlier observations. [TOPR-V-WHEELS](https://wheels.vllm.ai/nightly/cu130/vllm/) [TOPR-S-WHEELS](https://sgl-project.github.io/whl/cu130/sglang/)
 
