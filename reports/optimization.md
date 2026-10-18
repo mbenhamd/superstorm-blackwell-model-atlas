@@ -2,6 +2,8 @@
 
 The useful configuration depends on **what the model stores, what each token computes, and what the application repeats**. This page keeps the reasoning and known constraints; executable benchmarks and results belong in the separate execution repository.
 
+**Latest release comparison:** [vLLM v0.32.0 on B300](vllm-v032-upgrade.md) audits the October 18 release against the v0.31 baseline below. It identifies automatic changes, explicit candidates and changelog items that do not apply to these models/hardware. Machine-readable additions use `vllm_v032_b300_review`; historical settings remain version-scoped.
+
 ## Per-model priorities for vLLM v0.31.0 on B300
 
 **Selected-source review: October 17, 2026.** All rows assume mandatory KServe and vLLM release commit `db9527a46873454610df6dbedf79a36d6bf1a7f6`. They identify the next useful comparison, not measured optimal configurations. Keep the actual image, model/export revision, task quality, workload and total eight-GPU allocation explicit. The machine-readable counterpart is `vllm_v031_b300_review` in each [model catalog](../catalog/models.json) entry.

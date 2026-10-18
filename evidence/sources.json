@@ -1,6 +1,6 @@
 {
-  "as_of": "2026-10-17",
-  "date_basis": "UTC; October 17 selected B300/vLLM v0.31 model reviews and upstream metadata refresh. Each record retains its own retrieval, claim and review scope; no binary execution or full-tree certification.",
+  "as_of": "2026-10-18",
+  "date_basis": "UTC; October 18 selected vLLM v0.32 versus v0.31 B300 source review and upstream metadata. Each record retains its own retrieval and scope; no runtime qualification.",
   "sources": {
     "HW": {
       "url": "https://docs.nvidia.com/dgx/dgxb300-user-guide/introduction-to-dgxb300.html",
@@ -14,7 +14,7 @@
         "retrieved_at": "2026-10-16T08:59:51.368167+00:00",
         "response_sha256": "f481dd10516d1a265e3aeb23a68b775624b03502aa0c4f23da567cdc92505dd2",
         "verification": "Feature table inspected; reference specification, not node inventory.",
-        "claim": "NVIDIA reference DGX B300 feature table lists8 B300 GPUs and8 × 288 GB GPU memory; this does not identify the supplied OEM SXM6-AC node.",
+        "claim": "NVIDIA reference DGX B300 feature table lists8 B300 GPUs and8 \u00d7 288 GB GPU memory; this does not identify the supplied OEM SXM6-AC node.",
         "scope": "Primary documentation/source/metadata inspection only. No GPU inference, binary qualification, Kubernetes admission, deployment, tests or benchmark run."
       }
     },
@@ -180,7 +180,7 @@
     },
     "VREG": {
       "url": "https://github.com/vllm-project/vllm/blob/f8460ef23659afd69046a81529ec2295e4c3f686/vllm/model_executor/models/registry.py",
-      "title": "vLLM model registry, inspected lines 1–350",
+      "title": "vLLM model registry, inspected lines 1\u2013350",
       "kind": "pinned source code",
       "accessed_on": "2026-10-15",
       "retrieved_at": "2026-10-15T21:52:51.428169+00:00",
@@ -203,7 +203,7 @@
     },
     "GQUANT": {
       "url": "https://github.com/sgl-project/sglang/blob/877be2974aa151a984e52822c028276c2b1e9303/python/sglang/srt/layers/quantization/modelopt_quant.py",
-      "title": "SGLang ModelOpt quantization, inspected lines 1–240",
+      "title": "SGLang ModelOpt quantization, inspected lines 1\u2013240",
       "kind": "pinned source code",
       "accessed_on": "2026-10-15",
       "retrieved_at": "2026-10-15T21:52:51.658937+00:00",
@@ -414,10 +414,12 @@
       "verification": "HTTP 200; pinned contents inspected; no GPU execution",
       "capture": "HTTP retrieval recorded with content checksum; source bodies retained only in temporary audit files, not bundled in the repository",
       "last_recheck": {
-        "retrieved_at": "2026-10-17T09:55:43.765624+00:00",
+        "kind": "primary metadata or documentation",
+        "retrieved_at": "2026-10-18T14:04:36.970587+00:00",
         "response_sha256": "3ac72612095574542f7fff847ada8e59d9199dd8af44bdf625d7e02615572e69",
-        "scope": "Selected immutable source/model metadata review for 8xB300 and vLLM v0.31.0; no weights, installed engine, runtime validation or benchmark.",
-        "claim": "GLM 5.3 native DSA/MLA configuration includes indexer reuse every four layers, skip offset3, and MTP index sharing; these are already model semantics."
+        "accessed_on": "2026-10-18",
+        "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution.",
+        "scope": "Fresh retrieval of the referenced primary artifact for selected v0.32 source/model applicability; no runtime qualification."
       },
       "prior_rechecks": [
         {
@@ -431,6 +433,12 @@
           "retrieved_at": "2026-10-16T10:03:33.959295+00:00",
           "response_sha256": "3ac72612095574542f7fff847ada8e59d9199dd8af44bdf625d7e02615572e69",
           "scope": "Fresh retrieval of the same existing cited metadata/source URL; no serving execution or weight payload retrieval."
+        },
+        {
+          "retrieved_at": "2026-10-17T09:55:43.765624+00:00",
+          "response_sha256": "3ac72612095574542f7fff847ada8e59d9199dd8af44bdf625d7e02615572e69",
+          "scope": "Selected immutable source/model metadata review for 8xB300 and vLLM v0.31.0; no weights, installed engine, runtime validation or benchmark.",
+          "claim": "GLM 5.3 native DSA/MLA configuration includes indexer reuse every four layers, skip offset3, and MTP index sharing; these are already model semantics."
         }
       ]
     },
@@ -446,10 +454,12 @@
       "verification": "HTTP 200; pinned contents inspected; no GPU execution",
       "capture": "HTTP retrieval recorded with content checksum; source bodies retained only in temporary audit files, not bundled in the repository",
       "last_recheck": {
-        "retrieved_at": "2026-10-17T09:55:44.267363+00:00",
+        "kind": "primary metadata or documentation",
+        "retrieved_at": "2026-10-18T14:04:36.983239+00:00",
         "response_sha256": "e6c5d41400e28f5a89418a0d15b09b9c113314a7553d40d7d4a8a72fcdb87d02",
-        "scope": "Selected immutable source/model metadata review for 8xB300 and vLLM v0.31.0; no weights, installed engine, runtime validation or benchmark.",
-        "claim": "Publisher GLM 5.3 Flash architecture and serving context."
+        "accessed_on": "2026-10-18",
+        "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution.",
+        "scope": "Fresh retrieval of the referenced primary artifact for selected v0.32 source/model applicability; no runtime qualification."
       },
       "prior_rechecks": [
         {
@@ -463,6 +473,12 @@
           "retrieved_at": "2026-10-16T10:03:34.271801+00:00",
           "response_sha256": "e6c5d41400e28f5a89418a0d15b09b9c113314a7553d40d7d4a8a72fcdb87d02",
           "scope": "Fresh retrieval of the same existing cited metadata/source URL; no serving execution or weight payload retrieval."
+        },
+        {
+          "retrieved_at": "2026-10-17T09:55:44.267363+00:00",
+          "response_sha256": "e6c5d41400e28f5a89418a0d15b09b9c113314a7553d40d7d4a8a72fcdb87d02",
+          "scope": "Selected immutable source/model metadata review for 8xB300 and vLLM v0.31.0; no weights, installed engine, runtime validation or benchmark.",
+          "claim": "Publisher GLM 5.3 Flash architecture and serving context."
         }
       ]
     },
@@ -478,10 +494,12 @@
       "verification": "HTTP 200; pinned contents inspected; no GPU execution",
       "capture": "HTTP retrieval recorded with content checksum; source bodies retained only in temporary audit files, not bundled in the repository",
       "last_recheck": {
-        "retrieved_at": "2026-10-17T09:55:44.273363+00:00",
+        "kind": "primary metadata or documentation",
+        "retrieved_at": "2026-10-18T14:04:36.993811+00:00",
         "response_sha256": "bb8f01c42cb92a52ca72e65afb4d5bd8d11aef083cd210e8de25dfb904f23e9f",
-        "scope": "Selected immutable source/model metadata review for 8xB300 and vLLM v0.31.0; no weights, installed engine, runtime validation or benchmark.",
-        "claim": "GLM 5.3 Flash hybrid34 KDA/11 sparse MLA target layers plus native MTP; logical recurrent state must be budgeted separately from KV."
+        "accessed_on": "2026-10-18",
+        "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution.",
+        "scope": "Fresh retrieval of the referenced primary artifact for selected v0.32 source/model applicability; no runtime qualification."
       },
       "prior_rechecks": [
         {
@@ -495,6 +513,12 @@
           "retrieved_at": "2026-10-16T10:03:34.300176+00:00",
           "response_sha256": "bb8f01c42cb92a52ca72e65afb4d5bd8d11aef083cd210e8de25dfb904f23e9f",
           "scope": "Fresh retrieval of the same existing cited metadata/source URL; no serving execution or weight payload retrieval."
+        },
+        {
+          "retrieved_at": "2026-10-17T09:55:44.273363+00:00",
+          "response_sha256": "bb8f01c42cb92a52ca72e65afb4d5bd8d11aef083cd210e8de25dfb904f23e9f",
+          "scope": "Selected immutable source/model metadata review for 8xB300 and vLLM v0.31.0; no weights, installed engine, runtime validation or benchmark.",
+          "claim": "GLM 5.3 Flash hybrid34 KDA/11 sparse MLA target layers plus native MTP; logical recurrent state must be budgeted separately from KV."
         }
       ]
     },
@@ -533,10 +557,12 @@
       "verification": "Parsed immutable JSON; dimensions and all 46 compression entries verified. Root nextn metadata 1 differs from 3 reference DSpark stages.",
       "capture": "Read through web or GitHub connector; original bytes not archived",
       "last_recheck": {
-        "retrieved_at": "2026-10-17T09:58:19.055378+00:00",
+        "kind": "primary metadata or documentation",
+        "retrieved_at": "2026-10-18T14:04:37.121604+00:00",
         "response_sha256": "6c8f3d2d3b48707541b88f32f22ef3f0f8a6b57d8523281e2b8d3cdb0ae9a023",
-        "claim": "Exact native0731 architecture, mixedFP4/FP8, bundledDSpark fields retained.",
-        "scope": "Source/document inspection only; no engine execution, model weights, tests or B300 measurements."
+        "accessed_on": "2026-10-18",
+        "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution.",
+        "scope": "Fresh retrieval of the referenced primary artifact for selected v0.32 source/model applicability; no runtime qualification."
       },
       "prior_rechecks": [
         {
@@ -545,6 +571,12 @@
           "verification": "Retrieved and inspected relevant metadata/text/source; scope described in claim. Not executed or independently benchmarked.",
           "claim": "43 target layers; FP4 expert plus FP8-configured native mixture; all46 compression entries; nextn metadata1, dspark features40,41,42, block5. Bytes match report alternate SHA.",
           "scope": "Research evidence only. No model tensors downloaded, no inference engines installed/run, no GPU/quality measurements, no nightly image tested."
+        },
+        {
+          "retrieved_at": "2026-10-17T09:58:19.055378+00:00",
+          "response_sha256": "6c8f3d2d3b48707541b88f32f22ef3f0f8a6b57d8523281e2b8d3cdb0ae9a023",
+          "claim": "Exact native0731 architecture, mixedFP4/FP8, bundledDSpark fields retained.",
+          "scope": "Source/document inspection only; no engine execution, model weights, tests or B300 measurements."
         }
       ]
     },
@@ -1006,7 +1038,7 @@
       "title": "vLLM DeepSeek V4 Flash recipe",
       "kind": "primary documentation",
       "accessed_on": "2026-10-15",
-      "verification": "TP1/DP4+EP Blackwell baseline and exact 0731 DSpark path checked. Probabilistic 7-token recipe differs from the publisher’s greedy example.",
+      "verification": "TP1/DP4+EP Blackwell baseline and exact 0731 DSpark path checked. Probabilistic 7-token recipe differs from the publisher\u2019s greedy example.",
       "capture": "Read through web or GitHub connector; original bytes not archived",
       "last_recheck": {
         "retrieved_at": "2026-10-16T08:58:04.775749+00:00",
@@ -1233,7 +1265,7 @@
     },
     "GREG": {
       "url": "https://github.com/sgl-project/sglang/blob/877be2974aa151a984e52822c028276c2b1e9303/python/sglang/srt/models/registry.py",
-      "title": "SGLang registry, inspected lines 1–159",
+      "title": "SGLang registry, inspected lines 1\u2013159",
       "kind": "pinned source code",
       "accessed_on": "2026-10-15",
       "retrieved_at": "2026-10-15T21:52:51.548562+00:00",
@@ -2569,7 +2601,7 @@
     },
     "VEXP-REL": {
       "url": "https://github.com/vllm-project/vllm/releases/tag/v0.31.0",
-      "title": "Release v0.31.0 · vllm-project/vllm · GitHub",
+      "title": "Release v0.31.0 \u00b7 vllm-project/vllm \u00b7 GitHub",
       "kind": "primary release notes",
       "accessed_on": "2026-10-15",
       "retrieved_at": "2026-10-15T22:25:07.993881+00:00",
@@ -2585,7 +2617,7 @@
     },
     "VEXP-MAIN": {
       "url": "https://github.com/vllm-project/vllm/commit/784d1fff0c491b9add10ecd732de8f707a7e7dbe",
-      "title": "[MRV2][Spec Decode] Quantized draft lm_head for drafters that share t… · vllm-project/vllm@784d1ff · GitHub",
+      "title": "[MRV2][Spec Decode] Quantized draft lm_head for drafters that share t\u2026 \u00b7 vllm-project/vllm@784d1ff \u00b7 GitHub",
       "kind": "primary source commit",
       "accessed_on": "2026-10-15",
       "retrieved_at": "2026-10-15T22:25:07.994323+00:00",
@@ -2621,7 +2653,7 @@
     },
     "VEXP-59973": {
       "url": "https://github.com/vllm-project/vllm/pull/59973",
-      "title": "[MRV2][Spec Decode] Quantized draft lm_head for drafters that share the target head by stecasta · Pull Request #59973 · vllm-project/vllm · GitHub",
+      "title": "[MRV2][Spec Decode] Quantized draft lm_head for drafters that share the target head by stecasta \u00b7 Pull Request #59973 \u00b7 vllm-project/vllm \u00b7 GitHub",
       "kind": "primary pull request",
       "accessed_on": "2026-10-15",
       "retrieved_at": "2026-10-15T22:25:07.994627+00:00",
@@ -2631,7 +2663,7 @@
     },
     "VEXP-61161": {
       "url": "https://github.com/vllm-project/vllm/pull/61161",
-      "title": "[Bugfix][Spec Decode] Avoid reusing random draws across block verification rounds by DimensionSTP · Pull Request #61161 · vllm-project/vllm · GitHub",
+      "title": "[Bugfix][Spec Decode] Avoid reusing random draws across block verification rounds by DimensionSTP \u00b7 Pull Request #61161 \u00b7 vllm-project/vllm \u00b7 GitHub",
       "kind": "primary pull request",
       "accessed_on": "2026-10-15",
       "retrieved_at": "2026-10-15T22:25:07.994699+00:00",
@@ -2641,7 +2673,7 @@
     },
     "VEXP-59468": {
       "url": "https://github.com/vllm-project/vllm/pull/59468",
-      "title": "[Spec Decode] Don't reserve DFlash/DSpark draft slots in the scheduler token budget by zixi-qi · Pull Request #59468 · vllm-project/vllm · GitHub",
+      "title": "[Spec Decode] Don't reserve DFlash/DSpark draft slots in the scheduler token budget by zixi-qi \u00b7 Pull Request #59468 \u00b7 vllm-project/vllm \u00b7 GitHub",
       "kind": "primary pull request",
       "accessed_on": "2026-10-15",
       "retrieved_at": "2026-10-15T22:25:07.994778+00:00",
@@ -2651,7 +2683,7 @@
     },
     "VEXP-58668": {
       "url": "https://github.com/vllm-project/vllm/pull/58668",
-      "title": "[Bugfix][Core] Uncount stop-trimmed spec tokens from num_computed_tokens by sawsa307 · Pull Request #58668 · vllm-project/vllm · GitHub",
+      "title": "[Bugfix][Core] Uncount stop-trimmed spec tokens from num_computed_tokens by sawsa307 \u00b7 Pull Request #58668 \u00b7 vllm-project/vllm \u00b7 GitHub",
       "kind": "primary pull request",
       "accessed_on": "2026-10-15",
       "retrieved_at": "2026-10-15T22:25:07.994870+00:00",
@@ -2661,7 +2693,7 @@
     },
     "VEXP-61044": {
       "url": "https://github.com/vllm-project/vllm/pull/61044",
-      "title": "[Bugfix] Create cuBLAS handles before memory profiling to avoid OOM by laithsakka · Pull Request #61044 · vllm-project/vllm · GitHub",
+      "title": "[Bugfix] Create cuBLAS handles before memory profiling to avoid OOM by laithsakka \u00b7 Pull Request #61044 \u00b7 vllm-project/vllm \u00b7 GitHub",
       "kind": "primary pull request",
       "accessed_on": "2026-10-15",
       "retrieved_at": "2026-10-15T22:25:08.286795+00:00",
@@ -2671,7 +2703,7 @@
     },
     "VEXP-58737": {
       "url": "https://github.com/vllm-project/vllm/pull/58737",
-      "title": "[Perf] Fuse the mamba align block-table gather into one Triton kernel, 7 kernels -> 1, 6x speedup on all shapes for this kernel by fululi12 · Pull Request #58737 · vllm-project/vllm · GitHub",
+      "title": "[Perf] Fuse the mamba align block-table gather into one Triton kernel, 7 kernels -> 1, 6x speedup on all shapes for this kernel by fululi12 \u00b7 Pull Request #58737 \u00b7 vllm-project/vllm \u00b7 GitHub",
       "kind": "primary pull request",
       "accessed_on": "2026-10-15",
       "retrieved_at": "2026-10-15T22:25:08.535207+00:00",
@@ -2681,7 +2713,7 @@
     },
     "VEXP-61873": {
       "url": "https://github.com/vllm-project/vllm/pull/61873",
-      "title": "[GLM5.3 Perf] Inplace update draft decode metadata, 1.7% E2E Throughput Improvement by yewentao256 · Pull Request #61873 · vllm-project/vllm · GitHub",
+      "title": "[GLM5.3 Perf] Inplace update draft decode metadata, 1.7% E2E Throughput Improvement by yewentao256 \u00b7 Pull Request #61873 \u00b7 vllm-project/vllm \u00b7 GitHub",
       "kind": "primary pull request",
       "accessed_on": "2026-10-15",
       "retrieved_at": "2026-10-15T22:25:08.737249+00:00",
@@ -2691,7 +2723,7 @@
     },
     "VEXP-61538": {
       "url": "https://github.com/vllm-project/vllm/pull/61538",
-      "title": "[MoE] Unify DeepGEMM MegaMoE experts behind one feature-matrix layer; add NVFP4 by zyongye · Pull Request #61538 · vllm-project/vllm · GitHub",
+      "title": "[MoE] Unify DeepGEMM MegaMoE experts behind one feature-matrix layer; add NVFP4 by zyongye \u00b7 Pull Request #61538 \u00b7 vllm-project/vllm \u00b7 GitHub",
       "kind": "primary pull request",
       "accessed_on": "2026-10-15",
       "retrieved_at": "2026-10-15T22:25:09.138719+00:00",
@@ -2701,7 +2733,7 @@
     },
     "VEXP-52406": {
       "url": "https://github.com/vllm-project/vllm/pull/52406",
-      "title": "[Model] Support ModelOpt FP8_PB_WO in Kimi-K3 attention by Edwardf0t1 · Pull Request #52406 · vllm-project/vllm · GitHub",
+      "title": "[Model] Support ModelOpt FP8_PB_WO in Kimi-K3 attention by Edwardf0t1 \u00b7 Pull Request #52406 \u00b7 vllm-project/vllm \u00b7 GitHub",
       "kind": "primary pull request",
       "accessed_on": "2026-10-15",
       "retrieved_at": "2026-10-15T22:25:09.346932+00:00",
@@ -3863,10 +3895,12 @@
       "capture": "Fresh immutable source retrieval; hash retained, full body not bundled.",
       "notes": "Exact NVIDIA derivative identifies DeepSeek 0731 base and preserves bundled DSpark. Card expressly says speculation was not exercised during release validation; publisher target-only examples use TP8. Documentation/config/source inspection only; no local GPU or model-quality result.",
       "last_recheck": {
-        "retrieved_at": "2026-10-17T09:58:19.323673+00:00",
+        "kind": "primary metadata or documentation",
+        "retrieved_at": "2026-10-18T14:04:37.134070+00:00",
         "response_sha256": "145264414508fc648c0c8bc7d05a047cfbdc75e753c5395f49c93fb2e407e9a5",
-        "claim": "Exact NVIDIA0731 target-only TP8+EP reference; release did not validate speculative decoding.",
-        "scope": "Source/document inspection only; no engine execution, model weights, tests or B300 measurements."
+        "accessed_on": "2026-10-18",
+        "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution.",
+        "scope": "Fresh retrieval of the referenced primary artifact for selected v0.32 source/model applicability; no runtime qualification."
       },
       "prior_rechecks": [
         {
@@ -3875,6 +3909,12 @@
           "verification": "Retrieved and inspected relevant metadata/text/source; scope described in claim. Not executed or independently benchmarked.",
           "claim": "Exact0731 NVIDIA derivative;304B/13B headline, ModelOpt0.46.0; B200 test hardware; target-only TP8 SGLang/vLLM commands; SGLang flashinfer_trtllm_routed; explicitly no release speculation validation; scale-density increase versus source. Publisher lossless claim limited by exporter inspection.",
           "scope": "Research evidence only. No model tensors downloaded, no inference engines installed/run, no GPU/quality measurements, no nightly image tested."
+        },
+        {
+          "retrieved_at": "2026-10-17T09:58:19.323673+00:00",
+          "response_sha256": "145264414508fc648c0c8bc7d05a047cfbdc75e753c5395f49c93fb2e407e9a5",
+          "claim": "Exact NVIDIA0731 target-only TP8+EP reference; release did not validate speculative decoding.",
+          "scope": "Source/document inspection only; no engine execution, model weights, tests or B300 measurements."
         }
       ]
     },
@@ -3888,10 +3928,12 @@
       "capture": "Fresh immutable source retrieval; hash retained, full body not bundled.",
       "notes": "Mixed quantization names NVFP4 routed experts with group size 16 and ignores attention, shared experts, head and mtp.*; full tensor audit not performed. Documentation/config/source inspection only; no local GPU or model-quality result.",
       "last_recheck": {
-        "retrieved_at": "2026-10-17T09:58:19.338433+00:00",
+        "kind": "primary metadata or documentation",
+        "retrieved_at": "2026-10-18T14:04:37.132333+00:00",
         "response_sha256": "bb0d2286d6761439e41d3cef31d16489411b816ed8688922f59730bbd5567cdb",
-        "claim": "Target NVFP4 experts, mtp ignored/preserved, global moe_quant_algo NVFP4; do not infer native draft compatibility.",
-        "scope": "Source/document inspection only; no engine execution, model weights, tests or B300 measurements."
+        "accessed_on": "2026-10-18",
+        "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution.",
+        "scope": "Fresh retrieval of the referenced primary artifact for selected v0.32 source/model applicability; no runtime qualification."
       },
       "prior_rechecks": [
         {
@@ -3900,6 +3942,12 @@
           "verification": "Retrieved and inspected relevant metadata/text/source; scope described in claim. Not executed or independently benchmarked.",
           "claim": "43 target routed expert groups NVFP4/group16; attention/shared/head/mtp excluded; preserved mtp is not synonymous with all-BF16; native FP8 metadata retained.",
           "scope": "Research evidence only. No model tensors downloaded, no inference engines installed/run, no GPU/quality measurements, no nightly image tested."
+        },
+        {
+          "retrieved_at": "2026-10-17T09:58:19.338433+00:00",
+          "response_sha256": "bb0d2286d6761439e41d3cef31d16489411b816ed8688922f59730bbd5567cdb",
+          "claim": "Target NVFP4 experts, mtp ignored/preserved, global moe_quant_algo NVFP4; do not infer native draft compatibility.",
+          "scope": "Source/document inspection only; no engine execution, model weights, tests or B300 measurements."
         }
       ]
     },
@@ -4044,7 +4092,7 @@
         "retrieved_at": "2026-10-16T10:08:09.989956+00:00",
         "response_sha256": "46d3a1dabf7a6df7c789f349a150d0e0710051042511a4a64913395c549af0e0",
         "scope": "Primary text, metadata or immutable runtime source; no execution.",
-        "claim": "Live recipe still says GemmaMTP nightly-only and suggests4–8tokens; this conflicts with Gemma assistant code present in stable0.31.0 source."
+        "claim": "Live recipe still says GemmaMTP nightly-only and suggests4\u20138tokens; this conflicts with Gemma assistant code present in stable0.31.0 source."
       }
     },
     "RR-GM-BFCL-METHOD": {
@@ -6162,12 +6210,22 @@
       "verification": "Selected primary source or metadata inspected; no engine execution",
       "scope": "Attention and precision knowledge review; no reproduced serving performance or quality result",
       "last_recheck": {
-        "retrieved_at": "2026-10-17T09:46:46.236514+00:00",
+        "kind": "primary metadata or documentation",
+        "retrieved_at": "2026-10-18T14:04:02.630292+00:00",
         "response_sha256": "8463089dda00dc85db8718a2038264815e185eb2543abd4bf2d6521877f4784b",
-        "claim": "v0.31.0 tag resolves to db9527a46873454610df6dbedf79a36d6bf1a7f6.",
-        "scope": "Selected primary source and metadata inspected; no model weights downloaded, no engine/model/test executed, no reproduced B300 performance or quality result.",
-        "revision": "db9527a46873454610df6dbedf79a36d6bf1a7f6"
-      }
+        "accessed_on": "2026-10-18",
+        "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution.",
+        "scope": "Fresh retrieval of the referenced primary artifact for selected v0.32 source/model applicability; no runtime qualification."
+      },
+      "prior_rechecks": [
+        {
+          "retrieved_at": "2026-10-17T09:46:46.236514+00:00",
+          "response_sha256": "8463089dda00dc85db8718a2038264815e185eb2543abd4bf2d6521877f4784b",
+          "claim": "v0.31.0 tag resolves to db9527a46873454610df6dbedf79a36d6bf1a7f6.",
+          "scope": "Selected primary source and metadata inspected; no model weights downloaded, no engine/model/test executed, no reproduced B300 performance or quality result.",
+          "revision": "db9527a46873454610df6dbedf79a36d6bf1a7f6"
+        }
+      ]
     },
     "ATTV-S-CUDA": {
       "url": "https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/platforms/cuda.py",
@@ -6702,7 +6760,7 @@
       "revision": "arxiv:2603.05451v1",
       "published_at": "2026-03-05",
       "response_sha256": "a4888f77a29a27b4005879cc152a9c4c54195607b6da8ec99b462d10584e0e3e",
-      "claim": "Paper abstract and section 5 report B200 BF16 up to 1613 TFLOP/s and 71% utilization. Section 2.2 reports B300 exponential throughput of 32 versus B200 16 operations/cycle/SM. Authors claim 20–30× faster compilation. Appendix A.1 conflicts with the main hardware and date statements.",
+      "claim": "Paper abstract and section 5 report B200 BF16 up to 1613 TFLOP/s and 71% utilization. Section 2.2 reports B300 exponential throughput of 32 versus B200 16 operations/cycle/SM. Authors claim 20\u201330\u00d7 faster compilation. Appendix A.1 conflicts with the main hardware and date statements.",
       "kind": "primary-source-inspection",
       "accessed_on": "2026-10-16",
       "verification": "Selected paper, documentation or source inspected; no engine execution",
@@ -6714,7 +6772,7 @@
       "retrieved_at": "2026-10-16T09:30:33.659221+00:00",
       "published_at": "2026-03-05",
       "response_sha256": "5ab9fe868ce7b5f22f299ed716bd9682f9f928e7e86d593b953bdd03e3fd174a",
-      "claim": "Author BF16 forward explanation uses two query tiles. B200 roofline and 1605 TFLOP/s headline differ from the paper’s 1613; newer cuDNN 9.19.1.2 has similar performance.",
+      "claim": "Author BF16 forward explanation uses two query tiles. B200 roofline and 1605 TFLOP/s headline differ from the paper\u2019s 1613; newer cuDNN 9.19.1.2 has similar performance.",
       "kind": "primary-source-inspection",
       "accessed_on": "2026-10-16",
       "verification": "Selected paper, documentation or source inspected; no engine execution",
@@ -6726,7 +6784,7 @@
       "retrieved_at": "2026-10-16T09:30:34.943254+00:00",
       "published_at": "2026-09-16",
       "response_sha256": "821f9ef073017e6217d614fa81166b5175c99d147eca4f08a7787b33d0d13c2c",
-      "claim": "September 23 update describes a separate Meta MXFP8 extension: GB300 kernels reach 2.85 PFLOP/s forward and 1.82/1.98 PFLOP/s backward, with a 1-CTA backward path. Scale axes, online probability conversion in groups of 32, and separate module speedups of 1.00–1.30× are described.",
+      "claim": "September 23 update describes a separate Meta MXFP8 extension: GB300 kernels reach 2.85 PFLOP/s forward and 1.82/1.98 PFLOP/s backward, with a 1-CTA backward path. Scale axes, online probability conversion in groups of 32, and separate module speedups of 1.00\u20131.30\u00d7 are described.",
       "kind": "primary-source-inspection",
       "accessed_on": "2026-10-16",
       "verification": "Selected paper, documentation or source inspected; no engine execution",
@@ -7363,7 +7421,7 @@
       "last_recheck": {
         "retrieved_at": "2026-10-17T09:49:11.863243+00:00",
         "response_sha256": "bde77677fd0e95ea09c6a580dfaf09b57741e8183e00cb106e2d1cc64d8e03f2",
-        "claim": "133–202: Q/K/V/prob scales initialized1.0; optional checkpoint scale method",
+        "claim": "133\u2013202: Q/K/V/prob scales initialized1.0; optional checkpoint scale method",
         "scope": "Selected source or metadata inspection only; no weights, runtime or B300 measurement."
       },
       "prior_rechecks": [
@@ -7665,7 +7723,7 @@
       "resolved_url": "https://raw.githubusercontent.com/sgl-project/sglang/baf451fcd6f54962c7db7dc30c636cb534ba1f2a/docs/cookbook/autoregressive/DeepSeek/DeepSeek-V3_2.mdx",
       "response_sha256": "7e7e83c6e3b8d6bf462a4447bf9812d1933438896e1e309cadb565616f453db2",
       "bytes": 40504,
-      "inspected_scope": "1–80"
+      "inspected_scope": "1\u201380"
     },
     "FP8S-M-FA": {
       "url": "https://raw.githubusercontent.com/sgl-project/sglang/baf451fcd6f54962c7db7dc30c636cb534ba1f2a/python/sglang/srt/layers/attention/flashattention_backend.py",
@@ -7710,7 +7768,7 @@
       "resolved_url": "https://raw.githubusercontent.com/sgl-project/sglang/baf451fcd6f54962c7db7dc30c636cb534ba1f2a/python/sglang/kernels/ops/attention/flash_attn/cute/flash_fwd_sm100.py",
       "response_sha256": "7b9868044d6ff621794b88e118e932f4f7ab5b88e52b426fe378a217bac674c2",
       "bytes": 253262,
-      "inspected_scope": "248–263, 324–325, 740–760, 952–997"
+      "inspected_scope": "248\u2013263, 324\u2013325, 740\u2013760, 952\u2013997"
     },
     "FP8S-M-HYBRID": {
       "url": "https://raw.githubusercontent.com/sgl-project/sglang/baf451fcd6f54962c7db7dc30c636cb534ba1f2a/python/sglang/srt/layers/attention/hybrid_attn_backend.py",
@@ -7770,7 +7828,7 @@
       "resolved_url": "https://raw.githubusercontent.com/sgl-project/sglang/baf451fcd6f54962c7db7dc30c636cb534ba1f2a/python/sglang/srt/layers/attention/attention_registry.py",
       "response_sha256": "734c5fb9f563904e383bbcc419d049a0911a0a38c2899df12dc862f5770aeb26",
       "bytes": 21922,
-      "inspected_scope": "78–94, create_flashattention_v4_backend"
+      "inspected_scope": "78\u201394, create_flashattention_v4_backend"
     },
     "FP8S-M-SPEC": {
       "url": "https://raw.githubusercontent.com/sgl-project/sglang/baf451fcd6f54962c7db7dc30c636cb534ba1f2a/python/sglang/srt/arg_groups/fields/spec.py",
@@ -7875,7 +7933,7 @@
       "resolved_url": "https://raw.githubusercontent.com/sgl-project/sglang/e00930c5489053f26d86b179cee0d087f846acbb/python/sglang/srt/layers/attention/trtllm_mha_backend.py",
       "response_sha256": "2d561dca773accb19fc8166cb1bdbfeac8452ef6aa0a0973336f5dd8a60554d5",
       "bytes": 80246,
-      "inspected_scope": "179–301, 340–374"
+      "inspected_scope": "179\u2013301, 340\u2013374"
     },
     "FP8S-S-MODEL": {
       "url": "https://raw.githubusercontent.com/sgl-project/sglang/e00930c5489053f26d86b179cee0d087f846acbb/python/sglang/srt/arg_groups/fields/model.py",
@@ -7890,7 +7948,7 @@
       "resolved_url": "https://raw.githubusercontent.com/sgl-project/sglang/e00930c5489053f26d86b179cee0d087f846acbb/python/sglang/srt/arg_groups/fields/model.py",
       "response_sha256": "ca29dfdd7406129c2b327675f7270d4e3e8512770055e6b37e1c1db17f52be41",
       "bytes": 15807,
-      "inspected_scope": "160–224"
+      "inspected_scope": "160\u2013224"
     },
     "FP8S-S-POOL": {
       "url": "https://raw.githubusercontent.com/sgl-project/sglang/e00930c5489053f26d86b179cee0d087f846acbb/python/sglang/srt/mem_cache/memory_pool.py",
@@ -7920,7 +7978,7 @@
       "resolved_url": "https://raw.githubusercontent.com/sgl-project/sglang/e00930c5489053f26d86b179cee0d087f846acbb/python/sglang/srt/mem_cache/radix_cache.py",
       "response_sha256": "3a98ff02d5bb990fab3ff6700a4acd1ed865f9fc522daa17768f28fc6fe424e6",
       "bytes": 30883,
-      "inspected_scope": "146–219, 394–429, 526–539"
+      "inspected_scope": "146\u2013219, 394\u2013429, 526\u2013539"
     },
     "FP8S-S-SPEC": {
       "url": "https://raw.githubusercontent.com/sgl-project/sglang/e00930c5489053f26d86b179cee0d087f846acbb/python/sglang/srt/arg_groups/fields/spec.py",
@@ -7950,7 +8008,7 @@
       "resolved_url": "https://raw.githubusercontent.com/sgl-project/sglang/e00930c5489053f26d86b179cee0d087f846acbb/python/sglang/srt/mem_cache/unified_radix_cache.py",
       "response_sha256": "c6f1764166c371cf050f05c966daed8ded366365163a69f066569cc74e2575c3",
       "bytes": 161993,
-      "inspected_scope": "1037–1052, 1226–1258"
+      "inspected_scope": "1037\u20131052, 1226\u20131258"
     },
     "FP8V-S-FORK-SM90": {
       "url": "https://raw.githubusercontent.com/vllm-project/flash-attention/9cd61de38763d712bb6ce56e2a02cc2bf718c89f/flash_attn/cute/flash_fwd_sm90.py",
@@ -8078,7 +8136,15 @@
       "response_sha256": "ed1c0a4563c437a32f8953d637a1db9bd831de1b24bd3062a5ace9e04340b1cf",
       "claim": "CyberGym 84.5 publisher result with Claude Code 2.1.207, maximum reasoning effort, single-run Pass@1 over 1,507 tasks and unlimited per-task timeout.",
       "scope": "Publisher benchmark/claim, not independent leaderboard validation or local B300 result.",
-      "kind": "primary documentation or artifact metadata"
+      "kind": "primary documentation or artifact metadata",
+      "last_recheck": {
+        "kind": "primary metadata or documentation",
+        "retrieved_at": "2026-10-18T14:04:36.970539+00:00",
+        "response_sha256": "ed1c0a4563c437a32f8953d637a1db9bd831de1b24bd3062a5ace9e04340b1cf",
+        "accessed_on": "2026-10-18",
+        "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution.",
+        "scope": "Fresh retrieval of the referenced primary artifact for selected v0.32 source/model applicability; no runtime qualification."
+      }
     },
     "TOPG-GLM-INDEX": {
       "url": "https://huggingface.co/zai-org/GLM-5.3/resolve/ba32f8c19c8738e2c57c71798c601d477a7bf844/model.safetensors.index.json",
@@ -8202,11 +8268,22 @@
       "scope": "Hugging Face metadata response only.",
       "kind": "primary documentation or artifact metadata",
       "last_recheck": {
-        "retrieved_at": "2026-10-17T09:55:43.759138+00:00",
-        "response_sha256": "f8c17735b090922a342f87d83af21d518f87506e2ae862d292828721c400c39c",
-        "scope": "Selected immutable source/model metadata review for 8xB300 and vLLM v0.31.0; no weights, installed engine, runtime validation or benchmark.",
-        "claim": "Fresh current publisher API resolves to f831ab66814297da540d832a5235f8e904f29d06; unchanged from retained artifact pin."
-      }
+        "retrieved_at": "2026-10-18T14:04:10.259503+00:00",
+        "http_status": 200,
+        "response_sha256": "6b3876c1adf0dce954ecbf677bfd0ada1d249d408f6a4f75eb8dba035f08c079",
+        "accessed_on": "2026-10-18",
+        "kind": "publisher-metadata-or-PR-author-evidence",
+        "scope": "Selected v0.31/v0.32 Kimi and Mistral source audit; no local execution or benchmark.",
+        "response_bytes": 10087
+      },
+      "prior_rechecks": [
+        {
+          "retrieved_at": "2026-10-17T09:55:43.759138+00:00",
+          "response_sha256": "f8c17735b090922a342f87d83af21d518f87506e2ae862d292828721c400c39c",
+          "scope": "Selected immutable source/model metadata review for 8xB300 and vLLM v0.31.0; no weights, installed engine, runtime validation or benchmark.",
+          "claim": "Fresh current publisher API resolves to f831ab66814297da540d832a5235f8e904f29d06; unchanged from retained artifact pin."
+        }
+      ]
     },
     "TOPK-BASE-INDEX-RANGE": {
       "url": "https://huggingface.co/moonshotai/Kimi-K3/resolve/f831ab66814297da540d832a5235f8e904f29d06/model.safetensors.index.json",
@@ -8249,7 +8326,7 @@
       "title": "InferenceX public Kimi K3 benchmark rows",
       "revision": null,
       "accessed_on": "2026-10-16",
-      "claim": "Exact B300 rows: 8 GPUs, single node, TP8/DCP8, EP1, concurrency 1–70, offload on and 2,249 GB CPU DRAM. Throughput is input plus output; row 439935 records 5,180.43859 total versus 40.6326 output tokens/s/GPU.",
+      "claim": "Exact B300 rows: 8 GPUs, single node, TP8/DCP8, EP1, concurrency 1\u201370, offload on and 2,249 GB CPU DRAM. Throughput is input plus output; row 439935 records 5,180.43859 total versus 40.6326 output tokens/s/GPU.",
       "scope": "Mutable API includes multiple hardware/configurations; only hardware == b300 was reviewed. Source observations, no execution or local results machinery; raw response gzip hash retained. Offload fields are publisher API labels; the bounded server log prints enable_offload=False, so effective host offload is unresolved.",
       "kind": "primary documentation or artifact metadata"
     },
@@ -8297,11 +8374,22 @@
       "scope": "Hugging Face metadata response only.",
       "kind": "primary documentation or artifact metadata",
       "last_recheck": {
-        "retrieved_at": "2026-10-17T09:55:43.782408+00:00",
-        "response_sha256": "aaad2911e5603b223690432e5dfd2a4bb4ad7406528c10653d209ca8dd524c39",
-        "scope": "Selected immutable source/model metadata review for 8xB300 and vLLM v0.31.0; no weights, installed engine, runtime validation or benchmark.",
-        "claim": "Fresh current publisher API resolves to b2428a0b83a8b712ff2e1a8448a103d4175341f1; unchanged from retained artifact pin."
-      }
+        "retrieved_at": "2026-10-18T14:04:10.356983+00:00",
+        "http_status": 200,
+        "response_sha256": "24cc0c1fa55d325a98b178cc6eb31a711055b3dadbc48d99782606b7a4f794c4",
+        "accessed_on": "2026-10-18",
+        "kind": "publisher-metadata-or-PR-author-evidence",
+        "scope": "Selected v0.31/v0.32 Kimi and Mistral source audit; no local execution or benchmark.",
+        "response_bytes": 123153
+      },
+      "prior_rechecks": [
+        {
+          "retrieved_at": "2026-10-17T09:55:43.782408+00:00",
+          "response_sha256": "aaad2911e5603b223690432e5dfd2a4bb4ad7406528c10653d209ca8dd524c39",
+          "scope": "Selected immutable source/model metadata review for 8xB300 and vLLM v0.31.0; no weights, installed engine, runtime validation or benchmark.",
+          "claim": "Fresh current publisher API resolves to b2428a0b83a8b712ff2e1a8448a103d4175341f1; unchanged from retained artifact pin."
+        }
+      ]
     },
     "TOPK-NV-INDEX-RANGE": {
       "url": "https://huggingface.co/nvidia/Kimi-K3-NVFP4/resolve/b2428a0b83a8b712ff2e1a8448a103d4175341f1/model.safetensors.index.json",
@@ -8355,7 +8443,16 @@
       "accessed_on": "2026-10-16",
       "claim": "K3 adapter prepares group-32 UE8M0 scales and calls fp8_fp4_mega_moe.",
       "scope": "Selected native-format preparation and call inspected; no runtime execution.",
-      "kind": "primary source code"
+      "kind": "primary source code",
+      "last_recheck": {
+        "retrieved_at": "2026-10-18T14:06:28.659498+00:00",
+        "http_status": 200,
+        "response_sha256": "2b1d9629f810926a98e9ae05582afcceda02e372bb0a4afd7aa95c60d4931c74",
+        "accessed_on": "2026-10-18",
+        "kind": "primary-source-inspection",
+        "scope": "Selected v0.31/v0.32 Kimi and Mistral source audit; no local execution or benchmark.",
+        "response_bytes": 87120
+      }
     },
     "TOPK-V-MEGA-MAIN": {
       "url": "https://raw.githubusercontent.com/vllm-project/vllm/9a16d43ef0413b0a2a222e7f5baa4498c291ae5b/vllm/model_executor/layers/fused_moe/deep_gemm_mega_moe.py",
@@ -8390,11 +8487,21 @@
       "scope": "Mutable Hub metadata; no model tensors retrieved.",
       "kind": "primary documentation or artifact metadata",
       "last_recheck": {
-        "retrieved_at": "2026-10-17T09:55:09.717305+00:00",
-        "response_sha256": "bf28d43c9153c56c0d6bd4039feb7ccda7e6e0806f0612c20908e28a13342782",
-        "claim": "Fresh publisher metadata confirms Gemma target revision 842da3794eaa0b77d5f08bae87a17459d91ff475.",
-        "scope": "Selected primary-source or metadata inspection only; no weights, runtime, tests, B300 performance or uninspected container certification."
-      }
+        "observed_revision": "842da3794eaa0b77d5f08bae87a17459d91ff475",
+        "scope": "Current Hub identity matches retained controlled-comparison revision; no weights loaded.",
+        "retrieved_at": "2026-10-18T14:05:42.775969+00:00",
+        "response_sha256": "1da6647e2b6365cf146ce446aff8fb7874a6b6f84b0bd3a8df868fdb66a2db6b",
+        "accessed_on": "2026-10-18",
+        "kind": "primary source"
+      },
+      "prior_rechecks": [
+        {
+          "retrieved_at": "2026-10-17T09:55:09.717305+00:00",
+          "response_sha256": "bf28d43c9153c56c0d6bd4039feb7ccda7e6e0806f0612c20908e28a13342782",
+          "claim": "Fresh publisher metadata confirms Gemma target revision 842da3794eaa0b77d5f08bae87a17459d91ff475.",
+          "scope": "Selected primary-source or metadata inspection only; no weights, runtime, tests, B300 performance or uninspected container certification."
+        }
+      ]
     },
     "TOPM-GEMMA-DRAFT-CARD": {
       "url": "https://huggingface.co/google/gemma-4-31B-it-assistant/raw/627c5ec1458b9086b841a91e0512fd31fd2fbbf1/README.md",
@@ -8429,11 +8536,21 @@
       "scope": "Mutable Hub metadata; no model tensors retrieved.",
       "kind": "primary documentation or artifact metadata",
       "last_recheck": {
-        "retrieved_at": "2026-10-17T09:55:09.710619+00:00",
-        "response_sha256": "e2f4de465a2d9a9cd1ffa147b2e8055e7be367b53f2de6ebd1c6792e48badd7c",
-        "claim": "Fresh publisher metadata confirms official assistant revision 627c5ec1458b9086b841a91e0512fd31fd2fbbf1.",
-        "scope": "Selected primary-source or metadata inspection only; no weights, runtime, tests, B300 performance or uninspected container certification."
-      }
+        "observed_revision": "627c5ec1458b9086b841a91e0512fd31fd2fbbf1",
+        "scope": "Current Hub identity matches retained controlled-comparison revision; no weights loaded.",
+        "retrieved_at": "2026-10-18T14:05:43.550618+00:00",
+        "response_sha256": "17879601ac9601acb9f0436bafcedf10c4644812ddb60ceeff7611de320ce2bf",
+        "accessed_on": "2026-10-18",
+        "kind": "primary source"
+      },
+      "prior_rechecks": [
+        {
+          "retrieved_at": "2026-10-17T09:55:09.710619+00:00",
+          "response_sha256": "e2f4de465a2d9a9cd1ffa147b2e8055e7be367b53f2de6ebd1c6792e48badd7c",
+          "claim": "Fresh publisher metadata confirms official assistant revision 627c5ec1458b9086b841a91e0512fd31fd2fbbf1.",
+          "scope": "Selected primary-source or metadata inspection only; no weights, runtime, tests, B300 performance or uninspected container certification."
+        }
+      ]
     },
     "TOPM-GEMMA-DRAFT-TREE": {
       "url": "https://huggingface.co/api/models/google/gemma-4-31B-it-assistant/tree/627c5ec1458b9086b841a91e0512fd31fd2fbbf1?recursive=true&expand=false",
@@ -8508,7 +8625,7 @@
       "retrieved_at": "2026-10-16T10:03:48.647169+00:00",
       "accessed_on": "2026-10-16",
       "response_sha256": "892a023119d33a23dac8764e469bbc1728e49294aba63bcb90d2899131fa093d",
-      "claim": "NVIDIA exact uppercase export exists; ModelOpt0.42.0 claimed by card; six reported quality metric differences0–0.45pp, H100 inference metadata, unpinned baseline evaluation identity.",
+      "claim": "NVIDIA exact uppercase export exists; ModelOpt0.42.0 claimed by card; six reported quality metric differences0\u20130.45pp, H100 inference metadata, unpinned baseline evaluation identity.",
       "scope": "Immutable artifact metadata or source; no weight payloads or runtime execution.",
       "kind": "primary documentation or artifact metadata"
     },
@@ -8587,7 +8704,15 @@
       "response_sha256": "1f1b35458b42bec67837a3b2bf71a9ce90bdb5c9d39e94dbfeae5550c3a2c3a2",
       "claim": "Fresh exact repository identity and current revision, fetched before immutable artifact files; repository existence does not establish runtime support.",
       "scope": "Mutable Hub metadata; no model tensors retrieved.",
-      "kind": "primary documentation or artifact metadata"
+      "kind": "primary documentation or artifact metadata",
+      "last_recheck": {
+        "observed_revision": "d7242548c457ab4b45bd3adb8937f2659af4739d",
+        "scope": "Current Hub identity matches retained controlled-comparison revision; no weights loaded.",
+        "retrieved_at": "2026-10-18T14:05:42.770927+00:00",
+        "response_sha256": "af33c0ecbae1f11287c78f74642694de644ec0b0bd493c8d21d90843351aae89",
+        "accessed_on": "2026-10-18",
+        "kind": "primary source"
+      }
     },
     "TOPM-GEMMA-RHNV-META": {
       "url": "https://huggingface.co/api/models/RedHatAI/gemma-4-31B-it-NVFP4",
@@ -8598,7 +8723,15 @@
       "response_sha256": "ea2522a13d06e2ff029ef79c74d0b95f8284cb65eddf33bec04a0e5081fb0163",
       "claim": "Fresh exact repository identity and current revision, fetched before immutable artifact files; repository existence does not establish runtime support.",
       "scope": "Mutable Hub metadata; no model tensors retrieved.",
-      "kind": "primary documentation or artifact metadata"
+      "kind": "primary documentation or artifact metadata",
+      "last_recheck": {
+        "observed_revision": "5df75ccad9b74546f5be758a2a68acc2e16bbc9b",
+        "scope": "Current Hub identity matches retained controlled-comparison revision; no weights loaded.",
+        "retrieved_at": "2026-10-18T14:05:42.777065+00:00",
+        "response_sha256": "6a3a3fc86646ac5990f6c1cd812d3ad1d878be8d87fd84469097b403c48ee8ac",
+        "accessed_on": "2026-10-18",
+        "kind": "primary source"
+      }
     },
     "TOPM-GEMMA-TURBO-BENCH": {
       "url": "https://huggingface.co/LilaRest/gemma-4-31B-it-NVFP4-turbo/raw/782d58ea7f9cf3a148be86e153f5689a2d73238b/bench/bench.sh",
@@ -8732,10 +8865,12 @@
       "scope": "Immutable runtime source or official recipe only; no execution.",
       "kind": "primary source code",
       "last_recheck": {
-        "retrieved_at": "2026-10-17T09:55:09.230165+00:00",
+        "kind": "primary source",
+        "retrieved_at": "2026-10-18T14:04:36.792889+00:00",
         "response_sha256": "03bec47631bfd2b70614bfec2b208d87cbcc3ee2a785656e3723574c51f96d03",
-        "claim": "Gemma sets FA4 version preference without forcing FLASH_ATTN backend when backend unset; lower backend gates remain authoritative.",
-        "scope": "Selected primary-source or metadata inspection only; no weights, runtime, tests, B300 performance or uninspected container certification."
+        "accessed_on": "2026-10-18",
+        "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution.",
+        "scope": "Fresh retrieval of the referenced primary artifact for selected v0.32 source/model applicability; no runtime qualification."
       },
       "prior_rechecks": [
         {
@@ -8743,6 +8878,12 @@
           "response_sha256": "03bec47631bfd2b70614bfec2b208d87cbcc3ee2a785656e3723574c51f96d03",
           "claim": "Prefix-enabled hybrid selects align and requires chunked prefill; Qwen respects model FP32 SSM state default",
           "scope": "Selected source or metadata inspection only; no weights, runtime or B300 measurement."
+        },
+        {
+          "retrieved_at": "2026-10-17T09:55:09.230165+00:00",
+          "response_sha256": "03bec47631bfd2b70614bfec2b208d87cbcc3ee2a785656e3723574c51f96d03",
+          "claim": "Gemma sets FA4 version preference without forcing FLASH_ATTN backend when backend unset; lower backend gates remain authoritative.",
+          "scope": "Selected primary-source or metadata inspection only; no weights, runtime, tests, B300 performance or uninspected container certification."
         }
       ]
     },
@@ -8803,7 +8944,7 @@
       "last_recheck": {
         "retrieved_at": "2026-10-17T09:48:25.071786+00:00",
         "response_sha256": "e33d28deab39c42b1c209116296dcb6e98c6da8b4e42ee0dbca0e8bf098c534c",
-        "claim": "423–480 compile hash ignores multimodal config/limits, adds language_model_only",
+        "claim": "423\u2013480 compile hash ignores multimodal config/limits, adds language_model_only",
         "scope": "Selected primary report/source inspection, not engine reproduction or B300 result."
       },
       "prior_rechecks": [
@@ -8839,7 +8980,7 @@
       "retrieved_at": "2026-10-16T10:08:09.989956+00:00",
       "accessed_on": "2026-10-16",
       "response_sha256": "46d3a1dabf7a6df7c789f349a150d0e0710051042511a4a64913395c549af0e0",
-      "claim": "Live recipe still says GemmaMTP nightly-only and suggests4–8tokens; this conflicts with Gemma assistant code present in stable0.31.0 source.",
+      "claim": "Live recipe still says GemmaMTP nightly-only and suggests4\u20138tokens; this conflicts with Gemma assistant code present in stable0.31.0 source.",
       "scope": "Primary text, metadata or immutable runtime source; no execution.",
       "kind": "primary documentation or artifact metadata"
     },
@@ -8905,7 +9046,15 @@
       "response_sha256": "ba36e5f60c79d5b5dc689f7340fee6cbb5365e7d84e5a73255996ba0faba310c",
       "claim": "Current main SHA 1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0; Hub BF16 scalar count 27,781,427,952 for the stored artifact, broader than the rounded 27B language-model headline",
       "scope": "Mutable publisher API",
-      "kind": "primary documentation or artifact metadata"
+      "kind": "primary documentation or artifact metadata",
+      "last_recheck": {
+        "observed_revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
+        "scope": "Current Hub identity matches retained controlled-comparison revision; no weights loaded.",
+        "retrieved_at": "2026-10-18T14:05:42.778110+00:00",
+        "response_sha256": "76a6edc17607bf0f342d01d744360e7edf2d6c54c97f136c47c5c64eb2c6bc18",
+        "accessed_on": "2026-10-18",
+        "kind": "primary source"
+      }
     },
     "TOPQ-27-CFG": {
       "url": "https://huggingface.co/Qwen/Qwen3.8-27B/raw/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/config.json",
@@ -8949,7 +9098,15 @@
       "response_sha256": "a08dd2dbcd72de76ce47d92969c83d09815e31421fa1971709cabb5f88ab1606",
       "claim": "Current main resolves to 017b9c7af6b5689d5dd426a76e0bc077eb5ca20a; unchanged from the prior atlas pin",
       "scope": "Mutable publisher API",
-      "kind": "primary documentation or artifact metadata"
+      "kind": "primary documentation or artifact metadata",
+      "last_recheck": {
+        "observed_revision": "017b9c7af6b5689d5dd426a76e0bc077eb5ca20a",
+        "scope": "Current Hub identity matches retained controlled-comparison revision; no weights loaded.",
+        "retrieved_at": "2026-10-18T14:05:42.799259+00:00",
+        "response_sha256": "866f0ce59347d9e2d8aeb57775efcb697a284af8ee12eabbe37ecba1e13e8668",
+        "accessed_on": "2026-10-18",
+        "kind": "primary source"
+      }
     },
     "TOPQ-27FP8-INDEX": {
       "url": "https://huggingface.co/Qwen/Qwen3.8-27B-FP8/resolve/017b9c7af6b5689d5dd426a76e0bc077eb5ca20a/model.safetensors.index.json",
@@ -8994,7 +9151,15 @@
       "response_sha256": "546546324217d77c47a2441d3793066495699294da76af555d6fb5b470b53456",
       "claim": "Current main resolves to 482ca0f3832238542f8f5295dde86b5f22711d80; unchanged from the prior atlas pin",
       "scope": "Mutable publisher API",
-      "kind": "primary documentation or artifact metadata"
+      "kind": "primary documentation or artifact metadata",
+      "last_recheck": {
+        "observed_revision": "482ca0f3832238542f8f5295dde86b5f22711d80",
+        "scope": "Current Hub identity matches retained controlled-comparison revision; no weights loaded.",
+        "retrieved_at": "2026-10-18T14:05:42.776439+00:00",
+        "response_sha256": "d53f69dbeb528a709da04b1f6d8722a82faae4991c5fbb7086ccab00e1b2c728",
+        "accessed_on": "2026-10-18",
+        "kind": "primary source"
+      }
     },
     "TOPQ-27NV-CARD": {
       "url": "https://huggingface.co/nvidia/Qwen3.8-27B-NVFP4/raw/482ca0f3832238542f8f5295dde86b5f22711d80/README.md",
@@ -9077,11 +9242,21 @@
       "scope": "Mutable publisher API",
       "kind": "primary documentation or artifact metadata",
       "last_recheck": {
-        "retrieved_at": "2026-10-17T09:55:09.863979+00:00",
-        "response_sha256": "89272c8f7f2d429a0f1a92eaff8bf9f5ea0b29e7fea48b1717593d6388e5ee07",
-        "claim": "Fresh publisher metadata confirms immutable base revision de4b8e4d43b917e7706784d8bb445c9af86a3540.",
-        "scope": "Selected primary-source or metadata inspection only; no weights, runtime, tests, B300 performance or uninspected container certification."
-      }
+        "observed_revision": "de4b8e4d43b917e7706784d8bb445c9af86a3540",
+        "scope": "Current Hub identity matches retained controlled-comparison revision; no weights loaded.",
+        "retrieved_at": "2026-10-18T14:05:43.552649+00:00",
+        "response_sha256": "e0947f1b8f3af888a9f815660187c23ae1527e1af2b11fbf9f979e36b836d3b3",
+        "accessed_on": "2026-10-18",
+        "kind": "primary source"
+      },
+      "prior_rechecks": [
+        {
+          "retrieved_at": "2026-10-17T09:55:09.863979+00:00",
+          "response_sha256": "89272c8f7f2d429a0f1a92eaff8bf9f5ea0b29e7fea48b1717593d6388e5ee07",
+          "claim": "Fresh publisher metadata confirms immutable base revision de4b8e4d43b917e7706784d8bb445c9af86a3540.",
+          "scope": "Selected primary-source or metadata inspection only; no weights, runtime, tests, B300 performance or uninspected container certification."
+        }
+      ]
     },
     "TOPQ-NEXT-CFG": {
       "url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next/raw/de4b8e4d43b917e7706784d8bb445c9af86a3540/config.json",
@@ -9116,11 +9291,21 @@
       "scope": "Mutable publisher API",
       "kind": "primary documentation or artifact metadata",
       "last_recheck": {
-        "retrieved_at": "2026-10-17T09:55:09.885404+00:00",
-        "response_sha256": "561dfff8899f6f7606190c58c413204ad9d86bfab7bda3c85a7bf08ed17aa465",
-        "claim": "Fresh publisher metadata confirms official FP8 revision 236dfdf285828023ca3bcd3f37366c58a3469b13.",
-        "scope": "Selected primary-source or metadata inspection only; no weights, runtime, tests, B300 performance or uninspected container certification."
-      }
+        "observed_revision": "236dfdf285828023ca3bcd3f37366c58a3469b13",
+        "scope": "Current Hub identity matches retained controlled-comparison revision; no weights loaded.",
+        "retrieved_at": "2026-10-18T14:05:43.618484+00:00",
+        "response_sha256": "06b496e744068c21eecd2f40456e8bcb9d9198c6e25f85a4d25bdce420370851",
+        "accessed_on": "2026-10-18",
+        "kind": "primary source"
+      },
+      "prior_rechecks": [
+        {
+          "retrieved_at": "2026-10-17T09:55:09.885404+00:00",
+          "response_sha256": "561dfff8899f6f7606190c58c413204ad9d86bfab7bda3c85a7bf08ed17aa465",
+          "claim": "Fresh publisher metadata confirms official FP8 revision 236dfdf285828023ca3bcd3f37366c58a3469b13.",
+          "scope": "Selected primary-source or metadata inspection only; no weights, runtime, tests, B300 performance or uninspected container certification."
+        }
+      ]
     },
     "TOPQ-NEXTFP8-CFG": {
       "url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next-FP8/raw/236dfdf285828023ca3bcd3f37366c58a3469b13/config.json",
@@ -9166,11 +9351,21 @@
       "scope": "Mutable publisher API",
       "kind": "primary documentation or artifact metadata",
       "last_recheck": {
-        "retrieved_at": "2026-10-17T09:55:09.911155+00:00",
-        "response_sha256": "6485070bb9e40eebb4c509c8dd7a6bd74ac187d462cbd6dcbf39b5afb375e04f",
-        "claim": "Fresh publisher metadata confirms NVIDIA mixed revision fc694b54fb0174e0913e6adf86691ef85a4ead47.",
-        "scope": "Selected primary-source or metadata inspection only; no weights, runtime, tests, B300 performance or uninspected container certification."
-      }
+        "observed_revision": "fc694b54fb0174e0913e6adf86691ef85a4ead47",
+        "scope": "Current Hub identity matches retained controlled-comparison revision; no weights loaded.",
+        "retrieved_at": "2026-10-18T14:05:43.587765+00:00",
+        "response_sha256": "be4e64d53024e37e5ea4b408ace40b91c0ef63c51af0f5a68ca6e09feda8d6ce",
+        "accessed_on": "2026-10-18",
+        "kind": "primary source"
+      },
+      "prior_rechecks": [
+        {
+          "retrieved_at": "2026-10-17T09:55:09.911155+00:00",
+          "response_sha256": "6485070bb9e40eebb4c509c8dd7a6bd74ac187d462cbd6dcbf39b5afb375e04f",
+          "claim": "Fresh publisher metadata confirms NVIDIA mixed revision fc694b54fb0174e0913e6adf86691ef85a4ead47.",
+          "scope": "Selected primary-source or metadata inspection only; no weights, runtime, tests, B300 performance or uninspected container certification."
+        }
+      ]
     },
     "TOPQ-SGL-36537": {
       "url": "https://api.github.com/repos/sgl-project/sglang/issues/36537",
@@ -9345,7 +9540,7 @@
       "last_recheck": {
         "retrieved_at": "2026-10-17T09:48:25.056889+00:00",
         "response_sha256": "24d0885dc6425909090b36d3ff731b82460436881ce5bac1e06c77393f192387",
-        "claim": "157–207 official FP8 exclusion list and KV scale loader path",
+        "claim": "157\u2013207 official FP8 exclusion list and KV scale loader path",
         "scope": "Selected source or metadata inspection only; no weights, runtime or B300 measurement."
       },
       "prior_rechecks": [
@@ -9396,10 +9591,12 @@
       "scope": "Immutable stable engine source",
       "kind": "primary source code",
       "last_recheck": {
-        "retrieved_at": "2026-10-17T09:58:18.907389+00:00",
+        "kind": "primary source",
+        "retrieved_at": "2026-10-18T14:04:36.993920+00:00",
         "response_sha256": "88cec427b52bb1cb56842f9034a4d49a915d05302b92b0249227feaf4d81f3e1",
-        "claim": "v0.31 DSpark same-checkpoint resolution and independent proposal width; MistralEAGLE draft length cannot exceed target, revision explicit, draftTP inherits target.",
-        "scope": "Source/document inspection only; no engine execution, model weights, tests or B300 measurements."
+        "accessed_on": "2026-10-18",
+        "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution.",
+        "scope": "Fresh retrieval of the referenced primary artifact for selected v0.32 source/model applicability; no runtime qualification."
       },
       "prior_rechecks": [
         {
@@ -9413,6 +9610,12 @@
           "response_sha256": "88cec427b52bb1cb56842f9034a4d49a915d05302b92b0249227feaf4d81f3e1",
           "claim": "Gemma explicit assistant converts to MTP; method=mtp with no model defaults to target checkpoint and does not discover assistant. Qwen IndexShare fallback false and explicit option supported.",
           "scope": "Selected primary-source or metadata inspection only; no weights, runtime, tests, B300 performance or uninspected container certification."
+        },
+        {
+          "retrieved_at": "2026-10-17T09:58:18.907389+00:00",
+          "response_sha256": "88cec427b52bb1cb56842f9034a4d49a915d05302b92b0249227feaf4d81f3e1",
+          "claim": "v0.31 DSpark same-checkpoint resolution and independent proposal width; MistralEAGLE draft length cannot exceed target, revision explicit, draftTP inherits target.",
+          "scope": "Source/document inspection only; no engine execution, model weights, tests or B300 measurements."
         }
       ]
     },
@@ -9460,12 +9663,25 @@
       "scope": "Metadata only; prior source inspection and binary identities remain separate.",
       "revision": "0f3f1b0e8c88f78e2966e5e73be70224bb7c20dd",
       "last_recheck": {
-        "retrieved_at": "2026-10-17T09:46:31.227244+00:00",
-        "accessed_on": "2026-10-17",
+        "scope": "Upstream release/branch/development artifact metadata; no binary execution.",
+        "retrieved_at": "2026-10-18T14:03:39.854292+00:00",
         "response_sha256": "fea423cb1813abf77b7b10192b8b4322bd750c102c54e07997cfe4e5f22fb91f",
-        "scope": "Release or branch metadata recheck; no binary execution, image verification or complete source-tree review.",
-        "claim": "Observed head 5d738906d22e003166d09ae28733366420e30d8d at 2026-10-17T03:20:35Z; branch observation alone does not establish runtime support."
-      }
+        "accessed_on": "2026-10-18",
+        "kind": "primary upstream metadata",
+        "method": "HTTP response retrieval",
+        "observed_commit": "5d738906d22e003166d09ae28733366420e30d8d",
+        "commit_date": "2026-10-17T03:20:35Z",
+        "claim": "Current branch metadata only; selected release source review has a separate SHA."
+      },
+      "prior_rechecks": [
+        {
+          "retrieved_at": "2026-10-17T09:46:31.227244+00:00",
+          "accessed_on": "2026-10-17",
+          "response_sha256": "fea423cb1813abf77b7b10192b8b4322bd750c102c54e07997cfe4e5f22fb91f",
+          "scope": "Release or branch metadata recheck; no binary execution, image verification or complete source-tree review.",
+          "claim": "Observed head 5d738906d22e003166d09ae28733366420e30d8d at 2026-10-17T03:20:35Z; branch observation alone does not establish runtime support."
+        }
+      ]
     },
     "TOPR-K-RELEASE": {
       "url": "https://api.github.com/repos/kserve/kserve/releases/latest",
@@ -9478,12 +9694,26 @@
       "scope": "Metadata only; prior source inspection and binary identities remain separate.",
       "observed_tag": "v0.21.0",
       "last_recheck": {
-        "retrieved_at": "2026-10-17T09:46:31.067284+00:00",
-        "accessed_on": "2026-10-17",
-        "response_sha256": "6ef4b10b0edf534d233bd59cdf3461f629ebaf1973d6755ba1fbe9cf10ce39ca",
-        "scope": "Release or branch metadata recheck; no binary execution, image verification or complete source-tree review.",
-        "claim": "Latest non-prerelease: v0.21.0; published 2026-09-25T17:04:20Z; draft=False; prerelease=False."
-      }
+        "scope": "Upstream release/branch/development artifact metadata; no binary execution.",
+        "retrieved_at": "2026-10-18T14:03:39.690683+00:00",
+        "response_sha256": "ac8ef260a352a92401356e1191f25356c34a46d4fd6d1bca2581aa43a61ceeb0",
+        "accessed_on": "2026-10-18",
+        "kind": "primary upstream metadata",
+        "method": "HTTP response retrieval",
+        "observed_tag": "v0.21.0",
+        "published_at": "2026-09-25T17:04:20Z",
+        "claim": "Latest stable release observed on October 18; not the installed deployment version.",
+        "observed_commit": "d1482554fc4f66dd41aee70e01f5174e24f265bd"
+      },
+      "prior_rechecks": [
+        {
+          "retrieved_at": "2026-10-17T09:46:31.067284+00:00",
+          "accessed_on": "2026-10-17",
+          "response_sha256": "6ef4b10b0edf534d233bd59cdf3461f629ebaf1973d6755ba1fbe9cf10ce39ca",
+          "scope": "Release or branch metadata recheck; no binary execution, image verification or complete source-tree review.",
+          "claim": "Latest non-prerelease: v0.21.0; published 2026-09-25T17:04:20Z; draft=False; prerelease=False."
+        }
+      ]
     },
     "TOPR-NCCL-ENV": {
       "url": "https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/env.html",
@@ -9529,12 +9759,25 @@
       "scope": "Metadata only; prior source inspection and binary identities remain separate.",
       "revision": "2adc76ad61a9c036304716a4548093b1b27b10fb",
       "last_recheck": {
-        "retrieved_at": "2026-10-17T09:46:31.048997+00:00",
-        "accessed_on": "2026-10-17",
-        "response_sha256": "87dc5544ca3f2d47719e5de567f14e43143f318ee79ddd26967cdb181e04f94b",
-        "scope": "Release or branch metadata recheck; no binary execution, image verification or complete source-tree review.",
-        "claim": "Observed head a126e8d640c707f855e8da31f906035883f4ff70 at 2026-10-17T09:45:53Z; branch observation alone does not establish runtime support."
-      }
+        "scope": "Upstream release/branch/development artifact metadata; no binary execution.",
+        "retrieved_at": "2026-10-18T14:03:39.861782+00:00",
+        "response_sha256": "1dd655272c8a03bd8f8d93c0fd8e1966023f752184e03990284a1cc261606c7d",
+        "accessed_on": "2026-10-18",
+        "kind": "primary upstream metadata",
+        "method": "HTTP response retrieval",
+        "observed_commit": "57db5089c207ae4ce189cc092a89a2027c8aea29",
+        "commit_date": "2026-10-18T12:42:16Z",
+        "claim": "Current branch metadata only; selected release source review has a separate SHA."
+      },
+      "prior_rechecks": [
+        {
+          "retrieved_at": "2026-10-17T09:46:31.048997+00:00",
+          "accessed_on": "2026-10-17",
+          "response_sha256": "87dc5544ca3f2d47719e5de567f14e43143f318ee79ddd26967cdb181e04f94b",
+          "scope": "Release or branch metadata recheck; no binary execution, image verification or complete source-tree review.",
+          "claim": "Observed head a126e8d640c707f855e8da31f906035883f4ff70 at 2026-10-17T09:45:53Z; branch observation alone does not establish runtime support."
+        }
+      ]
     },
     "TOPR-S-RELEASE": {
       "url": "https://api.github.com/repos/sgl-project/sglang/releases/latest",
@@ -9547,12 +9790,26 @@
       "scope": "Metadata only; prior source inspection and binary identities remain separate.",
       "observed_tag": "v0.5.21",
       "last_recheck": {
-        "retrieved_at": "2026-10-17T09:46:31.063115+00:00",
-        "accessed_on": "2026-10-17",
+        "scope": "Upstream release/branch/development artifact metadata; no binary execution.",
+        "retrieved_at": "2026-10-18T14:03:39.690369+00:00",
         "response_sha256": "eaf401087605280b42d2c4648a618413fb5c1150599c8b5521a92bed6b6117b9",
-        "scope": "Release or branch metadata recheck; no binary execution, image verification or complete source-tree review.",
-        "claim": "Latest non-prerelease: v0.5.21; published 2026-10-02T01:09:04Z; draft=False; prerelease=False."
-      }
+        "accessed_on": "2026-10-18",
+        "kind": "primary upstream metadata",
+        "method": "HTTP response retrieval",
+        "observed_tag": "v0.5.21",
+        "published_at": "2026-10-02T01:09:04Z",
+        "claim": "Latest stable release observed on October 18; not the installed deployment version.",
+        "observed_commit": "e00930c5489053f26d86b179cee0d087f846acbb"
+      },
+      "prior_rechecks": [
+        {
+          "retrieved_at": "2026-10-17T09:46:31.063115+00:00",
+          "accessed_on": "2026-10-17",
+          "response_sha256": "eaf401087605280b42d2c4648a618413fb5c1150599c8b5521a92bed6b6117b9",
+          "scope": "Release or branch metadata recheck; no binary execution, image verification or complete source-tree review.",
+          "claim": "Latest non-prerelease: v0.5.21; published 2026-10-02T01:09:04Z; draft=False; prerelease=False."
+        }
+      ]
     },
     "TOPR-S-WHEELS": {
       "url": "https://sgl-project.github.io/whl/cu130/sglang/",
@@ -9564,190 +9821,204 @@
       "claim": "Fresh release, main or advertised development artifact identity; no binary execution.",
       "scope": "Metadata only; prior source inspection and binary identities remain separate.",
       "last_recheck": {
-        "retrieved_at": "2026-10-17T09:47:30.036868+00:00",
-        "accessed_on": "2026-10-17",
-        "response_sha256": "6c61fec073a1da681daf29475d7d78c81922d471388ecb800e93b46b2d890ac6",
-        "scope": "Advertised filenames only; no wheel download or runtime qualification.",
+        "scope": "Upstream release/branch/development artifact metadata; no binary execution.",
+        "retrieved_at": "2026-10-18T14:03:39.880029+00:00",
+        "response_sha256": "ddefbb4cc418bd13dd1cf82f5b8607bdd7e944f382b1d7bdcf918241abe61e2a",
+        "accessed_on": "2026-10-18",
+        "kind": "primary upstream metadata",
+        "method": "HTTP response retrieval",
         "observed_versions": [
-          "sglang-0.5.11.dev20260430+g2f13d2831",
-          "sglang-0.5.11.dev20260501+g9d8426870",
-          "sglang-0.5.11.dev20260502+gd41e8c459",
-          "sglang-0.5.11.dev20260503+g76b9c8de6",
-          "sglang-0.5.11.dev20260504+g91fa2340e",
-          "sglang-0.5.11.dev20260505+g2b769d37a",
-          "sglang-0.5.12.dev20260506+gb2420d72f",
-          "sglang-0.5.12.dev20260507+g65ce9965c",
-          "sglang-0.5.12.dev20260508+g5fa3bb2ea",
-          "sglang-0.5.12.dev20260509+g096ad02b0",
-          "sglang-0.5.12.dev20260509+g590b13b51",
-          "sglang-0.5.12.dev20260510+gc95454b34",
-          "sglang-0.5.12.dev20260511+g126a36a98",
-          "sglang-0.5.12.dev20260512+g10375a103",
-          "sglang-0.5.12.dev20260513+g6140e45ef",
-          "sglang-0.5.12.dev20260514+gb71d74673",
-          "sglang-0.5.12.dev20260515+gd89b678d6",
-          "sglang-0.5.12.dev20260516+gce2506e1c",
-          "sglang-0.5.13.dev20260517+g229cadec0",
-          "sglang-0.5.13.dev20260518+g784fe7e99",
-          "sglang-0.5.13.dev20260519+gd8e66e54e",
-          "sglang-0.5.13.dev20260520+g5fe655bf2",
-          "sglang-0.5.13.dev20260521+g74c6294ba",
-          "sglang-0.5.13.dev20260522+g8b473aa0b",
-          "sglang-0.5.13.dev20260523+gc69844f04",
-          "sglang-0.5.13.dev20260524+gaf8f66940",
-          "sglang-0.5.13.dev20260525+ge86fdf3a3",
-          "sglang-0.5.13.dev20260526+g156d1af23",
-          "sglang-0.5.13.dev20260527+g0c34fc5ac",
-          "sglang-0.5.13.dev20260528+g9fea20a07",
-          "sglang-0.5.13.dev20260529+g36d0a6e08",
-          "sglang-0.5.13.dev20260530+g804f01a82",
-          "sglang-0.5.13.dev20260531+g376635c1e",
-          "sglang-0.5.13.dev20260601+g61cc70e8a",
-          "sglang-0.5.13.dev20260602+g9fe8b7291",
-          "sglang-0.5.13.dev20260603+g71a747cf1",
-          "sglang-0.5.13.dev20260604+g3b7a258f6",
-          "sglang-0.5.13.dev20260605+gc6c1f1a29",
-          "sglang-0.5.13.dev20260606+ge8668508d",
-          "sglang-0.5.13.dev20260607+g52f221cce",
-          "sglang-0.5.13.dev20260608+gacf65c1c6",
-          "sglang-0.5.13.dev20260609+g0f8673851c",
-          "sglang-0.5.13.dev20260610+gd21c31f681",
-          "sglang-0.5.13.dev20260611+gf8b0a120b8",
-          "sglang-0.5.14.dev20260612+g40894be3c3",
-          "sglang-0.5.14.dev20260613+ga0c6e0b3a4",
-          "sglang-0.5.14.dev20260614+ga3fd5c24be",
-          "sglang-0.5.14.dev20260615+g0417951a86",
-          "sglang-0.5.14.dev20260616+gb23477af44",
-          "sglang-0.5.14.dev20260617+gc17190c059",
-          "sglang-0.5.14.dev20260618+g343aeeef39",
-          "sglang-0.5.14.dev20260618+g97e3b8998d",
-          "sglang-0.5.14.dev20260618+gbb9d31f22d",
-          "sglang-0.5.14.dev20260618+gd27d8b24de",
-          "sglang-0.5.14.dev20260619+gfac11f3bc1",
-          "sglang-0.5.14.dev20260620+g7516f0db9f",
-          "sglang-0.5.14.dev20260621+gc65f4ea692",
-          "sglang-0.5.14.dev20260622+g73448b0d70",
-          "sglang-0.5.14.dev20260623+g6cd8d2869b",
-          "sglang-0.5.14.dev20260624+g52b89c4948",
-          "sglang-0.5.14.dev20260625+g8b7a1e908a",
-          "sglang-0.5.15.dev20260626+g30ea4c0f4b",
-          "sglang-0.5.15.dev20260627+g09ca4fc96b",
-          "sglang-0.5.15.dev20260628+g4e6ce8e4ab",
-          "sglang-0.5.15.dev20260629+g06fd2efedd",
-          "sglang-0.5.15.dev20260630+g8dbf04fc56",
-          "sglang-0.5.15.dev20260701+ga7390b17f8",
-          "sglang-0.5.15.dev20260702+g0ae76117ef",
-          "sglang-0.5.15.dev20260702+gbac351d617",
-          "sglang-0.5.15.dev20260703+gd8a4f7a7aa",
-          "sglang-0.5.15.dev20260704+g5af1f949ca",
-          "sglang-0.5.15.dev20260705+g5e6f49c986",
-          "sglang-0.5.15.dev20260706+gc9ceab34cf",
-          "sglang-0.5.15.dev20260707+g3a679459e5",
-          "sglang-0.5.15.dev20260708+gf3c3eea608",
-          "sglang-0.5.15.dev20260709+g3b43df5b6d",
-          "sglang-0.5.15.dev20260710+g7966f6be86",
-          "sglang-0.5.16.dev20260711+ge3ceccf781",
-          "sglang-0.5.16.dev20260712+ga358abd651",
-          "sglang-0.5.16.dev20260713+g4cec9ef9d7",
-          "sglang-0.5.16.dev20260714+g23b2c6f1ce",
-          "sglang-0.5.16.dev20260715+g4ae9cc3c81",
-          "sglang-0.5.16.dev20260716+g22453ca63c",
-          "sglang-0.5.16.dev20260717+g7355e0cb87",
-          "sglang-0.5.16.dev20260718+g359009fa00",
-          "sglang-0.5.16.dev20260719+g99f5a6f46b",
-          "sglang-0.5.16.dev20260720+g1f637a65b9",
-          "sglang-0.5.16.dev20260721+gd6ef68881e",
-          "sglang-0.5.16.dev20260722+gd708969f68",
-          "sglang-0.5.16.dev20260723+ga2935ce329",
-          "sglang-0.5.16.dev20260724+gbd3f6a7935",
-          "sglang-0.5.17.dev20260725+g95865de24f",
-          "sglang-0.5.17.dev20260726+g2cbddb842d",
-          "sglang-0.5.17.dev20260727+gabb8f4b5e3",
-          "sglang-0.5.17.dev20260728+gb79388f338",
-          "sglang-0.5.17.dev20260729+gb21cc8eb9b",
-          "sglang-0.5.17.dev20260730+ged361ae7f0",
-          "sglang-0.5.17.dev20260731+gc039e1a7ee",
-          "sglang-0.5.17.dev20260801+ge1964da451",
-          "sglang-0.5.17.dev20260802+g131bd51b01",
-          "sglang-0.5.17.dev20260803+gdd6ddc053b",
-          "sglang-0.5.17.dev20260804+g1e64fc1563",
-          "sglang-0.5.17.dev20260805+g6c05aaae7e",
-          "sglang-0.5.17.dev20260806+g407a65d3cb",
-          "sglang-0.5.17.dev20260807+g163b739b34",
-          "sglang-0.5.18.dev20260808+g52afe87a08",
-          "sglang-0.5.18.dev20260809+gf6cbdc1dd1",
-          "sglang-0.5.18.dev20260810+g7331287c1c",
-          "sglang-0.5.18.dev20260811+g8d050dd880",
-          "sglang-0.5.18.dev20260812+g2be9773a21",
-          "sglang-0.5.18.dev20260813+g5efe9b104d",
-          "sglang-0.5.18.dev20260814+g85cdf1178d",
-          "sglang-0.5.18.dev20260815+g6eb941a34c",
-          "sglang-0.5.18.dev20260816+g4c0e85524d",
-          "sglang-0.5.18.dev20260817+gf019f0b064",
-          "sglang-0.5.18.dev20260818+g7f51e6bba0",
-          "sglang-0.5.18.dev20260819+geb085524c8",
-          "sglang-0.5.18.dev20260820+g238ba40c27",
-          "sglang-0.5.18.dev20260821+ge0cf75d9bd",
-          "sglang-0.5.19.dev20260822+g5662c03363",
-          "sglang-0.5.19.dev20260823+gbbbcbf9418",
-          "sglang-0.5.19.dev20260824+gfd73d4b019",
-          "sglang-0.5.19.dev20260825+g1fa32d50e1",
-          "sglang-0.5.19.dev20260826+g4ae30dc736",
-          "sglang-0.5.19.dev20260827+g02dfd37826",
-          "sglang-0.5.19.dev20260828+g7088f21922",
-          "sglang-0.5.19.dev20260829+g51c18d9aa8",
-          "sglang-0.5.19.dev20260830+ged39568e79",
-          "sglang-0.5.19.dev20260831+ga9d5ca723a",
-          "sglang-0.5.19.dev20260901+g783af667fb",
-          "sglang-0.5.19.dev20260902+g403a15c163",
-          "sglang-0.5.19.dev20260903+g28262c20df",
-          "sglang-0.5.19.dev20260904+g8770c1db1f",
-          "sglang-0.5.20.dev20260905+gf1f2380d2b",
-          "sglang-0.5.20.dev20260906+gfebb360519",
-          "sglang-0.5.20.dev20260907+gb9b39f222d",
-          "sglang-0.5.20.dev20260908+ge31e5319a0",
-          "sglang-0.5.20.dev20260909+g8ab9982851",
-          "sglang-0.5.20.dev20260910+g9a1b1d2d5e",
-          "sglang-0.5.20.dev20260911+g2adb2e8485",
-          "sglang-0.5.20.dev20260912+ge91c948057",
-          "sglang-0.5.20.dev20260913+g23bc4c6ed9",
-          "sglang-0.5.20.dev20260914+g6410800af9",
-          "sglang-0.5.20.dev20260915+ge89d8facab",
-          "sglang-0.5.20.dev20260916+gd4ad368ed9",
-          "sglang-0.5.20.dev20260917+g4793f56835",
-          "sglang-0.5.20.dev20260918+g0214954f26",
-          "sglang-0.5.21.dev20260919+gc475ac5eaf",
-          "sglang-0.5.21.dev20260920+ge9300f643e",
-          "sglang-0.5.21.dev20260921+g176dbcb85d",
-          "sglang-0.5.21.dev20260922+g15eba3b464",
-          "sglang-0.5.21.dev20260923+g2e3568567b",
-          "sglang-0.5.21.dev20260924+g8b5d77c268",
-          "sglang-0.5.21.dev20260925+g6103a8c743",
-          "sglang-0.5.21.dev20260926+g63d320c723",
-          "sglang-0.5.21.dev20260927+g425a1f8f24",
-          "sglang-0.5.21.dev20260928+gcc012abd21",
-          "sglang-0.5.21.dev20260929+g77091cea68",
-          "sglang-0.5.21.dev20260930+g7b30ff26ee",
-          "sglang-0.5.21.dev20261001+g99c59a2ea6",
-          "sglang-0.5.22.dev20261002+gef867fa40d",
-          "sglang-0.5.22.dev20261003+g482b062d28",
-          "sglang-0.5.22.dev20261004+gff219e159e",
-          "sglang-0.5.22.dev20261005+gf385390be5",
-          "sglang-0.5.22.dev20261006+ged75fe67f1",
-          "sglang-0.5.22.dev20261007+g2f6e0ec45d",
-          "sglang-0.5.22.dev20261008+g99463390f8",
-          "sglang-0.5.22.dev20261009+g37ae292e6f",
-          "sglang-0.5.22.dev20261009+gf6569bce4d",
-          "sglang-0.5.22.dev20261010+g465253ef52",
-          "sglang-0.5.22.dev20261011+ge1f43c9a61",
-          "sglang-0.5.22.dev20261012+gd0a098b2e0",
-          "sglang-0.5.22.dev20261013+g43e4e84731",
-          "sglang-0.5.22.dev20261014+g44b44774c3",
-          "sglang-0.5.22.dev20261015+ga12814c158",
-          "sglang-0.5.23.dev20261016+gf9df33494a",
-          "sglang-0.5.23.dev20261017+g2d3dd3168d"
-        ]
-      }
+          "0.5.23.dev20261018+g14ad64c411"
+        ],
+        "claim": "Advertised CUDA13 wheel identity only; no binary download or verification."
+      },
+      "prior_rechecks": [
+        {
+          "retrieved_at": "2026-10-17T09:47:30.036868+00:00",
+          "accessed_on": "2026-10-17",
+          "response_sha256": "6c61fec073a1da681daf29475d7d78c81922d471388ecb800e93b46b2d890ac6",
+          "scope": "Advertised filenames only; no wheel download or runtime qualification.",
+          "observed_versions": [
+            "sglang-0.5.11.dev20260430+g2f13d2831",
+            "sglang-0.5.11.dev20260501+g9d8426870",
+            "sglang-0.5.11.dev20260502+gd41e8c459",
+            "sglang-0.5.11.dev20260503+g76b9c8de6",
+            "sglang-0.5.11.dev20260504+g91fa2340e",
+            "sglang-0.5.11.dev20260505+g2b769d37a",
+            "sglang-0.5.12.dev20260506+gb2420d72f",
+            "sglang-0.5.12.dev20260507+g65ce9965c",
+            "sglang-0.5.12.dev20260508+g5fa3bb2ea",
+            "sglang-0.5.12.dev20260509+g096ad02b0",
+            "sglang-0.5.12.dev20260509+g590b13b51",
+            "sglang-0.5.12.dev20260510+gc95454b34",
+            "sglang-0.5.12.dev20260511+g126a36a98",
+            "sglang-0.5.12.dev20260512+g10375a103",
+            "sglang-0.5.12.dev20260513+g6140e45ef",
+            "sglang-0.5.12.dev20260514+gb71d74673",
+            "sglang-0.5.12.dev20260515+gd89b678d6",
+            "sglang-0.5.12.dev20260516+gce2506e1c",
+            "sglang-0.5.13.dev20260517+g229cadec0",
+            "sglang-0.5.13.dev20260518+g784fe7e99",
+            "sglang-0.5.13.dev20260519+gd8e66e54e",
+            "sglang-0.5.13.dev20260520+g5fe655bf2",
+            "sglang-0.5.13.dev20260521+g74c6294ba",
+            "sglang-0.5.13.dev20260522+g8b473aa0b",
+            "sglang-0.5.13.dev20260523+gc69844f04",
+            "sglang-0.5.13.dev20260524+gaf8f66940",
+            "sglang-0.5.13.dev20260525+ge86fdf3a3",
+            "sglang-0.5.13.dev20260526+g156d1af23",
+            "sglang-0.5.13.dev20260527+g0c34fc5ac",
+            "sglang-0.5.13.dev20260528+g9fea20a07",
+            "sglang-0.5.13.dev20260529+g36d0a6e08",
+            "sglang-0.5.13.dev20260530+g804f01a82",
+            "sglang-0.5.13.dev20260531+g376635c1e",
+            "sglang-0.5.13.dev20260601+g61cc70e8a",
+            "sglang-0.5.13.dev20260602+g9fe8b7291",
+            "sglang-0.5.13.dev20260603+g71a747cf1",
+            "sglang-0.5.13.dev20260604+g3b7a258f6",
+            "sglang-0.5.13.dev20260605+gc6c1f1a29",
+            "sglang-0.5.13.dev20260606+ge8668508d",
+            "sglang-0.5.13.dev20260607+g52f221cce",
+            "sglang-0.5.13.dev20260608+gacf65c1c6",
+            "sglang-0.5.13.dev20260609+g0f8673851c",
+            "sglang-0.5.13.dev20260610+gd21c31f681",
+            "sglang-0.5.13.dev20260611+gf8b0a120b8",
+            "sglang-0.5.14.dev20260612+g40894be3c3",
+            "sglang-0.5.14.dev20260613+ga0c6e0b3a4",
+            "sglang-0.5.14.dev20260614+ga3fd5c24be",
+            "sglang-0.5.14.dev20260615+g0417951a86",
+            "sglang-0.5.14.dev20260616+gb23477af44",
+            "sglang-0.5.14.dev20260617+gc17190c059",
+            "sglang-0.5.14.dev20260618+g343aeeef39",
+            "sglang-0.5.14.dev20260618+g97e3b8998d",
+            "sglang-0.5.14.dev20260618+gbb9d31f22d",
+            "sglang-0.5.14.dev20260618+gd27d8b24de",
+            "sglang-0.5.14.dev20260619+gfac11f3bc1",
+            "sglang-0.5.14.dev20260620+g7516f0db9f",
+            "sglang-0.5.14.dev20260621+gc65f4ea692",
+            "sglang-0.5.14.dev20260622+g73448b0d70",
+            "sglang-0.5.14.dev20260623+g6cd8d2869b",
+            "sglang-0.5.14.dev20260624+g52b89c4948",
+            "sglang-0.5.14.dev20260625+g8b7a1e908a",
+            "sglang-0.5.15.dev20260626+g30ea4c0f4b",
+            "sglang-0.5.15.dev20260627+g09ca4fc96b",
+            "sglang-0.5.15.dev20260628+g4e6ce8e4ab",
+            "sglang-0.5.15.dev20260629+g06fd2efedd",
+            "sglang-0.5.15.dev20260630+g8dbf04fc56",
+            "sglang-0.5.15.dev20260701+ga7390b17f8",
+            "sglang-0.5.15.dev20260702+g0ae76117ef",
+            "sglang-0.5.15.dev20260702+gbac351d617",
+            "sglang-0.5.15.dev20260703+gd8a4f7a7aa",
+            "sglang-0.5.15.dev20260704+g5af1f949ca",
+            "sglang-0.5.15.dev20260705+g5e6f49c986",
+            "sglang-0.5.15.dev20260706+gc9ceab34cf",
+            "sglang-0.5.15.dev20260707+g3a679459e5",
+            "sglang-0.5.15.dev20260708+gf3c3eea608",
+            "sglang-0.5.15.dev20260709+g3b43df5b6d",
+            "sglang-0.5.15.dev20260710+g7966f6be86",
+            "sglang-0.5.16.dev20260711+ge3ceccf781",
+            "sglang-0.5.16.dev20260712+ga358abd651",
+            "sglang-0.5.16.dev20260713+g4cec9ef9d7",
+            "sglang-0.5.16.dev20260714+g23b2c6f1ce",
+            "sglang-0.5.16.dev20260715+g4ae9cc3c81",
+            "sglang-0.5.16.dev20260716+g22453ca63c",
+            "sglang-0.5.16.dev20260717+g7355e0cb87",
+            "sglang-0.5.16.dev20260718+g359009fa00",
+            "sglang-0.5.16.dev20260719+g99f5a6f46b",
+            "sglang-0.5.16.dev20260720+g1f637a65b9",
+            "sglang-0.5.16.dev20260721+gd6ef68881e",
+            "sglang-0.5.16.dev20260722+gd708969f68",
+            "sglang-0.5.16.dev20260723+ga2935ce329",
+            "sglang-0.5.16.dev20260724+gbd3f6a7935",
+            "sglang-0.5.17.dev20260725+g95865de24f",
+            "sglang-0.5.17.dev20260726+g2cbddb842d",
+            "sglang-0.5.17.dev20260727+gabb8f4b5e3",
+            "sglang-0.5.17.dev20260728+gb79388f338",
+            "sglang-0.5.17.dev20260729+gb21cc8eb9b",
+            "sglang-0.5.17.dev20260730+ged361ae7f0",
+            "sglang-0.5.17.dev20260731+gc039e1a7ee",
+            "sglang-0.5.17.dev20260801+ge1964da451",
+            "sglang-0.5.17.dev20260802+g131bd51b01",
+            "sglang-0.5.17.dev20260803+gdd6ddc053b",
+            "sglang-0.5.17.dev20260804+g1e64fc1563",
+            "sglang-0.5.17.dev20260805+g6c05aaae7e",
+            "sglang-0.5.17.dev20260806+g407a65d3cb",
+            "sglang-0.5.17.dev20260807+g163b739b34",
+            "sglang-0.5.18.dev20260808+g52afe87a08",
+            "sglang-0.5.18.dev20260809+gf6cbdc1dd1",
+            "sglang-0.5.18.dev20260810+g7331287c1c",
+            "sglang-0.5.18.dev20260811+g8d050dd880",
+            "sglang-0.5.18.dev20260812+g2be9773a21",
+            "sglang-0.5.18.dev20260813+g5efe9b104d",
+            "sglang-0.5.18.dev20260814+g85cdf1178d",
+            "sglang-0.5.18.dev20260815+g6eb941a34c",
+            "sglang-0.5.18.dev20260816+g4c0e85524d",
+            "sglang-0.5.18.dev20260817+gf019f0b064",
+            "sglang-0.5.18.dev20260818+g7f51e6bba0",
+            "sglang-0.5.18.dev20260819+geb085524c8",
+            "sglang-0.5.18.dev20260820+g238ba40c27",
+            "sglang-0.5.18.dev20260821+ge0cf75d9bd",
+            "sglang-0.5.19.dev20260822+g5662c03363",
+            "sglang-0.5.19.dev20260823+gbbbcbf9418",
+            "sglang-0.5.19.dev20260824+gfd73d4b019",
+            "sglang-0.5.19.dev20260825+g1fa32d50e1",
+            "sglang-0.5.19.dev20260826+g4ae30dc736",
+            "sglang-0.5.19.dev20260827+g02dfd37826",
+            "sglang-0.5.19.dev20260828+g7088f21922",
+            "sglang-0.5.19.dev20260829+g51c18d9aa8",
+            "sglang-0.5.19.dev20260830+ged39568e79",
+            "sglang-0.5.19.dev20260831+ga9d5ca723a",
+            "sglang-0.5.19.dev20260901+g783af667fb",
+            "sglang-0.5.19.dev20260902+g403a15c163",
+            "sglang-0.5.19.dev20260903+g28262c20df",
+            "sglang-0.5.19.dev20260904+g8770c1db1f",
+            "sglang-0.5.20.dev20260905+gf1f2380d2b",
+            "sglang-0.5.20.dev20260906+gfebb360519",
+            "sglang-0.5.20.dev20260907+gb9b39f222d",
+            "sglang-0.5.20.dev20260908+ge31e5319a0",
+            "sglang-0.5.20.dev20260909+g8ab9982851",
+            "sglang-0.5.20.dev20260910+g9a1b1d2d5e",
+            "sglang-0.5.20.dev20260911+g2adb2e8485",
+            "sglang-0.5.20.dev20260912+ge91c948057",
+            "sglang-0.5.20.dev20260913+g23bc4c6ed9",
+            "sglang-0.5.20.dev20260914+g6410800af9",
+            "sglang-0.5.20.dev20260915+ge89d8facab",
+            "sglang-0.5.20.dev20260916+gd4ad368ed9",
+            "sglang-0.5.20.dev20260917+g4793f56835",
+            "sglang-0.5.20.dev20260918+g0214954f26",
+            "sglang-0.5.21.dev20260919+gc475ac5eaf",
+            "sglang-0.5.21.dev20260920+ge9300f643e",
+            "sglang-0.5.21.dev20260921+g176dbcb85d",
+            "sglang-0.5.21.dev20260922+g15eba3b464",
+            "sglang-0.5.21.dev20260923+g2e3568567b",
+            "sglang-0.5.21.dev20260924+g8b5d77c268",
+            "sglang-0.5.21.dev20260925+g6103a8c743",
+            "sglang-0.5.21.dev20260926+g63d320c723",
+            "sglang-0.5.21.dev20260927+g425a1f8f24",
+            "sglang-0.5.21.dev20260928+gcc012abd21",
+            "sglang-0.5.21.dev20260929+g77091cea68",
+            "sglang-0.5.21.dev20260930+g7b30ff26ee",
+            "sglang-0.5.21.dev20261001+g99c59a2ea6",
+            "sglang-0.5.22.dev20261002+gef867fa40d",
+            "sglang-0.5.22.dev20261003+g482b062d28",
+            "sglang-0.5.22.dev20261004+gff219e159e",
+            "sglang-0.5.22.dev20261005+gf385390be5",
+            "sglang-0.5.22.dev20261006+ged75fe67f1",
+            "sglang-0.5.22.dev20261007+g2f6e0ec45d",
+            "sglang-0.5.22.dev20261008+g99463390f8",
+            "sglang-0.5.22.dev20261009+g37ae292e6f",
+            "sglang-0.5.22.dev20261009+gf6569bce4d",
+            "sglang-0.5.22.dev20261010+g465253ef52",
+            "sglang-0.5.22.dev20261011+ge1f43c9a61",
+            "sglang-0.5.22.dev20261012+gd0a098b2e0",
+            "sglang-0.5.22.dev20261013+g43e4e84731",
+            "sglang-0.5.22.dev20261014+g44b44774c3",
+            "sglang-0.5.22.dev20261015+ga12814c158",
+            "sglang-0.5.23.dev20261016+gf9df33494a",
+            "sglang-0.5.23.dev20261017+g2d3dd3168d"
+          ]
+        }
+      ]
     },
     "TOPR-V-CACHE": {
       "url": "https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/config/cache.py",
@@ -9810,12 +10081,25 @@
       "scope": "Metadata only; prior source inspection and binary identities remain separate.",
       "revision": "9a16d43ef0413b0a2a222e7f5baa4498c291ae5b",
       "last_recheck": {
-        "retrieved_at": "2026-10-17T09:46:31.049596+00:00",
-        "accessed_on": "2026-10-17",
-        "response_sha256": "b3dd2a44b25a6386f33e6f6d95b755da7113dd6ed52b0b7d1b2fec01eead17fe",
-        "scope": "Release or branch metadata recheck; no binary execution, image verification or complete source-tree review.",
-        "claim": "Observed head 026f6ab2689397e64c1f53a5ac57d37c4dc46b67 at 2026-10-17T09:37:56Z; branch observation alone does not establish runtime support."
-      }
+        "scope": "Upstream release/branch/development artifact metadata; no binary execution.",
+        "retrieved_at": "2026-10-18T14:03:39.656330+00:00",
+        "response_sha256": "8c3cbb59553e93656fcdd04a80244cfa17dc7bab4417d67cc0514eac13cc1a02",
+        "accessed_on": "2026-10-18",
+        "kind": "primary upstream metadata",
+        "method": "HTTP response retrieval",
+        "observed_commit": "371745ebd6c12f314402c6c319de2e7ef82c2981",
+        "commit_date": "2026-10-18T13:11:45Z",
+        "claim": "Current branch metadata only; selected release source review has a separate SHA."
+      },
+      "prior_rechecks": [
+        {
+          "retrieved_at": "2026-10-17T09:46:31.049596+00:00",
+          "accessed_on": "2026-10-17",
+          "response_sha256": "b3dd2a44b25a6386f33e6f6d95b755da7113dd6ed52b0b7d1b2fec01eead17fe",
+          "scope": "Release or branch metadata recheck; no binary execution, image verification or complete source-tree review.",
+          "claim": "Observed head 026f6ab2689397e64c1f53a5ac57d37c4dc46b67 at 2026-10-17T09:37:56Z; branch observation alone does not establish runtime support."
+        }
+      ]
     },
     "TOPR-V-RELEASE": {
       "url": "https://api.github.com/repos/vllm-project/vllm/releases/latest",
@@ -9828,12 +10112,26 @@
       "scope": "Metadata only; prior source inspection and binary identities remain separate.",
       "observed_tag": "v0.31.0",
       "last_recheck": {
-        "retrieved_at": "2026-10-17T09:46:31.063803+00:00",
-        "accessed_on": "2026-10-17",
-        "response_sha256": "79e589cb2818a89f6d52776257b39afecfd9f5c0c640f78bbb99dddd4c8d6d68",
-        "scope": "Release or branch metadata recheck; no binary execution, image verification or complete source-tree review.",
-        "claim": "Latest non-prerelease: v0.31.0; published 2026-10-05T06:44:55Z; draft=False; prerelease=False."
-      }
+        "scope": "Upstream release/branch/development artifact metadata; no binary execution.",
+        "retrieved_at": "2026-10-18T14:03:39.685591+00:00",
+        "response_sha256": "b536bff06644dfcf105ab49a943773c0d3744ece6e03012b6a9c8ff2aeddc2bf",
+        "accessed_on": "2026-10-18",
+        "kind": "primary upstream metadata",
+        "method": "HTTP response retrieval",
+        "observed_tag": "v0.32.0",
+        "published_at": "2026-10-18T06:50:48Z",
+        "claim": "Latest stable release observed on October 18; not the installed deployment version.",
+        "observed_commit": "5df63a7203cdb9328d824a27b682e77c7b9928be"
+      },
+      "prior_rechecks": [
+        {
+          "retrieved_at": "2026-10-17T09:46:31.063803+00:00",
+          "accessed_on": "2026-10-17",
+          "response_sha256": "79e589cb2818a89f6d52776257b39afecfd9f5c0c640f78bbb99dddd4c8d6d68",
+          "scope": "Release or branch metadata recheck; no binary execution, image verification or complete source-tree review.",
+          "claim": "Latest non-prerelease: v0.31.0; published 2026-10-05T06:44:55Z; draft=False; prerelease=False."
+        }
+      ]
     },
     "TOPR-V-RELEASE-PAGE": {
       "url": "https://github.com/vllm-project/vllm/releases/tag/v0.31.0",
@@ -9856,15 +10154,30 @@
       "claim": "Fresh release, main or advertised development artifact identity; no binary execution.",
       "scope": "Metadata only; prior source inspection and binary identities remain separate.",
       "last_recheck": {
-        "retrieved_at": "2026-10-17T09:47:30.270923+00:00",
-        "accessed_on": "2026-10-17",
-        "response_sha256": "df8b8f4593af698076d78e3f211b1aea5cfa66200affe517ca3c37d74dd8e7f7",
-        "scope": "Advertised filenames only; no wheel download or runtime qualification.",
+        "kind": "upstream metadata",
+        "accessed_on": "2026-10-18",
+        "retrieved_at": "2026-10-18T14:04:24.703410+00:00",
+        "response_sha256": "0c5317795104613b62b4f3859e10e9e26cd17854929e69e6b2b7a7f896aa38e3",
+        "response_bytes": 583,
+        "scope": "Selected v0.32 upgrade and configuration semantics; no runtime qualification.",
+        "method": "HTTP response retrieval",
         "observed_versions": [
-          "vllm-0.32.0rc1.dev341%2Bg2067297b2",
-          "vllm-0.32.0rc1.dev341+g2067297b2"
-        ]
-      }
+          "0.32.1rc1.dev7+g371745ebd"
+        ],
+        "claim": "Advertised CUDA13 wheel identity only; no binary download or verification."
+      },
+      "prior_rechecks": [
+        {
+          "retrieved_at": "2026-10-17T09:47:30.270923+00:00",
+          "accessed_on": "2026-10-17",
+          "response_sha256": "df8b8f4593af698076d78e3f211b1aea5cfa66200affe517ca3c37d74dd8e7f7",
+          "scope": "Advertised filenames only; no wheel download or runtime qualification.",
+          "observed_versions": [
+            "vllm-0.32.0rc1.dev341%2Bg2067297b2",
+            "vllm-0.32.0rc1.dev341+g2067297b2"
+          ]
+        }
+      ]
     },
     "Q31-S-QWEN35": {
       "url": "https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/model_executor/models/qwen3_5.py",
@@ -10061,7 +10374,7 @@
       "accessed_on": "2026-10-17",
       "retrieved_at": "2026-10-17T09:47:15.919001+00:00",
       "response_sha256": "32b45463d0b36c021cb5ae0937d60b5c797ca383a0ef3e291170337486feb1b0",
-      "claim": "115–167 default/checkpoint per-tensor KV scales;169–205 uncalibrated Q/prob warning;98–109 distinct per-token-head scale path",
+      "claim": "115\u2013167 default/checkpoint per-tensor KV scales;169\u2013205 uncalibrated Q/prob warning;98\u2013109 distinct per-token-head scale path",
       "scope": "Selected source or metadata inspection only; no weights, runtime or B300 measurement.",
       "revision": "db9527a46873454610df6dbedf79a36d6bf1a7f6"
     },
@@ -10247,7 +10560,7 @@
       "accessed_on": "2026-10-17",
       "retrieved_at": "2026-10-17T09:53:48.083556+00:00",
       "response_sha256": "ebbb909015f31c9d71cddef6718dc77459e05e3c70f49383f6b639595272c8a7",
-      "claim": "523–568 AOT cache root derives from VLLM_CACHE_ROOT; conditional startup profiling concern",
+      "claim": "523\u2013568 AOT cache root derives from VLLM_CACHE_ROOT; conditional startup profiling concern",
       "scope": "Selected primary report/source inspection, not engine reproduction or B300 result."
     },
     "B300V31-GEMMA-TRITON-FLASHINFER": {
@@ -10312,7 +10625,7 @@
       "accessed_on": "2026-10-17",
       "retrieved_at": "2026-10-17T09:55:10.102249+00:00",
       "response_sha256": "034e5c705d81a37b78911162d3e80e4c3dbbfe57b651f040694942c9e12f44c4",
-      "claim": "Expert parallel world flattens DP×PCP×TP; TP4+DP2+EP has expert world8.",
+      "claim": "Expert parallel world flattens DP\u00d7PCP\u00d7TP; TP4+DP2+EP has expert world8.",
       "scope": "Selected primary-source or metadata inspection only; no weights, runtime, tests, B300 performance or uninspected container certification.",
       "revision": "db9527a46873454610df6dbedf79a36d6bf1a7f6"
     },
@@ -10410,7 +10723,16 @@
       "retrieved_at": "2026-10-17T09:55:44.291639+00:00",
       "response_sha256": "4aa04e79578914aa10557448734dfce65ce9c4470bf7a843f3bb7c8b17c2185b",
       "scope": "Selected immutable source/model metadata review for 8xB300 and vLLM v0.31.0; no weights, installed engine, runtime validation or benchmark.",
-      "claim": "Fresh current publisher API resolves to cf6b8244620e7ea4b0651d214f28e89eac75bed6; unchanged from retained artifact pin."
+      "claim": "Fresh current publisher API resolves to cf6b8244620e7ea4b0651d214f28e89eac75bed6; unchanged from retained artifact pin.",
+      "last_recheck": {
+        "retrieved_at": "2026-10-18T14:04:10.387309+00:00",
+        "http_status": 200,
+        "response_sha256": "913cee199fd362f24d21491d8473db6092581b2366c160eda82db1c83f5153f2",
+        "accessed_on": "2026-10-18",
+        "kind": "publisher-metadata-or-PR-author-evidence",
+        "scope": "Selected v0.31/v0.32 Kimi and Mistral source audit; no local execution or benchmark.",
+        "response_bytes": 1404
+      }
     },
     "Q31-CAT-V031-VLLM-MODELS-KIMI-K3-NVIDIA-DSPARK-MLA-PY": {
       "url": "https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/models/kimi_k3/nvidia/dspark_mla.py",
@@ -10436,7 +10758,15 @@
       "scope": "Selected immutable source/model metadata review for 8xB300 and vLLM v0.31.0; no weights, installed engine, runtime validation or benchmark.",
       "claim": "v0.31.0 native GLM5Next model and selected attention projection dequantization path exist; artifact precision does not imply uniform runtime arithmetic.",
       "revision": "db9527a46873454610df6dbedf79a36d6bf1a7f6",
-      "immutable_url": "https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/models/glm5next/common/model.py"
+      "immutable_url": "https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/models/glm5next/common/model.py",
+      "last_recheck": {
+        "kind": "primary source",
+        "retrieved_at": "2026-10-18T14:04:36.994373+00:00",
+        "response_sha256": "9ad4952e048bdec4991327e2877fae8d1385743a371bf69a2de90610d4d3b68e",
+        "accessed_on": "2026-10-18",
+        "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution.",
+        "scope": "Fresh retrieval of the referenced primary artifact for selected v0.32 source/model applicability; no runtime qualification."
+      }
     },
     "Q31-CAT-V031-VLLM-MODELS-GLM5NEXT-COMMON-MTP-PY": {
       "url": "https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/models/glm5next/common/mtp.py",
@@ -10540,7 +10870,16 @@
       "scope": "Selected immutable source/model metadata review for 8xB300 and vLLM v0.31.0; no weights, installed engine, runtime validation or benchmark.",
       "claim": "v0.31.0 already contains ModelOpt FP8_PB_WO alignment128 and replicated block-scale loading logic; open legacy PR alone is not a release blocker.",
       "revision": "db9527a46873454610df6dbedf79a36d6bf1a7f6",
-      "immutable_url": "https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/models/kimi_k3/nvidia/kda.py"
+      "immutable_url": "https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/models/kimi_k3/nvidia/kda.py",
+      "last_recheck": {
+        "retrieved_at": "2026-10-18T14:06:28.659789+00:00",
+        "http_status": 200,
+        "response_sha256": "54c9939f1c11128fcdfa3cf8eaabec4e66471ec3183b5642b6509e09b5b8f8d6",
+        "accessed_on": "2026-10-18",
+        "kind": "primary-source-inspection",
+        "scope": "Selected v0.31/v0.32 Kimi and Mistral source audit; no local execution or benchmark.",
+        "response_bytes": 49536
+      }
     },
     "Q31-CAT-V031-VLLM-MODELS-KIMI-K3-NVIDIA-MLA-PY": {
       "url": "https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/models/kimi_k3/nvidia/mla.py",
@@ -10566,7 +10905,16 @@
       "scope": "Selected immutable source/model metadata review for 8xB300 and vLLM v0.31.0; no weights, installed engine, runtime validation or benchmark.",
       "claim": "Historical publisher compatibility patch imports ModelOptFp8PbWoLinearMethod, absent from refactored v0.31.0 ModelOpt module; cannot presume patch drop-in compatibility.",
       "revision": "b2428a0b83a8b712ff2e1a8448a103d4175341f1",
-      "immutable_url": "https://huggingface.co/nvidia/Kimi-K3-NVFP4/raw/b2428a0b83a8b712ff2e1a8448a103d4175341f1/runtime_patches/sitecustomize.py"
+      "immutable_url": "https://huggingface.co/nvidia/Kimi-K3-NVFP4/raw/b2428a0b83a8b712ff2e1a8448a103d4175341f1/runtime_patches/sitecustomize.py",
+      "last_recheck": {
+        "retrieved_at": "2026-10-18T14:04:43.939046+00:00",
+        "http_status": 200,
+        "response_sha256": "0c3eebec963599ee5a2da4c4d2b6f20284dfb2a7bc427e88cd759683862100a4",
+        "accessed_on": "2026-10-18",
+        "kind": "publisher-metadata-or-PR-author-evidence",
+        "scope": "Selected v0.31/v0.32 Kimi and Mistral source audit; no local execution or benchmark.",
+        "response_bytes": 12469
+      }
     },
     "Q31-CAT-KIMI-SPECIALIZED-RUNTIME-PY": {
       "url": "https://raw.githubusercontent.com/vllm-project/vllm/49cb2bbf71cfd36ee5aa33d1e184b1cddff55294/vllm/models/kimi_k3/nvidia/specialized_decode/runtime/__init__.py",
@@ -10770,7 +11118,16 @@
       "claim": "Stable dedicated Mistral EAGLE draft implementation with separate quantization config.",
       "scope": "Source/document inspection only; no engine execution, model weights, tests or B300 measurements.",
       "revision": "db9527a46873454610df6dbedf79a36d6bf1a7f6",
-      "title": "VLLM031-CATALOG-vllm-model_executor-models-mistral_eagle"
+      "title": "VLLM031-CATALOG-vllm-model_executor-models-mistral_eagle",
+      "last_recheck": {
+        "retrieved_at": "2026-10-18T14:06:28.648306+00:00",
+        "http_status": 200,
+        "response_sha256": "78558ae900a282ee3ad60c33c8b16167d779a7213832c222abee9e29dc0fa62f",
+        "accessed_on": "2026-10-18",
+        "kind": "primary-source-inspection",
+        "scope": "Selected v0.31/v0.32 Kimi and Mistral source audit; no local execution or benchmark.",
+        "response_bytes": 6652
+      }
     },
     "VLLM031-CATALOG-vllm-transformers_utils-configs-eagle": {
       "kind": "publisher source",
@@ -10934,6 +11291,1188 @@
       "retrieved_at": "2026-10-17T10:07:47.738472+00:00",
       "response_sha256": "82bc6805ecf30a9b3d1b678d3270dad919abed011782ad16f1e805a78aa6c241",
       "claim": "Selected scheduler fields and active-sequence admission semantics in immutable v0.31; no runtime result."
+    },
+    "V032-RELEASE": {
+      "url": "https://api.github.com/repos/vllm-project/vllm/releases/tags/v0.32.0",
+      "scope": "Upstream release/branch/development artifact metadata; no binary execution.",
+      "retrieved_at": "2026-10-18T14:03:39.691000+00:00",
+      "response_sha256": "b536bff06644dfcf105ab49a943773c0d3744ece6e03012b6a9c8ff2aeddc2bf",
+      "accessed_on": "2026-10-18",
+      "title": "V032-RELEASE",
+      "kind": "primary upstream metadata",
+      "last_recheck": {
+        "kind": "primary metadata or documentation",
+        "retrieved_at": "2026-10-18T14:04:02.659379+00:00",
+        "response_sha256": "b536bff06644dfcf105ab49a943773c0d3744ece6e03012b6a9c8ff2aeddc2bf",
+        "accessed_on": "2026-10-18",
+        "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution.",
+        "scope": "Fresh retrieval of the referenced primary artifact for selected v0.32 source/model applicability; no runtime qualification."
+      }
+    },
+    "V032-TAG": {
+      "url": "https://api.github.com/repos/vllm-project/vllm/git/ref/tags/v0.32.0",
+      "scope": "Upstream release/branch/development artifact metadata; no binary execution.",
+      "retrieved_at": "2026-10-18T14:03:39.641517+00:00",
+      "response_sha256": "28f20c3db9bfc24c67bc1908dadf228ef7179d629dceebf67f179e8ef569007b",
+      "accessed_on": "2026-10-18",
+      "title": "V032-TAG",
+      "kind": "primary upstream metadata",
+      "last_recheck": {
+        "kind": "primary metadata or documentation",
+        "retrieved_at": "2026-10-18T14:04:02.637046+00:00",
+        "response_sha256": "28f20c3db9bfc24c67bc1908dadf228ef7179d629dceebf67f179e8ef569007b",
+        "accessed_on": "2026-10-18",
+        "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution.",
+        "scope": "Fresh retrieval of the referenced primary artifact for selected v0.32 source/model applicability; no runtime qualification."
+      }
+    },
+    "V032-PYPROJECT": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/pyproject.toml",
+      "title": "V032-PYPROJECT",
+      "kind": "primary source code",
+      "accessed_on": "2026-10-18",
+      "retrieved_at": "2026-10-18T14:04:24.123553+00:00",
+      "response_sha256": "eaa19cba70f13234be4acdc1eeb2126b937c6f0892fd1af29863db5a62bee95b",
+      "response_bytes": 7585,
+      "revision": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+      "scope": "Selected v0.32 upgrade and configuration semantics; no runtime qualification."
+    },
+    "V032-REQUIREMENTS": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/requirements/common.txt",
+      "title": "V032-REQUIREMENTS",
+      "kind": "primary source code",
+      "accessed_on": "2026-10-18",
+      "retrieved_at": "2026-10-18T14:04:24.118910+00:00",
+      "response_sha256": "366cb94fae6ea961da1e7d1c855f6316c3897b5ce9a839017db2bbebb668055a",
+      "response_bytes": 3315,
+      "revision": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+      "scope": "Selected v0.32 upgrade and configuration semantics; no runtime qualification."
+    },
+    "V032-CUDA-REQUIREMENTS": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/requirements/cuda.txt",
+      "title": "V032-CUDA-REQUIREMENTS",
+      "kind": "primary source code",
+      "accessed_on": "2026-10-18",
+      "retrieved_at": "2026-10-18T14:04:24.129768+00:00",
+      "response_sha256": "b168c9beb5bbb28e4900558bd65a87000bf142b087aeca852308addc0e745dbe",
+      "response_bytes": 950,
+      "revision": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+      "scope": "Selected v0.32 upgrade and configuration semantics; no runtime qualification.",
+      "last_recheck": {
+        "retrieved_at": "2026-10-18T14:04:41.977189+00:00",
+        "http_status": 200,
+        "response_sha256": "b168c9beb5bbb28e4900558bd65a87000bf142b087aeca852308addc0e745dbe",
+        "accessed_on": "2026-10-18",
+        "kind": "primary-source-inspection",
+        "scope": "Selected v0.31/v0.32 Kimi and Mistral source audit; no local execution or benchmark.",
+        "response_bytes": 950
+      }
+    },
+    "V032-CACHE": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/config/cache.py",
+      "title": "V032-CACHE",
+      "kind": "primary source code",
+      "accessed_on": "2026-10-18",
+      "retrieved_at": "2026-10-18T14:04:24.123656+00:00",
+      "response_sha256": "d37db21e7a6a1b477a580b54d90011d8708c4e7f6e3903221432d9a39830559b",
+      "response_bytes": 18043,
+      "revision": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+      "scope": "Selected v0.32 upgrade and configuration semantics; no runtime qualification."
+    },
+    "V032-CLI-DOWNLOAD": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/entrypoints/cli/download_kernels.py",
+      "title": "V032-CLI-DOWNLOAD",
+      "kind": "primary source code",
+      "accessed_on": "2026-10-18",
+      "retrieved_at": "2026-10-18T14:04:24.135453+00:00",
+      "response_sha256": "c217972da1c97cdff0feb2566fe9f05414ce19d438e22db4c30dca7228823a54",
+      "response_bytes": 2911,
+      "revision": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+      "scope": "Selected v0.32 upgrade and configuration semantics; no runtime qualification."
+    },
+    "V032-PRELOAD-DOC": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/docs/features/preload.md",
+      "title": "V032-PRELOAD-DOC",
+      "kind": "primary source code",
+      "accessed_on": "2026-10-18",
+      "retrieved_at": "2026-10-18T14:04:24.142224+00:00",
+      "response_sha256": "fd34312cb2107edf7a60053ecfa16c65626bf1a8152f260f6f7b4e3c069aba9a",
+      "response_bytes": 10382,
+      "revision": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+      "scope": "Selected v0.32 upgrade and configuration semantics; no runtime qualification."
+    },
+    "V032-PARAMS": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/renderers/params.py",
+      "title": "vLLM v0.32.0 vllm/renderers/params.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-18",
+      "retrieved_at": "2026-10-18T14:05:51.996611+00:00",
+      "response_sha256": "5113461cd308266727d9ced82900cbe65ae50245a2f3cb16224f6689574570a9",
+      "response_bytes": 22053,
+      "revision": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+      "scope": "Selected release comparison against v0.31.0 source; no executed binary."
+    },
+    "V032-RESPONSES": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/entrypoints/openai/responses/streaming_events.py",
+      "title": "vLLM v0.32.0 vllm/entrypoints/openai/responses/streaming_events.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-18",
+      "retrieved_at": "2026-10-18T14:05:52.000444+00:00",
+      "response_sha256": "189b0e281569a5c0d14959cac7f325ca4097d09196f32a80119fb4f3494cd218",
+      "response_bytes": 46978,
+      "revision": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+      "scope": "Selected release comparison against v0.31.0 source; no executed binary."
+    },
+    "V032-CORS": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/entrypoints/launchers/cli_args.py",
+      "title": "vLLM v0.32.0 vllm/entrypoints/launchers/cli_args.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-18",
+      "retrieved_at": "2026-10-18T14:05:52.013983+00:00",
+      "response_sha256": "76221e2c10a0c5cffb7820a25c176a436777eb2008737cc5b1effaa014ebad28",
+      "response_bytes": 26078,
+      "revision": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+      "scope": "Selected release comparison against v0.31.0 source; no executed binary."
+    },
+    "V032-PRELOAD-CLI": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/entrypoints/cli/preload.py",
+      "title": "vLLM v0.32.0 vllm/entrypoints/cli/preload.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-18",
+      "retrieved_at": "2026-10-18T14:05:51.984993+00:00",
+      "response_sha256": "e611be113ff82bba868cb9ca2eacb42429bd347a44ae181e4b55437e4dff6f25",
+      "response_bytes": 13294,
+      "revision": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+      "scope": "Selected release comparison against v0.31.0 source; no executed binary."
+    },
+    "V032-METRICS-LOGGER": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/v1/metrics/loggers.py",
+      "title": "vLLM v0.32.0 vllm/v1/metrics/loggers.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-18",
+      "retrieved_at": "2026-10-18T14:05:52.227274+00:00",
+      "response_sha256": "a17291f044251f1586457b6bd1542f98660724dd07a426d61ce852186b95b9e1",
+      "response_bytes": 59481,
+      "revision": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+      "scope": "Selected release comparison against v0.31.0 source; no executed binary."
+    },
+    "V032-CUTLASS-EP": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/model_executor/layers/fused_moe/experts/cutlass_moe.py",
+      "title": "vLLM v0.32.0 vllm/model_executor/layers/fused_moe/experts/cutlass_moe.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-18",
+      "retrieved_at": "2026-10-18T14:05:52.249535+00:00",
+      "response_sha256": "d2228313c93fd4d87d3f89e44a218a697803bb29d1bc73018e71ee77deef5880",
+      "response_bytes": 49454,
+      "revision": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+      "scope": "Selected release comparison against v0.31.0 source; no executed binary."
+    },
+    "V032-API-LIMITS": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/entrypoints/serve/utils/api_utils.py",
+      "title": "vLLM v0.32.0 vllm/entrypoints/serve/utils/api_utils.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-18",
+      "retrieved_at": "2026-10-18T14:05:52.238666+00:00",
+      "response_sha256": "ffb5e08c2b6cf6d0402c6ba31d0d05e53eb7e9e8c13b29700e84a4bfada420ba",
+      "response_bytes": 13706,
+      "revision": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+      "scope": "Selected release comparison against v0.31.0 source; no executed binary."
+    },
+    "V032-H-QSA": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/models/qwen4_exp/nvidia/qsa.py",
+      "title": "QSA fusion, per-layer cache dtype skip, unchanged BF16/QSA restrictions",
+      "scope": "QSA fusion, per-layer cache dtype skip, unchanged BF16/QSA restrictions; v031 source diff inspected",
+      "tested_on_target": false,
+      "revision": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+      "retrieved_at": "2026-10-18T14:07:32.288162+00:00",
+      "response_sha256": "1eee006d61000de48aa783037dc2474202413310f9368fcd41c2713e1a41d95c",
+      "kind": "source inspected",
+      "accessed_on": "2026-10-18"
+    },
+    "V032-H-LLGEMM": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/models/qwen4_exp/nvidia/low_latency_gemm.py",
+      "title": "Exact SM103 versus SM100 dispatch maps and BF16 unquantized-only eligibility",
+      "scope": "Exact SM103 versus SM100 dispatch maps and BF16 unquantized-only eligibility; v031 source diff inspected",
+      "tested_on_target": false,
+      "revision": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+      "retrieved_at": "2026-10-18T14:07:32.308477+00:00",
+      "response_sha256": "77b05e6ec814d62c6705b42e94146b2669d1db7c3e22f7aa4a51892afab2f9be",
+      "kind": "source inspected",
+      "accessed_on": "2026-10-18"
+    },
+    "V032-H-MODEL-CONFIG": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/config/model.py",
+      "title": "ModelOpt mixed NVFP4 predicate, HC SP validation, cache hashing",
+      "scope": "ModelOpt mixed NVFP4 predicate, HC SP validation, cache hashing; v031 source diff inspected",
+      "tested_on_target": false,
+      "revision": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+      "retrieved_at": "2026-10-18T14:07:32.335063+00:00",
+      "response_sha256": "04ca37ea1d50128a7ddede30e7baa4e0a56bccec85091577a2c81c5de1a8fab8",
+      "kind": "source inspected",
+      "accessed_on": "2026-10-18"
+    },
+    "V032-H-FAUTIL": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/v1/attention/backends/fa_utils.py",
+      "title": "Blackwell hd256/hd512 and FP8 guards unchanged from v031",
+      "scope": "Blackwell hd256/hd512 and FP8 guards unchanged from v031; only XPU availability helper changed",
+      "tested_on_target": false,
+      "revision": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+      "retrieved_at": "2026-10-18T14:07:32.492798+00:00",
+      "response_sha256": "b18fc6eacf113c94adf76633fd17b6b7c745a9d66447ca5d3e39231b11cbb701",
+      "kind": "source inspected",
+      "accessed_on": "2026-10-18"
+    },
+    "V032-H-GDN": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/v1/attention/backends/gdn_attn.py",
+      "title": "Zero-draft speculative state classification and conditional checkpoint metadata",
+      "scope": "Zero-draft speculative state classification and conditional checkpoint metadata; v031 source diff inspected",
+      "tested_on_target": false,
+      "revision": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+      "retrieved_at": "2026-10-18T14:07:32.314608+00:00",
+      "response_sha256": "ce951db92bb58b5b655ff00a89d0ffc68f8fbfb936e1e2a72a5da543cdf9d2f4",
+      "kind": "source inspected",
+      "accessed_on": "2026-10-18"
+    },
+    "V032-H-MAMBA-BASE": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/model_executor/layers/mamba/abstract.py",
+      "title": "Qwen GDN/PLE base cache specification does not enable internal prefill checkpoint blocks",
+      "scope": "Qwen GDN/PLE base cache specification does not enable internal prefill checkpoint blocks; inspect MambaSpec default 0 separately",
+      "tested_on_target": false,
+      "revision": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+      "retrieved_at": "2026-10-18T14:07:32.463829+00:00",
+      "response_sha256": "d89a4e6b9a2dab282648f098c9747a69eef4b32edb757b215d84d41a50b3d81b",
+      "kind": "source inspected",
+      "accessed_on": "2026-10-18"
+    },
+    "V032-H-NIXL": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/distributed/kv_transfer/kv_connector/v1/nixl/base_worker.py",
+      "title": "Exact PLE page length transferred under NIXL P/D",
+      "scope": "Exact PLE page length transferred under NIXL P/D; v031 lacked _ple_block_len",
+      "tested_on_target": false,
+      "revision": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+      "retrieved_at": "2026-10-18T14:07:32.630918+00:00",
+      "response_sha256": "5da22389ba154696ba19a936fdaa89305a4dd981ef4c19d5c40322b050443f9b",
+      "kind": "source inspected",
+      "accessed_on": "2026-10-18"
+    },
+    "V032-H-SPEC": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/config/speculative.py",
+      "title": "Gemma separate assistant path and Qwen native MTP already present in v031",
+      "scope": "Gemma separate assistant path and Qwen native MTP already present in v031; diff inspected",
+      "tested_on_target": false,
+      "revision": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+      "retrieved_at": "2026-10-18T14:07:32.390107+00:00",
+      "response_sha256": "ce135651a7a0343ff526f72e9545932617378161abd03135d67eda6de89c617c",
+      "kind": "source inspected",
+      "accessed_on": "2026-10-18",
+      "last_recheck": {
+        "retrieved_at": "2026-10-18T14:04:41.737331+00:00",
+        "http_status": 200,
+        "response_sha256": "ce135651a7a0343ff526f72e9545932617378161abd03135d67eda6de89c617c",
+        "accessed_on": "2026-10-18",
+        "kind": "primary-source-inspection",
+        "scope": "Selected v0.31/v0.32 Kimi and Mistral source audit; no local execution or benchmark.",
+        "response_bytes": 88780
+      },
+      "prior_rechecks": [
+        {
+          "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/config/speculative.py",
+          "title": "SP32-SRC-vllm-config-speculative-py",
+          "kind": "primary source",
+          "retrieved_at": "2026-10-18T14:04:36.711512+00:00",
+          "response_sha256": "ce135651a7a0343ff526f72e9545932617378161abd03135d67eda6de89c617c",
+          "resolved_url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/config/speculative.py",
+          "accessed_on": "2026-10-18",
+          "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution."
+        }
+      ]
+    },
+    "V032-H-PR-59533": {
+      "url": "https://github.com/vllm-project/vllm/pull/59533",
+      "title": "QSA merged projection PR benchmark scope GB300 BF16 TP4 and separate end-to-end test",
+      "scope": "QSA merged projection PR benchmark scope GB300 BF16 TP4 and separate end-to-end test; source matches v032",
+      "tested_on_target": false,
+      "retrieved_at": "2026-10-18T14:07:34.288872+00:00",
+      "response_sha256": "bd8bd0eae4b40dcf2f10468ecebd2f60ac5941a2a66c106d1b7b6fa7054991d3",
+      "kind": "upstream PR and publisher benchmark",
+      "accessed_on": "2026-10-18"
+    },
+    "V032-H-PR-56050": {
+      "url": "https://github.com/vllm-project/vllm/pull/56050",
+      "title": "Exact Qwen NVIDIA mixed NVFP4 activation-fusion predicate repair",
+      "scope": "Exact Qwen NVIDIA mixed NVFP4 activation-fusion predicate repair; performance example SM121 not B300",
+      "tested_on_target": false,
+      "retrieved_at": "2026-10-18T14:07:34.269927+00:00",
+      "response_sha256": "d5394ac2055c5dd208de997b7156bef30ab9b8a50a7ff941eb23ff989b6940ac",
+      "kind": "upstream PR and publisher benchmark",
+      "accessed_on": "2026-10-18"
+    },
+    "V032-H-PR-56322": {
+      "url": "https://github.com/vllm-project/vllm/pull/56322",
+      "title": "HC/PLE sequence parallelism opt-in and automatic MoE-SP interaction",
+      "scope": "HC/PLE sequence parallelism opt-in and automatic MoE-SP interaction; workload tradeoffs, no universal speedup",
+      "tested_on_target": false,
+      "retrieved_at": "2026-10-18T14:07:34.628182+00:00",
+      "response_sha256": "5b19e725f9deea321916ce4bde1708376bfca50dce8cca26ba903a0289961e9c",
+      "kind": "upstream PR and publisher benchmark",
+      "accessed_on": "2026-10-18"
+    },
+    "V032-H-PR-56531": {
+      "url": "https://github.com/vllm-project/vllm/pull/56531",
+      "title": "GDN recurrent state zero-draft corruption mechanism",
+      "scope": "GDN recurrent state zero-draft corruption mechanism; ngram-specific trigger unlike always-drafting MTP",
+      "tested_on_target": false,
+      "retrieved_at": "2026-10-18T14:07:35.000832+00:00",
+      "response_sha256": "f2a83a00c7c15ffb6662901dc9381680a092c1be82402922430d58cf0e5e8f95",
+      "kind": "upstream PR and publisher benchmark",
+      "accessed_on": "2026-10-18"
+    },
+    "SP32-PR-60140": {
+      "url": "https://api.github.com/repos/vllm-project/vllm/pulls/60140",
+      "title": "SP32-PR-60140",
+      "kind": "primary metadata or documentation",
+      "retrieved_at": "2026-10-18T14:04:02.698088+00:00",
+      "response_sha256": "803c611de159dda21f577f082e5a26db4c6fd736a0d803235e9fc7d73bb7ddda",
+      "resolved_url": "https://api.github.com/repos/vllm-project/vllm/pulls/60140",
+      "accessed_on": "2026-10-18",
+      "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution."
+    },
+    "SP32-PR-60281": {
+      "url": "https://api.github.com/repos/vllm-project/vllm/pulls/60281",
+      "title": "SP32-PR-60281",
+      "kind": "primary metadata or documentation",
+      "retrieved_at": "2026-10-18T14:04:02.744791+00:00",
+      "response_sha256": "ca6332afe621d323e308b9283dfa6a957e1e0ab15182440058050180ea4236f7",
+      "resolved_url": "https://api.github.com/repos/vllm-project/vllm/pulls/60281",
+      "accessed_on": "2026-10-18",
+      "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution."
+    },
+    "SP32-PR-59464": {
+      "url": "https://api.github.com/repos/vllm-project/vllm/pulls/59464",
+      "title": "SP32-PR-59464",
+      "kind": "primary metadata or documentation",
+      "retrieved_at": "2026-10-18T14:04:02.710944+00:00",
+      "response_sha256": "e54db186bcac589a57ea58d56200bd6b8842ff4da5834959529ca376a05fac4d",
+      "resolved_url": "https://api.github.com/repos/vllm-project/vllm/pulls/59464",
+      "accessed_on": "2026-10-18",
+      "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution."
+    },
+    "SP32-PR-57443": {
+      "url": "https://api.github.com/repos/vllm-project/vllm/pulls/57443",
+      "title": "SP32-PR-57443",
+      "kind": "primary metadata or documentation",
+      "retrieved_at": "2026-10-18T14:04:02.714564+00:00",
+      "response_sha256": "5262d2d415620828f36cb3949df5b5785d16d8adc2f2f62a4672c25ba5abf950",
+      "resolved_url": "https://api.github.com/repos/vllm-project/vllm/pulls/57443",
+      "accessed_on": "2026-10-18",
+      "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution."
+    },
+    "SP32-PR-54951": {
+      "url": "https://api.github.com/repos/vllm-project/vllm/pulls/54951",
+      "title": "SP32-PR-54951",
+      "kind": "primary metadata or documentation",
+      "retrieved_at": "2026-10-18T14:04:03.025738+00:00",
+      "response_sha256": "5a39ed2f8fadb34a312395b8a54dafd1041c773506d5b851d6a75e4d2515165b",
+      "resolved_url": "https://api.github.com/repos/vllm-project/vllm/pulls/54951",
+      "accessed_on": "2026-10-18",
+      "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution."
+    },
+    "SP32-PR-59211": {
+      "url": "https://api.github.com/repos/vllm-project/vllm/pulls/59211",
+      "title": "SP32-PR-59211",
+      "kind": "primary metadata or documentation",
+      "retrieved_at": "2026-10-18T14:04:03.065418+00:00",
+      "response_sha256": "880117e797dc9ac43857bca0942079e66969bad54c291e5daf2ee506351eed8e",
+      "resolved_url": "https://api.github.com/repos/vllm-project/vllm/pulls/59211",
+      "accessed_on": "2026-10-18",
+      "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution."
+    },
+    "SP32-PR-60032": {
+      "url": "https://api.github.com/repos/vllm-project/vllm/pulls/60032",
+      "title": "SP32-PR-60032",
+      "kind": "primary metadata or documentation",
+      "retrieved_at": "2026-10-18T14:04:03.059209+00:00",
+      "response_sha256": "a708c5c9026978e1f086db193d11b2a167df2cdf9b0fe21eef56ce79f69e75e5",
+      "resolved_url": "https://api.github.com/repos/vllm-project/vllm/pulls/60032",
+      "accessed_on": "2026-10-18",
+      "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution."
+    },
+    "SP32-PR-59147": {
+      "url": "https://api.github.com/repos/vllm-project/vllm/pulls/59147",
+      "title": "SP32-PR-59147",
+      "kind": "primary metadata or documentation",
+      "retrieved_at": "2026-10-18T14:04:03.091303+00:00",
+      "response_sha256": "fec5552ebf503c67c5fa8dbbff0a1f7fe803a00b634c3b2ed7b7df19218e7158",
+      "resolved_url": "https://api.github.com/repos/vllm-project/vllm/pulls/59147",
+      "accessed_on": "2026-10-18",
+      "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution."
+    },
+    "SP32-PR-61079": {
+      "url": "https://api.github.com/repos/vllm-project/vllm/pulls/61079",
+      "title": "SP32-PR-61079",
+      "kind": "primary metadata or documentation",
+      "retrieved_at": "2026-10-18T14:04:03.179473+00:00",
+      "response_sha256": "703038623c5c1c709d4294944479b99758549ed957b747edefbf2eee9fa024dc",
+      "resolved_url": "https://api.github.com/repos/vllm-project/vllm/pulls/61079",
+      "accessed_on": "2026-10-18",
+      "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution."
+    },
+    "SP32-PR-60083": {
+      "url": "https://api.github.com/repos/vllm-project/vllm/pulls/60083",
+      "title": "SP32-PR-60083",
+      "kind": "primary metadata or documentation",
+      "retrieved_at": "2026-10-18T14:04:03.433992+00:00",
+      "response_sha256": "ea1c819d340262e8a1f37e5e0221e196e33f70e743a1f425c6da3ef1ad3fb299",
+      "resolved_url": "https://api.github.com/repos/vllm-project/vllm/pulls/60083",
+      "accessed_on": "2026-10-18",
+      "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution."
+    },
+    "SP32-PR-59655": {
+      "url": "https://api.github.com/repos/vllm-project/vllm/pulls/59655",
+      "title": "SP32-PR-59655",
+      "kind": "primary metadata or documentation",
+      "retrieved_at": "2026-10-18T14:04:03.434003+00:00",
+      "response_sha256": "e215ee00b99b88eb0d274cc97fa089b2dd0280ec429401cd67796525edc4a326",
+      "resolved_url": "https://api.github.com/repos/vllm-project/vllm/pulls/59655",
+      "accessed_on": "2026-10-18",
+      "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution."
+    },
+    "SP32-PR-58463": {
+      "url": "https://api.github.com/repos/vllm-project/vllm/pulls/58463",
+      "title": "SP32-PR-58463",
+      "kind": "primary metadata or documentation",
+      "retrieved_at": "2026-10-18T14:04:03.433967+00:00",
+      "response_sha256": "8877c49620a8bd6280b29b8c07f075b842ee6412e7635c2e5f79bade509bce4a",
+      "resolved_url": "https://api.github.com/repos/vllm-project/vllm/pulls/58463",
+      "accessed_on": "2026-10-18",
+      "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution."
+    },
+    "SP32-PR-60029": {
+      "url": "https://api.github.com/repos/vllm-project/vllm/pulls/60029",
+      "title": "SP32-PR-60029",
+      "kind": "primary metadata or documentation",
+      "retrieved_at": "2026-10-18T14:04:03.459823+00:00",
+      "response_sha256": "4a376379aaed843767961c4468da386bf8773e3f1873b84bca6859e99c26a489",
+      "resolved_url": "https://api.github.com/repos/vllm-project/vllm/pulls/60029",
+      "accessed_on": "2026-10-18",
+      "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution."
+    },
+    "SP32-PR-61023": {
+      "url": "https://api.github.com/repos/vllm-project/vllm/pulls/61023",
+      "title": "SP32-PR-61023",
+      "kind": "primary metadata or documentation",
+      "retrieved_at": "2026-10-18T14:04:03.551572+00:00",
+      "response_sha256": "cdf41a51b8ed9b2f1ecd0ef8cee9986aa1ae084d0306cc6175deab0553db6686",
+      "resolved_url": "https://api.github.com/repos/vllm-project/vllm/pulls/61023",
+      "accessed_on": "2026-10-18",
+      "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution."
+    },
+    "SP32-PR-56960": {
+      "url": "https://api.github.com/repos/vllm-project/vllm/pulls/56960",
+      "title": "SP32-PR-56960",
+      "kind": "primary metadata or documentation",
+      "retrieved_at": "2026-10-18T14:04:03.806334+00:00",
+      "response_sha256": "8287170e2144eac447a06d07c195dc41ac65124851d506c168a4f6c05c0e9fa4",
+      "resolved_url": "https://api.github.com/repos/vllm-project/vllm/pulls/56960",
+      "accessed_on": "2026-10-18",
+      "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution."
+    },
+    "SP32-SRC-vllm-model_executor-models-config-py": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/model_executor/models/config.py",
+      "title": "SP32-SRC-vllm-model_executor-models-config-py",
+      "kind": "primary source",
+      "retrieved_at": "2026-10-18T14:04:36.494542+00:00",
+      "response_sha256": "660dbcb0ae3edb8d9ec1683bc645582af2018c7cc8f2d39ed7b881e7a30c5bb6",
+      "resolved_url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/model_executor/models/config.py",
+      "accessed_on": "2026-10-18",
+      "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution."
+    },
+    "SP32-SRC-vllm-platforms-interface-py": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/platforms/interface.py",
+      "title": "SP32-SRC-vllm-platforms-interface-py",
+      "kind": "primary source",
+      "retrieved_at": "2026-10-18T14:04:36.477830+00:00",
+      "response_sha256": "637e120fcf2a45b02b81174b7ed4653364e9d16ff0063772f1fdfaf4f8dcd2b6",
+      "resolved_url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/platforms/interface.py",
+      "accessed_on": "2026-10-18",
+      "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution."
+    },
+    "SP32-SRC-vllm-models-glm5next-common-model-py": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/models/glm5next/common/model.py",
+      "title": "SP32-SRC-vllm-models-glm5next-common-model-py",
+      "kind": "primary source",
+      "retrieved_at": "2026-10-18T14:04:36.535202+00:00",
+      "response_sha256": "f337b984e25c8cb3d1546dbb4bf7ac8a5c057b19967adb0bb037c416b252b7bb",
+      "resolved_url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/models/glm5next/common/model.py",
+      "accessed_on": "2026-10-18",
+      "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution."
+    },
+    "SP32-SRC-vllm-models-glm5next-common-kda-py": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/models/glm5next/common/kda.py",
+      "title": "SP32-SRC-vllm-models-glm5next-common-kda-py",
+      "kind": "primary source",
+      "retrieved_at": "2026-10-18T14:04:36.497208+00:00",
+      "response_sha256": "cc89b4a0b08860fad2f0558ad85a9082fda400188583fb55a62db64e61ec2d94",
+      "resolved_url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/models/glm5next/common/kda.py",
+      "accessed_on": "2026-10-18",
+      "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution."
+    },
+    "SP32-SRC-vllm-models-glm5next-nvidia-sparse_indexer-py": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/models/glm5next/nvidia/sparse_indexer.py",
+      "title": "SP32-SRC-vllm-models-glm5next-nvidia-sparse_indexer-py",
+      "kind": "primary source",
+      "retrieved_at": "2026-10-18T14:04:36.485638+00:00",
+      "response_sha256": "cf659b6fdcfa1057ef6a61c3d31d302d2dd15dfea6f3c96743697664d87e3e44",
+      "resolved_url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/models/glm5next/nvidia/sparse_indexer.py",
+      "accessed_on": "2026-10-18",
+      "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution."
+    },
+    "SP32-SRC-vllm-models-deepseek_v4-nvidia-model-py": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/models/deepseek_v4/nvidia/model.py",
+      "title": "SP32-SRC-vllm-models-deepseek_v4-nvidia-model-py",
+      "kind": "primary source",
+      "retrieved_at": "2026-10-18T14:04:36.502044+00:00",
+      "response_sha256": "c4472e9b8cd6529724fd056b948e0da8675b544ad8d2a3afa98d7a8e1dd985aa",
+      "resolved_url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/models/deepseek_v4/nvidia/model.py",
+      "accessed_on": "2026-10-18",
+      "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution."
+    },
+    "SP32-SRC-vllm-models-deepseek_v4-nvidia-dspark-py": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/models/deepseek_v4/nvidia/dspark.py",
+      "title": "SP32-SRC-vllm-models-deepseek_v4-nvidia-dspark-py",
+      "kind": "primary source",
+      "retrieved_at": "2026-10-18T14:04:36.665778+00:00",
+      "response_sha256": "0d1a55c7a188e7ed61f3369def82873a8660ad6e6d576392032f36cfe4510f85",
+      "resolved_url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/models/deepseek_v4/nvidia/dspark.py",
+      "accessed_on": "2026-10-18",
+      "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution."
+    },
+    "SP32-SRC-vllm-models-deepseek_v4-attention-py": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/models/deepseek_v4/attention.py",
+      "title": "SP32-SRC-vllm-models-deepseek_v4-attention-py",
+      "kind": "primary source",
+      "retrieved_at": "2026-10-18T14:04:36.466077+00:00",
+      "response_sha256": "896da67731ead60c3278625173005d8e586c22290c20e7348249212124c29dba",
+      "resolved_url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/models/deepseek_v4/attention.py",
+      "accessed_on": "2026-10-18",
+      "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution."
+    },
+    "SP32-SRC-vllm-models-deepseek_v41-quant_config-py": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/models/deepseek_v41/quant_config.py",
+      "title": "SP32-SRC-vllm-models-deepseek_v41-quant_config-py",
+      "kind": "primary source",
+      "retrieved_at": "2026-10-18T14:04:36.461568+00:00",
+      "response_sha256": "12ce3c1f5b7fa930c21784a7f0a8a003977259f891c599937f78704ed02059e5",
+      "resolved_url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/models/deepseek_v41/quant_config.py",
+      "accessed_on": "2026-10-18",
+      "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution."
+    },
+    "SP32-SRC-vllm-config-attention-py": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/config/attention.py",
+      "title": "SP32-SRC-vllm-config-attention-py",
+      "kind": "primary source",
+      "retrieved_at": "2026-10-18T14:04:36.282495+00:00",
+      "response_sha256": "b4edcdd256404813e4483b7669b2b946775f7ed12fed44360d1b46a0807286da",
+      "resolved_url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/config/attention.py",
+      "accessed_on": "2026-10-18",
+      "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution."
+    },
+    "SP32-SRC-vllm-config-vllm-py": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/config/vllm.py",
+      "title": "SP32-SRC-vllm-config-vllm-py",
+      "kind": "primary source",
+      "retrieved_at": "2026-10-18T14:04:36.546727+00:00",
+      "response_sha256": "573692a80364d5c373321754c6213b4792ae292ba6aea7d6573ae013c2c71ae9",
+      "resolved_url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/config/vllm.py",
+      "accessed_on": "2026-10-18",
+      "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution."
+    },
+    "SP32-SRC-vllm-v1-attention-backends-mla-indexer-py": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/v1/attention/backends/mla/indexer.py",
+      "title": "SP32-SRC-vllm-v1-attention-backends-mla-indexer-py",
+      "kind": "primary source",
+      "retrieved_at": "2026-10-18T14:04:36.728086+00:00",
+      "response_sha256": "aabcb7f2e78b1136072edc87223b0d6e3bbd359b91dda5e1d0c86cba22f98f0e",
+      "resolved_url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/v1/attention/backends/mla/indexer.py",
+      "accessed_on": "2026-10-18",
+      "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution."
+    },
+    "SP32-SRC-vllm-v1-attention-backends-mla-flashmla_sparse-py": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/v1/attention/backends/mla/flashmla_sparse.py",
+      "title": "SP32-SRC-vllm-v1-attention-backends-mla-flashmla_sparse-py",
+      "kind": "primary source",
+      "retrieved_at": "2026-10-18T14:04:36.742528+00:00",
+      "response_sha256": "f7831e570e6d69b890d93830b3010a1a63eabd0a92315e1590e404127edc522d",
+      "resolved_url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/v1/attention/backends/mla/flashmla_sparse.py",
+      "accessed_on": "2026-10-18",
+      "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution."
+    },
+    "SP32-SRC-vllm-v1-attention-backends-mla-flashinfer_mla_sparse-py": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/v1/attention/backends/mla/flashinfer_mla_sparse.py",
+      "title": "SP32-SRC-vllm-v1-attention-backends-mla-flashinfer_mla_sparse-py",
+      "kind": "primary source",
+      "retrieved_at": "2026-10-18T14:04:36.737484+00:00",
+      "response_sha256": "18fc3700b535888fc221bad1ca8b3340508d144a7bacd318008720caf04337d1",
+      "resolved_url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/v1/attention/backends/mla/flashinfer_mla_sparse.py",
+      "accessed_on": "2026-10-18",
+      "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution."
+    },
+    "SP32-SRC-vllm-v1-attention-backends-mla-flashattn_mla_sparse-py": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/v1/attention/backends/mla/flashattn_mla_sparse.py",
+      "title": "SP32-SRC-vllm-v1-attention-backends-mla-flashattn_mla_sparse-py",
+      "kind": "primary source",
+      "retrieved_at": "2026-10-18T14:04:36.775196+00:00",
+      "response_sha256": "faa351d3a258d0a0061d6d7c3c027f5e7df7bfdc0fcb279807b18573690177bd",
+      "resolved_url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/v1/attention/backends/mla/flashattn_mla_sparse.py",
+      "accessed_on": "2026-10-18",
+      "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution."
+    },
+    "SP32-SRC-vllm-v1-attention-backends-mla-sparse_utils-py": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/v1/attention/backends/mla/sparse_utils.py",
+      "title": "SP32-SRC-vllm-v1-attention-backends-mla-sparse_utils-py",
+      "kind": "primary source",
+      "retrieved_at": "2026-10-18T14:04:36.740192+00:00",
+      "response_sha256": "f95c8f9027d0705f0aaa2cfe7f7540b70cd3f58d6b105a7b9b1f25b8d42b2915",
+      "resolved_url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/v1/attention/backends/mla/sparse_utils.py",
+      "accessed_on": "2026-10-18",
+      "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution."
+    },
+    "SP32-SRC-vllm-v1-spec_decode-llm_base_proposer-py": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/v1/spec_decode/llm_base_proposer.py",
+      "title": "SP32-SRC-vllm-v1-spec_decode-llm_base_proposer-py",
+      "kind": "primary source",
+      "retrieved_at": "2026-10-18T14:04:36.803770+00:00",
+      "response_sha256": "8df7969c47e177dd8940303680f65ac8a71f316af5108977316281887b91769b",
+      "resolved_url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/v1/spec_decode/llm_base_proposer.py",
+      "accessed_on": "2026-10-18",
+      "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution."
+    },
+    "SP31-SRC-vllm-models-deepseek_v41-quant_config-py": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/models/deepseek_v41/quant_config.py",
+      "title": "SP31-SRC-vllm-models-deepseek_v41-quant_config-py",
+      "kind": "primary source",
+      "retrieved_at": "2026-10-18T14:04:36.991297+00:00",
+      "response_sha256": "3b592e78b6a42df8734b168bc5cfaddc932950409441fd0c09bf4747f1f6485e",
+      "resolved_url": "https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/models/deepseek_v41/quant_config.py",
+      "accessed_on": "2026-10-18",
+      "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution."
+    },
+    "SP32-GLM-MAIN": {
+      "url": "https://huggingface.co/api/models/zai-org/GLM-5.3/revision/main",
+      "title": "SP32-GLM-MAIN",
+      "kind": "primary metadata or documentation",
+      "retrieved_at": "2026-10-18T14:04:36.987480+00:00",
+      "response_sha256": "661948f973f78a7c762f9287f33a9d09b3dd997d0b75abce665173e55dd3e88e",
+      "resolved_url": "https://huggingface.co/api/models/zai-org/GLM-5.3/revision/main",
+      "accessed_on": "2026-10-18",
+      "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution."
+    },
+    "SP32-FLASH-MAIN": {
+      "url": "https://huggingface.co/api/models/zai-org/GLM-5.3-Flash/revision/main",
+      "title": "SP32-FLASH-MAIN",
+      "kind": "primary metadata or documentation",
+      "retrieved_at": "2026-10-18T14:04:36.991180+00:00",
+      "response_sha256": "844374238fe59366e4e536f5ede443ce666a6e69edb71050921ed2e416c826dc",
+      "resolved_url": "https://huggingface.co/api/models/zai-org/GLM-5.3-Flash/revision/main",
+      "accessed_on": "2026-10-18",
+      "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution."
+    },
+    "SP32-DS0731-MAIN": {
+      "url": "https://huggingface.co/api/models/deepseek-ai/DeepSeek-V4-Flash-0731/revision/main",
+      "title": "SP32-DS0731-MAIN",
+      "kind": "primary metadata or documentation",
+      "retrieved_at": "2026-10-18T14:04:36.979655+00:00",
+      "response_sha256": "205e4a88fb4a11e07906eed266dbed78173f2df13f63c60f1be4f9ed8b9a07c5",
+      "resolved_url": "https://huggingface.co/api/models/deepseek-ai/DeepSeek-V4-Flash-0731/revision/main",
+      "accessed_on": "2026-10-18",
+      "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution."
+    },
+    "SP32-DS0731-CARD": {
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/raw/7872f01b1d1fe23eabc4c98b48bffcef5a386062/README.md",
+      "title": "SP32-DS0731-CARD",
+      "kind": "primary metadata or documentation",
+      "retrieved_at": "2026-10-18T14:04:37.123678+00:00",
+      "response_sha256": "252acafdc9204d0dba3fde1b0a93d71cd1664a4ceadfe222b60117ed0ccc56ff",
+      "resolved_url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/raw/7872f01b1d1fe23eabc4c98b48bffcef5a386062/README.md",
+      "accessed_on": "2026-10-18",
+      "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution."
+    },
+    "SP32-DS0731NV-MAIN": {
+      "url": "https://huggingface.co/api/models/nvidia/DeepSeek-V4-Flash-0731-NVFP4/revision/main",
+      "title": "SP32-DS0731NV-MAIN",
+      "kind": "primary metadata or documentation",
+      "retrieved_at": "2026-10-18T14:04:37.132163+00:00",
+      "response_sha256": "296cf0601b9fabfcfad6f5322f88cf09b3cc7b53e32190e1cf2d9d8aecf8ad86",
+      "resolved_url": "https://huggingface.co/api/models/nvidia/DeepSeek-V4-Flash-0731-NVFP4/revision/main",
+      "accessed_on": "2026-10-18",
+      "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution."
+    },
+    "SP32-DS0731NV-INDEX": {
+      "url": "https://huggingface.co/nvidia/DeepSeek-V4-Flash-0731-NVFP4/resolve/f1caa71142bd0be02f728c79f75042ac1e461579/model.safetensors.index.json",
+      "title": "SP32-DS0731NV-INDEX",
+      "kind": "primary metadata or documentation",
+      "retrieved_at": "2026-10-18T14:05:58.572390+00:00",
+      "response_sha256": "5d2ad3076e04081d6c0728cb4b004dc832850ec5ae732f3adb06cf87c4b437a5",
+      "resolved_url": "https://us.aws.cdn.hf.co/xet-bridge-us/6a85e35b958bcba4596d00d5/40b05c61ae20fce71130ecdd9f7bb466206e2fa8863edf060faf7f06d115db16?response-content-type=application%2Fjson%3B+charset%3Dutf-8&X-Xet-Cas-Uid=public&user_id=public&xip=buxOiFkej10&response-content-disposition=inline%3B+filename*%3DUTF-8%27%27model.safetensors.index.json%3B+filename%3D%22model.safetensors.index.json%22%3B&Expires=1792335957&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly91cy5hd3MuY2RuLmhmLmNvL3hldC1icmlkZ2UtdXMvNmE4NWUzNWI5NThiY2JhNDU5NmQwMGQ1LzQwYjA1YzYxYWUyMGZjZTcxMTMwZWNkZDlmN2JiNDY2MjA2ZTJmYTg4NjNlZGYwNjBmYWY3ZjA2ZDExNWRiMTZcXD9yZXNwb25zZS1jb250ZW50LXR5cGU9YXBwbGljYXRpb24lMkZqc29uJTNCK2NoYXJzZXQlM0R1dGYtOCZYLVhldC1DYXMtVWlkPXB1YmxpYyZ1c2VyX2lkPXB1YmxpYyZ4aXA9YnV4T2lGa2VqMTAmcmVzcG9uc2UtY29udGVudC1kaXNwb3NpdGlvbj1pbmxpbmUlM0IrZmlsZW5hbWUlMkElM0RVVEYtOCUyNyUyN21vZGVsLnNhZmV0ZW5zb3JzLmluZGV4Lmpzb24lM0IrZmlsZW5hbWUlM0QlMjJtb2RlbC5zYWZldGVuc29ycy5pbmRleC5qc29uJTIyJTNCIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJFcG9jaFRpbWUiOjE3OTIzMzU5NTd9fX1dfQ__&Signature=MEQCIHQ9CKrIpbzlurRqfNrGz3RnaalYG3qscfW2QqJf6c%7EfAiA524BYxjoweLUKgdOmPs6Jmtg2Hh4vD6hKoahu2DK0tw__&Key-Pair-Id=01KXEF4KZ1B6FV465MAWR4M21F&Hash-Algorithm=SHA256",
+      "accessed_on": "2026-10-18",
+      "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution."
+    },
+    "SP32-SRC-vllm-platforms-cuda-py": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/platforms/cuda.py",
+      "title": "SP32-SRC-vllm-platforms-cuda-py",
+      "kind": "primary source",
+      "retrieved_at": "2026-10-18T14:05:57.991377+00:00",
+      "response_sha256": "18ae1dfc34848afcade72821892db50fd3a2e3a57b48829521cc263e3f877caa",
+      "resolved_url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/platforms/cuda.py",
+      "accessed_on": "2026-10-18",
+      "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution."
+    },
+    "SP32-SRC-vllm-v1-hisparse-coordinator-py": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/v1/hisparse/coordinator.py",
+      "title": "SP32-SRC-vllm-v1-hisparse-coordinator-py",
+      "kind": "primary source",
+      "retrieved_at": "2026-10-18T14:05:58.006244+00:00",
+      "response_sha256": "530a488c60c3411e53eab42a8fe0624454de942204da304391a4f1c295b30666",
+      "resolved_url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/v1/hisparse/coordinator.py",
+      "accessed_on": "2026-10-18",
+      "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution."
+    },
+    "SP32-SRC-vllm-v1-worker-gpu-spec_decode-speculator-py": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/v1/worker/gpu/spec_decode/speculator.py",
+      "title": "SP32-SRC-vllm-v1-worker-gpu-spec_decode-speculator-py",
+      "kind": "primary source",
+      "retrieved_at": "2026-10-18T14:05:57.998030+00:00",
+      "response_sha256": "b25efadde6376b2168a2d5284f788d239079b0ef1480e68fafc25d557d44389a",
+      "resolved_url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/v1/worker/gpu/spec_decode/speculator.py",
+      "accessed_on": "2026-10-18",
+      "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution."
+    },
+    "SP32-SRC-vllm-v1-worker-gpu-spec_decode-mtp-speculator-py": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/v1/worker/gpu/spec_decode/mtp/speculator.py",
+      "title": "SP32-SRC-vllm-v1-worker-gpu-spec_decode-mtp-speculator-py",
+      "kind": "primary source",
+      "retrieved_at": "2026-10-18T14:06:56.699357+00:00",
+      "response_sha256": "b730010cad9d54772c03ca8c6e562192ce3a0faf18b511720c9ec7b0f0b9ec44",
+      "resolved_url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/v1/worker/gpu/spec_decode/mtp/speculator.py",
+      "accessed_on": "2026-10-18",
+      "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution."
+    },
+    "SP32-SRC-vllm-models-glm5next-common-attention-py": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/models/glm5next/common/attention.py",
+      "title": "SP32-SRC-vllm-models-glm5next-common-attention-py",
+      "kind": "primary source",
+      "retrieved_at": "2026-10-18T14:05:58.028591+00:00",
+      "response_sha256": "e83364215dccc2871e47906a8a5286852bd6a922a6a322394ff8f27db80952e0",
+      "resolved_url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/models/glm5next/common/attention.py",
+      "accessed_on": "2026-10-18",
+      "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution."
+    },
+    "SP32-SRC-vllm-model_executor-layers-mamba-mamba_utils-py": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/model_executor/layers/mamba/mamba_utils.py",
+      "title": "SP32-SRC-vllm-model_executor-layers-mamba-mamba_utils-py",
+      "kind": "primary source",
+      "retrieved_at": "2026-10-18T14:05:57.991525+00:00",
+      "response_sha256": "8df87600920398cc5e4dbdbf3473f8f2090e42a3e1dc522d5751e3bae909e9c0",
+      "resolved_url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/model_executor/layers/mamba/mamba_utils.py",
+      "accessed_on": "2026-10-18",
+      "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution."
+    },
+    "SP31-SRC-vllm-transformers_utils-configs-glm5_next-py": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/transformers_utils/configs/glm5_next.py",
+      "title": "SP31-SRC-vllm-transformers_utils-configs-glm5_next-py",
+      "kind": "primary source",
+      "retrieved_at": "2026-10-18T14:05:57.979135+00:00",
+      "response_sha256": "19745ca3d04c67819707083e686263b61b8229f8ee1d2fd604cea9496314ca91",
+      "resolved_url": "https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/transformers_utils/configs/glm5_next.py",
+      "accessed_on": "2026-10-18",
+      "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution."
+    },
+    "SP31-SRC-vllm-v1-attention-backends-mla-flashattn_mla_sparse-py": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/v1/attention/backends/mla/flashattn_mla_sparse.py",
+      "title": "SP31-SRC-vllm-v1-attention-backends-mla-flashattn_mla_sparse-py",
+      "kind": "primary source",
+      "retrieved_at": "2026-10-18T14:05:58.231429+00:00",
+      "response_sha256": "91ff4d7b42d4cba61eae6eec4b2267f5a2aa2a2dec4ec4cfa6a095cf4baf1134",
+      "resolved_url": "https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/v1/attention/backends/mla/flashattn_mla_sparse.py",
+      "accessed_on": "2026-10-18",
+      "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution."
+    },
+    "SP31-SRC-vllm-v1-attention-backends-mla-indexer-py": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/v1/attention/backends/mla/indexer.py",
+      "title": "SP31-SRC-vllm-v1-attention-backends-mla-indexer-py",
+      "kind": "primary source",
+      "retrieved_at": "2026-10-18T14:05:58.253614+00:00",
+      "response_sha256": "3d336ff942efd77f1529d06a18a53b701570a3ab7ce1437b2d02b9b3a1c1c679",
+      "resolved_url": "https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/v1/attention/backends/mla/indexer.py",
+      "accessed_on": "2026-10-18",
+      "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution."
+    },
+    "SP31-SRC-vllm-v1-attention-backends-mla-flashinfer_mla_sparse-py": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/v1/attention/backends/mla/flashinfer_mla_sparse.py",
+      "title": "SP31-SRC-vllm-v1-attention-backends-mla-flashinfer_mla_sparse-py",
+      "kind": "primary source",
+      "retrieved_at": "2026-10-18T14:05:58.245254+00:00",
+      "response_sha256": "b98a804816de88f11c4cf3c60eae205ad52d320ae83ca0732e4b59b0259b62b1",
+      "resolved_url": "https://raw.githubusercontent.com/vllm-project/vllm/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm/v1/attention/backends/mla/flashinfer_mla_sparse.py",
+      "accessed_on": "2026-10-18",
+      "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution."
+    },
+    "SP32-B300-CC": {
+      "url": "https://developer.nvidia.com/cuda-gpus",
+      "title": "SP32-B300-CC",
+      "kind": "primary metadata or documentation",
+      "retrieved_at": "2026-10-18T14:05:59.320039+00:00",
+      "response_sha256": "29e01abcecf8db0e97e0f55846a5f775c89e6db1c60fa05ba2f0e34c00ae19fd",
+      "resolved_url": "https://developer.nvidia.com/cuda/gpus",
+      "accessed_on": "2026-10-18",
+      "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution."
+    },
+    "SP32-SRC-vllm-models-deepseek_v41-nvidia-model-py": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/models/deepseek_v41/nvidia/model.py",
+      "title": "SP32-SRC-vllm-models-deepseek_v41-nvidia-model-py",
+      "kind": "primary source",
+      "retrieved_at": "2026-10-18T14:06:56.962445+00:00",
+      "response_sha256": "5fe8b4a758ab586dd24ac218873a2c064cd3d72687b196dec4edf1b5e53f83a3",
+      "resolved_url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/models/deepseek_v41/nvidia/model.py",
+      "accessed_on": "2026-10-18",
+      "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution."
+    },
+    "SP32-SRC-vllm-v1-attention-backend-py": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/v1/attention/backend.py",
+      "title": "SP32-SRC-vllm-v1-attention-backend-py",
+      "kind": "primary source",
+      "retrieved_at": "2026-10-18T14:06:56.954858+00:00",
+      "response_sha256": "981ec1fc4b84d085838d73c209bf058d732804f5112271e12c8e10fe648177ed",
+      "resolved_url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/v1/attention/backend.py",
+      "accessed_on": "2026-10-18",
+      "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution."
+    },
+    "SP32-SRC-vllm-v1-attention-backends-mla-sparse_swa-py": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/v1/attention/backends/mla/sparse_swa.py",
+      "title": "SP32-SRC-vllm-v1-attention-backends-mla-sparse_swa-py",
+      "kind": "primary source",
+      "retrieved_at": "2026-10-18T14:06:56.966088+00:00",
+      "response_sha256": "2afd31360ddb08fc4aacb14aaf5e4a44ae47c2df70d22b8026b27eb3f4413ff7",
+      "resolved_url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/v1/attention/backends/mla/sparse_swa.py",
+      "accessed_on": "2026-10-18",
+      "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution."
+    },
+    "V032-KM-KDA": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/models/kimi_k3/nvidia/kda.py",
+      "resolved_url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/models/kimi_k3/nvidia/kda.py",
+      "retrieved_at": "2026-10-18T14:04:41.938953+00:00",
+      "http_status": 200,
+      "response_sha256": "9a57a00df2f99cd4d097e4e92e37c041f417b08643db73996ebe2f333ac19b36",
+      "accessed_on": "2026-10-18",
+      "kind": "primary-source-inspection",
+      "scope": "Selected v0.31/v0.32 Kimi and Mistral source audit; no local execution or benchmark.",
+      "response_bytes": 53895,
+      "title": "V032-KM-KDA"
+    },
+    "V032-KM-MLA": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/models/kimi_k3/nvidia/mla.py",
+      "resolved_url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/models/kimi_k3/nvidia/mla.py",
+      "retrieved_at": "2026-10-18T14:04:41.931023+00:00",
+      "http_status": 200,
+      "response_sha256": "f306e24238dca1fe55a635cf735dcbcacbfac98cef3a5d9c495e7a69a84b9467",
+      "accessed_on": "2026-10-18",
+      "kind": "primary-source-inspection",
+      "scope": "Selected v0.31/v0.32 Kimi and Mistral source audit; no local execution or benchmark.",
+      "response_bytes": 46657,
+      "title": "V032-KM-MLA"
+    },
+    "V032-KM-MODEL": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/models/kimi_k3/nvidia/model.py",
+      "resolved_url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/models/kimi_k3/nvidia/model.py",
+      "retrieved_at": "2026-10-18T14:04:41.947154+00:00",
+      "http_status": 200,
+      "response_sha256": "15f0c8e92ff1ab0a0d5fda8cec14e709cbb94d947124a55198c8cd7fe4f570b1",
+      "accessed_on": "2026-10-18",
+      "kind": "primary-source-inspection",
+      "scope": "Selected v0.31/v0.32 Kimi and Mistral source audit; no local execution or benchmark.",
+      "response_bytes": 87629,
+      "title": "V032-KM-MODEL"
+    },
+    "V032-KM-ENVS": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/envs.py",
+      "resolved_url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/envs.py",
+      "retrieved_at": "2026-10-18T14:06:28.946678+00:00",
+      "http_status": 200,
+      "response_sha256": "e963af06cf6c775fe285147e0d811ea5b4d679e5cbd6958980ec2a0d1da70694",
+      "accessed_on": "2026-10-18",
+      "kind": "primary-source-inspection",
+      "scope": "Selected v0.31/v0.32 Kimi and Mistral source audit; no local execution or benchmark.",
+      "response_bytes": 118996,
+      "title": "V032-KM-ENVS"
+    },
+    "V032-KM-MODELOPT": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/model_executor/layers/quantization/modelopt.py",
+      "resolved_url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/model_executor/layers/quantization/modelopt.py",
+      "retrieved_at": "2026-10-18T14:04:42.006762+00:00",
+      "http_status": 200,
+      "response_sha256": "4c47880b069b517e10d0b6d7167d98bcf8ff6f52e15cd8e1c973490fb2fefb10",
+      "accessed_on": "2026-10-18",
+      "kind": "primary-source-inspection",
+      "scope": "Selected v0.31/v0.32 Kimi and Mistral source audit; no local execution or benchmark.",
+      "response_bytes": 106151,
+      "title": "V032-KM-MODELOPT"
+    },
+    "V032-KM-NVFP4-SITU": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/model_executor/layers/fused_moe/experts/trtllm_nvfp4_moe.py",
+      "resolved_url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/model_executor/layers/fused_moe/experts/trtllm_nvfp4_moe.py",
+      "retrieved_at": "2026-10-18T14:04:42.370774+00:00",
+      "http_status": 200,
+      "response_sha256": "b3bc7633de840a3dcd713a1de40fb6bcb9c94ccd61ea1b5ab878d9dc34aab5f7",
+      "accessed_on": "2026-10-18",
+      "kind": "primary-source-inspection",
+      "scope": "Selected v0.31/v0.32 Kimi and Mistral source audit; no local execution or benchmark.",
+      "response_bytes": 23631,
+      "title": "V032-KM-NVFP4-SITU"
+    },
+    "V032-KM-MISTRAL-EAGLE": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/model_executor/models/mistral_eagle.py",
+      "resolved_url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/model_executor/models/mistral_eagle.py",
+      "retrieved_at": "2026-10-18T14:04:41.949828+00:00",
+      "http_status": 200,
+      "response_sha256": "78558ae900a282ee3ad60c33c8b16167d779a7213832c222abee9e29dc0fa62f",
+      "accessed_on": "2026-10-18",
+      "kind": "primary-source-inspection",
+      "scope": "Selected v0.31/v0.32 Kimi and Mistral source audit; no local execution or benchmark.",
+      "response_bytes": 6652,
+      "title": "V032-KM-MISTRAL-EAGLE"
+    },
+    "V032-KM-MISTRAL3": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/model_executor/models/mistral3.py",
+      "resolved_url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/model_executor/models/mistral3.py",
+      "retrieved_at": "2026-10-18T14:04:41.920822+00:00",
+      "http_status": 200,
+      "response_sha256": "12b94b2893a6edc36416fb9e049976b01233aacf0b60e9a236a5009dbf227db1",
+      "accessed_on": "2026-10-18",
+      "kind": "primary-source-inspection",
+      "scope": "Selected v0.31/v0.32 Kimi and Mistral source audit; no local execution or benchmark.",
+      "response_bytes": 21991,
+      "title": "V032-KM-MISTRAL3"
+    },
+    "V032-KM-PIXTRAL": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/model_executor/models/pixtral.py",
+      "resolved_url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/model_executor/models/pixtral.py",
+      "retrieved_at": "2026-10-18T14:04:42.060041+00:00",
+      "http_status": 200,
+      "response_sha256": "e0deecd7f6d3a97e02be800bbabee8a4ceb867ae6349f689be70df0ac068aa0e",
+      "accessed_on": "2026-10-18",
+      "kind": "primary-source-inspection",
+      "scope": "Selected v0.31/v0.32 Kimi and Mistral source audit; no local execution or benchmark.",
+      "response_bytes": 57920,
+      "title": "V032-KM-PIXTRAL"
+    },
+    "V032-KM-COMPILATION": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/config/compilation.py",
+      "resolved_url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/config/compilation.py",
+      "retrieved_at": "2026-10-18T14:04:41.916220+00:00",
+      "http_status": 200,
+      "response_sha256": "d8a8086166e3f344b75d98d8350a77592f7b6c145319b3a9f0b9c8cb36bc39cb",
+      "accessed_on": "2026-10-18",
+      "kind": "primary-source-inspection",
+      "scope": "Selected v0.31/v0.32 Kimi and Mistral source audit; no local execution or benchmark.",
+      "response_bytes": 68765,
+      "title": "V032-KM-COMPILATION"
+    },
+    "V032-KM-MM-CONFIG": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/config/multimodal.py",
+      "resolved_url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/config/multimodal.py",
+      "retrieved_at": "2026-10-18T14:06:28.926229+00:00",
+      "http_status": 200,
+      "response_sha256": "c30971531e7d10c276ac9d01b0080833f1aa5218880a43e43243414a139e96a8",
+      "accessed_on": "2026-10-18",
+      "kind": "primary-source-inspection",
+      "scope": "Selected v0.31/v0.32 Kimi and Mistral source audit; no local execution or benchmark.",
+      "response_bytes": 31198,
+      "title": "V032-KM-MM-CONFIG"
+    },
+    "V032-KM-MAIN-SPECIALIZED": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/371745ebd6c12f314402c6c319de2e7ef82c2981/vllm/models/kimi_k3/nvidia/specialized_decode/runtime/__init__.py",
+      "resolved_url": "https://raw.githubusercontent.com/vllm-project/vllm/371745ebd6c12f314402c6c319de2e7ef82c2981/vllm/models/kimi_k3/nvidia/specialized_decode/runtime/__init__.py",
+      "retrieved_at": "2026-10-18T14:06:52.953366+00:00",
+      "http_status": 200,
+      "response_sha256": "451caec3fbca88f2098e5f354c2c05c0200a2edae74d8ec51e33c85d0fe254c0",
+      "accessed_on": "2026-10-18",
+      "kind": "primary-source-inspection",
+      "scope": "Selected v0.31/v0.32 Kimi and Mistral source audit; no local execution or benchmark.",
+      "response_bytes": 5506,
+      "title": "V032-KM-MAIN-SPECIALIZED"
+    },
+    "V032-KM-PR54255": {
+      "url": "https://github.com/vllm-project/vllm/pull/54255",
+      "resolved_url": "https://github.com/vllm-project/vllm/pull/54255",
+      "retrieved_at": "2026-10-18T14:04:43.430694+00:00",
+      "http_status": 200,
+      "merge_commit": "766b4ae54c491497306224ee4b316d9c2d57cd30",
+      "merged_at": "2026-10-01T02:28:51Z",
+      "response_sha256": "f70738ada2dbfa0a16a4f8e9fe3cb73e00a76c2b14b8278d0b3bf5b0ffcd4dcb",
+      "accessed_on": "2026-10-18",
+      "kind": "publisher-metadata-or-PR-author-evidence",
+      "scope": "Selected v0.31/v0.32 Kimi and Mistral source audit; no local execution or benchmark.",
+      "response_bytes": 664878,
+      "title": "V032-KM-PR54255"
+    },
+    "V032-KM-PR59278": {
+      "url": "https://github.com/vllm-project/vllm/pull/59278",
+      "resolved_url": "https://github.com/vllm-project/vllm/pull/59278",
+      "retrieved_at": "2026-10-18T14:04:43.259963+00:00",
+      "http_status": 200,
+      "merge_commit": "0e468adb43d60484b5a6546e0124b686fd76baf3",
+      "merged_at": "2026-10-05T13:28:14Z",
+      "response_sha256": "f046c37f370110124b98db2d6740023ec1bca97e0c010e885d04bf7c1c28b9a1",
+      "accessed_on": "2026-10-18",
+      "kind": "publisher-metadata-or-PR-author-evidence",
+      "scope": "Selected v0.31/v0.32 Kimi and Mistral source audit; no local execution or benchmark.",
+      "response_bytes": 547115,
+      "title": "V032-KM-PR59278"
+    },
+    "V032-KM-PR56881": {
+      "url": "https://github.com/vllm-project/vllm/pull/56881",
+      "resolved_url": "https://github.com/vllm-project/vllm/pull/56881",
+      "retrieved_at": "2026-10-18T14:04:43.538594+00:00",
+      "http_status": 200,
+      "merge_commit": "b2863c0de953204b64e4e3d184f96eac26bd5b46",
+      "merged_at": "2026-10-06T00:13:56Z",
+      "response_sha256": "22d0cc376b8913d0f7aad3a9be4b38d020928934f1b045b3dcb0369146382524",
+      "accessed_on": "2026-10-18",
+      "kind": "publisher-metadata-or-PR-author-evidence",
+      "scope": "Selected v0.31/v0.32 Kimi and Mistral source audit; no local execution or benchmark.",
+      "response_bytes": 689208,
+      "title": "V032-KM-PR56881"
+    },
+    "V032-KM-PR59733": {
+      "url": "https://github.com/vllm-project/vllm/pull/59733",
+      "resolved_url": "https://github.com/vllm-project/vllm/pull/59733",
+      "retrieved_at": "2026-10-18T14:04:43.357781+00:00",
+      "http_status": 200,
+      "merge_commit": "1fbbfa165709c490dae48884eebdfbf6a1aef330",
+      "merged_at": "2026-10-08T04:33:32Z",
+      "response_sha256": "d893be6b8e62bbc14f394fa9873c6e894b93fcc929e02bfe7a2d5bed022adcd5",
+      "accessed_on": "2026-10-18",
+      "kind": "publisher-metadata-or-PR-author-evidence",
+      "scope": "Selected v0.31/v0.32 Kimi and Mistral source audit; no local execution or benchmark.",
+      "response_bytes": 618484,
+      "title": "V032-KM-PR59733"
+    },
+    "V032-KM-PR56875": {
+      "url": "https://github.com/vllm-project/vllm/pull/56875",
+      "resolved_url": "https://github.com/vllm-project/vllm/pull/56875",
+      "retrieved_at": "2026-10-18T14:04:43.282055+00:00",
+      "http_status": 200,
+      "merge_commit": "8674a794c788d4c7dac10c6f7ddfdae677588d18",
+      "merged_at": "2026-10-08T16:42:16Z",
+      "response_sha256": "05b9b2f4062f7fe023921ec2816d95511217a866f6186458d0aab9bdb9f9fcfb",
+      "accessed_on": "2026-10-18",
+      "kind": "publisher-metadata-or-PR-author-evidence",
+      "scope": "Selected v0.31/v0.32 Kimi and Mistral source audit; no local execution or benchmark.",
+      "response_bytes": 444388,
+      "title": "V032-KM-PR56875"
+    },
+    "V032-KM-PR57531": {
+      "url": "https://github.com/vllm-project/vllm/pull/57531",
+      "resolved_url": "https://github.com/vllm-project/vllm/pull/57531",
+      "retrieved_at": "2026-10-18T14:04:44.309530+00:00",
+      "http_status": 200,
+      "merge_commit": "d86cf91240988310d04f75217a2ea7e76f1db3d6",
+      "merged_at": "2026-09-29T06:53:39Z",
+      "response_sha256": "b4d3d6e38a054a746ae6488984887efd64f50bca7b0de27f6a5f1355f06307e7",
+      "accessed_on": "2026-10-18",
+      "kind": "publisher-metadata-or-PR-author-evidence",
+      "scope": "Selected v0.31/v0.32 Kimi and Mistral source audit; no local execution or benchmark.",
+      "response_bytes": 641777,
+      "title": "V032-KM-PR57531"
+    },
+    "V032-KM-PR57168": {
+      "url": "https://github.com/vllm-project/vllm/pull/57168",
+      "resolved_url": "https://github.com/vllm-project/vllm/pull/57168",
+      "retrieved_at": "2026-10-18T14:04:44.004793+00:00",
+      "http_status": 200,
+      "merge_commit": "effdea9a5303f02759ba243ee624bf0a9b2576b0",
+      "merged_at": "2026-09-30T12:27:12Z",
+      "response_sha256": "efda9ffc9659055801c1744fea293da6213f7f637038ca7e9ba425145af1c607",
+      "accessed_on": "2026-10-18",
+      "kind": "publisher-metadata-or-PR-author-evidence",
+      "scope": "Selected v0.31/v0.32 Kimi and Mistral source audit; no local execution or benchmark.",
+      "response_bytes": 557172,
+      "title": "V032-KM-PR57168"
+    },
+    "V032-KM-PR57633": {
+      "url": "https://github.com/vllm-project/vllm/pull/57633",
+      "resolved_url": "https://github.com/vllm-project/vllm/pull/57633",
+      "retrieved_at": "2026-10-18T14:04:44.417931+00:00",
+      "http_status": 200,
+      "merge_commit": "581692cc0fd564546ca1f58475e795e2a154cb3f",
+      "merged_at": "2026-10-09T01:44:51Z",
+      "response_sha256": "172b293bf33bb9554870312eebb0f2479a64dd5ebd06011223bda35fa5ec162f",
+      "accessed_on": "2026-10-18",
+      "kind": "publisher-metadata-or-PR-author-evidence",
+      "scope": "Selected v0.31/v0.32 Kimi and Mistral source audit; no local execution or benchmark.",
+      "response_bytes": 549656,
+      "title": "V032-KM-PR57633"
+    },
+    "V032-KM-PR58925": {
+      "url": "https://github.com/vllm-project/vllm/pull/58925",
+      "resolved_url": "https://github.com/vllm-project/vllm/pull/58925",
+      "retrieved_at": "2026-10-18T14:04:44.715940+00:00",
+      "http_status": 200,
+      "merge_commit": "8352b2427f704652da1910f0d53f3fdcc2fa2b0d",
+      "merged_at": "2026-10-08T03:38:10Z",
+      "response_sha256": "19007ee678e58b6f64ac81f10495c528396367a991ce33f31bda8599e5fa64a0",
+      "accessed_on": "2026-10-18",
+      "kind": "publisher-metadata-or-PR-author-evidence",
+      "scope": "Selected v0.31/v0.32 Kimi and Mistral source audit; no local execution or benchmark.",
+      "response_bytes": 549305,
+      "title": "V032-KM-PR58925"
+    },
+    "V032-KM-PR59195": {
+      "url": "https://github.com/vllm-project/vllm/pull/59195",
+      "resolved_url": "https://github.com/vllm-project/vllm/pull/59195",
+      "retrieved_at": "2026-10-18T14:04:44.933909+00:00",
+      "http_status": 200,
+      "merge_commit": "5a4351ab096268944bf29a9b804800066309baa9",
+      "merged_at": "2026-09-30T11:08:25Z",
+      "response_sha256": "34e09a0d6a02789e1c132c3e216b27a268c8dbe5c22ec60dbbd9cbfaa5e1a651",
+      "accessed_on": "2026-10-18",
+      "kind": "publisher-metadata-or-PR-author-evidence",
+      "scope": "Selected v0.31/v0.32 Kimi and Mistral source audit; no local execution or benchmark.",
+      "response_bytes": 462708,
+      "title": "V032-KM-PR59195"
+    },
+    "V032-KM-API-MISTRALAI--MISTRAL-MEDIUM-3.5-128B": {
+      "url": "https://huggingface.co/api/models/mistralai/Mistral-Medium-3.5-128B",
+      "resolved_url": "https://huggingface.co/api/models/mistralai/Mistral-Medium-3.5-128B",
+      "retrieved_at": "2026-10-18T14:04:10.405607+00:00",
+      "http_status": 200,
+      "response_sha256": "4ed316cdc9e05b150bb306fb0ea5f5460c66203fb06552eb425eefc2110d887f",
+      "accessed_on": "2026-10-18",
+      "kind": "publisher-metadata-or-PR-author-evidence",
+      "scope": "Selected v0.31/v0.32 Kimi and Mistral source audit; no local execution or benchmark.",
+      "response_bytes": 17388,
+      "title": "V032-KM-API-MISTRALAI--MISTRAL-MEDIUM-3.5-128B"
+    },
+    "V032-KM-API-MISTRALAI--MISTRAL-MEDIUM-3.5-128B-EAGLE": {
+      "url": "https://huggingface.co/api/models/mistralai/Mistral-Medium-3.5-128B-EAGLE",
+      "resolved_url": "https://huggingface.co/api/models/mistralai/Mistral-Medium-3.5-128B-EAGLE",
+      "retrieved_at": "2026-10-18T14:04:10.389101+00:00",
+      "http_status": 200,
+      "response_sha256": "78089e4768e8ee9eee50dfdd75d673da4b0f97054449f9f170c0db3b2d2cafd8",
+      "accessed_on": "2026-10-18",
+      "kind": "publisher-metadata-or-PR-author-evidence",
+      "scope": "Selected v0.31/v0.32 Kimi and Mistral source audit; no local execution or benchmark.",
+      "response_bytes": 1131,
+      "title": "V032-KM-API-MISTRALAI--MISTRAL-MEDIUM-3.5-128B-EAGLE"
+    },
+    "V032-WEIGHT-CACHE-UTILS": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/model_executor/model_loader/weight_cache/utils.py",
+      "retrieved_at": "2026-10-18T14:14:20.394645+00:00",
+      "response_sha256": "08a88dfa9d16485a2095e047f79bc62a409575f4d08f9376ddc314d079220101",
+      "scope": "Cached draft methods limited to MTP/EAGLE/EAGLE3 with draft configuration; used to narrow preload skip statement.",
+      "accessed_on": "2026-10-18",
+      "title": "V032-WEIGHT-CACHE-UTILS",
+      "kind": "primary source"
     }
   }
 }

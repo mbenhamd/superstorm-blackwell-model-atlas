@@ -1,5 +1,11 @@
 # GLM 5.3: serving on 8×B300
 
+## vLLM v0.32.0 update (October 18)
+
+Explicit KV-matched v0.31/v0.32 control; then BF16 versus FP8 KV at TP8 and independent TP4 KServe groups. GlmMoeDsa auto KV selects FP8 on CUDA family10 including B300, independent of target weight precision.
+
+Explicit FP8 profiles already chose FP8; do not count default change as new savings. GLM Flash does not inherit this hook. See the [v0.32 B300 source review and experiment priorities](../../../reports/vllm-v032-upgrade.md) and `vllm_v032_b300_review` in the [model catalog](../../../catalog/models.json). The version-specific analysis below retains its original scope; no runtime result or launch-array migration is implied.
+
 **Status: unbenchmarked local recommendations.** The upstream recipes are evidence of documented support, not a benchmark of the target B300 node.
 
 ## B300 / vLLM v0.31.0 priority (October 17)

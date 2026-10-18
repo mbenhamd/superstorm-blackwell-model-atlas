@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "as_of": "2026-10-17",
+  "as_of": "2026-10-18",
   "models": [
     {
       "key": "kimi-k3",
@@ -91,7 +91,7 @@
           "key": "fp8",
           "hf_id": null,
           "precision": "Hypothetical all-FP8 target",
-          "status": "Requested name not verified; 2.8 TB ideal weights exceeds one 8×B300 node",
+          "status": "Requested name not verified; 2.8 TB ideal weights exceeds one 8\u00d7B300 node",
           "revision": null
         }
       ],
@@ -146,7 +146,45 @@
         ],
         "tested_on_target": false
       },
-      "recommended_vllm_v031_b300": "Native MXFP4 TP8; one eight-GPU KServe model group. Compare external Inferact DSpark for latency; native TP8+EP/MegaMoE for batching."
+      "recommended_vllm_v031_b300": "Native MXFP4 TP8; one eight-GPU KServe model group. Compare external Inferact DSpark for latency; native TP8+EP/MegaMoE for batching.",
+      "vllm_v032_b300_review": {
+        "first_candidate": "Native MXFP4 TP8 plus pinned Inferact DSpark: compare native versus FlashInfer packed speculative KDA at fixed proposal depth and state dtype.",
+        "release_changes": [
+          "Conditional automatic packed speculative KDA; fused K/V pack on the DCP prefill path.",
+          "Fused vision processing; optional encoder graph/compile work must be separated from text service."
+        ],
+        "experimental_parameters": [
+          "additional_config.kda_spec_decode_backend: native versus flashinfer, after target-only control",
+          "Natural DSpark proposal depths within 1-7; fixed BF16 convolution and explicit recurrent dtype",
+          "Fixed DCP layout across releases, then DCP degree comparison"
+        ],
+        "constraints": [
+          "SM10x, callable packed kernel, supported local heads, dimension128/conv4, BF16 input/conv, bounded gate and SD layout; RecoverSSM disabled. Mixed prefill/decode falls back.",
+          "20-to-4 cache-group headline is ROCm, not NVIDIA grouping. latency_specialized remains outside v0.32.",
+          "NVIDIA mixed export is separately unqualified; old bundled patch imports removed classes. DeepEPv2 shared sharding requires opt-in plus SP gates; plain TP8/DP1 does not meet them."
+        ],
+        "source_ids": [
+          "V032-KM-KDA",
+          "Q31-CAT-V031-VLLM-MODELS-KIMI-K3-NVIDIA-KDA-PY",
+          "V032-KM-MLA",
+          "V032-KM-MODEL",
+          "V032-KM-ENVS",
+          "V032-KM-PR54255",
+          "V032-KM-PR56881",
+          "V032-KM-PR59733",
+          "V032-KM-MAIN-SPECIALIZED",
+          "Q31-CAT-KIMI-NV-SITECUSTOMIZE-PY"
+        ],
+        "reviewed_on": "2026-10-18",
+        "engine_release": "v0.32.0",
+        "source_commit": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+        "baseline_release": "v0.31.0",
+        "baseline_source_commit": "db9527a46873454610df6dbedf79a36d6bf1a7f6",
+        "deployment_layer": "KServe required; installed version/resource/runtime integration unknown",
+        "model_artifact_policy": "Retain existing target/export/draft revisions for release-controlled comparisons; no artifact upgrade implied.",
+        "tested_on_target": false
+      },
+      "recommended_vllm_v032_b300": "Native MXFP4 TP8 plus pinned Inferact DSpark: compare native versus FlashInfer packed speculative KDA at fixed proposal depth and state dtype."
     },
     {
       "key": "glm-5.3",
@@ -288,7 +326,43 @@
         ],
         "tested_on_target": false
       },
-      "recommended_vllm_v031_b300": "Official FP8 TP8 reference versus two independent TP4 KServe replicas. Compare RedHat or Inferact NVFP4 at TP4; native MTP 1/3/5 separately."
+      "recommended_vllm_v031_b300": "Official FP8 TP8 reference versus two independent TP4 KServe replicas. Compare RedHat or Inferact NVFP4 at TP4; native MTP 1/3/5 separately.",
+      "vllm_v032_b300_review": {
+        "first_candidate": "Explicit KV-matched v0.31/v0.32 control; then BF16 versus FP8 KV at TP8 and independent TP4 KServe groups.",
+        "release_changes": [
+          "GlmMoeDsa auto KV selects FP8 on CUDA family10 including B300, independent of target weight precision.",
+          "Conditional long-prefill indexer row sharding and smaller long-context sparse workspace; HiSparse changes apply only if configured."
+        ],
+        "experimental_parameters": [
+          "Explicit KV BF16 versus fp8_e4m3",
+          "Native MTP target-only versus 1/3/5 proposals, natural acceptance",
+          "Long-prefill batch budget only where at least 16384*TP scheduled query rows and other source gates hold; workspace factor2 versus5 above262144context"
+        ],
+        "constraints": [
+          "Explicit FP8 profiles already chose FP8; do not count default change as new savings. GLM Flash does not inherit this hook.",
+          "FA3 sparse index conversion is Hopper-only; B300 FlashInfer/FlashMLA draft metadata support does not establish headline fused-MTP gain.",
+          "HiSparse is a capacity/offload experiment with ordinary resident serving as control; larger budgets can worsen tail latency."
+        ],
+        "source_ids": [
+          "SP32-SRC-vllm-model_executor-models-config-py",
+          "TOPM-GEMMA-V-CONFIG",
+          "SP32-SRC-vllm-platforms-interface-py",
+          "SP32-SRC-vllm-v1-attention-backends-mla-flashattn_mla_sparse-py",
+          "SP32-SRC-vllm-v1-worker-gpu-spec_decode-speculator-py",
+          "SP32-SRC-vllm-v1-attention-backends-mla-indexer-py",
+          "SP32-SRC-vllm-config-attention-py",
+          "SP32-PR-60083"
+        ],
+        "reviewed_on": "2026-10-18",
+        "engine_release": "v0.32.0",
+        "source_commit": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+        "baseline_release": "v0.31.0",
+        "baseline_source_commit": "db9527a46873454610df6dbedf79a36d6bf1a7f6",
+        "deployment_layer": "KServe required; installed version/resource/runtime integration unknown",
+        "model_artifact_policy": "Retain existing target/export/draft revisions for release-controlled comparisons; no artifact upgrade implied.",
+        "tested_on_target": false
+      },
+      "recommended_vllm_v032_b300": "Explicit KV-matched v0.31/v0.32 control; then BF16 versus FP8 KV at TP8 and independent TP4 KServe groups."
     },
     {
       "key": "glm-5.3-flash",
@@ -419,7 +493,7 @@
         "source_commit": "db9527a46873454610df6dbedf79a36d6bf1a7f6",
         "deployment_layer": "KServe",
         "first_candidate": "Official FP8: two TP4 KServe replicas versus one TP8 group.",
-        "next_optimization": "Investigate FP8 TP2 ×4 replicas, then RedHat mixed NVFP4 TP1 ×8 if runtime memory/kernels permit; MTP separately.",
+        "next_optimization": "Investigate FP8 TP2 \u00d74 replicas, then RedHat mixed NVFP4 TP1 \u00d78 if runtime memory/kernels permit; MTP separately.",
         "constraints": "These narrower layouts are hypotheses. FP8 payload about 328 GB excludes TP1 full residency; mixed payload about 198 GB makes TP1 plausible, not guaranteed. Preserve NVFP4 main experts and FP8 MTP experts.",
         "source_ids": [
           "glm-5.3-flash-INDEX",
@@ -429,7 +503,44 @@
         ],
         "tested_on_target": false
       },
-      "recommended_vllm_v031_b300": "Official FP8: two TP4 KServe replicas versus one TP8 group. Investigate FP8 TP2 ×4 replicas, then RedHat mixed NVFP4 TP1 ×8 if runtime memory/kernels permit; MTP separately."
+      "recommended_vllm_v031_b300": "Official FP8: two TP4 KServe replicas versus one TP8 group. Investigate FP8 TP2 \u00d74 replicas, then RedHat mixed NVFP4 TP1 \u00d78 if runtime memory/kernels permit; MTP separately.",
+      "vllm_v032_b300_review": {
+        "first_candidate": "Fixed TP4 target-only: FP32 versus newly honored BF16 KDA state; then DCP1/2/4 with interleave4.",
+        "release_changes": [
+          "KDA layer and model cache specification honor mamba_ssm_cache_dtype; auto stays FP32.",
+          "Compressed k-pool indexer DCP and internal FlashKDA prefill checkpoints; MTP index sharing restored after in-cycle regression."
+        ],
+        "experimental_parameters": [
+          "--mamba-ssm-cache-dtype float32 versus bfloat16",
+          "--decode-context-parallel-size 1/2/4 within fixed TP; --cp-kv-cache-interleave-size 4",
+          "Prefix branches/cancellation and natural MTP depths after target-only state/DCP correctness"
+        ],
+        "constraints": [
+          "BF16 halves recurrent-state tensors and their recurrent checkpoint/rollback buffers; convolution and other memory do not necessarily shrink. Long-context/rollback quality must pass.",
+          "DCP leaves KDA and short k-pool tail replicated; no combined PCP+DCP FlashInfer sparse path.",
+          "GLM flagship FP8-default hook does not apply. Index sharing existed via v0.31 forwarding config; do not call it new support."
+        ],
+        "source_ids": [
+          "SP32-SRC-vllm-models-glm5next-common-kda-py",
+          "SP32-SRC-vllm-models-glm5next-common-model-py",
+          "SP32-SRC-vllm-models-glm5next-nvidia-sparse_indexer-py",
+          "SP32-SRC-vllm-v1-attention-backends-mla-indexer-py",
+          "SP32-SRC-vllm-v1-attention-backends-mla-flashinfer_mla_sparse-py",
+          "SP32-PR-59147",
+          "SP32-PR-59211",
+          "SP32-PR-60032",
+          "SP32-PR-61079"
+        ],
+        "reviewed_on": "2026-10-18",
+        "engine_release": "v0.32.0",
+        "source_commit": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+        "baseline_release": "v0.31.0",
+        "baseline_source_commit": "db9527a46873454610df6dbedf79a36d6bf1a7f6",
+        "deployment_layer": "KServe required; installed version/resource/runtime integration unknown",
+        "model_artifact_policy": "Retain existing target/export/draft revisions for release-controlled comparisons; no artifact upgrade implied.",
+        "tested_on_target": false
+      },
+      "recommended_vllm_v032_b300": "Fixed TP4 target-only: FP32 versus newly honored BF16 KDA state; then DCP1/2/4 with interleave4."
     },
     {
       "key": "deepseek-v4-flash-0731",
@@ -592,7 +703,41 @@
         ],
         "tested_on_target": false
       },
-      "recommended_vllm_v031_b300": "Native TP1/DP4+EP reference; compare DP8+EP as an eight-GPU adaptation. Compare target-only with bundled DSpark; seven proposals are a recipe candidate, with explicit matching draft revision and sampling."
+      "recommended_vllm_v031_b300": "Native TP1/DP4+EP reference; compare DP8+EP as an eight-GPU adaptation. Compare target-only with bundled DSpark; seven proposals are a recipe candidate, with explicit matching draft revision and sampling.",
+      "vllm_v032_b300_review": {
+        "first_candidate": "NVIDIA NVFP4 TP8 target-only control, then same-revision bundled DSpark acceptance/quality probe after ignore-list correction.",
+        "release_changes": [
+          "ModelOpt ignore mapping preserves native MXFP4 mtp.* draft experts instead of misinterpreting them as target NVFP4. Exact pinned0731 config/index matches this mechanism."
+        ],
+        "experimental_parameters": [
+          "Target-only versus bundled DSpark with explicitly matching revision and natural acceptance",
+          "Native TP1/DP4+EP versus DP8+EP remains a separate existing topology comparison"
+        ],
+        "constraints": [
+          "PR end-to-end recovery is V4.1; publisher0731 export did not exercise speculation. No measured0731 speedup or complete loader qualification.",
+          "Keep native packed fp8_ds_mla backend contract; no compressed-indexer DCP or generic FA4 substitution.",
+          "V4.1 Engram/replay/vision and V4 MTP metadata benchmarks are not the text-only0731 DSpark feature set."
+        ],
+        "source_ids": [
+          "deepseek-v4-flash-0731-NV-CFG",
+          "SP32-DS0731NV-INDEX",
+          "deepseek-v4-flash-0731-NV-CARD",
+          "SP32-SRC-vllm-models-deepseek_v41-quant_config-py",
+          "SP31-SRC-vllm-models-deepseek_v41-quant_config-py",
+          "SP32-SRC-vllm-models-deepseek_v4-nvidia-dspark-py",
+          "SP32-SRC-vllm-models-deepseek_v4-attention-py",
+          "SP32-PR-59655"
+        ],
+        "reviewed_on": "2026-10-18",
+        "engine_release": "v0.32.0",
+        "source_commit": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+        "baseline_release": "v0.31.0",
+        "baseline_source_commit": "db9527a46873454610df6dbedf79a36d6bf1a7f6",
+        "deployment_layer": "KServe required; installed version/resource/runtime integration unknown",
+        "model_artifact_policy": "Retain existing target/export/draft revisions for release-controlled comparisons; no artifact upgrade implied.",
+        "tested_on_target": false
+      },
+      "recommended_vllm_v032_b300": "NVIDIA NVFP4 TP8 target-only control, then same-revision bundled DSpark acceptance/quality probe after ignore-list correction."
     },
     {
       "key": "qwen3.8-27b",
@@ -733,7 +878,42 @@
         ],
         "tested_on_target": false
       },
-      "recommended_vllm_v031_b300": "TP1 per KServe replica; matched BF16, official FP8 and NVIDIA mixed comparisons. FlashInfer/BF16 KV control; then FlashInfer/FP8 KV, FA4/BF16 KV and optional MTP 1/2/3."
+      "recommended_vllm_v031_b300": "TP1 per KServe replica; matched BF16, official FP8 and NVIDIA mixed comparisons. FlashInfer/BF16 KV control; then FlashInfer/FP8 KV, FA4/BF16 KV and optional MTP 1/2/3.",
+      "vllm_v032_b300_review": {
+        "first_candidate": "Pinned NVIDIA mixed NVFP4 TP1, FlashInfer/BF16 KV and matched compile/admission controls across v0.31/v0.32; inspect activation-quant fusion.",
+        "release_changes": [
+          "ModelOpt mixed NVFP4 optimization predicate repaired; mixed loader support already existed.",
+          "GDN zero-draft-state correction applies to the ngram no-match trigger, not proof of native-MTP bug repair."
+        ],
+        "experimental_parameters": [
+          "Matched official FP8 versus NVIDIA mixed weights at fixed BF16 KV",
+          "FlashInfer/FP8 KV and FA4/BF16 KV separately",
+          "Native MTP1/2/3 with exact draft revision and align prefix state"
+        ],
+        "constraints": [
+          "Eligible compilation/fusion required; no B300 performance transfer from SM121 PR.",
+          "FA4 hd256 with quantized KV restriction unchanged. Qwen internal-prefill-checkpoint path not established active by generic Mamba release notes.",
+          "Keep token IDs/padding and parser/thinking settings matched; TP1 independent KServe replicas remain throughput candidates."
+        ],
+        "source_ids": [
+          "V032-H-MODEL-CONFIG",
+          "V032-H-PR-56050",
+          "V032-H-FAUTIL",
+          "V032-H-GDN",
+          "V032-H-MAMBA-BASE",
+          "V032-H-SPEC",
+          "V032-H-PR-56531"
+        ],
+        "reviewed_on": "2026-10-18",
+        "engine_release": "v0.32.0",
+        "source_commit": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+        "baseline_release": "v0.31.0",
+        "baseline_source_commit": "db9527a46873454610df6dbedf79a36d6bf1a7f6",
+        "deployment_layer": "KServe required; installed version/resource/runtime integration unknown",
+        "model_artifact_policy": "Retain existing target/export/draft revisions for release-controlled comparisons; no artifact upgrade implied.",
+        "tested_on_target": false
+      },
+      "recommended_vllm_v032_b300": "Pinned NVIDIA mixed NVFP4 TP1, FlashInfer/BF16 KV and matched compile/admission controls across v0.31/v0.32; inspect activation-quant fusion."
     },
     {
       "key": "qwen3.8-flash-next",
@@ -886,7 +1066,42 @@
         ],
         "tested_on_target": false
       },
-      "recommended_vllm_v031_b300": "Official FP8 TP4+EP candidate; NVIDIA mixed TP8 is its separate publisher reference. Compare two independent four-GPU KServe groups; isolate PLE placement, native MTP and explicit IndexShare."
+      "recommended_vllm_v031_b300": "Official FP8 TP4+EP candidate; NVIDIA mixed TP8 is its separate publisher reference. Compare two independent four-GPU KServe groups; isolate PLE placement, native MTP and explicit IndexShare.",
+      "vllm_v032_b300_review": {
+        "first_candidate": "Official FP8 TP4+EP release control; then HC/PLE sequence parallelism at fixed topology and workload.",
+        "release_changes": [
+          "Merged QSA projections and fused preparation; relevant merged TP4 shape added to SM103 plan.",
+          "HC/PLE SP selectable at TP>1; existing MoE SP can also activate it. NIXL PLE page length fixed on optional P/D path."
+        ],
+        "experimental_parameters": [
+          "--enable-hc-sp resolved off versus on for long-prefill and low-concurrency decode",
+          "Two independent TP4+EP4 KServe groups versus a wider group, separately from precision",
+          "MTP and main/indexer KV precision remain independent; NIXL only if P/D is required"
+        ],
+        "constraints": [
+          "PR59214 new plans target SM100/B200; B300 had its own plans in v0.31. Kernel ratios are not end-to-end gains.",
+          "HC SP adds collectives, requires supported CUDA/PP1 topology; not universal latency improvement.",
+          "TP4*DP2+EP is expert world8, not two independent groups. QSA is not generic FA4."
+        ],
+        "source_ids": [
+          "V032-H-QSA",
+          "V032-H-LLGEMM",
+          "V032-H-PR-59533",
+          "V032-H-PR-56322",
+          "V032-H-MODEL-CONFIG",
+          "V032-H-NIXL",
+          "V032-CUTLASS-EP"
+        ],
+        "reviewed_on": "2026-10-18",
+        "engine_release": "v0.32.0",
+        "source_commit": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+        "baseline_release": "v0.31.0",
+        "baseline_source_commit": "db9527a46873454610df6dbedf79a36d6bf1a7f6",
+        "deployment_layer": "KServe required; installed version/resource/runtime integration unknown",
+        "model_artifact_policy": "Retain existing target/export/draft revisions for release-controlled comparisons; no artifact upgrade implied.",
+        "tested_on_target": false
+      },
+      "recommended_vllm_v032_b300": "Official FP8 TP4+EP release control; then HC/PLE sequence parallelism at fixed topology and workload."
     },
     {
       "key": "gemma-4-31b-it",
@@ -945,7 +1160,7 @@
         {
           "key": "fp8",
           "hf_id": "RedHatAI/gemma-4-31B-it-FP8-block",
-          "precision": "W8A8, 128×128 weight blocks, dynamic activation groups of 128",
+          "precision": "W8A8, 128\u00d7128 weight blocks, dynamic activation groups of 128",
           "status": "Publisher card and configuration verified at pinned revision; not loaded",
           "revision": "d7242548c457ab4b45bd3adb8937f2659af4739d",
           "listed_weight_file_bytes": 33263238928,
@@ -1058,7 +1273,39 @@
         ],
         "tested_on_target": false
       },
-      "recommended_vllm_v031_b300": "TP1 per KServe replica; BF16 quality anchor versus exact FP8/NVFP4 exports. Evaluate TRITON_FLASHINFER for mixed 256/512 head shapes; then the official separate assistant for decode latency."
+      "recommended_vllm_v031_b300": "TP1 per KServe replica; BF16 quality anchor versus exact FP8/NVFP4 exports. Evaluate TRITON_FLASHINFER for mixed 256/512 head shapes; then the official separate assistant for decode latency.",
+      "vllm_v032_b300_review": {
+        "first_candidate": "TP1 target-only parity on the new dependency stack, with BF16 quality anchor and matched exact FP8/NVFP4 comparisons.",
+        "release_changes": [
+          "Selected release integration changes do not establish new Gemma assistant capability or expanded FA4 head geometry."
+        ],
+        "experimental_parameters": [
+          "Existing TRITON_FLASHINFER candidate at matched KV precision",
+          "Explicit pinned Google assistant off/on for each qualified target export",
+          "Independent TP1 KServe replicas versus TP2 groups at fixed node budget"
+        ],
+        "constraints": [
+          "Assistant support existed in v0.31; method=mtp alone does not identify the separate artifact.",
+          "FA4 hd256/hd512 restrictions unchanged; no all-layer FA4 claim.",
+          "No new Gemma-specific decoder speedup established by this audit."
+        ],
+        "source_ids": [
+          "V032-H-FAUTIL",
+          "V032-H-SPEC",
+          "B300V31-GEMMA-TRITON-FLASHINFER",
+          "B300V31-ATTENTION-COMPOSITE",
+          "TOPM-GEMMA-V-PROPOSER"
+        ],
+        "reviewed_on": "2026-10-18",
+        "engine_release": "v0.32.0",
+        "source_commit": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+        "baseline_release": "v0.31.0",
+        "baseline_source_commit": "db9527a46873454610df6dbedf79a36d6bf1a7f6",
+        "deployment_layer": "KServe required; installed version/resource/runtime integration unknown",
+        "model_artifact_policy": "Retain existing target/export/draft revisions for release-controlled comparisons; no artifact upgrade implied.",
+        "tested_on_target": false
+      },
+      "recommended_vllm_v032_b300": "TP1 target-only parity on the new dependency stack, with BF16 quality anchor and matched exact FP8/NVFP4 comparisons."
     },
     {
       "key": "mistral-medium-3.5",
@@ -1167,8 +1414,43 @@
         ],
         "tested_on_target": false
       },
-      "recommended_vllm_v031_b300": "Publisher FP8 TP8 reference; investigate TP2/TP4 and corresponding independent replicas. Compare target-only with official EAGLE, three proposals, separately pinned draft revision."
+      "recommended_vllm_v031_b300": "Publisher FP8 TP8 reference; investigate TP2/TP4 and corresponding independent replicas. Compare target-only with official EAGLE, three proposals, separately pinned draft revision.",
+      "vllm_v032_b300_review": {
+        "first_candidate": "Pinned FP8 target and official EAGLE release control; target-only versus3 proposals, then TP2/4 layouts versus TP8.",
+        "release_changes": [
+          "Exact EAGLE implementation unchanged; Large3/Llama4 repair is not a Medium3.5 fix.",
+          "New Pixtral encoder compilation is an opt-in image-workload candidate; HF preprocessing is distinct from native Mistral."
+        ],
+        "experimental_parameters": [
+          "Official EAGLE off/on with exact draft revision and compatible target/draft context limits",
+          "compilation_config.compile_mm_encoder false versus true only with image traffic",
+          "Cold readiness and encoder memory separate from warm text latency"
+        ],
+        "constraints": [
+          "Explicit draft max_model_len above target remains invalid.",
+          "No inferred text-only gain from renderer/encoder microbenchmarks.",
+          "Quantized KV and narrower TP remain independent capacity/quality probes."
+        ],
+        "source_ids": [
+          "V032-KM-MISTRAL-EAGLE",
+          "VLLM031-CATALOG-vllm-model_executor-models-mistral_eagle",
+          "V032-KM-PR57633",
+          "V032-H-SPEC",
+          "V032-KM-PIXTRAL",
+          "V032-KM-PR57168",
+          "V032-KM-PR57531"
+        ],
+        "reviewed_on": "2026-10-18",
+        "engine_release": "v0.32.0",
+        "source_commit": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+        "baseline_release": "v0.31.0",
+        "baseline_source_commit": "db9527a46873454610df6dbedf79a36d6bf1a7f6",
+        "deployment_layer": "KServe required; installed version/resource/runtime integration unknown",
+        "model_artifact_policy": "Retain existing target/export/draft revisions for release-controlled comparisons; no artifact upgrade implied.",
+        "tested_on_target": false
+      },
+      "recommended_vllm_v032_b300": "Pinned FP8 target and official EAGLE release control; target-only versus3 proposals, then TP2/4 layouts versus TP8."
     }
   ],
-  "date_basis": "UTC; per-model metadata and runtime review dates identify scope; no blanket refresh or runtime qualification."
+  "date_basis": "UTC; selected v0.32 versus v0.31 source review on October18; model revisions retained for controlled comparison; no runtime qualification."
 }

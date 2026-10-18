@@ -1,5 +1,7 @@
 # vLLM, SGLang and KServe: justified roles
 
+**October 18 release context:** vLLM v0.32.0 is the latest observed release. The [B300 upgrade comparison](../reports/vllm-v032-upgrade.md) supplies version-specific priorities across the catalog; v0.31 remains the controlled baseline. No measured engine ranking or KServe deployment compatibility is inferred from the changelog.
+
 ## Decision
 
 **KServe is mandatory in the user's existing infrastructure.** Choose **vLLM or SGLang as the execution engine within KServe**. Begin with a single-node colocated prefill/decode service and select the engine per exact artifact. Introduce disaggregation when measured queueing and transfer economics justify it. [KS](https://kserve.github.io/website/docs/intro) [KSRT](https://kserve.github.io/website/docs/model-serving/generative-inference/overview) [KSLLM](https://kserve.github.io/website/docs/model-serving/generative-inference/llmisvc/llmisvc-overview)

@@ -2,6 +2,8 @@
 
 This atlas explains architectures and serving tradeoffs using publisher cards, immutable configurations, selected engine source and release metadata. It contains **no reproduced B300 inference or quality results**.
 
+The October 18 [vLLM v0.32 review](reports/vllm-v032-upgrade.md) compares selected source paths with v0.31 and proposes experiments. The v0.32 container digest and installed KServe integration remain unqualified. Older configuration arrays retain their reviewed releases; none was automatically promoted by the new release.
+
 ## Evidence boundaries
 
 - A publisher benchmark describes its own model revision, hardware and workload. It does not establish an engine winner on this node.

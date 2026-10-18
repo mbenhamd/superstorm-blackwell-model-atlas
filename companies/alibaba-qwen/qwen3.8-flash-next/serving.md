@@ -1,5 +1,11 @@
 # Qwen 3.8 Flash Next: serving on 8×B300
 
+## vLLM v0.32.0 update (October 18)
+
+Official FP8 TP4+EP release control; then HC/PLE sequence parallelism at fixed topology and workload. Merged QSA projections and fused preparation; relevant merged TP4 shape added to SM103 plan.
+
+PR59214 new plans target SM100/B200; B300 had its own plans in v0.31. Kernel ratios are not end-to-end gains. See the [v0.32 B300 source review and experiment priorities](../../../reports/vllm-v032-upgrade.md) and `vllm_v032_b300_review` in the [model catalog](../../../catalog/models.json). The version-specific analysis below retains its original scope; no runtime result or launch-array migration is implied.
+
 **Status: unbenchmarked local candidates.** Publisher and engine recipes document support; this audit did not run an engine or benchmark the node.
 
 ## B300 / vLLM v0.31.0 priority (October 17)

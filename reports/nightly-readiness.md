@@ -1,6 +1,16 @@
 # Stable, main and nightly: what the differences mean
 
-**Latest scoped refresh: October 17, 2026 UTC; earlier comparisons below retain their October 16 scope.** These identify released source, selected development source and advertised artifacts. No wheel or container was downloaded or run. Exact identities and retrieval dates are retained in the [upstream lock](../evidence/upstreams.lock.json).
+**Latest scoped refresh: October 18, 2026 UTC; earlier comparisons below retain their dated scope.** These identify released source, selected development source and advertised artifacts. No wheel or container was downloaded or run. Exact identities and retrieval dates are retained in the [upstream lock](../evidence/upstreams.lock.json).
+
+## October 18: v0.32.0 release and B300 comparison
+
+vLLM **v0.32.0** was published at 06:50:48 UTC and resolves to `5df63a7203cdb9328d824a27b682e77c7b9928be`. SGLang remains **v0.5.21** and KServe **v0.21.0** in the fresh latest-release responses. These identify upstream releases, not installed cluster versions. [V032-RELEASE](https://api.github.com/repos/vllm-project/vllm/releases/tags/v0.32.0), [V032-TAG](https://api.github.com/repos/vllm-project/vllm/git/ref/tags/v0.32.0), [TOPR-S-RELEASE](https://api.github.com/repos/sgl-project/sglang/releases/latest), [TOPR-K-RELEASE](https://api.github.com/repos/kserve/kserve/releases/latest).
+
+The [v0.32 B300 analysis](vllm-v032-upgrade.md) compares selected release paths against v0.31 for all eight families. It distinguishes new automatic behavior, explicit experiments, unchanged restrictions and changelog entries whose hardware/model paths do not apply. The previous v0.31 model reviews and configuration records remain valid historical controls; no image is automatically qualified by the release announcement.
+
+Around 14:03 UTC, branch metadata reported vLLM `371745ebd6c12f314402c6c319de2e7ef82c2981`, SGLang `57db5089c207ae4ce189cc092a89a2027c8aea29` and KServe `5d738906d22e003166d09ae28733366420e30d8d`. The cu130 indexes advertised vLLM `0.32.1rc1.dev7+g371745ebd` and SGLang `0.5.23.dev20261018+g14ad64c411`. The vLLM label matches that branch observation; SGLang's does not. Neither label verifies the wheel's contents or compatibility. [TOPR-V-HEAD](https://api.github.com/repos/vllm-project/vllm/commits/main), [TOPR-S-HEAD](https://api.github.com/repos/sgl-project/sglang/commits/main), [TOPR-K-HEAD](https://api.github.com/repos/kserve/kserve/commits/master), [TOPR-V-WHEELS](https://wheels.vllm.ai/nightly/cu130/vllm/), [TOPR-S-WHEELS](https://sgl-project.github.io/whl/cu130/sglang/).
+
+Kimi's `latency_specialized` path is a concrete boundary: it exists in the separately inspected main tree but remains absent from the v0.32 release tree. The released packed speculative KDA path is a different optimization. Use separate image identities and comparisons for these candidates. [V032-KM-MAIN-SPECIALIZED](https://raw.githubusercontent.com/vllm-project/vllm/371745ebd6c12f314402c6c319de2e7ef82c2981/vllm/models/kimi_k3/nvidia/specialized_decode/runtime/__init__.py), [V032-KM-KDA](https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/models/kimi_k3/nvidia/kda.py).
 
 ## October 17: v0.31 remains the release baseline
 

@@ -22,6 +22,8 @@ Resolve each cited source ID through `sources[ID]` in `evidence/sources.json`. C
 
 ## System boundaries
 
+For the October 18 release, start with the [vLLM v0.32 comparison](reports/vllm-v032-upgrade.md) and each model's `vllm_v032_b300_review`. The older `vllm_v031_b300_review` provides the baseline. A newer analysis does not change the release identity of an existing argument record.
+
 | Component | Defines | Required distinction |
 | --- | --- | --- |
 | Architecture | Layer operations, attention, experts, recurrent state, multimodal and output paths | Architectural capability does not establish engine support |

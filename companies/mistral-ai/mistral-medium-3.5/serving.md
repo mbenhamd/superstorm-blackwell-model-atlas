@@ -1,5 +1,11 @@
 # Mistral Medium 3.5: serving on 8×B300
 
+## vLLM v0.32.0 update (October 18)
+
+Pinned FP8 target and official EAGLE release control; target-only versus3 proposals, then TP2/4 layouts versus TP8. Exact EAGLE implementation unchanged; Large3/Llama4 repair is not a Medium3.5 fix.
+
+Explicit draft max_model_len above target remains invalid. See the [v0.32 B300 source review and experiment priorities](../../../reports/vllm-v032-upgrade.md) and `vllm_v032_b300_review` in the [model catalog](../../../catalog/models.json). The version-specific analysis below retains its original scope; no runtime result or launch-array migration is implied.
+
 **Status: unbenchmarked local recommendations.** The upstream recipes are evidence of documented support, not a benchmark of the target B300 node.
 
 ## B300 / vLLM v0.31.0 priority (October 17)

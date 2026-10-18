@@ -1,5 +1,11 @@
 # Gemma 4 31B IT: serving on 8×B300
 
+## vLLM v0.32.0 update (October 18)
+
+TP1 target-only parity on the new dependency stack, with BF16 quality anchor and matched exact FP8/NVFP4 comparisons. Selected release integration changes do not establish new Gemma assistant capability or expanded FA4 head geometry.
+
+Assistant support existed in v0.31; method=mtp alone does not identify the separate artifact. See the [v0.32 B300 source review and experiment priorities](../../../reports/vllm-v032-upgrade.md) and `vllm_v032_b300_review` in the [model catalog](../../../catalog/models.json). The version-specific analysis below retains its original scope; no runtime result or launch-array migration is implied.
+
 **Status: unbenchmarked local recommendations.** The upstream recipes are evidence of documented support, not a benchmark of the target B300 node.
 
 ## B300 / vLLM v0.31.0 priority (October 17)

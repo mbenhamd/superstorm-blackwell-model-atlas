@@ -1,5 +1,11 @@
 # DeepSeek V4 Flash 0731: serving on 8×B300
 
+## vLLM v0.32.0 update (October 18)
+
+NVIDIA NVFP4 TP8 target-only control, then same-revision bundled DSpark acceptance/quality probe after ignore-list correction. ModelOpt ignore mapping preserves native MXFP4 mtp.* draft experts instead of misinterpreting them as target NVFP4. Exact pinned0731 config/index matches this mechanism.
+
+PR end-to-end recovery is V4.1; publisher0731 export did not exercise speculation. No measured0731 speedup or complete loader qualification. See the [v0.32 B300 source review and experiment priorities](../../../reports/vllm-v032-upgrade.md) and `vllm_v032_b300_review` in the [model catalog](../../../catalog/models.json). The version-specific analysis below retains its original scope; no runtime result or launch-array migration is implied.
+
 **Status: unbenchmarked candidates, rechecked 2026-10-16 (UTC).** The upstream recipes document serving paths; none was run on this node.
 
 ## B300 / vLLM v0.31.0 priority (October 17)

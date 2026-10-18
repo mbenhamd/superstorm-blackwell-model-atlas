@@ -1,5 +1,11 @@
 # Qwen 3.8 27B: vLLM v0.31.0 on B300
 
+## vLLM v0.32.0 update (October 18)
+
+Pinned NVIDIA mixed NVFP4 TP1, FlashInfer/BF16 KV and matched compile/admission controls across v0.31/v0.32; inspect activation-quant fusion. ModelOpt mixed NVFP4 optimization predicate repaired; mixed loader support already existed.
+
+Eligible compilation/fusion required; no B300 performance transfer from SM121 PR. See the [v0.32 B300 source review and experiment priorities](../../../reports/vllm-v032-upgrade.md) and `vllm_v032_b300_review` in the [model catalog](../../../catalog/models.json). The version-specific analysis below retains its original scope; no runtime result or launch-array migration is implied.
+
 **Review: October 17, 2026 UTC.** Scope: immutable checkpoints and selected vLLM release source, not an executed serving image. All candidates run inside the required **KServe** platform. No B300 correctness, quality or performance result was reproduced.
 
 ## Recommended investigation order

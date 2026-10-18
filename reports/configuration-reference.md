@@ -8,11 +8,16 @@ Each reference is untested on the target node. Read the current family serving p
 
 ## Choosing a record for analysis
 
+For **vLLM v0.32**, read `vllm_v032_b300_review` and `recommended_vllm_v032_b300` in the model catalog, plus the [upgrade analysis](vllm-v032-upgrade.md). These are source-derived experiment priorities, not newly qualified launch arrays. The 40 argument records below retain their original scope; reconcile removed options, changed defaults and exact backend gates before using them with v0.32.
+
 `reference_scope` distinguishes the **34 historical source snapshots** from the **six release-specific comparisons**. `status` describes a candidate/probe; it does not certify compatibility with the latest release. A `status_recheck` can correct a previous conclusion without changing recorded arguments or the original `reviewed_source_commit`.
 
 For B300/vLLM v0.31, first read the selected model's `vllm_v031_b300_review` in `catalog/models.json`, including constraints and source IDs. This analysis covers all eight families; only Qwen27 currently has six explicit `.vllm.v031.` argument records. Reconcile other retained arguments with their family review before execution.
 
 ```bash
+# Latest reviewed release: source-supported priorities, not launch arrays
+jq '.models[] | {key, review: .vllm_v032_b300_review}' catalog/models.json
+
 # Release-scoped analysis for one family
 jq '.models[] | select(.key == "kimi-k3") | .vllm_v031_b300_review' catalog/models.json
 

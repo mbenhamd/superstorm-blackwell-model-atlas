@@ -1,5 +1,11 @@
 # Kimi K3: serving on 8×B300
 
+## vLLM v0.32.0 update (October 18)
+
+Native MXFP4 TP8 plus pinned Inferact DSpark: compare native versus FlashInfer packed speculative KDA at fixed proposal depth and state dtype. Conditional automatic packed speculative KDA; fused K/V pack on the DCP prefill path.
+
+SM10x, callable packed kernel, supported local heads, dimension128/conv4, BF16 input/conv, bounded gate and SD layout; RecoverSSM disabled. Mixed prefill/decode falls back. See the [v0.32 B300 source review and experiment priorities](../../../reports/vllm-v032-upgrade.md) and `vllm_v032_b300_review` in the [model catalog](../../../catalog/models.json). The version-specific analysis below retains its original scope; no runtime result or launch-array migration is implied.
+
 **Status: unbenchmarked candidates, rechecked 2026-10-16 (UTC).** The upstream recipes document serving paths; none was run on this node.
 
 ## B300 / vLLM v0.31.0 priority (October 17)
