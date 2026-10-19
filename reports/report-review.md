@@ -32,3 +32,20 @@ Its vLLM 0.31.0 utilization default and CUDA 13 baseline were confirmed. Several
 Read [optimization](optimization.md) for the mechanisms and the eight-model, three-workload comparison. Read [configuration references](configuration-reference.md) for the consolidated parameter records, and [stable/main/nightly](nightly-readiness.md) for current build distinctions. Primary identities remain in [the evidence register](../evidence/README.md).
 
 The repository now concentrates on hardware, architecture, formats, kernels, serving behavior and known constraints. Executable tests, benchmark runners/results, deployment tools, detailed validation campaigns and bulky audit bundles have been removed from the working tree; prior tracked versions remain in Git history. This review supplies justified hypotheses and corrections, not a new benchmark system or an unmeasured “best” configuration.
+
+## October 19 follow-up: external SGLang v0.5.22 guide
+
+Two Astra reviewers checked the supplied configuration and benchmark advice against the release source. The integrated [SGLang review](sglang-v0522-upgrade.md) retains the useful workload separation and adds these corrections:
+
+| Area | Correction |
+| --- | --- |
+| Benchmark lengths | Random lengths vary by default; fixed requested lengths need `--random-range-ratio 1` |
+| Agentic replay | Generated text is reused, but tool-call fields are dropped and tools are not executed; natural stopping must be selected explicitly |
+| Load and metrics | Client semaphore wait is excluded from request latency; multi-turn summary input throughput remains zero; use detailed usage accounting |
+| Hardware/backends | Page size resolves by model/backend. CuTe DSL is not a generic ordinary block-FP8 GEMM alternative |
+| Model scope | Keep V4.1 separate from catalog V4 Flash 0731; Mistral's BF16 compute setting is not a BF16 weight reference; GLM's experimental RadixArk export is not every NVFP4 derivative |
+| Missing provenance | The GLM Flash DFlash2 card declares CC-BY-NC-ND-4.0. This was omitted from the initial atlas upgrade review and is now recorded beside the candidate |
+| Useful new experiment | Separate Qwen27 FP4-head and BF16-head NVFP4 exports are pinned for a controlled comparison; no tensor-identity or B300 performance claim is added |
+| Downloadable kit | No archive or download URL accompanied the report; its scripts, sample and claimed syntax checks remain unavailable for review |
+
+This was selected source inspection and static document consistency review. It did not execute the proposed commands or independently reproduce the release's performance headlines.

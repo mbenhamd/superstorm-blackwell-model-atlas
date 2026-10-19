@@ -2628,12 +2628,10 @@
       "capture": "Rechecked by HTTPS during the audit; retrieval timestamp and response SHA-256 recorded.",
       "notes": "Mutable index/registry listing observed; wheel bytes and container layers not downloaded or executed.",
       "last_recheck": {
-        "retrieved_at": "2026-10-19T18:54:14.169470+00:00",
+        "retrieved_at": "2026-10-19T19:16:27.728810+00:00",
         "response_sha256": "bf0933239e4166ae3c5a45d96cf8a9579632bf999293ea35d48be4473b229583",
-        "title": "S0522-SGLANG-WHEELS",
-        "kind": "primary upstream metadata",
         "accessed_on": "2026-10-19",
-        "scope": "Release, branch or registry metadata only; no runtime or binary qualification."
+        "scope": "Follow-up metadata/card/config inspection; no binaries, weights or deployment were executed."
       },
       "prior_rechecks": [
         {
@@ -2648,6 +2646,14 @@
           "response_sha256": "a94319852096aa999961abb80c141bd296939d42a7d895d1c1bff38d935a8ccd",
           "scope": "Metadata only; prior source inspection and binary identities remain separate.",
           "claim": "Fresh release, main or advertised development artifact identity; no binary execution."
+        },
+        {
+          "retrieved_at": "2026-10-19T18:54:14.169470+00:00",
+          "response_sha256": "bf0933239e4166ae3c5a45d96cf8a9579632bf999293ea35d48be4473b229583",
+          "title": "S0522-SGLANG-WHEELS",
+          "kind": "primary upstream metadata",
+          "accessed_on": "2026-10-19",
+          "scope": "Release, branch or registry metadata only; no runtime or binary qualification."
         }
       ]
     },
@@ -4140,12 +4146,12 @@
       "claim": "Official latest-release API returns v0.31.0, published2026-10-05T06:44:55Z.",
       "scope": "Gemma/Mistral review; no GPU execution",
       "last_recheck": {
-        "retrieved_at": "2026-10-19T18:54:13.962431+00:00",
-        "response_sha256": "d8226b29dcf438e59b0bfd95be731db76c17b471538c51cc48e5df34b1d49564",
-        "title": "S0522-VLLM-LATEST",
-        "kind": "primary upstream metadata",
+        "retrieved_at": "2026-10-19T19:16:27.530751+00:00",
+        "response_sha256": "02034c6d44aa20f0c34635dcfba8cba29c86181e2b30baad9c66c7b1c036aa1a",
         "accessed_on": "2026-10-19",
-        "scope": "Release, branch or registry metadata only; no runtime or binary qualification."
+        "scope": "Follow-up metadata/card/config inspection; no binaries, weights or deployment were executed.",
+        "observed_tag": "v0.32.0",
+        "published_at": "2026-10-18T06:50:48Z"
       },
       "prior_rechecks": [
         {
@@ -4153,6 +4159,14 @@
           "response_sha256": "032806d1a6bc4fb4aa725aa3ecaaa39b9764b64cfc14a6e407a674c8e795ab57",
           "scope": "Metadata only; prior source inspection and binary identities remain separate.",
           "claim": "Fresh release, main or advertised development artifact identity; no binary execution."
+        },
+        {
+          "retrieved_at": "2026-10-19T18:54:13.962431+00:00",
+          "response_sha256": "d8226b29dcf438e59b0bfd95be731db76c17b471538c51cc48e5df34b1d49564",
+          "title": "S0522-VLLM-LATEST",
+          "kind": "primary upstream metadata",
+          "accessed_on": "2026-10-19",
+          "scope": "Release, branch or registry metadata only; no runtime or binary qualification."
         }
       ]
     },
@@ -4167,11 +4181,21 @@
       "claim": "Official latest-release API returns v0.5.21, published2026-10-02T01:09:04Z.",
       "scope": "Gemma/Mistral review; no GPU execution",
       "last_recheck": {
-        "retrieved_at": "2026-10-16T10:02:43.918765+00:00",
-        "response_sha256": "eaf401087605280b42d2c4648a618413fb5c1150599c8b5521a92bed6b6117b9",
-        "scope": "Metadata only; prior source inspection and binary identities remain separate.",
-        "claim": "Fresh release, main or advertised development artifact identity; no binary execution."
-      }
+        "retrieved_at": "2026-10-19T19:16:27.607232+00:00",
+        "response_sha256": "b08caccefa9f99ee05e18e4e27c99291d98056df0665678ea20ea6eadb75b61d",
+        "accessed_on": "2026-10-19",
+        "scope": "Follow-up metadata/card/config inspection; no binaries, weights or deployment were executed.",
+        "observed_tag": "v0.5.22",
+        "published_at": "2026-10-19T02:55:19Z"
+      },
+      "prior_rechecks": [
+        {
+          "retrieved_at": "2026-10-16T10:02:43.918765+00:00",
+          "response_sha256": "eaf401087605280b42d2c4648a618413fb5c1150599c8b5521a92bed6b6117b9",
+          "scope": "Metadata only; prior source inspection and binary identities remain separate.",
+          "claim": "Fresh release, main or advertised development artifact identity; no binary execution."
+        }
+      ]
     },
     "RR-GM-GEMMA-USER-TREE": {
       "url": "https://huggingface.co/api/models/google/gemma-4-31B-it/tree/fb9ae262347c3945692f09a612f8bb189def854f?recursive=false&expand=false",
@@ -4222,11 +4246,20 @@
       "claim": "No claim verified from this endpoint: HTTP Error 403: rate limit exceeded",
       "scope": "Attempted fresh main/nightly metadata; HTTP403 rate limit; no fallback identity invented.",
       "last_recheck": {
-        "retrieved_at": "2026-10-16T10:02:43.923991+00:00",
-        "response_sha256": "d30f579dabe5f5a9ceb5dec4280e7aceddfcfaf7171d585cd2417368b1d12c80",
-        "scope": "Metadata only; prior source inspection and binary identities remain separate.",
-        "claim": "Fresh release, main or advertised development artifact identity; no binary execution."
-      }
+        "retrieved_at": "2026-10-19T19:16:27.526534+00:00",
+        "response_sha256": "3fe944cedd174405a89db6b7898e960f669dfb1a4411ecbe07e48c77ba4b4be1",
+        "accessed_on": "2026-10-19",
+        "scope": "Current branch identity only; no new main source or binary qualification.",
+        "revision": "b439421f11912305559235937134682a28eb47bc"
+      },
+      "prior_rechecks": [
+        {
+          "retrieved_at": "2026-10-16T10:02:43.923991+00:00",
+          "response_sha256": "d30f579dabe5f5a9ceb5dec4280e7aceddfcfaf7171d585cd2417368b1d12c80",
+          "scope": "Metadata only; prior source inspection and binary identities remain separate.",
+          "claim": "Fresh release, main or advertised development artifact identity; no binary execution."
+        }
+      ]
     },
     "RR-GM-SGLANG-MAIN": {
       "url": "https://api.github.com/repos/sgl-project/sglang/commits/main",
@@ -4238,12 +4271,11 @@
       "claim": "No claim verified from this endpoint: HTTP Error 403: rate limit exceeded",
       "scope": "Attempted fresh main/nightly metadata; HTTP403 rate limit; no fallback identity invented.",
       "last_recheck": {
-        "retrieved_at": "2026-10-19T18:54:13.984011+00:00",
-        "response_sha256": "d63a20cb6743376a2cc00c70a5728d60b913f5d15cd32cffbbfe7fb9fbc06fef",
-        "title": "S0522-MAIN",
-        "kind": "primary upstream metadata",
+        "retrieved_at": "2026-10-19T19:16:27.541007+00:00",
+        "response_sha256": "c544719fa0804abe49935da66bcb21f5ae698d3268791013da6974880e267d28",
         "accessed_on": "2026-10-19",
-        "scope": "Release, branch or registry metadata only; no runtime or binary qualification."
+        "scope": "Current branch identity only; no new main source or binary qualification.",
+        "revision": "0ce41c5a06f829bb74e3d582c82d8d51837742df"
       },
       "prior_rechecks": [
         {
@@ -4251,6 +4283,14 @@
           "response_sha256": "bc4eb4a00e15ff7820f10341512ce9c52f82ec495f8fae13aedeed655ca57c1e",
           "scope": "Metadata only; prior source inspection and binary identities remain separate.",
           "claim": "Fresh release, main or advertised development artifact identity; no binary execution."
+        },
+        {
+          "retrieved_at": "2026-10-19T18:54:13.984011+00:00",
+          "response_sha256": "d63a20cb6743376a2cc00c70a5728d60b913f5d15cd32cffbbfe7fb9fbc06fef",
+          "title": "S0522-MAIN",
+          "kind": "primary upstream metadata",
+          "accessed_on": "2026-10-19",
+          "scope": "Release, branch or registry metadata only; no runtime or binary qualification."
         }
       ]
     },
@@ -4264,11 +4304,20 @@
       "claim": "No claim verified from this endpoint: HTTP Error 403: rate limit exceeded",
       "scope": "Attempted fresh main/nightly metadata; HTTP403 rate limit; no fallback identity invented.",
       "last_recheck": {
-        "retrieved_at": "2026-10-16T10:02:44.143202+00:00",
-        "response_sha256": "7ddf82060c03fc18f417890cbd7a81d24430437912610c14de37efc0e4785782",
-        "scope": "Metadata only; prior source inspection and binary identities remain separate.",
-        "claim": "Fresh release, main or advertised development artifact identity; no binary execution."
-      }
+        "retrieved_at": "2026-10-19T19:16:28.023913+00:00",
+        "response_sha256": "5d22d48420a1e45e578e4a0ec0ad729f31d32f575d6a5a8d9bbaa5bcc36066d0",
+        "accessed_on": "2026-10-19",
+        "scope": "Current branch identity only; no new main source or binary qualification.",
+        "revision": "e1070ad0746cf25f685f6cc8b16618495f1505f9"
+      },
+      "prior_rechecks": [
+        {
+          "retrieved_at": "2026-10-16T10:02:44.143202+00:00",
+          "response_sha256": "7ddf82060c03fc18f417890cbd7a81d24430437912610c14de37efc0e4785782",
+          "scope": "Metadata only; prior source inspection and binary identities remain separate.",
+          "claim": "Fresh release, main or advertised development artifact identity; no binary execution."
+        }
+      ]
     },
     "RR-GM-GEMMA-DRAFT-CARD": {
       "url": "https://huggingface.co/google/gemma-4-31B-it-assistant/raw/627c5ec1458b9086b841a91e0512fd31fd2fbbf1/README.md",
@@ -5772,12 +5821,12 @@
       "observed_tag": "v0.21.0",
       "scope": "Attention and precision knowledge review; no reproduced serving performance or quality result",
       "last_recheck": {
-        "retrieved_at": "2026-10-19T18:54:13.996606+00:00",
+        "retrieved_at": "2026-10-19T19:16:27.547363+00:00",
         "response_sha256": "7e4a035da5e44b865789a34c9755654ae86ee680f00530909af602ecffb90cba",
-        "title": "S0522-KSERVE-LATEST",
-        "kind": "primary upstream metadata",
         "accessed_on": "2026-10-19",
-        "scope": "Release, branch or registry metadata only; no runtime or binary qualification."
+        "scope": "Follow-up metadata/card/config inspection; no binaries, weights or deployment were executed.",
+        "observed_tag": "v0.21.0",
+        "published_at": "2026-09-25T17:04:20Z"
       },
       "prior_rechecks": [
         {
@@ -5785,6 +5834,14 @@
           "response_sha256": "bea75c2435860fd0e898ee4e83f2281d38818ad0fbf5b138e27f220b8890d19c",
           "scope": "Metadata only; prior source inspection and binary identities remain separate.",
           "claim": "Fresh release, main or advertised development artifact identity; no binary execution."
+        },
+        {
+          "retrieved_at": "2026-10-19T18:54:13.996606+00:00",
+          "response_sha256": "7e4a035da5e44b865789a34c9755654ae86ee680f00530909af602ecffb90cba",
+          "title": "S0522-KSERVE-LATEST",
+          "kind": "primary upstream metadata",
+          "accessed_on": "2026-10-19",
+          "scope": "Release, branch or registry metadata only; no runtime or binary qualification."
         }
       ]
     },
@@ -13588,7 +13645,15 @@
       "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
       "content_sha256": "010d32d604f97504acdaa740ad7acb7695efbcc52decc1b15a8778064b6096da",
       "source_archive_source_id": "S0522-TREE",
-      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime.",
+      "last_recheck": {
+        "accessed_on": "2026-10-19",
+        "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+        "inspected_at": "2026-10-19T19:17:35.181096+00:00",
+        "content_sha256": "010d32d604f97504acdaa740ad7acb7695efbcc52decc1b15a8778064b6096da",
+        "source_archive_source_id": "S0522-TREE",
+        "scope": "Selected follow-up source inspection; no upstream code or workload executed."
+      }
     },
     "S0522-S-MOE-REGISTRY": {
       "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/configs/moe_model_registry.py",
@@ -13947,7 +14012,15 @@
       "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
       "content_sha256": "bdeca180e96cb100e2a203919ae8ad1257a454af2c06d945c29c955ff6a77355",
       "source_archive_source_id": "S0522-TREE",
-      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime.",
+      "last_recheck": {
+        "accessed_on": "2026-10-19",
+        "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+        "inspected_at": "2026-10-19T19:17:35.181096+00:00",
+        "content_sha256": "bdeca180e96cb100e2a203919ae8ad1257a454af2c06d945c29c955ff6a77355",
+        "source_archive_source_id": "S0522-TREE",
+        "scope": "Selected follow-up source inspection; no upstream code or workload executed."
+      }
     },
     "S0522-K-MISTRAL": {
       "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/models/mistral.py",
@@ -14113,7 +14186,13 @@
       "retrieved_at": "2026-10-19T19:05:24.140850+00:00",
       "accessed_on": "2026-10-19",
       "response_sha256": "2014434d3e3639147d35d61259690d585e7820993180e7d579e3b796dddf5a31",
-      "scope": "Selected metadata/claim review. Author performance and bug reports are not reproduced results."
+      "scope": "Selected metadata/claim review. Author performance and bug reports are not reproduced results.",
+      "last_recheck": {
+        "retrieved_at": "2026-10-19T19:16:27.693624+00:00",
+        "response_sha256": "2014434d3e3639147d35d61259690d585e7820993180e7d579e3b796dddf5a31",
+        "accessed_on": "2026-10-19",
+        "scope": "Follow-up metadata/card/config inspection; no binaries, weights or deployment were executed."
+      }
     },
     "S0522-Q-CP-ANCESTRY": {
       "url": "https://api.github.com/repos/sgl-project/sglang/compare/0d130f191574c3dbb7d402caf344084e91ded585...baa9befa381511cd4d56f83980951e5a45fffc6d?per_page=1",
@@ -14286,6 +14365,247 @@
       "kind": "primary publisher head metadata",
       "title": "incoai/GLM-5.3-Flash-DFlash2 head identity",
       "scope": "Current head identity only; no new weight/export/runtime qualification. Existing immutable model pins retained."
+    },
+    "S0522-F-BENCH": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/benchmark/serving.py",
+      "title": "python/sglang/benchmark/serving.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "inspected_at": "2026-10-19T19:17:35.181096+00:00",
+      "content_sha256": "365c9a348c16a130a0ab62b8d6141b82dd56cc8542b6baf94cc92d120709cd35",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected follow-up source inspection; no upstream code or workload executed."
+    },
+    "S0522-F-RANDOM": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/benchmark/datasets/random.py",
+      "title": "python/sglang/benchmark/datasets/random.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "inspected_at": "2026-10-19T19:17:35.181096+00:00",
+      "content_sha256": "a1242f133dfc3d4c5d30a396cedb5351e6d6b447a632091eaf6e6c403beada7c",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected follow-up source inspection; no upstream code or workload executed."
+    },
+    "S0522-F-LENGTHS": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/benchmark/datasets/common.py",
+      "title": "python/sglang/benchmark/datasets/common.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "inspected_at": "2026-10-19T19:17:35.181096+00:00",
+      "content_sha256": "544b1b66c8be9cae6e870f3da337b8e3f356ec93ee9ea6c1ce700e1f55b3b442",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected follow-up source inspection; no upstream code or workload executed."
+    },
+    "S0522-F-TRACE": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/benchmark/datasets/agentic_trace.py",
+      "title": "python/sglang/benchmark/datasets/agentic_trace.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "inspected_at": "2026-10-19T19:17:35.181096+00:00",
+      "content_sha256": "575d2580ca81f3cc267ad8f029efe0fb3a9ad3ca4db1a7e75db44402738f2a95",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected follow-up source inspection; no upstream code or workload executed."
+    },
+    "S0522-F-PREFIX": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/benchmark/datasets/generated_shared_prefix.py",
+      "title": "python/sglang/benchmark/datasets/generated_shared_prefix.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "inspected_at": "2026-10-19T19:17:35.181096+00:00",
+      "content_sha256": "80a581fdd819a159e1518fbfdabf1b62e3ecf6c6c65d4e8328276495f7e2e307",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected follow-up source inspection; no upstream code or workload executed."
+    },
+    "S0522-F-FP8": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/layers/quantization/fp8_utils.py",
+      "title": "python/sglang/srt/layers/quantization/fp8_utils.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "inspected_at": "2026-10-19T19:17:35.181096+00:00",
+      "content_sha256": "31ee485f151f504d70a7c7e7e99d067d8fc412c9c3434ce0336545927b0585e6",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected follow-up source inspection; no upstream code or workload executed."
+    },
+    "S0522-F-BF16": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/layers/quantization/unquant.py",
+      "title": "python/sglang/srt/layers/quantization/unquant.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "inspected_at": "2026-10-19T19:17:35.181096+00:00",
+      "content_sha256": "4f1d09097eb17520cb3be6756cb452c1047914c092dbd269bc668dcd6d0f5fe4",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected follow-up source inspection; no upstream code or workload executed."
+    },
+    "S0522-F-FP4": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/layers/quantization/fp4_utils.py",
+      "title": "python/sglang/srt/layers/quantization/fp4_utils.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "inspected_at": "2026-10-19T19:17:35.181096+00:00",
+      "content_sha256": "1ea8403f9c0bca2e21b551c6fe08f5feb37486a1854b4c7c0de55953cccd05a7",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected follow-up source inspection; no upstream code or workload executed."
+    },
+    "S0522-F-MEMORY": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/arg_groups/fields/memory.py",
+      "title": "python/sglang/srt/arg_groups/fields/memory.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "inspected_at": "2026-10-19T19:17:35.181096+00:00",
+      "content_sha256": "260a4d9600a9a9806423ef0f390890e29a2d91bb2c712ba1c971abd51266910d",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected follow-up source inspection; no upstream code or workload executed."
+    },
+    "S0522-F-AUTH": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/utils/auth.py",
+      "title": "python/sglang/srt/utils/auth.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "inspected_at": "2026-10-19T19:17:35.181096+00:00",
+      "content_sha256": "1ecd821d5fefbb196c05f33e6ee1e0cf5731cca03b27e4cce5f563ba20e6b971",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected follow-up source inspection; no upstream code or workload executed."
+    },
+    "S0522-F-ADAPTIVE": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/speculative/adaptive_spec_params.py",
+      "title": "python/sglang/srt/speculative/adaptive_spec_params.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "inspected_at": "2026-10-19T19:17:35.181096+00:00",
+      "content_sha256": "2401c1afe3a6ebac1013e49ad4218238b3ff6ec77cab9a8cf1de9b669c4e64a8",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected follow-up source inspection; no upstream code or workload executed."
+    },
+    "S0522-F-VALIDATION": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/arg_groups/validation_hook.py",
+      "title": "python/sglang/srt/arg_groups/validation_hook.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "inspected_at": "2026-10-19T19:17:35.181096+00:00",
+      "content_sha256": "1b7941dc5a090b0e0e1545c7a342bfb716585b56c0a526ce7fd8eefe82c91585",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected follow-up source inspection; no upstream code or workload executed."
+    },
+    "S0522-F-GLM-COOKBOOK": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/docs/cookbook/autoregressive/GLM/GLM-5.3.mdx",
+      "title": "docs/cookbook/autoregressive/GLM/GLM-5.3.mdx",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "inspected_at": "2026-10-19T19:17:35.181096+00:00",
+      "content_sha256": "c6068603c698a6accfbf31cd87df89c80a6eb0fc533ba65657e792c0fd970604",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected follow-up source inspection; no upstream code or workload executed."
+    },
+    "S0522-F-Q27-HEAD-FP4": {
+      "url": "https://huggingface.co/api/models/RadixArk/Qwen3.8-27B-NVFP4",
+      "retrieved_at": "2026-10-19T19:16:27.702925+00:00",
+      "response_sha256": "0af9a872b82f86eb908926f37c8e1f44a30a0fea53085af38c64615fbd8b3e18",
+      "revision": "319f741cce68d7914884900c138a1fbb70a42f30",
+      "hf_id": "RadixArk/Qwen3.8-27B-NVFP4",
+      "title": "q27-head-fp4",
+      "kind": "primary publisher metadata",
+      "accessed_on": "2026-10-19",
+      "scope": "Follow-up metadata/card/config inspection; no binaries, weights or deployment were executed."
+    },
+    "S0522-F-Q27-HEAD-BF16": {
+      "url": "https://huggingface.co/api/models/RadixArk/Qwen3.8-27B-NVFP4-BF16-LMHead",
+      "retrieved_at": "2026-10-19T19:16:27.697408+00:00",
+      "response_sha256": "e93b137c3d3d0dcbd53b7462b866d019f2e4ff6697062da8a482d7f105c272da",
+      "revision": "009632fef96dd349150baa780c984e62e70e91fe",
+      "hf_id": "RadixArk/Qwen3.8-27B-NVFP4-BF16-LMHead",
+      "title": "q27-head-bf16",
+      "kind": "primary publisher metadata",
+      "accessed_on": "2026-10-19",
+      "scope": "Follow-up metadata/card/config inspection; no binaries, weights or deployment were executed."
+    },
+    "S0522-F-Q27-FP4-README-MD": {
+      "url": "https://huggingface.co/RadixArk/Qwen3.8-27B-NVFP4/raw/319f741cce68d7914884900c138a1fbb70a42f30/README.md",
+      "retrieved_at": "2026-10-19T19:16:28.180794+00:00",
+      "response_sha256": "3cfd18e07422e6eff20fcdf8dcdb3c864976dcef0e1e0f2c3f8bf788603203c2",
+      "title": "q27-fp4-README.md",
+      "kind": "primary publisher metadata",
+      "accessed_on": "2026-10-19",
+      "scope": "Follow-up metadata/card/config inspection; no binaries, weights or deployment were executed."
+    },
+    "S0522-F-Q27-FP4-CONFIG-JSON": {
+      "url": "https://huggingface.co/RadixArk/Qwen3.8-27B-NVFP4/raw/319f741cce68d7914884900c138a1fbb70a42f30/config.json",
+      "retrieved_at": "2026-10-19T19:16:28.210263+00:00",
+      "response_sha256": "7ff41ec6f96ad50efea3c92751cd261b63839d39936eb6e6ffc9066db8672740",
+      "title": "q27-fp4-config.json",
+      "kind": "primary publisher metadata",
+      "accessed_on": "2026-10-19",
+      "scope": "Follow-up metadata/card/config inspection; no binaries, weights or deployment were executed."
+    },
+    "S0522-F-Q27-FP4-HF_QUANT_CONFIG-JSON": {
+      "url": "https://huggingface.co/RadixArk/Qwen3.8-27B-NVFP4/raw/319f741cce68d7914884900c138a1fbb70a42f30/hf_quant_config.json",
+      "retrieved_at": "2026-10-19T19:16:28.206818+00:00",
+      "response_sha256": "0f39e8cd23abdfb79adc89ac1b19acad990aa6ac32973f9ab0a67d1e3449535c",
+      "title": "q27-fp4-hf_quant_config.json",
+      "kind": "primary publisher metadata",
+      "accessed_on": "2026-10-19",
+      "scope": "Follow-up metadata/card/config inspection; no binaries, weights or deployment were executed."
+    },
+    "S0522-F-Q27-BF16-README-MD": {
+      "url": "https://huggingface.co/RadixArk/Qwen3.8-27B-NVFP4-BF16-LMHead/raw/009632fef96dd349150baa780c984e62e70e91fe/README.md",
+      "retrieved_at": "2026-10-19T19:16:28.207197+00:00",
+      "response_sha256": "10a114243d31db24649ecda5245e30832e6b86e49e939c73725da4a00ee6db9d",
+      "title": "q27-bf16-README.md",
+      "kind": "primary publisher metadata",
+      "accessed_on": "2026-10-19",
+      "scope": "Follow-up metadata/card/config inspection; no binaries, weights or deployment were executed."
+    },
+    "S0522-F-Q27-BF16-CONFIG-JSON": {
+      "url": "https://huggingface.co/RadixArk/Qwen3.8-27B-NVFP4-BF16-LMHead/raw/009632fef96dd349150baa780c984e62e70e91fe/config.json",
+      "retrieved_at": "2026-10-19T19:16:28.206969+00:00",
+      "response_sha256": "66402a06352ac861bc9012a26678e6d5e11a5fd22180165fc19c8a27d3a9e079",
+      "title": "q27-bf16-config.json",
+      "kind": "primary publisher metadata",
+      "accessed_on": "2026-10-19",
+      "scope": "Follow-up metadata/card/config inspection; no binaries, weights or deployment were executed."
+    },
+    "S0522-F-Q27-BF16-HF_QUANT_CONFIG-JSON": {
+      "url": "https://huggingface.co/RadixArk/Qwen3.8-27B-NVFP4-BF16-LMHead/raw/009632fef96dd349150baa780c984e62e70e91fe/hf_quant_config.json",
+      "retrieved_at": "2026-10-19T19:16:28.210557+00:00",
+      "response_sha256": "2a63c5bd1e7f3097c184e20aa5d644e477872bf2882e5e19870379e15b215f58",
+      "title": "q27-bf16-hf_quant_config.json",
+      "kind": "primary publisher metadata",
+      "accessed_on": "2026-10-19",
+      "scope": "Follow-up metadata/card/config inspection; no binaries, weights or deployment were executed."
+    },
+    "S0522-F-BENCH-SHIM": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/bench_serving.py",
+      "title": "python/sglang/bench_serving.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "inspected_at": "2026-10-19T19:20:01.527794+00:00",
+      "content_sha256": "e2ed21f918212615d7aea997b858f8e7655c23923b968fa57a6b56559607bec7",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Follow-up source inspection only; no upstream code executed."
+    },
+    "S0522-F-SCHEDULER": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/managers/scheduler.py",
+      "title": "python/sglang/srt/managers/scheduler.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "inspected_at": "2026-10-19T19:20:01.528086+00:00",
+      "content_sha256": "ab23556739fc4a1a089da5d33f8cb925c14b7c68ae564294b5ed13d96b427c36",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Follow-up source inspection only; no upstream code executed."
     }
   }
 }

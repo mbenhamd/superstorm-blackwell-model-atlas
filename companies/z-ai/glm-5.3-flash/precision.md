@@ -29,3 +29,7 @@ Pin the model, tokenizer/processor, config and engine/container revisions togeth
 ## License provenance
 
 The official FP8 and BF16 artifacts contain the MIT license; the RedHat card also declares MIT. These observations apply to the inspected revisions. Check any additional exporter or bundled-code terms before redistribution. No model tensor payloads are bundled here. [glm-5.3-flash-LICENSE](https://huggingface.co/zai-org/GLM-5.3-Flash/raw/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/LICENSE)
+
+## External DFlash2 artifact terms
+
+The pinned `incoai/GLM-5.3-Flash-DFlash2` card declares **CC-BY-NC-ND-4.0**, describes research/evaluation use and points to separate commercial licensing. The target's MIT license does not apply automatically to this draft. This provenance was missing from the initial upgrade review and is now recorded in the catalog and lock. [S0522-S-DFLASH-CARD](https://huggingface.co/incoai/GLM-5.3-Flash-DFlash2/raw/bf582e4eacc1810f76656d1811693ff6c6737d2a/README.md)

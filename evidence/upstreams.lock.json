@@ -374,6 +374,18 @@
           "source_id": "RR-GM-VLLM-RELEASE",
           "scope": "Fresh latest release metadata; prior source/image review remains unchanged."
         }
+      ],
+      "followup_metadata_observations": [
+        {
+          "checked_at": "2026-10-19T19:16:27.530751+00:00",
+          "release": "v0.32.0",
+          "branch_ref": "b439421f11912305559235937134682a28eb47bc",
+          "source_ids": [
+            "RR-GM-VLLM-RELEASE",
+            "RR-GM-VLLM-MAIN"
+          ],
+          "scope": "External SGLang report follow-up; metadata only, does not change inspected release or qualify main."
+        }
       ]
     },
     {
@@ -593,7 +605,19 @@
         "image_config_inspected": false,
         "binary_executed": false,
         "source_provenance_attested": false
-      }
+      },
+      "followup_metadata_observations": [
+        {
+          "checked_at": "2026-10-19T19:16:27.607232+00:00",
+          "release": "v0.5.22",
+          "branch_ref": "0ce41c5a06f829bb74e3d582c82d8d51837742df",
+          "source_ids": [
+            "RR-GM-SGLANG-RELEASE",
+            "RR-GM-SGLANG-MAIN"
+          ],
+          "scope": "External SGLang report follow-up; metadata only, does not change inspected release or qualify main."
+        }
+      ]
     },
     {
       "key": "kserve",
@@ -672,6 +696,18 @@
           "retrieved_at": "2026-10-19T18:54:13.996606+00:00",
           "source_id": "ATTR-K-RELEASE",
           "scope": "Fresh latest release metadata; prior source/image review remains unchanged."
+        }
+      ],
+      "followup_metadata_observations": [
+        {
+          "checked_at": "2026-10-19T19:16:27.547363+00:00",
+          "release": "v0.21.0",
+          "branch_ref": "e1070ad0746cf25f685f6cc8b16618495f1505f9",
+          "source_ids": [
+            "ATTR-K-RELEASE",
+            "RR-GM-KSERVE-MAIN"
+          ],
+          "scope": "External SGLang report follow-up; metadata only, does not change inspected release or qualify main."
         }
       ]
     }
@@ -1455,6 +1491,12 @@
       "id": "BPLAN-V-NIGHTLY-WHEELS",
       "source_id": "BPLAN-V-NIGHTLY-WHEELS",
       "url": "https://wheels.vllm.ai/nightly/cu130/vllm/"
+    },
+    {
+      "project": "sglang",
+      "checked_at": "2026-10-19T19:16:27.728810+00:00",
+      "source_id": "GNIGHTLY-INDEX",
+      "scope": "CUDA13 index retrieved during follow-up; no development wheel downloaded or qualified."
     }
   ],
   "nightly_observation_boundary": "Published index/registry metadata only; no wheel or image bytes executed or verified. Multiple dated observations are retained because moving channels changed during research. Source inspection applies only to the named selected refs, not every later branch or artifact.",
@@ -2099,7 +2141,47 @@
         "S0522-S-DFLASH-CFG",
         "S0522-S-DFLASH-CARD"
       ],
-      "verification": "Additional source-inspected draft; separate artifact, unqualified B300 target/image pairing."
+      "verification": "Additional source-inspected draft; separate artifact, unqualified B300 target/image pairing.",
+      "license_provenance": {
+        "declared_license": "cc-by-nc-nd-4.0",
+        "scope": "Pinned incoai/GLM-5.3-Flash-DFlash2 card declares CC-BY-NC-ND-4.0 for research/evaluation and a separate commercial-licensing route. This draft does not inherit the target MIT license.",
+        "source_id": "S0522-S-DFLASH-CARD",
+        "checked_at": "2026-10-19T19:16:27.693624+00:00"
+      }
+    },
+    {
+      "hf_id": "RadixArk/Qwen3.8-27B-NVFP4",
+      "revision": "319f741cce68d7914884900c138a1fbb70a42f30",
+      "model_keys": [
+        "qwen3.8-27b"
+      ],
+      "roles": [
+        "additional_lm_head_precision_candidate"
+      ],
+      "source_ids": [
+        "S0522-F-Q27-HEAD-FP4",
+        "S0522-F-Q27-FP4-README-MD",
+        "S0522-F-Q27-FP4-CONFIG-JSON",
+        "S0522-F-Q27-FP4-HF_QUANT_CONFIG-JSON"
+      ],
+      "verification": "Publisher cards and precision metadata inspected; no tensor-payload identity, load, B300 performance or quality verified. Not promoted to the existing configuration arrays."
+    },
+    {
+      "hf_id": "RadixArk/Qwen3.8-27B-NVFP4-BF16-LMHead",
+      "revision": "009632fef96dd349150baa780c984e62e70e91fe",
+      "model_keys": [
+        "qwen3.8-27b"
+      ],
+      "roles": [
+        "additional_lm_head_precision_candidate"
+      ],
+      "source_ids": [
+        "S0522-F-Q27-HEAD-BF16",
+        "S0522-F-Q27-BF16-README-MD",
+        "S0522-F-Q27-BF16-CONFIG-JSON",
+        "S0522-F-Q27-BF16-HF_QUANT_CONFIG-JSON"
+      ],
+      "verification": "Publisher cards and precision metadata inspected; no tensor-payload identity, load, B300 performance or quality verified. Not promoted to the existing configuration arrays."
     }
   ],
   "date_basis": "UTC; October 19 selected SGLang v0.5.22 versus v0.5.21 source review and metadata, following October 18 vLLM v0.32 review. Each record preserves its own retrieval, revision and scope; no runtime qualification.",
