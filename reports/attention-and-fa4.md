@@ -1,5 +1,7 @@
 # Attention, sparse history and FlashAttention-4
 
+**October 19 SGLang v0.5.22 update:** the [release analysis](sglang-v0522-upgrade.md) documents the unresolved ordinary paged hd256 FA4 route for Qwen27, Gemma SM10x local/image-mask restrictions, QSA indexer precision and model-specific DCP limits. Earlier implementation observations below retain their stated release/source scope; vLLM backend eligibility cannot be transferred to SGLang.
+
 **Evidence refreshed October 16, 2026 UTC.** This chapter explains the arithmetic and the kernel mechanisms. It distinguishes the March FA4 paper, the current standalone library, later low-precision work, and the interfaces exposed by serving engines. All performance numbers below are attributed upstream results; this atlas contains no reproduced B300 serving measurements.
 
 ## The decisions an attention implementation makes

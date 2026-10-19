@@ -1,5 +1,15 @@
 # GLM 5.3: serving on 8×B300
 
+## SGLang v0.5.22 review — October 19
+
+Official FP8 TP8 target-only DCP1 control, then DCP2 and native MTP5/1/6; optional DCP4. Hold FP8 DCP8 pending a verified sparse-kernel fix.
+
+Read the [release comparison and model-specific argument fragments](../../../reports/sglang-v0522-upgrade.md) and `sglang_v0522_b300_review` in the [catalog](../../../catalog/models.json) for changes, exclusions and proposed experiments. The review compares release source with v0.5.21; it does not qualify an engine image or measure B300 performance. Existing configuration records retain their original scope.
+
+Key constraints: FP8 TP8/DCP8 reaches reported64-query-head B300 sparse-kernel corruption; DCP2/4 gather16/32. Release chunks rows only. Issue author expects affected artifact inFlashInfer0.7.1; not reproduced here. DCP requires supported Blackwell TRT-LLM route and attentionTP divisibility; excludes CP/HiSparse/HiCache/PD/unified memory/pooled index/tree draft.
+
+[S0522-S-DCP](https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/layers/attention/dsa/dsa_dcp.py) [S0522-S-DSA-OVERRIDE](https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/arg_groups/model_overrides/deepseek_v2.py) [S0522-S-DCP-DOC](https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/docs/docs/advanced_features/dcp.mdx)
+
 ## vLLM v0.32.0 update (October 18)
 
 Explicit KV-matched v0.31/v0.32 control; then BF16 versus FP8 KV at TP8 and independent TP4 KServe groups. GlmMoeDsa auto KV selects FP8 on CUDA family10 including B300, independent of target weight precision.

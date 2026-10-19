@@ -1,6 +1,6 @@
 {
-  "as_of": "2026-10-18",
-  "date_basis": "UTC; October 18 selected vLLM v0.32 versus v0.31 B300 source review and upstream metadata. Each record retains its own retrieval and scope; no runtime qualification.",
+  "as_of": "2026-10-19",
+  "date_basis": "UTC; October 19 selected SGLang v0.5.22 versus v0.5.21 source review and metadata, following October 18 vLLM v0.32 review. Each record preserves its own retrieval, revision and scope; no runtime qualification.",
   "sources": {
     "HW": {
       "url": "https://docs.nvidia.com/dgx/dgxb300-user-guide/introduction-to-dgxb300.html",
@@ -350,10 +350,13 @@
       "verification": "Parsed immutable JSON; curated dimensions and 69 KDA / 24 MLA counts checked. Vocabulary is 163840; attention/shared/dense exclusions and unset activation quantization are explicit.",
       "capture": "Read through web or GitHub connector; original bytes not archived",
       "last_recheck": {
-        "retrieved_at": "2026-10-17T09:55:43.751157+00:00",
-        "response_sha256": "9710e121a58d03ac92c8d6da287a19541994319afbbe6d6202af001ffd379213",
-        "scope": "Selected immutable source/model metadata review for 8xB300 and vLLM v0.31.0; no weights, installed engine, runtime validation or benchmark.",
-        "claim": "Native Kimi K3 target configuration: group32 MXFP4 routed experts and hybrid attention; num_nextn_predict_layers=0."
+        "title": "moonshotai/Kimi-K3 CFG",
+        "retrieved_at": "2026-10-19T18:56:00.221240+00:00",
+        "revision": "f831ab66814297da540d832a5235f8e904f29d06",
+        "sha256": "9710e121a58d03ac92c8d6da287a19541994319afbbe6d6202af001ffd379213",
+        "evidence_type": "publisher-artifact",
+        "scope": "Fresh immutable model card/config retrieval and selected configuration/recipe inspection.",
+        "accessed_on": "2026-10-19"
       },
       "prior_rechecks": [
         {
@@ -367,6 +370,12 @@
           "retrieved_at": "2026-10-16T10:03:26.149685+00:00",
           "response_sha256": "9710e121a58d03ac92c8d6da287a19541994319afbbe6d6202af001ffd379213",
           "scope": "Same cited URL freshly retrieved and inspected; source metadata only, no engine execution."
+        },
+        {
+          "retrieved_at": "2026-10-17T09:55:43.751157+00:00",
+          "response_sha256": "9710e121a58d03ac92c8d6da287a19541994319afbbe6d6202af001ffd379213",
+          "scope": "Selected immutable source/model metadata review for 8xB300 and vLLM v0.31.0; no weights, installed engine, runtime validation or benchmark.",
+          "claim": "Native Kimi K3 target configuration: group32 MXFP4 routed experts and hybrid attention; num_nextn_predict_layers=0."
         }
       ]
     },
@@ -747,10 +756,13 @@
       "verification": "Confirms dense128B/text-image, reasoning none/high, vLLM recommendation and explicit SGLang TP8 recipe, plus correction commit link.",
       "capture": "Retrieved with Python urllib; metadata/text snapshot held in temporary audit cache, no weight tensors fetched",
       "last_recheck": {
-        "retrieved_at": "2026-10-17T09:58:19.432691+00:00",
-        "response_sha256": "6d14ac4dba5a4c8b3d652ea67742ee1b41e424772194b8088cd62603d5032465",
-        "claim": "Exact Mistral Medium3.5 target publisher serving reference; historical release prerequisites not current stable restriction.",
-        "scope": "Source/document inspection only; no engine execution, model weights, tests or B300 measurements."
+        "title": "mistralai/Mistral-Medium-3.5-128B CARD",
+        "retrieved_at": "2026-10-19T18:56:00.207098+00:00",
+        "revision": "22b2b868a15677cfa6061277ed2f653d1349a9ab",
+        "sha256": "6d14ac4dba5a4c8b3d652ea67742ee1b41e424772194b8088cd62603d5032465",
+        "evidence_type": "publisher-artifact",
+        "scope": "Fresh immutable model card/config retrieval and selected configuration/recipe inspection.",
+        "accessed_on": "2026-10-19"
       },
       "prior_rechecks": [
         {
@@ -759,6 +771,12 @@
           "verification": "retrieved-and-content-inspected",
           "claim": "Official dense128B target, native FP8 setup, vLLM TP8 and SGLang TP8 recipe; vLLM nightly, mistral_common>=1.11.1, transformers>=5.4.0. Mutable day-zero Blackwell SGLang image tag is not a digest.",
           "scope": "Gemma/Mistral review; no GPU execution"
+        },
+        {
+          "retrieved_at": "2026-10-17T09:58:19.432691+00:00",
+          "response_sha256": "6d14ac4dba5a4c8b3d652ea67742ee1b41e424772194b8088cd62603d5032465",
+          "claim": "Exact Mistral Medium3.5 target publisher serving reference; historical release prerequisites not current stable restriction.",
+          "scope": "Source/document inspection only; no engine execution, model weights, tests or B300 measurements."
         }
       ]
     },
@@ -774,10 +792,13 @@
       "verification": "All prior projection fields matched; corrected mscale_all_dim=0.0, mscale=1.0, beta_fast=4.0 and beta_slow=1.0 added to projection.",
       "capture": "Retrieved with Python urllib; metadata/text snapshot held in temporary audit cache, no weight tensors fetched",
       "last_recheck": {
-        "retrieved_at": "2026-10-17T09:58:19.431306+00:00",
-        "response_sha256": "6ebadc48e3bdfff1a6a0b863530c68c9725a49eecd21c0527bdcb21b822f4d71",
-        "claim": "Pinned corrected Transformers target configuration.",
-        "scope": "Source/document inspection only; no engine execution, model weights, tests or B300 measurements."
+        "title": "mistralai/Mistral-Medium-3.5-128B CFG",
+        "retrieved_at": "2026-10-19T18:56:00.207098+00:00",
+        "revision": "22b2b868a15677cfa6061277ed2f653d1349a9ab",
+        "sha256": "6ebadc48e3bdfff1a6a0b863530c68c9725a49eecd21c0527bdcb21b822f4d71",
+        "evidence_type": "publisher-artifact",
+        "scope": "Fresh immutable model card/config retrieval and selected configuration/recipe inspection.",
+        "accessed_on": "2026-10-19"
       },
       "prior_rechecks": [
         {
@@ -786,6 +807,12 @@
           "verification": "retrieved-and-content-inspected",
           "claim": "Static FP8, no weight blocks, dequantize false, vision/projector/lm_head exclusions; 88 GQA layers,8KVheads,128head_dim; corrected YaRN mscale_all_dim0.0.",
           "scope": "Gemma/Mistral review; no GPU execution"
+        },
+        {
+          "retrieved_at": "2026-10-17T09:58:19.431306+00:00",
+          "response_sha256": "6ebadc48e3bdfff1a6a0b863530c68c9725a49eecd21c0527bdcb21b822f4d71",
+          "claim": "Pinned corrected Transformers target configuration.",
+          "scope": "Source/document inspection only; no engine execution, model weights, tests or B300 measurements."
         }
       ]
     },
@@ -1293,10 +1320,13 @@
       "verification": "Parsed immutable ModelOpt mixed-precision configuration: expert groups of 16 and FP8_PB_WO attention entries. Module aliases are not counted as distinct layers.",
       "capture": "Metadata/text retrieved for review; complete response body not bundled",
       "last_recheck": {
-        "retrieved_at": "2026-10-17T09:55:44.149612+00:00",
-        "response_sha256": "66ff1cc0486ab1a0901ce5e1f8bc00ad075ff263fc357991d6c23b6e756706b5",
-        "scope": "Selected immutable source/model metadata review for 8xB300 and vLLM v0.31.0; no weights, installed engine, runtime validation or benchmark.",
-        "claim": "ModelOpt mixed export: NVFP4 group16 routed experts plus selected FP8_PB_WO attention modules; distinct from native MXFP4."
+        "title": "nvidia/Kimi-K3-NVFP4 CFG",
+        "retrieved_at": "2026-10-19T18:56:00.466103+00:00",
+        "revision": "b2428a0b83a8b712ff2e1a8448a103d4175341f1",
+        "sha256": "66ff1cc0486ab1a0901ce5e1f8bc00ad075ff263fc357991d6c23b6e756706b5",
+        "evidence_type": "publisher-artifact",
+        "scope": "Fresh immutable model card/config retrieval and selected configuration/recipe inspection.",
+        "accessed_on": "2026-10-19"
       },
       "prior_rechecks": [
         {
@@ -1310,6 +1340,12 @@
           "retrieved_at": "2026-10-16T10:03:26.333559+00:00",
           "response_sha256": "66ff1cc0486ab1a0901ce5e1f8bc00ad075ff263fc357991d6c23b6e756706b5",
           "scope": "Same cited URL freshly retrieved and inspected; source metadata only, no engine execution."
+        },
+        {
+          "retrieved_at": "2026-10-17T09:55:44.149612+00:00",
+          "response_sha256": "66ff1cc0486ab1a0901ce5e1f8bc00ad075ff263fc357991d6c23b6e756706b5",
+          "scope": "Selected immutable source/model metadata review for 8xB300 and vLLM v0.31.0; no weights, installed engine, runtime validation or benchmark.",
+          "claim": "ModelOpt mixed export: NVFP4 group16 routed experts plus selected FP8_PB_WO attention modules; distinct from native MXFP4."
         }
       ]
     },
@@ -1358,12 +1394,23 @@
       "verification": "Five full-attention layers, 64 query heads, 16 KV heads, feature IDs [7, 23, 51, 67, 83] and block size 7 verified.",
       "capture": "Metadata/text retrieved for review; complete response body not bundled",
       "last_recheck": {
-        "retrieved_at": "2026-10-16T08:58:03.626783+00:00",
-        "response_sha256": "410dd228c75ff91b57af8a1581d44d2ea096d5604f0d37fbd400470e90d961d3",
-        "verification": "Retrieved and inspected relevant metadata/text/source; scope described in claim. Not executed or independently benchmarked.",
-        "claim": "Five full-attention layers; 64 query/16 KV heads; target IDs7,23,51,67,83; block7.",
-        "scope": "Research evidence only. No model tensors downloaded, no inference engines installed/run, no GPU/quality measurements, no nightly image tested."
-      }
+        "title": "RadixArk/Kimi-K3-DSpark CFG",
+        "retrieved_at": "2026-10-19T18:56:00.198556+00:00",
+        "revision": "3c5bac301d9cf392706189d82ed947feca6c2f0f",
+        "sha256": "410dd228c75ff91b57af8a1581d44d2ea096d5604f0d37fbd400470e90d961d3",
+        "evidence_type": "publisher-artifact",
+        "scope": "Fresh immutable model card/config retrieval and selected configuration/recipe inspection.",
+        "accessed_on": "2026-10-19"
+      },
+      "prior_rechecks": [
+        {
+          "retrieved_at": "2026-10-16T08:58:03.626783+00:00",
+          "response_sha256": "410dd228c75ff91b57af8a1581d44d2ea096d5604f0d37fbd400470e90d961d3",
+          "verification": "Retrieved and inspected relevant metadata/text/source; scope described in claim. Not executed or independently benchmarked.",
+          "claim": "Five full-attention layers; 64 query/16 KV heads; target IDs7,23,51,67,83; block7.",
+          "scope": "Research evidence only. No model tensors downloaded, no inference engines installed/run, no GPU/quality measurements, no nightly image tested."
+        }
+      ]
     },
     "KIMIVPR-MIXED": {
       "url": "https://github.com/vllm-project/vllm/pull/50617",
@@ -2581,10 +2628,12 @@
       "capture": "Rechecked by HTTPS during the audit; retrieval timestamp and response SHA-256 recorded.",
       "notes": "Mutable index/registry listing observed; wheel bytes and container layers not downloaded or executed.",
       "last_recheck": {
-        "retrieved_at": "2026-10-16T10:02:43.996987+00:00",
-        "response_sha256": "a94319852096aa999961abb80c141bd296939d42a7d895d1c1bff38d935a8ccd",
-        "scope": "Metadata only; prior source inspection and binary identities remain separate.",
-        "claim": "Fresh release, main or advertised development artifact identity; no binary execution."
+        "retrieved_at": "2026-10-19T18:54:14.169470+00:00",
+        "response_sha256": "bf0933239e4166ae3c5a45d96cf8a9579632bf999293ea35d48be4473b229583",
+        "title": "S0522-SGLANG-WHEELS",
+        "kind": "primary upstream metadata",
+        "accessed_on": "2026-10-19",
+        "scope": "Release, branch or registry metadata only; no runtime or binary qualification."
       },
       "prior_rechecks": [
         {
@@ -2593,6 +2642,12 @@
           "verification": "retrieved metadata; identity/date fields or index entries read; no binary download",
           "claim": "SGLang nightly CUDA 13 wheel index",
           "scope": "Metadata or selected source inspection only; no GPU measurement or binary certification."
+        },
+        {
+          "retrieved_at": "2026-10-16T10:02:43.996987+00:00",
+          "response_sha256": "a94319852096aa999961abb80c141bd296939d42a7d895d1c1bff38d935a8ccd",
+          "scope": "Metadata only; prior source inspection and binary identities remain separate.",
+          "claim": "Fresh release, main or advertised development artifact identity; no binary execution."
         }
       ]
     },
@@ -3821,10 +3876,13 @@
         "No atlas profile enables this drafter; compatibility with exact target/build and image-conditioned generation requires qualification."
       ],
       "last_recheck": {
-        "retrieved_at": "2026-10-17T09:58:19.444076+00:00",
-        "response_sha256": "fa49b3f0cabc14b54fb3f18f741ea926ed842f988129bda3c0fe7e01210188a5",
-        "claim": "Official separate EAGLE target pairing, k3 and TP8 publisher delta; draft65536 must be adapted to target32768.",
-        "scope": "Source/document inspection only; no engine execution, model weights, tests or B300 measurements."
+        "title": "mistralai/Mistral-Medium-3.5-128B-EAGLE CARD",
+        "retrieved_at": "2026-10-19T18:56:00.241972+00:00",
+        "revision": "d31694b0f55b51d4d962b5c3dbf0e03d1f019275",
+        "sha256": "fa49b3f0cabc14b54fb3f18f741ea926ed842f988129bda3c0fe7e01210188a5",
+        "evidence_type": "publisher-artifact",
+        "scope": "Fresh immutable model card/config retrieval and selected configuration/recipe inspection.",
+        "accessed_on": "2026-10-19"
       },
       "prior_rechecks": [
         {
@@ -3833,6 +3891,12 @@
           "verification": "retrieved-and-content-inspected",
           "claim": "Official EAGLE target/draft recipe vLLM TP8 method eagle3tokens, draft max_model_len65536; SGLang TP8,bfloat16,EAGLE3steps/topk1/4tokens. Historical nightly/package minima do not identify exact binary.",
           "scope": "Gemma/Mistral review; no GPU execution"
+        },
+        {
+          "retrieved_at": "2026-10-17T09:58:19.444076+00:00",
+          "response_sha256": "fa49b3f0cabc14b54fb3f18f741ea926ed842f988129bda3c0fe7e01210188a5",
+          "claim": "Official separate EAGLE target pairing, k3 and TP8 publisher delta; draft65536 must be adapted to target32768.",
+          "scope": "Source/document inspection only; no engine execution, model weights, tests or B300 measurements."
         }
       ]
     },
@@ -3857,10 +3921,13 @@
         "No weight tensors inspected."
       ],
       "last_recheck": {
-        "retrieved_at": "2026-10-17T09:58:19.488090+00:00",
-        "response_sha256": "e09c95174ad4994a08506143ea0afd8c1b76ac0583c654866e5aca6e38f377bb",
-        "claim": "Native draft two GQA layers, FP8 tensor activation quantization and no vision.",
-        "scope": "Source/document inspection only; no engine execution, model weights, tests or B300 measurements."
+        "title": "mistralai/Mistral-Medium-3.5-128B-EAGLE CFG",
+        "retrieved_at": "2026-10-19T18:56:00.241972+00:00",
+        "revision": "d31694b0f55b51d4d962b5c3dbf0e03d1f019275",
+        "sha256": "e09c95174ad4994a08506143ea0afd8c1b76ac0583c654866e5aca6e38f377bb",
+        "evidence_type": "publisher-artifact",
+        "scope": "Fresh immutable model card/config retrieval and selected configuration/recipe inspection.",
+        "accessed_on": "2026-10-19"
       },
       "prior_rechecks": [
         {
@@ -3869,6 +3936,12 @@
           "verification": "retrieved-and-content-inspected",
           "claim": "Native two-layer GQA EAGLE draft,FP8e4m3/TENSOR activation scaling,no dtype field,no vision encoder.",
           "scope": "Gemma/Mistral review; no GPU execution"
+        },
+        {
+          "retrieved_at": "2026-10-17T09:58:19.488090+00:00",
+          "response_sha256": "e09c95174ad4994a08506143ea0afd8c1b76ac0583c654866e5aca6e38f377bb",
+          "claim": "Native draft two GQA layers, FP8 tensor activation quantization and no vision.",
+          "scope": "Source/document inspection only; no engine execution, model weights, tests or B300 measurements."
         }
       ]
     },
@@ -3910,12 +3983,12 @@
       "capture": "Fresh immutable source retrieval; hash retained, full body not bundled.",
       "notes": "Exact NVIDIA derivative identifies DeepSeek 0731 base and preserves bundled DSpark. Card expressly says speculation was not exercised during release validation; publisher target-only examples use TP8. Documentation/config/source inspection only; no local GPU or model-quality result.",
       "last_recheck": {
-        "kind": "primary metadata or documentation",
-        "retrieved_at": "2026-10-18T14:04:37.134070+00:00",
+        "title": "S0522-S-DS0731-NV-CARD",
+        "kind": "primary publisher metadata or issue/PR report",
+        "retrieved_at": "2026-10-19T19:05:24.164119+00:00",
+        "accessed_on": "2026-10-19",
         "response_sha256": "145264414508fc648c0c8bc7d05a047cfbdc75e753c5395f49c93fb2e407e9a5",
-        "accessed_on": "2026-10-18",
-        "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution.",
-        "scope": "Fresh retrieval of the referenced primary artifact for selected v0.32 source/model applicability; no runtime qualification."
+        "scope": "Selected metadata/claim review. Author performance and bug reports are not reproduced results."
       },
       "prior_rechecks": [
         {
@@ -3930,6 +4003,14 @@
           "response_sha256": "145264414508fc648c0c8bc7d05a047cfbdc75e753c5395f49c93fb2e407e9a5",
           "claim": "Exact NVIDIA0731 target-only TP8+EP reference; release did not validate speculative decoding.",
           "scope": "Source/document inspection only; no engine execution, model weights, tests or B300 measurements."
+        },
+        {
+          "kind": "primary metadata or documentation",
+          "retrieved_at": "2026-10-18T14:04:37.134070+00:00",
+          "response_sha256": "145264414508fc648c0c8bc7d05a047cfbdc75e753c5395f49c93fb2e407e9a5",
+          "accessed_on": "2026-10-18",
+          "capture": "Retrieved by HTTPS during this selected-source review; SHA-256 covers returned bytes. No GPU execution.",
+          "scope": "Fresh retrieval of the referenced primary artifact for selected v0.32 source/model applicability; no runtime qualification."
         }
       ]
     },
@@ -4059,11 +4140,21 @@
       "claim": "Official latest-release API returns v0.31.0, published2026-10-05T06:44:55Z.",
       "scope": "Gemma/Mistral review; no GPU execution",
       "last_recheck": {
-        "retrieved_at": "2026-10-16T10:02:43.944381+00:00",
-        "response_sha256": "032806d1a6bc4fb4aa725aa3ecaaa39b9764b64cfc14a6e407a674c8e795ab57",
-        "scope": "Metadata only; prior source inspection and binary identities remain separate.",
-        "claim": "Fresh release, main or advertised development artifact identity; no binary execution."
-      }
+        "retrieved_at": "2026-10-19T18:54:13.962431+00:00",
+        "response_sha256": "d8226b29dcf438e59b0bfd95be731db76c17b471538c51cc48e5df34b1d49564",
+        "title": "S0522-VLLM-LATEST",
+        "kind": "primary upstream metadata",
+        "accessed_on": "2026-10-19",
+        "scope": "Release, branch or registry metadata only; no runtime or binary qualification."
+      },
+      "prior_rechecks": [
+        {
+          "retrieved_at": "2026-10-16T10:02:43.944381+00:00",
+          "response_sha256": "032806d1a6bc4fb4aa725aa3ecaaa39b9764b64cfc14a6e407a674c8e795ab57",
+          "scope": "Metadata only; prior source inspection and binary identities remain separate.",
+          "claim": "Fresh release, main or advertised development artifact identity; no binary execution."
+        }
+      ]
     },
     "RR-GM-SGLANG-RELEASE": {
       "url": "https://api.github.com/repos/sgl-project/sglang/releases/latest",
@@ -4147,11 +4238,21 @@
       "claim": "No claim verified from this endpoint: HTTP Error 403: rate limit exceeded",
       "scope": "Attempted fresh main/nightly metadata; HTTP403 rate limit; no fallback identity invented.",
       "last_recheck": {
-        "retrieved_at": "2026-10-16T10:02:43.924437+00:00",
-        "response_sha256": "bc4eb4a00e15ff7820f10341512ce9c52f82ec495f8fae13aedeed655ca57c1e",
-        "scope": "Metadata only; prior source inspection and binary identities remain separate.",
-        "claim": "Fresh release, main or advertised development artifact identity; no binary execution."
-      }
+        "retrieved_at": "2026-10-19T18:54:13.984011+00:00",
+        "response_sha256": "d63a20cb6743376a2cc00c70a5728d60b913f5d15cd32cffbbfe7fb9fbc06fef",
+        "title": "S0522-MAIN",
+        "kind": "primary upstream metadata",
+        "accessed_on": "2026-10-19",
+        "scope": "Release, branch or registry metadata only; no runtime or binary qualification."
+      },
+      "prior_rechecks": [
+        {
+          "retrieved_at": "2026-10-16T10:02:43.924437+00:00",
+          "response_sha256": "bc4eb4a00e15ff7820f10341512ce9c52f82ec495f8fae13aedeed655ca57c1e",
+          "scope": "Metadata only; prior source inspection and binary identities remain separate.",
+          "claim": "Fresh release, main or advertised development artifact identity; no binary execution."
+        }
+      ]
     },
     "RR-GM-KSERVE-MAIN": {
       "url": "https://api.github.com/repos/kserve/kserve/commits/master",
@@ -4367,10 +4468,14 @@
       "claim": "Current repository API SHA 1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0 matches retained atlas pin; metadata-only observation.",
       "scope": "Qwen family documentation review; no model tensors downloaded, no engine installed/run, no measured serving result.",
       "last_recheck": {
-        "retrieved_at": "2026-10-17T09:47:03.165626+00:00",
-        "response_sha256": "d0daa5e663eeddf49d3b5a67b97ccfffc0bbf0e128f7b0bd5fc317b06fde3ce6",
-        "scope": "Qwen3.8-27B precision evidence and selected vLLM v0.31.0 source review; no weights downloaded, engine installed/executed, runtime test or benchmark.",
-        "claim": "Current head remains 1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0."
+        "hf_id": "Qwen/Qwen3.8-27B",
+        "revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
+        "retrieved_at": "2026-10-19T19:08:59.502548+00:00",
+        "response_sha256": "fa871eb16bc0e320282a2ce319218ced93e6f71fa81a3e5862dbd9e990d8415d",
+        "accessed_on": "2026-10-19",
+        "kind": "primary publisher head metadata",
+        "title": "Qwen/Qwen3.8-27B head identity",
+        "scope": "Current head identity only; no new weight/export/runtime qualification. Existing immutable model pins retained."
       },
       "prior_rechecks": [
         {
@@ -4378,6 +4483,12 @@
           "response_sha256": "ba36e5f60c79d5b5dc689f7340fee6cbb5365e7d84e5a73255996ba0faba310c",
           "scope": "Mutable publisher API",
           "claim": "Current main SHA 1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0; Hub BF16 scalar count 27,781,427,952 for the stored artifact, broader than the rounded 27B language-model headline"
+        },
+        {
+          "retrieved_at": "2026-10-17T09:47:03.165626+00:00",
+          "response_sha256": "d0daa5e663eeddf49d3b5a67b97ccfffc0bbf0e128f7b0bd5fc317b06fde3ce6",
+          "scope": "Qwen3.8-27B precision evidence and selected vLLM v0.31.0 source review; no weights downloaded, engine installed/executed, runtime test or benchmark.",
+          "claim": "Current head remains 1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0."
         }
       ]
     },
@@ -4392,10 +4503,14 @@
       "claim": "Current repository API SHA 017b9c7af6b5689d5dd426a76e0bc077eb5ca20a matches retained atlas pin; metadata-only observation.",
       "scope": "Qwen family documentation review; no model tensors downloaded, no engine installed/run, no measured serving result.",
       "last_recheck": {
-        "retrieved_at": "2026-10-17T09:47:03.159339+00:00",
-        "response_sha256": "b624abca489b70ba4009f1197694c6f48b19130fac8dc4419ff037873bbf56a8",
-        "scope": "Qwen3.8-27B precision evidence and selected vLLM v0.31.0 source review; no weights downloaded, engine installed/executed, runtime test or benchmark.",
-        "claim": "Current head remains 017b9c7af6b5689d5dd426a76e0bc077eb5ca20a."
+        "hf_id": "Qwen/Qwen3.8-27B-FP8",
+        "revision": "017b9c7af6b5689d5dd426a76e0bc077eb5ca20a",
+        "retrieved_at": "2026-10-19T19:08:59.515761+00:00",
+        "response_sha256": "ddfa9b6c07366bf5e987ff473a166d9a590ad51cccc2a881e56fa5cc275b0352",
+        "accessed_on": "2026-10-19",
+        "kind": "primary publisher head metadata",
+        "title": "Qwen/Qwen3.8-27B-FP8 head identity",
+        "scope": "Current head identity only; no new weight/export/runtime qualification. Existing immutable model pins retained."
       },
       "prior_rechecks": [
         {
@@ -4403,6 +4518,12 @@
           "response_sha256": "a08dd2dbcd72de76ce47d92969c83d09815e31421fa1971709cabb5f88ab1606",
           "scope": "Mutable publisher API",
           "claim": "Current main resolves to 017b9c7af6b5689d5dd426a76e0bc077eb5ca20a; unchanged from the prior atlas pin"
+        },
+        {
+          "retrieved_at": "2026-10-17T09:47:03.159339+00:00",
+          "response_sha256": "b624abca489b70ba4009f1197694c6f48b19130fac8dc4419ff037873bbf56a8",
+          "scope": "Qwen3.8-27B precision evidence and selected vLLM v0.31.0 source review; no weights downloaded, engine installed/executed, runtime test or benchmark.",
+          "claim": "Current head remains 017b9c7af6b5689d5dd426a76e0bc077eb5ca20a."
         }
       ]
     },
@@ -4417,10 +4538,14 @@
       "claim": "Current repository API SHA 482ca0f3832238542f8f5295dde86b5f22711d80 matches retained atlas pin; metadata-only observation.",
       "scope": "Qwen family documentation review; no model tensors downloaded, no engine installed/run, no measured serving result.",
       "last_recheck": {
-        "retrieved_at": "2026-10-17T09:47:03.333482+00:00",
-        "response_sha256": "f2786c55e054a867d4c90b26622c69692974b23139bebc667ea0c1c997178355",
-        "scope": "Qwen3.8-27B precision evidence and selected vLLM v0.31.0 source review; no weights downloaded, engine installed/executed, runtime test or benchmark.",
-        "claim": "Current head remains 482ca0f3832238542f8f5295dde86b5f22711d80."
+        "hf_id": "nvidia/Qwen3.8-27B-NVFP4",
+        "revision": "482ca0f3832238542f8f5295dde86b5f22711d80",
+        "retrieved_at": "2026-10-19T19:08:59.503333+00:00",
+        "response_sha256": "2fff847b37b48596dc6ce83ad83d2bc61fd2a50a96bd8c95513a7ba5e846fc94",
+        "accessed_on": "2026-10-19",
+        "kind": "primary publisher head metadata",
+        "title": "nvidia/Qwen3.8-27B-NVFP4 head identity",
+        "scope": "Current head identity only; no new weight/export/runtime qualification. Existing immutable model pins retained."
       },
       "prior_rechecks": [
         {
@@ -4428,6 +4553,12 @@
           "response_sha256": "546546324217d77c47a2441d3793066495699294da76af555d6fb5b470b53456",
           "scope": "Mutable publisher API",
           "claim": "Current main resolves to 482ca0f3832238542f8f5295dde86b5f22711d80; unchanged from the prior atlas pin"
+        },
+        {
+          "retrieved_at": "2026-10-17T09:47:03.333482+00:00",
+          "response_sha256": "f2786c55e054a867d4c90b26622c69692974b23139bebc667ea0c1c997178355",
+          "scope": "Qwen3.8-27B precision evidence and selected vLLM v0.31.0 source review; no weights downloaded, engine installed/executed, runtime test or benchmark.",
+          "claim": "Current head remains 482ca0f3832238542f8f5295dde86b5f22711d80."
         }
       ]
     },
@@ -4442,11 +4573,23 @@
       "claim": "Current repository API SHA fc694b54fb0174e0913e6adf86691ef85a4ead47 matches retained atlas pin; metadata-only observation.",
       "scope": "Qwen family documentation review; no model tensors downloaded, no engine installed/run, no measured serving result.",
       "last_recheck": {
-        "retrieved_at": "2026-10-16T10:02:40.481277Z",
-        "response_sha256": "fdbd6979791c34bed50093be1b6bc09cc831fc0e8d1b9d32db5b70c724483a27",
-        "scope": "Mutable publisher API",
-        "claim": "Current main resolves to fc694b54fb0174e0913e6adf86691ef85a4ead47; unchanged from the prior atlas pin"
-      }
+        "hf_id": "nvidia/Qwen3.8-Flash-Next-NVFP4",
+        "revision": "fc694b54fb0174e0913e6adf86691ef85a4ead47",
+        "retrieved_at": "2026-10-19T19:08:59.665635+00:00",
+        "response_sha256": "267a075b7529e55b0cf9df2bb1b32138762599da215a2a2d8a0a7355fe825b7f",
+        "accessed_on": "2026-10-19",
+        "kind": "primary publisher head metadata",
+        "title": "nvidia/Qwen3.8-Flash-Next-NVFP4 head identity",
+        "scope": "Current head identity only; no new weight/export/runtime qualification. Existing immutable model pins retained."
+      },
+      "prior_rechecks": [
+        {
+          "retrieved_at": "2026-10-16T10:02:40.481277Z",
+          "response_sha256": "fdbd6979791c34bed50093be1b6bc09cc831fc0e8d1b9d32db5b70c724483a27",
+          "scope": "Mutable publisher API",
+          "claim": "Current main resolves to fc694b54fb0174e0913e6adf86691ef85a4ead47; unchanged from the prior atlas pin"
+        }
+      ]
     },
     "RR-QWEN-VLLM-RELEASE": {
       "url": "https://api.github.com/repos/vllm-project/vllm/releases/latest",
@@ -5174,7 +5317,17 @@
       "response_sha256": "5b54365fe618ffb50a7726df9b6062ff1a72a2e12ac337c4dc357da672fe2188",
       "verification": "Retrieved and inspected relevant metadata/text/source; scope described in claim. Not executed or independently benchmarked.",
       "claim": "Current main SHA7872f01b1d1fe23eabc4c98b48bffcef5a386062.",
-      "scope": "Research evidence only. No model tensors downloaded, no inference engines installed/run, no GPU/quality measurements, no nightly image tested."
+      "scope": "Research evidence only. No model tensors downloaded, no inference engines installed/run, no GPU/quality measurements, no nightly image tested.",
+      "last_recheck": {
+        "hf_id": "deepseek-ai/DeepSeek-V4-Flash-0731",
+        "revision": "7872f01b1d1fe23eabc4c98b48bffcef5a386062",
+        "retrieved_at": "2026-10-19T19:08:59.997557+00:00",
+        "response_sha256": "71fd92c62945b65f983167b1ed37f404467d044983407b4aad682b9b66552722",
+        "accessed_on": "2026-10-19",
+        "kind": "primary publisher head metadata",
+        "title": "deepseek-ai/DeepSeek-V4-Flash-0731 head identity",
+        "scope": "Current head identity only; no new weight/export/runtime qualification. Existing immutable model pins retained."
+      }
     },
     "RR-KD-DEEPSEEK-ALT-CFG": {
       "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/raw/76e0fd0ce5001be043ce4db9c8db38fae83496ed/config.json",
@@ -5286,7 +5439,16 @@
       "response_sha256": "6924c345a25dc3360ca0a554469d59849378570eb6bfc8ce00189c239ad95235",
       "verification": "Retrieved and inspected relevant metadata/text/source; scope described in claim. Not executed or independently benchmarked.",
       "claim": "SGLang/nativeKimi example; generic data with no tool/agent traces; recommendsblock8 while example16; publisher8B300 measurements not reproduced and no immutable runtime/target pair established.",
-      "scope": "Research evidence only. No model tensors downloaded, no inference engines installed/run, no GPU/quality measurements, no nightly image tested."
+      "scope": "Research evidence only. No model tensors downloaded, no inference engines installed/run, no GPU/quality measurements, no nightly image tested.",
+      "last_recheck": {
+        "title": "modal-labs/Kimi-K3-DFlash CARD",
+        "retrieved_at": "2026-10-19T18:56:00.188552+00:00",
+        "revision": "c192d15a43407bf758b5ae0880d5c72052fef1de",
+        "sha256": "6924c345a25dc3360ca0a554469d59849378570eb6bfc8ce00189c239ad95235",
+        "evidence_type": "publisher-artifact",
+        "scope": "Fresh immutable model card/config retrieval and selected configuration/recipe inspection.",
+        "accessed_on": "2026-10-19"
+      }
     },
     "RR-KD-DFLASH-CFG": {
       "url": "https://huggingface.co/modal-labs/Kimi-K3-DFlash/raw/c192d15a43407bf758b5ae0880d5c72052fef1de/config.json",
@@ -5297,7 +5459,16 @@
       "response_sha256": "92e2928e57f417921cd1c031a18840834c55ed13ed0d722acfa8f41b01080717",
       "verification": "Retrieved and inspected relevant metadata/text/source; scope described in claim. Not executed or independently benchmarked.",
       "claim": "Six-layer DFlashDraftModel, sliding window4096, hidden7168,32Q/8KV, targetIDs19,37,54,66,78,90; config block16.",
-      "scope": "Research evidence only. No model tensors downloaded, no inference engines installed/run, no GPU/quality measurements, no nightly image tested."
+      "scope": "Research evidence only. No model tensors downloaded, no inference engines installed/run, no GPU/quality measurements, no nightly image tested.",
+      "last_recheck": {
+        "title": "modal-labs/Kimi-K3-DFlash CFG",
+        "retrieved_at": "2026-10-19T18:56:00.188552+00:00",
+        "revision": "c192d15a43407bf758b5ae0880d5c72052fef1de",
+        "sha256": "92e2928e57f417921cd1c031a18840834c55ed13ed0d722acfa8f41b01080717",
+        "evidence_type": "publisher-artifact",
+        "scope": "Fresh immutable model card/config retrieval and selected configuration/recipe inspection.",
+        "accessed_on": "2026-10-19"
+      }
     },
     "RR-KD-KSERVE-MASTER": {
       "url": "https://api.github.com/repos/kserve/kserve/commits/master",
@@ -5601,11 +5772,21 @@
       "observed_tag": "v0.21.0",
       "scope": "Attention and precision knowledge review; no reproduced serving performance or quality result",
       "last_recheck": {
-        "retrieved_at": "2026-10-16T10:02:43.957091+00:00",
-        "response_sha256": "bea75c2435860fd0e898ee4e83f2281d38818ad0fbf5b138e27f220b8890d19c",
-        "scope": "Metadata only; prior source inspection and binary identities remain separate.",
-        "claim": "Fresh release, main or advertised development artifact identity; no binary execution."
-      }
+        "retrieved_at": "2026-10-19T18:54:13.996606+00:00",
+        "response_sha256": "7e4a035da5e44b865789a34c9755654ae86ee680f00530909af602ecffb90cba",
+        "title": "S0522-KSERVE-LATEST",
+        "kind": "primary upstream metadata",
+        "accessed_on": "2026-10-19",
+        "scope": "Release, branch or registry metadata only; no runtime or binary qualification."
+      },
+      "prior_rechecks": [
+        {
+          "retrieved_at": "2026-10-16T10:02:43.957091+00:00",
+          "response_sha256": "bea75c2435860fd0e898ee4e83f2281d38818ad0fbf5b138e27f220b8890d19c",
+          "scope": "Metadata only; prior source inspection and binary identities remain separate.",
+          "claim": "Fresh release, main or advertised development artifact identity; no binary execution."
+        }
+      ]
     },
     "ATTR-K-HEAD": {
       "url": "https://api.github.com/repos/kserve/kserve/commits/master",
@@ -8081,11 +8262,23 @@
       "scope": "Mutable repository head observed; no weight payload downloaded.",
       "kind": "primary documentation or artifact metadata",
       "last_recheck": {
-        "retrieved_at": "2026-10-17T09:55:44.280216+00:00",
-        "response_sha256": "42a3a8b13cf6cf5b3547fd1a0b8253870532379d9a6ba010b55d9bfde61c4cb9",
-        "scope": "Selected immutable source/model metadata review for 8xB300 and vLLM v0.31.0; no weights, installed engine, runtime validation or benchmark.",
-        "claim": "Fresh current publisher API resolves to 46a050bec13002ad29ee795c16e61cf4fa3c4a9c; unchanged from retained artifact pin."
-      }
+        "hf_id": "zai-org/GLM-5.3-Flash",
+        "revision": "46a050bec13002ad29ee795c16e61cf4fa3c4a9c",
+        "retrieved_at": "2026-10-19T19:09:00.001949+00:00",
+        "response_sha256": "6654d71d8f04ce4e9eac7133309310fa16836b8d2a4d84889024c47f0b96e1f4",
+        "accessed_on": "2026-10-19",
+        "kind": "primary publisher head metadata",
+        "title": "zai-org/GLM-5.3-Flash head identity",
+        "scope": "Current head identity only; no new weight/export/runtime qualification. Existing immutable model pins retained."
+      },
+      "prior_rechecks": [
+        {
+          "retrieved_at": "2026-10-17T09:55:44.280216+00:00",
+          "response_sha256": "42a3a8b13cf6cf5b3547fd1a0b8253870532379d9a6ba010b55d9bfde61c4cb9",
+          "scope": "Selected immutable source/model metadata review for 8xB300 and vLLM v0.31.0; no weights, installed engine, runtime validation or benchmark.",
+          "claim": "Fresh current publisher API resolves to 46a050bec13002ad29ee795c16e61cf4fa3c4a9c; unchanged from retained artifact pin."
+        }
+      ]
     },
     "TOPG-FLASH-NV-INDEX": {
       "url": "https://huggingface.co/RedHatAI/GLM-5.3-Flash-NVFP4/resolve/18d55bfd5a2194887738da73753975c9d3842f46/model.safetensors.index.json",
@@ -8183,11 +8376,23 @@
       "scope": "Mutable repository head observed; no weight payload downloaded.",
       "kind": "primary documentation or artifact metadata",
       "last_recheck": {
-        "retrieved_at": "2026-10-17T09:55:43.765500+00:00",
-        "response_sha256": "d95d406d20687e1d2460fbd6e928b464fc5c35d0e8c2569a6281602255f044d6",
-        "scope": "Selected immutable source/model metadata review for 8xB300 and vLLM v0.31.0; no weights, installed engine, runtime validation or benchmark.",
-        "claim": "Fresh current publisher API resolves to ba32f8c19c8738e2c57c71798c601d477a7bf844; unchanged from retained artifact pin."
-      }
+        "hf_id": "zai-org/GLM-5.3",
+        "revision": "ba32f8c19c8738e2c57c71798c601d477a7bf844",
+        "retrieved_at": "2026-10-19T19:08:59.827420+00:00",
+        "response_sha256": "10ada77502ea2aad68ef1c8aeb1c83e1bd2851ac8d1c595feb1e8df7eaf4fca1",
+        "accessed_on": "2026-10-19",
+        "kind": "primary publisher head metadata",
+        "title": "zai-org/GLM-5.3 head identity",
+        "scope": "Current head identity only; no new weight/export/runtime qualification. Existing immutable model pins retained."
+      },
+      "prior_rechecks": [
+        {
+          "retrieved_at": "2026-10-17T09:55:43.765500+00:00",
+          "response_sha256": "d95d406d20687e1d2460fbd6e928b464fc5c35d0e8c2569a6281602255f044d6",
+          "scope": "Selected immutable source/model metadata review for 8xB300 and vLLM v0.31.0; no weights, installed engine, runtime validation or benchmark.",
+          "claim": "Fresh current publisher API resolves to ba32f8c19c8738e2c57c71798c601d477a7bf844; unchanged from retained artifact pin."
+        }
+      ]
     },
     "TOPG-GLM-NVIDIA-CARD": {
       "url": "https://huggingface.co/nvidia/GLM-5.3-NVFP4/raw/e3b8f9f2fad29727dfa95e766c5cac18ea1414bf/README.md",
@@ -8283,13 +8488,14 @@
       "scope": "Hugging Face metadata response only.",
       "kind": "primary documentation or artifact metadata",
       "last_recheck": {
-        "retrieved_at": "2026-10-18T14:04:10.259503+00:00",
-        "http_status": 200,
-        "response_sha256": "6b3876c1adf0dce954ecbf677bfd0ada1d249d408f6a4f75eb8dba035f08c079",
-        "accessed_on": "2026-10-18",
-        "kind": "publisher-metadata-or-PR-author-evidence",
-        "scope": "Selected v0.31/v0.32 Kimi and Mistral source audit; no local execution or benchmark.",
-        "response_bytes": 10087
+        "hf_id": "moonshotai/Kimi-K3",
+        "revision": "f831ab66814297da540d832a5235f8e904f29d06",
+        "retrieved_at": "2026-10-19T19:09:00.145099+00:00",
+        "response_sha256": "13de5d736ecde92599bc12bca9e96afd8adf800bb44b5386eff16bda20e02a02",
+        "accessed_on": "2026-10-19",
+        "kind": "primary publisher head metadata",
+        "title": "moonshotai/Kimi-K3 head identity",
+        "scope": "Current head identity only; no new weight/export/runtime qualification. Existing immutable model pins retained."
       },
       "prior_rechecks": [
         {
@@ -8297,6 +8503,24 @@
           "response_sha256": "f8c17735b090922a342f87d83af21d518f87506e2ae862d292828721c400c39c",
           "scope": "Selected immutable source/model metadata review for 8xB300 and vLLM v0.31.0; no weights, installed engine, runtime validation or benchmark.",
           "claim": "Fresh current publisher API resolves to f831ab66814297da540d832a5235f8e904f29d06; unchanged from retained artifact pin."
+        },
+        {
+          "retrieved_at": "2026-10-18T14:04:10.259503+00:00",
+          "http_status": 200,
+          "response_sha256": "6b3876c1adf0dce954ecbf677bfd0ada1d249d408f6a4f75eb8dba035f08c079",
+          "accessed_on": "2026-10-18",
+          "kind": "publisher-metadata-or-PR-author-evidence",
+          "scope": "Selected v0.31/v0.32 Kimi and Mistral source audit; no local execution or benchmark.",
+          "response_bytes": 10087
+        },
+        {
+          "title": "moonshotai/Kimi-K3 current head",
+          "retrieved_at": "2026-10-19T18:56:00.221240+00:00",
+          "revision": "f831ab66814297da540d832a5235f8e904f29d06",
+          "sha256": "1f36098859b79c5883376e3ac83d52b27c7b35b5eeb9257e0b0bababbfd42ff8",
+          "evidence_type": "publisher-metadata",
+          "scope": "Current head matches retained atlas revision.",
+          "accessed_on": "2026-10-19"
         }
       ]
     },
@@ -8389,13 +8613,14 @@
       "scope": "Hugging Face metadata response only.",
       "kind": "primary documentation or artifact metadata",
       "last_recheck": {
-        "retrieved_at": "2026-10-18T14:04:10.356983+00:00",
-        "http_status": 200,
-        "response_sha256": "24cc0c1fa55d325a98b178cc6eb31a711055b3dadbc48d99782606b7a4f794c4",
-        "accessed_on": "2026-10-18",
-        "kind": "publisher-metadata-or-PR-author-evidence",
-        "scope": "Selected v0.31/v0.32 Kimi and Mistral source audit; no local execution or benchmark.",
-        "response_bytes": 123153
+        "hf_id": "nvidia/Kimi-K3-NVFP4",
+        "revision": "b2428a0b83a8b712ff2e1a8448a103d4175341f1",
+        "retrieved_at": "2026-10-19T19:09:00.199953+00:00",
+        "response_sha256": "111a4cf31944b5010d3691da0244fa7a5a04a0f2f970d7395127f52aab80f697",
+        "accessed_on": "2026-10-19",
+        "kind": "primary publisher head metadata",
+        "title": "nvidia/Kimi-K3-NVFP4 head identity",
+        "scope": "Current head identity only; no new weight/export/runtime qualification. Existing immutable model pins retained."
       },
       "prior_rechecks": [
         {
@@ -8403,6 +8628,24 @@
           "response_sha256": "aaad2911e5603b223690432e5dfd2a4bb4ad7406528c10653d209ca8dd524c39",
           "scope": "Selected immutable source/model metadata review for 8xB300 and vLLM v0.31.0; no weights, installed engine, runtime validation or benchmark.",
           "claim": "Fresh current publisher API resolves to b2428a0b83a8b712ff2e1a8448a103d4175341f1; unchanged from retained artifact pin."
+        },
+        {
+          "retrieved_at": "2026-10-18T14:04:10.356983+00:00",
+          "http_status": 200,
+          "response_sha256": "24cc0c1fa55d325a98b178cc6eb31a711055b3dadbc48d99782606b7a4f794c4",
+          "accessed_on": "2026-10-18",
+          "kind": "publisher-metadata-or-PR-author-evidence",
+          "scope": "Selected v0.31/v0.32 Kimi and Mistral source audit; no local execution or benchmark.",
+          "response_bytes": 123153
+        },
+        {
+          "title": "nvidia/Kimi-K3-NVFP4 current head",
+          "retrieved_at": "2026-10-19T18:56:00.466103+00:00",
+          "revision": "b2428a0b83a8b712ff2e1a8448a103d4175341f1",
+          "sha256": "111a4cf31944b5010d3691da0244fa7a5a04a0f2f970d7395127f52aab80f697",
+          "evidence_type": "publisher-metadata",
+          "scope": "Current head matches retained atlas revision.",
+          "accessed_on": "2026-10-19"
         }
       ]
     },
@@ -8502,12 +8745,14 @@
       "scope": "Mutable Hub metadata; no model tensors retrieved.",
       "kind": "primary documentation or artifact metadata",
       "last_recheck": {
-        "observed_revision": "842da3794eaa0b77d5f08bae87a17459d91ff475",
-        "scope": "Current Hub identity matches retained controlled-comparison revision; no weights loaded.",
-        "retrieved_at": "2026-10-18T14:05:42.775969+00:00",
-        "response_sha256": "1da6647e2b6365cf146ce446aff8fb7874a6b6f84b0bd3a8df868fdb66a2db6b",
-        "accessed_on": "2026-10-18",
-        "kind": "primary source"
+        "hf_id": "google/gemma-4-31B-it",
+        "revision": "842da3794eaa0b77d5f08bae87a17459d91ff475",
+        "retrieved_at": "2026-10-19T19:08:59.661013+00:00",
+        "response_sha256": "7d2f091e81aaadc7008bedeeb6577da3219273ddfbddf6ad23444484c36eac24",
+        "accessed_on": "2026-10-19",
+        "kind": "primary publisher head metadata",
+        "title": "google/gemma-4-31B-it head identity",
+        "scope": "Current head identity only; no new weight/export/runtime qualification. Existing immutable model pins retained."
       },
       "prior_rechecks": [
         {
@@ -8515,6 +8760,14 @@
           "response_sha256": "bf28d43c9153c56c0d6bd4039feb7ccda7e6e0806f0612c20908e28a13342782",
           "claim": "Fresh publisher metadata confirms Gemma target revision 842da3794eaa0b77d5f08bae87a17459d91ff475.",
           "scope": "Selected primary-source or metadata inspection only; no weights, runtime, tests, B300 performance or uninspected container certification."
+        },
+        {
+          "observed_revision": "842da3794eaa0b77d5f08bae87a17459d91ff475",
+          "scope": "Current Hub identity matches retained controlled-comparison revision; no weights loaded.",
+          "retrieved_at": "2026-10-18T14:05:42.775969+00:00",
+          "response_sha256": "1da6647e2b6365cf146ce446aff8fb7874a6b6f84b0bd3a8df868fdb66a2db6b",
+          "accessed_on": "2026-10-18",
+          "kind": "primary source"
         }
       ]
     },
@@ -8551,12 +8804,14 @@
       "scope": "Mutable Hub metadata; no model tensors retrieved.",
       "kind": "primary documentation or artifact metadata",
       "last_recheck": {
-        "observed_revision": "627c5ec1458b9086b841a91e0512fd31fd2fbbf1",
-        "scope": "Current Hub identity matches retained controlled-comparison revision; no weights loaded.",
-        "retrieved_at": "2026-10-18T14:05:43.550618+00:00",
-        "response_sha256": "17879601ac9601acb9f0436bafcedf10c4644812ddb60ceeff7611de320ce2bf",
-        "accessed_on": "2026-10-18",
-        "kind": "primary source"
+        "hf_id": "google/gemma-4-31B-it-assistant",
+        "revision": "627c5ec1458b9086b841a91e0512fd31fd2fbbf1",
+        "retrieved_at": "2026-10-19T19:08:59.654674+00:00",
+        "response_sha256": "0629e9f65893b8034c7fc5a3e21acadf395ad5a093914722a81dae01ec4a3d24",
+        "accessed_on": "2026-10-19",
+        "kind": "primary publisher head metadata",
+        "title": "google/gemma-4-31B-it-assistant head identity",
+        "scope": "Current head identity only; no new weight/export/runtime qualification. Existing immutable model pins retained."
       },
       "prior_rechecks": [
         {
@@ -8564,6 +8819,14 @@
           "response_sha256": "e2f4de465a2d9a9cd1ffa147b2e8055e7be367b53f2de6ebd1c6792e48badd7c",
           "claim": "Fresh publisher metadata confirms official assistant revision 627c5ec1458b9086b841a91e0512fd31fd2fbbf1.",
           "scope": "Selected primary-source or metadata inspection only; no weights, runtime, tests, B300 performance or uninspected container certification."
+        },
+        {
+          "observed_revision": "627c5ec1458b9086b841a91e0512fd31fd2fbbf1",
+          "scope": "Current Hub identity matches retained controlled-comparison revision; no weights loaded.",
+          "retrieved_at": "2026-10-18T14:05:43.550618+00:00",
+          "response_sha256": "17879601ac9601acb9f0436bafcedf10c4644812ddb60ceeff7611de320ce2bf",
+          "accessed_on": "2026-10-18",
+          "kind": "primary source"
         }
       ]
     },
@@ -8664,7 +8927,17 @@
       "response_sha256": "d7c1928a2179331dd743a2c5e581b1ec7dd61b2079e6cd500849ce86799b843b",
       "claim": "Fresh exact repository identity and current revision, fetched before immutable artifact files; repository existence does not establish runtime support.",
       "scope": "Mutable Hub metadata; no model tensors retrieved.",
-      "kind": "primary documentation or artifact metadata"
+      "kind": "primary documentation or artifact metadata",
+      "last_recheck": {
+        "hf_id": "nvidia/Gemma-4-31B-IT-NVFP4",
+        "revision": "4135a98a9b728a548947683219633b25682223ac",
+        "retrieved_at": "2026-10-19T19:08:59.811858+00:00",
+        "response_sha256": "dfc723c1c39685c49c54904dfd26ef489249ece08756d26a839d1529a18e19bf",
+        "accessed_on": "2026-10-19",
+        "kind": "primary publisher head metadata",
+        "title": "nvidia/Gemma-4-31B-IT-NVFP4 head identity",
+        "scope": "Current head identity only; no new weight/export/runtime qualification. Existing immutable model pins retained."
+      }
     },
     "TOPM-GEMMA-NVIDIA-RESULTS": {
       "url": "https://huggingface.co/LilaRest/gemma-4-31B-it-NVFP4-turbo/raw/782d58ea7f9cf3a148be86e153f5689a2d73238b/bench/results/nvidia--Gemma-4-31B-IT-NVFP4.csv",
@@ -8721,13 +8994,25 @@
       "scope": "Mutable Hub metadata; no model tensors retrieved.",
       "kind": "primary documentation or artifact metadata",
       "last_recheck": {
-        "observed_revision": "d7242548c457ab4b45bd3adb8937f2659af4739d",
-        "scope": "Current Hub identity matches retained controlled-comparison revision; no weights loaded.",
-        "retrieved_at": "2026-10-18T14:05:42.770927+00:00",
-        "response_sha256": "af33c0ecbae1f11287c78f74642694de644ec0b0bd493c8d21d90843351aae89",
-        "accessed_on": "2026-10-18",
-        "kind": "primary source"
-      }
+        "hf_id": "RedHatAI/gemma-4-31B-it-FP8-block",
+        "revision": "d7242548c457ab4b45bd3adb8937f2659af4739d",
+        "retrieved_at": "2026-10-19T19:08:59.673291+00:00",
+        "response_sha256": "8c33a6332effa1ac7ddb6d860eb7f39038ff60c41816713e0379d04c7671a897",
+        "accessed_on": "2026-10-19",
+        "kind": "primary publisher head metadata",
+        "title": "RedHatAI/gemma-4-31B-it-FP8-block head identity",
+        "scope": "Current head identity only; no new weight/export/runtime qualification. Existing immutable model pins retained."
+      },
+      "prior_rechecks": [
+        {
+          "observed_revision": "d7242548c457ab4b45bd3adb8937f2659af4739d",
+          "scope": "Current Hub identity matches retained controlled-comparison revision; no weights loaded.",
+          "retrieved_at": "2026-10-18T14:05:42.770927+00:00",
+          "response_sha256": "af33c0ecbae1f11287c78f74642694de644ec0b0bd493c8d21d90843351aae89",
+          "accessed_on": "2026-10-18",
+          "kind": "primary source"
+        }
+      ]
     },
     "TOPM-GEMMA-RHNV-META": {
       "url": "https://huggingface.co/api/models/RedHatAI/gemma-4-31B-it-NVFP4",
@@ -8740,13 +9025,25 @@
       "scope": "Mutable Hub metadata; no model tensors retrieved.",
       "kind": "primary documentation or artifact metadata",
       "last_recheck": {
-        "observed_revision": "5df75ccad9b74546f5be758a2a68acc2e16bbc9b",
-        "scope": "Current Hub identity matches retained controlled-comparison revision; no weights loaded.",
-        "retrieved_at": "2026-10-18T14:05:42.777065+00:00",
-        "response_sha256": "6a3a3fc86646ac5990f6c1cd812d3ad1d878be8d87fd84469097b403c48ee8ac",
-        "accessed_on": "2026-10-18",
-        "kind": "primary source"
-      }
+        "hf_id": "RedHatAI/gemma-4-31B-it-NVFP4",
+        "revision": "5df75ccad9b74546f5be758a2a68acc2e16bbc9b",
+        "retrieved_at": "2026-10-19T19:08:59.677110+00:00",
+        "response_sha256": "f29a92d17d7f8861663232ad363fe5ada35a9a64e04a97cabdb666f9dabcbc81",
+        "accessed_on": "2026-10-19",
+        "kind": "primary publisher head metadata",
+        "title": "RedHatAI/gemma-4-31B-it-NVFP4 head identity",
+        "scope": "Current head identity only; no new weight/export/runtime qualification. Existing immutable model pins retained."
+      },
+      "prior_rechecks": [
+        {
+          "observed_revision": "5df75ccad9b74546f5be758a2a68acc2e16bbc9b",
+          "scope": "Current Hub identity matches retained controlled-comparison revision; no weights loaded.",
+          "retrieved_at": "2026-10-18T14:05:42.777065+00:00",
+          "response_sha256": "6a3a3fc86646ac5990f6c1cd812d3ad1d878be8d87fd84469097b403c48ee8ac",
+          "accessed_on": "2026-10-18",
+          "kind": "primary source"
+        }
+      ]
     },
     "TOPM-GEMMA-TURBO-BENCH": {
       "url": "https://huggingface.co/LilaRest/gemma-4-31B-it-NVFP4-turbo/raw/782d58ea7f9cf3a148be86e153f5689a2d73238b/bench/bench.sh",
@@ -9257,12 +9554,14 @@
       "scope": "Mutable publisher API",
       "kind": "primary documentation or artifact metadata",
       "last_recheck": {
-        "observed_revision": "de4b8e4d43b917e7706784d8bb445c9af86a3540",
-        "scope": "Current Hub identity matches retained controlled-comparison revision; no weights loaded.",
-        "retrieved_at": "2026-10-18T14:05:43.552649+00:00",
-        "response_sha256": "e0947f1b8f3af888a9f815660187c23ae1527e1af2b11fbf9f979e36b836d3b3",
-        "accessed_on": "2026-10-18",
-        "kind": "primary source"
+        "hf_id": "Qwen/Qwen3.8-Flash-Next",
+        "revision": "de4b8e4d43b917e7706784d8bb445c9af86a3540",
+        "retrieved_at": "2026-10-19T19:08:59.498915+00:00",
+        "response_sha256": "23c4c6b01121cf7ddc6665daa788936429379f8737350d3e402eddbfa5b8a52e",
+        "accessed_on": "2026-10-19",
+        "kind": "primary publisher head metadata",
+        "title": "Qwen/Qwen3.8-Flash-Next head identity",
+        "scope": "Current head identity only; no new weight/export/runtime qualification. Existing immutable model pins retained."
       },
       "prior_rechecks": [
         {
@@ -9270,6 +9569,14 @@
           "response_sha256": "89272c8f7f2d429a0f1a92eaff8bf9f5ea0b29e7fea48b1717593d6388e5ee07",
           "claim": "Fresh publisher metadata confirms immutable base revision de4b8e4d43b917e7706784d8bb445c9af86a3540.",
           "scope": "Selected primary-source or metadata inspection only; no weights, runtime, tests, B300 performance or uninspected container certification."
+        },
+        {
+          "observed_revision": "de4b8e4d43b917e7706784d8bb445c9af86a3540",
+          "scope": "Current Hub identity matches retained controlled-comparison revision; no weights loaded.",
+          "retrieved_at": "2026-10-18T14:05:43.552649+00:00",
+          "response_sha256": "e0947f1b8f3af888a9f815660187c23ae1527e1af2b11fbf9f979e36b836d3b3",
+          "accessed_on": "2026-10-18",
+          "kind": "primary source"
         }
       ]
     },
@@ -9306,12 +9613,14 @@
       "scope": "Mutable publisher API",
       "kind": "primary documentation or artifact metadata",
       "last_recheck": {
-        "observed_revision": "236dfdf285828023ca3bcd3f37366c58a3469b13",
-        "scope": "Current Hub identity matches retained controlled-comparison revision; no weights loaded.",
-        "retrieved_at": "2026-10-18T14:05:43.618484+00:00",
-        "response_sha256": "06b496e744068c21eecd2f40456e8bcb9d9198c6e25f85a4d25bdce420370851",
-        "accessed_on": "2026-10-18",
-        "kind": "primary source"
+        "hf_id": "Qwen/Qwen3.8-Flash-Next-FP8",
+        "revision": "236dfdf285828023ca3bcd3f37366c58a3469b13",
+        "retrieved_at": "2026-10-19T19:08:59.519024+00:00",
+        "response_sha256": "45d635a96a954027aaf698270b09134bf5287a365499dfc56efa8f5a086ab267",
+        "accessed_on": "2026-10-19",
+        "kind": "primary publisher head metadata",
+        "title": "Qwen/Qwen3.8-Flash-Next-FP8 head identity",
+        "scope": "Current head identity only; no new weight/export/runtime qualification. Existing immutable model pins retained."
       },
       "prior_rechecks": [
         {
@@ -9319,6 +9628,14 @@
           "response_sha256": "561dfff8899f6f7606190c58c413204ad9d86bfab7bda3c85a7bf08ed17aa465",
           "claim": "Fresh publisher metadata confirms official FP8 revision 236dfdf285828023ca3bcd3f37366c58a3469b13.",
           "scope": "Selected primary-source or metadata inspection only; no weights, runtime, tests, B300 performance or uninspected container certification."
+        },
+        {
+          "observed_revision": "236dfdf285828023ca3bcd3f37366c58a3469b13",
+          "scope": "Current Hub identity matches retained controlled-comparison revision; no weights loaded.",
+          "retrieved_at": "2026-10-18T14:05:43.618484+00:00",
+          "response_sha256": "06b496e744068c21eecd2f40456e8bcb9d9198c6e25f85a4d25bdce420370851",
+          "accessed_on": "2026-10-18",
+          "kind": "primary source"
         }
       ]
     },
@@ -10712,7 +11029,17 @@
       "retrieved_at": "2026-10-17T09:55:43.904801+00:00",
       "response_sha256": "7effd476db974be0a454f8b756ccb21c623518c8a064aa69d9f2c94155806703",
       "scope": "Selected immutable source/model metadata review for 8xB300 and vLLM v0.31.0; no weights, installed engine, runtime validation or benchmark.",
-      "claim": "Fresh current publisher API resolves to c8917e4258572c405575855ff53effe58c17a38e; unchanged from retained artifact pin."
+      "claim": "Fresh current publisher API resolves to c8917e4258572c405575855ff53effe58c17a38e; unchanged from retained artifact pin.",
+      "last_recheck": {
+        "hf_id": "RedHatAI/GLM-5.3-NVFP4",
+        "revision": "c8917e4258572c405575855ff53effe58c17a38e",
+        "retrieved_at": "2026-10-19T19:08:59.818465+00:00",
+        "response_sha256": "871ecfb6901500c05cee2d60fe134c52ba2f99d52d6283c109eaecf737404668",
+        "accessed_on": "2026-10-19",
+        "kind": "primary publisher head metadata",
+        "title": "RedHatAI/GLM-5.3-NVFP4 head identity",
+        "scope": "Current head identity only; no new weight/export/runtime qualification. Existing immutable model pins retained."
+      }
     },
     "Q31-CAT-GLM-INF-API-JSON": {
       "url": "https://huggingface.co/api/models/Inferact/GLM-5.3-NVFP4",
@@ -10723,7 +11050,17 @@
       "retrieved_at": "2026-10-17T09:55:44.136246+00:00",
       "response_sha256": "93a6094264d25011cd161aec8dde3a45ff03d0e6696e82c2caf873925af2058f",
       "scope": "Selected immutable source/model metadata review for 8xB300 and vLLM v0.31.0; no weights, installed engine, runtime validation or benchmark.",
-      "claim": "Fresh current publisher API resolves to ce67b36f3669192b5bb233819f0fda6c8a9837f8; unchanged from retained artifact pin."
+      "claim": "Fresh current publisher API resolves to ce67b36f3669192b5bb233819f0fda6c8a9837f8; unchanged from retained artifact pin.",
+      "last_recheck": {
+        "hf_id": "Inferact/GLM-5.3-NVFP4",
+        "revision": "ce67b36f3669192b5bb233819f0fda6c8a9837f8",
+        "retrieved_at": "2026-10-19T19:08:59.841076+00:00",
+        "response_sha256": "b2ae3b112e6f929dfabd94aeebe6bf5f0851a4ffe3f505fe57b921d198d5a3e8",
+        "accessed_on": "2026-10-19",
+        "kind": "primary publisher head metadata",
+        "title": "Inferact/GLM-5.3-NVFP4 head identity",
+        "scope": "Current head identity only; no new weight/export/runtime qualification. Existing immutable model pins retained."
+      }
     },
     "Q31-CAT-FLASH-RH-API-JSON": {
       "url": "https://huggingface.co/api/models/RedHatAI/GLM-5.3-Flash-NVFP4",
@@ -10734,7 +11071,17 @@
       "retrieved_at": "2026-10-17T09:55:44.303883+00:00",
       "response_sha256": "3e5c83a151c317b703539c1533750a53ee6f9894f4cc54510c73a3436a5c6d6d",
       "scope": "Selected immutable source/model metadata review for 8xB300 and vLLM v0.31.0; no weights, installed engine, runtime validation or benchmark.",
-      "claim": "Fresh current publisher API resolves to 18d55bfd5a2194887738da73753975c9d3842f46; unchanged from retained artifact pin."
+      "claim": "Fresh current publisher API resolves to 18d55bfd5a2194887738da73753975c9d3842f46; unchanged from retained artifact pin.",
+      "last_recheck": {
+        "hf_id": "RedHatAI/GLM-5.3-Flash-NVFP4",
+        "revision": "18d55bfd5a2194887738da73753975c9d3842f46",
+        "retrieved_at": "2026-10-19T19:09:00.001336+00:00",
+        "response_sha256": "68fa5c74f8bb1ef3a0a3e8ff888904b7bd52015ddb7f3256d1e8c01042efc4e8",
+        "accessed_on": "2026-10-19",
+        "kind": "primary publisher head metadata",
+        "title": "RedHatAI/GLM-5.3-Flash-NVFP4 head identity",
+        "scope": "Current head identity only; no new weight/export/runtime qualification. Existing immutable model pins retained."
+      }
     },
     "Q31-CAT-KIMI-DRAFT-API-JSON": {
       "url": "https://huggingface.co/api/models/Inferact/Kimi-K3-DSpark",
@@ -12500,7 +12847,28 @@
       "kind": "publisher-metadata-or-PR-author-evidence",
       "scope": "Selected v0.31/v0.32 Kimi and Mistral source audit; no local execution or benchmark.",
       "response_bytes": 17388,
-      "title": "V032-KM-API-MISTRALAI--MISTRAL-MEDIUM-3.5-128B"
+      "title": "V032-KM-API-MISTRALAI--MISTRAL-MEDIUM-3.5-128B",
+      "last_recheck": {
+        "hf_id": "mistralai/Mistral-Medium-3.5-128B",
+        "revision": "22b2b868a15677cfa6061277ed2f653d1349a9ab",
+        "retrieved_at": "2026-10-19T19:09:00.278506+00:00",
+        "response_sha256": "eb2918da4177c49d401a8b569a9a802832cc2db800771d7170c5242247d83c68",
+        "accessed_on": "2026-10-19",
+        "kind": "primary publisher head metadata",
+        "title": "mistralai/Mistral-Medium-3.5-128B head identity",
+        "scope": "Current head identity only; no new weight/export/runtime qualification. Existing immutable model pins retained."
+      },
+      "prior_rechecks": [
+        {
+          "title": "mistralai/Mistral-Medium-3.5-128B current head",
+          "retrieved_at": "2026-10-19T18:56:00.207098+00:00",
+          "revision": "22b2b868a15677cfa6061277ed2f653d1349a9ab",
+          "sha256": "eb2918da4177c49d401a8b569a9a802832cc2db800771d7170c5242247d83c68",
+          "evidence_type": "publisher-metadata",
+          "scope": "Current head matches retained atlas revision.",
+          "accessed_on": "2026-10-19"
+        }
+      ]
     },
     "V032-KM-API-MISTRALAI--MISTRAL-MEDIUM-3.5-128B-EAGLE": {
       "url": "https://huggingface.co/api/models/mistralai/Mistral-Medium-3.5-128B-EAGLE",
@@ -12512,7 +12880,28 @@
       "kind": "publisher-metadata-or-PR-author-evidence",
       "scope": "Selected v0.31/v0.32 Kimi and Mistral source audit; no local execution or benchmark.",
       "response_bytes": 1131,
-      "title": "V032-KM-API-MISTRALAI--MISTRAL-MEDIUM-3.5-128B-EAGLE"
+      "title": "V032-KM-API-MISTRALAI--MISTRAL-MEDIUM-3.5-128B-EAGLE",
+      "last_recheck": {
+        "hf_id": "mistralai/Mistral-Medium-3.5-128B-EAGLE",
+        "revision": "d31694b0f55b51d4d962b5c3dbf0e03d1f019275",
+        "retrieved_at": "2026-10-19T19:09:00.289949+00:00",
+        "response_sha256": "78089e4768e8ee9eee50dfdd75d673da4b0f97054449f9f170c0db3b2d2cafd8",
+        "accessed_on": "2026-10-19",
+        "kind": "primary publisher head metadata",
+        "title": "mistralai/Mistral-Medium-3.5-128B-EAGLE head identity",
+        "scope": "Current head identity only; no new weight/export/runtime qualification. Existing immutable model pins retained."
+      },
+      "prior_rechecks": [
+        {
+          "title": "mistralai/Mistral-Medium-3.5-128B-EAGLE current head",
+          "retrieved_at": "2026-10-19T18:56:00.241972+00:00",
+          "revision": "d31694b0f55b51d4d962b5c3dbf0e03d1f019275",
+          "sha256": "78089e4768e8ee9eee50dfdd75d673da4b0f97054449f9f170c0db3b2d2cafd8",
+          "evidence_type": "publisher-metadata",
+          "scope": "Current head matches retained atlas revision.",
+          "accessed_on": "2026-10-19"
+        }
+      ]
     },
     "V032-WEIGHT-CACHE-UTILS": {
       "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/model_executor/model_loader/weight_cache/utils.py",
@@ -12741,6 +13130,1162 @@
       "registry_content_digest": "sha256:befccf0e7e4089aa23926bb6f887a85c0d46c2a99e6de5c5ffdf5cb7957c5b34",
       "accessed_on": "2026-10-18",
       "scope": "Manifest-list bytes hash matches registry digest and Hub tag metadata; no image layers or binary qualification."
+    },
+    "S0522-RELEASE": {
+      "url": "https://api.github.com/repos/sgl-project/sglang/releases/tags/v0.5.22",
+      "retrieved_at": "2026-10-19T18:54:13.989809+00:00",
+      "response_sha256": "b08caccefa9f99ee05e18e4e27c99291d98056df0665678ea20ea6eadb75b61d",
+      "title": "S0522-RELEASE",
+      "kind": "primary upstream metadata",
+      "accessed_on": "2026-10-19",
+      "scope": "Release, branch or registry metadata only; no runtime or binary qualification."
+    },
+    "S0522-TAG": {
+      "url": "https://api.github.com/repos/sgl-project/sglang/git/ref/tags/v0.5.22",
+      "retrieved_at": "2026-10-19T18:54:13.936369+00:00",
+      "response_sha256": "6480e8fd8bdefe1ef6d6b992209c029d16653bcfe1e8a6f44421ab4559252f8b",
+      "title": "S0522-TAG",
+      "kind": "primary upstream metadata",
+      "accessed_on": "2026-10-19",
+      "scope": "Release, branch or registry metadata only; no runtime or binary qualification."
+    },
+    "S0522-SGLANG-IMAGE": {
+      "url": "https://hub.docker.com/v2/repositories/lmsysorg/sglang/tags/v0.5.22",
+      "retrieved_at": "2026-10-19T18:54:14.136776+00:00",
+      "response_sha256": "39c7c71694b2b2d143ccefa801fe22c5929709a6bc572bf23ea27d0789068f10",
+      "title": "S0522-SGLANG-IMAGE",
+      "kind": "primary upstream metadata",
+      "accessed_on": "2026-10-19",
+      "scope": "Release, branch or registry metadata only; no runtime or binary qualification."
+    },
+    "S0522-TAG-PEELED": {
+      "url": "https://api.github.com/repos/sgl-project/sglang/git/tags/35ce313293052f8362e0829e7512bc9bc3d336c9",
+      "retrieved_at": "2026-10-19T18:54:29.857752+00:00",
+      "response_sha256": "ac55e581e3b97ea037d5eb6a1ff42dfd465676a3990da1f423ba2840eb1bbc65",
+      "title": "S0522-TAG-PEELED",
+      "kind": "primary upstream metadata",
+      "accessed_on": "2026-10-19",
+      "scope": "Annotated tag identity or registry manifest bytes; no image layers or runtime executed."
+    },
+    "S0522-IMAGE-INDEX": {
+      "url": "https://registry-1.docker.io/v2/lmsysorg/sglang/manifests/v0.5.22",
+      "retrieved_at": "2026-10-19T18:58:37.504244+00:00",
+      "response_sha256": "e3a4f06001a29542fc4a8638536d9ffc5eb9c9942b08603c09b19a56eae4a1ae",
+      "title": "S0522-IMAGE-INDEX",
+      "kind": "primary upstream metadata",
+      "accessed_on": "2026-10-19",
+      "scope": "Annotated tag identity or registry manifest bytes; no image layers or runtime executed."
+    },
+    "S0522-TREE": {
+      "url": "https://codeload.github.com/sgl-project/sglang/tar.gz/baa9befa381511cd4d56f83980951e5a45fffc6d",
+      "title": "sglang-0.5.22 immutable source archive",
+      "kind": "primary source archive",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "accessed_on": "2026-10-19",
+      "response_sha256": "c1f064ed560723dadcdf6cb905fbb6ddd5dbca23987e4b2306c61acd29ee3148",
+      "scope": "Source inspection only; no upstream code imported or executed."
+    },
+    "S0521-TREE": {
+      "url": "https://codeload.github.com/sgl-project/sglang/tar.gz/e00930c5489053f26d86b179cee0d087f846acbb",
+      "title": "sglang-0.5.21 immutable source archive",
+      "kind": "primary source archive",
+      "retrieved_at": "2026-10-19T18:54:37.835314+00:00",
+      "accessed_on": "2026-10-19",
+      "response_sha256": "c87172533bed21e378fa6f90e7871758581c302fab991af2fd8ca773584e9c9e",
+      "scope": "Source inspection only; no upstream code imported or executed."
+    },
+    "S0522-DEPS": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/pyproject.toml",
+      "title": "python/pyproject.toml",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "6bf7a1f03c235ed0404d91067987995e6f1e06ea8182c206853a7f4cdb830f3c",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-DOCKER": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/docker/Dockerfile",
+      "title": "docker/Dockerfile",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "01285f73b9b3bdab33f73ae0c3b03c2013b59b2be74ddd308fcb45bd1c1c2e79",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-SCHEDULE": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/arg_groups/fields/schedule.py",
+      "title": "python/sglang/srt/arg_groups/fields/schedule.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "907f9f0a4280d4f04b9b0efc3d9727167fd6ec1d5ebfb1d957e78a91a1d852e9",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-MODEL-FIELDS": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/arg_groups/fields/model.py",
+      "title": "python/sglang/srt/arg_groups/fields/model.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "26a65a05158bee8cfab0dee6bfae04ff00dfd437da2a06e1094940828cac8580",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-PARALLEL": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/arg_groups/fields/parallel.py",
+      "title": "python/sglang/srt/arg_groups/fields/parallel.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "eab9e02a1fa076b16112a1d6268a74e1988b8001628acd9fde39540998598270",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-SERVING": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/arg_groups/fields/serving.py",
+      "title": "python/sglang/srt/arg_groups/fields/serving.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "66a9ab458053c31290f21d9b7ce6686c7a9d83e6387f2a12a61a0e5599ff4923",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-SERVER-ARGS": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/docs/docs/advanced_features/server_arguments.mdx",
+      "title": "docs/docs/advanced_features/server_arguments.mdx",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "0f211d0628d4f6df3ed95cbf3d5e621871b21b37c876176e6ada5b414fb9f1c2",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-CAKE": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/kernels/cake_kernels/sampling.py",
+      "title": "python/sglang/kernels/cake_kernels/sampling.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "ef88d0d731eaba3af1698b1ab2e43f23b18982a68a5c994396d1bb23888ed9f1",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-SAMPLING": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/kernels/ops/sampling/__init__.py",
+      "title": "python/sglang/kernels/ops/sampling/__init__.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "7b28087423d586f267b90e6a6651621be2c80ea8be7b8e5a9ff2b434a6302bd2",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-SAMPLER": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/layers/sampler.py",
+      "title": "python/sglang/srt/layers/sampler.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "98a36e61762f5b1b1ae06666c5a42f126e8bca1cec7d5b5fa63b32f9ebe75c1d",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-LOAD": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/model_loader/weight_utils.py",
+      "title": "python/sglang/srt/model_loader/weight_utils.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "a7757701b108c2c383d315ede8b37a2c18ab0f393529ff8c06bdd290a020da64",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-LOADER": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/model_loader/loader.py",
+      "title": "python/sglang/srt/model_loader/loader.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "2d8d206eda68de8d2f5935c1fc869dba282152b2a097b890b9ad51fa1b79d2d3",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-LOAD-DOC": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/docs/docs/advanced_features/model_loading.mdx",
+      "title": "docs/docs/advanced_features/model_loading.mdx",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "ec1e205c17e9caa2db884d048cbf95da784726a3f2824ebd737f5a35ef003209",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-R-PARALLEL": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/arg_groups/parallel_hook.py",
+      "title": "python/sglang/srt/arg_groups/parallel_hook.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "9546fb6316c8e63b9a83b990580c0df31ec8dd13b48e2c2ded814eb34b5b379d",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-R-TOPOLOGY": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/runtime_context.py",
+      "title": "python/sglang/srt/runtime_context.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "1b4e9cc6d9afa941d7d4619dab1f434a5b83072fe60f165008e68c3740e54aab",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-R-MODEL-BASE": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/arg_groups/model_override_base.py",
+      "title": "python/sglang/srt/arg_groups/model_override_base.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "b7600db2a8ea972a01deaa7dc39722d36640dd6c6fce62f1514410a7e061d4f9",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-R-MEMORY": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/arg_groups/memory_hook.py",
+      "title": "python/sglang/srt/arg_groups/memory_hook.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "b61c02fa35d2399ccec3e79b1131beed6a7aeecf3d48f75456ef7a67755f93e3",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-R-GRAPH": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/arg_groups/cuda_graph_hook.py",
+      "title": "python/sglang/srt/arg_groups/cuda_graph_hook.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "a04286e6c09c0dfa3c5dcf473eb4c64ab443c42884a328c16feaacf6f4c96c98",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime.",
+      "last_recheck": {
+        "title": "python/sglang/srt/arg_groups/cuda_graph_hook.py",
+        "kind": "immutable primary source",
+        "accessed_on": "2026-10-19",
+        "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+        "content_sha256": "a04286e6c09c0dfa3c5dcf473eb4c64ab443c42884a328c16feaacf6f4c96c98",
+        "source_archive_source_id": "S0522-TREE",
+        "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+      }
+    },
+    "S0522-R-GRAMMAR": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/managers/scheduler_components/batch_result_processor.py",
+      "title": "python/sglang/srt/managers/scheduler_components/batch_result_processor.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "bf45be863809db610712b68679a69ba9f9c011e63753f4f2244e3ca824ab1432",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime.",
+      "last_recheck": {
+        "title": "python/sglang/srt/managers/scheduler_components/batch_result_processor.py",
+        "kind": "immutable primary source",
+        "accessed_on": "2026-10-19",
+        "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+        "content_sha256": "bf45be863809db610712b68679a69ba9f9c011e63753f4f2244e3ca824ab1432",
+        "source_archive_source_id": "S0522-TREE",
+        "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+      }
+    },
+    "S0522-R-HISPARSE": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/arg_groups/hisparse_hook.py",
+      "title": "python/sglang/srt/arg_groups/hisparse_hook.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "966a20270e85dcaf0ff270008f98aa00ecdd440d7b06090e1e5ed1f56ad1eef8",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-R-REPLAY": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/arg_groups/attention_hook.py",
+      "title": "python/sglang/srt/arg_groups/attention_hook.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "448cd3edd95780d0bc8ccc01f0a8bc8fb497489fb8362a4f6a969ae6f6776a9a",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-R-MAMBA": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/arg_groups/mamba_hook.py",
+      "title": "python/sglang/srt/arg_groups/mamba_hook.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "16bdd873487f6557f3adc871af79e8fcda8106f4a5ccdc41675c2c1b3ea07449",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-R-OVERRIDES": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/arg_groups/overrides.py",
+      "title": "python/sglang/srt/arg_groups/overrides.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "df96b411469e6177ae97372d5ae1ccb88ca0056403b505421d41bd2aa2652de5",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-R-STATEPOOL": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/mem_cache/kv_cache_configurator.py",
+      "title": "python/sglang/srt/mem_cache/kv_cache_configurator.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "0e5b84cb28ef655c00c06a58e95e1c5c1b76047001d75a9265bef0fdbcd94a7b",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-R-HEALTH": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/managers/data_parallel_controller.py",
+      "title": "python/sglang/srt/managers/data_parallel_controller.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "ad3cfe599d4b95d7b998d24259f8b8a4d026c5f78c918c11c9ed31f2ce0e947c",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-R-DRAIN": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/disaggregation/common/conn.py",
+      "title": "python/sglang/srt/disaggregation/common/conn.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "0311cc3c933b78cc68ec128357e874081af83e029a04a4e70eb70ed79369e662",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-R-PROTOCOL": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/entrypoints/openai/protocol.py",
+      "title": "python/sglang/srt/entrypoints/openai/protocol.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "765061a9ed7190b6318592721aa44a4b1d4258feaa321b4ed1c0bb239362e87e",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-R-PD-FIELDS": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/arg_groups/fields/disagg.py",
+      "title": "python/sglang/srt/arg_groups/fields/disagg.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "2710cb6e38d58069d81a8f44f48fa7de53d4b45fb2ebf9ac306cd706c2f9e2f7",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-R-METRICS": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/arg_groups/fields/observability.py",
+      "title": "python/sglang/srt/arg_groups/fields/observability.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "b8b5086afdff9fcbc65934b1fbf948188067cebc822cc67452881dbc78c1ce92",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-S-DCP": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/layers/attention/dsa/dsa_dcp.py",
+      "title": "python/sglang/srt/layers/attention/dsa/dsa_dcp.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "e4a85fc54d9b2a6151d8620090642a08be9eedb273eae977d90c2b642a153313",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-S-DSA-OVERRIDE": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/arg_groups/model_overrides/deepseek_v2.py",
+      "title": "python/sglang/srt/arg_groups/model_overrides/deepseek_v2.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "1433fce28f1b6850ccb63cfe76ba4e5239d9503f8ee6c8c3986d8ab6bfbb3e7b",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-S-DCP-DOC": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/docs/docs/advanced_features/dcp.mdx",
+      "title": "docs/docs/advanced_features/dcp.mdx",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "e796fcd8c63beb45d79772d39420b64156e3bd2372d8573345af268487a15077",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-S-GLM-SPEC-DEFAULT": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/arg_groups/glm5_next_hook.py",
+      "title": "python/sglang/srt/arg_groups/glm5_next_hook.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "38b4ef8f167828bfbde79be1ee0594054e8a30f8374fc37f6aa0c94f96cbbbb4",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-S-GLM-CP": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/arg_groups/cp_tp_group_sharing_hook.py",
+      "title": "python/sglang/srt/arg_groups/cp_tp_group_sharing_hook.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "37e631e0421e8d1128f75ca7244f555d4e704e70375713c72afa17d9d1cbb09b",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime.",
+      "last_recheck": {
+        "title": "python/sglang/srt/arg_groups/cp_tp_group_sharing_hook.py",
+        "kind": "immutable primary source",
+        "accessed_on": "2026-10-19",
+        "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+        "content_sha256": "37e631e0421e8d1128f75ca7244f555d4e704e70375713c72afa17d9d1cbb09b",
+        "source_archive_source_id": "S0522-TREE",
+        "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+      }
+    },
+    "S0522-S-KDA": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/layers/attention/linear/kda_backend.py",
+      "title": "python/sglang/srt/layers/attention/linear/kda_backend.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "10ebda9c1c71a7d5ce0b5bb3044ab7ff01f35b3afd3012ed6a4f4191334ab278",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime.",
+      "last_recheck": {
+        "title": "python/sglang/srt/layers/attention/linear/kda_backend.py",
+        "kind": "immutable primary source",
+        "accessed_on": "2026-10-19",
+        "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+        "content_sha256": "10ebda9c1c71a7d5ce0b5bb3044ab7ff01f35b3afd3012ed6a4f4191334ab278",
+        "source_archive_source_id": "S0522-TREE",
+        "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+      }
+    },
+    "S0522-S-MOE": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/arg_groups/moe_hook.py",
+      "title": "python/sglang/srt/arg_groups/moe_hook.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "010d32d604f97504acdaa740ad7acb7695efbcc52decc1b15a8778064b6096da",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-S-MOE-REGISTRY": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/configs/moe_model_registry.py",
+      "title": "python/sglang/srt/configs/moe_model_registry.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "9143f84d8414075d72cc0b7409064f6738930ed460e17e3b5ee8092d7140adc8",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-S-MOE-QUANT": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/layers/moe/fused_moe_triton/layer.py",
+      "title": "python/sglang/srt/layers/moe/fused_moe_triton/layer.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "9f892344e2f24360a755e6027e3a0022fc954f3a6961ed9cc80f9fe32ed77931",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-S-DSV4-HOOK": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/arg_groups/deepseek_v4_hook.py",
+      "title": "python/sglang/srt/arg_groups/deepseek_v4_hook.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "22be4cd9588c99a0cdec9441a16603d3990bb2f54b7006efde4c2cd83abd3d71",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-S-CP-BCG": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/layers/cp/bcg.py",
+      "title": "python/sglang/srt/layers/cp/bcg.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "e32b71398b903ebf4201eb3654962acb5641a51d8c1f887138f983d04a22a8f4",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-S-DSV4-RECIPE": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/docs/src/snippets/configs/deepseek-ai/deepseek-v4.jsx",
+      "title": "docs/src/snippets/configs/deepseek-ai/deepseek-v4.jsx",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "236173db3b09dc2fd1572d8efd4cd782ba87538a6c45591038fff941fd97ec14",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-S-GLMFLASH-RECIPE": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/docs/src/snippets/configs/zai-org/glm-5.3-flash.jsx",
+      "title": "docs/src/snippets/configs/zai-org/glm-5.3-flash.jsx",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "5f27a121347a6492050c3ed703af74e4a35414f40ab05f1ec97e30342dcf4b7c",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-S-GLM-CP-TEST": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/test/registered/cp/test_glm53_flash_cp.py",
+      "title": "test/registered/cp/test_glm53_flash_cp.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "4a69dd8e97be13daf46860b9c50653dc7038549ad87ff08c8dabfdee56dd7e1e",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-S-ENV": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/environ.py",
+      "title": "python/sglang/srt/environ.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "80017ce7326d2af4d331518f1c3a3d24f1a379c8193f59b2ffabd54017c21441",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime.",
+      "last_recheck": {
+        "title": "python/sglang/srt/environ.py",
+        "kind": "immutable primary source",
+        "accessed_on": "2026-10-19",
+        "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+        "content_sha256": "80017ce7326d2af4d331518f1c3a3d24f1a379c8193f59b2ffabd54017c21441",
+        "source_archive_source_id": "S0522-TREE",
+        "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+      }
+    },
+    "S0522-S-DSPARK-WORKER": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/speculative/dspark_components/dspark_worker_v2.py",
+      "title": "python/sglang/srt/speculative/dspark_components/dspark_worker_v2.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "e90fa94e106ea31e26d738c3364118f1f3418eab382f37b16a15fec9467113ac",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-Q-Q35-OVERRIDE": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/arg_groups/model_overrides/qwen3_5.py",
+      "title": "python/sglang/srt/arg_groups/model_overrides/qwen3_5.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "5ced16dc4ee340f3e0a3a8668eb2fcd0d08225455e429903b5b2da18b23e8fb5",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-Q-Q35-MODEL": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/models/qwen3_5.py",
+      "title": "python/sglang/srt/models/qwen3_5.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "e3ced2f65d5fb8afa839c6550ab8f38f9b0d659a01c41d99516496438a6b2439",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-Q-Q4-OVERRIDE": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/arg_groups/model_overrides/qwen4_exp.py",
+      "title": "python/sglang/srt/arg_groups/model_overrides/qwen4_exp.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "2079447712764da464eedff1f934bf6a99568ad7fbd53ea17513cab32e44741e",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-Q-GEMMA-OVERRIDE": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/arg_groups/model_overrides/gemma4.py",
+      "title": "python/sglang/srt/arg_groups/model_overrides/gemma4.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "0671701abaeffad6ab49165c765091840385dc1089d9a40b90f6633adb9de125",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-Q-SPEC-HOOK": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/arg_groups/speculative_hook.py",
+      "title": "python/sglang/srt/arg_groups/speculative_hook.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "8a9a3da01a9e800c99f7330cbb85135fb261e1e136b3c7a53a2b29522e71a3c5",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-Q-QSA-DTYPE": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/mem_cache/qsa_kv_pool.py",
+      "title": "python/sglang/srt/mem_cache/qsa_kv_pool.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "a1e85901bb7d4cc8722ba305953b5f35025514ba46db14b59e809c8c4697aeab",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-Q-QSA-INDEXER": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/layers/attention/qsa/qsa_indexer.py",
+      "title": "python/sglang/srt/layers/attention/qsa/qsa_indexer.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "b0221ac79b25cd1de519495e947d3e5dcff1ae37c4e1e7bdc8583954bf657c54",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-Q-QSA-BACKEND": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/layers/attention/qwen_sparse_attn_backend.py",
+      "title": "python/sglang/srt/layers/attention/qwen_sparse_attn_backend.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "d98cca322c28e7eabccb8c96bc8690b0be0a601c47e290d03a758bef08decf8d",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-Q-QSA-HOST": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/mem_cache/pool_host/qsa.py",
+      "title": "python/sglang/srt/mem_cache/pool_host/qsa.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "af998a59fdfa5731c1ceb2ddebfadf513b16b6dff8c361d460cee25147a7dd0b",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-Q-Q4-BF16": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/layers/moe/qwen4_decode.py",
+      "title": "python/sglang/srt/layers/moe/qwen4_decode.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "00a5dae6fad6f40360aaf1c008486c8fe32b10e72513649410ac71596b638cbd",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-Q-Q4-MODEL": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/models/qwen4_exp.py",
+      "title": "python/sglang/srt/models/qwen4_exp.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "a2fab41aabe28b190adacffd819bc2a0cae70959a63b5ce6bf97bbaf649ad032",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-Q-FA4-HD256": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/kernels/ops/attention/flash_attn/cute/sm100_hd256_2cta_fmha_forward.py",
+      "title": "python/sglang/kernels/ops/attention/flash_attn/cute/sm100_hd256_2cta_fmha_forward.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "1f71ff23f20d226b7d8481ab9f97f49e0b8faee9a4361d6abe6f48ade9766139",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-Q-FA4-WRAPPER": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/kernels/ops/attention/flash_attention_v4.py",
+      "title": "python/sglang/kernels/ops/attention/flash_attention_v4.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "1a7b7f5da212e82e28590702b3b2252df01109c8d175caf52e76a7a84cecc857",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-Q-Q4-RECIPES": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/docs/src/snippets/configs/Qwen/qwen3.8-flash-next.jsx",
+      "title": "docs/src/snippets/configs/Qwen/qwen3.8-flash-next.jsx",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "14d47cb5743c499cf494e4f6a70b7c4613979af000ac89d261da08c8df15310b",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-Q-Q35-RECIPES": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/docs/src/snippets/configs/Qwen/qwen3.8-27b.jsx",
+      "title": "docs/src/snippets/configs/Qwen/qwen3.8-27b.jsx",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "f9f9df8b9f81b9378800f866dbe9f1c890d2acfef01dc5ffbbf0fb8351b18b6d",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-Q-GEMMA-RECIPE": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/docs/cookbook/autoregressive/Google/Gemma4.mdx",
+      "title": "docs/cookbook/autoregressive/Google/Gemma4.mdx",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "ccbda0cf15c8b5a12e8f064631e8aab6f1e1cbb8dc87e9bd85af3a90e2df28e0",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-Q-GEMMA-MODEL": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/models/gemma4_causal.py",
+      "title": "python/sglang/srt/models/gemma4_causal.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "f506b5e0f1c3976693a60892fdd7c3f51576e27a657819fb5140b905ca0bc6cc",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-Q-MODEL-CONFIG": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/configs/model_config.py",
+      "title": "python/sglang/srt/configs/model_config.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "25e5f87f0dbebae2ae78201c9c20b1b74df4ed4fd0788ac55c333785f8e8ae4b",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-K-MODEL": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/models/kimi_k3.py",
+      "title": "python/sglang/srt/models/kimi_k3.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "06fc992598e7a35918590360b65fb81d0566addc3b58278ac1819aad9055da4b",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-K-KDA-FI": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/layers/attention/linear/kernels/kda_flashinfer_prefill.py",
+      "title": "python/sglang/srt/layers/attention/linear/kernels/kda_flashinfer_prefill.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "3389269a5ac0c87b17f7700921fc832aba7b3999d84184cdfd757bf856da13c7",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-K-KDA-PTX": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/layers/attention/linear/kernels/kda_ptx.py",
+      "title": "python/sglang/srt/layers/attention/linear/kernels/kda_ptx.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "8386482565ad1fc950ca32713e9065af75cde67ef1384d57eaace704d2379192",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-K-KIMI-OVERRIDES": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/arg_groups/model_overrides/kimi_k3.py",
+      "title": "python/sglang/srt/arg_groups/model_overrides/kimi_k3.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "8e01d4833b92ecefb760851da056ae0277fe752b780ca12de580c9178fd3d162",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-K-KIMI-HOOK": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/arg_groups/kimi_k3_hook.py",
+      "title": "python/sglang/srt/arg_groups/kimi_k3_hook.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "eef88337a0dcd24e6ed8c9f79d51fcb2b2d32a588714f099c1641eac5e1ba24d",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-K-MODELOPT": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/layers/quantization/modelopt_quant.py",
+      "title": "python/sglang/srt/layers/quantization/modelopt_quant.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "79eec3a4ac7c13bdbabfa6588cb7a320328c21fe5512649407894e1e2f08db9a",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-K-DSPARK-KV": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/speculative/dspark_components/dspark_kv_inject.py",
+      "title": "python/sglang/srt/speculative/dspark_components/dspark_kv_inject.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "32b853c6856c138933989ec98cb9125083d180e37b92544ca9e247412a69a201",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-K-SPEC-ARGS": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/arg_groups/fields/spec.py",
+      "title": "python/sglang/srt/arg_groups/fields/spec.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "bdeca180e96cb100e2a203919ae8ad1257a454af2c06d945c29c955ff6a77355",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-K-MISTRAL": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/models/mistral.py",
+      "title": "python/sglang/srt/models/mistral.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "645ab3a94aa5e3ad8647b0e1d42020e30eda2ea5ef5cc697b14ce04b0a773e0a",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-K-MISTRAL-EAGLE": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/models/mistral_eagle.py",
+      "title": "python/sglang/srt/models/mistral_eagle.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "0604d3999d57cc997ce444d3f3215b6d23c62a39f3dd13b8cc6149a76d149e77",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-K-PIXTRAL": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/models/pixtral.py",
+      "title": "python/sglang/srt/models/pixtral.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "60aaa1f6fcf95d5a7611c41d2c29ee61fb071df21849f484a8caaa2c60e0b5e4",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-K-FORMAT": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/arg_groups/model_path_hook.py",
+      "title": "python/sglang/srt/arg_groups/model_path_hook.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "8b32024a9388d75d3de2bc3a9f6234aa460f0c909b3a4f749444b66e09976a1a",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-K-CHAT-ENCODING": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/entrypoints/openai/chat_encoding.py",
+      "title": "python/sglang/srt/entrypoints/openai/chat_encoding.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "c50a73bbc55d33582f27b03db6b683fff4dd4e492f9adb4bf7fef363861adcb3",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-K-RESPONSES": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/entrypoints/openai/serving_responses.py",
+      "title": "python/sglang/srt/entrypoints/openai/serving_responses.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "641ac81e77d055e453d06825cb0a1588295f12b3f14647f0f0e8fb997851da3d",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-K-MESSAGES": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/entrypoints/anthropic/serving.py",
+      "title": "python/sglang/srt/entrypoints/anthropic/serving.py",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-19",
+      "retrieved_at": "2026-10-19T18:54:37.975961+00:00",
+      "content_sha256": "a65f86ae9cd64d15f757ce10880a47b5809c7df4ec69c119ec22cf2a316b44d9",
+      "source_archive_source_id": "S0522-TREE",
+      "scope": "Selected source inspection against release baseline; bytes extracted from immutable source archive; not an executed runtime."
+    },
+    "S0522-K-TARGET-CARD": {
+      "url": "https://huggingface.co/moonshotai/Kimi-K3/raw/f831ab66814297da540d832a5235f8e904f29d06/README.md",
+      "title": "moonshotai/Kimi-K3 CARD",
+      "retrieved_at": "2026-10-19T18:56:00.221240+00:00",
+      "revision": "f831ab66814297da540d832a5235f8e904f29d06",
+      "sha256": "57de265b5842dfa465c6e73b368b0e15a89b8793b5450528dad577da202cc6fe",
+      "evidence_type": "publisher-artifact",
+      "scope": "Fresh immutable model card/config retrieval and selected configuration/recipe inspection.",
+      "accessed_on": "2026-10-19"
+    },
+    "S0522-K-NV-CARD": {
+      "url": "https://huggingface.co/nvidia/Kimi-K3-NVFP4/raw/b2428a0b83a8b712ff2e1a8448a103d4175341f1/README.md",
+      "title": "nvidia/Kimi-K3-NVFP4 CARD",
+      "retrieved_at": "2026-10-19T18:56:00.466103+00:00",
+      "revision": "b2428a0b83a8b712ff2e1a8448a103d4175341f1",
+      "sha256": "b69e225f94bc0e822c5362ae1bc79bcedc75883aba9ccc4d6b573ebcb90cdbeb",
+      "evidence_type": "publisher-artifact",
+      "scope": "Fresh immutable model card/config retrieval and selected configuration/recipe inspection.",
+      "accessed_on": "2026-10-19"
+    },
+    "S0522-K-DSPARK-HEAD": {
+      "url": "https://huggingface.co/api/models/RadixArk/Kimi-K3-DSpark",
+      "title": "RadixArk/Kimi-K3-DSpark current head",
+      "retrieved_at": "2026-10-19T18:56:00.198556+00:00",
+      "revision": "3c5bac301d9cf392706189d82ed947feca6c2f0f",
+      "sha256": "792fcab02673d5ae8cbc71781ae97c34140e0366b4d1587708154a627637dfce",
+      "evidence_type": "publisher-metadata",
+      "scope": "Current head matches retained atlas revision.",
+      "accessed_on": "2026-10-19",
+      "last_recheck": {
+        "hf_id": "RadixArk/Kimi-K3-DSpark",
+        "revision": "3c5bac301d9cf392706189d82ed947feca6c2f0f",
+        "retrieved_at": "2026-10-19T19:09:00.149198+00:00",
+        "response_sha256": "792fcab02673d5ae8cbc71781ae97c34140e0366b4d1587708154a627637dfce",
+        "accessed_on": "2026-10-19",
+        "kind": "primary publisher head metadata",
+        "title": "RadixArk/Kimi-K3-DSpark head identity",
+        "scope": "Current head identity only; no new weight/export/runtime qualification. Existing immutable model pins retained."
+      }
+    },
+    "S0522-K-DSPARK-CARD": {
+      "url": "https://huggingface.co/RadixArk/Kimi-K3-DSpark/raw/3c5bac301d9cf392706189d82ed947feca6c2f0f/README.md",
+      "title": "RadixArk/Kimi-K3-DSpark CARD",
+      "retrieved_at": "2026-10-19T18:56:00.198556+00:00",
+      "revision": "3c5bac301d9cf392706189d82ed947feca6c2f0f",
+      "sha256": "22b64d04df857096a6fa0d2f1e7dbd40275973e999be9358a067211dec4bdf0a",
+      "evidence_type": "publisher-artifact",
+      "scope": "Fresh immutable model card/config retrieval and selected configuration/recipe inspection.",
+      "accessed_on": "2026-10-19"
+    },
+    "S0522-K-DFLASH-HEAD": {
+      "url": "https://huggingface.co/api/models/modal-labs/Kimi-K3-DFlash",
+      "title": "modal-labs/Kimi-K3-DFlash current head",
+      "retrieved_at": "2026-10-19T18:56:00.188552+00:00",
+      "revision": "c192d15a43407bf758b5ae0880d5c72052fef1de",
+      "sha256": "4eedc5009cc474fb67f1518efcde65ff8af2f1de9b568a05545a24ddd7db109e",
+      "evidence_type": "publisher-metadata",
+      "scope": "Current head matches retained atlas revision.",
+      "accessed_on": "2026-10-19"
+    },
+    "S0522-S-FI6389": {
+      "url": "https://api.github.com/repos/flashinfer-ai/flashinfer/issues/6389",
+      "title": "S0522-S-FI6389",
+      "kind": "primary publisher metadata or issue/PR report",
+      "retrieved_at": "2026-10-19T19:05:24.349665+00:00",
+      "accessed_on": "2026-10-19",
+      "response_sha256": "7777b03bed146bb7ddfb411f3dc874026eebcbb1e31ed4af8e29b55d51e847da",
+      "scope": "Selected metadata/claim review. Author performance and bug reports are not reproduced results."
+    },
+    "S0522-S-DFLASH-GIST": {
+      "url": "https://api.github.com/gists/f373c375a5ee9abe2089c6c648deb4d4",
+      "title": "S0522-S-DFLASH-GIST",
+      "kind": "primary publisher metadata or issue/PR report",
+      "retrieved_at": "2026-10-19T19:05:24.356529+00:00",
+      "accessed_on": "2026-10-19",
+      "response_sha256": "4853ffe6fd533126fc1c6583abbaa906b3064c760caeca163201ecd1633119da",
+      "scope": "Selected metadata/claim review. Author performance and bug reports are not reproduced results."
+    },
+    "S0522-S-DFLASH-CFG": {
+      "url": "https://huggingface.co/incoai/GLM-5.3-Flash-DFlash2/raw/bf582e4eacc1810f76656d1811693ff6c6737d2a/config.json",
+      "title": "S0522-S-DFLASH-CFG",
+      "kind": "primary publisher metadata or issue/PR report",
+      "retrieved_at": "2026-10-19T19:05:24.145597+00:00",
+      "accessed_on": "2026-10-19",
+      "response_sha256": "c4aeac0101196a6e26705b34c45230bcd0c7c68ee2d2d1efdb242087f3712573",
+      "scope": "Selected metadata/claim review. Author performance and bug reports are not reproduced results."
+    },
+    "S0522-S-DFLASH-CARD": {
+      "url": "https://huggingface.co/incoai/GLM-5.3-Flash-DFlash2/raw/bf582e4eacc1810f76656d1811693ff6c6737d2a/README.md",
+      "title": "S0522-S-DFLASH-CARD",
+      "kind": "primary publisher metadata or issue/PR report",
+      "retrieved_at": "2026-10-19T19:05:24.140850+00:00",
+      "accessed_on": "2026-10-19",
+      "response_sha256": "2014434d3e3639147d35d61259690d585e7820993180e7d579e3b796dddf5a31",
+      "scope": "Selected metadata/claim review. Author performance and bug reports are not reproduced results."
+    },
+    "S0522-Q-CP-ANCESTRY": {
+      "url": "https://api.github.com/repos/sgl-project/sglang/compare/0d130f191574c3dbb7d402caf344084e91ded585...baa9befa381511cd4d56f83980951e5a45fffc6d?per_page=1",
+      "title": "S0522-Q-CP-ANCESTRY",
+      "kind": "primary publisher metadata or issue/PR report",
+      "retrieved_at": "2026-10-19T19:05:24.626677+00:00",
+      "accessed_on": "2026-10-19",
+      "response_sha256": "01c4c515f3273e117d4434de94cca043fb4ab168946e4b94af889e1123e33d58",
+      "scope": "Selected metadata/claim review. Author performance and bug reports are not reproduced results."
+    },
+    "S0522-S-PR43735": {
+      "url": "https://api.github.com/repos/sgl-project/sglang/pulls/43735",
+      "title": "S0522-S-PR43735",
+      "kind": "primary publisher metadata or issue/PR report",
+      "retrieved_at": "2026-10-19T19:05:24.542600+00:00",
+      "accessed_on": "2026-10-19",
+      "response_sha256": "0418f00c5bddbb3717946dde096ee076c891032004a8aa396f93d4ba54115587",
+      "scope": "Selected metadata/claim review. Author performance and bug reports are not reproduced results."
+    },
+    "S0522-S-PR42489": {
+      "url": "https://api.github.com/repos/sgl-project/sglang/pulls/42489",
+      "title": "S0522-S-PR42489",
+      "kind": "primary publisher metadata or issue/PR report",
+      "retrieved_at": "2026-10-19T19:05:24.619315+00:00",
+      "accessed_on": "2026-10-19",
+      "response_sha256": "137aa8803b2b1e15a32bfb8fb3aecc118e3a8a682995c9e2ba3885c61ba5b807",
+      "scope": "Selected metadata/claim review. Author performance and bug reports are not reproduced results."
+    },
+    "S0522-S-PR42044": {
+      "url": "https://api.github.com/repos/sgl-project/sglang/pulls/42044",
+      "title": "S0522-S-PR42044",
+      "kind": "primary publisher metadata or issue/PR report",
+      "retrieved_at": "2026-10-19T19:05:24.784524+00:00",
+      "accessed_on": "2026-10-19",
+      "response_sha256": "eee4a89f09d6d2770c5d46b7030b44f5dae7fc11a9dee599ead23e73b556ccaa",
+      "scope": "Selected metadata/claim review. Author performance and bug reports are not reproduced results."
+    },
+    "S0522-S-PR43432": {
+      "url": "https://api.github.com/repos/sgl-project/sglang/pulls/43432",
+      "title": "S0522-S-PR43432",
+      "kind": "primary publisher metadata or issue/PR report",
+      "retrieved_at": "2026-10-19T19:05:24.760493+00:00",
+      "accessed_on": "2026-10-19",
+      "response_sha256": "fd6e3e82573a409f234d3910878187921e1997b39fe81b47417d64400f4af2d5",
+      "scope": "Selected metadata/claim review. Author performance and bug reports are not reproduced results."
+    },
+    "S0522-S-PR38603": {
+      "url": "https://api.github.com/repos/sgl-project/sglang/pulls/38603",
+      "title": "S0522-S-PR38603",
+      "kind": "primary publisher metadata or issue/PR report",
+      "retrieved_at": "2026-10-19T19:05:24.952542+00:00",
+      "accessed_on": "2026-10-19",
+      "response_sha256": "d4fc363bb9e26130d362bac6a98ade49559b3dcd7effd16ab49a5df81904927b",
+      "scope": "Selected metadata/claim review. Author performance and bug reports are not reproduced results."
+    },
+    "S0522-S-PR43936": {
+      "url": "https://api.github.com/repos/sgl-project/sglang/pulls/43936",
+      "title": "S0522-S-PR43936",
+      "kind": "primary publisher metadata or issue/PR report",
+      "retrieved_at": "2026-10-19T19:05:24.992230+00:00",
+      "accessed_on": "2026-10-19",
+      "response_sha256": "1ebf32df30b4ed2fc20769258aeaec30042d80bf0ab0e2e64783f69769e44a85",
+      "scope": "Selected metadata/claim review. Author performance and bug reports are not reproduced results."
+    },
+    "S0522-S-PR43006": {
+      "url": "https://api.github.com/repos/sgl-project/sglang/pulls/43006",
+      "title": "S0522-S-PR43006",
+      "kind": "primary publisher metadata or issue/PR report",
+      "retrieved_at": "2026-10-19T19:05:25.020407+00:00",
+      "accessed_on": "2026-10-19",
+      "response_sha256": "54596fe5aa3ee2139b276ec8a2ce4c0916dce7f43ccfe12b9e9fd87cd917ccc4",
+      "scope": "Selected metadata/claim review. Author performance and bug reports are not reproduced results."
+    },
+    "S0522-Q-INDEXER-PR": {
+      "url": "https://api.github.com/repos/sgl-project/sglang/pulls/39614",
+      "title": "S0522-Q-INDEXER-PR",
+      "kind": "primary publisher metadata or issue/PR report",
+      "retrieved_at": "2026-10-19T19:05:25.225283+00:00",
+      "accessed_on": "2026-10-19",
+      "response_sha256": "4436beac42abd8cfaee49ae611fc812bcd401fee361d6c8e34cc7b37784d8c7f",
+      "scope": "Selected metadata/claim review. Author performance and bug reports are not reproduced results."
+    },
+    "S0522-Q-GRAPH-PR": {
+      "url": "https://api.github.com/repos/sgl-project/sglang/pulls/41729",
+      "title": "S0522-Q-GRAPH-PR",
+      "kind": "primary publisher metadata or issue/PR report",
+      "retrieved_at": "2026-10-19T19:05:25.166299+00:00",
+      "accessed_on": "2026-10-19",
+      "response_sha256": "06cbbc7d199e94708a11925a3f01f8dfe02b435bea113a14dfcf4895ce8c4115",
+      "scope": "Selected metadata/claim review. Author performance and bug reports are not reproduced results."
+    },
+    "S0522-Q-DECODE-PR": {
+      "url": "https://api.github.com/repos/sgl-project/sglang/pulls/43463",
+      "title": "S0522-Q-DECODE-PR",
+      "kind": "primary publisher metadata or issue/PR report",
+      "retrieved_at": "2026-10-19T19:05:25.361764+00:00",
+      "accessed_on": "2026-10-19",
+      "response_sha256": "92a28b58ee7cb5a43c63cc196f0d1e915eb70843872866246b3882ae8009fcd1",
+      "scope": "Selected metadata/claim review. Author performance and bug reports are not reproduced results."
+    },
+    "S0522-Q-BF16-PR": {
+      "url": "https://api.github.com/repos/sgl-project/sglang/pulls/42175",
+      "title": "S0522-Q-BF16-PR",
+      "kind": "primary publisher metadata or issue/PR report",
+      "retrieved_at": "2026-10-19T19:05:25.463196+00:00",
+      "accessed_on": "2026-10-19",
+      "response_sha256": "08b7977c62da0df8681a0c58d561ee74ce971a80b6db8fef36cddff0a2d89cc3",
+      "scope": "Selected metadata/claim review. Author performance and bug reports are not reproduced results."
+    },
+    "S0522-Q-GEMMA-FA4-PR": {
+      "url": "https://api.github.com/repos/sgl-project/sglang/pulls/42019",
+      "title": "S0522-Q-GEMMA-FA4-PR",
+      "kind": "primary publisher metadata or issue/PR report",
+      "retrieved_at": "2026-10-19T19:05:25.449834+00:00",
+      "accessed_on": "2026-10-19",
+      "response_sha256": "88d8af5cd2aed51f41601399b1381786d6357ff6614a2b2f8b6c6a2b3a0ab2c7",
+      "scope": "Selected metadata/claim review. Author performance and bug reports are not reproduced results."
+    },
+    "S0522-HF-zai-org-GLM-5.3-BF16": {
+      "hf_id": "zai-org/GLM-5.3-BF16",
+      "revision": "abf42e6c0e53bc29a875511301e7b7fcd220315b",
+      "url": "https://huggingface.co/api/models/zai-org/GLM-5.3-BF16",
+      "retrieved_at": "2026-10-19T19:08:59.832377+00:00",
+      "response_sha256": "019a1ab2abfcdd3ecdde77c01402490a5b0b5c4b3a5937c7c9251254abbe493a",
+      "accessed_on": "2026-10-19",
+      "kind": "primary publisher head metadata",
+      "title": "zai-org/GLM-5.3-BF16 head identity",
+      "scope": "Current head identity only; no new weight/export/runtime qualification. Existing immutable model pins retained."
+    },
+    "S0522-HF-nvidia-GLM-5.3-NVFP4": {
+      "hf_id": "nvidia/GLM-5.3-NVFP4",
+      "revision": "e3b8f9f2fad29727dfa95e766c5cac18ea1414bf",
+      "url": "https://huggingface.co/api/models/nvidia/GLM-5.3-NVFP4",
+      "retrieved_at": "2026-10-19T19:08:59.970965+00:00",
+      "response_sha256": "88d1bf980451e0b2c925f4fb74036bedb5c893a0e98ad607ebaf25995a02a088",
+      "accessed_on": "2026-10-19",
+      "kind": "primary publisher head metadata",
+      "title": "nvidia/GLM-5.3-NVFP4 head identity",
+      "scope": "Current head identity only; no new weight/export/runtime qualification. Existing immutable model pins retained."
+    },
+    "S0522-HF-zai-org-GLM-5.3-Flash-BF16": {
+      "hf_id": "zai-org/GLM-5.3-Flash-BF16",
+      "revision": "f9fed3bbc82291073373d67452e9f25317ef7577",
+      "url": "https://huggingface.co/api/models/zai-org/GLM-5.3-Flash-BF16",
+      "retrieved_at": "2026-10-19T19:08:59.993602+00:00",
+      "response_sha256": "555bd4afe2ee3f46b6ac82b986206234b941110d79b89d04051c0585f859006c",
+      "accessed_on": "2026-10-19",
+      "kind": "primary publisher head metadata",
+      "title": "zai-org/GLM-5.3-Flash-BF16 head identity",
+      "scope": "Current head identity only; no new weight/export/runtime qualification. Existing immutable model pins retained."
+    },
+    "S0522-HF-nvidia-DeepSeek-V4-Flash-0731-NVFP4": {
+      "hf_id": "nvidia/DeepSeek-V4-Flash-0731-NVFP4",
+      "revision": "f1caa71142bd0be02f728c79f75042ac1e461579",
+      "url": "https://huggingface.co/api/models/nvidia/DeepSeek-V4-Flash-0731-NVFP4",
+      "retrieved_at": "2026-10-19T19:09:00.123142+00:00",
+      "response_sha256": "7ccf99e79ea89338af7ec74edfbaf724dfb71cdaa40fce0fcb21aebf57beb7a0",
+      "accessed_on": "2026-10-19",
+      "kind": "primary publisher head metadata",
+      "title": "nvidia/DeepSeek-V4-Flash-0731-NVFP4 head identity",
+      "scope": "Current head identity only; no new weight/export/runtime qualification. Existing immutable model pins retained."
+    },
+    "S0522-HF-incoai-GLM-5.3-Flash-DFlash2": {
+      "hf_id": "incoai/GLM-5.3-Flash-DFlash2",
+      "revision": "bf582e4eacc1810f76656d1811693ff6c6737d2a",
+      "url": "https://huggingface.co/api/models/incoai/GLM-5.3-Flash-DFlash2",
+      "retrieved_at": "2026-10-19T19:09:00.140341+00:00",
+      "response_sha256": "6bd40850b85df729c4117649d29c61ea9d0c0ca8a70d9bef140ab11935df6f4c",
+      "accessed_on": "2026-10-19",
+      "kind": "primary publisher head metadata",
+      "title": "incoai/GLM-5.3-Flash-DFlash2 head identity",
+      "scope": "Current head identity only; no new weight/export/runtime qualification. Existing immutable model pins retained."
     }
   }
 }

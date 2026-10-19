@@ -4,7 +4,7 @@ Technical reference for eight model families on one **8×NVIDIA B300** node: arc
 
 **Infrastructure requirement: KServe is mandatory.** All deployment guidance assumes the existing KServe platform, with vLLM or SGLang providing inference.
 
-The [retrieval map and analysis procedure](START_HERE.md) connects model reports, catalogs, implementation reviews and source identities. [LIMITATIONS](LIMITATIONS.md) distinguishes known facts, publisher claims and unresolved questions. Core research refreshed **October 16, 2026 UTC**; selected v0.31 guidance was reviewed **October 17**, followed by the **October 18 [vLLM v0.32 upgrade analysis](reports/vllm-v032-upgrade.md)** across all eight families. Each review retains its own evidence scope.
+The [retrieval map and analysis procedure](START_HERE.md) connects model reports, catalogs, implementation reviews and source identities. [LIMITATIONS](LIMITATIONS.md) distinguishes known facts, publisher claims and unresolved questions. Core research refreshed **October 16, 2026 UTC**; later reviews cover **[vLLM v0.32 on October 18](reports/vllm-v032-upgrade.md)** and **[SGLang v0.5.22 on October 19](reports/sglang-v0522-upgrade.md)** across all eight families. Each review retains its own evidence scope.
 
 ## Hardware → model → precision → engine
 
@@ -21,6 +21,7 @@ The [retrieval map and analysis procedure](START_HERE.md) connects model reports
 | Configuration | [Source-derived parameter reference](reports/configuration-reference.md) |
 | Recent changes | [Stable, main and nightly](reports/nightly-readiness.md) |
 | vLLM v0.32 | [Release changes, applicability and next B300 experiments](reports/vllm-v032-upgrade.md) |
+| SGLang v0.5.22 | [Release changes, argument migration, per-model experiments and exclusions](reports/sglang-v0522-upgrade.md) |
 | Report corrections | [Verified findings from the supplied report](reports/report-review.md) |
 
 ## Model families

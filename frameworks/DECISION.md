@@ -1,5 +1,7 @@
 # vLLM, SGLang and KServe: justified roles
 
+The [October 19 SGLang v0.5.22 review](../reports/sglang-v0522-upgrade.md) updates the SGLang side of the comparison across all eight families. Use it alongside [vLLM v0.32](../reports/vllm-v032-upgrade.md); neither source review establishes a measured engine winner. KServe remains required.
+
 **October 18 release context:** vLLM v0.32.0 is the latest observed release. The [B300 upgrade comparison](../reports/vllm-v032-upgrade.md) supplies version-specific priorities across the catalog; v0.31 remains the controlled baseline. No measured engine ranking or KServe deployment compatibility is inferred from the changelog.
 
 ## Decision

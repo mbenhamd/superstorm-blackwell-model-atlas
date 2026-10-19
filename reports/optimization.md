@@ -1,5 +1,7 @@
 # Optimization on one 8×B300 node
 
+**SGLang v0.5.22:** use the [release-scoped argument and experiment analysis](sglang-v0522-upgrade.md) for current DP semantics, model-specific gates and new candidates. Earlier source comparisons below retain their own release identities. Replica count, attention DP and context parallelism must be resolved against the selected engine release.
+
 The useful configuration depends on **what the model stores, what each token computes, and what the application repeats**. This page keeps the reasoning and known constraints; executable benchmarks and results belong in the separate execution repository.
 
 **Latest release comparison:** [vLLM v0.32.0 on B300](vllm-v032-upgrade.md) audits the October 18 release against the v0.31 baseline below. It identifies automatic changes, explicit candidates and changelog items that do not apply to these models/hardware. Machine-readable additions use `vllm_v032_b300_review`; historical settings remain version-scoped.

@@ -22,6 +22,8 @@ Resolve each cited source ID through `sources[ID]` in `evidence/sources.json`. C
 
 ## System boundaries
 
+For SGLang **v0.5.22**, use the [October 19 release comparison](reports/sglang-v0522-upgrade.md) and `sglang_v0522_b300_review` in each model record. These cover argument migration, exact model/backend restrictions and proposed experiments under KServe. In particular, independent replica DP and attention DP now have distinct spellings; release inclusion must be checked separately from a PR's merge date.
+
 For the October 18 release, start with the [vLLM v0.32 comparison](reports/vllm-v032-upgrade.md) and each model's `vllm_v032_b300_review`. The older `vllm_v031_b300_review` provides the baseline. A newer analysis does not change the release identity of an existing argument record.
 
 | Component | Defines | Required distinction |

@@ -1,5 +1,15 @@
 # Mistral Medium 3.5: serving on 8×B300
 
+## SGLang v0.5.22 review — October 19
+
+KServe + SGLang0.5.22 documented FP8 target compatibility candidate, TP8 publisher baseline with explicit mistral reasoning/tool parsers and conservative32K/32-request atlas adaptation. Compare target-only before EAGLE and smaller TP groups. Existing producer-preferred vLLM choice is not overturned by source-only SGLang audit.
+
+Read the [release comparison and model-specific argument fragments](../../../reports/sglang-v0522-upgrade.md) and `sglang_v0522_b300_review` in the [catalog](../../../catalog/models.json) for changes, exclusions and proposed experiments. The review compares release source with v0.5.21; it does not qualify an engine image or measure B300 performance. Existing configuration records retain their original scope.
+
+Key constraints: Target HF layout is preferred when both model*.safetensors and consolidated*.safetensors exist; do not sum alternative layouts as resident bytes. Draft native params.json/consolidated layout expected. Keep --dtype bfloat16 with published EAGLE recipe. Three steps and four draft tokens are SGLang semantics, not equivalent to vLLM num_speculative_tokens3.
+
+[mistral-medium-3.5-CARD](https://huggingface.co/mistralai/Mistral-Medium-3.5-128B/raw/22b2b868a15677cfa6061277ed2f653d1349a9ab/README.md) [mistral-medium-3.5-CFG](https://huggingface.co/mistralai/Mistral-Medium-3.5-128B/raw/22b2b868a15677cfa6061277ed2f653d1349a9ab/config.json) [mistral-medium-3.5-EAGLE-CARD](https://huggingface.co/mistralai/Mistral-Medium-3.5-128B-EAGLE/raw/d31694b0f55b51d4d962b5c3dbf0e03d1f019275/README.md)
+
 ## vLLM v0.32.0 update (October 18)
 
 Pinned FP8 target and official EAGLE release control; target-only versus3 proposals, then TP2/4 layouts versus TP8. Exact EAGLE implementation unchanged; Large3/Llama4 repair is not a Medium3.5 fix.

@@ -1,5 +1,15 @@
 # Qwen 3.8 Flash Next: serving on 8×B300
 
+## SGLang v0.5.22 review — October 19
+
+Official FP8 TP4+EP4, BF16 main KV/indexer and FP32 GDN; compare two independent four-GPU KServe groups. First isolate FP8 indexer target-only, then main KV and MTP.
+
+Read the [release comparison and model-specific argument fragments](../../../reports/sglang-v0522-upgrade.md) and `sglang_v0522_b300_review` in the [catalog](../../../catalog/models.json) for changes, exclusions and proposed experiments. The review compares release source with v0.5.21; it does not qualify an engine image or measure B300 performance. Existing configuration records retain their original scope.
+
+Key constraints: FP8 indexer does not change pending BF16 ring or main KV. B300 PR evidence is target-only accuracy, with MTP untested and no speed result. Compressed QSA forces page64. BF16 fusion excludes EP>1, attention-DP, LoRA, speculation and TBO; requires SM10x and CustomAllReduceV2.
+
+[S0522-Q-Q4-OVERRIDE](https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/arg_groups/model_overrides/qwen4_exp.py) [S0522-Q-QSA-DTYPE](https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/mem_cache/qsa_kv_pool.py) [S0522-Q-QSA-INDEXER](https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/layers/attention/qsa/qsa_indexer.py)
+
 ## vLLM v0.32.0 update (October 18)
 
 Official FP8 TP4+EP release control; then HC/PLE sequence parallelism at fixed topology and workload. Merged QSA projections and fused preparation; relevant merged TP4 shape added to SM103 plan.

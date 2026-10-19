@@ -1,5 +1,15 @@
 # Qwen 3.8 27B: vLLM v0.31.0 on B300
 
+## SGLang v0.5.22 review — October 19
+
+One TP1 KServe replica, BF16 KV and FP32 GDN state; matched BF16/official FP8/NVIDIA mixed target-only comparisons before eight-replica placement and MTP.
+
+Read the [release comparison and model-specific argument fragments](../../../reports/sglang-v0522-upgrade.md) and `sglang_v0522_b300_review` in the [catalog](../../../catalog/models.json) for changes, exclusions and proposed experiments. The review compares release source with v0.5.21; it does not qualify an engine image or measure B300 performance. Existing configuration records retain their original scope.
+
+Key constraints: Dense Qwen3.5-family model: no QSA indexer or MoE EP optimization. NVIDIA mixed export selects modelopt_mixed; do not force uniform modelopt_fp4. Auto KV may differ across exports.
+
+[S0522-Q-Q35-OVERRIDE](https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/arg_groups/model_overrides/qwen3_5.py) [S0522-Q-Q35-MODEL](https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/models/qwen3_5.py) [S0522-Q-SPEC-HOOK](https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/arg_groups/speculative_hook.py)
+
 ## vLLM v0.32.0 update (October 18)
 
 Pinned NVIDIA mixed NVFP4 TP1, FlashInfer/BF16 KV and matched compile/admission controls across v0.31/v0.32; inspect activation-quant fusion. ModelOpt mixed NVFP4 optimization predicate repaired; mixed loader support already existed.

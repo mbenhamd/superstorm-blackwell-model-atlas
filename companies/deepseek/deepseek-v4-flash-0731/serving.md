@@ -1,5 +1,15 @@
 # DeepSeek V4 Flash 0731: serving on 8×B300
 
+## SGLang v0.5.22 review — October 19
+
+Exact native0731 TP4 flashinfer_mxfp4 target-only versus bundledDSPARK; compare two independentTP4 KServe replicas withTP8. NVIDIA NVFP4+DSpark stays an export compatibility probe.
+
+Read the [release comparison and model-specific argument fragments](../../../reports/sglang-v0522-upgrade.md) and `sglang_v0522_b300_review` in the [catalog](../../../catalog/models.json) for changes, exclusions and proposed experiments. The review compares release source with v0.5.21; it does not qualify an engine image or measure B300 performance. Existing configuration records retain their original scope.
+
+Key constraints: Native bundled draft differs from V4.1 Markov heads. Block5 means5proposals/6verification positions. AttentionDP+MoE draft needs attentionTP1; use attn-dp-size equalTP. Draft capture can disable below1GBremaining.
+
+[S0522-S-DSV4-RECIPE](https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/docs/src/snippets/configs/deepseek-ai/deepseek-v4.jsx) [S0522-S-DSV4-HOOK](https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/arg_groups/deepseek_v4_hook.py) [S0522-S-CP-BCG](https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/layers/cp/bcg.py)
+
 ## vLLM v0.32.0 update (October 18)
 
 NVIDIA NVFP4 TP8 target-only control, then same-revision bundled DSpark acceptance/quality probe after ignore-list correction. ModelOpt ignore mapping preserves native MXFP4 mtp.* draft experts instead of misinterpreting them as target NVFP4. Exact pinned0731 config/index matches this mechanism.

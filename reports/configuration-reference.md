@@ -8,6 +8,8 @@ Each reference is untested on the target node. Read the current family serving p
 
 ## Choosing a record for analysis
 
+For **SGLang v0.5.22**, read `sglang_v0522_b300_review` and `recommended_sglang_v0522_b300` in the model catalog, plus the [release-scoped argument and experiment guide](sglang-v0522-upgrade.md). It includes model-specific argument fragments, cache/graph restrictions and the replica-DP/attention-DP migration. These do not rewrite or certify the 40 historical launch arrays below.
+
 For **vLLM v0.32**, read `vllm_v032_b300_review` and `recommended_vllm_v032_b300` in the model catalog, plus the [upgrade analysis](vllm-v032-upgrade.md). These are source-derived experiment priorities, not newly qualified launch arrays. The 40 argument records below retain their original scope; reconcile removed options, changed defaults and exact backend gates before using them with v0.32.
 
 `reference_scope` distinguishes the **34 historical source snapshots** from the **six release-specific comparisons**. `status` describes a candidate/probe; it does not certify compatibility with the latest release. A `status_recheck` can correct a previous conclusion without changing recorded arguments or the original `reviewed_source_commit`.

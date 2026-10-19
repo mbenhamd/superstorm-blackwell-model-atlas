@@ -6,6 +6,8 @@ The October 18 [vLLM v0.32 review](reports/vllm-v032-upgrade.md) compares select
 
 ## Evidence boundaries
 
+The [October 19 SGLang v0.5.22 review](reports/sglang-v0522-upgrade.md) compares selected release paths with v0.5.21. Its registry index bytes and platform identities were checked; image contents and runtime remain unqualified. GLM FP8 DCP8 has a reported sparse-kernel corruption risk; Qwen Flash Next's complete prefill-CP port is absent from the release; Gemma's new FA4 result is SM90 evidence. These are explicit exclusions from promotion, not measured failures on this node.
+
 - A publisher benchmark describes its own model revision, hardware and workload. It does not establish an engine winner on this node.
 - A supported architecture or existing kernel does not establish support for every exporter, precision, draft or cache mode.
 - A main commit, release tag, wheel index and container digest identify different objects. Source inspection does not certify an unexamined binary.

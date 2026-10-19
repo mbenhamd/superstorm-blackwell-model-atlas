@@ -1,5 +1,15 @@
 # GLM 5.3 Flash: serving on 8×B300
 
+## SGLang v0.5.22 review — October 19
+
+Official FP8 TP4: explicit prefill graph/KDA controls across releases, then native MTP5/1/6. Compare two TP4 KServe groups against one TP8; external DFlash and long-prefill CP are separate arms.
+
+Read the [release comparison and model-specific argument fragments](../../../reports/sglang-v0522-upgrade.md) and `sglang_v0522_b300_review` in the [catalog](../../../catalog/models.json) for changes, exclusions and proposed experiments. The review compares release source with v0.5.21; it does not qualify an engine image or measure B300 performance. Existing configuration records retain their original scope.
+
+Key constraints: Pooled index_kpool4 rejects flagship DCP. Prefill CP must equalTP; excludes DCP/LayerSplit/mixed chunks/PD/external DFlash and forces prefill graphs disabled. KDA FlashInfer requires safe gate/checkpoint alignment; CuTe verify has BF16-input/FP32-state/head128/conv4/linear-chain gates and fallbacks.
+
+[S0522-R-GRAPH](https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/arg_groups/cuda_graph_hook.py) [S0522-S-GLM-SPEC-DEFAULT](https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/arg_groups/glm5_next_hook.py) [S0522-S-KDA](https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/layers/attention/linear/kda_backend.py)
+
 ## vLLM v0.32.0 update (October 18)
 
 Fixed TP4 target-only: FP32 versus newly honored BF16 KDA state; then DCP1/2/4 with interleave4, PCP1 and resolved `FLASHINFER_MLA_SPARSE` on B300. The NoPE-512 path is rejected by `FLASHMLA_SPARSE` on SM10x. KDA layer and model cache specification honor mamba_ssm_cache_dtype; auto stays FP32.

@@ -1,5 +1,13 @@
 # SGLang: source review and upgrade candidates
 
+## October 19: v0.5.22 release comparison
+
+The [B300 upgrade review](../../reports/sglang-v0522-upgrade.md) compares `baa9befa381511cd4d56f83980951e5a45fffc6d` with v0.5.21 across all eight model families. It covers dependency/image identities, argument migration, hybrid-state correctness, model-specific kernels and proposed experiments under required KServe. Source inspection does not qualify the binary.
+
+Key boundaries: `--dp-size` counts replicas and `--attn-dp-size` partitions attention; GLM FP8 DCP8 has a reported kernel risk; Flash Next full-stack CP remains outside this release; new Gemma FA4 evidence concerns H200. Model catalog field `sglang_v0522_b300_review` carries structured constraints and source IDs.
+
+## Historical October 16 review
+
 **Source and metadata review refreshed October 16, 2026, beginning 08:57 UTC. No engine, model weights or nightly binary was run.** The supplied report's cutoff was 08:30 UTC; later observations are identified below. Source compatibility and publisher measurements do not establish a winning engine for the actual eight-B300 node.
 
 ## Released source, main and published artifacts

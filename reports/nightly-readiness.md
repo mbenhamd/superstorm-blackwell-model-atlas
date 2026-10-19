@@ -1,6 +1,16 @@
 # Stable, main and nightly: what the differences mean
 
-**Latest scoped refresh: October 18, 2026 UTC; earlier comparisons below retain their dated scope.** These identify released source, selected development source and advertised artifacts. No wheel or container was downloaded or run. Exact identities and retrieval dates are retained in the [upstream lock](../evidence/upstreams.lock.json).
+**Latest scoped refresh: October 19, 2026 UTC; earlier comparisons below retain their dated scope.** These identify released source, selected development source and advertised artifacts. No wheel or container was downloaded or run. Exact identities and retrieval dates are retained in the [upstream lock](../evidence/upstreams.lock.json).
+
+## October 19: SGLang v0.5.22 release
+
+SGLang **v0.5.22** was released at 02:55:19 UTC. Annotated tag object `35ce313293052f8362e0829e7512bc9bc3d336c9` resolves to source commit `baa9befa381511cd4d56f83980951e5a45fffc6d`. Fresh metadata also reports vLLM **v0.32.0** and KServe **v0.21.0**. These are upstream identities, not cluster inventory. [S0522-RELEASE](https://api.github.com/repos/sgl-project/sglang/releases/tags/v0.5.22) [S0522-TAG-PEELED](https://api.github.com/repos/sgl-project/sglang/git/tags/35ce313293052f8362e0829e7512bc9bc3d336c9) [RR-GM-VLLM-RELEASE](https://api.github.com/repos/vllm-project/vllm/releases/latest) [ATTR-K-RELEASE](https://api.github.com/repos/kserve/kserve/releases/latest)
+
+Read the [SGLang B300 argument and experiment guide](sglang-v0522-upgrade.md) for selected release diffs versus v0.5.21. It documents the default CUDA13 image index and both CPU-platform digests; no image layers or executable contents were inspected. Release source, registry identity and runtime qualification remain separate.
+
+Main metadata at 18:54 UTC reports `678913a0f029394ad1f4ee64d1439421e9ea56ef`; the wheel index advertises `0.5.23.dev20261019+g7f96dc6874`. The latter does not match the main observation or stable release. Wheel contents/hash were not verified. [RR-GM-SGLANG-MAIN](https://api.github.com/repos/sgl-project/sglang/commits/main) [GNIGHTLY-INDEX](https://sgl-project.github.io/whl/cu130/sglang/)
+
+A concrete release-branch exclusion: Flash Next's complete prefill-CP model port (#39724) is merged on main but absent from the release ancestry and selected release implementation. QSA kernel availability alone does not establish an executable release configuration. [S0522-Q-CP-ANCESTRY](https://api.github.com/repos/sgl-project/sglang/compare/0d130f191574c3dbb7d402caf344084e91ded585...baa9befa381511cd4d56f83980951e5a45fffc6d?per_page=1)
 
 ## October 18: v0.32.0 release and B300 comparison
 

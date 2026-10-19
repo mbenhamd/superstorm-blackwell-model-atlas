@@ -1,5 +1,15 @@
 # Kimi K3: serving on 8×B300
 
+## SGLang v0.5.22 review — October 19
+
+KServe + SGLang 0.5.22, one TP8 target-only group at the retained native MXFP4 pin; compare the retained NVIDIA mixed NVFP4 artifact with explicit flashinfer_trtllm separately. Attach pinned RadixArk DSpark only after each target-only control. No all-FP8 target is established.
+
+Read the [release comparison and model-specific argument fragments](../../../reports/sglang-v0522-upgrade.md) and `sglang_v0522_b300_review` in the [catalog](../../../catalog/models.json) for changes, exclusions and proposed experiments. The review compares release source with v0.5.21; it does not qualify an engine image or measure B300 performance. Existing configuration records retain their original scope.
+
+Key constraints: DCP+DSPARK requires SGLANG_RAGGED_VERIFY_MODE=static. Compact/cap-accept rejected. Existing Kimi hook pins nv_cutedsl verify unless explicitly set and defaults BF16 KDA decode to triton; these are retained behavior, not new0.5.22 features. FlashInfer KDA checkpoint interval positive and divisible by32; no two-batch overlap or FULL prefill CUDA graph. Disabled/breakable graph is accepted; a single-token prefill path can fall back.
+
+[kimi-k3-CFG](https://huggingface.co/moonshotai/Kimi-K3/raw/f831ab66814297da540d832a5235f8e904f29d06/config.json) [S0522-K-NV-CARD](https://huggingface.co/nvidia/Kimi-K3-NVFP4/raw/b2428a0b83a8b712ff2e1a8448a103d4175341f1/README.md) [kimi-k3-DRAFT-SG-CFG](https://huggingface.co/RadixArk/Kimi-K3-DSpark/raw/3c5bac301d9cf392706189d82ed947feca6c2f0f/config.json)
+
 ## vLLM v0.32.0 update (October 18)
 
 Native MXFP4 TP8 plus pinned Inferact DSpark: compare native versus FlashInfer packed speculative KDA at fixed proposal depth and state dtype. Conditional automatic packed speculative KDA; fused K/V pack on the DCP prefill path.

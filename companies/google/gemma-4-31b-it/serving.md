@@ -1,5 +1,15 @@
 # Gemma 4 31B IT: serving on 8×B300
 
+## SGLang v0.5.22 review — October 19
+
+TP1 BF16 target-only, Triton attention/BF16 KV, then exact Red Hat FP8-block and NVFP4 exports. Compare text-only TRT-LLM separately; pinned assistant after target correctness.
+
+Read the [release comparison and model-specific argument fragments](../../../reports/sglang-v0522-upgrade.md) and `sglang_v0522_b300_review` in the [catalog](../../../catalog/models.json) for changes, exclusions and proposed experiments. The review compares release source with v0.5.21; it does not qualify an engine image or measure B300 performance. Existing configuration records retain their original scope.
+
+Key constraints: SM10x default trtllm_mha uses causal image-token attention; Triton is the image-quality control. SM10x FA4 hd256 rejects local attention/image mask callbacks; H200 result cannot promote B300 route.
+
+[S0522-Q-GEMMA-OVERRIDE](https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/arg_groups/model_overrides/gemma4.py) [S0522-Q-GEMMA-RECIPE](https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/docs/cookbook/autoregressive/Google/Gemma4.mdx) [S0522-Q-GEMMA-MODEL](https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/models/gemma4_causal.py)
+
 ## vLLM v0.32.0 update (October 18)
 
 TP1 target-only parity on the new dependency stack, with BF16 quality anchor and matched exact FP8/NVFP4 comparisons. Selected release integration changes do not establish new Gemma assistant capability or expanded FA4 head geometry.
