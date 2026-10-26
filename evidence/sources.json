@@ -1,6 +1,6 @@
 {
   "as_of": "2026-10-26",
-  "date_basis": "UTC; October 26 latest-stable metadata, all 23 concrete catalog variant identities, 11 recorded additional artifacts, immutable README/configuration retrieval and selected engine restrictions. Historical review scopes and launch arrays retained; no runtime qualification.",
+  "date_basis": "UTC; October 26 latest-stable metadata, all 23 concrete catalog variant identities, 11 recorded additional artifacts, immutable README/configuration retrieval and selected engine restrictions. Historical review scopes and launch arrays retained; no runtime qualification. October 26 benchmark-insights follow-up adds GuideLLM v0.8.1 and selected vLLM v0.32.0 metric semantics, with separate fresh release/branch/wheel metadata; no new model or runtime qualification.",
   "sources": {
     "HW": {
       "url": "https://docs.nvidia.com/dgx/dgxb300-user-guide/introduction-to-dgxb300.html",
@@ -3055,16 +3055,18 @@
       "capture": "Rechecked by HTTPS during the audit; retrieval timestamp and response SHA-256 recorded.",
       "notes": "Mutable index/registry listing observed; wheel bytes and container layers not downloaded or executed.",
       "last_recheck": {
+        "retrieved_at": "2026-10-26T18:01:23.033147+00:00",
+        "content_sha256": "7e15d01a0b619b2a33a7625f5a2273f788e650328848214597987fa42ba82f9f",
+        "method": "HTTPS UTF-8 response",
+        "scope": "Benchmark-insights follow-up: publication metadata only; no wheel contents inspected. Kept separate from branch heads and stable metric source pins.",
         "project": "vllm",
         "source_id": "VNIGHTLY-INDEX",
         "url": "https://wheels.vllm.ai/nightly/cu130/vllm/",
-        "retrieved_at": "2026-10-26T11:53:41.795291+00:00",
-        "response_sha256": "7f196ad88fab2ba8cb2f9c2e8a20a840d3a30afa0a600a3f31515fb216dbe291",
-        "latest_advertised_filename": "vllm-0.32.1rc1.dev524+gffcabb8c7-cp38-abi3-manylinux_2_28_aarch64.whl",
-        "advertised_version": "0.32.1rc1.dev524+gffcabb8c7",
+        "response_sha256": "7e15d01a0b619b2a33a7625f5a2273f788e650328848214597987fa42ba82f9f",
+        "latest_advertised_filename": "vllm-0.32.1rc1.dev555+geca54bd1d-cp38-abi3-manylinux_2_28_aarch64.whl",
+        "advertised_version": "0.32.1rc1.dev555+geca54bd1d",
         "artifact_bytes_downloaded": false,
-        "binary_verified": false,
-        "scope": "Publication metadata only; optimization follow-up recheck, no wheel contents inspected."
+        "binary_verified": false
       },
       "prior_rechecks": [
         {
@@ -3086,6 +3088,18 @@
           "scope": "Publication metadata only; no wheel/container payload downloaded or executed.",
           "latest_advertised_filename": "vllm-0.32.1rc1.dev523+g71294c2e9-cp38-abi3-manylinux_2_28_aarch64.whl",
           "advertised_version": "0.32.1rc1.dev523+g71294c2e9"
+        },
+        {
+          "project": "vllm",
+          "source_id": "VNIGHTLY-INDEX",
+          "url": "https://wheels.vllm.ai/nightly/cu130/vllm/",
+          "retrieved_at": "2026-10-26T11:53:41.795291+00:00",
+          "response_sha256": "7f196ad88fab2ba8cb2f9c2e8a20a840d3a30afa0a600a3f31515fb216dbe291",
+          "latest_advertised_filename": "vllm-0.32.1rc1.dev524+gffcabb8c7-cp38-abi3-manylinux_2_28_aarch64.whl",
+          "advertised_version": "0.32.1rc1.dev524+gffcabb8c7",
+          "artifact_bytes_downloaded": false,
+          "binary_verified": false,
+          "scope": "Publication metadata only; optimization follow-up recheck, no wheel contents inspected."
         }
       ]
     },
@@ -3099,16 +3113,18 @@
       "capture": "Rechecked by HTTPS during the audit; retrieval timestamp and response SHA-256 recorded.",
       "notes": "Mutable index/registry listing observed; wheel bytes and container layers not downloaded or executed.",
       "last_recheck": {
+        "retrieved_at": "2026-10-26T18:01:22.726681+00:00",
+        "content_sha256": "964f8630b1ed87a85717aecf4944d82d92b4af5e686ad481780c0158e663bc3c",
+        "method": "HTTPS UTF-8 response",
+        "scope": "Benchmark-insights follow-up: publication metadata only; no wheel contents inspected. Kept separate from branch heads and stable metric source pins.",
         "project": "sglang",
         "source_id": "GNIGHTLY-INDEX",
         "url": "https://sgl-project.github.io/whl/cu130/sglang/",
-        "retrieved_at": "2026-10-26T11:53:41.255908+00:00",
         "response_sha256": "964f8630b1ed87a85717aecf4944d82d92b4af5e686ad481780c0158e663bc3c",
         "latest_advertised_filename": "sglang-0.5.23.dev20261026+g66cac6b79c-cp312-cp312-manylinux_2_39_x86_64.whl",
         "advertised_version": "0.5.23.dev20261026+g66cac6b79c",
         "artifact_bytes_downloaded": false,
-        "binary_verified": false,
-        "scope": "Publication metadata only; optimization follow-up recheck, no wheel contents inspected."
+        "binary_verified": false
       },
       "prior_rechecks": [
         {
@@ -3144,6 +3160,18 @@
           "scope": "Publication metadata only; no wheel/container payload downloaded or executed.",
           "latest_advertised_filename": "sglang-0.5.23.dev20261026+g66cac6b79c-cp312-cp312-manylinux_2_39_x86_64.whl",
           "advertised_version": "0.5.23.dev20261026+g66cac6b79c"
+        },
+        {
+          "project": "sglang",
+          "source_id": "GNIGHTLY-INDEX",
+          "url": "https://sgl-project.github.io/whl/cu130/sglang/",
+          "retrieved_at": "2026-10-26T11:53:41.255908+00:00",
+          "response_sha256": "964f8630b1ed87a85717aecf4944d82d92b4af5e686ad481780c0158e663bc3c",
+          "latest_advertised_filename": "sglang-0.5.23.dev20261026+g66cac6b79c-cp312-cp312-manylinux_2_39_x86_64.whl",
+          "advertised_version": "0.5.23.dev20261026+g66cac6b79c",
+          "artifact_bytes_downloaded": false,
+          "binary_verified": false,
+          "scope": "Publication metadata only; optimization follow-up recheck, no wheel contents inspected."
         }
       ]
     },
@@ -4682,10 +4710,10 @@
       "claim": "Official latest-release API returns v0.31.0, published2026-10-05T06:44:55Z.",
       "scope": "Gemma/Mistral review; no GPU execution",
       "last_recheck": {
-        "retrieved_at": "2026-10-26T11:53:27.845Z",
-        "content_sha256": "e5f7e4581afb6d3141f74f22ff2a1be31301fc6000cad8fc9aa3e363749ef81f",
-        "method": "Fresh official GitHub API for optimization follow-up",
-        "scope": "Release/branch metadata only; no whole-tree or binary qualification.",
+        "retrieved_at": "2026-10-26T18:00:13.245Z",
+        "content_sha256": "1bebf90116a0ccfe9c6eb2c2a9367eb00ed25f30f317d9d291483468fc004d44",
+        "method": "GitHub connector UTF-8 response",
+        "scope": "Benchmark-insights reference: selected definitions, units, measurement populations and metadata only; no serving, quality or GPU benchmark and no binary/deployment qualification.",
         "release": "v0.32.0",
         "published_at": "2026-10-18T06:50:48Z",
         "prerelease": false,
@@ -4724,6 +4752,17 @@
           "draft": false,
           "resolved_release_url": "https://github.com/vllm-project/vllm/releases/tag/v0.32.0",
           "scope": "Latest stable identity and release notes; no binary or installed-cluster qualification."
+        },
+        {
+          "retrieved_at": "2026-10-26T11:53:27.845Z",
+          "content_sha256": "e5f7e4581afb6d3141f74f22ff2a1be31301fc6000cad8fc9aa3e363749ef81f",
+          "method": "Fresh official GitHub API for optimization follow-up",
+          "scope": "Release/branch metadata only; no whole-tree or binary qualification.",
+          "release": "v0.32.0",
+          "published_at": "2026-10-18T06:50:48Z",
+          "prerelease": false,
+          "draft": false,
+          "resolved_release_url": "https://github.com/vllm-project/vllm/releases/tag/v0.32.0"
         }
       ]
     },
@@ -4738,10 +4777,10 @@
       "claim": "Official latest-release API returns v0.5.21, published2026-10-02T01:09:04Z.",
       "scope": "Gemma/Mistral review; no GPU execution",
       "last_recheck": {
-        "retrieved_at": "2026-10-26T11:53:28.787Z",
+        "retrieved_at": "2026-10-26T18:00:13.193Z",
         "content_sha256": "5c19cd2825bdd9f6ec54f1385e60ee066f2b818e4a70480500410930c62d2599",
-        "method": "Fresh official GitHub API for optimization follow-up",
-        "scope": "Release/branch metadata only; no whole-tree or binary qualification.",
+        "method": "GitHub connector UTF-8 response",
+        "scope": "Benchmark-insights reference: selected definitions, units, measurement populations and metadata only; no serving, quality or GPU benchmark and no binary/deployment qualification.",
         "release": "v0.5.22",
         "published_at": "2026-10-19T02:55:19Z",
         "prerelease": false,
@@ -4772,6 +4811,17 @@
           "draft": false,
           "resolved_release_url": "https://github.com/sgl-project/sglang/releases/tag/v0.5.22",
           "scope": "Latest stable identity and release notes; no binary or installed-cluster qualification."
+        },
+        {
+          "retrieved_at": "2026-10-26T11:53:28.787Z",
+          "content_sha256": "5c19cd2825bdd9f6ec54f1385e60ee066f2b818e4a70480500410930c62d2599",
+          "method": "Fresh official GitHub API for optimization follow-up",
+          "scope": "Release/branch metadata only; no whole-tree or binary qualification.",
+          "release": "v0.5.22",
+          "published_at": "2026-10-19T02:55:19Z",
+          "prerelease": false,
+          "draft": false,
+          "resolved_release_url": "https://github.com/sgl-project/sglang/releases/tag/v0.5.22"
         }
       ]
     },
@@ -4824,12 +4874,12 @@
       "claim": "No claim verified from this endpoint: HTTP Error 403: rate limit exceeded",
       "scope": "Attempted fresh main/nightly metadata; HTTP403 rate limit; no fallback identity invented.",
       "last_recheck": {
-        "retrieved_at": "2026-10-26T11:53:28.096Z",
-        "content_sha256": "bbdd9f2324bdd9ee5462c1f8ea058af909cc27cf9b7266f6f73a116a5f029464",
-        "method": "Fresh official GitHub API for optimization follow-up",
-        "scope": "Release/branch metadata only; no whole-tree or binary qualification.",
-        "commit": "ffcabb8c7ab3e066e1c77b55d7673e5d08cf26cc",
-        "commit_date": "2026-10-26T10:51:30Z"
+        "retrieved_at": "2026-10-26T18:00:13.442Z",
+        "content_sha256": "1f8907cea83d8e3eec07701865767cc36d51a2c136f6e997b9fb5f5546027ce5",
+        "method": "GitHub connector UTF-8 response",
+        "scope": "Benchmark-insights reference: selected definitions, units, measurement populations and metadata only; no serving, quality or GPU benchmark and no binary/deployment qualification.",
+        "commit": "4135590ffe0119dab806d78a7eee6dff3be2618e",
+        "commit_date": "2026-10-26T17:59:24Z"
       },
       "prior_rechecks": [
         {
@@ -4851,6 +4901,14 @@
           "revision": "ffcabb8c7ab3e066e1c77b55d7673e5d08cf26cc",
           "commit_date": "2026-10-26T10:51:30Z",
           "scope": "Branch metadata only; not a source review of this tip."
+        },
+        {
+          "retrieved_at": "2026-10-26T11:53:28.096Z",
+          "content_sha256": "bbdd9f2324bdd9ee5462c1f8ea058af909cc27cf9b7266f6f73a116a5f029464",
+          "method": "Fresh official GitHub API for optimization follow-up",
+          "scope": "Release/branch metadata only; no whole-tree or binary qualification.",
+          "commit": "ffcabb8c7ab3e066e1c77b55d7673e5d08cf26cc",
+          "commit_date": "2026-10-26T10:51:30Z"
         }
       ]
     },
@@ -4864,12 +4922,12 @@
       "claim": "No claim verified from this endpoint: HTTP Error 403: rate limit exceeded",
       "scope": "Attempted fresh main/nightly metadata; HTTP403 rate limit; no fallback identity invented.",
       "last_recheck": {
-        "retrieved_at": "2026-10-26T11:53:27.880Z",
-        "content_sha256": "b30f278a613b224a58826e15a204d267b6fd153e7d2e5afc100355ee61dffb4f",
-        "method": "Fresh official GitHub API for optimization follow-up",
-        "scope": "Release/branch metadata only; no whole-tree or binary qualification.",
-        "commit": "ef11eb3b76354ffbabd9f17a2343e79522e41cf2",
-        "commit_date": "2026-10-26T11:34:02Z"
+        "retrieved_at": "2026-10-26T18:00:13.384Z",
+        "content_sha256": "5799e76346ae4e189877410fa645ea5e9a4bb0b0d0569ad3b4222dc4c136c40d",
+        "method": "GitHub connector UTF-8 response",
+        "scope": "Benchmark-insights reference: selected definitions, units, measurement populations and metadata only; no serving, quality or GPU benchmark and no binary/deployment qualification.",
+        "commit": "911693e3f816b32c40ee1cd8a98f390da3a18297",
+        "commit_date": "2026-10-26T17:20:15Z"
       },
       "prior_rechecks": [
         {
@@ -4899,6 +4957,14 @@
           "revision": "c4e335f84e342999c1c20ae4ad1e5ec44d74692d",
           "commit_date": "2026-10-26T11:10:14Z",
           "scope": "Branch metadata only; not a source review of this tip."
+        },
+        {
+          "retrieved_at": "2026-10-26T11:53:27.880Z",
+          "content_sha256": "b30f278a613b224a58826e15a204d267b6fd153e7d2e5afc100355ee61dffb4f",
+          "method": "Fresh official GitHub API for optimization follow-up",
+          "scope": "Release/branch metadata only; no whole-tree or binary qualification.",
+          "commit": "ef11eb3b76354ffbabd9f17a2343e79522e41cf2",
+          "commit_date": "2026-10-26T11:34:02Z"
         }
       ]
     },
@@ -4912,12 +4978,12 @@
       "claim": "No claim verified from this endpoint: HTTP Error 403: rate limit exceeded",
       "scope": "Attempted fresh main/nightly metadata; HTTP403 rate limit; no fallback identity invented.",
       "last_recheck": {
-        "retrieved_at": "2026-10-26T11:53:28.373Z",
-        "content_sha256": "9ecc6d561d7eb086a77b1cc9adc096e0da35d5af0b828cfe7f5a8297f18db50d",
-        "method": "Fresh official GitHub API for optimization follow-up",
-        "scope": "Release/branch metadata only; no whole-tree or binary qualification.",
-        "commit": "57d2e8e83a5d42f1c70eb75051c363e348fd6f8c",
-        "commit_date": "2026-10-26T10:48:48Z"
+        "retrieved_at": "2026-10-26T18:00:13.122Z",
+        "content_sha256": "bc940f6e0c6a230f4e7dd1c087e904c2d1d9ae737203d25e730c59f20f9df189",
+        "method": "GitHub connector UTF-8 response",
+        "scope": "Benchmark-insights reference: selected definitions, units, measurement populations and metadata only; no serving, quality or GPU benchmark and no binary/deployment qualification.",
+        "commit": "ca395ed7580acb63558a5e840acefe5a1a9c153b",
+        "commit_date": "2026-10-26T16:53:51Z"
       },
       "prior_rechecks": [
         {
@@ -4939,6 +5005,14 @@
           "revision": "57d2e8e83a5d42f1c70eb75051c363e348fd6f8c",
           "commit_date": "2026-10-26T10:48:48Z",
           "scope": "Branch metadata only; not a source review of this tip."
+        },
+        {
+          "retrieved_at": "2026-10-26T11:53:28.373Z",
+          "content_sha256": "9ecc6d561d7eb086a77b1cc9adc096e0da35d5af0b828cfe7f5a8297f18db50d",
+          "method": "Fresh official GitHub API for optimization follow-up",
+          "scope": "Release/branch metadata only; no whole-tree or binary qualification.",
+          "commit": "57d2e8e83a5d42f1c70eb75051c363e348fd6f8c",
+          "commit_date": "2026-10-26T10:48:48Z"
         }
       ]
     },
@@ -6594,10 +6668,10 @@
       "observed_tag": "v0.21.0",
       "scope": "Attention and precision knowledge review; no reproduced serving performance or quality result",
       "last_recheck": {
-        "retrieved_at": "2026-10-26T11:53:28.805Z",
-        "content_sha256": "4581ec374b8480d578c48d2f22ce0d7d03ef139530f7df6f7b4f63219222c15d",
-        "method": "Fresh official GitHub API for optimization follow-up",
-        "scope": "Release/branch metadata only; no whole-tree or binary qualification.",
+        "retrieved_at": "2026-10-26T18:00:13.120Z",
+        "content_sha256": "09c767f464d451580e7708d96028a16a218a8e51a9e227ce06a02550bdf685a9",
+        "method": "GitHub connector UTF-8 response",
+        "scope": "Benchmark-insights reference: selected definitions, units, measurement populations and metadata only; no serving, quality or GPU benchmark and no binary/deployment qualification.",
         "release": "v0.21.0",
         "published_at": "2026-09-25T17:04:20Z",
         "prerelease": false,
@@ -6636,6 +6710,17 @@
           "draft": false,
           "resolved_release_url": "https://github.com/kserve/kserve/releases/tag/v0.21.0",
           "scope": "Latest stable identity and release notes; no binary or installed-cluster qualification."
+        },
+        {
+          "retrieved_at": "2026-10-26T11:53:28.805Z",
+          "content_sha256": "4581ec374b8480d578c48d2f22ce0d7d03ef139530f7df6f7b4f63219222c15d",
+          "method": "Fresh official GitHub API for optimization follow-up",
+          "scope": "Release/branch metadata only; no whole-tree or binary qualification.",
+          "release": "v0.21.0",
+          "published_at": "2026-09-25T17:04:20Z",
+          "prerelease": false,
+          "draft": false,
+          "resolved_release_url": "https://github.com/kserve/kserve/releases/tag/v0.21.0"
         }
       ]
     },
@@ -12872,7 +12957,13 @@
       "response_sha256": "a17291f044251f1586457b6bd1542f98660724dd07a426d61ce852186b95b9e1",
       "response_bytes": 59481,
       "revision": "5df63a7203cdb9328d824a27b682e77c7b9928be",
-      "scope": "Selected release comparison against v0.31.0 source; no executed binary."
+      "scope": "Selected release comparison against v0.31.0 source; no executed binary.",
+      "last_recheck": {
+        "retrieved_at": "2026-10-26T18:00:49.547Z",
+        "content_sha256": "a17291f044251f1586457b6bd1542f98660724dd07a426d61ce852186b95b9e1",
+        "method": "GitHub connector UTF-8 response",
+        "scope": "Benchmark-insights reference: selected definitions, units, measurement populations and metadata only; no serving, quality or GPU benchmark and no binary/deployment qualification."
+      }
     },
     "V032-CUTLASS-EP": {
       "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/model_executor/layers/fused_moe/experts/cutlass_moe.py",
@@ -16442,6 +16533,136 @@
       "checked_on": "2026-10-26",
       "method": "Official webpage freshly opened and inspected",
       "scope": "Separate multimodal benchmark variants; pin exact variant, split, media and evaluator before execution."
+    },
+    "BI-G-RELEASE": {
+      "url": "https://api.github.com/repos/vllm-project/guidellm/releases/latest",
+      "title": "GuideLLM latest stable release metadata",
+      "kind": "release",
+      "accessed_on": "2026-10-26",
+      "retrieved_at": "2026-10-26T18:00:13.072Z",
+      "content_sha256": "76ab5ff33e43bfe1d7dfa7b20398f45bbc5265ff4899a9042b8cd065ef9989d9",
+      "method": "GitHub connector UTF-8 response",
+      "scope": "Benchmark-insights reference: selected definitions, units, measurement populations and metadata only; no serving, quality or GPU benchmark and no binary/deployment qualification.",
+      "release": "v0.8.1",
+      "published_at": "2026-10-08T16:37:22Z",
+      "prerelease": false,
+      "draft": false,
+      "resolved_release_url": "https://github.com/vllm-project/guidellm/releases/tag/v0.8.1"
+    },
+    "BI-G-TAG": {
+      "url": "https://api.github.com/repos/vllm-project/guidellm/git/ref/tags/v0.8.1",
+      "title": "GuideLLM v0.8.1 tag identity",
+      "kind": "source identity metadata",
+      "accessed_on": "2026-10-26",
+      "retrieved_at": "2026-10-26T18:00:13.595Z",
+      "content_sha256": "6f935993067bb986833988db8f2e463b75e3a1193d68734d95a30a845947ed12",
+      "method": "GitHub connector UTF-8 response",
+      "scope": "Benchmark-insights reference: selected definitions, units, measurement populations and metadata only; no serving, quality or GPU benchmark and no binary/deployment qualification.",
+      "ref": "refs/tags/v0.8.1",
+      "commit": "597bc014ef78daeb11312374022430939b611f11",
+      "object_type": "commit"
+    },
+    "BI-G-MAIN": {
+      "url": "https://api.github.com/repos/vllm-project/guidellm/commits/main",
+      "title": "GuideLLM main branch metadata",
+      "kind": "source identity metadata",
+      "accessed_on": "2026-10-26",
+      "retrieved_at": "2026-10-26T18:00:13.214Z",
+      "content_sha256": "f8d63297750232373acb825e952d311297058fc6e2684a0e11d0fe362dedf15b",
+      "method": "GitHub connector UTF-8 response",
+      "scope": "Benchmark-insights reference: selected definitions, units, measurement populations and metadata only; no serving, quality or GPU benchmark and no binary/deployment qualification.",
+      "commit": "808d5957d2f779570e4062528a2d7c6fdb5bb896",
+      "commit_date": "2026-10-26T16:33:52Z"
+    },
+    "BI-G-METRICS": {
+      "url": "https://raw.githubusercontent.com/vllm-project/guidellm/597bc014ef78daeb11312374022430939b611f11/docs/en/guides/metrics.md",
+      "title": "GuideLLM v0.8.1 metrics, windowing and uncertainty guide",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-26",
+      "retrieved_at": "2026-10-26T18:00:49.277Z",
+      "content_sha256": "288569c117be8b79ecf292d0b8ebc829a7423b243801b66aec041448420bb3d9",
+      "method": "GitHub connector UTF-8 response",
+      "scope": "Benchmark-insights reference: selected definitions, units, measurement populations and metadata only; no serving, quality or GPU benchmark and no binary/deployment qualification."
+    },
+    "BI-G-REQUEST-STATS": {
+      "url": "https://raw.githubusercontent.com/vllm-project/guidellm/597bc014ef78daeb11312374022430939b611f11/src/guidellm/schemas/base/request_stats.py",
+      "title": "GuideLLM v0.8.1 per-request timing formulas",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-26",
+      "retrieved_at": "2026-10-26T18:00:49.357Z",
+      "content_sha256": "38ed524360de631b9a585f8961fd958d01c24c71a58174f0ec732e48dbe12782",
+      "method": "GitHub connector UTF-8 response",
+      "scope": "Benchmark-insights reference: selected definitions, units, measurement populations and metadata only; no serving, quality or GPU benchmark and no binary/deployment qualification."
+    },
+    "BI-G-METRICS-SOURCE": {
+      "url": "https://raw.githubusercontent.com/vllm-project/guidellm/597bc014ef78daeb11312374022430939b611f11/src/guidellm/benchmark/schemas/metrics.py",
+      "title": "GuideLLM v0.8.1 metric compilation and SLO mapping",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-26",
+      "retrieved_at": "2026-10-26T18:00:49.323Z",
+      "content_sha256": "6c6401bdd4bc1bb38789a84b9a9eb8cc3f599de05ba0d8506d044e3877040b4d",
+      "method": "GitHub connector UTF-8 response",
+      "scope": "Benchmark-insights reference: selected definitions, units, measurement populations and metadata only; no serving, quality or GPU benchmark and no binary/deployment qualification."
+    },
+    "BI-G-OUTPUTS": {
+      "url": "https://raw.githubusercontent.com/vllm-project/guidellm/597bc014ef78daeb11312374022430939b611f11/docs/en/guides/outputs.md",
+      "title": "GuideLLM v0.8.1 serialized outputs and payload retention",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-26",
+      "retrieved_at": "2026-10-26T18:00:49.287Z",
+      "content_sha256": "67d75e71d896e65fe7db8233b15a985888751455cf2a321d20dd7eca3d8cf79e",
+      "method": "GitHub connector UTF-8 response",
+      "scope": "Benchmark-insights reference: selected definitions, units, measurement populations and metadata only; no serving, quality or GPU benchmark and no binary/deployment qualification."
+    },
+    "BI-G-SLO": {
+      "url": "https://raw.githubusercontent.com/vllm-project/guidellm/597bc014ef78daeb11312374022430939b611f11/docs/en/guides/service_level_objectives.md",
+      "title": "GuideLLM v0.8.1 latency objectives and exclusions",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-26",
+      "retrieved_at": "2026-10-26T18:00:49.349Z",
+      "content_sha256": "2d29832998c3b745e725a5925111f269640f36e25dbe03c18df96bf68eed8c27",
+      "method": "GitHub connector UTF-8 response",
+      "scope": "Benchmark-insights reference: selected definitions, units, measurement populations and metadata only; no serving, quality or GPU benchmark and no binary/deployment qualification."
+    },
+    "BI-G-GOODPUT": {
+      "url": "https://raw.githubusercontent.com/vllm-project/guidellm/597bc014ef78daeb11312374022430939b611f11/src/guidellm/benchmark/profiles/goodput.py",
+      "title": "GuideLLM v0.8.1 concurrent-stream goodput search",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-26",
+      "retrieved_at": "2026-10-26T18:00:49.341Z",
+      "content_sha256": "40b0fd854b981f09789e2f82350c5df2e4101df1cb008f43b56a5facf7ba6e93",
+      "method": "GitHub connector UTF-8 response",
+      "scope": "Benchmark-insights reference: selected definitions, units, measurement populations and metadata only; no serving, quality or GPU benchmark and no binary/deployment qualification."
+    },
+    "BI-V-STATS": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/v1/metrics/stats.py",
+      "title": "vLLM v0.32.0 request timing interval implementation",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-26",
+      "retrieved_at": "2026-10-26T18:00:49.520Z",
+      "content_sha256": "f594c5ea0f9caebe54737528e0da0ffbbdc909d74cfd625e0e384afb324d9663",
+      "method": "GitHub connector UTF-8 response",
+      "scope": "Benchmark-insights reference: selected definitions, units, measurement populations and metadata only; no serving, quality or GPU benchmark and no binary/deployment qualification."
+    },
+    "BI-V-SPEC-METRICS": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/v1/spec_decode/metrics.py",
+      "title": "vLLM v0.32.0 speculative decoding metric definitions",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-26",
+      "retrieved_at": "2026-10-26T18:00:49.428Z",
+      "content_sha256": "35e0a709042471559937f1a1979a721af9b910476efaa8b6e29865bace985afe",
+      "method": "GitHub connector UTF-8 response",
+      "scope": "Benchmark-insights reference: selected definitions, units, measurement populations and metadata only; no serving, quality or GPU benchmark and no binary/deployment qualification."
+    },
+    "BI-DCGM": {
+      "url": "https://docs.nvidia.com/datacenter/dcgm/latest/installation/install-dcgm-exporter.html",
+      "title": "NVIDIA DCGM Exporter installation and selected telemetry fields",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-26",
+      "retrieved_at": "2026-10-26T18:01:22.667162+00:00",
+      "content_sha256": "c97dd2670d40c96b9de9af995738bbebb17a5548f55cea5041b0df307c5a20cf",
+      "method": "HTTPS UTF-8 response",
+      "scope": "Benchmark-insights reference: selected definitions, units, measurement populations and metadata only; no serving, quality or GPU benchmark and no binary/deployment qualification."
     }
   }
 }

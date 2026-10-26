@@ -4,6 +4,8 @@ The [October 26 optimization follow-up](reports/optimization.md#october-26-prior
 
 This atlas explains architectures and serving tradeoffs using publisher cards, immutable configurations, selected engine source and release metadata. It contains **no reproduced B300 inference or quality results**.
 
+The [GuideLLM/vLLM benchmark-insights reference](reports/benchmark-insights.md) adds selected-source metric definitions and proposed dashboard components. It does not establish an installed telemetry contract, application SLO, quality tolerance, sustainable capacity or implemented dashboard. GuideLLM's native SLO exclusions and concurrency-search scope remain distinct from a derived service-level capacity decision.
+
 The **October 26 refresh** covers latest stable identities, all 23 concrete catalog variants and 11 recorded additional artifacts, immutable README/configuration retrieval, and 19 selected engine source files plus two issue/PR records and one ancestry comparison. The stable versions and retained Hub revisions are unchanged. This is not a new review of every historical claim, paper, model weight or engine implementation. The 40 argument arrays retain their original source identity and have current applicability notes; they were not parsed or executed against a newly installed engine.
 
 The October 18 [vLLM v0.32 review](reports/vllm-v032-upgrade.md) compares selected source paths with v0.31 and proposes experiments. The v0.32 registry index/platform digests are recorded; image contents, runtime behavior and installed KServe integration remain unqualified. Older configuration arrays retain their reviewed releases; none was automatically promoted by the new release.

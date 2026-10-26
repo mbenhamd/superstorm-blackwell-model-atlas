@@ -29,6 +29,8 @@ The first improvement is a trustworthy quality/latency baseline for the exact ar
 
 The following are benchmark requirements and proposed comparisons. Harnesses, datasets, detailed run schedules and results belong in the separate execution repository. No serving benchmark was executed during this research update.
 
+The [GuideLLM/vLLM benchmark-insights reference](benchmark-insights.md) maps this contract to metric definitions, diagnostic hypotheses and justified UI components. It separates native GuideLLM SLOs and concurrency search from derived first-answer/scheduled-arrival policies and sustainable offered-rate capacity, with explicit status denominators and source pins.
+
 | Priority / question | Controlled comparison | Decision evidence |
 | --- | --- | --- |
 | P0: does the configuration preserve behavior? | Exact target/export/draft revision, fixed tokenizer/template and representative text/tools/media; include restart, cancellation and applicable cache/state reuse. | Load/dispatch, request isolation, tool validity, completion/truncation/errors and task quality. Byte-identical prompt/token checks apply to template replacements; quantized outputs instead need declared quality tolerances. |

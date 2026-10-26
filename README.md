@@ -22,6 +22,7 @@ The **[October 26 optimization priorities](reports/optimization.md#october-26-pr
 | Engines | [vLLM](frameworks/vllm/SOURCE_REVIEW.md), [SGLang](frameworks/sglang/SOURCE_REVIEW.md), [selection tradeoffs](frameworks/DECISION.md) |
 | Deployment layer | [KServe architecture and integration limits](frameworks/kserve/ARCHITECTURE.md) |
 | Optimization | [Unique prompts, multi-turn chat and coding agents](reports/optimization.md) |
+| Benchmark insights | [GuideLLM/vLLM measurements, diagnostic insights and dashboard layout](reports/benchmark-insights.md) |
 | Configuration | [Source-derived parameter reference](reports/configuration-reference.md) |
 | Recent changes | [Stable, main and nightly](reports/nightly-readiness.md) |
 | vLLM v0.32 | [Release changes, applicability and next B300 experiments](reports/vllm-v032-upgrade.md) |

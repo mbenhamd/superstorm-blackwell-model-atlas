@@ -12,11 +12,11 @@
       "image_digest": "sha256:befccf0e7e4089aa23926bb6f887a85c0d46c2a99e6de5c5ffdf5cb7957c5b34",
       "release_prerelease": false,
       "release_commit": "5df63a7203cdb9328d824a27b682e77c7b9928be",
-      "release_checked_at": "2026-10-26T11:53:27.845Z",
+      "release_checked_at": "2026-10-26T18:00:13.245Z",
       "latest_branch": "main",
-      "latest_branch_ref": "ffcabb8c7ab3e066e1c77b55d7673e5d08cf26cc",
-      "latest_branch_commit_date": "2026-10-26T10:51:30Z",
-      "latest_branch_checked_at": "2026-10-26T11:53:28.096Z",
+      "latest_branch_ref": "4135590ffe0119dab806d78a7eee6dff3be2618e",
+      "latest_branch_commit_date": "2026-10-26T17:59:24Z",
+      "latest_branch_checked_at": "2026-10-26T18:00:13.442Z",
       "source_review_scope": "Selected model registry and Kimi DSpark MLA files only; see frameworks/vllm/SOURCE_REVIEW.md",
       "prior_branch_observations": [
         {
@@ -73,6 +73,13 @@
           "latest_branch_ref": "ffcabb8c7ab3e066e1c77b55d7673e5d08cf26cc",
           "latest_branch_commit_date": "2026-10-26T10:51:30Z",
           "latest_branch_checked_at": "2026-10-26",
+          "latest_branch_source_id": "RR-GM-VLLM-MAIN"
+        },
+        {
+          "latest_branch": "main",
+          "latest_branch_ref": "ffcabb8c7ab3e066e1c77b55d7673e5d08cf26cc",
+          "latest_branch_commit_date": "2026-10-26T10:51:30Z",
+          "latest_branch_checked_at": "2026-10-26T11:53:28.096Z",
           "latest_branch_source_id": "RR-GM-VLLM-MAIN"
         }
       ],
@@ -427,6 +434,21 @@
           }
         ],
         "matches_retained_index_digest": true
+      },
+      "benchmark_insights_review": {
+        "checked_at": "2026-10-26T18:00:13.245Z",
+        "release": "v0.32.0",
+        "release_source_id": "RR-GM-VLLM-RELEASE",
+        "branch_source_id": "RR-GM-VLLM-MAIN",
+        "branch_source_inspected": false,
+        "binary_executed": false,
+        "scope": "Benchmark-insights reference: selected definitions, units, measurement populations and metadata only; no serving, quality or GPU benchmark and no binary/deployment qualification.",
+        "selected_source_ref": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+        "source_ids": [
+          "V032-METRICS-LOGGER",
+          "BI-V-STATS",
+          "BI-V-SPEC-METRICS"
+        ]
       }
     },
     {
@@ -440,11 +462,11 @@
       "image_digest": "sha256:e3a4f06001a29542fc4a8638536d9ffc5eb9c9942b08603c09b19a56eae4a1ae",
       "release_prerelease": false,
       "release_commit": "baa9befa381511cd4d56f83980951e5a45fffc6d",
-      "release_checked_at": "2026-10-26T11:53:28.787Z",
+      "release_checked_at": "2026-10-26T18:00:13.193Z",
       "latest_branch": "main",
-      "latest_branch_ref": "ef11eb3b76354ffbabd9f17a2343e79522e41cf2",
-      "latest_branch_commit_date": "2026-10-26T11:34:02Z",
-      "latest_branch_checked_at": "2026-10-26T11:53:27.880Z",
+      "latest_branch_ref": "911693e3f816b32c40ee1cd8a98f390da3a18297",
+      "latest_branch_commit_date": "2026-10-26T17:20:15Z",
+      "latest_branch_checked_at": "2026-10-26T18:00:13.384Z",
       "source_review_scope": "Selected ModelOpt quantization and model registry files only; see frameworks/sglang/SOURCE_REVIEW.md",
       "prior_branch_observations": [
         {
@@ -521,6 +543,13 @@
           "latest_branch_ref": "c4e335f84e342999c1c20ae4ad1e5ec44d74692d",
           "latest_branch_commit_date": "2026-10-26T11:10:14Z",
           "latest_branch_checked_at": "2026-10-26",
+          "latest_branch_source_id": "RR-GM-SGLANG-MAIN"
+        },
+        {
+          "latest_branch": "main",
+          "latest_branch_ref": "ef11eb3b76354ffbabd9f17a2343e79522e41cf2",
+          "latest_branch_commit_date": "2026-10-26T11:34:02Z",
+          "latest_branch_checked_at": "2026-10-26T11:53:27.880Z",
           "latest_branch_source_id": "RR-GM-SGLANG-MAIN"
         }
       ],
@@ -699,6 +728,15 @@
           }
         ],
         "matches_retained_index_digest": true
+      },
+      "benchmark_insights_review": {
+        "checked_at": "2026-10-26T18:00:13.193Z",
+        "release": "v0.5.22",
+        "release_source_id": "RR-GM-SGLANG-RELEASE",
+        "branch_source_id": "RR-GM-SGLANG-MAIN",
+        "branch_source_inspected": false,
+        "binary_executed": false,
+        "scope": "Benchmark-insights reference: selected definitions, units, measurement populations and metadata only; no serving, quality or GPU benchmark and no binary/deployment qualification."
       }
     },
     {
@@ -711,11 +749,11 @@
       "image_digest": null,
       "release_prerelease": false,
       "release_commit": "d1482554fc4f66dd41aee70e01f5174e24f265bd",
-      "release_checked_at": "2026-10-26T11:53:28.805Z",
+      "release_checked_at": "2026-10-26T18:00:13.120Z",
       "latest_branch": "master",
-      "latest_branch_ref": "57d2e8e83a5d42f1c70eb75051c363e348fd6f8c",
-      "latest_branch_commit_date": "2026-10-26T10:48:48Z",
-      "latest_branch_checked_at": "2026-10-26T11:53:28.373Z",
+      "latest_branch_ref": "ca395ed7580acb63558a5e840acefe5a1a9c153b",
+      "latest_branch_commit_date": "2026-10-26T16:53:51Z",
+      "latest_branch_checked_at": "2026-10-26T18:00:13.122Z",
       "commit_date": "2026-09-24T20:10:37Z",
       "source_review_scope": "LLMInferenceService/Config version declarations and deployment-mode constants only; no full controller review",
       "documentation_version_observed": "0.20",
@@ -753,6 +791,13 @@
           "latest_branch_ref": "57d2e8e83a5d42f1c70eb75051c363e348fd6f8c",
           "latest_branch_commit_date": "2026-10-26T10:48:48Z",
           "latest_branch_checked_at": "2026-10-26",
+          "latest_branch_source_id": "RR-GM-KSERVE-MAIN"
+        },
+        {
+          "latest_branch": "master",
+          "latest_branch_ref": "57d2e8e83a5d42f1c70eb75051c363e348fd6f8c",
+          "latest_branch_commit_date": "2026-10-26T10:48:48Z",
+          "latest_branch_checked_at": "2026-10-26T11:53:28.373Z",
           "latest_branch_source_id": "RR-GM-KSERVE-MAIN"
         }
       ],
@@ -812,7 +857,45 @@
         "release_commit": "d1482554fc4f66dd41aee70e01f5174e24f265bd",
         "source_id": "ATTR-K-RELEASE",
         "scope": "Unchanged stable release. Selected engine source rechecks are listed separately; installed KServe version remains unknown."
+      },
+      "benchmark_insights_review": {
+        "checked_at": "2026-10-26T18:00:13.120Z",
+        "release": "v0.21.0",
+        "release_source_id": "ATTR-K-RELEASE",
+        "branch_source_id": "RR-GM-KSERVE-MAIN",
+        "branch_source_inspected": false,
+        "binary_executed": false,
+        "scope": "Benchmark-insights reference: selected definitions, units, measurement populations and metadata only; no serving, quality or GPU benchmark and no binary/deployment qualification."
       }
+    },
+    {
+      "key": "guidellm",
+      "role": "benchmark client reference; not an inference engine",
+      "repo": "https://github.com/vllm-project/guidellm.git",
+      "release": "v0.8.1",
+      "release_published_at": "2026-10-08T16:37:22Z",
+      "release_prerelease": false,
+      "release_commit": "597bc014ef78daeb11312374022430939b611f11",
+      "release_checked_at": "2026-10-26T18:00:13.072Z",
+      "release_source_id": "BI-G-RELEASE",
+      "release_tag_source_id": "BI-G-TAG",
+      "inspected_ref": "597bc014ef78daeb11312374022430939b611f11",
+      "source_ids": [
+        "BI-G-METRICS",
+        "BI-G-REQUEST-STATS",
+        "BI-G-METRICS-SOURCE",
+        "BI-G-OUTPUTS",
+        "BI-G-SLO",
+        "BI-G-GOODPUT"
+      ],
+      "source_review_scope": "Selected request formulas, metric/SLO compilation, concurrent goodput search and metrics/output/SLO documentation; no complete package audit or execution.",
+      "latest_branch": "main",
+      "latest_branch_ref": "808d5957d2f779570e4062528a2d7c6fdb5bb896",
+      "latest_branch_commit_date": "2026-10-26T16:33:52Z",
+      "latest_branch_checked_at": "2026-10-26T18:00:13.214Z",
+      "latest_branch_source_id": "BI-G-MAIN",
+      "binary_executed": false,
+      "installed_version_known": false
     }
   ],
   "pull_requests": [
@@ -1826,6 +1909,30 @@
       "artifact_bytes_downloaded": false,
       "binary_verified": false,
       "scope": "Publication metadata only; optimization follow-up recheck, no wheel contents inspected."
+    },
+    {
+      "project": "vllm",
+      "source_id": "VNIGHTLY-INDEX",
+      "url": "https://wheels.vllm.ai/nightly/cu130/vllm/",
+      "retrieved_at": "2026-10-26T18:01:23.033147+00:00",
+      "response_sha256": "7e15d01a0b619b2a33a7625f5a2273f788e650328848214597987fa42ba82f9f",
+      "latest_advertised_filename": "vllm-0.32.1rc1.dev555+geca54bd1d-cp38-abi3-manylinux_2_28_aarch64.whl",
+      "advertised_version": "0.32.1rc1.dev555+geca54bd1d",
+      "artifact_bytes_downloaded": false,
+      "binary_verified": false,
+      "scope": "Benchmark-insights follow-up: publication metadata only; no wheel contents inspected. Kept separate from branch heads and stable metric source pins."
+    },
+    {
+      "project": "sglang",
+      "source_id": "GNIGHTLY-INDEX",
+      "url": "https://sgl-project.github.io/whl/cu130/sglang/",
+      "retrieved_at": "2026-10-26T18:01:22.726681+00:00",
+      "response_sha256": "964f8630b1ed87a85717aecf4944d82d92b4af5e686ad481780c0158e663bc3c",
+      "latest_advertised_filename": "sglang-0.5.23.dev20261026+g66cac6b79c-cp312-cp312-manylinux_2_39_x86_64.whl",
+      "advertised_version": "0.5.23.dev20261026+g66cac6b79c",
+      "artifact_bytes_downloaded": false,
+      "binary_verified": false,
+      "scope": "Benchmark-insights follow-up: publication metadata only; no wheel contents inspected. Kept separate from branch heads and stable metric source pins."
     }
   ],
   "nightly_observation_boundary": "Published index/registry metadata only; no wheel or image bytes executed or verified. Multiple dated observations are retained because moving channels changed during research. Source inspection applies only to the named selected refs, not every later branch or artifact.",
@@ -3010,7 +3117,7 @@
       }
     }
   ],
-  "date_basis": "UTC; October 26 latest-stable metadata, all 23 concrete catalog variant identities, 11 recorded additional artifacts, immutable README/configuration retrieval and selected engine restrictions. Historical review scopes and launch arrays retained; no runtime qualification.",
+  "date_basis": "UTC; October 26 latest-stable metadata, all 23 concrete catalog variant identities, 11 recorded additional artifacts, immutable README/configuration retrieval and selected engine restrictions. Historical review scopes and launch arrays retained; no runtime qualification. October 26 benchmark-insights follow-up adds GuideLLM v0.8.1 and selected vLLM v0.32.0 metric semantics, with separate fresh release/branch/wheel metadata; no new model or runtime qualification.",
   "development_controller_metadata_observations": [
     {
       "id": "KEXP-DEVIMAGE",
