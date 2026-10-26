@@ -1,5 +1,7 @@
 # SGLang: source review and upgrade candidates
 
+**October 26 scoped recheck:** v0.5.22 is still the latest stable release, with unchanged tag commit and advertised stable-image digest. Selected model overrides and backend restrictions were reread. GLM flagship FP8/DCP8 remains excluded pending a verified correction; Flash Next complete prefill CP remains outside the release; Gemma FA4 SM90 evidence does not qualify B300. [Current source and channel scope](../../reports/nightly-readiness.md#october-26-catalog-wide-recheck).
+
 ## October 19: v0.5.22 release comparison
 
 The [B300 upgrade review](../../reports/sglang-v0522-upgrade.md) compares `baa9befa381511cd4d56f83980951e5a45fffc6d` with v0.5.21 across all eight model families. It covers dependency/image identities, argument migration, hybrid-state correctness, model-specific kernels and proposed experiments under required KServe. Source inspection does not qualify the binary.

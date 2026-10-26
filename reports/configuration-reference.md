@@ -8,6 +8,8 @@ Each reference is untested on the target node. Read the current family serving p
 
 ## Choosing a record for analysis
 
+**October 26 recheck:** start with each model's `latest_stable_review`. All 40 records now include `latest_release_recheck`, identifying vLLM v0.32.0 or SGLang v0.5.22, the unchanged model pin, selected-source findings and required reconciliation. `argument_array_status` explicitly preserves the historical command: this metadata is not full CLI validation. In particular, GLM flagship NVFP4 arrays that omit KV dtype inherit the v0.32 FP8 default on B300; Kimi DCP+DSpark needs static ragged verification; the historical SGLang Mistral array omits publisher parser arguments. Reconcile those controls in the separate execution repository.
+
 For **SGLang v0.5.22**, read `sglang_v0522_b300_review` and `recommended_sglang_v0522_b300` in the model catalog, plus the [release-scoped argument and experiment guide](sglang-v0522-upgrade.md). It includes model-specific argument fragments, cache/graph restrictions and the replica-DP/attention-DP migration. These do not rewrite or certify the 40 historical launch arrays below.
 
 For **vLLM v0.32**, read `vllm_v032_b300_review` and `recommended_vllm_v032_b300` in the model catalog, plus the [upgrade analysis](vllm-v032-upgrade.md). These are source-derived experiment priorities, not newly qualified launch arrays. The 40 argument records below retain their original scope; reconcile removed options, changed defaults and exact backend gates before using them with v0.32.
@@ -17,8 +19,14 @@ For **vLLM v0.32**, read `vllm_v032_b300_review` and `recommended_vllm_v032_b300
 For B300/vLLM v0.31, first read the selected model's `vllm_v031_b300_review` in `catalog/models.json`, including constraints and source IDs. This analysis covers all eight families; only Qwen27 currently has six explicit `.vllm.v031.` argument records. Reconcile other retained arguments with their family review before execution.
 
 ```bash
-# Latest reviewed release: source-supported priorities, not launch arrays
-jq '.models[] | {key, review: .vllm_v032_b300_review}' catalog/models.json
+# Current stable assessment for both engines
+jq '.models[] | {key, review: .latest_stable_review}' catalog/models.json
+
+# Current applicability of each historical argument array
+jq '.[] | {id, recheck: .latest_release_recheck}' catalog/configurations.json
+
+# Pinned publisher README copied under each family
+jq '.models[] | {key, readme: .huggingface_readme}' catalog/models.json
 
 # Release-scoped analysis for one family
 jq '.models[] | select(.key == "kimi-k3") | .vllm_v031_b300_review' catalog/models.json

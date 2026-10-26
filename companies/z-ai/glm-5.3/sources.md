@@ -1,5 +1,7 @@
 # GLM 5.3: sources
 
+**October 26 scoped refresh:** current Hub identities, immutable README/configuration files and selected latest-stable engine restrictions were rechecked. [Local README snapshots](README.md#hugging-face-readme-snapshots) link every concrete catalog variant and recorded additional artifact. Retrieval metadata remains in the single [source registry](../../../evidence/sources.json); the historical source descriptions below retain their original scope.
+
 Rechecked on **2026-10-16 UTC**. Artifact links below identify immutable commits. The engine recipe pages remain mutable documentation; a retrieved recipe is not a tested image.
 
 | Source ID | Inspected artifact | Revision |

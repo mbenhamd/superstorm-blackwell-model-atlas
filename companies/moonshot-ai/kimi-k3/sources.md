@@ -1,5 +1,7 @@
 # Kimi K3: sources
 
+**October 26 scoped refresh:** current Hub identities, immutable README/configuration files and selected latest-stable engine restrictions were rechecked. [Local README snapshots](README.md#hugging-face-readme-snapshots) link every concrete catalog variant and recorded additional artifact. Retrieval metadata remains in the single [source registry](../../../evidence/sources.json); the historical source descriptions below retain their original scope.
+
 Cards, configurations, engine recipes and compatibility state rechecked on **2026-10-16 (UTC)**; license review retained from October 15. Model artifacts are linked to immutable revisions. Mutable API and recipe observations have retrieval dates and response hashes in the evidence register.
 
 | Source ID | Primary artifact | Evidence boundary |

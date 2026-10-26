@@ -1,4 +1,28 @@
-# Kimi K3: serving on 8×B300
+# Kimi K3: serving and optimization on B300
+
+## October 26 stable release recheck
+
+The latest stable releases are unchanged: vLLM v0.32.0 and SGLang v0.5.22. This selected-source recheck retains the exact model/export revisions and the existing KServe requirement. It does not requalify historical launch arrays or an installed image.
+
+**vLLM v0.32.0:** Native MXFP4 TP8 remains the release comparison candidate. Packed speculative KDA requires SM10x, eligible head geometry, BF16 inputs/convolution state, 1–7 proposals and RecoverSSM disabled. NVIDIA mixed NVFP4 remains a separate loader/image probe. [V032-KM-KDA](https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/models/kimi_k3/nvidia/kda.py) [V032-KM-MODEL](https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/models/kimi_k3/nvidia/model.py)
+
+**SGLang v0.5.22:** Retain native TP8 and separate NVIDIA mixed-export comparisons. DCP plus DSpark requires static ragged verification and the supported decode path; the override disables symmetric memory. Pin the engine-specific RadixArk draft separately. [S0522-K-KIMI-OVERRIDES](https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/arg_groups/model_overrides/kimi_k3.py)
+
+[Publisher/export README snapshots](README.md#hugging-face-readme-snapshots) · [Stable/main/nightly identities](../../../reports/nightly-readiness.md#october-26-catalog-wide-recheck). The dated detailed comparisons below retain their original evidence scope.
+
+## October 26 optimization and benchmark priorities
+
+Native MXFP4 TP8 target-only through KServe; qualify the matching engine-specific DSpark draft separately. Keep NVIDIA mixed export in its own integration comparison. The [benchmark decision criteria](../../../reports/optimization.md#benchmark-decisions-and-measurement-contract) define common controls and quality gates. These are proposed experiments in the execution repository, not measured results.
+
+**unmerged PR-head experiment.** vLLM PR 63611 removes small-batch prefetch/release work from the latency_specialized decoder. Its result depends on batch size, history and speculation.
+
+**Comparison:** First retain a stable TP8 control. For causal patch attribution, compare a compatible parent with only the inspected PR-head changes, holding artifact, sampler, cache and topology fixed. Measure target-only batches 1/2/4/8 separately from DSpark; TP16 is outside this node.
+
+**Measure and decide:** decode-step latency and end-to-end TTFT/E2E; CPU/GPU phase time; peak HBM; long-context retrieval and tool quality; draft accepted length and verification cost when enabled. Reject on unsupported artifact/backend dispatch; quality below the predeclared margin; tail latency worsens at the intended offered load.
+
+**Evidence limit:** Open draft PR, not a published stable or nightly feature. Author tables use one run per build/cell and incomplete quality controls; no speedup or MRCR score is adopted as a B300 prediction. [O26-KIMI-DECODE](https://api.github.com/repos/vllm-project/vllm/pulls/63611) [V032-KM-KDA](https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/models/kimi_k3/nvidia/kda.py)
+
+Adaptive DSpark has a separate unmerged rank-consensus correctness proposal (vLLM 62769). Its reported MI355X/V4.1 fault scenario motivates checking collective progress and rank-consistent proposal budgets if this mode is used; it does not establish a Kimi/B300 defect or a DeepSeek-0731 DCP recipe. [O26-DSPARK-CONSENSUS](https://api.github.com/repos/vllm-project/vllm/pulls/62769)
 
 ## SGLang v0.5.22 review — October 19
 

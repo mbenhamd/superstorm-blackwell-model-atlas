@@ -1,8 +1,23 @@
 # KServe deployment architecture
 
+**October 26 metadata recheck:** v0.21.0 remains the latest upstream stable release; master now resolves to `57d2e8e83a5d42f1c70eb75051c363e348fd6f8c`. This is metadata only: the installed KServe version, resource kind and runtime integration remain unknown, and the controller/template reviews below retain their original source revisions. [Current channel evidence](../../reports/nightly-readiness.md#october-26-catalog-wide-recheck).
+
 **KServe is mandatory in the user's existing infrastructure.** This page evaluates how to integrate the model/engine candidates into that platform. The installed KServe release and resource kind remain unspecified; the source versions below are reference evidence.
 
 KServe manages the Kubernetes service lifecycle. vLLM or SGLang still loads the checkpoint, schedules token work, owns the caches and executes GPU kernels. An engine's supported model format does not establish the surrounding controller, routing or state-transfer integration. This page explains those boundaries; no cluster deployment is established by the source review.
+
+## October 26 measurement and startup candidates
+
+Two newly inspected changes are merged in development source and **outside v0.21.0 ancestry**. Their usefulness depends on the installed resource/controller path, which remains unknown. Keep the existing KServe baseline for engine comparisons; evaluate platform changes separately from model/kernel changes.
+
+| Candidate | Mechanism and implementation | What to compare and what can fail |
+| --- | --- | --- |
+| Routing/tokenizer tracing, PR 6403; merge `f4873f42bfafaa11d7b4bf332d7de267f6fc41fa` | Extends LLMInferenceService tracing to routing sidecars and the HTTP tokenizer. Presets opt in with `KSERVE_TRACING_CONFIG_VERSION=1`; old pinned templates are intentionally unchanged. Compatible router and tokenizer/renderer images are also required. | First verify trace continuity across the actual gateway, router, tokenizer and engine. Then compare tracing off/on under the same workload, recording sampling/export overhead and missing spans. A controller-only upgrade or a changed preset cannot establish that the serving image implements every tracing argument. |
+| LLM controller CPU limit, PR 6444; merge `d9e6b9b5534c32c0d76cbcd2a10da89be6134cd5` | Raises default CPU limit from 100m to 500m in Helm/Kustomize while retaining a 100m request. Author motivation is CPU throttling during reconciliation, including self-signed RSA/TLS work. | If this controller path is used and throttling is observed, compare reconciliation, pod-creation and ready-to-serve times separately from image/model loading and graph warmup. The higher limit is not a larger guaranteed CPU allocation; request/limit inequality also changes the default pod's Guaranteed-QoS eligibility. There is no implied GPU decode gain. |
+
+The tracing source explicitly checks the preset contract before injecting component configuration. The PR describes cooperating-image requirements and partial live validation; it does not establish full gateway/TLS/cross-node performance. The CPU manifest establishes resource defaults, while any startup benefit remains to measure on the installed cluster. [O26-KSERVE-TRACING](https://api.github.com/repos/kserve/kserve/pulls/6403) [O26-KSERVE-TRACING-SOURCE](https://raw.githubusercontent.com/kserve/kserve/f4873f42bfafaa11d7b4bf332d7de267f6fc41fa/pkg/controller/v1alpha2/llmisvc/tracing.go) [O26-KSERVE-TRACING-ANCESTRY](https://api.github.com/repos/kserve/kserve/compare/v0.21.0...f4873f42bfafaa11d7b4bf332d7de267f6fc41fa?per_page=1) [O26-KSERVE-CPU](https://api.github.com/repos/kserve/kserve/pulls/6444) [O26-KSERVE-CPU-SOURCE](https://raw.githubusercontent.com/kserve/kserve/d9e6b9b5534c32c0d76cbcd2a10da89be6134cd5/config/llmisvc/manager.yaml) [O26-KSERVE-CPU-ANCESTRY](https://api.github.com/repos/kserve/kserve/compare/v0.21.0...d9e6b9b5534c32c0d76cbcd2a10da89be6134cd5?per_page=1).
+
+For the eight-GPU node, measure through the intended KServe route and use an engine-pod observation only to explain the route delta. Keep request dispatch and queue clocks distinct; traces explain attribution but do not replace client-observed latency. [Benchmark decision criteria](../../reports/optimization.md#benchmark-decisions-and-measurement-contract).
 
 ## Release, branch and development image are separate observations
 

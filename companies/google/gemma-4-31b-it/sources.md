@@ -1,5 +1,7 @@
 # Gemma 4 31B IT: sources
 
+**October 26 scoped refresh:** current Hub identities, immutable README/configuration files and selected latest-stable engine restrictions were rechecked. [Local README snapshots](README.md#hugging-face-readme-snapshots) link every concrete catalog variant and recorded additional artifact. Retrieval metadata remains in the single [source registry](../../../evidence/sources.json); the historical source descriptions below retain their original scope.
+
 Refreshed on **2026-10-16**. The refresh below re-fetched current Hub identities before immutable cards, configurations and file listings. Earlier entries retain their own retrieval dates. Live documentation is identified separately. No model-weight payloads were downloaded and no inference engine was run.
 
 ## October 16 identity and parameter refresh

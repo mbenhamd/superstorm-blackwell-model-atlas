@@ -1,5 +1,7 @@
 # SGLang v0.5.22: B300 configuration and optimization review
 
+**October 26 follow-up:** v0.5.22 remains latest stable. Selected model restrictions, the open GLM sparse-kernel issue and the Qwen CP release exclusion were rechecked; the comparison below retains its October 19 scope. [Current catalog-wide recheck](nightly-readiness.md#october-26-catalog-wide-recheck) records the exact boundaries and development-channel observations.
+
 **Reviewed October 19, 2026.** Compare release commit `baa9befa381511cd4d56f83980951e5a45fffc6d` with v0.5.21 `e00930c5489053f26d86b179cee0d087f846acbb`. The target is the existing eight-family catalog on one 8×B300 node, served through **mandatory KServe**. These are selected source findings and proposed experiments; no serving binary, model weights or GPU workload was executed. [S0522-RELEASE](https://api.github.com/repos/sgl-project/sglang/releases/tags/v0.5.22) [S0522-TAG-PEELED](https://api.github.com/repos/sgl-project/sglang/git/tags/35ce313293052f8362e0829e7512bc9bc3d336c9)
 
 ## What to prioritize

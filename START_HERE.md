@@ -20,7 +20,11 @@ This atlas documents eight model families on an 8×NVIDIA B300 reference node, w
 
 Resolve each cited source ID through `sources[ID]` in `evidence/sources.json`. Catalogs support discovery; the cited primary artifact establishes what a claim actually supports. A historical configuration can retain an older source identity after a family report gains newer findings. For B300/vLLM v0.31, read `vllm_v031_b300_review` first, then filter configurations by `reference_scope`; [catalog interpretation and lookup examples](reports/configuration-reference.md#choosing-a-record-for-analysis) explain the distinction.
 
+**October 26 entry points:** each model's `latest_stable_review` records the current vLLM v0.32.0 / SGLang v0.5.22 selected-source assessment. Every configuration has a `latest_release_recheck` describing applicability and required reconciliation while retaining its original arguments and source SHA. Each family overview links its unmodified Hugging Face README snapshots; `huggingface_readme` records their source IDs, immutable revisions, local paths and checksums. The [current channel observation](reports/nightly-readiness.md#october-26-catalog-wide-recheck) separates stable releases, branch tips and published development wheels.
+
 ## System boundaries
+
+For the October 26 optimization follow-up, read [priorities and benchmark decisions](reports/optimization.md#october-26-priorities) and each model's `optimization_review`. These identify stable controls, merged development-source candidates, open PR experiments, measurement definitions and rejection conditions. They extend the source assessment without qualifying a serving build or changing historical argument arrays.
 
 For SGLang **v0.5.22**, use the [October 19 release comparison](reports/sglang-v0522-upgrade.md) and `sglang_v0522_b300_review` in each model record. These cover argument migration, exact model/backend restrictions and proposed experiments under KServe. In particular, independent replica DP and attention DP now have distinct spellings; release inclusion must be checked separately from a PR's merge date.
 

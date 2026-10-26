@@ -1,4 +1,28 @@
-# DeepSeek V4 Flash 0731: serving on 8×B300
+# DeepSeek V4 Flash 0731: serving and optimization on B300
+
+## October 26 stable release recheck
+
+The latest stable releases are unchanged: vLLM v0.32.0 and SGLang v0.5.22. This selected-source recheck retains the exact model/export revisions and the existing KServe requirement. It does not requalify historical launch arrays or an installed image.
+
+**vLLM v0.32.0:** Keep the exact July-31 target and bundled DSpark identity. The release quantization mapper recognizes mtp.* exclusions and retains native MXFP4 draft experts in the NVIDIA NVFP4 export; this is source support, not completed export qualification. [SP32-SRC-vllm-models-deepseek_v41-quant_config-py](https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/models/deepseek_v41/quant_config.py)
+
+**SGLang v0.5.22:** The publisher native TP4/flashinfer_mxfp4 recipe remains the comparison reference. Keep the default V4 attention path separate from the optional TRT-LLM uniform-FP8 layout, which rejects context parallelism and P/D and requires bounded chunked prefill. V4.1 claims do not establish July-31 behavior. [S0522-S-DSV4-HOOK](https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/arg_groups/deepseek_v4_hook.py)
+
+[Publisher/export README snapshots](README.md#hugging-face-readme-snapshots) · [Stable/main/nightly identities](../../../reports/nightly-readiness.md#october-26-catalog-wide-recheck). The dated detailed comparisons below retain their original evidence scope.
+
+## October 26 optimization and benchmark priorities
+
+Pinned native July-31 target-only versus its bundled DSpark using each engine’s resolved TP/DP/EP recipe, with at most eight physical GPUs. Keep NVIDIA target-only and draft qualification separate. The [benchmark decision criteria](../../../reports/optimization.md#benchmark-decisions-and-measurement-contract) define common controls and quality gates. These are proposed experiments in the execution repository, not measured results.
+
+**merged development source; absent from v0.5.22 ancestry.** SGLang 33250 corrects replicated attention-TP layouts, variable-size collectives and empty microbatches in non-EP two-batch overlap with DP attention.
+
+**Comparison:** Only after the exact 0731 artifact loads on the post-merge build: compare overlap off/on with moe_a2a_backend=none, DP attention and attention-TP greater than one. Keep actual rank groups and padding recorded; do not substitute the EP baseline or add an assumed DCP route.
+
+**Measure and decide:** empty/uneven microbatch completion and collective progress; prefill/decode time and TTFT/E2E tails; peak HBM and padding; fixed quality set and deterministic diagnostic parity. Reject on hang, padding/layout error or unexplained deterministic divergence; quality loss; overlap costs exceed whole-request benefit.
+
+**Evidence limit:** Merged ef11eb3b is the observed main tip, not stable. Author H200 tests use the V4 Flash family, not an exact 0731 B300 reproduction. This is an optional correctness-gated experiment, not a proven faster topology. [O26-DSV4-TBO](https://api.github.com/repos/sgl-project/sglang/pulls/33250) [O26-DSV4-TBO-SOURCE](https://raw.githubusercontent.com/sgl-project/sglang/ef11eb3b76354ffbabd9f17a2343e79522e41cf2/python/sglang/srt/models/deepseek_v4.py) [O26-DSV4-TBO-ANCESTRY](https://api.github.com/repos/sgl-project/sglang/compare/v0.5.22...ef11eb3b76354ffbabd9f17a2343e79522e41cf2?per_page=1)
+
+Check rank-consistent adaptive DSpark proposal budgets before performance work if that mode is selected. PR 62769 is open and its MI355X/V4.1 evidence is not transferable proof for this artifact. [O26-DSPARK-CONSENSUS](https://api.github.com/repos/vllm-project/vllm/pulls/62769)
 
 ## SGLang v0.5.22 review — October 19
 

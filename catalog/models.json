@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "as_of": "2026-10-19",
+  "as_of": "2026-10-26",
   "models": [
     {
       "key": "kimi-k3",
@@ -75,7 +75,26 @@
           "status": "verified immutable publisher card/config; no GPU test",
           "revision": "f831ab66814297da540d832a5235f8e904f29d06",
           "index_tensor_bytes": 1560860324864,
-          "index_tensor_bytes_source_id": "TOPK-BASE-INDEX-RANGE"
+          "index_tensor_bytes_source_id": "TOPK-BASE-INDEX-RANGE",
+          "huggingface_readme": {
+            "hf_id": "moonshotai/Kimi-K3",
+            "revision": "f831ab66814297da540d832a5235f8e904f29d06",
+            "path": "companies/moonshot-ai/kimi-k3/huggingface/README.md",
+            "source_id": "kimi-k3-CARD",
+            "sha256": "57de265b5842dfa465c6e73b368b0e15a89b8793b5450528dad577da202cc6fe",
+            "retrieved_at": "2026-10-26T11:24:06.312921+00:00"
+          },
+          "latest_identity_recheck": {
+            "checked_on": "2026-10-26",
+            "revision": "f831ab66814297da540d832a5235f8e904f29d06",
+            "matches_retained_pin": true,
+            "source_ids": [
+              "TOPK-BASE-API",
+              "kimi-k3-CARD",
+              "kimi-k3-CFG"
+            ],
+            "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+          }
         },
         {
           "key": "nvfp4",
@@ -85,7 +104,27 @@
           "revision": "b2428a0b83a8b712ff2e1a8448a103d4175341f1",
           "license": "NVIDIA Open Model Agreement named in card; Kimi K3 LICENSE file also present",
           "index_tensor_bytes": 1609777087808,
-          "index_tensor_bytes_source_id": "TOPK-NV-INDEX-RANGE"
+          "index_tensor_bytes_source_id": "TOPK-NV-INDEX-RANGE",
+          "huggingface_readme": {
+            "hf_id": "nvidia/Kimi-K3-NVFP4",
+            "revision": "b2428a0b83a8b712ff2e1a8448a103d4175341f1",
+            "path": "companies/moonshot-ai/kimi-k3/huggingface/nvfp4/README.md",
+            "source_id": "kimi-k3-NV",
+            "sha256": "b69e225f94bc0e822c5362ae1bc79bcedc75883aba9ccc4d6b573ebcb90cdbeb",
+            "retrieved_at": "2026-10-26T11:24:06.270492+00:00"
+          },
+          "latest_identity_recheck": {
+            "checked_on": "2026-10-26",
+            "revision": "b2428a0b83a8b712ff2e1a8448a103d4175341f1",
+            "matches_retained_pin": true,
+            "source_ids": [
+              "TOPK-NV-API",
+              "kimi-k3-NV",
+              "kimi-k3-NV-CFG",
+              "HF-NVIDIA-KIMI-K3-NVFP4-HF-QUANT-CONFIG-JSON"
+            ],
+            "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+          }
         },
         {
           "key": "fp8",
@@ -311,7 +350,109 @@
         "deployment_layer": "KServe required; installed version/resource/runtime integration unknown",
         "model_artifact_policy": "Retain exact target/export/draft revisions; source review does not qualify image or runtime."
       },
-      "recommended_sglang_v0522_b300": "KServe + SGLang 0.5.22, one TP8 target-only group at the retained native MXFP4 pin; compare the retained NVIDIA mixed NVFP4 artifact with explicit flashinfer_trtllm separately. Attach pinned RadixArk DSpark only after each target-only control. No all-FP8 target is established."
+      "recommended_sglang_v0522_b300": "KServe + SGLang 0.5.22, one TP8 target-only group at the retained native MXFP4 pin; compare the retained NVIDIA mixed NVFP4 artifact with explicit flashinfer_trtllm separately. Attach pinned RadixArk DSpark only after each target-only control. No all-FP8 target is established.",
+      "huggingface_readme": {
+        "hf_id": "moonshotai/Kimi-K3",
+        "revision": "f831ab66814297da540d832a5235f8e904f29d06",
+        "path": "companies/moonshot-ai/kimi-k3/huggingface/README.md",
+        "source_id": "kimi-k3-CARD",
+        "sha256": "57de265b5842dfa465c6e73b368b0e15a89b8793b5450528dad577da202cc6fe",
+        "retrieved_at": "2026-10-26T11:24:06.312921+00:00"
+      },
+      "additional_huggingface_readmes": [
+        {
+          "hf_id": "Inferact/Kimi-K3-DSpark",
+          "revision": "cf6b8244620e7ea4b0651d214f28e89eac75bed6",
+          "path": "companies/moonshot-ai/kimi-k3/huggingface/additional/Inferact--Kimi-K3-DSpark/README.md",
+          "source_id": "kimi-k3-DRAFT",
+          "sha256": "4734eec1b55b5b40b4050512a029808aea117f24440dcaf27815efd1127a88dc",
+          "retrieved_at": "2026-10-26T11:24:16.574296+00:00"
+        },
+        {
+          "hf_id": "RadixArk/Kimi-K3-DSpark",
+          "revision": "3c5bac301d9cf392706189d82ed947feca6c2f0f",
+          "path": "companies/moonshot-ai/kimi-k3/huggingface/additional/RadixArk--Kimi-K3-DSpark/README.md",
+          "source_id": "kimi-k3-DRAFT-SG",
+          "sha256": "22b64d04df857096a6fa0d2f1e7dbd40275973e999be9358a067211dec4bdf0a",
+          "retrieved_at": "2026-10-26T11:24:17.952723+00:00"
+        },
+        {
+          "hf_id": "modal-labs/Kimi-K3-DFlash",
+          "revision": "c192d15a43407bf758b5ae0880d5c72052fef1de",
+          "path": "companies/moonshot-ai/kimi-k3/huggingface/additional/modal-labs--Kimi-K3-DFlash/README.md",
+          "source_id": "RR-KD-DFLASH-CARD",
+          "sha256": "6924c345a25dc3360ca0a554469d59849378570eb6bfc8ce00189c239ad95235",
+          "retrieved_at": "2026-10-26T11:24:20.048639+00:00"
+        }
+      ],
+      "latest_stable_review": {
+        "checked_on": "2026-10-26",
+        "hardware_scope": "One 8\u00d7NVIDIA B300 reference node",
+        "deployment_layer": "KServe required; installed version, resource kind and runtime integration unknown",
+        "model_identity_status": "All concrete catalog variants still match retained revisions; current README and immutable configuration retrieved.",
+        "scope": "Latest stable metadata, selected per-model source restrictions and publisher artifacts. Earlier detailed reviews retain their own scope.",
+        "engines": {
+          "vllm": {
+            "engine_release": "v0.32.0",
+            "source_commit": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+            "detailed_review_field": "vllm_v032_b300_review",
+            "assessment": "Native MXFP4 TP8 remains the release comparison candidate. Packed speculative KDA requires SM10x, eligible head geometry, BF16 inputs/convolution state, 1\u20137 proposals and RecoverSSM disabled. NVIDIA mixed NVFP4 remains a separate loader/image probe.",
+            "source_ids": [
+              "RR-GM-VLLM-RELEASE",
+              "V032-KM-KDA",
+              "V032-KM-MODEL"
+            ]
+          },
+          "sglang": {
+            "engine_release": "v0.5.22",
+            "source_commit": "baa9befa381511cd4d56f83980951e5a45fffc6d",
+            "detailed_review_field": "sglang_v0522_b300_review",
+            "assessment": "Retain native TP8 and separate NVIDIA mixed-export comparisons. DCP plus DSpark requires static ragged verification and the supported decode path; the override disables symmetric memory. Pin the engine-specific RadixArk draft separately.",
+            "source_ids": [
+              "RR-GM-SGLANG-RELEASE",
+              "S0522-K-KIMI-OVERRIDES"
+            ]
+          }
+        },
+        "tested_on_target": false
+      },
+      "optimization_review": {
+        "checked_on": "2026-10-26",
+        "deployment_layer": "KServe; installed release/resource/runtime unknown",
+        "hardware_scope": "one eight-GPU B300 node",
+        "evidence_status": "Source-supported hypotheses; no GPU benchmarks executed",
+        "baseline": "Native MXFP4 TP8 target-only through KServe; qualify the matching engine-specific DSpark draft separately. Keep NVIDIA mixed export in its own integration comparison.",
+        "insights": [
+          {
+            "id": "kimi-small-batch-decode",
+            "channel": "unmerged PR-head experiment",
+            "mechanism": "vLLM PR 63611 removes small-batch prefetch/release work from the latency_specialized decoder. Its result depends on batch size, history and speculation.",
+            "comparison": "First retain a stable TP8 control. For causal patch attribution, compare a compatible parent with only the inspected PR-head changes, holding artifact, sampler, cache and topology fixed. Measure target-only batches 1/2/4/8 separately from DSpark; TP16 is outside this node.",
+            "measurements": [
+              "decode-step latency and end-to-end TTFT/E2E",
+              "CPU/GPU phase time",
+              "peak HBM",
+              "long-context retrieval and tool quality",
+              "draft accepted length and verification cost when enabled"
+            ],
+            "rejection_criteria": [
+              "unsupported artifact/backend dispatch",
+              "quality below the predeclared margin",
+              "tail latency worsens at the intended offered load"
+            ],
+            "evidence_limit": "Open draft PR, not a published stable or nightly feature. Author tables use one run per build/cell and incomplete quality controls; no speedup or MRCR score is adopted as a B300 prediction.",
+            "source_ids": [
+              "O26-KIMI-DECODE",
+              "V032-KM-KDA"
+            ]
+          }
+        ],
+        "additional_constraint": "Adaptive DSpark has a separate unmerged rank-consensus correctness proposal (vLLM 62769). Its reported MI355X/V4.1 fault scenario motivates checking collective progress and rank-consistent proposal budgets if this mode is used; it does not establish a Kimi/B300 defect or a DeepSeek-0731 DCP recipe.",
+        "additional_source_ids": [
+          "O26-DSPARK-CONSENSUS"
+        ],
+        "benchmark_methodology": "reports/optimization.md#benchmark-decisions-and-measurement-contract"
+      }
     },
     {
       "key": "glm-5.3",
@@ -368,7 +509,26 @@
           "precision": "Block FP8 with exclusions",
           "status": "Pinned card, configuration and index reviewed; GPU execution unverified",
           "revision": "ba32f8c19c8738e2c57c71798c601d477a7bf844",
-          "index_tensor_bytes": 755617140416
+          "index_tensor_bytes": 755617140416,
+          "huggingface_readme": {
+            "hf_id": "zai-org/GLM-5.3",
+            "revision": "ba32f8c19c8738e2c57c71798c601d477a7bf844",
+            "path": "companies/z-ai/glm-5.3/huggingface/README.md",
+            "source_id": "glm-5.3-CARD",
+            "sha256": "ed1c0a4563c437a32f8953d637a1db9bd831de1b24bd3062a5ace9e04340b1cf",
+            "retrieved_at": "2026-10-26T11:24:06.299806+00:00"
+          },
+          "latest_identity_recheck": {
+            "checked_on": "2026-10-26",
+            "revision": "ba32f8c19c8738e2c57c71798c601d477a7bf844",
+            "matches_retained_pin": true,
+            "source_ids": [
+              "TOPG-GLM-MAIN",
+              "glm-5.3-CARD",
+              "glm-5.3-CFG"
+            ],
+            "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+          }
         },
         {
           "key": "bf16",
@@ -376,7 +536,26 @@
           "precision": "BF16 reference with small FP32 component",
           "status": "Pinned card, configuration and index reviewed; GPU execution unverified",
           "revision": "abf42e6c0e53bc29a875511301e7b7fcd220315b",
-          "index_tensor_bytes": 1506659919872
+          "index_tensor_bytes": 1506659919872,
+          "huggingface_readme": {
+            "hf_id": "zai-org/GLM-5.3-BF16",
+            "revision": "abf42e6c0e53bc29a875511301e7b7fcd220315b",
+            "path": "companies/z-ai/glm-5.3/huggingface/bf16/README.md",
+            "source_id": "glm-5.3-BF16-CARD",
+            "sha256": "9bdaa8b83a653f3ccac2a140d1c3880929d6f16e4a2b38d03e358b9fad0ee95f",
+            "retrieved_at": "2026-10-26T11:24:06.225519+00:00"
+          },
+          "latest_identity_recheck": {
+            "checked_on": "2026-10-26",
+            "revision": "abf42e6c0e53bc29a875511301e7b7fcd220315b",
+            "matches_retained_pin": true,
+            "source_ids": [
+              "S0522-HF-zai-org-GLM-5.3-BF16",
+              "glm-5.3-BF16-CARD",
+              "glm-5.3-BF16-CFG"
+            ],
+            "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+          }
         },
         {
           "key": "nvfp4",
@@ -384,7 +563,26 @@
           "precision": "compressed-tensors NVFP4 W4A4 main routed-expert linears; group size 16; MTP and other modules excluded",
           "status": "Pinned card, configuration and index reviewed; GPU execution unverified",
           "revision": "c8917e4258572c405575855ff53effe58c17a38e",
-          "index_tensor_bytes": 464824469712
+          "index_tensor_bytes": 464824469712,
+          "huggingface_readme": {
+            "hf_id": "RedHatAI/GLM-5.3-NVFP4",
+            "revision": "c8917e4258572c405575855ff53effe58c17a38e",
+            "path": "companies/z-ai/glm-5.3/huggingface/nvfp4/README.md",
+            "source_id": "glm-5.3-NV",
+            "sha256": "278170e63b2b2d1167df93af014ed67469511b1ffbe01f429aa3cb3245cd1f82",
+            "retrieved_at": "2026-10-26T11:24:06.219138+00:00"
+          },
+          "latest_identity_recheck": {
+            "checked_on": "2026-10-26",
+            "revision": "c8917e4258572c405575855ff53effe58c17a38e",
+            "matches_retained_pin": true,
+            "source_ids": [
+              "Q31-CAT-GLM-RH-API-JSON",
+              "glm-5.3-NV",
+              "glm-5.3-NV-CFG"
+            ],
+            "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+          }
         },
         {
           "key": "nvfp4-inferact",
@@ -392,7 +590,26 @@
           "precision": "ModelOpt NVFP4 main routed-expert export; group size 16; MTP and other modules excluded",
           "status": "Pinned card, configuration and index reviewed; GPU execution unverified",
           "revision": "ce67b36f3669192b5bb233819f0fda6c8a9837f8",
-          "index_tensor_bytes": 464822832448
+          "index_tensor_bytes": 464822832448,
+          "huggingface_readme": {
+            "hf_id": "Inferact/GLM-5.3-NVFP4",
+            "revision": "ce67b36f3669192b5bb233819f0fda6c8a9837f8",
+            "path": "companies/z-ai/glm-5.3/huggingface/nvfp4-inferact/README.md",
+            "source_id": "glm-5.3-INFERACT-CARD",
+            "sha256": "aeec1ebd06aae91c054fd94b252225a8b11b98ad9464c70265427a56af262519",
+            "retrieved_at": "2026-10-26T11:24:06.242605+00:00"
+          },
+          "latest_identity_recheck": {
+            "checked_on": "2026-10-26",
+            "revision": "ce67b36f3669192b5bb233819f0fda6c8a9837f8",
+            "matches_retained_pin": true,
+            "source_ids": [
+              "Q31-CAT-GLM-INF-API-JSON",
+              "glm-5.3-INFERACT-CARD",
+              "glm-5.3-INFERACT-CFG"
+            ],
+            "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+          }
         }
       ],
       "path": "companies/z-ai/glm-5.3",
@@ -527,7 +744,95 @@
         "model_artifact_policy": "Retain exact target/export/draft revisions; source review does not qualify image or runtime.",
         "tested_on_target": false
       },
-      "recommended_sglang_v0522_b300": "Official FP8 TP8 target-only DCP1 control, then DCP2 and native MTP5/1/6; optional DCP4. Hold FP8 DCP8 pending a verified sparse-kernel fix."
+      "recommended_sglang_v0522_b300": "Official FP8 TP8 target-only DCP1 control, then DCP2 and native MTP5/1/6; optional DCP4. Hold FP8 DCP8 pending a verified sparse-kernel fix.",
+      "huggingface_readme": {
+        "hf_id": "zai-org/GLM-5.3",
+        "revision": "ba32f8c19c8738e2c57c71798c601d477a7bf844",
+        "path": "companies/z-ai/glm-5.3/huggingface/README.md",
+        "source_id": "glm-5.3-CARD",
+        "sha256": "ed1c0a4563c437a32f8953d637a1db9bd831de1b24bd3062a5ace9e04340b1cf",
+        "retrieved_at": "2026-10-26T11:24:06.299806+00:00"
+      },
+      "additional_huggingface_readmes": [
+        {
+          "hf_id": "nvidia/GLM-5.3-NVFP4",
+          "revision": "e3b8f9f2fad29727dfa95e766c5cac18ea1414bf",
+          "path": "companies/z-ai/glm-5.3/huggingface/additional/nvidia--GLM-5.3-NVFP4/README.md",
+          "source_id": "RR-GLM-NVIDIA-CARD",
+          "sha256": "ad92e9748e5b307e01acf359ec59f9f47d0d2c69f6f3eb77822da32ee571058c",
+          "retrieved_at": "2026-10-26T11:24:19.437010+00:00"
+        }
+      ],
+      "latest_stable_review": {
+        "checked_on": "2026-10-26",
+        "hardware_scope": "One 8\u00d7NVIDIA B300 reference node",
+        "deployment_layer": "KServe required; installed version, resource kind and runtime integration unknown",
+        "model_identity_status": "All concrete catalog variants still match retained revisions; current README and immutable configuration retrieved.",
+        "scope": "Latest stable metadata, selected per-model source restrictions and publisher artifacts. Earlier detailed reviews retain their own scope.",
+        "engines": {
+          "vllm": {
+            "engine_release": "v0.32.0",
+            "source_commit": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+            "detailed_review_field": "vllm_v032_b300_review",
+            "assessment": "The flagship auto-KV hook selects FP8 E4M3 on CUDA family 10, including B300, independent of target weight precision. Hold explicit KV precision constant when comparing exports or releases; this hook does not cover GLM Flash.",
+            "source_ids": [
+              "RR-GM-VLLM-RELEASE",
+              "SP32-SRC-vllm-model_executor-models-config-py"
+            ]
+          },
+          "sglang": {
+            "engine_release": "v0.5.22",
+            "source_commit": "baa9befa381511cd4d56f83980951e5a45fffc6d",
+            "detailed_review_field": "sglang_v0522_b300_review",
+            "assessment": "Keep TP8/DCP1 as the target-only control; DCP2/4 and native MTP are separate candidates. The FP8 64-head sparse-MLA corruption report remains open, so FP8/DCP8 stays excluded pending an artifact-specific fix. DCP rejects HiSparse, HiCache and P/D.",
+            "source_ids": [
+              "RR-GM-SGLANG-RELEASE",
+              "S0522-S-DSA-OVERRIDE",
+              "S0522-S-DCP",
+              "S0522-S-FI6389"
+            ]
+          }
+        },
+        "tested_on_target": false
+      },
+      "optimization_review": {
+        "checked_on": "2026-10-26",
+        "deployment_layer": "KServe; installed release/resource/runtime unknown",
+        "hardware_scope": "one eight-GPU B300 node",
+        "evidence_status": "Source-supported hypotheses; no GPU benchmarks executed",
+        "baseline": "Official FP8 TP8 versus two independent TP4 groups; compare an exact NVFP4 export only with matched cache precision and quality. Retain the FP8/DCP8 corruption exclusion.",
+        "insights": [
+          {
+            "id": "glm-python-template",
+            "channel": "merged development source; absent from v0.5.22 ancestry",
+            "mechanism": "SGLang 45154 adds a Python renderer for GLM-5.3 family templates and avoids repeated Jinja/tool-result work. Selection checks both architecture and checkpoint template; architecture alone is insufficient.",
+            "comparison": "On one compatible post-merge build, compare the pinned checkpoint Jinja template explicitly supplied as a file with the built-in Python renderer. Keep parser/reasoning choices, tokenizer, CPU allocation, serialized histories and GPU engine settings fixed. Require byte-identical prompts and token IDs before measuring CPU render/tokenize time and gateway-visible tails. The flagship is text-only; image workloads are inapplicable.",
+            "measurements": [
+              "render/tokenize CPU time and queue delay",
+              "TTFT/first-visible-answer p50/p95/p99 with adequate sample counts",
+              "tool-result order, escaped arguments and reasoning-retention fidelity",
+              "whole coding-task wall time and success"
+            ],
+            "rejection_criteria": [
+              "any prompt/tokenization or parser regression",
+              "CPU gain disappears at the KServe route",
+              "higher tail latency or task failure rate"
+            ],
+            "evidence_limit": "PR microbenchmarks and B200 checks are publisher evidence. Renderer acceleration is not an equivalent whole-request or B300 acceleration. Merge commit ca473ef3 is outside stable ancestry; development wheel inclusion is not established.",
+            "source_ids": [
+              "O26-GLM-TEMPLATE",
+              "O26-GLM-TEMPLATE-SOURCE",
+              "O26-GLM-TEMPLATE-MANAGER",
+              "O26-GLM-TEMPLATE-ANCESTRY"
+            ]
+          }
+        ],
+        "additional_constraint": "Do not replace the DSA sparse-MLA path with ordinary FA4. The fresh template candidate addresses host preprocessing and does not remove the separate sparse-cache/DCP restriction.",
+        "additional_source_ids": [
+          "S0522-S-FI6389"
+        ],
+        "benchmark_methodology": "reports/optimization.md#benchmark-decisions-and-measurement-contract"
+      }
     },
     {
       "key": "glm-5.3-flash",
@@ -602,7 +907,26 @@
           "precision": "Block FP8 E4M3 with exclusions",
           "status": "Pinned card, configuration and index reviewed; GPU execution unverified",
           "revision": "46a050bec13002ad29ee795c16e61cf4fa3c4a9c",
-          "index_tensor_bytes": 328326771576
+          "index_tensor_bytes": 328326771576,
+          "huggingface_readme": {
+            "hf_id": "zai-org/GLM-5.3-Flash",
+            "revision": "46a050bec13002ad29ee795c16e61cf4fa3c4a9c",
+            "path": "companies/z-ai/glm-5.3-flash/huggingface/README.md",
+            "source_id": "glm-5.3-flash-CARD",
+            "sha256": "e6c5d41400e28f5a89418a0d15b09b9c113314a7553d40d7d4a8a72fcdb87d02",
+            "retrieved_at": "2026-10-26T11:24:08.626170+00:00"
+          },
+          "latest_identity_recheck": {
+            "checked_on": "2026-10-26",
+            "revision": "46a050bec13002ad29ee795c16e61cf4fa3c4a9c",
+            "matches_retained_pin": true,
+            "source_ids": [
+              "TOPG-FLASH-MAIN",
+              "glm-5.3-flash-CARD",
+              "glm-5.3-flash-CFG"
+            ],
+            "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+          }
         },
         {
           "key": "bf16",
@@ -610,7 +934,26 @@
           "precision": "BF16 reference with small FP32 component",
           "status": "Pinned card, configuration and index reviewed; GPU execution unverified",
           "revision": "f9fed3bbc82291073373d67452e9f25317ef7577",
-          "index_tensor_bytes": 642646653816
+          "index_tensor_bytes": 642646653816,
+          "huggingface_readme": {
+            "hf_id": "zai-org/GLM-5.3-Flash-BF16",
+            "revision": "f9fed3bbc82291073373d67452e9f25317ef7577",
+            "path": "companies/z-ai/glm-5.3-flash/huggingface/bf16/README.md",
+            "source_id": "glm-5.3-flash-BF16-CARD",
+            "sha256": "5c48ce1a84c5901ab96d602333e9201fa385a73e9c298fab3467183b8b95a549",
+            "retrieved_at": "2026-10-26T11:24:08.617093+00:00"
+          },
+          "latest_identity_recheck": {
+            "checked_on": "2026-10-26",
+            "revision": "f9fed3bbc82291073373d67452e9f25317ef7577",
+            "matches_retained_pin": true,
+            "source_ids": [
+              "S0522-HF-zai-org-GLM-5.3-Flash-BF16",
+              "glm-5.3-flash-BF16-CARD",
+              "glm-5.3-flash-BF16-CFG"
+            ],
+            "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+          }
         },
         {
           "key": "nvfp4",
@@ -618,7 +961,26 @@
           "precision": "compressed-tensors: main routed experts NVFP4 W4A4; MTP routed experts FP8 W8A8; other modules excluded",
           "status": "Pinned card, configuration and index reviewed; GPU execution unverified",
           "revision": "18d55bfd5a2194887738da73753975c9d3842f46",
-          "index_tensor_bytes": 197816133372
+          "index_tensor_bytes": 197816133372,
+          "huggingface_readme": {
+            "hf_id": "RedHatAI/GLM-5.3-Flash-NVFP4",
+            "revision": "18d55bfd5a2194887738da73753975c9d3842f46",
+            "path": "companies/z-ai/glm-5.3-flash/huggingface/nvfp4/README.md",
+            "source_id": "glm-5.3-flash-NV",
+            "sha256": "c8d3f90d37e4d0c073f182bf785f6753c2a43ef5885abce0461586f266c195e2",
+            "retrieved_at": "2026-10-26T11:24:08.702509+00:00"
+          },
+          "latest_identity_recheck": {
+            "checked_on": "2026-10-26",
+            "revision": "18d55bfd5a2194887738da73753975c9d3842f46",
+            "matches_retained_pin": true,
+            "source_ids": [
+              "Q31-CAT-FLASH-RH-API-JSON",
+              "glm-5.3-flash-NV",
+              "glm-5.3-flash-NV-CFG"
+            ],
+            "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+          }
         }
       ],
       "path": "companies/z-ai/glm-5.3-flash",
@@ -748,7 +1110,94 @@
         "model_artifact_policy": "Retain exact target/export/draft revisions; source review does not qualify image or runtime.",
         "tested_on_target": false
       },
-      "recommended_sglang_v0522_b300": "Official FP8 TP4: explicit prefill graph/KDA controls across releases, then native MTP5/1/6. Compare two TP4 KServe groups against one TP8; external DFlash and long-prefill CP are separate arms."
+      "recommended_sglang_v0522_b300": "Official FP8 TP4: explicit prefill graph/KDA controls across releases, then native MTP5/1/6. Compare two TP4 KServe groups against one TP8; external DFlash and long-prefill CP are separate arms.",
+      "huggingface_readme": {
+        "hf_id": "zai-org/GLM-5.3-Flash",
+        "revision": "46a050bec13002ad29ee795c16e61cf4fa3c4a9c",
+        "path": "companies/z-ai/glm-5.3-flash/huggingface/README.md",
+        "source_id": "glm-5.3-flash-CARD",
+        "sha256": "e6c5d41400e28f5a89418a0d15b09b9c113314a7553d40d7d4a8a72fcdb87d02",
+        "retrieved_at": "2026-10-26T11:24:08.626170+00:00"
+      },
+      "additional_huggingface_readmes": [
+        {
+          "hf_id": "incoai/GLM-5.3-Flash-DFlash2",
+          "revision": "bf582e4eacc1810f76656d1811693ff6c6737d2a",
+          "path": "companies/z-ai/glm-5.3-flash/huggingface/additional/incoai--GLM-5.3-Flash-DFlash2/README.md",
+          "source_id": "S0522-S-DFLASH-CARD",
+          "sha256": "2014434d3e3639147d35d61259690d585e7820993180e7d579e3b796dddf5a31",
+          "retrieved_at": "2026-10-26T11:24:18.327971+00:00"
+        }
+      ],
+      "latest_stable_review": {
+        "checked_on": "2026-10-26",
+        "hardware_scope": "One 8\u00d7NVIDIA B300 reference node",
+        "deployment_layer": "KServe required; installed version, resource kind and runtime integration unknown",
+        "model_identity_status": "All concrete catalog variants still match retained revisions; current README and immutable configuration retrieved.",
+        "scope": "Latest stable metadata, selected per-model source restrictions and publisher artifacts. Earlier detailed reviews retain their own scope.",
+        "engines": {
+          "vllm": {
+            "engine_release": "v0.32.0",
+            "source_commit": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+            "detailed_review_field": "vllm_v032_b300_review",
+            "assessment": "The KDA layer honors mamba_ssm_cache_dtype. Compare explicit FP32/BF16 recurrent state independently of weight and KV precision; reduced state storage does not establish long-context or speculative-rollback quality.",
+            "source_ids": [
+              "RR-GM-VLLM-RELEASE",
+              "SP32-SRC-vllm-models-glm5next-common-kda-py"
+            ]
+          },
+          "sglang": {
+            "engine_release": "v0.5.22",
+            "source_commit": "baa9befa381511cd4d56f83980951e5a45fffc6d",
+            "detailed_review_field": "sglang_v0522_b300_review",
+            "assessment": "Retain the official FP8 TP4 control and separate native-MTP comparison. KDA dispatch remains conditional; the pooled index_kpool > 1 guard rejects flagship DCP. External DFlash is a distinct artifact and license scope.",
+            "source_ids": [
+              "RR-GM-SGLANG-RELEASE",
+              "S0522-S-KDA",
+              "S0522-S-DSA-OVERRIDE"
+            ]
+          }
+        },
+        "tested_on_target": false
+      },
+      "optimization_review": {
+        "checked_on": "2026-10-26",
+        "deployment_layer": "KServe; installed release/resource/runtime unknown",
+        "hardware_scope": "one eight-GPU B300 node",
+        "evidence_status": "Source-supported hypotheses; no GPU benchmarks executed",
+        "baseline": "Official FP8 TP4 versus TP8, then two independent TP4 groups versus one TP8 group inside the eight-GPU budget; qualify native MTP separately.",
+        "insights": [
+          {
+            "id": "glm-python-template",
+            "channel": "merged development source; absent from v0.5.22 ancestry",
+            "mechanism": "SGLang 45154 adds a Python renderer for GLM-5.3 family templates and avoids repeated Jinja/tool-result work. Selection checks both architecture and checkpoint template; architecture alone is insufficient.",
+            "comparison": "On one compatible post-merge build, compare the pinned checkpoint Jinja template explicitly supplied as a file with the built-in Python renderer. Keep parser/reasoning choices, tokenizer, CPU allocation, serialized histories and GPU engine settings fixed. Require byte-identical prompts and token IDs before measuring CPU render/tokenize time and gateway-visible tails. Include image histories and media sentinels for Flash.",
+            "measurements": [
+              "render/tokenize CPU time and queue delay",
+              "TTFT/first-visible-answer p50/p95/p99 with adequate sample counts",
+              "tool-result order, escaped arguments and reasoning-retention fidelity",
+              "whole coding-task wall time and success"
+            ],
+            "rejection_criteria": [
+              "any prompt/tokenization or parser regression",
+              "CPU gain disappears at the KServe route",
+              "higher tail latency or task failure rate"
+            ],
+            "evidence_limit": "PR microbenchmarks and B200 checks are publisher evidence. Renderer acceleration is not an equivalent whole-request or B300 acceleration. Merge commit ca473ef3 is outside stable ancestry; development wheel inclusion is not established.",
+            "source_ids": [
+              "O26-GLM-TEMPLATE",
+              "O26-GLM-TEMPLATE-SOURCE",
+              "O26-GLM-TEMPLATE-MANAGER",
+              "O26-GLM-TEMPLATE-ANCESTRY"
+            ]
+          }
+        ],
+        "additional_constraint": "Keep recurrent-state, sparse-index and draft precision visible when comparing MTP; a changed effective backend makes this a configuration comparison rather than an isolated drafting effect.",
+        "additional_source_ids": [
+          "S0522-S-KDA"
+        ],
+        "benchmark_methodology": "reports/optimization.md#benchmark-decisions-and-measurement-contract"
+      }
     },
     {
       "key": "deepseek-v4-flash-0731",
@@ -869,7 +1318,26 @@
           "hf_id": "deepseek-ai/DeepSeek-V4-Flash-0731",
           "precision": "FP4 experts plus FP8-configured components; not an all-FP8 model",
           "status": "verified exact immutable 0731 config; no GPU test",
-          "revision": "7872f01b1d1fe23eabc4c98b48bffcef5a386062"
+          "revision": "7872f01b1d1fe23eabc4c98b48bffcef5a386062",
+          "huggingface_readme": {
+            "hf_id": "deepseek-ai/DeepSeek-V4-Flash-0731",
+            "revision": "7872f01b1d1fe23eabc4c98b48bffcef5a386062",
+            "path": "companies/deepseek/deepseek-v4-flash-0731/huggingface/README.md",
+            "source_id": "deepseek-v4-flash-0731-CARD",
+            "sha256": "252acafdc9204d0dba3fde1b0a93d71cd1664a4ceadfe222b60117ed0ccc56ff",
+            "retrieved_at": "2026-10-26T11:24:08.814332+00:00"
+          },
+          "latest_identity_recheck": {
+            "checked_on": "2026-10-26",
+            "revision": "7872f01b1d1fe23eabc4c98b48bffcef5a386062",
+            "matches_retained_pin": true,
+            "source_ids": [
+              "RR-KD-DEEPSEEK-API",
+              "deepseek-v4-flash-0731-CARD",
+              "deepseek-v4-flash-0731-CFG"
+            ],
+            "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+          }
         }
       ],
       "path": "companies/deepseek/deepseek-v4-flash-0731",
@@ -984,7 +1452,92 @@
         "model_artifact_policy": "Retain exact target/export/draft revisions; source review does not qualify image or runtime.",
         "tested_on_target": false
       },
-      "recommended_sglang_v0522_b300": "Exact native0731 TP4 flashinfer_mxfp4 target-only versus bundledDSPARK; compare two independentTP4 KServe replicas withTP8. NVIDIA NVFP4+DSpark stays an export compatibility probe."
+      "recommended_sglang_v0522_b300": "Exact native0731 TP4 flashinfer_mxfp4 target-only versus bundledDSPARK; compare two independentTP4 KServe replicas withTP8. NVIDIA NVFP4+DSpark stays an export compatibility probe.",
+      "huggingface_readme": {
+        "hf_id": "deepseek-ai/DeepSeek-V4-Flash-0731",
+        "revision": "7872f01b1d1fe23eabc4c98b48bffcef5a386062",
+        "path": "companies/deepseek/deepseek-v4-flash-0731/huggingface/README.md",
+        "source_id": "deepseek-v4-flash-0731-CARD",
+        "sha256": "252acafdc9204d0dba3fde1b0a93d71cd1664a4ceadfe222b60117ed0ccc56ff",
+        "retrieved_at": "2026-10-26T11:24:08.814332+00:00"
+      },
+      "additional_huggingface_readmes": [
+        {
+          "hf_id": "nvidia/DeepSeek-V4-Flash-0731-NVFP4",
+          "revision": "f1caa71142bd0be02f728c79f75042ac1e461579",
+          "path": "companies/deepseek/deepseek-v4-flash-0731/huggingface/additional/nvidia--DeepSeek-V4-Flash-0731-NVFP4/README.md",
+          "source_id": "deepseek-v4-flash-0731-NV-CARD",
+          "sha256": "145264414508fc648c0c8bc7d05a047cfbdc75e753c5395f49c93fb2e407e9a5",
+          "retrieved_at": "2026-10-26T11:24:19.293635+00:00"
+        }
+      ],
+      "latest_stable_review": {
+        "checked_on": "2026-10-26",
+        "hardware_scope": "One 8\u00d7NVIDIA B300 reference node",
+        "deployment_layer": "KServe required; installed version, resource kind and runtime integration unknown",
+        "model_identity_status": "All concrete catalog variants still match retained revisions; current README and immutable configuration retrieved.",
+        "scope": "Latest stable metadata, selected per-model source restrictions and publisher artifacts. Earlier detailed reviews retain their own scope.",
+        "engines": {
+          "vllm": {
+            "engine_release": "v0.32.0",
+            "source_commit": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+            "detailed_review_field": "vllm_v032_b300_review",
+            "assessment": "Keep the exact July-31 target and bundled DSpark identity. The release quantization mapper recognizes mtp.* exclusions and retains native MXFP4 draft experts in the NVIDIA NVFP4 export; this is source support, not completed export qualification.",
+            "source_ids": [
+              "RR-GM-VLLM-RELEASE",
+              "SP32-SRC-vllm-models-deepseek_v41-quant_config-py"
+            ]
+          },
+          "sglang": {
+            "engine_release": "v0.5.22",
+            "source_commit": "baa9befa381511cd4d56f83980951e5a45fffc6d",
+            "detailed_review_field": "sglang_v0522_b300_review",
+            "assessment": "The publisher native TP4/flashinfer_mxfp4 recipe remains the comparison reference. Keep the default V4 attention path separate from the optional TRT-LLM uniform-FP8 layout, which rejects context parallelism and P/D and requires bounded chunked prefill. V4.1 claims do not establish July-31 behavior.",
+            "source_ids": [
+              "RR-GM-SGLANG-RELEASE",
+              "S0522-S-DSV4-HOOK"
+            ]
+          }
+        },
+        "tested_on_target": false
+      },
+      "optimization_review": {
+        "checked_on": "2026-10-26",
+        "deployment_layer": "KServe; installed release/resource/runtime unknown",
+        "hardware_scope": "one eight-GPU B300 node",
+        "evidence_status": "Source-supported hypotheses; no GPU benchmarks executed",
+        "baseline": "Pinned native July-31 target-only versus its bundled DSpark using each engine\u2019s resolved TP/DP/EP recipe, with at most eight physical GPUs. Keep NVIDIA target-only and draft qualification separate.",
+        "insights": [
+          {
+            "id": "deepseek-non-ep-tbo",
+            "channel": "merged development source; absent from v0.5.22 ancestry",
+            "mechanism": "SGLang 33250 corrects replicated attention-TP layouts, variable-size collectives and empty microbatches in non-EP two-batch overlap with DP attention.",
+            "comparison": "Only after the exact 0731 artifact loads on the post-merge build: compare overlap off/on with moe_a2a_backend=none, DP attention and attention-TP greater than one. Keep actual rank groups and padding recorded; do not substitute the EP baseline or add an assumed DCP route.",
+            "measurements": [
+              "empty/uneven microbatch completion and collective progress",
+              "prefill/decode time and TTFT/E2E tails",
+              "peak HBM and padding",
+              "fixed quality set and deterministic diagnostic parity"
+            ],
+            "rejection_criteria": [
+              "hang, padding/layout error or unexplained deterministic divergence",
+              "quality loss",
+              "overlap costs exceed whole-request benefit"
+            ],
+            "evidence_limit": "Merged ef11eb3b is the observed main tip, not stable. Author H200 tests use the V4 Flash family, not an exact 0731 B300 reproduction. This is an optional correctness-gated experiment, not a proven faster topology.",
+            "source_ids": [
+              "O26-DSV4-TBO",
+              "O26-DSV4-TBO-SOURCE",
+              "O26-DSV4-TBO-ANCESTRY"
+            ]
+          }
+        ],
+        "additional_constraint": "Check rank-consistent adaptive DSpark proposal budgets before performance work if that mode is selected. PR 62769 is open and its MI355X/V4.1 evidence is not transferable proof for this artifact.",
+        "additional_source_ids": [
+          "O26-DSPARK-CONSENSUS"
+        ],
+        "benchmark_methodology": "reports/optimization.md#benchmark-decisions-and-measurement-contract"
+      }
     },
     {
       "key": "qwen3.8-27b",
@@ -1037,7 +1590,26 @@
           "hf_id": "Qwen/Qwen3.8-27B",
           "precision": "BF16 declared by text config",
           "status": "Publisher card and pinned configuration metadata inspected; no weight load",
-          "revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0"
+          "revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
+          "huggingface_readme": {
+            "hf_id": "Qwen/Qwen3.8-27B",
+            "revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
+            "path": "companies/alibaba-qwen/qwen3.8-27b/huggingface/README.md",
+            "source_id": "qwen3.8-27b-CARD",
+            "sha256": "57e4bdb258ee1a7d2635c5174ebd4e56abe392505cdb5f8bbb356b0dc4293641",
+            "retrieved_at": "2026-10-26T11:24:08.808029+00:00"
+          },
+          "latest_identity_recheck": {
+            "checked_on": "2026-10-26",
+            "revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
+            "matches_retained_pin": true,
+            "source_ids": [
+              "RR-QWEN-27-API",
+              "qwen3.8-27b-CARD",
+              "qwen3.8-27b-CFG"
+            ],
+            "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+          }
         },
         {
           "key": "fp8",
@@ -1046,7 +1618,26 @@
           "status": "Publisher card and pinned configuration metadata inspected; no weight load",
           "revision": "017b9c7af6b5689d5dd426a76e0bc077eb5ca20a",
           "listed_weight_file_bytes": 30866866928,
-          "weight_file_bytes_source_id": "TOPQ-27FP8-TREE"
+          "weight_file_bytes_source_id": "TOPQ-27FP8-TREE",
+          "huggingface_readme": {
+            "hf_id": "Qwen/Qwen3.8-27B-FP8",
+            "revision": "017b9c7af6b5689d5dd426a76e0bc077eb5ca20a",
+            "path": "companies/alibaba-qwen/qwen3.8-27b/huggingface/fp8/README.md",
+            "source_id": "qwen3.8-27b-FP8",
+            "sha256": "a247d876f5398eed9ae898f32a984083552de57237b5e20714657e1675e26d2e",
+            "retrieved_at": "2026-10-26T11:24:09.730118+00:00"
+          },
+          "latest_identity_recheck": {
+            "checked_on": "2026-10-26",
+            "revision": "017b9c7af6b5689d5dd426a76e0bc077eb5ca20a",
+            "matches_retained_pin": true,
+            "source_ids": [
+              "RR-QWEN-27FP8-API",
+              "qwen3.8-27b-FP8",
+              "qwen3.8-27b-FP8-CFG"
+            ],
+            "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+          }
         },
         {
           "key": "nvfp4",
@@ -1058,7 +1649,27 @@
             "Card states ModelOpt 0.48.0; config.json and hf_quant_config.json record 0.47.0.dev80+g913f5e224. Exporter-version discrepancy unresolved."
           ],
           "listed_weight_file_bytes": 21921697280,
-          "weight_file_bytes_source_id": "TOPQ-27NV-TREE"
+          "weight_file_bytes_source_id": "TOPQ-27NV-TREE",
+          "huggingface_readme": {
+            "hf_id": "nvidia/Qwen3.8-27B-NVFP4",
+            "revision": "482ca0f3832238542f8f5295dde86b5f22711d80",
+            "path": "companies/alibaba-qwen/qwen3.8-27b/huggingface/nvfp4/README.md",
+            "source_id": "qwen3.8-27b-NV",
+            "sha256": "2dc5368ce2dda4393818fc3c6e587d588ec7b7f599b1f3a326d97dc271e3866d",
+            "retrieved_at": "2026-10-26T11:24:11.653794+00:00"
+          },
+          "latest_identity_recheck": {
+            "checked_on": "2026-10-26",
+            "revision": "482ca0f3832238542f8f5295dde86b5f22711d80",
+            "matches_retained_pin": true,
+            "source_ids": [
+              "RR-QWEN-27NV-API",
+              "qwen3.8-27b-NV",
+              "qwen3.8-27b-NV-CFG",
+              "qwen3.8-27b-NV-QUANT"
+            ],
+            "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+          }
         }
       ],
       "path": "companies/alibaba-qwen/qwen3.8-27b",
@@ -1218,7 +1829,101 @@
         "model_artifact_policy": "Retain exact target/export/draft revisions; source review does not qualify image or runtime.",
         "tested_on_target": false
       },
-      "recommended_sglang_v0522_b300": "One TP1 KServe replica, BF16 KV and FP32 GDN state; matched BF16/official FP8/NVIDIA mixed target-only comparisons before eight-replica placement and MTP."
+      "recommended_sglang_v0522_b300": "One TP1 KServe replica, BF16 KV and FP32 GDN state; matched BF16/official FP8/NVIDIA mixed target-only comparisons before eight-replica placement and MTP.",
+      "huggingface_readme": {
+        "hf_id": "Qwen/Qwen3.8-27B",
+        "revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
+        "path": "companies/alibaba-qwen/qwen3.8-27b/huggingface/README.md",
+        "source_id": "qwen3.8-27b-CARD",
+        "sha256": "57e4bdb258ee1a7d2635c5174ebd4e56abe392505cdb5f8bbb356b0dc4293641",
+        "retrieved_at": "2026-10-26T11:24:08.808029+00:00"
+      },
+      "additional_huggingface_readmes": [
+        {
+          "hf_id": "RadixArk/Qwen3.8-27B-NVFP4",
+          "revision": "319f741cce68d7914884900c138a1fbb70a42f30",
+          "path": "companies/alibaba-qwen/qwen3.8-27b/huggingface/additional/RadixArk--Qwen3.8-27B-NVFP4/README.md",
+          "source_id": "S0522-F-Q27-FP4-README-MD",
+          "sha256": "3cfd18e07422e6eff20fcdf8dcdb3c864976dcef0e1e0f2c3f8bf788603203c2",
+          "retrieved_at": "2026-10-26T11:24:18.454086+00:00"
+        },
+        {
+          "hf_id": "RadixArk/Qwen3.8-27B-NVFP4-BF16-LMHead",
+          "revision": "009632fef96dd349150baa780c984e62e70e91fe",
+          "path": "companies/alibaba-qwen/qwen3.8-27b/huggingface/additional/RadixArk--Qwen3.8-27B-NVFP4-BF16-LMHead/README.md",
+          "source_id": "S0522-F-Q27-BF16-README-MD",
+          "sha256": "10a114243d31db24649ecda5245e30832e6b86e49e939c73725da4a00ee6db9d",
+          "retrieved_at": "2026-10-26T11:24:18.745136+00:00"
+        }
+      ],
+      "latest_stable_review": {
+        "checked_on": "2026-10-26",
+        "hardware_scope": "One 8\u00d7NVIDIA B300 reference node",
+        "deployment_layer": "KServe required; installed version, resource kind and runtime integration unknown",
+        "model_identity_status": "All concrete catalog variants still match retained revisions; current README and immutable configuration retrieved.",
+        "scope": "Latest stable metadata, selected per-model source restrictions and publisher artifacts. Earlier detailed reviews retain their own scope.",
+        "engines": {
+          "vllm": {
+            "engine_release": "v0.32.0",
+            "source_commit": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+            "detailed_review_field": "vllm_v032_b300_review",
+            "assessment": "Compare complete BF16, official FP8 and NVIDIA mixed NVFP4 exports at TP1 with matched KV. The mixed-NVFP4 optimization predicate remains present; Blackwell FA4 hd256 still rejects quantized KV. Keep FlashInfer/FP8 KV and FA4/BF16 KV as separate comparisons.",
+            "source_ids": [
+              "RR-GM-VLLM-RELEASE",
+              "V032-H-MODEL-CONFIG",
+              "V032-H-FAUTIL"
+            ]
+          },
+          "sglang": {
+            "engine_release": "v0.5.22",
+            "source_commit": "baa9befa381511cd4d56f83980951e5a45fffc6d",
+            "detailed_review_field": "sglang_v0522_b300_review",
+            "assessment": "Retain TP1 target-only controls before native MTP. Default attention/page resolution depends on speculative decoding and Mamba radix-cache state strategy: it can choose Triton/page1 or TRT-LLM/page64. Explicitly record resolved cache/backend settings across exports.",
+            "source_ids": [
+              "RR-GM-SGLANG-RELEASE",
+              "S0522-Q-Q35-OVERRIDE"
+            ]
+          }
+        },
+        "tested_on_target": false
+      },
+      "optimization_review": {
+        "checked_on": "2026-10-26",
+        "deployment_layer": "KServe; installed release/resource/runtime unknown",
+        "hardware_scope": "one eight-GPU B300 node",
+        "evidence_status": "Source-supported hypotheses; no GPU benchmarks executed",
+        "baseline": "TP1 target-only: BF16 quality anchor, official FP8 and exact NVIDIA mixed export with matched FlashInfer/BF16 KV; compare eight independent TP1 replicas only after per-replica qualification.",
+        "insights": [
+          {
+            "id": "qwen27-backend-state-control",
+            "channel": "stable source; candidate to measure",
+            "mechanism": "SGLang v0.5.22 resolves different attention backends/page sizes according to speculation and Mamba radix-state policy. vLLM v0.32.0 fixes a mixed-NVFP4 optimization predicate, but eligibility does not prove actual fused dispatch.",
+            "comparison": "Record resolved kernel, cache dtype, page size and state policy for every export. Then compare target-only with MTP 1/3 on the same export. If MTP forces a backend/state change, report that complete configuration change; do not attribute its full delta to drafting alone.",
+            "measurements": [
+              "resident weights, cache/state capacity and peak workspace",
+              "TTFT/TPOT and whole-node SLO goodput",
+              "compile/graph/dispatch and CPU launch time",
+              "long-code, tools and quality floor"
+            ],
+            "rejection_criteria": [
+              "unobserved fallback or changed tokenization",
+              "quality regression beyond the declared margin",
+              "replica placement exceeds memory/CPU budget"
+            ],
+            "evidence_limit": "No new measured optimum. Keep FA4/BF16 KV separate from FlashInfer/FP8 KV: Blackwell hd256 FA4 rejects quantized KV. Dense Qwen27 does not inherit Flash Next QSA or MoE optimizations.",
+            "source_ids": [
+              "S0522-Q-Q35-OVERRIDE",
+              "V032-H-MODEL-CONFIG",
+              "V032-H-FAUTIL"
+            ]
+          }
+        ],
+        "additional_constraint": "Use complete-task success to select a quantized export; smaller serialized weights alone do not establish faster execution or equivalent quality.",
+        "additional_source_ids": [
+          "qwen3.8-27b-CFG"
+        ],
+        "benchmark_methodology": "reports/optimization.md#benchmark-decisions-and-measurement-contract"
+      }
     },
     {
       "key": "qwen3.8-flash-next",
@@ -1286,7 +1991,26 @@
           "hf_id": "Qwen/Qwen3.8-Flash-Next",
           "precision": "BF16 declared by text config",
           "status": "Publisher card and pinned configuration metadata inspected; no weight load",
-          "revision": "de4b8e4d43b917e7706784d8bb445c9af86a3540"
+          "revision": "de4b8e4d43b917e7706784d8bb445c9af86a3540",
+          "huggingface_readme": {
+            "hf_id": "Qwen/Qwen3.8-Flash-Next",
+            "revision": "de4b8e4d43b917e7706784d8bb445c9af86a3540",
+            "path": "companies/alibaba-qwen/qwen3.8-flash-next/huggingface/README.md",
+            "source_id": "qwen3.8-flash-next-CARD",
+            "sha256": "35ca37ccc366f1ba478dab33841a2c0c18ce53fd62f291ca05341f7728b225b2",
+            "retrieved_at": "2026-10-26T11:24:12.057334+00:00"
+          },
+          "latest_identity_recheck": {
+            "checked_on": "2026-10-26",
+            "revision": "de4b8e4d43b917e7706784d8bb445c9af86a3540",
+            "matches_retained_pin": true,
+            "source_ids": [
+              "TOPQ-NEXT-API",
+              "qwen3.8-flash-next-CARD",
+              "qwen3.8-flash-next-CFG"
+            ],
+            "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+          }
         },
         {
           "key": "fp8",
@@ -1295,7 +2019,26 @@
           "status": "Publisher card and pinned configuration metadata inspected; no weight load",
           "revision": "236dfdf285828023ca3bcd3f37366c58a3469b13",
           "listed_weight_file_bytes": 185523317458,
-          "weight_file_bytes_source_id": "TOPQ-NEXTFP8-TREE"
+          "weight_file_bytes_source_id": "TOPQ-NEXTFP8-TREE",
+          "huggingface_readme": {
+            "hf_id": "Qwen/Qwen3.8-Flash-Next-FP8",
+            "revision": "236dfdf285828023ca3bcd3f37366c58a3469b13",
+            "path": "companies/alibaba-qwen/qwen3.8-flash-next/huggingface/fp8/README.md",
+            "source_id": "qwen3.8-flash-next-FP8",
+            "sha256": "3c5fcfaf37c4415dbabdbd25eaa7a17ed42f8e63fead97b8644053b1d60ea43f",
+            "retrieved_at": "2026-10-26T11:24:12.437121+00:00"
+          },
+          "latest_identity_recheck": {
+            "checked_on": "2026-10-26",
+            "revision": "236dfdf285828023ca3bcd3f37366c58a3469b13",
+            "matches_retained_pin": true,
+            "source_ids": [
+              "TOPQ-NEXTFP8-API",
+              "qwen3.8-flash-next-FP8",
+              "qwen3.8-flash-next-FP8-CFG"
+            ],
+            "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+          }
         },
         {
           "key": "nvfp4",
@@ -1305,7 +2048,27 @@
           "revision": "fc694b54fb0174e0913e6adf86691ef85a4ead47",
           "provenance_notes": [
             "MTP label is FP8_PB_WO in config.json and FP8_BLOCK_SCALES in hf_quant_config.json; both specify group size 128."
-          ]
+          ],
+          "huggingface_readme": {
+            "hf_id": "nvidia/Qwen3.8-Flash-Next-NVFP4",
+            "revision": "fc694b54fb0174e0913e6adf86691ef85a4ead47",
+            "path": "companies/alibaba-qwen/qwen3.8-flash-next/huggingface/nvfp4/README.md",
+            "source_id": "qwen3.8-flash-next-NV",
+            "sha256": "e3ed0cb89950ef0f41e8df344ba1cc15c67e1baf91e1cb5305a7344e58a8d975",
+            "retrieved_at": "2026-10-26T11:24:12.417438+00:00"
+          },
+          "latest_identity_recheck": {
+            "checked_on": "2026-10-26",
+            "revision": "fc694b54fb0174e0913e6adf86691ef85a4ead47",
+            "matches_retained_pin": true,
+            "source_ids": [
+              "RR-QWEN-NEXTNV-API",
+              "qwen3.8-flash-next-NV",
+              "qwen3.8-flash-next-NV-CFG",
+              "qwen3.8-flash-next-NV-QUANT"
+            ],
+            "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+          }
         }
       ],
       "path": "companies/alibaba-qwen/qwen3.8-flash-next",
@@ -1464,7 +2227,96 @@
         "model_artifact_policy": "Retain exact target/export/draft revisions; source review does not qualify image or runtime.",
         "tested_on_target": false
       },
-      "recommended_sglang_v0522_b300": "Official FP8 TP4+EP4, BF16 main KV/indexer and FP32 GDN; compare two independent four-GPU KServe groups. First isolate FP8 indexer target-only, then main KV and MTP."
+      "recommended_sglang_v0522_b300": "Official FP8 TP4+EP4, BF16 main KV/indexer and FP32 GDN; compare two independent four-GPU KServe groups. First isolate FP8 indexer target-only, then main KV and MTP.",
+      "huggingface_readme": {
+        "hf_id": "Qwen/Qwen3.8-Flash-Next",
+        "revision": "de4b8e4d43b917e7706784d8bb445c9af86a3540",
+        "path": "companies/alibaba-qwen/qwen3.8-flash-next/huggingface/README.md",
+        "source_id": "qwen3.8-flash-next-CARD",
+        "sha256": "35ca37ccc366f1ba478dab33841a2c0c18ce53fd62f291ca05341f7728b225b2",
+        "retrieved_at": "2026-10-26T11:24:12.057334+00:00"
+      },
+      "additional_huggingface_readmes": [
+        {
+          "hf_id": "nvidia/Qwen3.8-Flash-Next-FP4-Local",
+          "revision": "b9ce18a6887e18c089fdea8509a33e63429a3300",
+          "path": "companies/alibaba-qwen/qwen3.8-flash-next/huggingface/additional/nvidia--Qwen3.8-Flash-Next-FP4-Local/README.md",
+          "source_id": "RR-QWEN-LOCAL-CARD",
+          "sha256": "b0ad2a8a314ca96618e21e40d50c0af6e181e6060f9cdd1996c7074d19284c1a",
+          "retrieved_at": "2026-10-26T11:24:21.246731+00:00"
+        }
+      ],
+      "latest_stable_review": {
+        "checked_on": "2026-10-26",
+        "hardware_scope": "One 8\u00d7NVIDIA B300 reference node",
+        "deployment_layer": "KServe required; installed version, resource kind and runtime integration unknown",
+        "model_identity_status": "All concrete catalog variants still match retained revisions; current README and immutable configuration retrieved.",
+        "scope": "Latest stable metadata, selected per-model source restrictions and publisher artifacts. Earlier detailed reviews retain their own scope.",
+        "engines": {
+          "vllm": {
+            "engine_release": "v0.32.0",
+            "source_commit": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+            "detailed_review_field": "vllm_v032_b300_review",
+            "assessment": "Retain official FP8 TP4+EP and separate NVIDIA mixed TP8 candidates. QSA honors numeric KV skip-layer indices; layer 48 can retain BF16 draft KV with the 48-layer target using FP8. Indexer and PLE precision remain separate.",
+            "source_ids": [
+              "RR-GM-VLLM-RELEASE",
+              "V032-H-QSA"
+            ]
+          },
+          "sglang": {
+            "engine_release": "v0.5.22",
+            "source_commit": "baa9befa381511cd4d56f83980951e5a45fffc6d",
+            "detailed_review_field": "sglang_v0522_b300_review",
+            "assessment": "Official FP8 TP4+EP4 remains a candidate; compressed QSA forces page64 and rejects unified memory. The NVIDIA NVFP4 TP1 B300 cookbook cell remains unverified. The complete prefill-CP model port is still absent from v0.5.22 ancestry.",
+            "source_ids": [
+              "RR-GM-SGLANG-RELEASE",
+              "S0522-Q-Q4-OVERRIDE",
+              "S0522-Q-Q4-RECIPES",
+              "S0522-Q-CP-ANCESTRY"
+            ]
+          }
+        },
+        "tested_on_target": false
+      },
+      "optimization_review": {
+        "checked_on": "2026-10-26",
+        "deployment_layer": "KServe; installed release/resource/runtime unknown",
+        "hardware_scope": "one eight-GPU B300 node",
+        "evidence_status": "Source-supported hypotheses; no GPU benchmarks executed",
+        "baseline": "Official FP8 TP4+EP candidate with exact engine-resolved settings; compare two independent four-GPU groups with one wider group only after memory and quality qualification. Preserve the documented BF16 MTP draft-layer cache exception.",
+        "insights": [
+          {
+            "id": "qwen-next-graphs-and-state",
+            "channel": "stable graph candidate; separate open development issue",
+            "mechanism": "Text-only breakable prefill graphs can reduce launch/metadata overhead. QSA compressed-index and pending key/RoPE state are additional correctness requirements during retraction and slot reuse.",
+            "comparison": "First compare graph/eager paths on the same stable image and text-only workload with MTP off; test multimodal fallback separately. Before any future P/D adoption, force controlled retraction/reuse and compare restored QSA state against the no-retraction control on the selected exact build.",
+            "measurements": [
+              "capture/replay and prefill time",
+              "TTFT tails and workspace HBM",
+              "state restoration and request isolation",
+              "long-context/tool quality",
+              "MTP acceptance in a separate comparison"
+            ],
+            "rejection_criteria": [
+              "state contamination or incorrect resume",
+              "incorrect multimodal graph dispatch",
+              "quality loss or excessive capture/workspace cost"
+            ],
+            "evidence_limit": "Issue 45864 is an open main/H200 report at d0a7565436 using a small Qwen4-Exp config. It motivates a P/D qualification gate; it does not establish stable B300 or colocated-serving corruption. Complete prefill-CP is outside stable v0.5.22 ancestry.",
+            "source_ids": [
+              "O26-QSA-RETRACT",
+              "S0522-Q-Q4-OVERRIDE",
+              "S0522-Q-Q4-RECIPES",
+              "S0522-Q-CP-ANCESTRY"
+            ]
+          }
+        ],
+        "additional_constraint": "Keep native MTP, explicit IndexShare and cache precision as separate comparisons. Published BF16/B200 kernel deltas do not predict official-FP8/B300 results.",
+        "additional_source_ids": [
+          "V032-H-QSA"
+        ],
+        "benchmark_methodology": "reports/optimization.md#benchmark-decisions-and-measurement-contract"
+      }
     },
     {
       "key": "gemma-4-31b-it",
@@ -1518,7 +2370,26 @@
           "status": "Publisher card and configuration verified at pinned revision; not loaded",
           "revision": "842da3794eaa0b77d5f08bae87a17459d91ff475",
           "listed_weight_file_bytes": 62546338248,
-          "weight_file_bytes_source_id": "gemma-4-31b-it-BASE-TREE"
+          "weight_file_bytes_source_id": "gemma-4-31b-it-BASE-TREE",
+          "huggingface_readme": {
+            "hf_id": "google/gemma-4-31B-it",
+            "revision": "842da3794eaa0b77d5f08bae87a17459d91ff475",
+            "path": "companies/google/gemma-4-31b-it/huggingface/README.md",
+            "source_id": "gemma-4-31b-it-CARD",
+            "sha256": "e209f5c435b1e66055bd6d7c29185103ae8d2027a03a96b359335154f206b82b",
+            "retrieved_at": "2026-10-26T11:24:12.509458+00:00"
+          },
+          "latest_identity_recheck": {
+            "checked_on": "2026-10-26",
+            "revision": "842da3794eaa0b77d5f08bae87a17459d91ff475",
+            "matches_retained_pin": true,
+            "source_ids": [
+              "TOPM-GEMMA-BASE-META",
+              "gemma-4-31b-it-CARD",
+              "gemma-4-31b-it-CFG"
+            ],
+            "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+          }
         },
         {
           "key": "fp8",
@@ -1527,7 +2398,26 @@
           "status": "Publisher card and configuration verified at pinned revision; not loaded",
           "revision": "d7242548c457ab4b45bd3adb8937f2659af4739d",
           "listed_weight_file_bytes": 33263238928,
-          "weight_file_bytes_source_id": "gemma-4-31b-it-FP8-TREE"
+          "weight_file_bytes_source_id": "gemma-4-31b-it-FP8-TREE",
+          "huggingface_readme": {
+            "hf_id": "RedHatAI/gemma-4-31B-it-FP8-block",
+            "revision": "d7242548c457ab4b45bd3adb8937f2659af4739d",
+            "path": "companies/google/gemma-4-31b-it/huggingface/fp8/README.md",
+            "source_id": "gemma-4-31b-it-FP8",
+            "sha256": "4c9e4e3440cd22cb702d5f638bb595ffe6437fbe4bd84cd7208390bb51c17c99",
+            "retrieved_at": "2026-10-26T11:24:13.541300+00:00"
+          },
+          "latest_identity_recheck": {
+            "checked_on": "2026-10-26",
+            "revision": "d7242548c457ab4b45bd3adb8937f2659af4739d",
+            "matches_retained_pin": true,
+            "source_ids": [
+              "TOPM-GEMMA-RHFP8-META",
+              "gemma-4-31b-it-FP8",
+              "gemma-4-31b-it-FP8-CFG"
+            ],
+            "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+          }
         },
         {
           "key": "nvfp4",
@@ -1536,7 +2426,26 @@
           "status": "Publisher card and configuration verified at pinned revision; not loaded",
           "revision": "5df75ccad9b74546f5be758a2a68acc2e16bbc9b",
           "listed_weight_file_bytes": 23265401144,
-          "weight_file_bytes_source_id": "gemma-4-31b-it-NV-TREE"
+          "weight_file_bytes_source_id": "gemma-4-31b-it-NV-TREE",
+          "huggingface_readme": {
+            "hf_id": "RedHatAI/gemma-4-31B-it-NVFP4",
+            "revision": "5df75ccad9b74546f5be758a2a68acc2e16bbc9b",
+            "path": "companies/google/gemma-4-31b-it/huggingface/nvfp4/README.md",
+            "source_id": "gemma-4-31b-it-NV",
+            "sha256": "353739bf71e2688b9ac6c26bd3914676543699d17f6ccb345c9373094c01353b",
+            "retrieved_at": "2026-10-26T11:24:15.153680+00:00"
+          },
+          "latest_identity_recheck": {
+            "checked_on": "2026-10-26",
+            "revision": "5df75ccad9b74546f5be758a2a68acc2e16bbc9b",
+            "matches_retained_pin": true,
+            "source_ids": [
+              "TOPM-GEMMA-RHNV-META",
+              "gemma-4-31b-it-NV",
+              "gemma-4-31b-it-NV-CFG"
+            ],
+            "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+          }
         },
         {
           "key": "nvidia-nvfp4",
@@ -1551,7 +2460,27 @@
             "TOPM-GEMMA-NVIDIA-CARD",
             "TOPM-GEMMA-NVIDIA-CFG",
             "TOPM-GEMMA-NVIDIA-TREE"
-          ]
+          ],
+          "huggingface_readme": {
+            "hf_id": "nvidia/Gemma-4-31B-IT-NVFP4",
+            "revision": "4135a98a9b728a548947683219633b25682223ac",
+            "path": "companies/google/gemma-4-31b-it/huggingface/nvidia-nvfp4/README.md",
+            "source_id": "TOPM-GEMMA-NVIDIA-CARD",
+            "sha256": "892a023119d33a23dac8764e469bbc1728e49294aba63bcb90d2899131fa093d",
+            "retrieved_at": "2026-10-26T11:24:15.278028+00:00"
+          },
+          "latest_identity_recheck": {
+            "checked_on": "2026-10-26",
+            "revision": "4135a98a9b728a548947683219633b25682223ac",
+            "matches_retained_pin": true,
+            "source_ids": [
+              "TOPM-GEMMA-NVIDIA-META",
+              "TOPM-GEMMA-NVIDIA-CARD",
+              "TOPM-GEMMA-NVIDIA-CFG",
+              "HF-NVIDIA-GEMMA-4-31B-IT-NVFP4-HF-QUANT-CONFIG-JSON"
+            ],
+            "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+          }
         },
         {
           "key": "unsloth-nvfp4",
@@ -1566,7 +2495,26 @@
             "TOPM-GEMMA-UNSLOTH-CARD",
             "TOPM-GEMMA-UNSLOTH-CFG",
             "TOPM-GEMMA-UNSLOTH-TREE"
-          ]
+          ],
+          "huggingface_readme": {
+            "hf_id": "unsloth/gemma-4-31B-it-NVFP4",
+            "revision": "373c00b5ecb0a8ee43942b5ca08b93805de8eee4",
+            "path": "companies/google/gemma-4-31b-it/huggingface/unsloth-nvfp4/README.md",
+            "source_id": "TOPM-GEMMA-UNSLOTH-CARD",
+            "sha256": "f09cad4769d8dfbb485a80a9ced75eb214205cd13d3f09d2df82c34580c3e1d8",
+            "retrieved_at": "2026-10-26T11:24:15.308878+00:00"
+          },
+          "latest_identity_recheck": {
+            "checked_on": "2026-10-26",
+            "revision": "373c00b5ecb0a8ee43942b5ca08b93805de8eee4",
+            "matches_retained_pin": true,
+            "source_ids": [
+              "TOPM-GEMMA-UNSLOTH-META",
+              "TOPM-GEMMA-UNSLOTH-CARD",
+              "TOPM-GEMMA-UNSLOTH-CFG"
+            ],
+            "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+          }
         },
         {
           "key": "nvfp4-turbo",
@@ -1581,7 +2529,26 @@
             "TOPM-GEMMA-TURBO-CARD",
             "TOPM-GEMMA-TURBO-CFG",
             "TOPM-GEMMA-TURBO-TREE"
-          ]
+          ],
+          "huggingface_readme": {
+            "hf_id": "LilaRest/gemma-4-31B-it-NVFP4-turbo",
+            "revision": "782d58ea7f9cf3a148be86e153f5689a2d73238b",
+            "path": "companies/google/gemma-4-31b-it/huggingface/nvfp4-turbo/README.md",
+            "source_id": "TOPM-GEMMA-TURBO-CARD",
+            "sha256": "9dad1827ad1fb0a041c63b0f47757405b81475719721f17b4e5072060e78cc8a",
+            "retrieved_at": "2026-10-26T11:24:15.673520+00:00"
+          },
+          "latest_identity_recheck": {
+            "checked_on": "2026-10-26",
+            "revision": "782d58ea7f9cf3a148be86e153f5689a2d73238b",
+            "matches_retained_pin": true,
+            "source_ids": [
+              "TOPM-GEMMA-TURBO-META",
+              "TOPM-GEMMA-TURBO-CARD",
+              "TOPM-GEMMA-TURBO-CFG"
+            ],
+            "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+          }
         }
       ],
       "path": "companies/google/gemma-4-31b-it",
@@ -1704,7 +2671,96 @@
         "model_artifact_policy": "Retain exact target/export/draft revisions; source review does not qualify image or runtime.",
         "tested_on_target": false
       },
-      "recommended_sglang_v0522_b300": "TP1 BF16 target-only, Triton attention/BF16 KV, then exact Red Hat FP8-block and NVFP4 exports. Compare text-only TRT-LLM separately; pinned assistant after target correctness."
+      "recommended_sglang_v0522_b300": "TP1 BF16 target-only, Triton attention/BF16 KV, then exact Red Hat FP8-block and NVFP4 exports. Compare text-only TRT-LLM separately; pinned assistant after target correctness.",
+      "huggingface_readme": {
+        "hf_id": "google/gemma-4-31B-it",
+        "revision": "842da3794eaa0b77d5f08bae87a17459d91ff475",
+        "path": "companies/google/gemma-4-31b-it/huggingface/README.md",
+        "source_id": "gemma-4-31b-it-CARD",
+        "sha256": "e209f5c435b1e66055bd6d7c29185103ae8d2027a03a96b359335154f206b82b",
+        "retrieved_at": "2026-10-26T11:24:12.509458+00:00"
+      },
+      "additional_huggingface_readmes": [
+        {
+          "hf_id": "google/gemma-4-31B-it-assistant",
+          "revision": "627c5ec1458b9086b841a91e0512fd31fd2fbbf1",
+          "path": "companies/google/gemma-4-31b-it/huggingface/additional/google--gemma-4-31B-it-assistant/README.md",
+          "source_id": "RR-GM-GEMMA-DRAFT-CARD",
+          "sha256": "85bc257e770a7765e7a4c9bb366597abab3aba9efe1606033a7baede39375be6",
+          "retrieved_at": "2026-10-26T11:24:19.816765+00:00"
+        }
+      ],
+      "latest_stable_review": {
+        "checked_on": "2026-10-26",
+        "hardware_scope": "One 8\u00d7NVIDIA B300 reference node",
+        "deployment_layer": "KServe required; installed version, resource kind and runtime integration unknown",
+        "model_identity_status": "All concrete catalog variants still match retained revisions; current README and immutable configuration retrieved.",
+        "scope": "Latest stable metadata, selected per-model source restrictions and publisher artifacts. Earlier detailed reviews retain their own scope.",
+        "engines": {
+          "vllm": {
+            "engine_release": "v0.32.0",
+            "source_commit": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+            "detailed_review_field": "vllm_v032_b300_review",
+            "assessment": "Keep TP1 BF16 as the quality control and compare exact FP8/NVFP4 exports separately. Blackwell FA4 head-geometry restrictions remain; hd512 does not become supported merely because a Gemma class is registered. No all-layer FA4 or measured export winner is established.",
+            "source_ids": [
+              "RR-GM-VLLM-RELEASE",
+              "V032-H-FAUTIL"
+            ]
+          },
+          "sglang": {
+            "engine_release": "v0.5.22",
+            "source_commit": "baa9befa381511cd4d56f83980951e5a45fffc6d",
+            "detailed_review_field": "sglang_v0522_b300_review",
+            "assessment": "Use the explicit Triton/BF16-KV comparison from the retained review; the model override defaults SM10x to TRT-LLM MHA when no backend is supplied. Gemma FA4 PR 42019 explicitly concerns SM90/H200 and cannot qualify B300.",
+            "source_ids": [
+              "RR-GM-SGLANG-RELEASE",
+              "S0522-Q-GEMMA-OVERRIDE",
+              "S0522-Q-GEMMA-FA4-PR"
+            ]
+          }
+        },
+        "tested_on_target": false
+      },
+      "optimization_review": {
+        "checked_on": "2026-10-26",
+        "deployment_layer": "KServe; installed release/resource/runtime unknown",
+        "hardware_scope": "one eight-GPU B300 node",
+        "evidence_status": "Source-supported hypotheses; no GPU benchmarks executed",
+        "baseline": "TP1 BF16 quality control versus exact FP8/NVFP4 weight exports with supported local/global attention; then compare the separately pinned official assistant against target-only.",
+        "insights": [
+          {
+            "id": "gemma-h512-nvfp4-cache",
+            "channel": "unmerged draft plus two unmerged dependency PRs",
+            "mechanism": "vLLM 62117 proposes H512 NVFP4 KV through FlashInfer on SM100/SM103: PrimTS decode and temporary FP8 materialization for context attention. Mixed H256/H512 page layouts require correct block clearing.",
+            "comparison": "After the three patch heads form a buildable integration, compare FP8 versus NVFP4 KV on that same build and exact NVIDIA Gemma export at TP1. Separate unique prompts from prefix-reuse pressure; include allocator reuse and short/long contexts before assistant-on tests.",
+            "measurements": [
+              "usable cache tokens and total peak HBM including FP8 workspace",
+              "prefill/decode latency and SLO goodput",
+              "NaN/Inf, degenerate output and mixed-page reuse",
+              "task quality and assistant verification cost"
+            ],
+            "rejection_criteria": [
+              "dependency/build mismatch",
+              "mixed-page numerical failure",
+              "quality exceeds permitted loss",
+              "capacity benefit is offset by workspace or latency cost"
+            ],
+            "evidence_limit": "PR 62117 is draft/unmerged; FlashInfer 5720 and 6445 are also open. Author B200/B300 results are not independently reproduced. Do not enable this as stable v0.32 support or assume a universal 2x memory/latency gain.",
+            "source_ids": [
+              "O26-GEMMA-KV4",
+              "O26-GEMMA-FI-5720",
+              "O26-GEMMA-FI-6445"
+            ]
+          }
+        ],
+        "additional_constraint": "The separate MRV2/MTP fast-prefill PR 63553 was explored on Gemma E2B/RTX3090. The pinned 31B target has num_kv_shared_layers=0; the separate assistant has four decoder layers and num_kv_shared_layers=4. This does not establish a 31B target KV-sharing improvement.",
+        "additional_source_ids": [
+          "O26-GEMMA-MTP",
+          "gemma-4-31b-it-CFG",
+          "RR-GM-GEMMA-DRAFT-CFG"
+        ],
+        "benchmark_methodology": "reports/optimization.md#benchmark-decisions-and-measurement-contract"
+      }
     },
     {
       "key": "mistral-medium-3.5",
@@ -1766,7 +2822,27 @@
           "hf_id": "mistralai/Mistral-Medium-3.5-128B",
           "precision": "Static FP8 text linears; higher precision exclusions",
           "status": "Publisher card and configuration verified at pinned revision; not loaded",
-          "revision": "22b2b868a15677cfa6061277ed2f653d1349a9ab"
+          "revision": "22b2b868a15677cfa6061277ed2f653d1349a9ab",
+          "huggingface_readme": {
+            "hf_id": "mistralai/Mistral-Medium-3.5-128B",
+            "revision": "22b2b868a15677cfa6061277ed2f653d1349a9ab",
+            "path": "companies/mistral-ai/mistral-medium-3.5/huggingface/README.md",
+            "source_id": "mistral-medium-3.5-CARD",
+            "sha256": "6d14ac4dba5a4c8b3d652ea67742ee1b41e424772194b8088cd62603d5032465",
+            "retrieved_at": "2026-10-26T11:24:16.002230+00:00"
+          },
+          "latest_identity_recheck": {
+            "checked_on": "2026-10-26",
+            "revision": "22b2b868a15677cfa6061277ed2f653d1349a9ab",
+            "matches_retained_pin": true,
+            "source_ids": [
+              "V032-KM-API-MISTRALAI--MISTRAL-MEDIUM-3.5-128B",
+              "mistral-medium-3.5-CARD",
+              "mistral-medium-3.5-CFG",
+              "RR-GM-MISTRAL-PARAMS"
+            ],
+            "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+          }
         }
       ],
       "path": "companies/mistral-ai/mistral-medium-3.5",
@@ -1933,8 +3009,94 @@
         "deployment_layer": "KServe required; installed version/resource/runtime integration unknown",
         "model_artifact_policy": "Retain exact target/export/draft revisions; source review does not qualify image or runtime."
       },
-      "recommended_sglang_v0522_b300": "KServe + SGLang0.5.22 documented FP8 target compatibility candidate, TP8 publisher baseline with explicit mistral reasoning/tool parsers and conservative32K/32-request atlas adaptation. Compare target-only before EAGLE and smaller TP groups. Existing producer-preferred vLLM choice is not overturned by source-only SGLang audit."
+      "recommended_sglang_v0522_b300": "KServe + SGLang0.5.22 documented FP8 target compatibility candidate, TP8 publisher baseline with explicit mistral reasoning/tool parsers and conservative32K/32-request atlas adaptation. Compare target-only before EAGLE and smaller TP groups. Existing producer-preferred vLLM choice is not overturned by source-only SGLang audit.",
+      "huggingface_readme": {
+        "hf_id": "mistralai/Mistral-Medium-3.5-128B",
+        "revision": "22b2b868a15677cfa6061277ed2f653d1349a9ab",
+        "path": "companies/mistral-ai/mistral-medium-3.5/huggingface/README.md",
+        "source_id": "mistral-medium-3.5-CARD",
+        "sha256": "6d14ac4dba5a4c8b3d652ea67742ee1b41e424772194b8088cd62603d5032465",
+        "retrieved_at": "2026-10-26T11:24:16.002230+00:00"
+      },
+      "additional_huggingface_readmes": [
+        {
+          "hf_id": "mistralai/Mistral-Medium-3.5-128B-EAGLE",
+          "revision": "d31694b0f55b51d4d962b5c3dbf0e03d1f019275",
+          "path": "companies/mistral-ai/mistral-medium-3.5/huggingface/additional/mistralai--Mistral-Medium-3.5-128B-EAGLE/README.md",
+          "source_id": "mistral-medium-3.5-EAGLE-CARD",
+          "sha256": "fa49b3f0cabc14b54fb3f18f741ea926ed842f988129bda3c0fe7e01210188a5",
+          "retrieved_at": "2026-10-26T11:24:18.873788+00:00"
+        }
+      ],
+      "latest_stable_review": {
+        "checked_on": "2026-10-26",
+        "hardware_scope": "One 8\u00d7NVIDIA B300 reference node",
+        "deployment_layer": "KServe required; installed version, resource kind and runtime integration unknown",
+        "model_identity_status": "All concrete catalog variants still match retained revisions; current README and immutable configuration retrieved.",
+        "scope": "Latest stable metadata, selected per-model source restrictions and publisher artifacts. Earlier detailed reviews retain their own scope.",
+        "engines": {
+          "vllm": {
+            "engine_release": "v0.32.0",
+            "source_commit": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+            "detailed_review_field": "vllm_v032_b300_review",
+            "assessment": "Retain the publisher FP8 TP8 baseline and exact separate EAGLE artifact. The release has the Mistral EAGLE model path; native/HF serialization, tokenizer and draft context remain part of the compatibility contract. Narrower TP requires full-history KV and workspace capacity checks.",
+            "source_ids": [
+              "RR-GM-VLLM-RELEASE",
+              "V032-KM-MISTRAL-EAGLE"
+            ]
+          },
+          "sglang": {
+            "engine_release": "v0.5.22",
+            "source_commit": "baa9befa381511cd4d56f83980951e5a45fffc6d",
+            "detailed_review_field": "sglang_v0522_b300_review",
+            "assessment": "The release includes the Mistral EAGLE implementation. Retain target-only TP8 first and the published BF16 compute boundary with EAGLE; the publisher dev image name is not a stable-image qualification. Native draft packaging must be preserved.",
+            "source_ids": [
+              "RR-GM-SGLANG-RELEASE",
+              "S0522-K-MISTRAL-EAGLE"
+            ]
+          }
+        },
+        "tested_on_target": false
+      },
+      "optimization_review": {
+        "checked_on": "2026-10-26",
+        "deployment_layer": "KServe; installed release/resource/runtime unknown",
+        "hardware_scope": "one eight-GPU B300 node",
+        "evidence_status": "Source-supported hypotheses; no GPU benchmarks executed",
+        "baseline": "Publisher FP8 TP8 reference; qualify TP4/TP2 capacity and independent replicas before selecting a narrower layout. Compare exact EAGLE pairing against target-only separately.",
+        "insights": [
+          {
+            "id": "mistral-wrapper-lifecycle",
+            "channel": "merged wrapper fix; separate unmerged processor fix",
+            "mechanism": "SGLang 45656 makes Mistral3 a Llava subclass to retain wrapper behavior through eval/load. PR 45868 separately proposes returning the initialized multimodal processor so cache lifecycle and hash-precompute calls reach its state.",
+            "comparison": "Resolve whether the exact Medium 3.5 artifact uses the HF-layout Mistral3/processor path. For that path, compare text/image answers before and after cache flush with a fresh instance; test startup with the chosen image-hash mode and shutdown. Hold weight bytes fixed; this is not a live weight-update recommendation.",
+            "measurements": [
+              "load/start readiness and lifecycle success",
+              "text/image correctness and parser validity",
+              "preprocessing/cache behavior",
+              "EAGLE accepted length and task latency in a separate comparison"
+            ],
+            "rejection_criteria": [
+              "wrapper/processor mismatch or HTTP lifecycle error",
+              "image answers change unexpectedly after cache reset",
+              "draft context or target/draft pairing invalid"
+            ],
+            "evidence_limit": "Wrapper merge 4542fc8f is outside v0.5.22 ancestry. Processor PR remains open. Upstream examples use Mistral Small/Pixtral/Ministral, not Medium 3.5 on B300; applicability must be established before treating this as a target defect or fix.",
+            "source_ids": [
+              "O26-MISTRAL-WRAPPER",
+              "O26-MISTRAL-WRAPPER-SOURCE",
+              "O26-MISTRAL-WRAPPER-ANCESTRY",
+              "O26-MISTRAL-LIFECYCLE"
+            ]
+          }
+        ],
+        "additional_constraint": "Native-format loader behavior and HF-layout wrapper behavior must not be conflated. EAGLE draft context must not exceed the configured target cap.",
+        "additional_source_ids": [
+          "V032-KM-MISTRAL-EAGLE"
+        ],
+        "benchmark_methodology": "reports/optimization.md#benchmark-decisions-and-measurement-contract"
+      }
     }
   ],
-  "date_basis": "UTC; October 19 selected SGLang v0.5.22 versus v0.5.21 source review and metadata, following October 18 vLLM v0.32 review. Each record preserves its own retrieval, revision and scope; no runtime qualification."
+  "date_basis": "UTC; October 26 latest-stable metadata, all 23 concrete catalog variant identities, 11 recorded additional artifacts, immutable README/configuration retrieval and selected engine restrictions. Historical review scopes and launch arrays retained; no runtime qualification."
 }

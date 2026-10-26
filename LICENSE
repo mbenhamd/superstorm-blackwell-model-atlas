@@ -21,5 +21,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 Scope: this license applies only to original authored material in this ZIP.
-External model weights, configurations, upstream code and cited documents
+External model weights, configurations, upstream code, copied Hugging Face
+README snapshots under companies/*/*/huggingface/, and cited documents
 retain their own licenses and terms. No model-use rights are granted here.

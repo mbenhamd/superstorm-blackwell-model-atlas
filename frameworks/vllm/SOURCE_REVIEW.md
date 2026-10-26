@@ -1,5 +1,7 @@
 # vLLM: execution behavior and recent changes
 
+**October 26 scoped recheck:** v0.32.0 is still the latest stable release, with unchanged tag commit and advertised stable-image digest. Selected per-model restrictions were reread; every family records the result in `latest_stable_review`. The historical source reviews below retain their own revisions and scope. [Current stable/main/nightly evidence](../../reports/nightly-readiness.md#october-26-catalog-wide-recheck).
+
 ## v0.32.0 release review (October 18)
 
 The [v0.32 upgrade analysis](../../reports/vllm-v032-upgrade.md) compares selected released source at `5df63a7203cdb9328d824a27b682e77c7b9928be` with v0.31.0 for all eight families. Read it before applying the dated observations below. It separates actual B300 paths from SM100-only tuning, Hopper sparse kernels, ROCm results and V4.1-only features; source presence is not exact-image qualification. Earlier stable/main observations retain their original version scope.

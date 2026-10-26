@@ -1,5 +1,7 @@
 # Mistral Medium 3.5
 
+**Latest scoped recheck: October 26, 2026 (UTC).** Stable references remain **vLLM v0.32.0** and **SGLang v0.5.22**, under required KServe (upstream v0.21.0; installed version unknown). All concrete catalog variants still match their retained revisions. Current publisher cards/configurations and selected engine restrictions were rechecked; no B300 execution was performed. See [current serving assessment](serving.md#october-26-stable-release-recheck) and [Hugging Face README snapshots](#hugging-face-readme-snapshots).
+
 **As of 2026-10-15.** Dense 128B; 88 language layers, GQA, Pixtral vision; static FP8 export.
 
 Mistral Medium 3.5 is a large dense multimodal model with a comparatively conventional GQA memory model. Its alternative checkpoint serializations require explicit download and storage accounting. [mistral-medium-3.5-CARD](https://huggingface.co/mistralai/Mistral-Medium-3.5-128B/blob/22b2b868a15677cfa6061277ed2f653d1349a9ab/README.md) [mistral-medium-3.5-CFG](https://huggingface.co/mistralai/Mistral-Medium-3.5-128B/raw/22b2b868a15677cfa6061277ed2f653d1349a9ab/config.json)
@@ -31,3 +33,14 @@ The positional limit is not a promise of that many usable tokens under arbitrary
 Installed-image and B300 compatibility at the pinned corrected revision; runtime memory beyond the reported weight payload; maximum safe concurrency and best TP width; no audited NVFP4 variant. SGLang support is documented upstream, but has not been run locally.
 
 [Return to repository index](../../../README.md)
+
+## Hugging Face README snapshots
+
+These are unmodified README bytes fetched from immutable Hugging Face revisions on October 26. The publisher target, catalog exports and additional drafts/candidates remain distinct. Original relative links and images are preserved; use the pinned upstream view to resolve assets. Publisher benchmarks and launch examples retain their original scope, including older or development images. Apply the atlas serving assessment for KServe/B300. Upstream terms apply; copying a card does not qualify its model or configuration.
+
+| Artifact | Local README | Pinned upstream README |
+| --- | --- | --- |
+| Publisher target: `mistralai/Mistral-Medium-3.5-128B` | [README](huggingface/README.md) | [22b2b868a156](https://huggingface.co/mistralai/Mistral-Medium-3.5-128B/blob/22b2b868a15677cfa6061277ed2f653d1349a9ab/README.md) |
+| Additional artifact (separate compatibility scope): `mistralai/Mistral-Medium-3.5-128B-EAGLE` | [README](huggingface/additional/mistralai--Mistral-Medium-3.5-128B-EAGLE/README.md) | [d31694b0f55b](https://huggingface.co/mistralai/Mistral-Medium-3.5-128B-EAGLE/blob/d31694b0f55b51d4d962b5c3dbf0e03d1f019275/README.md) |
+
+Revision, retrieval time and SHA-256 are recorded through each card’s source ID in [sources.json](../../../evidence/sources.json) and the [model catalog](../../../catalog/models.json).

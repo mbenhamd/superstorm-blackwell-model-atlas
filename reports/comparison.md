@@ -1,5 +1,7 @@
 # Cross-model comparison
 
+**October 26, 2026 scoped recheck:** vLLM v0.32.0 and SGLang v0.5.22 remain the latest stable engines; KServe remains mandatory (upstream v0.21.0, installed version unknown). All concrete catalog variants retain their immutable pins. Each family now links the publisher/exporter README copies and a current [serving assessment](../README.md#model-families); selected restrictions were reread, with no new measured engine ranking. See [channel identities and evidence scope](nightly-readiness.md#october-26-catalog-wide-recheck).
+
 ## Architecture and deployment implications
 
 | Model | Architecture identity and parameter scope | Configured positional limit | First engine/topology decision |

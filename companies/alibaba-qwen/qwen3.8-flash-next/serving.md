@@ -1,4 +1,28 @@
-# Qwen 3.8 Flash Next: serving on 8×B300
+# Qwen 3.8 Flash Next: serving and optimization on B300
+
+## October 26 stable release recheck
+
+The latest stable releases are unchanged: vLLM v0.32.0 and SGLang v0.5.22. This selected-source recheck retains the exact model/export revisions and the existing KServe requirement. It does not requalify historical launch arrays or an installed image.
+
+**vLLM v0.32.0:** Retain official FP8 TP4+EP and separate NVIDIA mixed TP8 candidates. QSA honors numeric KV skip-layer indices; layer 48 can retain BF16 draft KV with the 48-layer target using FP8. Indexer and PLE precision remain separate. [V032-H-QSA](https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/models/qwen4_exp/nvidia/qsa.py)
+
+**SGLang v0.5.22:** Official FP8 TP4+EP4 remains a candidate; compressed QSA forces page64 and rejects unified memory. The NVIDIA NVFP4 TP1 B300 cookbook cell remains unverified. The complete prefill-CP model port is still absent from v0.5.22 ancestry. [S0522-Q-Q4-OVERRIDE](https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/arg_groups/model_overrides/qwen4_exp.py) [S0522-Q-Q4-RECIPES](https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/docs/src/snippets/configs/Qwen/qwen3.8-flash-next.jsx) [S0522-Q-CP-ANCESTRY](https://api.github.com/repos/sgl-project/sglang/compare/0d130f191574c3dbb7d402caf344084e91ded585...baa9befa381511cd4d56f83980951e5a45fffc6d?per_page=1)
+
+[Publisher/export README snapshots](README.md#hugging-face-readme-snapshots) · [Stable/main/nightly identities](../../../reports/nightly-readiness.md#october-26-catalog-wide-recheck). The dated detailed comparisons below retain their original evidence scope.
+
+## October 26 optimization and benchmark priorities
+
+Official FP8 TP4+EP candidate with exact engine-resolved settings; compare two independent four-GPU groups with one wider group only after memory and quality qualification. Preserve the documented BF16 MTP draft-layer cache exception. The [benchmark decision criteria](../../../reports/optimization.md#benchmark-decisions-and-measurement-contract) define common controls and quality gates. These are proposed experiments in the execution repository, not measured results.
+
+**stable graph candidate; separate open development issue.** Text-only breakable prefill graphs can reduce launch/metadata overhead. QSA compressed-index and pending key/RoPE state are additional correctness requirements during retraction and slot reuse.
+
+**Comparison:** First compare graph/eager paths on the same stable image and text-only workload with MTP off; test multimodal fallback separately. Before any future P/D adoption, force controlled retraction/reuse and compare restored QSA state against the no-retraction control on the selected exact build.
+
+**Measure and decide:** capture/replay and prefill time; TTFT tails and workspace HBM; state restoration and request isolation; long-context/tool quality; MTP acceptance in a separate comparison. Reject on state contamination or incorrect resume; incorrect multimodal graph dispatch; quality loss or excessive capture/workspace cost.
+
+**Evidence limit:** Issue 45864 is an open main/H200 report at d0a7565436 using a small Qwen4-Exp config. It motivates a P/D qualification gate; it does not establish stable B300 or colocated-serving corruption. Complete prefill-CP is outside stable v0.5.22 ancestry. [O26-QSA-RETRACT](https://api.github.com/repos/sgl-project/sglang/issues/45864) [S0522-Q-Q4-OVERRIDE](https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/arg_groups/model_overrides/qwen4_exp.py) [S0522-Q-Q4-RECIPES](https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/docs/src/snippets/configs/Qwen/qwen3.8-flash-next.jsx) [S0522-Q-CP-ANCESTRY](https://api.github.com/repos/sgl-project/sglang/compare/0d130f191574c3dbb7d402caf344084e91ded585...baa9befa381511cd4d56f83980951e5a45fffc6d?per_page=1)
+
+Keep native MTP, explicit IndexShare and cache precision as separate comparisons. Published BF16/B200 kernel deltas do not predict official-FP8/B300 results. [V032-H-QSA](https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/models/qwen4_exp/nvidia/qsa.py)
 
 ## SGLang v0.5.22 review — October 19
 

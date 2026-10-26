@@ -1,6 +1,40 @@
 # Stable, main and nightly: what the differences mean
 
-**Latest scoped refresh: October 19, 2026 UTC; earlier comparisons below retain their dated scope.** These identify released source, selected development source and advertised artifacts. No wheel or container was downloaded or run. Exact identities and retrieval dates are retained in the [upstream lock](../evidence/upstreams.lock.json).
+**Latest scoped refresh: October 26, 2026 UTC; earlier comparisons below retain their dated scope.** These identify released source, selected development source and advertised artifacts. No wheel or container was downloaded or run. Exact identities and retrieval dates are retained in the [upstream lock](../evidence/upstreams.lock.json).
+
+## October 26: catalog-wide recheck
+
+Official release pages and latest-release APIs still identify the following stable versions; each response reports `prerelease=false` and `draft=false`. Tag references were rechecked separately. The dates below are release publication dates, not dates of installation in the required KServe cluster.
+
+| Project | Latest stable | Published (UTC) | Release source commit |
+| --- | --- | --- | --- |
+| vLLM | [v0.32.0](https://github.com/vllm-project/vllm/releases/tag/v0.32.0) | 2026-10-18 | `5df63a7203cdb9328d824a27b682e77c7b9928be` |
+| SGLang | [v0.5.22](https://github.com/sgl-project/sglang/releases/tag/v0.5.22) | 2026-10-19 | `baa9befa381511cd4d56f83980951e5a45fffc6d` |
+| KServe | [v0.21.0](https://github.com/kserve/kserve/releases/tag/v0.21.0) | 2026-09-25 | `d1482554fc4f66dd41aee70e01f5174e24f265bd` |
+
+Latest-release evidence: [RR-GM-VLLM-RELEASE](https://api.github.com/repos/vllm-project/vllm/releases/latest), [RR-GM-SGLANG-RELEASE](https://api.github.com/repos/sgl-project/sglang/releases/latest), [ATTR-K-RELEASE](https://api.github.com/repos/kserve/kserve/releases/latest). SGLang's annotated tag still resolves through [S0522-TAG-PEELED](https://api.github.com/repos/sgl-project/sglang/git/tags/35ce313293052f8362e0829e7512bc9bc3d336c9).
+
+The refresh covers all **eight families / 23 concrete catalog variants**, plus **11 previously recorded additional exports or drafts**. All 34 current Hub heads match their retained immutable pins. Their README files and available configuration metadata were retrieved at those pins; the family overviews now link **34 byte-identical README snapshots**. No hypothetical all-FP8 Kimi artifact was filled in from another model. Card benchmarks and examples remain publisher evidence, including references to older releases or mutable development images. The [catalog](../catalog/models.json) records each card's source ID, local path, revision and SHA-256.
+
+Nineteen selected engine files were reread and match the bytes of their earlier immutable captures. This preserves the scope of the October 18–19 detailed comparisons rather than treating every historical claim as newly reviewed. Each model's `latest_stable_review` identifies the exact reread sources, and all 40 configuration records carry current applicability notes without changing historical argument arrays. Two live issue/PR records and one release-ancestry comparison were also rechecked:
+
+- **GLM flagship:** FlashInfer's B300 FP8/64-query-head corruption issue remains open. Retain the FP8/DCP8 exclusion until the selected kernel artifact has a verified correction; no local failure or fix is claimed. [S0522-S-FI6389](https://github.com/flashinfer-ai/flashinfer/issues/6389)
+- **Qwen Flash Next:** the complete prefill-CP merge is still outside v0.5.22 ancestry. The comparison is diverged, with the release behind that merge by 27 commits and ahead by two; mere merge status on main is insufficient. [S0522-Q-CP-ANCESTRY](https://api.github.com/repos/sgl-project/sglang/compare/0d130f191574c3dbb7d402caf344084e91ded585...baa9befa381511cd4d56f83980951e5a45fffc6d?per_page=1)
+- **Gemma:** FA4 PR 42019 explicitly targets SM90 and reports H200 results, so it does not establish B300 FA4 compatibility. [S0522-Q-GEMMA-FA4-PR](https://github.com/sgl-project/sglang/pull/42019)
+
+### Development channels observed separately
+
+| Project | Branch tip observed October 26 | Advertised CUDA 13 development wheel |
+| --- | --- | --- |
+| vLLM | `ffcabb8c7ab3e066e1c77b55d7673e5d08cf26cc` | `0.32.1rc1.dev524+gffcabb8c7` |
+| SGLang | `ef11eb3b76354ffbabd9f17a2343e79522e41cf2` | `0.5.23.dev20261026+g66cac6b79c` |
+| KServe | `57d2e8e83a5d42f1c70eb75051c363e348fd6f8c` (`master`) | Not inspected in this refresh |
+
+During the optimization follow-up, SGLang main advanced to the non-EP DeepSeek overlap fix and the vLLM index advanced from dev523 to dev524. Earlier same-day observations remain in the lock. The latest advertised vLLM source label now matches the observed main tip; SGLang's does not. Both differ from stable. Branch metadata and matching labels do not qualify wheel contents. The vLLM index advertises aarch64/x86_64 `cp38-abi3` wheel filenames; the newest SGLang entry is `cp312-cp312-manylinux_2_39_x86_64`. These are literal publication labels, not independently established interpreter/platform compatibility. [RR-GM-VLLM-MAIN](https://api.github.com/repos/vllm-project/vllm/commits/main), [RR-GM-SGLANG-MAIN](https://api.github.com/repos/sgl-project/sglang/commits/main), [RR-GM-KSERVE-MAIN](https://api.github.com/repos/kserve/kserve/commits/master), [VNIGHTLY-INDEX](https://wheels.vllm.ai/nightly/cu130/vllm/), [GNIGHTLY-INDEX](https://sgl-project.github.io/whl/cu130/sglang/).
+
+The [October 26 optimization priorities](optimization.md#october-26-priorities) distinguish merged development changes from unmerged PR-head experiments. GLM template preprocessing, DeepSeek non-EP overlap, the Mistral wrapper and selected KServe changes have explicit stable-ancestry exclusions. Kimi small-batch cleanup, Gemma H512 NVFP4-cache integration and Mistral processor lifecycle remain unmerged proposals; no published-nightly inclusion is asserted for them.
+
+Docker Hub metadata still reports the retained stable index digests for `vllm/vllm-openai:v0.32.0` and `lmsysorg/sglang:v0.5.22`. This refresh read tag/platform metadata, not registry manifest bytes or image layers; the earlier manifest-hash checks retain their original dates. The SGLang nightly listing separately advertises `nightly-cu134` and EFA-tagged development images, which must not be treated as the CUDA 13.0 stable image or the cu130 wheel. [vLLM stable tag metadata](https://hub.docker.com/v2/repositories/vllm/vllm-openai/tags/v0.32.0), [SGLang stable tag metadata](https://hub.docker.com/v2/repositories/lmsysorg/sglang/tags/v0.5.22), [SGLang nightly tags](https://hub.docker.com/v2/repositories/lmsysorg/sglang/tags?page_size=3&name=nightly&ordering=last_updated).
 
 ## October 19: SGLang v0.5.22 release
 

@@ -1,5 +1,7 @@
 # vLLM v0.32.0: B300 upgrade and experiment priorities
 
+**October 26 follow-up:** v0.32.0 remains latest stable. Selected model restrictions were reread at the same release commit; the comparison below retains its October 18 scope. [Current catalog-wide recheck](nightly-readiness.md#october-26-catalog-wide-recheck) and `latest_stable_review` in the model catalog provide the newer identity/applicability observation.
+
 **Source review: October 18, 2026.** v0.32.0 was released at 06:50:48 UTC, with tag commit `5df63a7203cdb9328d824a27b682e77c7b9928be`. This analysis compares selected implementation paths with v0.31.0 (`db9527a46873454610df6dbedf79a36d6bf1a7f6`) for the eight catalog families on one 8×B300 node. KServe remains the required deployment layer. No engine, model payload or B300 experiment was run. [V032-RELEASE](https://api.github.com/repos/vllm-project/vllm/releases/tags/v0.32.0), [V032-TAG](https://api.github.com/repos/vllm-project/vllm/git/ref/tags/v0.32.0).
 
 The first comparison should change the **engine image while retaining model, tokenizer, draft, topology, explicit precision, request contents and workload**. Then evaluate one relevant new mechanism at a time. Defaults can change across releases: identical command lines do not necessarily produce identical cache formats or kernels. Record resolved settings before interpreting a gain.

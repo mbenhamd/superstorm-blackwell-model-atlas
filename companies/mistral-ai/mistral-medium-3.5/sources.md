@@ -1,5 +1,7 @@
 # Mistral Medium 3.5: sources
 
+**October 26 scoped refresh:** current Hub identities, immutable README/configuration files and selected latest-stable engine restrictions were rechecked. [Local README snapshots](README.md#hugging-face-readme-snapshots) link every concrete catalog variant and recorded additional artifact. Retrieval metadata remains in the single [source registry](../../../evidence/sources.json); the historical source descriptions below retain their original scope.
+
 Rechecked on **2026-10-15**. Model cards, configurations and repository metadata below were fetched at the stated immutable revisions. Live documentation is identified separately. The audit did not download model-weight tensors or run an inference engine.
 
 ## mistral-medium-3.5-CARD

@@ -1,4 +1,28 @@
-# GLM 5.3: serving on 8×B300
+# GLM 5.3: serving and optimization on B300
+
+## October 26 stable release recheck
+
+The latest stable releases are unchanged: vLLM v0.32.0 and SGLang v0.5.22. This selected-source recheck retains the exact model/export revisions and the existing KServe requirement. It does not requalify historical launch arrays or an installed image.
+
+**vLLM v0.32.0:** The flagship auto-KV hook selects FP8 E4M3 on CUDA family 10, including B300, independent of target weight precision. Hold explicit KV precision constant when comparing exports or releases; this hook does not cover GLM Flash. [SP32-SRC-vllm-model_executor-models-config-py](https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/model_executor/models/config.py)
+
+**SGLang v0.5.22:** Keep TP8/DCP1 as the target-only control; DCP2/4 and native MTP are separate candidates. The FP8 64-head sparse-MLA corruption report remains open, so FP8/DCP8 stays excluded pending an artifact-specific fix. DCP rejects HiSparse, HiCache and P/D. [S0522-S-DSA-OVERRIDE](https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/arg_groups/model_overrides/deepseek_v2.py) [S0522-S-DCP](https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/layers/attention/dsa/dsa_dcp.py) [S0522-S-FI6389](https://api.github.com/repos/flashinfer-ai/flashinfer/issues/6389)
+
+[Publisher/export README snapshots](README.md#hugging-face-readme-snapshots) · [Stable/main/nightly identities](../../../reports/nightly-readiness.md#october-26-catalog-wide-recheck). The dated detailed comparisons below retain their original evidence scope.
+
+## October 26 optimization and benchmark priorities
+
+Official FP8 TP8 versus two independent TP4 groups; compare an exact NVFP4 export only with matched cache precision and quality. Retain the FP8/DCP8 corruption exclusion. The [benchmark decision criteria](../../../reports/optimization.md#benchmark-decisions-and-measurement-contract) define common controls and quality gates. These are proposed experiments in the execution repository, not measured results.
+
+**merged development source; absent from v0.5.22 ancestry.** SGLang 45154 adds a Python renderer for GLM-5.3 family templates and avoids repeated Jinja/tool-result work. Selection checks both architecture and checkpoint template; architecture alone is insufficient.
+
+**Comparison:** On one compatible post-merge build, compare the pinned checkpoint Jinja template explicitly supplied as a file with the built-in Python renderer. Keep parser/reasoning choices, tokenizer, CPU allocation, serialized histories and GPU engine settings fixed. Require byte-identical prompts and token IDs before measuring CPU render/tokenize time and gateway-visible tails. The flagship is text-only; image workloads are inapplicable.
+
+**Measure and decide:** render/tokenize CPU time and queue delay; TTFT/first-visible-answer p50/p95/p99 with adequate sample counts; tool-result order, escaped arguments and reasoning-retention fidelity; whole coding-task wall time and success. Reject on any prompt/tokenization or parser regression; CPU gain disappears at the KServe route; higher tail latency or task failure rate.
+
+**Evidence limit:** PR microbenchmarks and B200 checks are publisher evidence. Renderer acceleration is not an equivalent whole-request or B300 acceleration. Merge commit ca473ef3 is outside stable ancestry; development wheel inclusion is not established. [O26-GLM-TEMPLATE](https://api.github.com/repos/sgl-project/sglang/pulls/45154) [O26-GLM-TEMPLATE-SOURCE](https://raw.githubusercontent.com/sgl-project/sglang/ca473ef3e437461241de0f3f966406b3a5bd403b/python/sglang/srt/parser/python_chat_template.py) [O26-GLM-TEMPLATE-MANAGER](https://raw.githubusercontent.com/sgl-project/sglang/ca473ef3e437461241de0f3f966406b3a5bd403b/python/sglang/srt/parser/template_manager.py) [O26-GLM-TEMPLATE-ANCESTRY](https://api.github.com/repos/sgl-project/sglang/compare/v0.5.22...ca473ef3e437461241de0f3f966406b3a5bd403b?per_page=1)
+
+Do not replace the DSA sparse-MLA path with ordinary FA4. The fresh template candidate addresses host preprocessing and does not remove the separate sparse-cache/DCP restriction. [S0522-S-FI6389](https://api.github.com/repos/flashinfer-ai/flashinfer/issues/6389)
 
 ## SGLang v0.5.22 review — October 19
 

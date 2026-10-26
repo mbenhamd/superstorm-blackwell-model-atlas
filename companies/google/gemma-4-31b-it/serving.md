@@ -1,4 +1,28 @@
-# Gemma 4 31B IT: serving on 8×B300
+# Gemma 4 31B IT: serving and optimization on B300
+
+## October 26 stable release recheck
+
+The latest stable releases are unchanged: vLLM v0.32.0 and SGLang v0.5.22. This selected-source recheck retains the exact model/export revisions and the existing KServe requirement. It does not requalify historical launch arrays or an installed image.
+
+**vLLM v0.32.0:** Keep TP1 BF16 as the quality control and compare exact FP8/NVFP4 exports separately. Blackwell FA4 head-geometry restrictions remain; hd512 does not become supported merely because a Gemma class is registered. No all-layer FA4 or measured export winner is established. [V032-H-FAUTIL](https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/v1/attention/backends/fa_utils.py)
+
+**SGLang v0.5.22:** Use the explicit Triton/BF16-KV comparison from the retained review; the model override defaults SM10x to TRT-LLM MHA when no backend is supplied. Gemma FA4 PR 42019 explicitly concerns SM90/H200 and cannot qualify B300. [S0522-Q-GEMMA-OVERRIDE](https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/arg_groups/model_overrides/gemma4.py) [S0522-Q-GEMMA-FA4-PR](https://api.github.com/repos/sgl-project/sglang/pulls/42019)
+
+[Publisher/export README snapshots](README.md#hugging-face-readme-snapshots) · [Stable/main/nightly identities](../../../reports/nightly-readiness.md#october-26-catalog-wide-recheck). The dated detailed comparisons below retain their original evidence scope.
+
+## October 26 optimization and benchmark priorities
+
+TP1 BF16 quality control versus exact FP8/NVFP4 weight exports with supported local/global attention; then compare the separately pinned official assistant against target-only. The [benchmark decision criteria](../../../reports/optimization.md#benchmark-decisions-and-measurement-contract) define common controls and quality gates. These are proposed experiments in the execution repository, not measured results.
+
+**unmerged draft plus two unmerged dependency PRs.** vLLM 62117 proposes H512 NVFP4 KV through FlashInfer on SM100/SM103: PrimTS decode and temporary FP8 materialization for context attention. Mixed H256/H512 page layouts require correct block clearing.
+
+**Comparison:** After the three patch heads form a buildable integration, compare FP8 versus NVFP4 KV on that same build and exact NVIDIA Gemma export at TP1. Separate unique prompts from prefix-reuse pressure; include allocator reuse and short/long contexts before assistant-on tests.
+
+**Measure and decide:** usable cache tokens and total peak HBM including FP8 workspace; prefill/decode latency and SLO goodput; NaN/Inf, degenerate output and mixed-page reuse; task quality and assistant verification cost. Reject on dependency/build mismatch; mixed-page numerical failure; quality exceeds permitted loss; capacity benefit is offset by workspace or latency cost.
+
+**Evidence limit:** PR 62117 is draft/unmerged; FlashInfer 5720 and 6445 are also open. Author B200/B300 results are not independently reproduced. Do not enable this as stable v0.32 support or assume a universal 2x memory/latency gain. [O26-GEMMA-KV4](https://api.github.com/repos/vllm-project/vllm/pulls/62117) [O26-GEMMA-FI-5720](https://api.github.com/repos/flashinfer-ai/flashinfer/pulls/5720) [O26-GEMMA-FI-6445](https://api.github.com/repos/flashinfer-ai/flashinfer/pulls/6445)
+
+The separate MRV2/MTP fast-prefill PR 63553 was explored on Gemma E2B/RTX3090. The pinned 31B target has num_kv_shared_layers=0; the separate assistant has four decoder layers and num_kv_shared_layers=4. This does not establish a 31B target KV-sharing improvement. [O26-GEMMA-MTP](https://api.github.com/repos/vllm-project/vllm/pulls/63553) [gemma-4-31b-it-CFG](https://huggingface.co/google/gemma-4-31B-it/raw/842da3794eaa0b77d5f08bae87a17459d91ff475/config.json) [RR-GM-GEMMA-DRAFT-CFG](https://huggingface.co/google/gemma-4-31B-it-assistant/raw/627c5ec1458b9086b841a91e0512fd31fd2fbbf1/config.json)
 
 ## SGLang v0.5.22 review — October 19
 

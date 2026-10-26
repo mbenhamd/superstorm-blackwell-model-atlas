@@ -1,4 +1,28 @@
-# Mistral Medium 3.5: serving on 8×B300
+# Mistral Medium 3.5: serving and optimization on B300
+
+## October 26 stable release recheck
+
+The latest stable releases are unchanged: vLLM v0.32.0 and SGLang v0.5.22. This selected-source recheck retains the exact model/export revisions and the existing KServe requirement. It does not requalify historical launch arrays or an installed image.
+
+**vLLM v0.32.0:** Retain the publisher FP8 TP8 baseline and exact separate EAGLE artifact. The release has the Mistral EAGLE model path; native/HF serialization, tokenizer and draft context remain part of the compatibility contract. Narrower TP requires full-history KV and workspace capacity checks. [V032-KM-MISTRAL-EAGLE](https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/model_executor/models/mistral_eagle.py)
+
+**SGLang v0.5.22:** The release includes the Mistral EAGLE implementation. Retain target-only TP8 first and the published BF16 compute boundary with EAGLE; the publisher dev image name is not a stable-image qualification. Native draft packaging must be preserved. [S0522-K-MISTRAL-EAGLE](https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/models/mistral_eagle.py)
+
+[Publisher/export README snapshots](README.md#hugging-face-readme-snapshots) · [Stable/main/nightly identities](../../../reports/nightly-readiness.md#october-26-catalog-wide-recheck). The dated detailed comparisons below retain their original evidence scope.
+
+## October 26 optimization and benchmark priorities
+
+Publisher FP8 TP8 reference; qualify TP4/TP2 capacity and independent replicas before selecting a narrower layout. Compare exact EAGLE pairing against target-only separately. The [benchmark decision criteria](../../../reports/optimization.md#benchmark-decisions-and-measurement-contract) define common controls and quality gates. These are proposed experiments in the execution repository, not measured results.
+
+**merged wrapper fix; separate unmerged processor fix.** SGLang 45656 makes Mistral3 a Llava subclass to retain wrapper behavior through eval/load. PR 45868 separately proposes returning the initialized multimodal processor so cache lifecycle and hash-precompute calls reach its state.
+
+**Comparison:** Resolve whether the exact Medium 3.5 artifact uses the HF-layout Mistral3/processor path. For that path, compare text/image answers before and after cache flush with a fresh instance; test startup with the chosen image-hash mode and shutdown. Hold weight bytes fixed; this is not a live weight-update recommendation.
+
+**Measure and decide:** load/start readiness and lifecycle success; text/image correctness and parser validity; preprocessing/cache behavior; EAGLE accepted length and task latency in a separate comparison. Reject on wrapper/processor mismatch or HTTP lifecycle error; image answers change unexpectedly after cache reset; draft context or target/draft pairing invalid.
+
+**Evidence limit:** Wrapper merge 4542fc8f is outside v0.5.22 ancestry. Processor PR remains open. Upstream examples use Mistral Small/Pixtral/Ministral, not Medium 3.5 on B300; applicability must be established before treating this as a target defect or fix. [O26-MISTRAL-WRAPPER](https://api.github.com/repos/sgl-project/sglang/pulls/45656) [O26-MISTRAL-WRAPPER-SOURCE](https://raw.githubusercontent.com/sgl-project/sglang/4542fc8f598e55d90f655de482b1b5cdf7c6228f/python/sglang/srt/models/mistral.py) [O26-MISTRAL-WRAPPER-ANCESTRY](https://api.github.com/repos/sgl-project/sglang/compare/v0.5.22...4542fc8f598e55d90f655de482b1b5cdf7c6228f?per_page=1) [O26-MISTRAL-LIFECYCLE](https://api.github.com/repos/sgl-project/sglang/pulls/45868)
+
+Native-format loader behavior and HF-layout wrapper behavior must not be conflated. EAGLE draft context must not exceed the configured target cap. [V032-KM-MISTRAL-EAGLE](https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/model_executor/models/mistral_eagle.py)
 
 ## SGLang v0.5.22 review — October 19
 
@@ -30,7 +54,7 @@ Use vLLM first because the producer explicitly recommends it and documents the M
 
 Resolve the correct tokenizer and Mistral encoding dependencies in the image. Do not copy an old nightly-install command and label it reproducible: pin the wheel or image digest and record the loaded config checksum. The card’s historical dependency minima are not a complete tested bill of materials.
 
-The publisher's target and EAGLE cards specify vLLM nightly with `mistral_common >= 1.11.1` and `transformers >= 5.4.0`; their SGLang section names the Blackwell tag `lmsysorg/sglang:dev-cu13-mistral-medium-3.5` (CUDA 13.0). These are documented setup requirements, not immutable runtime identities. The latest stable releases rechecked on 2026-10-16 are [vLLM 0.31.0](https://github.com/vllm-project/vllm/releases/tag/v0.31.0) and [SGLang 0.5.21](https://github.com/sgl-project/sglang/releases/tag/v0.5.21); a release number alone does not qualify the target/draft path.
+The publisher's target and EAGLE cards specify vLLM nightly with `mistral_common >= 1.11.1` and `transformers >= 5.4.0`; their SGLang section names the Blackwell tag `lmsysorg/sglang:dev-cu13-mistral-medium-3.5` (CUDA 13.0). These are documented setup requirements, not immutable runtime identities. The historical October 16 stable references were [vLLM 0.31.0](https://github.com/vllm-project/vllm/releases/tag/v0.31.0) and [SGLang 0.5.21](https://github.com/sgl-project/sglang/releases/tag/v0.5.21); the October 26 assessment above supersedes their latest-release status. A release number alone does not qualify the target/draft path.
 
 The pinned publisher card also supplies a SGLang TP8 command with `--tool-call-parser mistral` and `--reasoning-parser mistral`. The official SGLang cookbook documents this exact FP8 model, the alternate checkpoint layouts and H200 validation runs. This establishes documented support; it does not certify the atlas’s B300 image or settings. The local SGLang profile remains a compatibility probe until loaded and tested, and a parser-free probe cannot establish reasoning or tool-call correctness. [mistral-medium-3.5-GR](https://docs.sglang.io/cookbook/autoregressive/Mistral/Mistral-Medium-3.5)
 

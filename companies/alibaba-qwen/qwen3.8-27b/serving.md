@@ -1,4 +1,28 @@
-# Qwen 3.8 27B: vLLM v0.31.0 on B300
+# Qwen 3.8 27B: serving and optimization on B300
+
+## October 26 stable release recheck
+
+The latest stable releases are unchanged: vLLM v0.32.0 and SGLang v0.5.22. This selected-source recheck retains the exact model/export revisions and the existing KServe requirement. It does not requalify historical launch arrays or an installed image.
+
+**vLLM v0.32.0:** Compare complete BF16, official FP8 and NVIDIA mixed NVFP4 exports at TP1 with matched KV. The mixed-NVFP4 optimization predicate remains present; Blackwell FA4 hd256 still rejects quantized KV. Keep FlashInfer/FP8 KV and FA4/BF16 KV as separate comparisons. [V032-H-MODEL-CONFIG](https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/config/model.py) [V032-H-FAUTIL](https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/v1/attention/backends/fa_utils.py)
+
+**SGLang v0.5.22:** Retain TP1 target-only controls before native MTP. Default attention/page resolution depends on speculative decoding and Mamba radix-cache state strategy: it can choose Triton/page1 or TRT-LLM/page64. Explicitly record resolved cache/backend settings across exports. [S0522-Q-Q35-OVERRIDE](https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/arg_groups/model_overrides/qwen3_5.py)
+
+[Publisher/export README snapshots](README.md#hugging-face-readme-snapshots) · [Stable/main/nightly identities](../../../reports/nightly-readiness.md#october-26-catalog-wide-recheck). The dated detailed comparisons below retain their original evidence scope.
+
+## October 26 optimization and benchmark priorities
+
+TP1 target-only: BF16 quality anchor, official FP8 and exact NVIDIA mixed export with matched FlashInfer/BF16 KV; compare eight independent TP1 replicas only after per-replica qualification. The [benchmark decision criteria](../../../reports/optimization.md#benchmark-decisions-and-measurement-contract) define common controls and quality gates. These are proposed experiments in the execution repository, not measured results.
+
+**stable source; candidate to measure.** SGLang v0.5.22 resolves different attention backends/page sizes according to speculation and Mamba radix-state policy. vLLM v0.32.0 fixes a mixed-NVFP4 optimization predicate, but eligibility does not prove actual fused dispatch.
+
+**Comparison:** Record resolved kernel, cache dtype, page size and state policy for every export. Then compare target-only with MTP 1/3 on the same export. If MTP forces a backend/state change, report that complete configuration change; do not attribute its full delta to drafting alone.
+
+**Measure and decide:** resident weights, cache/state capacity and peak workspace; TTFT/TPOT and whole-node SLO goodput; compile/graph/dispatch and CPU launch time; long-code, tools and quality floor. Reject on unobserved fallback or changed tokenization; quality regression beyond the declared margin; replica placement exceeds memory/CPU budget.
+
+**Evidence limit:** No new measured optimum. Keep FA4/BF16 KV separate from FlashInfer/FP8 KV: Blackwell hd256 FA4 rejects quantized KV. Dense Qwen27 does not inherit Flash Next QSA or MoE optimizations. [S0522-Q-Q35-OVERRIDE](https://raw.githubusercontent.com/sgl-project/sglang/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/arg_groups/model_overrides/qwen3_5.py) [V032-H-MODEL-CONFIG](https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/config/model.py) [V032-H-FAUTIL](https://raw.githubusercontent.com/vllm-project/vllm/5df63a7203cdb9328d824a27b682e77c7b9928be/vllm/v1/attention/backends/fa_utils.py)
+
+Use complete-task success to select a quantized export; smaller serialized weights alone do not establish faster execution or equivalent quality. [qwen3.8-27b-CFG](https://huggingface.co/Qwen/Qwen3.8-27B/raw/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/config.json)
 
 ## SGLang v0.5.22 review — October 19
 
@@ -18,7 +42,7 @@ Eligible compilation/fusion required; no B300 performance transfer from SM121 PR
 
 Both Qwen families also change image normalization and M-RoPE table allocation in v0.32. Record resolved CPU/GPU preprocessing, processor revision and video-pruning state; the smaller shared rotary table is not a model-wide memory multiplier. Details and source identities are in the [v0.32 Qwen additions](../../../reports/vllm-v032-upgrade.md#changes-shared-by-both-qwen-families).
 
-**Review: October 17, 2026 UTC.** Scope: immutable checkpoints and selected vLLM release source, not an executed serving image. All candidates run inside the required **KServe** platform. No B300 correctness, quality or performance result was reproduced.
+**Historical vLLM v0.31.0 review: October 17, 2026 UTC.** Scope: immutable checkpoints and selected release source, not an executed serving image. The detailed configuration references below retain this version. All candidates run inside the required **KServe** platform. No B300 correctness, quality or performance result was reproduced.
 
 ## Recommended investigation order
 
