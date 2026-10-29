@@ -16663,6 +16663,195 @@
       "content_sha256": "c97dd2670d40c96b9de9af995738bbebb17a5548f55cea5041b0df307c5a20cf",
       "method": "HTTPS UTF-8 response",
       "scope": "Benchmark-insights reference: selected definitions, units, measurement populations and metadata only; no serving, quality or GPU benchmark and no binary/deployment qualification."
+    },
+    "AGD-SWEBENCH-LITE": {
+      "url": "https://www.swebench.com/lite.html",
+      "title": "SWE-bench Lite official definition",
+      "kind": "primary benchmark methodology",
+      "accessed_on": "2026-10-29",
+      "checked_on": "2026-10-29",
+      "method": "Official webpage fetched and inspected",
+      "scope": "300 test tasks plus 23 dev instances across 11 of 12 repositories; full set is 2,294 pairs. Selection criteria and cost rationale confirmed. No dataset file downloaded, no task executed."
+    },
+    "AGD-SWEBENCH-TASKS": {
+      "url": "https://github.com/SWE-bench/swe-bench-tasks",
+      "title": "SWE-bench official task source repository",
+      "kind": "primary task source",
+      "accessed_on": "2026-10-29",
+      "checked_on": "2026-10-29",
+      "method": "Repository page plus raw README.md and sweb.yaml fetched and inspected at branch tip",
+      "scope": "Per-task directories with task.yaml; sweb.yaml names full/Lite/Verified datasets and dev/test splits. README describes Dockerfile generation; dataset compilation is the CLI role. Branch-scoped, not an immutable pin; no commit recorded."
+    },
+    "AGD-SWEBENCH-CLI": {
+      "url": "https://www.swebench.com/SWE-bench/reference/cli/",
+      "title": "SWE-bench CLI reference: dataset commands",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-29",
+      "checked_on": "2026-10-29",
+      "method": "Official documentation page fetched and inspected",
+      "scope": "dataset check/build/diff/push/collect confirmed; build emits one parquet per split; tree is source of truth with no Hugging Face reads; DATASET accepts alias, Hub id or local path. No command executed."
+    },
+    "AGD-SWEBENCH-HARNESS": {
+      "url": "https://github.com/SWE-bench/SWE-bench",
+      "title": "SWE-bench official evaluation harness",
+      "kind": "primary benchmark methodology",
+      "accessed_on": "2026-10-29",
+      "checked_on": "2026-10-29",
+      "method": "Raw README.md fetched and inspected at branch tip; local eval entry confirmed via mini-SWE-agent docs",
+      "scope": "Docker-based reproducible evaluation; Verified is a 500-task OpenAI collaboration. Local eval entry python -m swebench.harness.run_evaluation. Branch-scoped; no code executed."
+    },
+    "AGD-SWEBENCH-DATASET-SRC": {
+      "url": "https://raw.githubusercontent.com/SWE-bench/SWE-bench/main/swebench/cli/dataset.py",
+      "title": "SWE-bench dataset CLI implementation",
+      "kind": "official source (branch-scoped)",
+      "accessed_on": "2026-10-29",
+      "checked_on": "2026-10-29",
+      "method": "Raw source fetched and inspected at branch tip",
+      "scope": "build -d/--dataset repeatable selector, -o/--out default data; check --fix writes only tree-derivable content. Branch-scoped, not an immutable pin; no execution."
+    },
+    "AGD-SWEBENCH-PUBLISH-SRC": {
+      "url": "https://raw.githubusercontent.com/SWE-bench/SWE-bench/main/swebench/task/publish.py",
+      "title": "SWE-bench task-tree publishing implementation",
+      "kind": "official source (branch-scoped)",
+      "accessed_on": "2026-10-29",
+      "checked_on": "2026-10-29",
+      "method": "Raw source fetched and inspected at branch tip",
+      "scope": "write_parquets emits <out>/<dataset>/<split>.parquet as load_dataset expects, plus per-dataset eval.yaml; Lite and Verified are distinct leaderboard benchmarks from one tree. Branch-scoped; no execution."
+    },
+    "AGD-MINI-SWEBENCH": {
+      "url": "https://mini-swe-agent.com/latest/usage/swebench/",
+      "title": "mini-SWE-agent SWE-bench batch runner",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-29",
+      "checked_on": "2026-10-29",
+      "method": "Official documentation page fetched and inspected",
+      "scope": "subset/split/filter/slice/environment-class/workers/config/output flags; docker x86 note; preds.json batch output; custom subset path via datasets.load_dataset; sb-cli versus local harness eval. Docs are version-unpinned; no run executed."
+    },
+    "AGD-MINI-V2MIGRATION": {
+      "url": "https://mini-swe-agent.com/latest/advanced/v2_migration/",
+      "title": "mini-SWE-agent v2 migration: native versus text-based Bash",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-29",
+      "checked_on": "2026-10-29",
+      "method": "Official documentation page fetched and inspected",
+      "scope": "Native bash tool calling is the v2 default; swebench_backticks.yaml and model_class litellm_textbased select legacy parsing. Docs are version-unpinned; no run executed."
+    },
+    "AGD-MINI-LOCAL": {
+      "url": "https://mini-swe-agent.com/latest/models/local_models/",
+      "title": "mini-SWE-agent local model endpoints",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-29",
+      "checked_on": "2026-10-29",
+      "method": "Official documentation page fetched and inspected",
+      "scope": "model_kwargs passed to litellm.completion; custom_llm_provider/api_base endpoint wiring; vLLM trajectory example; model-registry cost-tracking caveat. Docs are version-unpinned; no run executed."
+    },
+    "AGD-TBENCH-21": {
+      "url": "https://github.com/harbor-framework/terminal-bench-2-1",
+      "title": "Terminal-Bench 2.1 task repository",
+      "kind": "primary benchmark methodology",
+      "accessed_on": "2026-10-29",
+      "checked_on": "2026-10-29",
+      "method": "Raw README.md fetched and inspected at branch tip",
+      "scope": "Verified 2.0 iteration with 26 modified tasks; Harbor-run; at least 5 trials per task for leaderboard; community submissions closed at retrieval. No task inspected or executed."
+    },
+    "AGD-HARBOR-JOB": {
+      "url": "https://docs.harborframework.com/jobs/run-a-job",
+      "title": "Harbor local and remote job execution",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-29",
+      "checked_on": "2026-10-29",
+      "method": "Official documentation page fetched and inspected",
+      "scope": "Local dataset/task, Hub and Git selection; sandbox, network policy, retries, concurrency, filters and config files. No job executed."
+    },
+    "AGD-HARBOR-GIT": {
+      "url": "https://docs.harborframework.com/datasets/git-repos",
+      "title": "Harbor Git repository datasets and pinning",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-29",
+      "checked_on": "2026-10-29",
+      "method": "Official documentation page fetched and inspected",
+      "scope": "--repo with @tag/@branch/@commit pinning; registry.json layout; task directory structure; implicit tasks/ dataset. No job executed."
+    },
+    "AGD-HARBOR-SWEBENCH": {
+      "url": "https://hub.harborframework.com/datasets/swe-bench/swe-bench-verified/latest",
+      "title": "Harbor SWE-bench Verified package and parity record",
+      "kind": "publisher benchmark package",
+      "accessed_on": "2026-10-29",
+      "checked_on": "2026-10-29",
+      "method": "Official Hub page fetched and inspected",
+      "scope": "Packaged Verified dataset with adapter and parity tables; mini-swe-agent 2.1.0 official 0.563 versus Harbor 0.545 over 499 tasks is a publisher claim, not a reproduction. @latest is unpinned."
+    },
+    "AGD-GUIDELLM-TRACE": {
+      "url": "https://raw.githubusercontent.com/vllm-project/guidellm/597bc014ef78daeb11312374022430939b611f11/docs/en/guides/trace_replay.md",
+      "title": "GuideLLM v0.8.1 trace file formats and replay semantics",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-29",
+      "checked_on": "2026-10-29",
+      "method": "Raw documentation fetched and inspected at the GuideLLM v0.8.1 source commit, matching the benchmark-insights pin",
+      "scope": "otel/json_file replay; trace_id-per-conversation; history=trace default versus history=runtime continuity requirement; successful-spans-only; tool-call pre-splitting; /v1/chat/completions target. No replay executed."
+    },
+    "AGD-GUIDELLM-JSONL": {
+      "url": "https://raw.githubusercontent.com/vllm-project/guidellm/597bc014ef78daeb11312374022430939b611f11/docs/en/examples/custom-jsonl-dataset.md",
+      "title": "GuideLLM v0.8.1 local tokenizer and custom JSONL dataset",
+      "kind": "immutable primary source",
+      "accessed_on": "2026-10-29",
+      "checked_on": "2026-10-29",
+      "method": "Raw documentation fetched and inspected at the GuideLLM v0.8.1 source commit, matching the benchmark-insights pin",
+      "scope": "Local tokenizer directory plus local JSONL prompts against an OpenAI-compatible endpoint; no model download. No benchmark executed."
+    },
+    "AGD-LITELLM-OFFLINE": {
+      "url": "https://docs.litellm.ai/docs/proxy/outbound_requests",
+      "title": "LiteLLM outbound requests and offline mode",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-29",
+      "checked_on": "2026-10-29",
+      "method": "Official documentation page fetched and inspected",
+      "scope": "LITELLM_OFFLINE_MODE is proxy-scoped; applicability to the SDK path mini uses is unestablished. Unstoppable chat-template lookups (vLLM provider falls back to generic format) and fallback token counting confirmed. No offline validation run."
+    },
+    "AGD-DOMINO-SDK": {
+      "url": "https://github.com/dominodatalab/python-domino",
+      "title": "Domino Python SDK for job submission",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-29",
+      "checked_on": "2026-10-29",
+      "method": "Repository metadata plus raw README.md fetched and inspected at branch tip (master, pushed 2026-10-28)",
+      "scope": "job_start (v4, recommended) starts a new execution with command string, hardware tier, environment and commit/branch pinning; runs_start is legacy. SDK 2.2.0 with per-Domino-version matrix. Branch-scoped; no job submitted."
+    },
+    "AGD-MINI-ENVIRONMENTS": {
+      "url": "https://mini-swe-agent.com/latest/advanced/environments/",
+      "title": "mini-SWE-agent environment classes",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-29",
+      "checked_on": "2026-10-29",
+      "method": "Official documentation page fetched and inspected",
+      "scope": "local/docker/singularity plus swerex_docker, swerex_modal, bubblewrap and contree backends; Domino is not pre-integrated. Docs are version-unpinned; no run executed."
+    },
+    "AGD-MINI-LOCAL-ENV": {
+      "url": "https://mini-swe-agent.com/latest/reference/environments/local/",
+      "title": "mini-SWE-agent LocalEnvironment reference",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-29",
+      "checked_on": "2026-10-29",
+      "method": "Official API reference page, including embedded source, fetched and inspected",
+      "scope": "Executes Bash on the local machine; execute(action, cwd, timeout) returns output/returncode/exception_info; POSIX timeout kills the whole process group. Docs are version-unpinned; no run executed."
+    },
+    "AGD-SWEBENCH-FAQ": {
+      "url": "https://www.swebench.com/SWE-bench/faq/",
+      "title": "SWE-bench official FAQ: Docker requirement",
+      "kind": "primary benchmark methodology",
+      "accessed_on": "2026-10-29",
+      "checked_on": "2026-10-29",
+      "method": "Official documentation page fetched and inspected",
+      "scope": "Evaluations cannot run without Docker; git-diff output format recommended. No evaluation executed."
+    },
+    "AGD-HARBOR-SANDBOX": {
+      "url": "https://docs.harborframework.com/sandboxes/custom-sandboxes",
+      "title": "Harbor custom sandbox integration",
+      "kind": "primary documentation",
+      "accessed_on": "2026-10-29",
+      "checked_on": "2026-10-29",
+      "method": "Official documentation page fetched and inspected",
+      "scope": "BaseEnvironment lifecycle/exec/file-transfer interface; -e module.path:ClassName registration with --ek options. No adapter implemented or run."
     }
   }
 }
