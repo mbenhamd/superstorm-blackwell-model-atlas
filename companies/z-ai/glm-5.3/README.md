@@ -1,6 +1,6 @@
 # GLM 5.3
 
-**Latest scoped recheck: October 26, 2026 (UTC).** Stable references remain **vLLM v0.32.0** and **SGLang v0.5.22**, under required KServe (upstream v0.21.0; installed version unknown). All concrete catalog variants still match their retained revisions. Current publisher cards/configurations and selected engine restrictions were rechecked; no B300 execution was performed. See [current serving assessment](serving.md#october-26-stable-release-recheck) and [Hugging Face README snapshots](#hugging-face-readme-snapshots).
+**Latest scoped recheck: November 6, 2026 (UTC).** Latest stable releases are **vLLM v0.33.0** and **SGLang v0.5.23**, under required KServe (upstream v0.21.0 unchanged; installed version unknown). November 6 Hub head recheck: 4 of 4 concrete variants equal retained pins (README/configuration not re-downloaded). Release notes, selected source and publisher recipes were reviewed at the release commits; no B300 execution was performed. See the [November 6 release update](serving.md#november-6-stable-releases-vllm-v0330-and-sglang-v0523), the retained [October 26 recheck](serving.md#october-26-stable-release-recheck) and [Hugging Face README snapshots](#hugging-face-readme-snapshots).
 
 **As of 2026-10-16.** Approximately 743B main / 39B active in the vLLM recipe; 753.33B including serialized MTP. NVIDIA instead headlines 753B / 40B active. The active-count scopes are not independently reconciled. MLA with DSA; native FP8 packaging. [TOPG-GLM-VLLM](https://recipes.vllm.ai/zai-org/GLM-5.3) [TOPG-GLM-NVIDIA-CARD](https://huggingface.co/nvidia/GLM-5.3-NVFP4/raw/e3b8f9f2fad29727dfa95e766c5cac18ea1414bf/README.md)
 
@@ -24,6 +24,7 @@ MLA compresses attention-history representations; DSA selects entries for attent
 | Base revision pin | `ba32f8c19c8738e2c57c71798c601d477a7bf844` |
 | License scope | GLM-5.3 custom license (not inferred from previous GLM releases) |
 | Verification level | Current main resolves to the retained pin; publisher card, config, template, license and checkpoint metadata rechecked on 2026-10-16; no GPU load or benchmark |
+| AA Intelligence Index v5.0.1 (third-party) | max: 31.653 (v5.0 31.653); low: 23.108 (v5.0 23.058). Not reproduced; not tied to this revision or any export. [Details](../../../reports/intelligence-index.md) [AA-MODEL-GLM-5-3](https://artificialanalysis.ai/models/glm-5-3) [AA-MODEL-GLM-5-3-LOW](https://artificialanalysis.ai/models/glm-5-3-low) |
 
 
 The positional limit is not a promise of that many usable tokens under arbitrary batching or cache precision. [glm-5.3-CARD](https://huggingface.co/zai-org/GLM-5.3/raw/ba32f8c19c8738e2c57c71798c601d477a7bf844/README.md) [glm-5.3-CFG](https://huggingface.co/zai-org/GLM-5.3/raw/ba32f8c19c8738e2c57c71798c601d477a7bf844/config.json)

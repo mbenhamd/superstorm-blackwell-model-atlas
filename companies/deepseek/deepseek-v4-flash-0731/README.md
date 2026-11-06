@@ -1,6 +1,6 @@
 # DeepSeek V4 Flash 0731
 
-**Latest scoped recheck: October 26, 2026 (UTC).** Stable references remain **vLLM v0.32.0** and **SGLang v0.5.22**, under required KServe (upstream v0.21.0; installed version unknown). All concrete catalog variants still match their retained revisions. Current publisher cards/configurations and selected engine restrictions were rechecked; no B300 execution was performed. See [current serving assessment](serving.md#october-26-stable-release-recheck) and [Hugging Face README snapshots](#hugging-face-readme-snapshots).
+**Latest scoped recheck: November 6, 2026 (UTC).** Latest stable releases are **vLLM v0.33.0** and **SGLang v0.5.23**, under required KServe (upstream v0.21.0 unchanged; installed version unknown). November 6 Hub head recheck: 1 of 1 concrete variants equal retained pins (README/configuration not re-downloaded). Release notes, selected source and publisher recipes were reviewed at the release commits; no B300 execution was performed. See the [November 6 release update](serving.md#november-6-stable-releases-vllm-v0330-and-sglang-v0523), the retained [October 26 recheck](serving.md#october-26-stable-release-recheck) and [Hugging Face README snapshots](#hugging-face-readme-snapshots).
 
 **Reverified 2026-10-15 (UTC).** V4 Flash family; compressed/sparse attention, mHC, built-in DSpark.
 
@@ -24,6 +24,7 @@ Attention combines recent-window state with compressed, selected history. Routed
 | Base revision pin | `7872f01b1d1fe23eabc4c98b48bffcef5a386062` |
 | License scope | MIT; pinned LICENSE and model-card scope reviewed |
 | Verification level | Immutable publisher files reviewed; both engines documented upstream; no local GPU test |
+| AA Intelligence Index v5.0.1 (third-party) | max: null (v5.0 null). Null means incomplete AA coverage. AA marks the release deprecated (successor `deepseek-v4-1-flash` → `deepseek-v4-1-flash-1017`). [DeepSeek V4.1 Flash 1017](../deepseek-v4.1-flash-1017/README.md) is a separate catalog family with a different architecture class (32.590 in v5.0.1); its score is not substituted. Not reproduced; not tied to this revision or any export. [Details](../../../reports/intelligence-index.md) [AA-MODEL-DEEPSEEK-V4-FLASH](https://artificialanalysis.ai/models/deepseek-v4-flash) |
 
 
 The positional limit is not a promise of that many usable tokens under arbitrary batching or cache precision. [deepseek-v4-flash-0731-CARD](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/blob/7872f01b1d1fe23eabc4c98b48bffcef5a386062/README.md) [deepseek-v4-flash-0731-CFG](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/raw/7872f01b1d1fe23eabc4c98b48bffcef5a386062/config.json)

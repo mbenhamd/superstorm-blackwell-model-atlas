@@ -1,23 +1,23 @@
 {
-  "as_of": "2026-10-26",
+  "as_of": "2026-11-06",
   "upstreams": [
     {
       "key": "vllm",
       "repo": "https://github.com/vllm-project/vllm.git",
-      "release": "v0.32.0",
-      "release_published_at": "2026-10-18T06:50:48Z",
-      "inspected_ref": "f8460ef23659afd69046a81529ec2295e4c3f686",
-      "commit_date": "2026-10-15T20:58:25Z",
+      "release": "v0.33.0",
+      "release_published_at": "2026-11-02T10:10:05Z",
+      "inspected_ref": "4ba787ec9959e566d3b587a796dff07673324da5",
+      "commit_date": "2026-10-31T07:15:45Z",
       "nightly_artifact_verified": false,
-      "image_digest": "sha256:befccf0e7e4089aa23926bb6f887a85c0d46c2a99e6de5c5ffdf5cb7957c5b34",
+      "image_digest": "sha256:d825baf9ce4b1b6bfc5ecc7b79880c7e6748c65a72d697ce3d47607aafa84c6e",
       "release_prerelease": false,
-      "release_commit": "5df63a7203cdb9328d824a27b682e77c7b9928be",
-      "release_checked_at": "2026-10-26T18:00:13.245Z",
+      "release_commit": "4ba787ec9959e566d3b587a796dff07673324da5",
+      "release_checked_at": "2026-11-06T08:40:00Z",
       "latest_branch": "main",
-      "latest_branch_ref": "4135590ffe0119dab806d78a7eee6dff3be2618e",
-      "latest_branch_commit_date": "2026-10-26T17:59:24Z",
-      "latest_branch_checked_at": "2026-10-26T18:00:13.442Z",
-      "source_review_scope": "Selected model registry and Kimi DSpark MLA files only; see frameworks/vllm/SOURCE_REVIEW.md",
+      "latest_branch_ref": "6c15c6cc5380b7d2d6052144f96889bf6c5d2e7c",
+      "latest_branch_commit_date": "2026-11-06T08:12:11Z",
+      "latest_branch_checked_at": "2026-11-06T08:25:00Z",
+      "source_review_scope": "November 6 selected release review: release notes, dependency pins and model-specific source/recipes at the release commit; see reports/vllm-v033-upgrade.md",
       "prior_branch_observations": [
         {
           "latest_branch": "main",
@@ -95,8 +95,8 @@
         "scope": "Selected cache/configuration/scheduler and model-specific source; no binary or whole-tree certification",
         "review_completed_at": "2026-10-16T09:09:05.186135+00:00"
       },
-      "release_source_id": "RR-GM-VLLM-RELEASE",
-      "latest_branch_source_id": "RR-GM-VLLM-MAIN",
+      "release_source_id": "V033-RELEASE",
+      "latest_branch_source_id": "V033-MAIN-6C15C6CC",
       "attention_precision_review": {
         "release_ref": "db9527a46873454610df6dbedf79a36d6bf1a7f6",
         "development_ref": "07f3857fb93772fed64e06642cdb0b8c03e0b249",
@@ -219,6 +219,14 @@
         "binary_executed": false
       },
       "prior_release_observations": [
+        {
+          "release": "v0.32.0",
+          "release_published_at": "2026-10-18T06:50:48Z",
+          "release_commit": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+          "release_checked_at": "2026-10-26T18:00:13.245Z",
+          "release_source_id": "RR-GM-VLLM-RELEASE",
+          "image_digest": "sha256:befccf0e7e4089aa23926bb6f887a85c0d46c2a99e6de5c5ffdf5cb7957c5b34"
+        },
         {
           "release": "v0.31.0",
           "release_published_at": "2026-10-05T06:44:55Z",
@@ -352,7 +360,7 @@
           "binary_executed": false
         }
       },
-      "image_digest_scope": "Registry manifest-list identity only; image contents and runtime unqualified.",
+      "image_digest_scope": "Registry manifest-list identity only (Docker Hub API); image contents and runtime unqualified.",
       "release_image_metadata": {
         "tag": "vllm/vllm-openai:v0.32.0",
         "retrieved_at": "2026-10-18T14:41:52.302435+00:00",
@@ -409,11 +417,11 @@
         }
       ],
       "latest_stable_recheck": {
-        "checked_on": "2026-10-26",
-        "release": "v0.32.0",
-        "release_commit": "5df63a7203cdb9328d824a27b682e77c7b9928be",
-        "source_id": "RR-GM-VLLM-RELEASE",
-        "scope": "Unchanged stable release. Selected engine source rechecks are listed separately; installed KServe version remains unknown."
+        "checked_on": "2026-11-06",
+        "release": "v0.33.0",
+        "release_commit": "4ba787ec9959e566d3b587a796dff07673324da5",
+        "source_id": "V033-RELEASE",
+        "scope": "New stable release reviewed for the catalog families; installed KServe version remains unknown."
       },
       "stable_image_metadata_recheck": {
         "source_id": "V032-R-IMAGE-METADATA",
@@ -449,25 +457,51 @@
           "BI-V-STATS",
           "BI-V-SPEC-METRICS"
         ]
+      },
+      "v0_33_0_b300_review": {
+        "reviewed_on": "2026-11-06",
+        "release_ref": "4ba787ec9959e566d3b587a796dff07673324da5",
+        "baseline_ref": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+        "model_keys": [
+          "kimi-k3",
+          "kimi-k3.1-pro",
+          "glm-5.3",
+          "glm-5.3-flash",
+          "deepseek-v4-flash-0731",
+          "deepseek-v4.1-flash-1017",
+          "qwen3.8-27b",
+          "qwen3.8-flash-next",
+          "gemma-4-31b-it",
+          "mistral-medium-3.5",
+          "mistral-large-4"
+        ],
+        "report": "reports/vllm-v033-upgrade.md",
+        "release_tag_object": "3a4d82f569a9f57054ba81633e9b6c73b34b51fe",
+        "image_platform_manifests": [
+          "sha256:91ee972ab751fb7180bc71c175865e36b091686600dca783d52b2511399810b3 (amd64)",
+          "sha256:e3481489818d3e563cae517b84ab959cc8b69f85a9fbb771c189140131ffc65c (arm64)"
+        ],
+        "release_object_tag_name": "v0.33.0rc3",
+        "binary_executed": false
       }
     },
     {
       "key": "sglang",
       "repo": "https://github.com/sgl-project/sglang.git",
-      "release": "v0.5.22",
-      "release_published_at": "2026-10-19T02:55:19Z",
-      "inspected_ref": "877be2974aa151a984e52822c028276c2b1e9303",
-      "commit_date": "2026-10-15T20:34:49Z",
+      "release": "v0.5.23",
+      "release_published_at": "2026-11-02T22:14:10Z",
+      "inspected_ref": "297e54fd105e974cdf401e5b4d20253a22c16f90",
+      "commit_date": "2026-10-29T05:22:02Z",
       "nightly_artifact_verified": false,
-      "image_digest": "sha256:e3a4f06001a29542fc4a8638536d9ffc5eb9c9942b08603c09b19a56eae4a1ae",
+      "image_digest": "sha256:f832b5c39559c9caa900b22ad37c76fcce66470676855c42052102c537812f1f",
       "release_prerelease": false,
-      "release_commit": "baa9befa381511cd4d56f83980951e5a45fffc6d",
-      "release_checked_at": "2026-10-26T18:00:13.193Z",
+      "release_commit": "297e54fd105e974cdf401e5b4d20253a22c16f90",
+      "release_checked_at": "2026-11-06T08:40:00Z",
       "latest_branch": "main",
-      "latest_branch_ref": "911693e3f816b32c40ee1cd8a98f390da3a18297",
-      "latest_branch_commit_date": "2026-10-26T17:20:15Z",
-      "latest_branch_checked_at": "2026-10-26T18:00:13.384Z",
-      "source_review_scope": "Selected ModelOpt quantization and model registry files only; see frameworks/sglang/SOURCE_REVIEW.md",
+      "latest_branch_ref": "ed61eca15fa026b2d2358cda9f671b20b926dd13",
+      "latest_branch_commit_date": "2026-11-06T08:22:25Z",
+      "latest_branch_checked_at": "2026-11-06T08:25:00Z",
+      "source_review_scope": "November 6 selected release review: release notes, dependency pins and model-specific source/recipes at the release commit; see reports/sglang-v0523-upgrade.md",
       "prior_branch_observations": [
         {
           "latest_branch": "main",
@@ -553,7 +587,7 @@
           "latest_branch_source_id": "RR-GM-SGLANG-MAIN"
         }
       ],
-      "release_tag_object": "35ce313293052f8362e0829e7512bc9bc3d336c9",
+      "release_tag_object": "7df5dd09bc2f0e7e1509a1f7c2a40dff00ad8a01",
       "expanded_source_review": {
         "selected_ref": "4e0609ea277d09393d752fcb79181e3416d94c56",
         "checked_at": "2026-10-15T22:38:42.878432+00:00",
@@ -567,7 +601,7 @@
         "review_completed_at": "2026-10-16T09:09:05.186135+00:00"
       },
       "latest_branch_source_id": "RR-GM-SGLANG-MAIN",
-      "release_source_id": "RR-GM-SGLANG-RELEASE",
+      "release_source_id": "S0523-RELEASE",
       "attention_precision_review": {
         "release_ref": "e00930c5489053f26d86b179cee0d087f846acbb",
         "scope": "Selected attention factories, attention compatibility hook and cache dtype definitions; current main is metadata-only for this addition",
@@ -623,6 +657,68 @@
       },
       "prior_release_observations": [
         {
+          "release": "v0.5.22",
+          "release_published_at": "2026-10-19T02:55:19Z",
+          "release_commit": "baa9befa381511cd4d56f83980951e5a45fffc6d",
+          "release_checked_at": "2026-10-26T18:00:13.193Z",
+          "release_source_id": "RR-GM-SGLANG-RELEASE",
+          "image_digest": "sha256:e3a4f06001a29542fc4a8638536d9ffc5eb9c9942b08603c09b19a56eae4a1ae",
+          "release_tag_object": "35ce313293052f8362e0829e7512bc9bc3d336c9",
+          "release_tag_source_ids": [
+            "S0522-TAG",
+            "S0522-TAG-PEELED"
+          ],
+          "release_image_metadata": {
+            "tag": "lmsysorg/sglang:v0.5.22",
+            "retrieved_at": "2026-10-19T18:58:37.504244+00:00",
+            "index_digest": "sha256:e3a4f06001a29542fc4a8638536d9ffc5eb9c9942b08603c09b19a56eae4a1ae",
+            "platform_manifests": [
+              {
+                "digest": "sha256:5fc09edb6a0bb1d5b6992b543723c66d08f86d7a507e951e87e0d05db4ac766e",
+                "platform": {
+                  "architecture": "amd64",
+                  "os": "linux"
+                }
+              },
+              {
+                "digest": "sha256:06441be3de19a816ddbac917535e920cbfc7fc43171abc08417394f43634ffb6",
+                "platform": {
+                  "architecture": "arm64",
+                  "os": "linux"
+                }
+              }
+            ],
+            "source_ids": [
+              "S0522-SGLANG-IMAGE",
+              "S0522-IMAGE-INDEX"
+            ],
+            "image_layers_downloaded": false,
+            "image_config_inspected": false,
+            "binary_executed": false,
+            "source_provenance_attested": false
+          },
+          "stable_image_metadata_recheck": {
+            "source_id": "S0522-SGLANG-IMAGE",
+            "retrieved_at": "2026-10-26T11:25:55.733173+00:00",
+            "response_sha256": "dd8498c90f7316406276b3eea3bed2d86145035bb1dec3df69decc6bdc975ca8",
+            "scope": "Publication metadata only; no wheel/container payload downloaded or executed.",
+            "digest": "sha256:e3a4f06001a29542fc4a8638536d9ffc5eb9c9942b08603c09b19a56eae4a1ae",
+            "platforms": [
+              {
+                "os": "linux",
+                "architecture": "amd64",
+                "digest": "sha256:5fc09edb6a0bb1d5b6992b543723c66d08f86d7a507e951e87e0d05db4ac766e"
+              },
+              {
+                "os": "linux",
+                "architecture": "arm64",
+                "digest": "sha256:06441be3de19a816ddbac917535e920cbfc7fc43171abc08417394f43634ffb6"
+              }
+            ],
+            "matches_retained_index_digest": true
+          }
+        },
+        {
           "release": "v0.5.21",
           "release_published_at": "2026-10-02T01:09:04Z",
           "release_commit": "e00930c5489053f26d86b179cee0d087f846acbb",
@@ -660,21 +756,22 @@
         ],
         "binary_executed": false
       },
-      "image_digest_scope": "Registry index bytes verified; no image layers/config or runtime qualification.",
+      "image_digest_scope": "Registry manifest-list identity only (Docker Hub API); image contents and runtime unqualified.",
       "release_image_metadata": {
-        "tag": "lmsysorg/sglang:v0.5.22",
-        "retrieved_at": "2026-10-19T18:58:37.504244+00:00",
-        "index_digest": "sha256:e3a4f06001a29542fc4a8638536d9ffc5eb9c9942b08603c09b19a56eae4a1ae",
+        "tag": "lmsysorg/sglang:v0.5.23",
+        "retrieved_at": "2026-11-06T12:32:07.220539+00:00",
+        "tag_last_pushed": "2026-10-30T01:46:51.58698Z",
+        "index_digest": "sha256:f832b5c39559c9caa900b22ad37c76fcce66470676855c42052102c537812f1f",
         "platform_manifests": [
           {
-            "digest": "sha256:5fc09edb6a0bb1d5b6992b543723c66d08f86d7a507e951e87e0d05db4ac766e",
+            "digest": "sha256:f7876bef696ccf9cf75a2bf7ccb82970f5fac577f082fb8ca95c9a59d2160eb5",
             "platform": {
               "architecture": "amd64",
               "os": "linux"
             }
           },
           {
-            "digest": "sha256:06441be3de19a816ddbac917535e920cbfc7fc43171abc08417394f43634ffb6",
+            "digest": "sha256:7f132b890eb6d55f6a8ded87f85e359434878d0fb7f6758582cf759ffb35b5d8",
             "platform": {
               "architecture": "arm64",
               "os": "linux"
@@ -682,8 +779,7 @@
           }
         ],
         "source_ids": [
-          "S0522-SGLANG-IMAGE",
-          "S0522-IMAGE-INDEX"
+          "S0523-IMAGE"
         ],
         "image_layers_downloaded": false,
         "image_config_inspected": false,
@@ -703,28 +799,30 @@
         }
       ],
       "latest_stable_recheck": {
-        "checked_on": "2026-10-26",
-        "release": "v0.5.22",
-        "release_commit": "baa9befa381511cd4d56f83980951e5a45fffc6d",
-        "source_id": "RR-GM-SGLANG-RELEASE",
-        "scope": "Unchanged stable release. Selected engine source rechecks are listed separately; installed KServe version remains unknown."
+        "checked_on": "2026-11-06",
+        "release": "v0.5.23",
+        "release_commit": "297e54fd105e974cdf401e5b4d20253a22c16f90",
+        "source_id": "S0523-RELEASE",
+        "scope": "New stable release reviewed for the catalog families; installed KServe version remains unknown."
       },
       "stable_image_metadata_recheck": {
-        "source_id": "S0522-SGLANG-IMAGE",
-        "retrieved_at": "2026-10-26T11:25:55.733173+00:00",
-        "response_sha256": "dd8498c90f7316406276b3eea3bed2d86145035bb1dec3df69decc6bdc975ca8",
-        "scope": "Publication metadata only; no wheel/container payload downloaded or executed.",
-        "digest": "sha256:e3a4f06001a29542fc4a8638536d9ffc5eb9c9942b08603c09b19a56eae4a1ae",
+        "source_id": "S0523-IMAGE-LATEST",
+        "tag": "lmsysorg/sglang:latest",
+        "retrieved_at": "2026-11-06T12:32:07.399952+00:00",
+        "response_sha256": "228b86a1ac01ebaa3360579809040eeb49f286b8ae52d89510fd32baea7f4601",
+        "tag_last_pushed": "2026-10-30T01:46:53.057765Z",
+        "scope": "Mutable-tag publication metadata only; no wheel/container payload downloaded or executed.",
+        "digest": "sha256:f832b5c39559c9caa900b22ad37c76fcce66470676855c42052102c537812f1f",
         "platforms": [
           {
             "os": "linux",
             "architecture": "amd64",
-            "digest": "sha256:5fc09edb6a0bb1d5b6992b543723c66d08f86d7a507e951e87e0d05db4ac766e"
+            "digest": "sha256:f7876bef696ccf9cf75a2bf7ccb82970f5fac577f082fb8ca95c9a59d2160eb5"
           },
           {
             "os": "linux",
             "architecture": "arm64",
-            "digest": "sha256:06441be3de19a816ddbac917535e920cbfc7fc43171abc08417394f43634ffb6"
+            "digest": "sha256:7f132b890eb6d55f6a8ded87f85e359434878d0fb7f6758582cf759ffb35b5d8"
           }
         ],
         "matches_retained_index_digest": true
@@ -737,7 +835,57 @@
         "branch_source_inspected": false,
         "binary_executed": false,
         "scope": "Benchmark-insights reference: selected definitions, units, measurement populations and metadata only; no serving, quality or GPU benchmark and no binary/deployment qualification."
-      }
+      },
+      "v0_5_23_b300_review": {
+        "reviewed_on": "2026-11-06",
+        "release_ref": "297e54fd105e974cdf401e5b4d20253a22c16f90",
+        "baseline_ref": "baa9befa381511cd4d56f83980951e5a45fffc6d",
+        "model_keys": [
+          "kimi-k3",
+          "kimi-k3.1-pro",
+          "glm-5.3",
+          "glm-5.3-flash",
+          "deepseek-v4-flash-0731",
+          "deepseek-v4.1-flash-1017",
+          "qwen3.8-27b",
+          "qwen3.8-flash-next",
+          "gemma-4-31b-it",
+          "mistral-medium-3.5",
+          "mistral-large-4",
+          "muse-glimmer-30b"
+        ],
+        "report": "reports/sglang-v0523-upgrade.md",
+        "release_tag_object": "7df5dd09bc2f0e7e1509a1f7c2a40dff00ad8a01",
+        "image_platform_manifests": [
+          "sha256:f7876bef696ccf9cf75a2bf7ccb82970f5fac577f082fb8ca95c9a59d2160eb5 (amd64)",
+          "sha256:7f132b890eb6d55f6a8ded87f85e359434878d0fb7f6758582cf759ffb35b5d8 (arm64)"
+        ],
+        "binary_executed": false,
+        "image_source_ids": [
+          "S0523-IMAGE",
+          "S0523-IMAGE-LATEST"
+        ],
+        "preview_image_observations": [
+          {
+            "tag": "lmsysorg/sglang:dev-dsv41",
+            "index_digest": "sha256:4a5d132a06a77c8331e15845f2e925adc788b00105097ad55409afa3f4fa4860",
+            "tag_last_pushed": "2026-09-11T18:36:13.358475Z",
+            "retrieved_at": "2026-11-06T12:32:07.545466+00:00",
+            "source_id": "S0523-IMAGE-DEV-DSV41",
+            "note": "Selected for B300 by the DeepSeek V4.1 cookbook at 297e54f; pushed before v0.5.22."
+          },
+          {
+            "tag": "lmsysorg/sglang:dev-muse-glimmer",
+            "index_digest": "sha256:951b7a14f2279fac122e7198a2eb64d793348ce29969ea0a64e7ea57501b5e33",
+            "tag_last_pushed": "2026-08-10T11:59:11.380116Z",
+            "retrieved_at": "2026-11-06T12:32:07.716317+00:00",
+            "source_id": "S0523-IMAGE-DEV-MUSE-GLIMMER",
+            "note": "Pulled by the Muse Glimmer cookbook at 297e54f; pushed before v0.5.18, the first release containing Muse Glimmer support."
+          }
+        ]
+      },
+      "release_tag_source_id": "S0523-TAG",
+      "image_digest_source_id": "S0523-IMAGE"
     },
     {
       "key": "kserve",
@@ -749,11 +897,11 @@
       "image_digest": null,
       "release_prerelease": false,
       "release_commit": "d1482554fc4f66dd41aee70e01f5174e24f265bd",
-      "release_checked_at": "2026-10-26T18:00:13.120Z",
+      "release_checked_at": "2026-11-06T08:49:52Z",
       "latest_branch": "master",
-      "latest_branch_ref": "ca395ed7580acb63558a5e840acefe5a1a9c153b",
-      "latest_branch_commit_date": "2026-10-26T16:53:51Z",
-      "latest_branch_checked_at": "2026-10-26T18:00:13.122Z",
+      "latest_branch_ref": "52a95a3711a5bb47facd27c2b9109ac8834ec5de",
+      "latest_branch_commit_date": "2026-11-04T20:11:36Z",
+      "latest_branch_checked_at": "2026-11-06T10:02:11Z",
       "commit_date": "2026-09-24T20:10:37Z",
       "source_review_scope": "LLMInferenceService/Config version declarations and deployment-mode constants only; no full controller review",
       "documentation_version_observed": "0.20",
@@ -799,6 +947,13 @@
           "latest_branch_commit_date": "2026-10-26T10:48:48Z",
           "latest_branch_checked_at": "2026-10-26T11:53:28.373Z",
           "latest_branch_source_id": "RR-GM-KSERVE-MAIN"
+        },
+        {
+          "latest_branch": "master",
+          "latest_branch_ref": "ca395ed7580acb63558a5e840acefe5a1a9c153b",
+          "latest_branch_commit_date": "2026-10-26T16:53:51Z",
+          "latest_branch_checked_at": "2026-10-26T18:00:13.122Z",
+          "latest_branch_source_id": "RR-GM-KSERVE-MAIN"
         }
       ],
       "expanded_source_review": {
@@ -814,8 +969,8 @@
         "scope": "Current master metadata/SGLang template and readiness-commit scope; broader branch inspection remains at its historical snapshot",
         "review_completed_at": "2026-10-16T09:11:38.868152+00:00"
       },
-      "release_source_id": "ATTR-K-RELEASE",
-      "latest_branch_source_id": "RR-GM-KSERVE-MAIN",
+      "release_source_id": "KS-LATEST-20261106",
+      "latest_branch_source_id": "KS-MASTER-20261106",
       "prior_release_observations": [
         {
           "release": "v0.21.0",
@@ -823,6 +978,13 @@
           "release_commit": "d1482554fc4f66dd41aee70e01f5174e24f265bd",
           "release_checked_at": "2026-10-17T09:46:31.067284+00:00",
           "release_source_id": "TOPR-K-RELEASE"
+        },
+        {
+          "release": "v0.21.0",
+          "release_published_at": "2026-09-25T17:04:20Z",
+          "release_commit": "d1482554fc4f66dd41aee70e01f5174e24f265bd",
+          "release_checked_at": "2026-10-26T18:00:13.120Z",
+          "release_source_id": "ATTR-K-RELEASE"
         }
       ],
       "latest_release_page_recheck": {
@@ -837,6 +999,12 @@
           "retrieved_at": "2026-10-19T18:54:13.996606+00:00",
           "source_id": "ATTR-K-RELEASE",
           "scope": "Fresh latest release metadata; prior source/image review remains unchanged."
+        },
+        {
+          "release": "v0.21.0",
+          "retrieved_at": "2026-11-06T08:49:52Z",
+          "source_id": "KS-LATEST-20261106",
+          "scope": "Latest stable unchanged."
         }
       ],
       "followup_metadata_observations": [
@@ -852,11 +1020,11 @@
         }
       ],
       "latest_stable_recheck": {
-        "checked_on": "2026-10-26",
+        "checked_on": "2026-11-06",
         "release": "v0.21.0",
         "release_commit": "d1482554fc4f66dd41aee70e01f5174e24f265bd",
-        "source_id": "ATTR-K-RELEASE",
-        "scope": "Unchanged stable release. Selected engine source rechecks are listed separately; installed KServe version remains unknown."
+        "source_id": "KS-LATEST-20261106",
+        "scope": "Unchanged stable release; installed KServe version remains unknown."
       },
       "benchmark_insights_review": {
         "checked_at": "2026-10-26T18:00:13.120Z",
@@ -895,7 +1063,9 @@
       "latest_branch_checked_at": "2026-10-26T18:00:13.214Z",
       "latest_branch_source_id": "BI-G-MAIN",
       "binary_executed": false,
-      "installed_version_known": false
+      "installed_version_known": false,
+      "release_rechecked_at": "2026-11-06T12:33:52.260454+00:00",
+      "release_recheck_result": "v0.8.1 still latest stable on 2026-11-06; latest-release API response byte-identical to the 2026-10-26 retrieval (BI-G-RELEASE last_recheck)"
     }
   ],
   "pull_requests": [
@@ -1621,6 +1791,100 @@
       "published_binary_qualified": false,
       "release_ancestry_source_id": "O26-KSERVE-CPU-ANCESTRY",
       "included_in_stable_release_source": false
+    },
+    {
+      "repo": "sgl-project/sglang",
+      "number": 47271,
+      "state": "open",
+      "draft": false,
+      "merged_at": null,
+      "merge_commit": null,
+      "head_commit": "eb80b0b66de7d5dda991758a71d8579ae0700526",
+      "base_commit": "c06e39c6ca27c3d78b1696bb25d23b57ce5720ff",
+      "retrieved_at": "2026-11-06T12:45:30.105792+00:00",
+      "api_url": "https://api.github.com/repos/sgl-project/sglang/pulls/47271",
+      "http_status": 200,
+      "response_sha256": "dfc73d5dbe6633565885a088ed8aa00dd290cd30356184c938e18b6334fdcbfc",
+      "source_id": "mistral-large-4-SGL-PR47271",
+      "prior_observations": [
+        {
+          "repo": "sgl-project/sglang",
+          "number": 47271,
+          "state": "open",
+          "head_commit": "2cc2f0ef93b1baf96cb520ca3333d5b43dd2352d",
+          "merged_at": null,
+          "retrieved_at": "2026-11-06T08:30:32.859336+00:00",
+          "response_sha256": "3760dbf279e46deb2227a5c1271685730e4bbd964ef828e5cfc0ea47abc0f698"
+        },
+        {
+          "repo": "sgl-project/sglang",
+          "number": 47271,
+          "state": "open",
+          "head_commit": "1fd8f59c249034bf0239de2894b0659b21576925",
+          "merged_at": null,
+          "retrieved_at": "2026-11-06T10:02:46Z",
+          "response_sha256": "3a5a32fae1022745eef3389d67e66a4e3110eb82e8bfc0c3f32bcb80b418b811"
+        }
+      ],
+      "status_basis": "Explicit merged boolean; synthetic merge_commit_sha on open PRs is not a merged revision. Mistral Large 4 model support (adds srt/models/mistral_large_4.py); head moves often.",
+      "published_binary_qualified": false
+    },
+    {
+      "repo": "vllm-project/vllm",
+      "number": 54192,
+      "state": "merged",
+      "merged_at": "2026-09-10T17:57:45Z",
+      "merge_commit": "983b7e28c9f87c3a150081640e0fdeafec5d553a",
+      "retrieved_at": "2026-11-06T12:53:49Z",
+      "api_url": "https://api.github.com/repos/vllm-project/vllm/pulls/54192",
+      "http_status": 200,
+      "response_sha256": "4e074c069832770e0b49839e51ac66291d8cd8f727571d1d4f404da1622989f0",
+      "included_in_release_source": "v0.33.0",
+      "release_ancestry_source_id": "mistral-medium-3.5-VLLM-PR54192-IN-V033",
+      "source_id": "mistral-medium-3.5-VLLM-PR54192"
+    },
+    {
+      "repo": "vllm-project/vllm",
+      "number": 45525,
+      "state": "open",
+      "merged_at": null,
+      "merge_commit": null,
+      "head_commit": "2309ed0706b5bb4699ca8fda0268091de04bc748",
+      "retrieved_at": "2026-11-06T12:53:32Z",
+      "api_url": "https://api.github.com/repos/vllm-project/vllm/pulls/45525",
+      "http_status": 200,
+      "response_sha256": "cbfd3d4e0ff8a4d0976a21266f4c101dfca4132855a7f38b3d2ac5c78fb953c0",
+      "source_id": "mistral-medium-3.5-VLLM-PR45525"
+    },
+    {
+      "repo": "vllm-project/vllm",
+      "number": 52643,
+      "state": "open",
+      "merged_at": null,
+      "merge_commit": null,
+      "head_commit": "c3cbe4485a0f3446eca3ed5e6dfae5ffa6d59f37",
+      "retrieved_at": "2026-11-06T12:53:22Z",
+      "api_url": "https://api.github.com/repos/vllm-project/vllm/pulls/52643",
+      "http_status": 200,
+      "response_sha256": "1239f8b8d8a97d394952c9770aa1d630697ecbf2fd362195c5b70a03239175e0",
+      "source_id": "mistral-medium-3.5-VLLM-PR52643"
+    },
+    {
+      "repo": "vllm-project/vllm",
+      "number": 64534,
+      "state": "open",
+      "draft": true,
+      "merged_at": null,
+      "merge_commit": null,
+      "head_commit": "28a4495de85c64050b3aad39e946d02791710579",
+      "base_commit": "24e80c261428cc45200b28f77fd0e2fdc36a56a8",
+      "retrieved_at": "2026-11-06T12:45:29.548769+00:00",
+      "api_url": "https://api.github.com/repos/vllm-project/vllm/pulls/64534",
+      "http_status": 200,
+      "response_sha256": "6e46769fcd44eeb1f93671bdc3c858dcaed72a33d15bc44accbfc53169efb2a6",
+      "source_id": "mistral-large-4-VLLM-PR64534",
+      "status_basis": "Explicit merged boolean; synthetic merge_commit_sha on open PRs is not a merged revision. Mistral Large 4 working branch ('not meant to be merged as is'); head unchanged since 2026-11-04T19:43Z.",
+      "published_binary_qualified": false
     }
   ],
   "nightly_metadata_observations": [
@@ -1956,15 +2220,14 @@
       ],
       "verification": "Pinned metadata reviewed; weight payload and runtime behavior untested",
       "latest_identity_recheck": {
-        "checked_on": "2026-10-26",
+        "checked_on": "2026-11-06",
         "revision": "7872f01b1d1fe23eabc4c98b48bffcef5a386062",
         "matches_retained_pin": true,
+        "current_head": "7872f01b1d1fe23eabc4c98b48bffcef5a386062",
         "source_ids": [
-          "RR-KD-DEEPSEEK-API",
-          "deepseek-v4-flash-0731-CARD",
-          "deepseek-v4-flash-0731-CFG"
+          "O06-HF-HEADS"
         ],
-        "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+        "scope": "Hub head identity only (revision/main API); README/configuration not re-downloaded; no weight-payload identity or runtime qualification."
       },
       "prior_identity_rechecks": [
         {
@@ -1973,6 +2236,17 @@
           "source_id": "RR-KD-DEEPSEEK-API",
           "matches_retained_pin": true,
           "scope": "Current head identity only; no payload or runtime qualification."
+        },
+        {
+          "checked_on": "2026-10-26",
+          "revision": "7872f01b1d1fe23eabc4c98b48bffcef5a386062",
+          "matches_retained_pin": true,
+          "source_ids": [
+            "RR-KD-DEEPSEEK-API",
+            "deepseek-v4-flash-0731-CARD",
+            "deepseek-v4-flash-0731-CFG"
+          ],
+          "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
         }
       ],
       "huggingface_readme": {
@@ -2000,15 +2274,14 @@
       ],
       "verification": "Pinned metadata reviewed; weight payload and runtime behavior untested",
       "latest_identity_recheck": {
-        "checked_on": "2026-10-26",
+        "checked_on": "2026-11-06",
         "revision": "842da3794eaa0b77d5f08bae87a17459d91ff475",
         "matches_retained_pin": true,
+        "current_head": "842da3794eaa0b77d5f08bae87a17459d91ff475",
         "source_ids": [
-          "TOPM-GEMMA-BASE-META",
-          "gemma-4-31b-it-CARD",
-          "gemma-4-31b-it-CFG"
+          "O06-HF-HEADS"
         ],
-        "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+        "scope": "Hub head identity only (revision/main API); README/configuration not re-downloaded; no weight-payload identity or runtime qualification."
       },
       "prior_identity_rechecks": [
         {
@@ -2023,6 +2296,17 @@
           "source_id": "TOPM-GEMMA-BASE-META",
           "matches_retained_pin": true,
           "scope": "Current head identity only; no payload or runtime qualification."
+        },
+        {
+          "checked_on": "2026-10-26",
+          "revision": "842da3794eaa0b77d5f08bae87a17459d91ff475",
+          "matches_retained_pin": true,
+          "source_ids": [
+            "TOPM-GEMMA-BASE-META",
+            "gemma-4-31b-it-CARD",
+            "gemma-4-31b-it-CFG"
+          ],
+          "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
         }
       ],
       "huggingface_readme": {
@@ -2050,15 +2334,14 @@
       ],
       "verification": "Pinned metadata reviewed; weight payload and runtime behavior untested",
       "latest_identity_recheck": {
-        "checked_on": "2026-10-26",
+        "checked_on": "2026-11-06",
         "revision": "ce67b36f3669192b5bb233819f0fda6c8a9837f8",
         "matches_retained_pin": true,
+        "current_head": "ce67b36f3669192b5bb233819f0fda6c8a9837f8",
         "source_ids": [
-          "Q31-CAT-GLM-INF-API-JSON",
-          "glm-5.3-INFERACT-CARD",
-          "glm-5.3-INFERACT-CFG"
+          "O06-HF-HEADS"
         ],
-        "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+        "scope": "Hub head identity only (revision/main API); README/configuration not re-downloaded; no weight-payload identity or runtime qualification."
       },
       "prior_identity_rechecks": [
         {
@@ -2067,6 +2350,17 @@
           "source_id": "Q31-CAT-GLM-INF-API-JSON",
           "matches_retained_pin": true,
           "scope": "Current head identity only; no payload or runtime qualification."
+        },
+        {
+          "checked_on": "2026-10-26",
+          "revision": "ce67b36f3669192b5bb233819f0fda6c8a9837f8",
+          "matches_retained_pin": true,
+          "source_ids": [
+            "Q31-CAT-GLM-INF-API-JSON",
+            "glm-5.3-INFERACT-CARD",
+            "glm-5.3-INFERACT-CFG"
+          ],
+          "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
         }
       ],
       "huggingface_readme": {
@@ -2131,7 +2425,7 @@
       ],
       "verification": "Pinned metadata reviewed; weight payload and runtime behavior untested",
       "latest_identity_recheck": {
-        "checked_on": "2026-10-26",
+        "checked_on": "2026-11-06",
         "revision": "22b2b868a15677cfa6061277ed2f653d1349a9ab",
         "matches_retained_pin": true,
         "source_ids": [
@@ -2140,9 +2434,21 @@
           "mistral-medium-3.5-CFG",
           "RR-GM-MISTRAL-PARAMS"
         ],
-        "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+        "scope": "Current head; README/configuration byte-identical to retained hashes; no weight-payload identity or runtime qualification."
       },
       "prior_identity_rechecks": [
+        {
+          "checked_on": "2026-10-26",
+          "revision": "22b2b868a15677cfa6061277ed2f653d1349a9ab",
+          "matches_retained_pin": true,
+          "source_ids": [
+            "V032-KM-API-MISTRALAI--MISTRAL-MEDIUM-3.5-128B",
+            "mistral-medium-3.5-CARD",
+            "mistral-medium-3.5-CFG",
+            "RR-GM-MISTRAL-PARAMS"
+          ],
+          "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+        },
         {
           "revision": "22b2b868a15677cfa6061277ed2f653d1349a9ab",
           "retrieved_at": "2026-10-19T19:09:00.278506+00:00",
@@ -2176,15 +2482,14 @@
       ],
       "verification": "Pinned metadata reviewed; weight payload and runtime behavior untested",
       "latest_identity_recheck": {
-        "checked_on": "2026-10-26",
+        "checked_on": "2026-11-06",
         "revision": "f831ab66814297da540d832a5235f8e904f29d06",
         "matches_retained_pin": true,
+        "current_head": "f831ab66814297da540d832a5235f8e904f29d06",
         "source_ids": [
-          "TOPK-BASE-API",
-          "kimi-k3-CARD",
-          "kimi-k3-CFG"
+          "O06-HF-HEADS"
         ],
-        "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+        "scope": "Hub head identity only (revision/main API); README/configuration not re-downloaded; no weight-payload identity or runtime qualification."
       },
       "prior_identity_rechecks": [
         {
@@ -2199,6 +2504,17 @@
           "source_id": "TOPK-BASE-API",
           "matches_retained_pin": true,
           "scope": "Current head identity only; no payload or runtime qualification."
+        },
+        {
+          "checked_on": "2026-10-26",
+          "revision": "f831ab66814297da540d832a5235f8e904f29d06",
+          "matches_retained_pin": true,
+          "source_ids": [
+            "TOPK-BASE-API",
+            "kimi-k3-CARD",
+            "kimi-k3-CFG"
+          ],
+          "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
         }
       ],
       "huggingface_readme": {
@@ -2226,16 +2542,14 @@
       ],
       "verification": "Pinned metadata reviewed; weight payload and runtime behavior untested",
       "latest_identity_recheck": {
-        "checked_on": "2026-10-26",
+        "checked_on": "2026-11-06",
         "revision": "b2428a0b83a8b712ff2e1a8448a103d4175341f1",
         "matches_retained_pin": true,
+        "current_head": "b2428a0b83a8b712ff2e1a8448a103d4175341f1",
         "source_ids": [
-          "TOPK-NV-API",
-          "kimi-k3-NV",
-          "kimi-k3-NV-CFG",
-          "HF-NVIDIA-KIMI-K3-NVFP4-HF-QUANT-CONFIG-JSON"
+          "O06-HF-HEADS"
         ],
-        "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+        "scope": "Hub head identity only (revision/main API); README/configuration not re-downloaded; no weight-payload identity or runtime qualification."
       },
       "prior_identity_rechecks": [
         {
@@ -2250,6 +2564,18 @@
           "source_id": "TOPK-NV-API",
           "matches_retained_pin": true,
           "scope": "Current head identity only; no payload or runtime qualification."
+        },
+        {
+          "checked_on": "2026-10-26",
+          "revision": "b2428a0b83a8b712ff2e1a8448a103d4175341f1",
+          "matches_retained_pin": true,
+          "source_ids": [
+            "TOPK-NV-API",
+            "kimi-k3-NV",
+            "kimi-k3-NV-CFG",
+            "HF-NVIDIA-KIMI-K3-NVFP4-HF-QUANT-CONFIG-JSON"
+          ],
+          "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
         }
       ],
       "huggingface_readme": {
@@ -2277,16 +2603,14 @@
       ],
       "verification": "Pinned metadata reviewed; weight payload and runtime behavior untested",
       "latest_identity_recheck": {
-        "checked_on": "2026-10-26",
+        "checked_on": "2026-11-06",
         "revision": "482ca0f3832238542f8f5295dde86b5f22711d80",
         "matches_retained_pin": true,
+        "current_head": "482ca0f3832238542f8f5295dde86b5f22711d80",
         "source_ids": [
-          "RR-QWEN-27NV-API",
-          "qwen3.8-27b-NV",
-          "qwen3.8-27b-NV-CFG",
-          "qwen3.8-27b-NV-QUANT"
+          "O06-HF-HEADS"
         ],
-        "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+        "scope": "Hub head identity only (revision/main API); README/configuration not re-downloaded; no weight-payload identity or runtime qualification."
       },
       "prior_identity_rechecks": [
         {
@@ -2307,6 +2631,18 @@
           "source_id": "RR-QWEN-27NV-API",
           "matches_retained_pin": true,
           "scope": "Current head identity only; no payload or runtime qualification."
+        },
+        {
+          "checked_on": "2026-10-26",
+          "revision": "482ca0f3832238542f8f5295dde86b5f22711d80",
+          "matches_retained_pin": true,
+          "source_ids": [
+            "RR-QWEN-27NV-API",
+            "qwen3.8-27b-NV",
+            "qwen3.8-27b-NV-CFG",
+            "qwen3.8-27b-NV-QUANT"
+          ],
+          "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
         }
       ],
       "huggingface_readme": {
@@ -2334,16 +2670,14 @@
       ],
       "verification": "Pinned metadata reviewed; weight payload and runtime behavior untested",
       "latest_identity_recheck": {
-        "checked_on": "2026-10-26",
+        "checked_on": "2026-11-06",
         "revision": "fc694b54fb0174e0913e6adf86691ef85a4ead47",
         "matches_retained_pin": true,
+        "current_head": "fc694b54fb0174e0913e6adf86691ef85a4ead47",
         "source_ids": [
-          "RR-QWEN-NEXTNV-API",
-          "qwen3.8-flash-next-NV",
-          "qwen3.8-flash-next-NV-CFG",
-          "qwen3.8-flash-next-NV-QUANT"
+          "O06-HF-HEADS"
         ],
-        "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+        "scope": "Hub head identity only (revision/main API); README/configuration not re-downloaded; no weight-payload identity or runtime qualification."
       },
       "prior_identity_rechecks": [
         {
@@ -2358,6 +2692,18 @@
           "source_id": "RR-QWEN-NEXTNV-API",
           "matches_retained_pin": true,
           "scope": "Current head identity only; no payload or runtime qualification."
+        },
+        {
+          "checked_on": "2026-10-26",
+          "revision": "fc694b54fb0174e0913e6adf86691ef85a4ead47",
+          "matches_retained_pin": true,
+          "source_ids": [
+            "RR-QWEN-NEXTNV-API",
+            "qwen3.8-flash-next-NV",
+            "qwen3.8-flash-next-NV-CFG",
+            "qwen3.8-flash-next-NV-QUANT"
+          ],
+          "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
         }
       ],
       "huggingface_readme": {
@@ -2384,17 +2730,32 @@
       ],
       "verification": "Pinned metadata reviewed; weight payload and runtime behavior untested",
       "latest_identity_recheck": {
-        "checked_on": "2026-10-26",
+        "checked_on": "2026-11-06",
         "revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
-        "matches_retained_pin": true,
-        "source_ids": [
-          "RR-QWEN-27-API",
-          "qwen3.8-27b-CARD",
-          "qwen3.8-27b-CFG"
+        "matches_retained_pin": false,
+        "current_head": "8c0b3d30f3ae96f5c7f774de704bf0ada83e422a",
+        "changed_files_since_pin": [
+          "README.md"
         ],
-        "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+        "retained_pin_still_valid_for_serving": true,
+        "source_ids": [
+          "O06-HF-HEADS",
+          "O06-HEAD-TREE-DIFF"
+        ],
+        "scope": "Head moved to 8c0b3d30 (2026-11-05, model-card table colours); only README.md changed. Weights, configuration and tokenizer unchanged: the retained pin and its README snapshot remain the serving identity."
       },
       "prior_identity_rechecks": [
+        {
+          "checked_on": "2026-10-26",
+          "revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
+          "matches_retained_pin": true,
+          "source_ids": [
+            "RR-QWEN-27-API",
+            "qwen3.8-27b-CARD",
+            "qwen3.8-27b-CFG"
+          ],
+          "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+        },
         {
           "revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
           "retrieved_at": "2026-10-16T10:02:40.483132Z",
@@ -2439,15 +2800,14 @@
       ],
       "verification": "Pinned metadata reviewed; weight payload and runtime behavior untested",
       "latest_identity_recheck": {
-        "checked_on": "2026-10-26",
+        "checked_on": "2026-11-06",
         "revision": "017b9c7af6b5689d5dd426a76e0bc077eb5ca20a",
         "matches_retained_pin": true,
+        "current_head": "017b9c7af6b5689d5dd426a76e0bc077eb5ca20a",
         "source_ids": [
-          "RR-QWEN-27FP8-API",
-          "qwen3.8-27b-FP8",
-          "qwen3.8-27b-FP8-CFG"
+          "O06-HF-HEADS"
         ],
-        "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+        "scope": "Hub head identity only (revision/main API); README/configuration not re-downloaded; no weight-payload identity or runtime qualification."
       },
       "prior_identity_rechecks": [
         {
@@ -2468,6 +2828,17 @@
           "source_id": "RR-QWEN-27FP8-API",
           "matches_retained_pin": true,
           "scope": "Current head identity only; no payload or runtime qualification."
+        },
+        {
+          "checked_on": "2026-10-26",
+          "revision": "017b9c7af6b5689d5dd426a76e0bc077eb5ca20a",
+          "matches_retained_pin": true,
+          "source_ids": [
+            "RR-QWEN-27FP8-API",
+            "qwen3.8-27b-FP8",
+            "qwen3.8-27b-FP8-CFG"
+          ],
+          "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
         }
       ],
       "huggingface_readme": {
@@ -2494,17 +2865,32 @@
       ],
       "verification": "Pinned metadata reviewed; weight payload and runtime behavior untested",
       "latest_identity_recheck": {
-        "checked_on": "2026-10-26",
+        "checked_on": "2026-11-06",
         "revision": "de4b8e4d43b917e7706784d8bb445c9af86a3540",
-        "matches_retained_pin": true,
-        "source_ids": [
-          "TOPQ-NEXT-API",
-          "qwen3.8-flash-next-CARD",
-          "qwen3.8-flash-next-CFG"
+        "matches_retained_pin": false,
+        "current_head": "7ecef55a2e549814c62143fcf8b5be457695e3b9",
+        "changed_files_since_pin": [
+          "README.md"
         ],
-        "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+        "retained_pin_still_valid_for_serving": true,
+        "source_ids": [
+          "O06-HF-HEADS",
+          "O06-HEAD-TREE-DIFF"
+        ],
+        "scope": "Head moved to 7ecef55a (2026-11-05, model-card table colours); only README.md changed. Weights, configuration and tokenizer unchanged: the retained pin and its README snapshot remain the serving identity."
       },
       "prior_identity_rechecks": [
+        {
+          "checked_on": "2026-10-26",
+          "revision": "de4b8e4d43b917e7706784d8bb445c9af86a3540",
+          "matches_retained_pin": true,
+          "source_ids": [
+            "TOPQ-NEXT-API",
+            "qwen3.8-flash-next-CARD",
+            "qwen3.8-flash-next-CFG"
+          ],
+          "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+        },
         {
           "revision": "de4b8e4d43b917e7706784d8bb445c9af86a3540",
           "retrieved_at": "2026-10-16T10:02:40.482511Z",
@@ -2543,15 +2929,14 @@
       ],
       "verification": "Pinned metadata reviewed; weight payload and runtime behavior untested",
       "latest_identity_recheck": {
-        "checked_on": "2026-10-26",
+        "checked_on": "2026-11-06",
         "revision": "236dfdf285828023ca3bcd3f37366c58a3469b13",
         "matches_retained_pin": true,
+        "current_head": "236dfdf285828023ca3bcd3f37366c58a3469b13",
         "source_ids": [
-          "TOPQ-NEXTFP8-API",
-          "qwen3.8-flash-next-FP8",
-          "qwen3.8-flash-next-FP8-CFG"
+          "O06-HF-HEADS"
         ],
-        "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+        "scope": "Hub head identity only (revision/main API); README/configuration not re-downloaded; no weight-payload identity or runtime qualification."
       },
       "prior_identity_rechecks": [
         {
@@ -2566,6 +2951,17 @@
           "source_id": "TOPQ-NEXTFP8-API",
           "matches_retained_pin": true,
           "scope": "Current head identity only; no payload or runtime qualification."
+        },
+        {
+          "checked_on": "2026-10-26",
+          "revision": "236dfdf285828023ca3bcd3f37366c58a3469b13",
+          "matches_retained_pin": true,
+          "source_ids": [
+            "TOPQ-NEXTFP8-API",
+            "qwen3.8-flash-next-FP8",
+            "qwen3.8-flash-next-FP8-CFG"
+          ],
+          "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
         }
       ],
       "huggingface_readme": {
@@ -2636,15 +3032,14 @@
       ],
       "verification": "Pinned metadata reviewed; weight payload and runtime behavior untested",
       "latest_identity_recheck": {
-        "checked_on": "2026-10-26",
+        "checked_on": "2026-11-06",
         "revision": "d7242548c457ab4b45bd3adb8937f2659af4739d",
         "matches_retained_pin": true,
+        "current_head": "d7242548c457ab4b45bd3adb8937f2659af4739d",
         "source_ids": [
-          "TOPM-GEMMA-RHFP8-META",
-          "gemma-4-31b-it-FP8",
-          "gemma-4-31b-it-FP8-CFG"
+          "O06-HF-HEADS"
         ],
-        "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+        "scope": "Hub head identity only (revision/main API); README/configuration not re-downloaded; no weight-payload identity or runtime qualification."
       },
       "prior_identity_rechecks": [
         {
@@ -2659,6 +3054,17 @@
           "source_id": "TOPM-GEMMA-RHFP8-META",
           "matches_retained_pin": true,
           "scope": "Current head identity only; no payload or runtime qualification."
+        },
+        {
+          "checked_on": "2026-10-26",
+          "revision": "d7242548c457ab4b45bd3adb8937f2659af4739d",
+          "matches_retained_pin": true,
+          "source_ids": [
+            "TOPM-GEMMA-RHFP8-META",
+            "gemma-4-31b-it-FP8",
+            "gemma-4-31b-it-FP8-CFG"
+          ],
+          "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
         }
       ],
       "huggingface_readme": {
@@ -2686,15 +3092,14 @@
       ],
       "verification": "Pinned metadata reviewed; weight payload and runtime behavior untested",
       "latest_identity_recheck": {
-        "checked_on": "2026-10-26",
+        "checked_on": "2026-11-06",
         "revision": "5df75ccad9b74546f5be758a2a68acc2e16bbc9b",
         "matches_retained_pin": true,
+        "current_head": "5df75ccad9b74546f5be758a2a68acc2e16bbc9b",
         "source_ids": [
-          "TOPM-GEMMA-RHNV-META",
-          "gemma-4-31b-it-NV",
-          "gemma-4-31b-it-NV-CFG"
+          "O06-HF-HEADS"
         ],
-        "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+        "scope": "Hub head identity only (revision/main API); README/configuration not re-downloaded; no weight-payload identity or runtime qualification."
       },
       "prior_identity_rechecks": [
         {
@@ -2709,6 +3114,17 @@
           "source_id": "TOPM-GEMMA-RHNV-META",
           "matches_retained_pin": true,
           "scope": "Current head identity only; no payload or runtime qualification."
+        },
+        {
+          "checked_on": "2026-10-26",
+          "revision": "5df75ccad9b74546f5be758a2a68acc2e16bbc9b",
+          "matches_retained_pin": true,
+          "source_ids": [
+            "TOPM-GEMMA-RHNV-META",
+            "gemma-4-31b-it-NV",
+            "gemma-4-31b-it-NV-CFG"
+          ],
+          "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
         }
       ],
       "huggingface_readme": {
@@ -2736,17 +3152,33 @@
       ],
       "verification": "Pinned metadata reviewed; weight payload and runtime behavior untested",
       "latest_identity_recheck": {
-        "checked_on": "2026-10-26",
+        "checked_on": "2026-11-06",
         "revision": "18d55bfd5a2194887738da73753975c9d3842f46",
-        "matches_retained_pin": true,
-        "source_ids": [
-          "Q31-CAT-FLASH-RH-API-JSON",
-          "glm-5.3-flash-NV",
-          "glm-5.3-flash-NV-CFG"
+        "matches_retained_pin": false,
+        "current_head": "fbad79c097154180136e30501886c9daafff49b2",
+        "changed_files_since_pin": [
+          "LICENSE"
         ],
-        "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+        "retained_pin_still_valid_for_serving": true,
+        "source_ids": [
+          "O06-HF-HEADS",
+          "O06-HEAD-TREE-DIFF",
+          "glm-5.3-flash-RH-LICENSE"
+        ],
+        "scope": "Head moved to fbad79c0 (2026-10-27, \"Create LICENSE\"); only LICENSE was added (MIT, Z.AI text). Weights, configuration and README unchanged: the retained pin still identifies the serving artifact."
       },
       "prior_identity_rechecks": [
+        {
+          "checked_on": "2026-10-26",
+          "revision": "18d55bfd5a2194887738da73753975c9d3842f46",
+          "matches_retained_pin": true,
+          "source_ids": [
+            "Q31-CAT-FLASH-RH-API-JSON",
+            "glm-5.3-flash-NV",
+            "glm-5.3-flash-NV-CFG"
+          ],
+          "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+        },
         {
           "revision": "18d55bfd5a2194887738da73753975c9d3842f46",
           "retrieved_at": "2026-10-19T19:09:00.001336+00:00",
@@ -2780,15 +3212,14 @@
       ],
       "verification": "Pinned metadata reviewed; weight payload and runtime behavior untested",
       "latest_identity_recheck": {
-        "checked_on": "2026-10-26",
+        "checked_on": "2026-11-06",
         "revision": "c8917e4258572c405575855ff53effe58c17a38e",
         "matches_retained_pin": true,
+        "current_head": "c8917e4258572c405575855ff53effe58c17a38e",
         "source_ids": [
-          "Q31-CAT-GLM-RH-API-JSON",
-          "glm-5.3-NV",
-          "glm-5.3-NV-CFG"
+          "O06-HF-HEADS"
         ],
-        "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+        "scope": "Hub head identity only (revision/main API); README/configuration not re-downloaded; no weight-payload identity or runtime qualification."
       },
       "prior_identity_rechecks": [
         {
@@ -2797,6 +3228,17 @@
           "source_id": "Q31-CAT-GLM-RH-API-JSON",
           "matches_retained_pin": true,
           "scope": "Current head identity only; no payload or runtime qualification."
+        },
+        {
+          "checked_on": "2026-10-26",
+          "revision": "c8917e4258572c405575855ff53effe58c17a38e",
+          "matches_retained_pin": true,
+          "source_ids": [
+            "Q31-CAT-GLM-RH-API-JSON",
+            "glm-5.3-NV",
+            "glm-5.3-NV-CFG"
+          ],
+          "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
         }
       ],
       "huggingface_readme": {
@@ -2826,15 +3268,14 @@
       ],
       "verification": "Pinned metadata reviewed; weight payload and runtime behavior untested",
       "latest_identity_recheck": {
-        "checked_on": "2026-10-26",
+        "checked_on": "2026-11-06",
         "revision": "ba32f8c19c8738e2c57c71798c601d477a7bf844",
         "matches_retained_pin": true,
+        "current_head": "ba32f8c19c8738e2c57c71798c601d477a7bf844",
         "source_ids": [
-          "TOPG-GLM-MAIN",
-          "glm-5.3-CARD",
-          "glm-5.3-CFG"
+          "O06-HF-HEADS"
         ],
-        "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+        "scope": "Hub head identity only (revision/main API); README/configuration not re-downloaded; no weight-payload identity or runtime qualification."
       },
       "prior_identity_rechecks": [
         {
@@ -2849,6 +3290,17 @@
           "source_id": "TOPG-GLM-MAIN",
           "matches_retained_pin": true,
           "scope": "Current head identity only; no payload or runtime qualification."
+        },
+        {
+          "checked_on": "2026-10-26",
+          "revision": "ba32f8c19c8738e2c57c71798c601d477a7bf844",
+          "matches_retained_pin": true,
+          "source_ids": [
+            "TOPG-GLM-MAIN",
+            "glm-5.3-CARD",
+            "glm-5.3-CFG"
+          ],
+          "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
         }
       ],
       "huggingface_readme": {
@@ -2877,15 +3329,14 @@
       ],
       "verification": "Pinned metadata reviewed; weight payload and runtime behavior untested",
       "latest_identity_recheck": {
-        "checked_on": "2026-10-26",
+        "checked_on": "2026-11-06",
         "revision": "abf42e6c0e53bc29a875511301e7b7fcd220315b",
         "matches_retained_pin": true,
+        "current_head": "abf42e6c0e53bc29a875511301e7b7fcd220315b",
         "source_ids": [
-          "S0522-HF-zai-org-GLM-5.3-BF16",
-          "glm-5.3-BF16-CARD",
-          "glm-5.3-BF16-CFG"
+          "O06-HF-HEADS"
         ],
-        "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+        "scope": "Hub head identity only (revision/main API); README/configuration not re-downloaded; no weight-payload identity or runtime qualification."
       },
       "prior_identity_rechecks": [
         {
@@ -2894,6 +3345,17 @@
           "source_id": "S0522-HF-zai-org-GLM-5.3-BF16",
           "matches_retained_pin": true,
           "scope": "Current head identity only; no payload or runtime qualification."
+        },
+        {
+          "checked_on": "2026-10-26",
+          "revision": "abf42e6c0e53bc29a875511301e7b7fcd220315b",
+          "matches_retained_pin": true,
+          "source_ids": [
+            "S0522-HF-zai-org-GLM-5.3-BF16",
+            "glm-5.3-BF16-CARD",
+            "glm-5.3-BF16-CFG"
+          ],
+          "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
         }
       ],
       "huggingface_readme": {
@@ -2923,15 +3385,14 @@
       ],
       "verification": "Pinned metadata reviewed; weight payload and runtime behavior untested",
       "latest_identity_recheck": {
-        "checked_on": "2026-10-26",
+        "checked_on": "2026-11-06",
         "revision": "46a050bec13002ad29ee795c16e61cf4fa3c4a9c",
         "matches_retained_pin": true,
+        "current_head": "46a050bec13002ad29ee795c16e61cf4fa3c4a9c",
         "source_ids": [
-          "TOPG-FLASH-MAIN",
-          "glm-5.3-flash-CARD",
-          "glm-5.3-flash-CFG"
+          "O06-HF-HEADS"
         ],
-        "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+        "scope": "Hub head identity only (revision/main API); README/configuration not re-downloaded; no weight-payload identity or runtime qualification."
       },
       "prior_identity_rechecks": [
         {
@@ -2946,6 +3407,17 @@
           "source_id": "TOPG-FLASH-MAIN",
           "matches_retained_pin": true,
           "scope": "Current head identity only; no payload or runtime qualification."
+        },
+        {
+          "checked_on": "2026-10-26",
+          "revision": "46a050bec13002ad29ee795c16e61cf4fa3c4a9c",
+          "matches_retained_pin": true,
+          "source_ids": [
+            "TOPG-FLASH-MAIN",
+            "glm-5.3-flash-CARD",
+            "glm-5.3-flash-CFG"
+          ],
+          "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
         }
       ],
       "huggingface_readme": {
@@ -2973,15 +3445,14 @@
       ],
       "verification": "Pinned metadata reviewed; weight payload and runtime behavior untested",
       "latest_identity_recheck": {
-        "checked_on": "2026-10-26",
+        "checked_on": "2026-11-06",
         "revision": "f9fed3bbc82291073373d67452e9f25317ef7577",
         "matches_retained_pin": true,
+        "current_head": "f9fed3bbc82291073373d67452e9f25317ef7577",
         "source_ids": [
-          "S0522-HF-zai-org-GLM-5.3-Flash-BF16",
-          "glm-5.3-flash-BF16-CARD",
-          "glm-5.3-flash-BF16-CFG"
+          "O06-HF-HEADS"
         ],
-        "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+        "scope": "Hub head identity only (revision/main API); README/configuration not re-downloaded; no weight-payload identity or runtime qualification."
       },
       "prior_identity_rechecks": [
         {
@@ -2990,6 +3461,17 @@
           "source_id": "S0522-HF-zai-org-GLM-5.3-Flash-BF16",
           "matches_retained_pin": true,
           "scope": "Current head identity only; no payload or runtime qualification."
+        },
+        {
+          "checked_on": "2026-10-26",
+          "revision": "f9fed3bbc82291073373d67452e9f25317ef7577",
+          "matches_retained_pin": true,
+          "source_ids": [
+            "S0522-HF-zai-org-GLM-5.3-Flash-BF16",
+            "glm-5.3-flash-BF16-CARD",
+            "glm-5.3-flash-BF16-CFG"
+          ],
+          "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
         }
       ],
       "huggingface_readme": {
@@ -3115,9 +3597,673 @@
         "sha256": "10a114243d31db24649ecda5245e30832e6b86e49e939c73725da4a00ee6db9d",
         "retrieved_at": "2026-10-26T11:24:18.745136+00:00"
       }
+    },
+    {
+      "hf_id": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "revision": "1bae0e1088993b9b82de08f59de5be5a34e42170",
+      "model_keys": [
+        "deepseek-v4.1-flash-1017"
+      ],
+      "roles": [
+        "native"
+      ],
+      "source_ids": [
+        "deepseek-v4.1-flash-1017-CARD",
+        "deepseek-v4.1-flash-1017-CFG",
+        "deepseek-v4.1-flash-1017-LICENSE",
+        "deepseek-v4.1-flash-1017-INDEX",
+        "deepseek-v4.1-flash-1017-HEADERS",
+        "deepseek-v4.1-flash-1017-TOKCFG",
+        "deepseek-v4.1-flash-1017-INFER-CFG",
+        "deepseek-v4.1-flash-1017-INFER-SRC",
+        "deepseek-v4.1-flash-1017-ENC"
+      ],
+      "verification": "Pinned metadata and safetensors headers reviewed; weight payload and runtime behavior untested",
+      "latest_identity_recheck": {
+        "checked_on": "2026-11-06",
+        "revision": "1bae0e1088993b9b82de08f59de5be5a34e42170",
+        "matches_retained_pin": true,
+        "source_ids": [
+          "deepseek-v4.1-flash-1017-API",
+          "deepseek-v4.1-flash-1017-CARD",
+          "deepseek-v4.1-flash-1017-CFG"
+        ],
+        "scope": "Current head and immutable README/configuration/headers; no weight-payload identity or runtime qualification."
+      },
+      "huggingface_readme": {
+        "hf_id": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+        "revision": "1bae0e1088993b9b82de08f59de5be5a34e42170",
+        "path": "companies/deepseek/deepseek-v4.1-flash-1017/huggingface/README.md",
+        "source_id": "deepseek-v4.1-flash-1017-CARD",
+        "sha256": "b72b796e4f4c739eca5d0ad360a7679b39118ca7eb64891f7151a527b292c42a",
+        "retrieved_at": "2026-11-06T08:21:29.414093+00:00"
+      }
+    },
+    {
+      "hf_id": "nvidia/DeepSeek-V4.1-Flash-1017-NVFP4",
+      "revision": "3ae9c0d3fbbea5370bd06e679d22044db15883f1",
+      "model_keys": [
+        "deepseek-v4.1-flash-1017"
+      ],
+      "roles": [
+        "nvfp4"
+      ],
+      "source_ids": [
+        "deepseek-v4.1-flash-1017-NV-CARD",
+        "deepseek-v4.1-flash-1017-NV-CFG",
+        "deepseek-v4.1-flash-1017-NV-QCFG",
+        "deepseek-v4.1-flash-1017-NV-INDEX",
+        "deepseek-v4.1-flash-1017-NV-TREE"
+      ],
+      "verification": "Pinned metadata reviewed; weight payload and runtime behavior untested; loader requires unreleased engine changes",
+      "latest_identity_recheck": {
+        "checked_on": "2026-11-06",
+        "revision": "3ae9c0d3fbbea5370bd06e679d22044db15883f1",
+        "matches_retained_pin": true,
+        "source_ids": [
+          "deepseek-v4.1-flash-1017-NV-TREE",
+          "deepseek-v4.1-flash-1017-NV-CARD",
+          "deepseek-v4.1-flash-1017-NV-CFG"
+        ],
+        "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+      },
+      "huggingface_readme": {
+        "hf_id": "nvidia/DeepSeek-V4.1-Flash-1017-NVFP4",
+        "revision": "3ae9c0d3fbbea5370bd06e679d22044db15883f1",
+        "path": "companies/deepseek/deepseek-v4.1-flash-1017/huggingface/additional/nvidia--DeepSeek-V4.1-Flash-1017-NVFP4/README.md",
+        "source_id": "deepseek-v4.1-flash-1017-NV-CARD",
+        "sha256": "bd44536eedd91c803e81a06e72436dd4a2c3a34cd402b244014714a6e66f121f",
+        "retrieved_at": "2026-11-06T08:24:18.015644+00:00"
+      }
+    },
+    {
+      "hf_id": "deepseek-ai/DeepSeek-V4.1-Flash",
+      "revision": "314113f8a7dadb388215396ba5fbee2c610a04d6",
+      "model_keys": [
+        "deepseek-v4.1-flash-1017"
+      ],
+      "roles": [
+        "predecessor-reference"
+      ],
+      "source_ids": [
+        "deepseek-v4.1-flash-1017-V41-CARD",
+        "deepseek-v4.1-flash-1017-V41-CFG",
+        "deepseek-v4.1-flash-1017-V41-TREE",
+        "deepseek-v4.1-flash-1017-V41-API",
+        "deepseek-v4.1-flash-1017-V41-CHAT-TEMPLATE"
+      ],
+      "verification": "Pinned card/config/tree reviewed to establish lineage and configuration identity; different weights; not a 1017 variant",
+      "latest_identity_recheck": {
+        "checked_on": "2026-11-06",
+        "revision": "314113f8a7dadb388215396ba5fbee2c610a04d6",
+        "matches_retained_pin": true,
+        "source_ids": [
+          "deepseek-v4.1-flash-1017-V41-API",
+          "deepseek-v4.1-flash-1017-V41-CARD"
+        ],
+        "scope": "Current head identity and immutable README/configuration; no payload or runtime qualification."
+      },
+      "huggingface_readme": {
+        "hf_id": "deepseek-ai/DeepSeek-V4.1-Flash",
+        "revision": "314113f8a7dadb388215396ba5fbee2c610a04d6",
+        "path": "companies/deepseek/deepseek-v4.1-flash-1017/huggingface/additional/deepseek-ai--DeepSeek-V4.1-Flash/README.md",
+        "source_id": "deepseek-v4.1-flash-1017-V41-CARD",
+        "sha256": "347c9db4e5506acb531cbc3b724407ab88e9af8781679152f0823d7bac16d251",
+        "retrieved_at": "2026-11-06T08:21:32.968030+00:00"
+      }
+    },
+    {
+      "hf_id": "moonshotai/Kimi-K3.1-Pro",
+      "revision": "d9e99b0792a5e93b78ea9bea62a68167e36ddd9e",
+      "model_keys": [
+        "kimi-k3.1-pro"
+      ],
+      "roles": [
+        "target"
+      ],
+      "source_ids": [
+        "kimi-k3.1-pro-API",
+        "kimi-k3.1-pro-CARD",
+        "kimi-k3.1-pro-CFG",
+        "kimi-k3.1-pro-LICENSE",
+        "kimi-k3.1-pro-INDEX",
+        "kimi-k3.1-pro-HDR-00004"
+      ],
+      "verification": "Pinned card, config, license, full index and one shard header reviewed; weight payload and runtime behavior untested",
+      "latest_identity_recheck": {
+        "checked_on": "2026-11-06",
+        "revision": "d9e99b0792a5e93b78ea9bea62a68167e36ddd9e",
+        "matches_retained_pin": true,
+        "source_ids": [
+          "kimi-k3.1-pro-API",
+          "kimi-k3.1-pro-CARD",
+          "kimi-k3.1-pro-CFG"
+        ],
+        "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+      },
+      "huggingface_readme": {
+        "hf_id": "moonshotai/Kimi-K3.1-Pro",
+        "revision": "d9e99b0792a5e93b78ea9bea62a68167e36ddd9e",
+        "path": "companies/moonshot-ai/kimi-k3.1-pro/huggingface/README.md",
+        "source_id": "kimi-k3.1-pro-CARD",
+        "sha256": "5daa13793292c65cf198b2f4997c69a21378a1688c40c8b3dbdf48a27dd15085",
+        "retrieved_at": "2026-11-06T08:21:21+00:00"
+      }
+    },
+    {
+      "hf_id": "Inferact/Kimi-K3.1-Pro-DSpark-preview",
+      "revision": "6a2ef20a05efe88aabbf9ecaa12d020c3b0edf94",
+      "model_keys": [
+        "kimi-k3.1-pro"
+      ],
+      "roles": [
+        "alternate_external_drafter"
+      ],
+      "source_ids": [
+        "kimi-k3.1-pro-DRAFT",
+        "kimi-k3.1-pro-DRAFT-CFG"
+      ],
+      "verification": "vLLM recipe draft (preview); pinned card/config reviewed; target revision unstated; weight payload and runtime untested",
+      "latest_identity_recheck": {
+        "checked_on": "2026-11-06",
+        "revision": "6a2ef20a05efe88aabbf9ecaa12d020c3b0edf94",
+        "matches_retained_pin": true,
+        "source_ids": [
+          "kimi-k3.1-pro-DRAFT",
+          "kimi-k3.1-pro-DRAFT-CFG"
+        ],
+        "scope": "Head rechecked 2026-11-06T08:28:50Z via Hub API (same revision); immutable README/configuration; no weight-payload identity or runtime qualification."
+      },
+      "huggingface_readme": {
+        "hf_id": "Inferact/Kimi-K3.1-Pro-DSpark-preview",
+        "revision": "6a2ef20a05efe88aabbf9ecaa12d020c3b0edf94",
+        "path": "companies/moonshot-ai/kimi-k3.1-pro/huggingface/additional/Inferact--Kimi-K3.1-Pro-DSpark-preview/README.md",
+        "source_id": "kimi-k3.1-pro-DRAFT",
+        "sha256": "609f763e9f07db29216ff690fa7b0213dd62d155e45cc06383f3ef8979e36510",
+        "retrieved_at": "2026-11-06T08:23:03+00:00"
+      }
+    },
+    {
+      "hf_id": "RadixArk/Kimi-K3.1-Dflash2-Preview",
+      "revision": "ea257b38a8ee755b65287bb8ccd0938b519ce26b",
+      "model_keys": [
+        "kimi-k3.1-pro"
+      ],
+      "roles": [
+        "alternate_external_drafter"
+      ],
+      "source_ids": [
+        "kimi-k3.1-pro-DFLASH2",
+        "kimi-k3.1-pro-DFLASH2-CFG"
+      ],
+      "verification": "SGLang cookbook DFLASH draft (preview); pinned card/config reviewed; config base_model_revision 535833b1 not in public target history; runtime untested",
+      "latest_identity_recheck": {
+        "checked_on": "2026-11-06",
+        "revision": "ea257b38a8ee755b65287bb8ccd0938b519ce26b",
+        "matches_retained_pin": true,
+        "source_ids": [
+          "kimi-k3.1-pro-DFLASH2",
+          "kimi-k3.1-pro-DFLASH2-CFG"
+        ],
+        "scope": "Head rechecked 2026-11-06T08:28:50Z via Hub API (same revision); immutable README/configuration; no weight-payload identity or runtime qualification."
+      },
+      "huggingface_readme": {
+        "hf_id": "RadixArk/Kimi-K3.1-Dflash2-Preview",
+        "revision": "ea257b38a8ee755b65287bb8ccd0938b519ce26b",
+        "path": "companies/moonshot-ai/kimi-k3.1-pro/huggingface/additional/RadixArk--Kimi-K3.1-Dflash2-Preview/README.md",
+        "source_id": "kimi-k3.1-pro-DFLASH2",
+        "sha256": "49c2501bd42f782222d189dd48d2657aa9700f5af48edd89016aa58effe19750",
+        "retrieved_at": "2026-11-06T08:23:04+00:00"
+      }
+    },
+    {
+      "hf_id": "LithosAI/Kimi-K3.1-Pro-DSpark",
+      "revision": "d791d217d1cc679e07877721761bfcc09d70d514",
+      "model_keys": [
+        "kimi-k3.1-pro"
+      ],
+      "roles": [
+        "alternate_external_drafter"
+      ],
+      "source_ids": [
+        "kimi-k3.1-pro-DRAFT-LITHOS",
+        "kimi-k3.1-pro-DRAFT-LITHOS-CFG"
+      ],
+      "verification": "Third-party draft not referenced by either engine recipe; card/config block size inconsistent; runtime untested",
+      "latest_identity_recheck": {
+        "checked_on": "2026-11-06",
+        "revision": "d791d217d1cc679e07877721761bfcc09d70d514",
+        "matches_retained_pin": true,
+        "source_ids": [
+          "kimi-k3.1-pro-DRAFT-LITHOS",
+          "kimi-k3.1-pro-DRAFT-LITHOS-CFG"
+        ],
+        "scope": "Head rechecked 2026-11-06T08:28:50Z via Hub API (same revision); immutable README/configuration; no weight-payload identity or runtime qualification."
+      },
+      "huggingface_readme": {
+        "hf_id": "LithosAI/Kimi-K3.1-Pro-DSpark",
+        "revision": "d791d217d1cc679e07877721761bfcc09d70d514",
+        "path": "companies/moonshot-ai/kimi-k3.1-pro/huggingface/additional/LithosAI--Kimi-K3.1-Pro-DSpark/README.md",
+        "source_id": "kimi-k3.1-pro-DRAFT-LITHOS",
+        "sha256": "e887ce50fbcdf3159c596835d3e39891caebdb6fa9fb50245a3a2ec00cf5491b",
+        "retrieved_at": "2026-11-06T08:23:03+00:00"
+      }
+    },
+    {
+      "hf_id": "mistralai/Mistral-Large-4-1T-A52B",
+      "revision": "af26e7869af601441d5cdf75a1272469ddc3d059",
+      "model_keys": [
+        "mistral-large-4"
+      ],
+      "roles": [
+        "fp8",
+        "embedded-dspark-draft"
+      ],
+      "source_ids": [
+        "mistral-large-4-CARD",
+        "mistral-large-4-CFG",
+        "mistral-large-4-PARAMS",
+        "mistral-large-4-TREE",
+        "mistral-large-4-INDEX",
+        "mistral-large-4-HEADERS",
+        "mistral-large-4-LICENSE",
+        "mistral-large-4-COMMITS"
+      ],
+      "verification": "Pinned metadata and tensor headers reviewed; weight payload and runtime behavior untested",
+      "latest_identity_recheck": {
+        "checked_on": "2026-11-06",
+        "checked_at": "2026-11-06T12:45:13Z",
+        "revision": "af26e7869af601441d5cdf75a1272469ddc3d059",
+        "matches_retained_pin": true,
+        "source_ids": [
+          "mistral-large-4-API",
+          "mistral-large-4-CARD"
+        ],
+        "scope": "Head identity and README byte identity recheck; no weight-payload identity or runtime qualification."
+      },
+      "huggingface_readme": {
+        "hf_id": "mistralai/Mistral-Large-4-1T-A52B",
+        "revision": "af26e7869af601441d5cdf75a1272469ddc3d059",
+        "path": "companies/mistral-ai/mistral-large-4/huggingface/README.md",
+        "source_id": "mistral-large-4-CARD",
+        "sha256": "498bf4121e75f5582ee276f8ad6c6d96eea78885c878819dd1551c2dd84dc92c",
+        "retrieved_at": "2026-11-06T08:28:55.035857+00:00"
+      },
+      "prior_identity_rechecks": [
+        {
+          "checked_on": "2026-11-06",
+          "revision": "af26e7869af601441d5cdf75a1272469ddc3d059",
+          "matches_retained_pin": true,
+          "source_ids": [
+            "mistral-large-4-API",
+            "mistral-large-4-CARD",
+            "mistral-large-4-CFG"
+          ],
+          "scope": "Initial pin; head identity and immutable README/configuration; no weight-payload identity or runtime qualification."
+        }
+      ]
+    },
+    {
+      "hf_id": "mistralai/Mistral-Large-4-1T-A52B-NVFP4",
+      "revision": "bb6d00fe249b0e876f0cffc6b85014be02de3e68",
+      "model_keys": [
+        "mistral-large-4"
+      ],
+      "roles": [
+        "nvfp4",
+        "embedded-dspark-draft"
+      ],
+      "source_ids": [
+        "mistral-large-4-NVFP4-CARD",
+        "mistral-large-4-NVFP4-PARAMS",
+        "mistral-large-4-NVFP4-TREE",
+        "mistral-large-4-NVFP4-INDEX",
+        "mistral-large-4-NVFP4-HEADERS",
+        "mistral-large-4-NVFP4-LICENSE"
+      ],
+      "verification": "Pinned metadata and tensor headers reviewed; weight payload and runtime behavior untested; engine recipe measurements cite non-public revision 4359ec6",
+      "latest_identity_recheck": {
+        "checked_on": "2026-11-06",
+        "checked_at": "2026-11-06T12:45:13Z",
+        "revision": "bb6d00fe249b0e876f0cffc6b85014be02de3e68",
+        "matches_retained_pin": true,
+        "source_ids": [
+          "mistral-large-4-NVFP4-API",
+          "mistral-large-4-NVFP4-CARD"
+        ],
+        "scope": "Head identity and README byte identity recheck; header aggregate hash unchanged; no weight-payload identity or runtime qualification."
+      },
+      "huggingface_readme": {
+        "hf_id": "mistralai/Mistral-Large-4-1T-A52B-NVFP4",
+        "revision": "bb6d00fe249b0e876f0cffc6b85014be02de3e68",
+        "path": "companies/mistral-ai/mistral-large-4/huggingface/additional/mistralai--Mistral-Large-4-1T-A52B-NVFP4/README.md",
+        "source_id": "mistral-large-4-NVFP4-CARD",
+        "sha256": "25f7c255ebe5f63931061886bdce29d524e0ab505ac13500fd01e2e644c615d8",
+        "retrieved_at": "2026-11-06T08:28:56.524308+00:00"
+      },
+      "prior_identity_rechecks": [
+        {
+          "checked_on": "2026-11-06",
+          "revision": "bb6d00fe249b0e876f0cffc6b85014be02de3e68",
+          "matches_retained_pin": true,
+          "source_ids": [
+            "mistral-large-4-NVFP4-API",
+            "mistral-large-4-NVFP4-CARD",
+            "mistral-large-4-NVFP4-PARAMS"
+          ],
+          "scope": "Initial pin; head identity and immutable README/params; no weight-payload identity or runtime qualification."
+        }
+      ]
+    },
+    {
+      "hf_id": "meta-models/Muse-Glimmer-30B",
+      "revision": "cec94fcfd6512f2cfe708138c32533b346ea4f69",
+      "model_keys": [
+        "muse-glimmer-30b"
+      ],
+      "roles": [
+        "bf16",
+        "target"
+      ],
+      "source_ids": [
+        "muse-glimmer-30b-API",
+        "muse-glimmer-30b-COMMITS",
+        "muse-glimmer-30b-CARD",
+        "muse-glimmer-30b-CFG",
+        "muse-glimmer-30b-GENCFG",
+        "muse-glimmer-30b-PROC",
+        "muse-glimmer-30b-CHAT",
+        "muse-glimmer-30b-INDEX",
+        "muse-glimmer-30b-HDR",
+        "muse-glimmer-30b-TREE",
+        "muse-glimmer-30b-TREE-46AC",
+        "muse-glimmer-30b-LICENSE"
+      ],
+      "verification": "Pinned card, config, generation/processor config, chat template, license, full index and both shard headers reviewed; weight LFS objects unchanged since weights commit 46ac57a4; weight payload and runtime untested",
+      "latest_identity_recheck": {
+        "checked_on": "2026-11-06",
+        "revision": "cec94fcfd6512f2cfe708138c32533b346ea4f69",
+        "matches_retained_pin": true,
+        "source_ids": [
+          "muse-glimmer-30b-API",
+          "muse-glimmer-30b-CARD",
+          "muse-glimmer-30b-CFG"
+        ],
+        "scope": "Initial pin; head re-resolved unchanged at end of review (2026-11-06T08:52Z). Immutable README/configuration; no weight-payload identity or runtime qualification."
+      },
+      "huggingface_readme": {
+        "hf_id": "meta-models/Muse-Glimmer-30B",
+        "revision": "cec94fcfd6512f2cfe708138c32533b346ea4f69",
+        "path": "companies/meta/muse-glimmer-30b/huggingface/README.md",
+        "source_id": "muse-glimmer-30b-CARD",
+        "sha256": "2ba646dcbe5b3b97daedc59e64ef19505312fa99b6598cacc0b82d93f4d74163",
+        "retrieved_at": "2026-11-06T08:37:08.787489+00:00"
+      }
+    },
+    {
+      "hf_id": "meta-models/Muse-Glimmer-30B-assistant",
+      "revision": "c676cce91658f9568aaf264a416211e2782735b7",
+      "model_keys": [
+        "muse-glimmer-30b"
+      ],
+      "roles": [
+        "official_dflash_drafter"
+      ],
+      "source_ids": [
+        "muse-glimmer-30b-DRAFT-API",
+        "muse-glimmer-30b-DRAFT-CARD",
+        "muse-glimmer-30b-DRAFT-CFG",
+        "muse-glimmer-30b-DRAFT-HDR",
+        "muse-glimmer-30b-DRAFT-TREE"
+      ],
+      "verification": "Official DFlash block-diffusion drafter (block 16, 5 layers, target layers [1,13,25,37,49]); card, config and header reviewed; acceptance on B300 untested",
+      "latest_identity_recheck": {
+        "checked_on": "2026-11-06",
+        "revision": "c676cce91658f9568aaf264a416211e2782735b7",
+        "matches_retained_pin": true,
+        "source_ids": [
+          "muse-glimmer-30b-DRAFT-API",
+          "muse-glimmer-30b-DRAFT-CARD",
+          "muse-glimmer-30b-DRAFT-CFG"
+        ],
+        "scope": "Initial pin; head re-resolved unchanged at end of review (2026-11-06T08:52Z). Immutable README/configuration; no weight-payload identity or runtime qualification."
+      },
+      "huggingface_readme": {
+        "hf_id": "meta-models/Muse-Glimmer-30B-assistant",
+        "revision": "c676cce91658f9568aaf264a416211e2782735b7",
+        "path": "companies/meta/muse-glimmer-30b/huggingface/additional/meta-models--Muse-Glimmer-30B-assistant/README.md",
+        "source_id": "muse-glimmer-30b-DRAFT-CARD",
+        "sha256": "5d574558ca7cdcc9dd9e9283ceacd6f633184528f2805fa53efdb706657b6a84",
+        "retrieved_at": "2026-11-06T08:37:10.378651+00:00"
+      }
+    },
+    {
+      "hf_id": "nvidia/Muse-Glimmer-30B-NVFP4",
+      "revision": "47818374517751c48c55cde2621594926b1888b6",
+      "model_keys": [
+        "muse-glimmer-30b"
+      ],
+      "roles": [
+        "nvidia-nvfp4"
+      ],
+      "source_ids": [
+        "muse-glimmer-30b-NV-API",
+        "muse-glimmer-30b-NV-COMMITS",
+        "muse-glimmer-30b-NV-CARD",
+        "muse-glimmer-30b-NV-CFG",
+        "muse-glimmer-30b-NV-QCFG",
+        "muse-glimmer-30b-NV-GENCFG",
+        "muse-glimmer-30b-NV-CHAT",
+        "muse-glimmer-30b-NV-INDEX",
+        "muse-glimmer-30b-NV-HDR",
+        "muse-glimmer-30b-NV-TREE"
+      ],
+      "verification": "Mixed W4A16-NVFP4/FP8/BF16 ModelOpt export; config tallied, headers reviewed; bundled chat template is the superseded base template; not loaded",
+      "latest_identity_recheck": {
+        "checked_on": "2026-11-06",
+        "revision": "47818374517751c48c55cde2621594926b1888b6",
+        "matches_retained_pin": true,
+        "source_ids": [
+          "muse-glimmer-30b-NV-API",
+          "muse-glimmer-30b-NV-CARD",
+          "muse-glimmer-30b-NV-CFG"
+        ],
+        "scope": "Initial pin; head re-resolved unchanged at end of review (2026-11-06T08:52Z). Immutable README/configuration; no weight-payload identity or runtime qualification."
+      },
+      "huggingface_readme": {
+        "hf_id": "nvidia/Muse-Glimmer-30B-NVFP4",
+        "revision": "47818374517751c48c55cde2621594926b1888b6",
+        "path": "companies/meta/muse-glimmer-30b/huggingface/additional/nvidia--Muse-Glimmer-30B-NVFP4/README.md",
+        "source_id": "muse-glimmer-30b-NV-CARD",
+        "sha256": "b0c600f9f2c429567b795f2b5b17291267bce8ffd132e098b8bc972169638749",
+        "retrieved_at": "2026-11-06T08:37:10.786238+00:00"
+      }
+    },
+    {
+      "hf_id": "RedHatAI/Muse-Glimmer-30B-FP8-block",
+      "revision": "1deb4641ff84f9a728dd11b27cac1f6a02a9ed14",
+      "model_keys": [
+        "muse-glimmer-30b"
+      ],
+      "roles": [
+        "fp8"
+      ],
+      "source_ids": [
+        "muse-glimmer-30b-RH-API",
+        "muse-glimmer-30b-RH-CARD",
+        "muse-glimmer-30b-RH-CFG",
+        "muse-glimmer-30b-RH-TREE",
+        "muse-glimmer-30b-RH-CHAT",
+        "muse-glimmer-30b-RH-GENCFG",
+        "muse-glimmer-30b-RH-LICENSE"
+      ],
+      "verification": "vLLM-recipe FP8-block export; card, config, chat template, generation config and LICENSE reviewed; bundled chat template is the superseded base template (114f55eb) and generation config is greedy without sampling defaults; no published evaluation; not loaded",
+      "latest_identity_recheck": {
+        "checked_on": "2026-11-06",
+        "revision": "1deb4641ff84f9a728dd11b27cac1f6a02a9ed14",
+        "matches_retained_pin": true,
+        "source_ids": [
+          "muse-glimmer-30b-RH-API",
+          "muse-glimmer-30b-RH-CARD",
+          "muse-glimmer-30b-RH-CFG"
+        ],
+        "scope": "Initial pin; head re-resolved unchanged at end of review (2026-11-06T08:52Z). Immutable README/configuration; no weight-payload identity or runtime qualification."
+      },
+      "huggingface_readme": {
+        "hf_id": "RedHatAI/Muse-Glimmer-30B-FP8-block",
+        "revision": "1deb4641ff84f9a728dd11b27cac1f6a02a9ed14",
+        "path": "companies/meta/muse-glimmer-30b/huggingface/additional/RedHatAI--Muse-Glimmer-30B-FP8-block/README.md",
+        "source_id": "muse-glimmer-30b-RH-CARD",
+        "sha256": "38c89d2d5a1412747faffeb12a3a0e2061772495f576aa3c2148ba3065962d70",
+        "retrieved_at": "2026-11-06T08:41:43.501066+00:00"
+      }
+    },
+    {
+      "hf_id": "Inferact/Muse-Glimmer-30B-NVFP4-W4A4",
+      "revision": "d35cb79050f419c457611b1cee5c5d15b176f285",
+      "model_keys": [
+        "muse-glimmer-30b"
+      ],
+      "roles": [
+        "nvfp4-inferact"
+      ],
+      "source_ids": [
+        "muse-glimmer-30b-INF-API",
+        "muse-glimmer-30b-INF-CARD",
+        "muse-glimmer-30b-INF-CFG",
+        "muse-glimmer-30b-INF-MANIFEST",
+        "muse-glimmer-30b-INF-TREE",
+        "muse-glimmer-30b-INF-CHAT",
+        "muse-glimmer-30b-INF-GENCFG"
+      ],
+      "verification": "vLLM-recipe NVFP4 W4A4 export; one-line card, config, manifest, chat template and generation config reviewed; bundled chat template is the superseded base template (114f55eb) and generation config is greedy without sampling defaults; no LICENSE file; no evaluation; not loaded",
+      "latest_identity_recheck": {
+        "checked_on": "2026-11-06",
+        "revision": "d35cb79050f419c457611b1cee5c5d15b176f285",
+        "matches_retained_pin": true,
+        "source_ids": [
+          "muse-glimmer-30b-INF-API",
+          "muse-glimmer-30b-INF-CARD",
+          "muse-glimmer-30b-INF-CFG"
+        ],
+        "scope": "Initial pin; head re-resolved unchanged at end of review (2026-11-06T08:52Z). Immutable README/configuration; no weight-payload identity or runtime qualification."
+      },
+      "huggingface_readme": {
+        "hf_id": "Inferact/Muse-Glimmer-30B-NVFP4-W4A4",
+        "revision": "d35cb79050f419c457611b1cee5c5d15b176f285",
+        "path": "companies/meta/muse-glimmer-30b/huggingface/additional/Inferact--Muse-Glimmer-30B-NVFP4-W4A4/README.md",
+        "source_id": "muse-glimmer-30b-INF-CARD",
+        "sha256": "fb82c1a5fc07f4ff794d337c851a568415c89c8564ed306b99e993b5c7b5d0ca",
+        "retrieved_at": "2026-11-06T08:41:44.373650+00:00"
+      }
+    },
+    {
+      "hf_id": "RadixArk/Muse-Glimmer-NVFP4",
+      "revision": "1416629950afdfb276618fd4810103681dd10f4a",
+      "model_keys": [
+        "muse-glimmer-30b"
+      ],
+      "roles": [
+        "radixark-nvfp4"
+      ],
+      "source_ids": [
+        "muse-glimmer-30b-RX-API",
+        "muse-glimmer-30b-RX-COMMITS",
+        "muse-glimmer-30b-RX-CARD",
+        "muse-glimmer-30b-RX-CFG",
+        "muse-glimmer-30b-RX-HDR",
+        "muse-glimmer-30b-RX-TREE",
+        "muse-glimmer-30b-RX-CHAT",
+        "muse-glimmer-30b-RX-GENCFG",
+        "muse-glimmer-30b-RX-LICENSE"
+      ],
+      "verification": "SGLang-cookbook text-only NVFP4/MXFP8 export; card, config, one header, chat template, generation config and LICENSE reviewed; v_proj BF16 contradicts card; chat template matches the current base (cfc67e5f) but generation config is greedy without sampling defaults; LICENSE is the apache.org text though the card has no licence field; not loaded",
+      "latest_identity_recheck": {
+        "checked_on": "2026-11-06",
+        "revision": "1416629950afdfb276618fd4810103681dd10f4a",
+        "matches_retained_pin": true,
+        "source_ids": [
+          "muse-glimmer-30b-RX-API",
+          "muse-glimmer-30b-RX-CARD",
+          "muse-glimmer-30b-RX-CFG"
+        ],
+        "scope": "Initial pin; head re-resolved unchanged at end of review (2026-11-06T08:52Z). Immutable README/configuration; no weight-payload identity or runtime qualification."
+      },
+      "huggingface_readme": {
+        "hf_id": "RadixArk/Muse-Glimmer-NVFP4",
+        "revision": "1416629950afdfb276618fd4810103681dd10f4a",
+        "path": "companies/meta/muse-glimmer-30b/huggingface/additional/RadixArk--Muse-Glimmer-NVFP4/README.md",
+        "source_id": "muse-glimmer-30b-RX-CARD",
+        "sha256": "62d315ed746ab5304adec50890af28ffd2c7885bf566888a70534cc8658f3e31",
+        "retrieved_at": "2026-11-06T08:41:45.416733+00:00"
+      }
+    },
+    {
+      "hf_id": "nvidia/Mistral-Medium-3.5-128B-NVFP4",
+      "revision": "b8c66d2098edd8c9c26bde2b2ff41b5967e111ae",
+      "model_keys": [
+        "mistral-medium-3.5"
+      ],
+      "roles": [
+        "nvfp4"
+      ],
+      "source_ids": [
+        "mistral-medium-3.5-NV-NVFP4-CARD",
+        "mistral-medium-3.5-NV-NVFP4-CFG",
+        "mistral-medium-3.5-NV-NVFP4-HFQ",
+        "mistral-medium-3.5-NV-NVFP4-PARAMS",
+        "mistral-medium-3.5-NV-NVFP4-INDEX",
+        "mistral-medium-3.5-NV-NVFP4-HEADERS",
+        "mistral-medium-3.5-NV-NVFP4-TREE",
+        "mistral-medium-3.5-NV-NVFP4-TREE-FULL",
+        "mistral-medium-3.5-NV-NVFP4-CHAT-TEMPLATE",
+        "mistral-medium-3.5-NV-NVFP4-COMMITS",
+        "mistral-medium-3.5-NV-NVFP4-API",
+        "mistral-medium-3.5-NV-NVFP4-REVISION"
+      ],
+      "verification": "Pinned metadata and all 10 tensor headers reviewed; weight payload and runtime behavior untested; exporter-validated on vLLM v0.21.0/B200 only; licence metadata conflict recorded",
+      "base_model": {
+        "hf_id": "mistralai/Mistral-Medium-3.5-128B",
+        "revision": "22b2b868a15677cfa6061277ed2f653d1349a9ab"
+      },
+      "latest_identity_recheck": {
+        "checked_on": "2026-11-06",
+        "revision": "b8c66d2098edd8c9c26bde2b2ff41b5967e111ae",
+        "matches_retained_pin": true,
+        "source_ids": [
+          "mistral-medium-3.5-NV-NVFP4-API",
+          "mistral-medium-3.5-NV-NVFP4-REVISION",
+          "mistral-medium-3.5-NV-NVFP4-CARD",
+          "mistral-medium-3.5-NV-NVFP4-CFG",
+          "mistral-medium-3.5-NV-NVFP4-HFQ",
+          "mistral-medium-3.5-NV-NVFP4-INDEX",
+          "mistral-medium-3.5-NV-NVFP4-HEADERS"
+        ],
+        "scope": "Promotion recheck 12:45-12:46Z: head equals pin; README (byte-identical to local snapshot), config, quantization config and index byte-identical to first retrieval; all 10 safetensors headers parsed; no weight payload identity or runtime qualification."
+      },
+      "prior_identity_rechecks": [
+        {
+          "checked_on": "2026-11-06",
+          "revision": "b8c66d2098edd8c9c26bde2b2ff41b5967e111ae",
+          "matches_retained_pin": true,
+          "source_ids": [
+            "mistral-medium-3.5-NV-NVFP4-API",
+            "mistral-medium-3.5-NV-NVFP4-COMMITS"
+          ],
+          "scope": "Initial pin (08:38Z); head identity and immutable card/configuration only."
+        }
+      ],
+      "huggingface_readme": {
+        "hf_id": "nvidia/Mistral-Medium-3.5-128B-NVFP4",
+        "revision": "b8c66d2098edd8c9c26bde2b2ff41b5967e111ae",
+        "path": "companies/mistral-ai/mistral-medium-3.5/huggingface/additional/nvidia--Mistral-Medium-3.5-128B-NVFP4/README.md",
+        "source_id": "mistral-medium-3.5-NV-NVFP4-CARD",
+        "sha256": "7bbf885d2e4fcb2418a3bcf16af9ac40b2d7ddf20e85a978206bc0c4bafeb764",
+        "retrieved_at": "2026-11-06T08:38:17.991694+00:00"
+      }
     }
   ],
-  "date_basis": "UTC; October 26 latest-stable metadata, all 23 concrete catalog variant identities, 11 recorded additional artifacts, immutable README/configuration retrieval and selected engine restrictions. Historical review scopes and launch arrays retained; no runtime qualification. October 26 benchmark-insights follow-up adds GuideLLM v0.8.1 and selected vLLM v0.32.0 metric semantics, with separate fresh release/branch/wheel metadata; no new model or runtime qualification.",
+  "date_basis": "UTC; October 26 latest-stable metadata, all 23 concrete catalog variant identities, 11 recorded additional artifacts, immutable README/configuration retrieval and selected engine restrictions. Historical review scopes and launch arrays retained; no runtime qualification. October 26 benchmark-insights follow-up adds GuideLLM v0.8.1 and selected vLLM v0.32.0 metric semantics, with separate fresh release/branch/wheel metadata; no new model or runtime qualification. November 6: vLLM v0.33.0 and SGLang v0.5.23 recorded as latest stable (prior releases retained); KServe v0.21.0 unchanged; new model artifacts for DeepSeek V4.1 Flash 1017, Kimi K3.1 Pro, Mistral Large 4 and Muse Glimmer 30B; Mistral Medium 3.5 identity recheck and NVIDIA NVFP4 export.",
   "development_controller_metadata_observations": [
     {
       "id": "KEXP-DEVIMAGE",
@@ -3445,6 +4591,60 @@
           "last_updated": "2026-10-26T01:18:51.278099Z"
         }
       ]
+    },
+    {
+      "engine": "vllm",
+      "channel": "registry metadata",
+      "checked_at": "2026-11-06T12:45:33.268399+00:00",
+      "records": [
+        {
+          "name": "mistral-large-4",
+          "last_updated": "2026-10-29T14:27:23.032235Z",
+          "digest": "sha256:83a52c97e78b284d031e98135f17a448789358be31aa246237d6ad0130ef7657",
+          "images": [
+            {
+              "architecture": "amd64",
+              "os": "linux",
+              "digest": "sha256:13bc2adaca593fddfa8f88e41f7cea53582d46d169d63bd86e1477157575fa52"
+            },
+            {
+              "architecture": "arm64",
+              "os": "linux",
+              "digest": "sha256:b046d936e49629ae1dee57809876b4b66cd4b4aa430fb58f643068325c036e2b"
+            }
+          ]
+        }
+      ],
+      "downloaded_or_executed": false,
+      "source_id": "mistral-large-4-VLLM-IMAGE",
+      "note": "Mistral Large 4 development image (model support absent from stable releases); engine commit inside the image not inspected."
+    },
+    {
+      "engine": "sglang",
+      "channel": "registry metadata",
+      "checked_at": "2026-11-06T12:45:33.440318+00:00",
+      "records": [
+        {
+          "name": "mistral-large-4",
+          "last_updated": "2026-10-29T13:56:51.404242Z",
+          "digest": "sha256:6c9e19a08f30ef8472f3c2ae2d01de99b452cf1fed77f720cd3b6fec61625770",
+          "images": [
+            {
+              "architecture": "amd64",
+              "os": "linux",
+              "digest": "sha256:bff7ea4d5feb5ef8f07e32e67d58d295a36bdcd65541f4c830bb18c66c3d249b"
+            },
+            {
+              "architecture": "arm64",
+              "os": "linux",
+              "digest": "sha256:2f0cd825b938ef1f38ef223e677d65e217b54a2642a8e6676bcfb3bcbc2b4373"
+            }
+          ]
+        }
+      ],
+      "downloaded_or_executed": false,
+      "source_id": "mistral-large-4-SGL-IMAGE",
+      "note": "Mistral Large 4 development image (model support absent from stable releases); engine commit inside the image not inspected."
     }
   ],
   "additional_artifacts": [
@@ -3462,7 +4662,7 @@
       "weight_tensors_inspected": false,
       "tested_on_target": false,
       "latest_identity_recheck": {
-        "checked_on": "2026-10-26",
+        "checked_on": "2026-11-06",
         "revision": "d31694b0f55b51d4d962b5c3dbf0e03d1f019275",
         "matches_retained_pin": true,
         "source_ids": [
@@ -3470,7 +4670,7 @@
           "mistral-medium-3.5-EAGLE-CARD",
           "mistral-medium-3.5-EAGLE-PARAMS"
         ],
-        "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+        "scope": "Current head; README/configuration byte-identical to retained hashes; no weight-payload identity or runtime qualification."
       },
       "huggingface_readme": {
         "hf_id": "mistralai/Mistral-Medium-3.5-128B-EAGLE",
@@ -3479,7 +4679,20 @@
         "source_id": "mistral-medium-3.5-EAGLE-CARD",
         "sha256": "fa49b3f0cabc14b54fb3f18f741ea926ed842f988129bda3c0fe7e01210188a5",
         "retrieved_at": "2026-10-26T11:24:18.873788+00:00"
-      }
+      },
+      "prior_identity_rechecks": [
+        {
+          "checked_on": "2026-10-26",
+          "revision": "d31694b0f55b51d4d962b5c3dbf0e03d1f019275",
+          "matches_retained_pin": true,
+          "source_ids": [
+            "V032-KM-API-MISTRALAI--MISTRAL-MEDIUM-3.5-128B-EAGLE",
+            "mistral-medium-3.5-EAGLE-CARD",
+            "mistral-medium-3.5-EAGLE-PARAMS"
+          ],
+          "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+        }
+      ]
     },
     {
       "model_key": "deepseek-v4-flash-0731",
@@ -3676,16 +4889,14 @@
       "weight_tensors_inspected": false,
       "tested_on_target": false,
       "latest_identity_recheck": {
-        "checked_on": "2026-10-26",
+        "checked_on": "2026-11-06",
         "revision": "4135a98a9b728a548947683219633b25682223ac",
         "matches_retained_pin": true,
+        "current_head": "4135a98a9b728a548947683219633b25682223ac",
         "source_ids": [
-          "TOPM-GEMMA-NVIDIA-META",
-          "TOPM-GEMMA-NVIDIA-CARD",
-          "TOPM-GEMMA-NVIDIA-CFG",
-          "HF-NVIDIA-GEMMA-4-31B-IT-NVFP4-HF-QUANT-CONFIG-JSON"
+          "O06-HF-HEADS"
         ],
-        "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+        "scope": "Hub head identity only (revision/main API); README/configuration not re-downloaded; no weight-payload identity or runtime qualification."
       },
       "huggingface_readme": {
         "hf_id": "nvidia/Gemma-4-31B-IT-NVFP4",
@@ -3694,7 +4905,21 @@
         "source_id": "TOPM-GEMMA-NVIDIA-CARD",
         "sha256": "892a023119d33a23dac8764e469bbc1728e49294aba63bcb90d2899131fa093d",
         "retrieved_at": "2026-10-26T11:24:15.278028+00:00"
-      }
+      },
+      "prior_identity_rechecks": [
+        {
+          "checked_on": "2026-10-26",
+          "revision": "4135a98a9b728a548947683219633b25682223ac",
+          "matches_retained_pin": true,
+          "source_ids": [
+            "TOPM-GEMMA-NVIDIA-META",
+            "TOPM-GEMMA-NVIDIA-CARD",
+            "TOPM-GEMMA-NVIDIA-CFG",
+            "HF-NVIDIA-GEMMA-4-31B-IT-NVFP4-HF-QUANT-CONFIG-JSON"
+          ],
+          "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+        }
+      ]
     },
     {
       "model_key": "gemma-4-31b-it",
@@ -3713,15 +4938,14 @@
       "weight_tensors_inspected": false,
       "tested_on_target": false,
       "latest_identity_recheck": {
-        "checked_on": "2026-10-26",
+        "checked_on": "2026-11-06",
         "revision": "373c00b5ecb0a8ee43942b5ca08b93805de8eee4",
         "matches_retained_pin": true,
+        "current_head": "373c00b5ecb0a8ee43942b5ca08b93805de8eee4",
         "source_ids": [
-          "TOPM-GEMMA-UNSLOTH-META",
-          "TOPM-GEMMA-UNSLOTH-CARD",
-          "TOPM-GEMMA-UNSLOTH-CFG"
+          "O06-HF-HEADS"
         ],
-        "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+        "scope": "Hub head identity only (revision/main API); README/configuration not re-downloaded; no weight-payload identity or runtime qualification."
       },
       "huggingface_readme": {
         "hf_id": "unsloth/gemma-4-31B-it-NVFP4",
@@ -3730,7 +4954,20 @@
         "source_id": "TOPM-GEMMA-UNSLOTH-CARD",
         "sha256": "f09cad4769d8dfbb485a80a9ced75eb214205cd13d3f09d2df82c34580c3e1d8",
         "retrieved_at": "2026-10-26T11:24:15.308878+00:00"
-      }
+      },
+      "prior_identity_rechecks": [
+        {
+          "checked_on": "2026-10-26",
+          "revision": "373c00b5ecb0a8ee43942b5ca08b93805de8eee4",
+          "matches_retained_pin": true,
+          "source_ids": [
+            "TOPM-GEMMA-UNSLOTH-META",
+            "TOPM-GEMMA-UNSLOTH-CARD",
+            "TOPM-GEMMA-UNSLOTH-CFG"
+          ],
+          "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+        }
+      ]
     },
     {
       "model_key": "gemma-4-31b-it",
@@ -3749,15 +4986,14 @@
       "weight_tensors_inspected": false,
       "tested_on_target": false,
       "latest_identity_recheck": {
-        "checked_on": "2026-10-26",
+        "checked_on": "2026-11-06",
         "revision": "782d58ea7f9cf3a148be86e153f5689a2d73238b",
         "matches_retained_pin": true,
+        "current_head": "782d58ea7f9cf3a148be86e153f5689a2d73238b",
         "source_ids": [
-          "TOPM-GEMMA-TURBO-META",
-          "TOPM-GEMMA-TURBO-CARD",
-          "TOPM-GEMMA-TURBO-CFG"
+          "O06-HF-HEADS"
         ],
-        "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+        "scope": "Hub head identity only (revision/main API); README/configuration not re-downloaded; no weight-payload identity or runtime qualification."
       },
       "huggingface_readme": {
         "hf_id": "LilaRest/gemma-4-31B-it-NVFP4-turbo",
@@ -3766,7 +5002,20 @@
         "source_id": "TOPM-GEMMA-TURBO-CARD",
         "sha256": "9dad1827ad1fb0a041c63b0f47757405b81475719721f17b4e5072060e78cc8a",
         "retrieved_at": "2026-10-26T11:24:15.673520+00:00"
-      }
+      },
+      "prior_identity_rechecks": [
+        {
+          "checked_on": "2026-10-26",
+          "revision": "782d58ea7f9cf3a148be86e153f5689a2d73238b",
+          "matches_retained_pin": true,
+          "source_ids": [
+            "TOPM-GEMMA-TURBO-META",
+            "TOPM-GEMMA-TURBO-CARD",
+            "TOPM-GEMMA-TURBO-CFG"
+          ],
+          "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+        }
+      ]
     }
   ],
   "attention_library_observations": [

@@ -59,9 +59,9 @@ The pinned tree metadata lists the following safetensors file totals, including 
 
 | Artifact | Listed weight-file bytes | Decimal GB | Source |
 | --- | ---: | ---: | --- |
-| Google BF16 | 62,546,338,248 | 62.546 | [BASE-TREE](https://huggingface.co/api/models/google/gemma-4-31B-it/tree/842da3794eaa0b77d5f08bae87a17459d91ff475?recursive=false&expand=false) |
-| Red Hat FP8-block | 33,263,238,928 | 33.263 | [FP8-TREE](https://huggingface.co/api/models/RedHatAI/gemma-4-31B-it-FP8-block/tree/d7242548c457ab4b45bd3adb8937f2659af4739d?recursive=false&expand=false) |
-| Red Hat NVFP4 | 23,265,401,144 | 23.265 | [NV-TREE](https://huggingface.co/api/models/RedHatAI/gemma-4-31B-it-NVFP4/tree/5df75ccad9b74546f5be758a2a68acc2e16bbc9b?recursive=false&expand=false) |
+| Google BF16 | 62,546,338,248 | 62.546 | [gemma-4-31b-it-BASE-TREE](https://huggingface.co/api/models/google/gemma-4-31B-it/tree/842da3794eaa0b77d5f08bae87a17459d91ff475?recursive=false&expand=false) |
+| Red Hat FP8-block | 33,263,238,928 | 33.263 | [gemma-4-31b-it-FP8-TREE](https://huggingface.co/api/models/RedHatAI/gemma-4-31B-it-FP8-block/tree/d7242548c457ab4b45bd3adb8937f2659af4739d?recursive=false&expand=false) |
+| Red Hat NVFP4 | 23,265,401,144 | 23.265 | [gemma-4-31b-it-NV-TREE](https://huggingface.co/api/models/RedHatAI/gemma-4-31B-it-NVFP4/tree/5df75ccad9b74546f5be758a2a68acc2e16bbc9b?recursive=false&expand=false) |
 | NVIDIA NVFP4 | 32,633,477,808 | 32.633 | [TOPM-GEMMA-NVIDIA-TREE](https://huggingface.co/api/models/nvidia/Gemma-4-31B-IT-NVFP4/tree/4135a98a9b728a548947683219633b25682223ac?recursive=true&expand=false) |
 | Unsloth mixed NVFP4 | 24,765,757,504 | 24.766 | [TOPM-GEMMA-UNSLOTH-TREE](https://huggingface.co/api/models/unsloth/gemma-4-31B-it-NVFP4/tree/373c00b5ecb0a8ee43942b5ca08b93805de8eee4?recursive=true&expand=false) |
 | LilaRest Turbo | 19,295,277,512 | 19.295 | [TOPM-GEMMA-TURBO-TREE](https://huggingface.co/api/models/LilaRest/gemma-4-31B-it-NVFP4-turbo/tree/782d58ea7f9cf3a148be86e153f5689a2d73238b?recursive=true&expand=false) |

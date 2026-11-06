@@ -1,6 +1,27 @@
 # Stable, main and nightly: what the differences mean
 
-**Latest scoped refresh: October 26, 2026 UTC; earlier comparisons below retain their dated scope.** These identify released source, selected development source and advertised artifacts. No wheel or container was downloaded or run. Exact identities and retrieval dates are retained in the [upstream lock](../evidence/upstreams.lock.json).
+**Latest scoped refresh: November 6, 2026 UTC; earlier comparisons below retain their dated scope.** These identify released source, selected development source and advertised artifacts. No wheel or container was downloaded or run. Exact identities and retrieval dates are retained in the [upstream lock](../evidence/upstreams.lock.json).
+
+## November 6: release and channel observation
+
+New stable releases of both engines were published on 2026-11-02; KServe is unchanged. Responses report `prerelease=false`. Publication dates are not installation dates in the required KServe cluster.
+
+| Project | Latest stable | Published (UTC) | Release source commit |
+| --- | --- | --- | --- |
+| vLLM | [v0.33.0](https://github.com/vllm-project/vllm/releases/tag/v0.33.0rc3) (release object tag name `v0.33.0rc3`; annotated tag `v0.33.0` resolves to the same commit) | 2026-11-02 | `4ba787ec9959e566d3b587a796dff07673324da5` |
+| SGLang | [v0.5.23](https://github.com/sgl-project/sglang/releases/tag/v0.5.23) | 2026-11-02 | `297e54fd105e974cdf401e5b4d20253a22c16f90` |
+| KServe | [v0.21.0](https://github.com/kserve/kserve/releases/tag/v0.21.0) | 2026-09-25 | `d1482554fc4f66dd41aee70e01f5174e24f265bd` |
+
+Evidence: [V033-RELEASE](https://api.github.com/repos/vllm-project/vllm/releases/tags/v0.33.0rc3), [V033-TAG](https://api.github.com/repos/vllm-project/vllm/git/tags/3a4d82f569a9f57054ba81633e9b6c73b34b51fe), [S0523-RELEASE](https://api.github.com/repos/sgl-project/sglang/releases/tags/v0.5.23), [S0523-TAG](https://api.github.com/repos/sgl-project/sglang/git/tags/7df5dd09bc2f0e7e1509a1f7c2a40dff00ad8a01), [KS-LATEST-20261106](https://api.github.com/repos/kserve/kserve/releases/latest). Release-level analysis: [vLLM v0.33.0](vllm-v033-upgrade.md), [SGLang v0.5.23](sglang-v0523-upgrade.md).
+
+Development channels, registry and branch metadata only (not inspected as source, not qualified):
+
+| Project | Main tip observed November 6 | Nightly artifact |
+| --- | --- | --- |
+| vLLM | `6c15c6cc5380b7d2d6052144f96889bf6c5d2e7c` (2026-11-06T08:12Z) | wheel `0.33.0rc1.dev922+g8af2080e7`; image `nightly` index `sha256:48c0a41e8268faf50317ab83dc12c54fe6549b1131b38d06abe5ed15e3009700` |
+| SGLang | `ed61eca15fa026b2d2358cda9f671b20b926dd13` (2026-11-06T08:22Z) | image `nightly-dev-20261106-858073e4`, index `sha256:034f4c6122b50785ef939f26488a696d823048925176bafcf090b0de0ff97a5a` |
+
+Model identity: Hub heads of the 23 pinned concrete variants of the eight October families were rechecked ([O06-HF-HEADS](../evidence/sources.json)). Twenty equal their pins. The hypothetical Kimi K3 all-FP8 target has no Hub artifact or pin and is not counted. `Qwen/Qwen3.8-27B` and `Qwen/Qwen3.8-Flash-Next` moved by a README-only commit (model-card colours, 2026-11-05) and `RedHatAI/GLM-5.3-Flash-NVFP4` by a LICENSE-only commit (MIT, Z.AI text, 2026-10-27); file-oid comparison shows weights, configuration and tokenizer unchanged ([O06-HEAD-TREE-DIFF](../evidence/sources.json)). The retained pins remain the serving identities. Four new families (DeepSeek V4.1 Flash 1017, Kimi K3.1 Pro, Mistral Large 4, Muse Glimmer 30B) were pinned on this date, and Kimi K3.1 Pro and Mistral Large 4 are served only by development images or unmerged PRs.
 
 ## October 26: catalog-wide recheck
 
@@ -16,7 +37,7 @@ Latest-release evidence: [RR-GM-VLLM-RELEASE](https://api.github.com/repos/vllm-
 
 The refresh covers all **eight families / 23 concrete catalog variants**, plus **11 previously recorded additional exports or drafts**. All 34 current Hub heads match their retained immutable pins. Their README files and available configuration metadata were retrieved at those pins; the family overviews now link **34 byte-identical README snapshots**. No hypothetical all-FP8 Kimi artifact was filled in from another model. Card benchmarks and examples remain publisher evidence, including references to older releases or mutable development images. The [catalog](../catalog/models.json) records each card's source ID, local path, revision and SHA-256.
 
-Nineteen selected engine files were reread and match the bytes of their earlier immutable captures. This preserves the scope of the October 18–19 detailed comparisons rather than treating every historical claim as newly reviewed. Each model's `latest_stable_review` identifies the exact reread sources, and all 40 configuration records carry current applicability notes without changing historical argument arrays. Two live issue/PR records and one release-ancestry comparison were also rechecked:
+Nineteen selected engine files were reread and match the bytes of their earlier immutable captures. This preserves the scope of the October 18–19 detailed comparisons rather than treating every historical claim as newly reviewed. At that date each model's `latest_stable_review` identified the exact reread sources, and all 40 configuration records then present received applicability notes without changing historical argument arrays; those October 26 records are now in `prior_stable_reviews` and `prior_release_rechecks`. Two live issue/PR records and one release-ancestry comparison were also rechecked:
 
 - **GLM flagship:** FlashInfer's B300 FP8/64-query-head corruption issue remains open. Retain the FP8/DCP8 exclusion until the selected kernel artifact has a verified correction; no local failure or fix is claimed. [S0522-S-FI6389](https://github.com/flashinfer-ai/flashinfer/issues/6389)
 - **Qwen Flash Next:** the complete prefill-CP merge is still outside v0.5.22 ancestry. The comparison is diverged, with the release behind that merge by 27 commits and ahead by two; mere merge status on main is insufficient. [S0522-Q-CP-ANCESTRY](https://api.github.com/repos/sgl-project/sglang/compare/0d130f191574c3dbb7d402caf344084e91ded585...baa9befa381511cd4d56f83980951e5a45fffc6d?per_page=1)

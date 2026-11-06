@@ -1,6 +1,6 @@
 # GLM 5.3 Flash
 
-**Latest scoped recheck: October 26, 2026 (UTC).** Stable references remain **vLLM v0.32.0** and **SGLang v0.5.22**, under required KServe (upstream v0.21.0; installed version unknown). All concrete catalog variants still match their retained revisions. Current publisher cards/configurations and selected engine restrictions were rechecked; no B300 execution was performed. See [current serving assessment](serving.md#october-26-stable-release-recheck) and [Hugging Face README snapshots](#hugging-face-readme-snapshots).
+**Latest scoped recheck: November 6, 2026 (UTC).** Latest stable releases are **vLLM v0.33.0** and **SGLang v0.5.23**, under required KServe (upstream v0.21.0 unchanged; installed version unknown). November 6 Hub head recheck: 2 of 3 concrete variants equal retained pins (README/configuration not re-downloaded). RedHatAI/GLM-5.3-Flash-NVFP4 head moved to fbad79c0 (2026-10-27, "Create LICENSE"); only LICENSE was added (MIT, Z.AI text). Weights, configuration and README unchanged: the retained pin still identifies the serving artifact. Release notes, selected source and publisher recipes were reviewed at the release commits; no B300 execution was performed. See the [November 6 release update](serving.md#november-6-stable-releases-vllm-v0330-and-sglang-v0523), the retained [October 26 recheck](serving.md#october-26-stable-release-recheck) and [Hugging Face README snapshots](#hugging-face-readme-snapshots).
 
 **As of 2026-10-16.** Publisher headline: 320B total / 18B active. Pinned checkpoint metadata: 321.32B parameters. KDA + NoPE sparse MLA + mHC; multimodal.
 
@@ -24,6 +24,7 @@ KDA layers maintain recurrent state, NoPE sparse-MLA layers retrieve selected hi
 | Base revision pin | `46a050bec13002ad29ee795c16e61cf4fa3c4a9c` |
 | License scope | MIT in the pinned publisher LICENSE; inspect derivative terms separately |
 | Verification level | Current main resolves to the retained pin; publisher card, config, template, license and checkpoint metadata rechecked on 2026-10-16; no GPU load or benchmark |
+| AA Intelligence Index v5.0.1 (third-party) | max: 27.804 (v5.0 27.754). Not reproduced; not tied to this revision or any export. [Details](../../../reports/intelligence-index.md) [AA-MODEL-GLM-5-3-FLASH](https://artificialanalysis.ai/models/glm-5-3-flash) |
 
 
 The positional limit is not a promise of that many usable tokens under arbitrary batching, image load or cache precision. [glm-5.3-flash-CARD](https://huggingface.co/zai-org/GLM-5.3-Flash/raw/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/README.md) [glm-5.3-flash-CFG](https://huggingface.co/zai-org/GLM-5.3-Flash/raw/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/config.json)

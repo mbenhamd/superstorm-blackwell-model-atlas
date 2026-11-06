@@ -1,5 +1,15 @@
 # GLM 5.3 Flash: serving and optimization on B300
 
+## November 6 stable releases: vLLM v0.33.0 and SGLang v0.5.23
+
+The latest stable releases are vLLM v0.33.0 (commit `4ba787ec9959e566d3b587a796dff07673324da5`; the GitHub release object carries tag name `v0.33.0rc3`) and SGLang v0.5.23 (commit `297e54fd105e974cdf401e5b4d20253a22c16f90`). KServe upstream v0.21.0 is unchanged; the installed version remains unknown. This review covers release notes, selected source and publisher recipes at the release commits. No image or B300 workload was executed, and every performance figure quoted is an upstream claim. Full reviews: [vLLM v0.33.0](../../../reports/vllm-v033-upgrade.md), [SGLang v0.5.23](../../../reports/sglang-v0523-upgrade.md).
+
+**Identity.** November 6 Hub head recheck: 2 of 3 concrete variants equal retained pins (README/configuration not re-downloaded). RedHatAI/GLM-5.3-Flash-NVFP4 head moved to fbad79c0 (2026-10-27, "Create LICENSE"); only LICENSE was added (MIT, Z.AI text). Weights, configuration and README unchanged: the retained pin still identifies the serving artifact.
+
+**vLLM v0.33.0.** **Default KV cache becomes FP8** (#61228; PR claims 9.8% higher end-to-end throughput): an unchanged command line now produces a different cache format, so set `--kv-cache-dtype` explicitly in both arms of a release comparison. mHC TileLang decode kernels on Blackwell (#62745). `--mamba-cache-mode` has no effect (#60043). [V033-RELEASE](https://api.github.com/repos/vllm-project/vllm/releases/tags/v0.33.0rc3)
+
+**SGLang v0.5.23.** Interleave-CP breakable prefill graph with DFlash2 (#43182, #43774), NextN layer dropped from the KDA state pool (#44098) and a Python chat template (#45154). The ModelOpt NVFP4 clamp fix #45386 was checked upstream on `nvidia/GLM-5.3-Flash-NVFP4`, which is not an atlas pin; the atlas RedHat NVFP4 export is compressed-tensors and does not use the ModelOpt loader, so that fix is not evidence for it. [S0523-PR45386](https://api.github.com/repos/sgl-project/sglang/pulls/45386) FlashInfer CUTLASS MoE autotune now covers prefill sizes (#43363): longer first startup unless tuning persists or `--disable-flashinfer-autotune` is set. [S0523-RELEASE](https://api.github.com/repos/sgl-project/sglang/releases/tags/v0.5.23)
+
 ## October 26 stable release recheck
 
 The latest stable releases are unchanged: vLLM v0.32.0 and SGLang v0.5.22. This selected-source recheck retains the exact model/export revisions and the existing KServe requirement. It does not requalify historical launch arrays or an installed image.

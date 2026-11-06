@@ -1,6 +1,6 @@
 # Gemma 4 31B IT
 
-**Latest scoped recheck: October 26, 2026 (UTC).** Stable references remain **vLLM v0.32.0** and **SGLang v0.5.22**, under required KServe (upstream v0.21.0; installed version unknown). All concrete catalog variants still match their retained revisions. Current publisher cards/configurations and selected engine restrictions were rechecked; no B300 execution was performed. See [current serving assessment](serving.md#october-26-stable-release-recheck) and [Hugging Face README snapshots](#hugging-face-readme-snapshots).
+**Latest scoped recheck: November 6, 2026 (UTC).** Latest stable releases are **vLLM v0.33.0** and **SGLang v0.5.23**, under required KServe (upstream v0.21.0 unchanged; installed version unknown). November 6 Hub head recheck: 6 of 6 concrete variants equal retained pins (README/configuration not re-downloaded). Release notes, selected source and publisher recipes were reviewed at the release commits; no B300 execution was performed. See the [November 6 release update](serving.md#november-6-stable-releases-vllm-v0330-and-sglang-v0523), the retained [October 26 recheck](serving.md#october-26-stable-release-recheck) and [Hugging Face README snapshots](#hugging-face-readme-snapshots).
 
 **As of 2026-10-16.** Dense multimodal 31B; 5 sliding layers per global-attention layer.
 
@@ -28,6 +28,7 @@ Dense feed-forward blocks accompany interleaved local and global attention layer
 | Base revision pin | `842da3794eaa0b77d5f08bae87a17459d91ff475` |
 | License scope | Apache-2.0 in the Google base and Red Hat derivative cards; Google license page reviewed |
 | Verification level | Pinned cards, configs and file metadata rechecked; no model load or B300 benchmark |
+| AA Intelligence Index v5.0.1 (third-party) | reasoning, no effort setting: 4.384 (v5.0 null); non-reasoning: null (v5.0 null). Null means incomplete AA coverage. Not reproduced; not tied to this revision or any export. [Details](../../../reports/intelligence-index.md) [AA-MODEL-GEMMA-4-31B](https://artificialanalysis.ai/models/gemma-4-31b) [AA-MODEL-GEMMA-4-31B-NON-REASONING](https://artificialanalysis.ai/models/gemma-4-31b-non-reasoning) |
 
 
 The positional limit is not a promise of that many usable tokens under arbitrary batching, image load or cache precision. [gemma-4-31b-it-CARD](https://huggingface.co/google/gemma-4-31B-it/blob/842da3794eaa0b77d5f08bae87a17459d91ff475/README.md) [gemma-4-31b-it-CFG](https://huggingface.co/google/gemma-4-31B-it/raw/842da3794eaa0b77d5f08bae87a17459d91ff475/config.json)

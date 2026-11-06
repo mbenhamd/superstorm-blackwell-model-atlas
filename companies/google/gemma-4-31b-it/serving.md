@@ -1,5 +1,22 @@
 # Gemma 4 31B IT: serving and optimization on B300
 
+## November 6 stable releases: vLLM v0.33.0 and SGLang v0.5.23
+
+The latest stable releases are vLLM v0.33.0 (commit `4ba787ec9959e566d3b587a796dff07673324da5`; the GitHub release object carries tag name `v0.33.0rc3`) and SGLang v0.5.23 (commit `297e54fd105e974cdf401e5b4d20253a22c16f90`). KServe upstream v0.21.0 is unchanged; the installed version remains unknown. This review covers release notes, selected source and publisher recipes at the release commits. No image or B300 workload was executed, and every performance figure quoted is an upstream claim. Full reviews: [vLLM v0.33.0](../../../reports/vllm-v033-upgrade.md), [SGLang v0.5.23](../../../reports/sglang-v0523-upgrade.md).
+
+**Identity.** November 6 Hub head recheck: 6 of 6 concrete variants equal retained pins (README/configuration not re-downloaded).
+
+**vLLM v0.33.0.** Besides the CUDA 13.0 / torch 2.14.0 platform bump, the release contains Gemma 4 multimodal fixes on `Gemma4ForConditionalGeneration`, the 31B IT class (release note; all three merge commits are ancestors of `4ba787ec`):
+
+- **Encoder CUDA-graph sizing and correctness (#61365).** Capture buffers were sized far beyond any batch the token budget can hold, causing a startup OOM on the PR's 26B-A4B NVFP4/RTX 5090 setup; graph output was wrong for video and for 70- and 140-token image batches. The fix captures one graph per budget and row width.
+- **Non-default `max_soft_tokens` under encoder graphs (#60687).** Image requests previously failed with a shape-mismatch `RuntimeError` at graph replay.
+- **Image/audio placeholder strings (#61196).** With `--chat-template-content-format string`, Gemma 4 image and audio chat requests returned HTTP 500; the default `openai` content format was unaffected.
+- **Streaming tool arguments (#61494).** The `gemma4` parser streams string tool arguments incrementally.
+
+The encoder-graph fixes apply only when `compilation_config.cudagraph_mm_encoder` is enabled; it defaults to `False` at `4ba787ec`. The retained vLLM arrays set neither that option nor the `string` content format, and they do not pass `--language-model-only`, so the vision encoder is loaded. Include image requests in the v0.32.0 → v0.33.0 release-parity check and record the content format and encoder-graph setting; with encoder graphs enabled, startup memory and image outputs can differ between the two releases. #63538 changes EmbeddingGemma2 and DiffusionGemma only. The data-parallel multimodal encoder (#60314) is main-only. No Gemma item was executed on B300. [V033-RELEASE](https://api.github.com/repos/vllm-project/vllm/releases/tags/v0.33.0rc3), [V033-CUDA-REQUIREMENTS](https://raw.githubusercontent.com/vllm-project/vllm/4ba787ec9959e566d3b587a796dff07673324da5/requirements/cuda.txt), [V033-PR-61365](https://api.github.com/repos/vllm-project/vllm/pulls/61365), [V033-PR-60687](https://api.github.com/repos/vllm-project/vllm/pulls/60687), [V033-PR-61196](https://api.github.com/repos/vllm-project/vllm/pulls/61196), [V033-CMP-GEMMA-ENC](https://api.github.com/repos/vllm-project/vllm/compare/ec8b20fbf01e04d33bb059e555a9b5f39fb4cc46...4ba787ec9959e566d3b587a796dff07673324da5?per_page=1), [V033-CMP-60687](https://api.github.com/repos/vllm-project/vllm/compare/4920df120d8ef6deafc3954bb48cf4ae2e927b92...4ba787ec9959e566d3b587a796dff07673324da5?per_page=1), [V033-CMP-GEMMA-PLACEHOLDER](https://api.github.com/repos/vllm-project/vllm/compare/268e54951c0028c632b2125bae342b3bb5baa85f...4ba787ec9959e566d3b587a796dff07673324da5?per_page=1), [V033-COMPILATION-CONFIG](https://raw.githubusercontent.com/vllm-project/vllm/4ba787ec9959e566d3b587a796dff07673324da5/vllm/config/compilation.py)
+
+**SGLang v0.5.23.** No targeted item; the frozen-KV draft capture change (#45771) was measured on E2B on H200. [S0523-RELEASE](https://api.github.com/repos/sgl-project/sglang/releases/tags/v0.5.23)
+
 ## October 26 stable release recheck
 
 The latest stable releases are unchanged: vLLM v0.32.0 and SGLang v0.5.22. This selected-source recheck retains the exact model/export revisions and the existing KServe requirement. It does not requalify historical launch arrays or an installed image.

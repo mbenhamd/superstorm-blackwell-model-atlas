@@ -1,6 +1,6 @@
 # Qwen 3.8 27B
 
-**Latest scoped recheck: October 26, 2026 (UTC).** Stable references remain **vLLM v0.32.0** and **SGLang v0.5.22**, under required KServe (upstream v0.21.0; installed version unknown). All concrete catalog variants still match their retained revisions. Current publisher cards/configurations and selected engine restrictions were rechecked; no B300 execution was performed. See [current serving assessment](serving.md#october-26-stable-release-recheck) and [Hugging Face README snapshots](#hugging-face-readme-snapshots).
+**Latest scoped recheck: November 6, 2026 (UTC).** Latest stable releases are **vLLM v0.33.0** and **SGLang v0.5.23**, under required KServe (upstream v0.21.0 unchanged; installed version unknown). November 6 Hub head recheck: 2 of 3 concrete variants equal retained pins (README/configuration not re-downloaded). Qwen/Qwen3.8-27B head moved to 8c0b3d30 (2026-11-05, model-card table colours); only README.md changed. Weights, configuration and tokenizer unchanged: the retained pin and its README snapshot remain the serving identity. Release notes, selected source and publisher recipes were reviewed at the release commits; no B300 execution was performed. See the [November 6 release update](serving.md#november-6-stable-releases-vllm-v0330-and-sglang-v0523), the retained [October 26 recheck](serving.md#october-26-stable-release-recheck) and [Hugging Face README snapshots](#hugging-face-readme-snapshots).
 
 **Qwen/vLLM v0.31 review: 2026-10-17.** Dense 27B language model; Gated DeltaNet + gated full attention; multimodal.
 
@@ -24,6 +24,7 @@ Dense feed-forward blocks accompany a repeated Gated DeltaNet/full-attention pat
 | Base revision pin | 1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0 |
 | License scope | Apache-2.0 on base; also review derivative terms |
 | Verification level | Publisher cards and immutable metadata rechecked; no weight load or GPU benchmark |
+| AA Intelligence Index v5.0.1 (third-party) | xhigh: 20.107 (v5.0 20.107); medium: 17.483 (v5.0 17.483); low: 15.685 (v5.0 15.685); non-reasoning: 10.032 (v5.0 10.032). Not reproduced; not tied to this revision or any export. [Details](../../../reports/intelligence-index.md) [AA-MODEL-QWEN3-8-27B](https://artificialanalysis.ai/models/qwen3-8-27b) [AA-MODEL-QWEN3-8-27B-MEDIUM](https://artificialanalysis.ai/models/qwen3-8-27b-medium) [AA-MODEL-QWEN3-8-27B-LOW](https://artificialanalysis.ai/models/qwen3-8-27b-low) [AA-MODEL-QWEN3-8-27B-NON-REASONING](https://artificialanalysis.ai/models/qwen3-8-27b-non-reasoning) |
 
 
 The positional limit is not a promise of that many usable tokens under arbitrary batching, image load or cache precision. [qwen3.8-27b-CARD](https://huggingface.co/Qwen/Qwen3.8-27B/raw/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/README.md) [qwen3.8-27b-CFG](https://huggingface.co/Qwen/Qwen3.8-27B/raw/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/config.json)

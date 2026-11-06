@@ -42,20 +42,38 @@
     "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository.",
     "reference_scope": "historical-source-snapshot",
     "latest_release_recheck": {
-      "checked_on": "2026-10-26",
-      "engine_release": "v0.5.22",
+      "checked_on": "2026-11-06",
+      "engine_release": "v0.5.23",
+      "engine_commit": "297e54fd105e974cdf401e5b4d20253a22c16f90",
       "model_revision_matches_current_head": true,
       "model_review_field": "latest_stable_review",
-      "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+      "argument_array_status": "Historical arguments preserved; selected release-note and source applicability review only, not full CLI or runtime validation.",
       "required_reconciliation": [
-        "Retain native TP8 and separate NVIDIA mixed-export comparisons. DCP plus DSpark requires static ragged verification and the supported decode path; the override disables symmetric memory. Pin the engine-specific RadixArk draft separately."
+        "v0.5.23 NVFP4 MoE scale/routing correctness fixes apply to NVIDIA NVFP4 arms: rerun target-only correctness before throughput; SM107-only Kimi items do not apply to SM103."
       ],
       "source_ids": [
-        "RR-GM-SGLANG-RELEASE",
-        "S0522-K-KIMI-OVERRIDES"
+        "S0523-RELEASE",
+        "O06-HF-HEADS"
       ],
       "tested_on_target": false
-    }
+    },
+    "prior_release_rechecks": [
+      {
+        "checked_on": "2026-10-26",
+        "engine_release": "v0.5.22",
+        "model_revision_matches_current_head": true,
+        "model_review_field": "latest_stable_review",
+        "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+        "required_reconciliation": [
+          "Retain native TP8 and separate NVIDIA mixed-export comparisons. DCP plus DSpark requires static ragged verification and the supported decode path; the override disables symmetric memory. Pin the engine-specific RadixArk draft separately."
+        ],
+        "source_ids": [
+          "RR-GM-SGLANG-RELEASE",
+          "S0522-K-KIMI-OVERRIDES"
+        ],
+        "tested_on_target": false
+      }
+    ]
   },
   {
     "id": "kimi-k3.native.vllm.baseline",
@@ -101,21 +119,39 @@
     "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository.",
     "reference_scope": "historical-source-snapshot",
     "latest_release_recheck": {
-      "checked_on": "2026-10-26",
-      "engine_release": "v0.32.0",
+      "checked_on": "2026-11-06",
+      "engine_release": "v0.33.0",
+      "engine_commit": "4ba787ec9959e566d3b587a796dff07673324da5",
       "model_revision_matches_current_head": true,
       "model_review_field": "latest_stable_review",
-      "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+      "argument_array_status": "Historical arguments preserved; selected release-note and source applicability review only, not full CLI or runtime validation.",
       "required_reconciliation": [
-        "Native MXFP4 TP8 remains the release comparison candidate. Packed speculative KDA requires SM10x, eligible head geometry, BF16 inputs/convolution state, 1\u20137 proposals and RecoverSSM disabled. NVIDIA mixed NVFP4 remains a separate loader/image probe."
+        "v0.33.0 adds SM10x KDA RecoverSSM verify/commit kernels with verify records outside the KV cache (#63045); no argument in this array changed meaning."
       ],
       "source_ids": [
-        "RR-GM-VLLM-RELEASE",
-        "V032-KM-KDA",
-        "V032-KM-MODEL"
+        "V033-RELEASE",
+        "O06-HF-HEADS"
       ],
       "tested_on_target": false
-    }
+    },
+    "prior_release_rechecks": [
+      {
+        "checked_on": "2026-10-26",
+        "engine_release": "v0.32.0",
+        "model_revision_matches_current_head": true,
+        "model_review_field": "latest_stable_review",
+        "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+        "required_reconciliation": [
+          "Native MXFP4 TP8 remains the release comparison candidate. Packed speculative KDA requires SM10x, eligible head geometry, BF16 inputs/convolution state, 1\u20137 proposals and RecoverSSM disabled. NVIDIA mixed NVFP4 remains a separate loader/image probe."
+        ],
+        "source_ids": [
+          "RR-GM-VLLM-RELEASE",
+          "V032-KM-KDA",
+          "V032-KM-MODEL"
+        ],
+        "tested_on_target": false
+      }
+    ]
   },
   {
     "id": "kimi-k3.nvfp4.sglang.baseline",
@@ -162,20 +198,38 @@
     "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository.",
     "reference_scope": "historical-source-snapshot",
     "latest_release_recheck": {
-      "checked_on": "2026-10-26",
-      "engine_release": "v0.5.22",
+      "checked_on": "2026-11-06",
+      "engine_release": "v0.5.23",
+      "engine_commit": "297e54fd105e974cdf401e5b4d20253a22c16f90",
       "model_revision_matches_current_head": true,
       "model_review_field": "latest_stable_review",
-      "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+      "argument_array_status": "Historical arguments preserved; selected release-note and source applicability review only, not full CLI or runtime validation.",
       "required_reconciliation": [
-        "Retain native TP8 and separate NVIDIA mixed-export comparisons. DCP plus DSpark requires static ragged verification and the supported decode path; the override disables symmetric memory. Pin the engine-specific RadixArk draft separately."
+        "v0.5.23 NVFP4 MoE scale/routing correctness fixes apply to NVIDIA NVFP4 arms: rerun target-only correctness before throughput; SM107-only Kimi items do not apply to SM103."
       ],
       "source_ids": [
-        "RR-GM-SGLANG-RELEASE",
-        "S0522-K-KIMI-OVERRIDES"
+        "S0523-RELEASE",
+        "O06-HF-HEADS"
       ],
       "tested_on_target": false
-    }
+    },
+    "prior_release_rechecks": [
+      {
+        "checked_on": "2026-10-26",
+        "engine_release": "v0.5.22",
+        "model_revision_matches_current_head": true,
+        "model_review_field": "latest_stable_review",
+        "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+        "required_reconciliation": [
+          "Retain native TP8 and separate NVIDIA mixed-export comparisons. DCP plus DSpark requires static ragged verification and the supported decode path; the override disables symmetric memory. Pin the engine-specific RadixArk draft separately."
+        ],
+        "source_ids": [
+          "RR-GM-SGLANG-RELEASE",
+          "S0522-K-KIMI-OVERRIDES"
+        ],
+        "tested_on_target": false
+      }
+    ]
   },
   {
     "id": "kimi-k3.nvfp4.vllm.baseline",
@@ -228,21 +282,39 @@
     },
     "reference_scope": "historical-source-snapshot",
     "latest_release_recheck": {
-      "checked_on": "2026-10-26",
-      "engine_release": "v0.32.0",
+      "checked_on": "2026-11-06",
+      "engine_release": "v0.33.0",
+      "engine_commit": "4ba787ec9959e566d3b587a796dff07673324da5",
       "model_revision_matches_current_head": true,
       "model_review_field": "latest_stable_review",
-      "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+      "argument_array_status": "Historical arguments preserved; selected release-note and source applicability review only, not full CLI or runtime validation.",
       "required_reconciliation": [
-        "Native MXFP4 TP8 remains the release comparison candidate. Packed speculative KDA requires SM10x, eligible head geometry, BF16 inputs/convolution state, 1\u20137 proposals and RecoverSSM disabled. NVIDIA mixed NVFP4 remains a separate loader/image probe."
+        "v0.33.0 adds SM10x KDA RecoverSSM verify/commit kernels with verify records outside the KV cache (#63045); no argument in this array changed meaning."
       ],
       "source_ids": [
-        "RR-GM-VLLM-RELEASE",
-        "V032-KM-KDA",
-        "V032-KM-MODEL"
+        "V033-RELEASE",
+        "O06-HF-HEADS"
       ],
       "tested_on_target": false
-    }
+    },
+    "prior_release_rechecks": [
+      {
+        "checked_on": "2026-10-26",
+        "engine_release": "v0.32.0",
+        "model_revision_matches_current_head": true,
+        "model_review_field": "latest_stable_review",
+        "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+        "required_reconciliation": [
+          "Native MXFP4 TP8 remains the release comparison candidate. Packed speculative KDA requires SM10x, eligible head geometry, BF16 inputs/convolution state, 1\u20137 proposals and RecoverSSM disabled. NVIDIA mixed NVFP4 remains a separate loader/image probe."
+        ],
+        "source_ids": [
+          "RR-GM-VLLM-RELEASE",
+          "V032-KM-KDA",
+          "V032-KM-MODEL"
+        ],
+        "tested_on_target": false
+      }
+    ]
   },
   {
     "id": "kimi-k3.nvfp4.sglang.dspark",
@@ -298,21 +370,39 @@
     "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository.",
     "reference_scope": "historical-source-snapshot",
     "latest_release_recheck": {
-      "checked_on": "2026-10-26",
-      "engine_release": "v0.5.22",
+      "checked_on": "2026-11-06",
+      "engine_release": "v0.5.23",
+      "engine_commit": "297e54fd105e974cdf401e5b4d20253a22c16f90",
       "model_revision_matches_current_head": true,
       "model_review_field": "latest_stable_review",
-      "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+      "argument_array_status": "Historical arguments preserved; selected release-note and source applicability review only, not full CLI or runtime validation.",
       "required_reconciliation": [
-        "Retain native TP8 and separate NVIDIA mixed-export comparisons. DCP plus DSpark requires static ragged verification and the supported decode path; the override disables symmetric memory. Pin the engine-specific RadixArk draft separately.",
-        "This array uses DCP8 plus DSpark: require SGLANG_RAGGED_VERIFY_MODE=static and resolve __DRAFT_DIR__ to the pinned RadixArk snapshot."
+        "v0.5.23 NVFP4 MoE scale/routing correctness fixes apply to NVIDIA NVFP4 arms: rerun target-only correctness before throughput; SM107-only Kimi items do not apply to SM103."
       ],
       "source_ids": [
-        "RR-GM-SGLANG-RELEASE",
-        "S0522-K-KIMI-OVERRIDES"
+        "S0523-RELEASE",
+        "O06-HF-HEADS"
       ],
       "tested_on_target": false
-    }
+    },
+    "prior_release_rechecks": [
+      {
+        "checked_on": "2026-10-26",
+        "engine_release": "v0.5.22",
+        "model_revision_matches_current_head": true,
+        "model_review_field": "latest_stable_review",
+        "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+        "required_reconciliation": [
+          "Retain native TP8 and separate NVIDIA mixed-export comparisons. DCP plus DSpark requires static ragged verification and the supported decode path; the override disables symmetric memory. Pin the engine-specific RadixArk draft separately.",
+          "This array uses DCP8 plus DSpark: require SGLANG_RAGGED_VERIFY_MODE=static and resolve __DRAFT_DIR__ to the pinned RadixArk snapshot."
+        ],
+        "source_ids": [
+          "RR-GM-SGLANG-RELEASE",
+          "S0522-K-KIMI-OVERRIDES"
+        ],
+        "tested_on_target": false
+      }
+    ]
   },
   {
     "id": "glm-5.3.fp8.vllm.baseline",
@@ -360,20 +450,38 @@
     "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository.",
     "reference_scope": "historical-source-snapshot",
     "latest_release_recheck": {
-      "checked_on": "2026-10-26",
-      "engine_release": "v0.32.0",
+      "checked_on": "2026-11-06",
+      "engine_release": "v0.33.0",
+      "engine_commit": "4ba787ec9959e566d3b587a796dff07673324da5",
       "model_revision_matches_current_head": true,
       "model_review_field": "latest_stable_review",
-      "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+      "argument_array_status": "Historical arguments preserved; selected release-note and source applicability review only, not full CLI or runtime validation.",
       "required_reconciliation": [
-        "The flagship auto-KV hook selects FP8 E4M3 on CUDA family 10, including B300, independent of target weight precision. Hold explicit KV precision constant when comparing exports or releases; this hook does not cover GLM Flash."
+        "v0.33.0: scale calculation skipped in concat_and_cache_mla (#62102); lookahead block hashes on by default change MTP prefix-cache hit rates (#61589)."
       ],
       "source_ids": [
-        "RR-GM-VLLM-RELEASE",
-        "SP32-SRC-vllm-model_executor-models-config-py"
+        "V033-RELEASE",
+        "O06-HF-HEADS"
       ],
       "tested_on_target": false
-    }
+    },
+    "prior_release_rechecks": [
+      {
+        "checked_on": "2026-10-26",
+        "engine_release": "v0.32.0",
+        "model_revision_matches_current_head": true,
+        "model_review_field": "latest_stable_review",
+        "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+        "required_reconciliation": [
+          "The flagship auto-KV hook selects FP8 E4M3 on CUDA family 10, including B300, independent of target weight precision. Hold explicit KV precision constant when comparing exports or releases; this hook does not cover GLM Flash."
+        ],
+        "source_ids": [
+          "RR-GM-VLLM-RELEASE",
+          "SP32-SRC-vllm-model_executor-models-config-py"
+        ],
+        "tested_on_target": false
+      }
+    ]
   },
   {
     "id": "glm-5.3.nvfp4.vllm.baseline",
@@ -419,21 +527,39 @@
     "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository.",
     "reference_scope": "historical-source-snapshot",
     "latest_release_recheck": {
-      "checked_on": "2026-10-26",
-      "engine_release": "v0.32.0",
+      "checked_on": "2026-11-06",
+      "engine_release": "v0.33.0",
+      "engine_commit": "4ba787ec9959e566d3b587a796dff07673324da5",
       "model_revision_matches_current_head": true,
       "model_review_field": "latest_stable_review",
-      "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+      "argument_array_status": "Historical arguments preserved; selected release-note and source applicability review only, not full CLI or runtime validation.",
       "required_reconciliation": [
-        "The flagship auto-KV hook selects FP8 E4M3 on CUDA family 10, including B300, independent of target weight precision. Hold explicit KV precision constant when comparing exports or releases; this hook does not cover GLM Flash.",
-        "This argument array omits KV dtype: v0.32 auto selects FP8 on B300; set it explicitly for matched-precision comparisons."
+        "v0.33.0: scale calculation skipped in concat_and_cache_mla (#62102); lookahead block hashes on by default change MTP prefix-cache hit rates (#61589)."
       ],
       "source_ids": [
-        "RR-GM-VLLM-RELEASE",
-        "SP32-SRC-vllm-model_executor-models-config-py"
+        "V033-RELEASE",
+        "O06-HF-HEADS"
       ],
       "tested_on_target": false
-    }
+    },
+    "prior_release_rechecks": [
+      {
+        "checked_on": "2026-10-26",
+        "engine_release": "v0.32.0",
+        "model_revision_matches_current_head": true,
+        "model_review_field": "latest_stable_review",
+        "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+        "required_reconciliation": [
+          "The flagship auto-KV hook selects FP8 E4M3 on CUDA family 10, including B300, independent of target weight precision. Hold explicit KV precision constant when comparing exports or releases; this hook does not cover GLM Flash.",
+          "This argument array omits KV dtype: v0.32 auto selects FP8 on B300; set it explicitly for matched-precision comparisons."
+        ],
+        "source_ids": [
+          "RR-GM-VLLM-RELEASE",
+          "SP32-SRC-vllm-model_executor-models-config-py"
+        ],
+        "tested_on_target": false
+      }
+    ]
   },
   {
     "id": "glm-5.3.fp8.vllm.mtp",
@@ -483,20 +609,38 @@
     "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository.",
     "reference_scope": "historical-source-snapshot",
     "latest_release_recheck": {
-      "checked_on": "2026-10-26",
-      "engine_release": "v0.32.0",
+      "checked_on": "2026-11-06",
+      "engine_release": "v0.33.0",
+      "engine_commit": "4ba787ec9959e566d3b587a796dff07673324da5",
       "model_revision_matches_current_head": true,
       "model_review_field": "latest_stable_review",
-      "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+      "argument_array_status": "Historical arguments preserved; selected release-note and source applicability review only, not full CLI or runtime validation.",
       "required_reconciliation": [
-        "The flagship auto-KV hook selects FP8 E4M3 on CUDA family 10, including B300, independent of target weight precision. Hold explicit KV precision constant when comparing exports or releases; this hook does not cover GLM Flash."
+        "v0.33.0: scale calculation skipped in concat_and_cache_mla (#62102); lookahead block hashes on by default change MTP prefix-cache hit rates (#61589)."
       ],
       "source_ids": [
-        "RR-GM-VLLM-RELEASE",
-        "SP32-SRC-vllm-model_executor-models-config-py"
+        "V033-RELEASE",
+        "O06-HF-HEADS"
       ],
       "tested_on_target": false
-    }
+    },
+    "prior_release_rechecks": [
+      {
+        "checked_on": "2026-10-26",
+        "engine_release": "v0.32.0",
+        "model_revision_matches_current_head": true,
+        "model_review_field": "latest_stable_review",
+        "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+        "required_reconciliation": [
+          "The flagship auto-KV hook selects FP8 E4M3 on CUDA family 10, including B300, independent of target weight precision. Hold explicit KV precision constant when comparing exports or releases; this hook does not cover GLM Flash."
+        ],
+        "source_ids": [
+          "RR-GM-VLLM-RELEASE",
+          "SP32-SRC-vllm-model_executor-models-config-py"
+        ],
+        "tested_on_target": false
+      }
+    ]
   },
   {
     "id": "glm-5.3.fp8.sglang.baseline",
@@ -541,22 +685,42 @@
     "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository.",
     "reference_scope": "historical-source-snapshot",
     "latest_release_recheck": {
-      "checked_on": "2026-10-26",
-      "engine_release": "v0.5.22",
+      "checked_on": "2026-11-06",
+      "engine_release": "v0.5.23",
+      "engine_commit": "297e54fd105e974cdf401e5b4d20253a22c16f90",
       "model_revision_matches_current_head": true,
       "model_review_field": "latest_stable_review",
-      "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+      "argument_array_status": "Historical arguments preserved; selected release-note and source applicability review only, not full CLI or runtime validation.",
       "required_reconciliation": [
-        "Keep TP8/DCP1 as the target-only control; DCP2/4 and native MTP are separate candidates. The FP8 64-head sparse-MLA corruption report remains open, so FP8/DCP8 stays excluded pending an artifact-specific fix. DCP rejects HiSparse, HiCache and P/D."
+        "FlashInfer #6389 open and dsa_dcp.py byte-identical to v0.5.22: keep the FP8/DCP8 exclusion."
       ],
       "source_ids": [
-        "RR-GM-SGLANG-RELEASE",
-        "S0522-S-DSA-OVERRIDE",
-        "S0522-S-DCP",
-        "S0522-S-FI6389"
+        "S0523-RELEASE",
+        "S0523-FLASHINFER-6389",
+        "S0523-DSA-DCP",
+        "O06-HF-HEADS"
       ],
       "tested_on_target": false
-    }
+    },
+    "prior_release_rechecks": [
+      {
+        "checked_on": "2026-10-26",
+        "engine_release": "v0.5.22",
+        "model_revision_matches_current_head": true,
+        "model_review_field": "latest_stable_review",
+        "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+        "required_reconciliation": [
+          "Keep TP8/DCP1 as the target-only control; DCP2/4 and native MTP are separate candidates. The FP8 64-head sparse-MLA corruption report remains open, so FP8/DCP8 stays excluded pending an artifact-specific fix. DCP rejects HiSparse, HiCache and P/D."
+        ],
+        "source_ids": [
+          "RR-GM-SGLANG-RELEASE",
+          "S0522-S-DSA-OVERRIDE",
+          "S0522-S-DCP",
+          "S0522-S-FI6389"
+        ],
+        "tested_on_target": false
+      }
+    ]
   },
   {
     "id": "glm-5.3-flash.fp8.sglang.baseline",
@@ -596,21 +760,39 @@
     "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository.",
     "reference_scope": "historical-source-snapshot",
     "latest_release_recheck": {
-      "checked_on": "2026-10-26",
-      "engine_release": "v0.5.22",
+      "checked_on": "2026-11-06",
+      "engine_release": "v0.5.23",
+      "engine_commit": "297e54fd105e974cdf401e5b4d20253a22c16f90",
       "model_revision_matches_current_head": true,
       "model_review_field": "latest_stable_review",
-      "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+      "argument_array_status": "Historical arguments preserved; selected release-note and source applicability review only, not full CLI or runtime validation.",
       "required_reconciliation": [
-        "Retain the official FP8 TP4 control and separate native-MTP comparison. KDA dispatch remains conditional; the pooled index_kpool > 1 guard rejects flagship DCP. External DFlash is a distinct artifact and license scope."
+        "v0.5.23: NextN layer dropped from the KDA state pool (#44098) and prefill-size MoE autotune (#43363) change memory and startup time; re-baseline both."
       ],
       "source_ids": [
-        "RR-GM-SGLANG-RELEASE",
-        "S0522-S-KDA",
-        "S0522-S-DSA-OVERRIDE"
+        "S0523-RELEASE",
+        "O06-HF-HEADS"
       ],
       "tested_on_target": false
-    }
+    },
+    "prior_release_rechecks": [
+      {
+        "checked_on": "2026-10-26",
+        "engine_release": "v0.5.22",
+        "model_revision_matches_current_head": true,
+        "model_review_field": "latest_stable_review",
+        "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+        "required_reconciliation": [
+          "Retain the official FP8 TP4 control and separate native-MTP comparison. KDA dispatch remains conditional; the pooled index_kpool > 1 guard rejects flagship DCP. External DFlash is a distinct artifact and license scope."
+        ],
+        "source_ids": [
+          "RR-GM-SGLANG-RELEASE",
+          "S0522-S-KDA",
+          "S0522-S-DSA-OVERRIDE"
+        ],
+        "tested_on_target": false
+      }
+    ]
   },
   {
     "id": "glm-5.3-flash.fp8.sglang.mtp",
@@ -658,21 +840,39 @@
     "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository.",
     "reference_scope": "historical-source-snapshot",
     "latest_release_recheck": {
-      "checked_on": "2026-10-26",
-      "engine_release": "v0.5.22",
+      "checked_on": "2026-11-06",
+      "engine_release": "v0.5.23",
+      "engine_commit": "297e54fd105e974cdf401e5b4d20253a22c16f90",
       "model_revision_matches_current_head": true,
       "model_review_field": "latest_stable_review",
-      "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+      "argument_array_status": "Historical arguments preserved; selected release-note and source applicability review only, not full CLI or runtime validation.",
       "required_reconciliation": [
-        "Retain the official FP8 TP4 control and separate native-MTP comparison. KDA dispatch remains conditional; the pooled index_kpool > 1 guard rejects flagship DCP. External DFlash is a distinct artifact and license scope."
+        "v0.5.23: NextN layer dropped from the KDA state pool (#44098) and prefill-size MoE autotune (#43363) change memory and startup time; re-baseline both."
       ],
       "source_ids": [
-        "RR-GM-SGLANG-RELEASE",
-        "S0522-S-KDA",
-        "S0522-S-DSA-OVERRIDE"
+        "S0523-RELEASE",
+        "O06-HF-HEADS"
       ],
       "tested_on_target": false
-    }
+    },
+    "prior_release_rechecks": [
+      {
+        "checked_on": "2026-10-26",
+        "engine_release": "v0.5.22",
+        "model_revision_matches_current_head": true,
+        "model_review_field": "latest_stable_review",
+        "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+        "required_reconciliation": [
+          "Retain the official FP8 TP4 control and separate native-MTP comparison. KDA dispatch remains conditional; the pooled index_kpool > 1 guard rejects flagship DCP. External DFlash is a distinct artifact and license scope."
+        ],
+        "source_ids": [
+          "RR-GM-SGLANG-RELEASE",
+          "S0522-S-KDA",
+          "S0522-S-DSA-OVERRIDE"
+        ],
+        "tested_on_target": false
+      }
+    ]
   },
   {
     "id": "glm-5.3-flash.fp8.vllm.baseline",
@@ -710,20 +910,38 @@
     "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository.",
     "reference_scope": "historical-source-snapshot",
     "latest_release_recheck": {
-      "checked_on": "2026-10-26",
-      "engine_release": "v0.32.0",
+      "checked_on": "2026-11-06",
+      "engine_release": "v0.33.0",
+      "engine_commit": "4ba787ec9959e566d3b587a796dff07673324da5",
       "model_revision_matches_current_head": true,
       "model_review_field": "latest_stable_review",
-      "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+      "argument_array_status": "Historical arguments preserved; selected release-note and source applicability review only, not full CLI or runtime validation.",
       "required_reconciliation": [
-        "The KDA layer honors mamba_ssm_cache_dtype. Compare explicit FP32/BF16 recurrent state independently of weight and KV precision; reduced state storage does not establish long-context or speculative-rollback quality."
+        "v0.33.0 changes the GLM-5.3-Flash default KV cache to FP8 (#61228). This array does not set --kv-cache-dtype, so it now resolves FP8 KV; add an explicit --kv-cache-dtype to keep the cache format constant across releases and record the resolved value."
       ],
       "source_ids": [
-        "RR-GM-VLLM-RELEASE",
-        "SP32-SRC-vllm-models-glm5next-common-kda-py"
+        "V033-RELEASE",
+        "O06-HF-HEADS"
       ],
       "tested_on_target": false
-    }
+    },
+    "prior_release_rechecks": [
+      {
+        "checked_on": "2026-10-26",
+        "engine_release": "v0.32.0",
+        "model_revision_matches_current_head": true,
+        "model_review_field": "latest_stable_review",
+        "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+        "required_reconciliation": [
+          "The KDA layer honors mamba_ssm_cache_dtype. Compare explicit FP32/BF16 recurrent state independently of weight and KV precision; reduced state storage does not establish long-context or speculative-rollback quality."
+        ],
+        "source_ids": [
+          "RR-GM-VLLM-RELEASE",
+          "SP32-SRC-vllm-models-glm5next-common-kda-py"
+        ],
+        "tested_on_target": false
+      }
+    ]
   },
   {
     "id": "glm-5.3-flash.nvfp4.vllm.baseline",
@@ -763,20 +981,40 @@
     "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository.",
     "reference_scope": "historical-source-snapshot",
     "latest_release_recheck": {
-      "checked_on": "2026-10-26",
-      "engine_release": "v0.32.0",
-      "model_revision_matches_current_head": true,
+      "checked_on": "2026-11-06",
+      "engine_release": "v0.33.0",
+      "engine_commit": "4ba787ec9959e566d3b587a796dff07673324da5",
+      "model_revision_matches_current_head": false,
       "model_review_field": "latest_stable_review",
-      "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+      "argument_array_status": "Historical arguments preserved; selected release-note and source applicability review only, not full CLI or runtime validation.",
       "required_reconciliation": [
-        "The KDA layer honors mamba_ssm_cache_dtype. Compare explicit FP32/BF16 recurrent state independently of weight and KV precision; reduced state storage does not establish long-context or speculative-rollback quality."
+        "v0.33.0 changes the GLM-5.3-Flash default KV cache to FP8 (#61228). This array does not set --kv-cache-dtype, so it now resolves FP8 KV; add an explicit --kv-cache-dtype to keep the cache format constant across releases and record the resolved value.",
+        "Hub head moved to fbad79c0 by a LICENSE-only commit; weights and configuration unchanged, so model_revision remains the serving identity."
       ],
       "source_ids": [
-        "RR-GM-VLLM-RELEASE",
-        "SP32-SRC-vllm-models-glm5next-common-kda-py"
+        "V033-RELEASE",
+        "O06-HF-HEADS",
+        "O06-HEAD-TREE-DIFF"
       ],
       "tested_on_target": false
-    }
+    },
+    "prior_release_rechecks": [
+      {
+        "checked_on": "2026-10-26",
+        "engine_release": "v0.32.0",
+        "model_revision_matches_current_head": true,
+        "model_review_field": "latest_stable_review",
+        "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+        "required_reconciliation": [
+          "The KDA layer honors mamba_ssm_cache_dtype. Compare explicit FP32/BF16 recurrent state independently of weight and KV precision; reduced state storage does not establish long-context or speculative-rollback quality."
+        ],
+        "source_ids": [
+          "RR-GM-VLLM-RELEASE",
+          "SP32-SRC-vllm-models-glm5next-common-kda-py"
+        ],
+        "tested_on_target": false
+      }
+    ]
   },
   {
     "id": "deepseek-v4-flash-0731.native.vllm.ep4",
@@ -830,20 +1068,40 @@
     "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository.",
     "reference_scope": "historical-source-snapshot",
     "latest_release_recheck": {
-      "checked_on": "2026-10-26",
-      "engine_release": "v0.32.0",
+      "checked_on": "2026-11-06",
+      "engine_release": "v0.33.0",
+      "engine_commit": "4ba787ec9959e566d3b587a796dff07673324da5",
       "model_revision_matches_current_head": true,
       "model_review_field": "latest_stable_review",
-      "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+      "argument_array_status": "Historical arguments preserved; selected release-note and source applicability review only, not full CLI or runtime validation.",
       "required_reconciliation": [
-        "Keep the exact July-31 target and bundled DSpark identity. The release quantization mapper recognizes mtp.* exclusions and retains native MXFP4 draft experts in the NVIDIA NVFP4 export; this is source support, not completed export qualification."
+        "v0.33.0 recipe: fp8 KV is rewritten to fp8_ds_mla; 0731 recipe image still v0.28.0. #59986 (FULL-graph prefill exclusion) is main-only."
       ],
       "source_ids": [
-        "RR-GM-VLLM-RELEASE",
-        "SP32-SRC-vllm-models-deepseek_v41-quant_config-py"
+        "V033-RELEASE",
+        "V033-RECIPE-DSV4",
+        "V033-DSV4-ATTENTION",
+        "O06-HF-HEADS"
       ],
       "tested_on_target": false
-    }
+    },
+    "prior_release_rechecks": [
+      {
+        "checked_on": "2026-10-26",
+        "engine_release": "v0.32.0",
+        "model_revision_matches_current_head": true,
+        "model_review_field": "latest_stable_review",
+        "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+        "required_reconciliation": [
+          "Keep the exact July-31 target and bundled DSpark identity. The release quantization mapper recognizes mtp.* exclusions and retains native MXFP4 draft experts in the NVIDIA NVFP4 export; this is source support, not completed export qualification."
+        ],
+        "source_ids": [
+          "RR-GM-VLLM-RELEASE",
+          "SP32-SRC-vllm-models-deepseek_v41-quant_config-py"
+        ],
+        "tested_on_target": false
+      }
+    ]
   },
   {
     "id": "deepseek-v4-flash-0731.native.vllm.ep8",
@@ -897,20 +1155,40 @@
     "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository.",
     "reference_scope": "historical-source-snapshot",
     "latest_release_recheck": {
-      "checked_on": "2026-10-26",
-      "engine_release": "v0.32.0",
+      "checked_on": "2026-11-06",
+      "engine_release": "v0.33.0",
+      "engine_commit": "4ba787ec9959e566d3b587a796dff07673324da5",
       "model_revision_matches_current_head": true,
       "model_review_field": "latest_stable_review",
-      "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+      "argument_array_status": "Historical arguments preserved; selected release-note and source applicability review only, not full CLI or runtime validation.",
       "required_reconciliation": [
-        "Keep the exact July-31 target and bundled DSpark identity. The release quantization mapper recognizes mtp.* exclusions and retains native MXFP4 draft experts in the NVIDIA NVFP4 export; this is source support, not completed export qualification."
+        "v0.33.0 recipe: fp8 KV is rewritten to fp8_ds_mla; 0731 recipe image still v0.28.0. #59986 (FULL-graph prefill exclusion) is main-only."
       ],
       "source_ids": [
-        "RR-GM-VLLM-RELEASE",
-        "SP32-SRC-vllm-models-deepseek_v41-quant_config-py"
+        "V033-RELEASE",
+        "V033-RECIPE-DSV4",
+        "V033-DSV4-ATTENTION",
+        "O06-HF-HEADS"
       ],
       "tested_on_target": false
-    }
+    },
+    "prior_release_rechecks": [
+      {
+        "checked_on": "2026-10-26",
+        "engine_release": "v0.32.0",
+        "model_revision_matches_current_head": true,
+        "model_review_field": "latest_stable_review",
+        "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+        "required_reconciliation": [
+          "Keep the exact July-31 target and bundled DSpark identity. The release quantization mapper recognizes mtp.* exclusions and retains native MXFP4 draft experts in the NVIDIA NVFP4 export; this is source support, not completed export qualification."
+        ],
+        "source_ids": [
+          "RR-GM-VLLM-RELEASE",
+          "SP32-SRC-vllm-models-deepseek_v41-quant_config-py"
+        ],
+        "tested_on_target": false
+      }
+    ]
   },
   {
     "id": "deepseek-v4-flash-0731.native.vllm.dspark",
@@ -966,20 +1244,42 @@
     "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository.",
     "reference_scope": "historical-source-snapshot",
     "latest_release_recheck": {
-      "checked_on": "2026-10-26",
-      "engine_release": "v0.32.0",
+      "checked_on": "2026-11-06",
+      "engine_release": "v0.33.0",
+      "engine_commit": "4ba787ec9959e566d3b587a796dff07673324da5",
       "model_revision_matches_current_head": true,
       "model_review_field": "latest_stable_review",
-      "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+      "argument_array_status": "Historical arguments preserved; selected release-note and source applicability review only, not full CLI or runtime validation.",
       "required_reconciliation": [
-        "Keep the exact July-31 target and bundled DSpark identity. The release quantization mapper recognizes mtp.* exclusions and retains native MXFP4 draft experts in the NVIDIA NVFP4 export; this is source support, not completed export qualification."
+        "v0.33.0 recipe: fp8 KV is rewritten to fp8_ds_mla; 0731 recipe image still v0.28.0. #59986 (FULL-graph prefill exclusion) is main-only.",
+        "This array passes num_speculative_tokens 7. The 0731 config has dspark_block_size 5; the v0.33.0 recipe's only k=5 0731 verification is on Ascend 950PR (vLLM Ascend, eager draft), its NVIDIA DSpark mode uses k=7 with no recorded NVIDIA k=5 verification, and vLLM does not validate an explicit value: use 5 or omit the field until 7 is qualified on B300."
       ],
       "source_ids": [
-        "RR-GM-VLLM-RELEASE",
-        "SP32-SRC-vllm-models-deepseek_v41-quant_config-py"
+        "V033-RELEASE",
+        "V033-RECIPE-DSV4",
+        "V033-DSV4-ATTENTION",
+        "V033-SPEC-CONFIG",
+        "O06-HF-HEADS"
       ],
       "tested_on_target": false
-    }
+    },
+    "prior_release_rechecks": [
+      {
+        "checked_on": "2026-10-26",
+        "engine_release": "v0.32.0",
+        "model_revision_matches_current_head": true,
+        "model_review_field": "latest_stable_review",
+        "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+        "required_reconciliation": [
+          "Keep the exact July-31 target and bundled DSpark identity. The release quantization mapper recognizes mtp.* exclusions and retains native MXFP4 draft experts in the NVIDIA NVFP4 export; this is source support, not completed export qualification."
+        ],
+        "source_ids": [
+          "RR-GM-VLLM-RELEASE",
+          "SP32-SRC-vllm-models-deepseek_v41-quant_config-py"
+        ],
+        "tested_on_target": false
+      }
+    ]
   },
   {
     "id": "deepseek-v4-flash-0731.native.sglang.baseline",
@@ -1017,20 +1317,39 @@
     "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository.",
     "reference_scope": "historical-source-snapshot",
     "latest_release_recheck": {
-      "checked_on": "2026-10-26",
-      "engine_release": "v0.5.22",
+      "checked_on": "2026-11-06",
+      "engine_release": "v0.5.23",
+      "engine_commit": "297e54fd105e974cdf401e5b4d20253a22c16f90",
       "model_revision_matches_current_head": true,
       "model_review_field": "latest_stable_review",
-      "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+      "argument_array_status": "Historical arguments preserved; selected release-note and source applicability review only, not full CLI or runtime validation.",
       "required_reconciliation": [
-        "The publisher native TP4/flashinfer_mxfp4 recipe remains the comparison reference. Keep the default V4 attention path separate from the optional TRT-LLM uniform-FP8 layout, which rejects context parallelism and P/D and requires bounded chunked prefill. V4.1 claims do not establish July-31 behavior."
+        "v0.5.23 renders DeepSeek chat through deepseek-recipe 0.2.0 (tool-call streaming pieces, call_00_ ids, numeric reasoning_effort -> 400): run KServe client contract tests. Cookbook B300 0731 low-latency cell (TP4, flashinfer_mxfp4, DSPARK, swa-full-tokens-ratio 0.1) is verified upstream."
       ],
       "source_ids": [
-        "RR-GM-SGLANG-RELEASE",
-        "S0522-S-DSV4-HOOK"
+        "S0523-RELEASE",
+        "S0523-COOKBOOK-DSV4",
+        "O06-HF-HEADS"
       ],
       "tested_on_target": false
-    }
+    },
+    "prior_release_rechecks": [
+      {
+        "checked_on": "2026-10-26",
+        "engine_release": "v0.5.22",
+        "model_revision_matches_current_head": true,
+        "model_review_field": "latest_stable_review",
+        "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+        "required_reconciliation": [
+          "The publisher native TP4/flashinfer_mxfp4 recipe remains the comparison reference. Keep the default V4 attention path separate from the optional TRT-LLM uniform-FP8 layout, which rejects context parallelism and P/D and requires bounded chunked prefill. V4.1 claims do not establish July-31 behavior."
+        ],
+        "source_ids": [
+          "RR-GM-SGLANG-RELEASE",
+          "S0522-S-DSV4-HOOK"
+        ],
+        "tested_on_target": false
+      }
+    ]
   },
   {
     "id": "qwen3.8-27b.bf16.vllm.baseline",
@@ -1072,21 +1391,43 @@
     "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository.",
     "reference_scope": "historical-source-snapshot",
     "latest_release_recheck": {
-      "checked_on": "2026-10-26",
-      "engine_release": "v0.32.0",
-      "model_revision_matches_current_head": true,
+      "checked_on": "2026-11-06",
+      "engine_release": "v0.33.0",
+      "engine_commit": "4ba787ec9959e566d3b587a796dff07673324da5",
+      "model_revision_matches_current_head": false,
       "model_review_field": "latest_stable_review",
-      "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+      "argument_array_status": "Historical arguments preserved; selected release-note and source applicability review only, not full CLI or runtime validation.",
       "required_reconciliation": [
-        "Compare complete BF16, official FP8 and NVIDIA mixed NVFP4 exports at TP1 with matched KV. The mixed-NVFP4 optimization predicate remains present; Blackwell FA4 hd256 still rejects quantized KV. Keep FlashInfer/FP8 KV and FA4/BF16 KV as separate comparisons."
+        "v0.33.0 FlashInfer GDN prefill checkpoints (#60050) are active by default on B300 for this model (K = V = 128, CUDA 13.0): with prefix caching on, the Mamba align block moves to the 64-token grid and TTFT changes; set prefix caching identically in both arms and record resolved GDN prefill backend and block size. --mamba-cache-mode has no effect (#60043); lookahead block hashes change MTP prefix-cache baselines.",
+        "Hub head moved to 8c0b3d30 by a README-only commit; weights and configuration unchanged, so model_revision remains the serving identity."
       ],
       "source_ids": [
-        "RR-GM-VLLM-RELEASE",
-        "V032-H-MODEL-CONFIG",
-        "V032-H-FAUTIL"
+        "V033-RELEASE",
+        "O06-HF-HEADS",
+        "O06-HEAD-TREE-DIFF",
+        "V033-PR-60050",
+        "V033-QWEN-GDN"
       ],
       "tested_on_target": false
-    }
+    },
+    "prior_release_rechecks": [
+      {
+        "checked_on": "2026-10-26",
+        "engine_release": "v0.32.0",
+        "model_revision_matches_current_head": true,
+        "model_review_field": "latest_stable_review",
+        "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+        "required_reconciliation": [
+          "Compare complete BF16, official FP8 and NVIDIA mixed NVFP4 exports at TP1 with matched KV. The mixed-NVFP4 optimization predicate remains present; Blackwell FA4 hd256 still rejects quantized KV. Keep FlashInfer/FP8 KV and FA4/BF16 KV as separate comparisons."
+        ],
+        "source_ids": [
+          "RR-GM-VLLM-RELEASE",
+          "V032-H-MODEL-CONFIG",
+          "V032-H-FAUTIL"
+        ],
+        "tested_on_target": false
+      }
+    ]
   },
   {
     "id": "qwen3.8-27b.fp8.vllm.baseline",
@@ -1128,21 +1469,41 @@
     "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository.",
     "reference_scope": "historical-source-snapshot",
     "latest_release_recheck": {
-      "checked_on": "2026-10-26",
-      "engine_release": "v0.32.0",
+      "checked_on": "2026-11-06",
+      "engine_release": "v0.33.0",
+      "engine_commit": "4ba787ec9959e566d3b587a796dff07673324da5",
       "model_revision_matches_current_head": true,
       "model_review_field": "latest_stable_review",
-      "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+      "argument_array_status": "Historical arguments preserved; selected release-note and source applicability review only, not full CLI or runtime validation.",
       "required_reconciliation": [
-        "Compare complete BF16, official FP8 and NVIDIA mixed NVFP4 exports at TP1 with matched KV. The mixed-NVFP4 optimization predicate remains present; Blackwell FA4 hd256 still rejects quantized KV. Keep FlashInfer/FP8 KV and FA4/BF16 KV as separate comparisons."
+        "v0.33.0 FlashInfer GDN prefill checkpoints (#60050) are active by default on B300 for this model (K = V = 128, CUDA 13.0): with prefix caching on, the Mamba align block moves to the 64-token grid and TTFT changes; set prefix caching identically in both arms and record resolved GDN prefill backend and block size. --mamba-cache-mode has no effect (#60043); lookahead block hashes change MTP prefix-cache baselines."
       ],
       "source_ids": [
-        "RR-GM-VLLM-RELEASE",
-        "V032-H-MODEL-CONFIG",
-        "V032-H-FAUTIL"
+        "V033-RELEASE",
+        "O06-HF-HEADS",
+        "V033-PR-60050",
+        "V033-QWEN-GDN"
       ],
       "tested_on_target": false
-    }
+    },
+    "prior_release_rechecks": [
+      {
+        "checked_on": "2026-10-26",
+        "engine_release": "v0.32.0",
+        "model_revision_matches_current_head": true,
+        "model_review_field": "latest_stable_review",
+        "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+        "required_reconciliation": [
+          "Compare complete BF16, official FP8 and NVIDIA mixed NVFP4 exports at TP1 with matched KV. The mixed-NVFP4 optimization predicate remains present; Blackwell FA4 hd256 still rejects quantized KV. Keep FlashInfer/FP8 KV and FA4/BF16 KV as separate comparisons."
+        ],
+        "source_ids": [
+          "RR-GM-VLLM-RELEASE",
+          "V032-H-MODEL-CONFIG",
+          "V032-H-FAUTIL"
+        ],
+        "tested_on_target": false
+      }
+    ]
   },
   {
     "id": "qwen3.8-27b.nvfp4.vllm.baseline",
@@ -1184,21 +1545,41 @@
     "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository.",
     "reference_scope": "historical-source-snapshot",
     "latest_release_recheck": {
-      "checked_on": "2026-10-26",
-      "engine_release": "v0.32.0",
+      "checked_on": "2026-11-06",
+      "engine_release": "v0.33.0",
+      "engine_commit": "4ba787ec9959e566d3b587a796dff07673324da5",
       "model_revision_matches_current_head": true,
       "model_review_field": "latest_stable_review",
-      "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+      "argument_array_status": "Historical arguments preserved; selected release-note and source applicability review only, not full CLI or runtime validation.",
       "required_reconciliation": [
-        "Compare complete BF16, official FP8 and NVIDIA mixed NVFP4 exports at TP1 with matched KV. The mixed-NVFP4 optimization predicate remains present; Blackwell FA4 hd256 still rejects quantized KV. Keep FlashInfer/FP8 KV and FA4/BF16 KV as separate comparisons."
+        "v0.33.0 FlashInfer GDN prefill checkpoints (#60050) are active by default on B300 for this model (K = V = 128, CUDA 13.0): with prefix caching on, the Mamba align block moves to the 64-token grid and TTFT changes; set prefix caching identically in both arms and record resolved GDN prefill backend and block size. --mamba-cache-mode has no effect (#60043); lookahead block hashes change MTP prefix-cache baselines."
       ],
       "source_ids": [
-        "RR-GM-VLLM-RELEASE",
-        "V032-H-MODEL-CONFIG",
-        "V032-H-FAUTIL"
+        "V033-RELEASE",
+        "O06-HF-HEADS",
+        "V033-PR-60050",
+        "V033-QWEN-GDN"
       ],
       "tested_on_target": false
-    }
+    },
+    "prior_release_rechecks": [
+      {
+        "checked_on": "2026-10-26",
+        "engine_release": "v0.32.0",
+        "model_revision_matches_current_head": true,
+        "model_review_field": "latest_stable_review",
+        "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+        "required_reconciliation": [
+          "Compare complete BF16, official FP8 and NVIDIA mixed NVFP4 exports at TP1 with matched KV. The mixed-NVFP4 optimization predicate remains present; Blackwell FA4 hd256 still rejects quantized KV. Keep FlashInfer/FP8 KV and FA4/BF16 KV as separate comparisons."
+        ],
+        "source_ids": [
+          "RR-GM-VLLM-RELEASE",
+          "V032-H-MODEL-CONFIG",
+          "V032-H-FAUTIL"
+        ],
+        "tested_on_target": false
+      }
+    ]
   },
   {
     "id": "qwen3.8-27b.bf16.sglang.baseline",
@@ -1240,20 +1621,40 @@
     "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository.",
     "reference_scope": "historical-source-snapshot",
     "latest_release_recheck": {
-      "checked_on": "2026-10-26",
-      "engine_release": "v0.5.22",
-      "model_revision_matches_current_head": true,
+      "checked_on": "2026-11-06",
+      "engine_release": "v0.5.23",
+      "engine_commit": "297e54fd105e974cdf401e5b4d20253a22c16f90",
+      "model_revision_matches_current_head": false,
       "model_review_field": "latest_stable_review",
-      "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+      "argument_array_status": "Historical arguments preserved; selected release-note and source applicability review only, not full CLI or runtime validation.",
       "required_reconciliation": [
-        "Retain TP1 target-only controls before native MTP. Default attention/page resolution depends on speculative decoding and Mamba radix-cache state strategy: it can choose Triton/page1 or TRT-LLM/page64. Explicitly record resolved cache/backend settings across exports."
+        "v0.5.23 GDN page-major FlashInfer prefill (#43171) and Mamba/MTP fixes (#45212, #43387): release parity before comparing.",
+        "Hub head moved to 8c0b3d30 by a README-only commit; weights and configuration unchanged, so model_revision remains the serving identity."
       ],
       "source_ids": [
-        "RR-GM-SGLANG-RELEASE",
-        "S0522-Q-Q35-OVERRIDE"
+        "S0523-RELEASE",
+        "O06-HF-HEADS",
+        "O06-HEAD-TREE-DIFF"
       ],
       "tested_on_target": false
-    }
+    },
+    "prior_release_rechecks": [
+      {
+        "checked_on": "2026-10-26",
+        "engine_release": "v0.5.22",
+        "model_revision_matches_current_head": true,
+        "model_review_field": "latest_stable_review",
+        "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+        "required_reconciliation": [
+          "Retain TP1 target-only controls before native MTP. Default attention/page resolution depends on speculative decoding and Mamba radix-cache state strategy: it can choose Triton/page1 or TRT-LLM/page64. Explicitly record resolved cache/backend settings across exports."
+        ],
+        "source_ids": [
+          "RR-GM-SGLANG-RELEASE",
+          "S0522-Q-Q35-OVERRIDE"
+        ],
+        "tested_on_target": false
+      }
+    ]
   },
   {
     "id": "qwen3.8-27b.fp8.sglang.baseline",
@@ -1295,20 +1696,38 @@
     "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository.",
     "reference_scope": "historical-source-snapshot",
     "latest_release_recheck": {
-      "checked_on": "2026-10-26",
-      "engine_release": "v0.5.22",
+      "checked_on": "2026-11-06",
+      "engine_release": "v0.5.23",
+      "engine_commit": "297e54fd105e974cdf401e5b4d20253a22c16f90",
       "model_revision_matches_current_head": true,
       "model_review_field": "latest_stable_review",
-      "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+      "argument_array_status": "Historical arguments preserved; selected release-note and source applicability review only, not full CLI or runtime validation.",
       "required_reconciliation": [
-        "Retain TP1 target-only controls before native MTP. Default attention/page resolution depends on speculative decoding and Mamba radix-cache state strategy: it can choose Triton/page1 or TRT-LLM/page64. Explicitly record resolved cache/backend settings across exports."
+        "v0.5.23 GDN page-major FlashInfer prefill (#43171) and Mamba/MTP fixes (#45212, #43387): release parity before comparing."
       ],
       "source_ids": [
-        "RR-GM-SGLANG-RELEASE",
-        "S0522-Q-Q35-OVERRIDE"
+        "S0523-RELEASE",
+        "O06-HF-HEADS"
       ],
       "tested_on_target": false
-    }
+    },
+    "prior_release_rechecks": [
+      {
+        "checked_on": "2026-10-26",
+        "engine_release": "v0.5.22",
+        "model_revision_matches_current_head": true,
+        "model_review_field": "latest_stable_review",
+        "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+        "required_reconciliation": [
+          "Retain TP1 target-only controls before native MTP. Default attention/page resolution depends on speculative decoding and Mamba radix-cache state strategy: it can choose Triton/page1 or TRT-LLM/page64. Explicitly record resolved cache/backend settings across exports."
+        ],
+        "source_ids": [
+          "RR-GM-SGLANG-RELEASE",
+          "S0522-Q-Q35-OVERRIDE"
+        ],
+        "tested_on_target": false
+      }
+    ]
   },
   {
     "id": "qwen3.8-27b.nvfp4.sglang.baseline",
@@ -1350,20 +1769,38 @@
     "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository.",
     "reference_scope": "historical-source-snapshot",
     "latest_release_recheck": {
-      "checked_on": "2026-10-26",
-      "engine_release": "v0.5.22",
+      "checked_on": "2026-11-06",
+      "engine_release": "v0.5.23",
+      "engine_commit": "297e54fd105e974cdf401e5b4d20253a22c16f90",
       "model_revision_matches_current_head": true,
       "model_review_field": "latest_stable_review",
-      "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+      "argument_array_status": "Historical arguments preserved; selected release-note and source applicability review only, not full CLI or runtime validation.",
       "required_reconciliation": [
-        "Retain TP1 target-only controls before native MTP. Default attention/page resolution depends on speculative decoding and Mamba radix-cache state strategy: it can choose Triton/page1 or TRT-LLM/page64. Explicitly record resolved cache/backend settings across exports."
+        "v0.5.23 GDN page-major FlashInfer prefill (#43171) and Mamba/MTP fixes (#45212, #43387): release parity before comparing."
       ],
       "source_ids": [
-        "RR-GM-SGLANG-RELEASE",
-        "S0522-Q-Q35-OVERRIDE"
+        "S0523-RELEASE",
+        "O06-HF-HEADS"
       ],
       "tested_on_target": false
-    }
+    },
+    "prior_release_rechecks": [
+      {
+        "checked_on": "2026-10-26",
+        "engine_release": "v0.5.22",
+        "model_revision_matches_current_head": true,
+        "model_review_field": "latest_stable_review",
+        "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+        "required_reconciliation": [
+          "Retain TP1 target-only controls before native MTP. Default attention/page resolution depends on speculative decoding and Mamba radix-cache state strategy: it can choose Triton/page1 or TRT-LLM/page64. Explicitly record resolved cache/backend settings across exports."
+        ],
+        "source_ids": [
+          "RR-GM-SGLANG-RELEASE",
+          "S0522-Q-Q35-OVERRIDE"
+        ],
+        "tested_on_target": false
+      }
+    ]
   },
   {
     "id": "qwen3.8-27b.nvfp4.sglang.mtp",
@@ -1413,20 +1850,38 @@
     "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository.",
     "reference_scope": "historical-source-snapshot",
     "latest_release_recheck": {
-      "checked_on": "2026-10-26",
-      "engine_release": "v0.5.22",
+      "checked_on": "2026-11-06",
+      "engine_release": "v0.5.23",
+      "engine_commit": "297e54fd105e974cdf401e5b4d20253a22c16f90",
       "model_revision_matches_current_head": true,
       "model_review_field": "latest_stable_review",
-      "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+      "argument_array_status": "Historical arguments preserved; selected release-note and source applicability review only, not full CLI or runtime validation.",
       "required_reconciliation": [
-        "Retain TP1 target-only controls before native MTP. Default attention/page resolution depends on speculative decoding and Mamba radix-cache state strategy: it can choose Triton/page1 or TRT-LLM/page64. Explicitly record resolved cache/backend settings across exports."
+        "v0.5.23 GDN page-major FlashInfer prefill (#43171) and Mamba/MTP fixes (#45212, #43387): release parity before comparing."
       ],
       "source_ids": [
-        "RR-GM-SGLANG-RELEASE",
-        "S0522-Q-Q35-OVERRIDE"
+        "S0523-RELEASE",
+        "O06-HF-HEADS"
       ],
       "tested_on_target": false
-    }
+    },
+    "prior_release_rechecks": [
+      {
+        "checked_on": "2026-10-26",
+        "engine_release": "v0.5.22",
+        "model_revision_matches_current_head": true,
+        "model_review_field": "latest_stable_review",
+        "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+        "required_reconciliation": [
+          "Retain TP1 target-only controls before native MTP. Default attention/page resolution depends on speculative decoding and Mamba radix-cache state strategy: it can choose Triton/page1 or TRT-LLM/page64. Explicitly record resolved cache/backend settings across exports."
+        ],
+        "source_ids": [
+          "RR-GM-SGLANG-RELEASE",
+          "S0522-Q-Q35-OVERRIDE"
+        ],
+        "tested_on_target": false
+      }
+    ]
   },
   {
     "id": "gemma-4-31b-it.bf16.vllm.baseline",
@@ -1464,20 +1919,41 @@
     "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository.",
     "reference_scope": "historical-source-snapshot",
     "latest_release_recheck": {
-      "checked_on": "2026-10-26",
-      "engine_release": "v0.32.0",
+      "checked_on": "2026-11-06",
+      "engine_release": "v0.33.0",
+      "engine_commit": "4ba787ec9959e566d3b587a796dff07673324da5",
       "model_revision_matches_current_head": true,
       "model_review_field": "latest_stable_review",
-      "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+      "argument_array_status": "Historical arguments preserved; selected release-note and source applicability review only, not full CLI or runtime validation.",
       "required_reconciliation": [
-        "Keep TP1 BF16 as the quality control and compare exact FP8/NVFP4 exports separately. Blackwell FA4 head-geometry restrictions remain; hd512 does not become supported merely because a Gemma class is registered. No all-layer FA4 or measured export winner is established."
+        "v0.33.0 contains Gemma 4 multimodal fixes for this class: encoder CUDA-graph sizing/correctness (#61365, #60687; only with compilation_config.cudagraph_mm_encoder enabled, default False) and image/audio placeholder strings under --chat-template-content-format string (#61196). This array sets neither and loads the vision encoder: include image requests in the release-parity check and record content format and encoder-graph setting. CUDA 13.0 / torch 2.14.0 platform bump also applies."
       ],
       "source_ids": [
-        "RR-GM-VLLM-RELEASE",
-        "V032-H-FAUTIL"
+        "V033-RELEASE",
+        "O06-HF-HEADS",
+        "V033-PR-61365",
+        "V033-PR-61196",
+        "V033-COMPILATION-CONFIG"
       ],
       "tested_on_target": false
-    }
+    },
+    "prior_release_rechecks": [
+      {
+        "checked_on": "2026-10-26",
+        "engine_release": "v0.32.0",
+        "model_revision_matches_current_head": true,
+        "model_review_field": "latest_stable_review",
+        "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+        "required_reconciliation": [
+          "Keep TP1 BF16 as the quality control and compare exact FP8/NVFP4 exports separately. Blackwell FA4 head-geometry restrictions remain; hd512 does not become supported merely because a Gemma class is registered. No all-layer FA4 or measured export winner is established."
+        ],
+        "source_ids": [
+          "RR-GM-VLLM-RELEASE",
+          "V032-H-FAUTIL"
+        ],
+        "tested_on_target": false
+      }
+    ]
   },
   {
     "id": "gemma-4-31b-it.fp8.vllm.baseline",
@@ -1515,20 +1991,41 @@
     "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository.",
     "reference_scope": "historical-source-snapshot",
     "latest_release_recheck": {
-      "checked_on": "2026-10-26",
-      "engine_release": "v0.32.0",
+      "checked_on": "2026-11-06",
+      "engine_release": "v0.33.0",
+      "engine_commit": "4ba787ec9959e566d3b587a796dff07673324da5",
       "model_revision_matches_current_head": true,
       "model_review_field": "latest_stable_review",
-      "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+      "argument_array_status": "Historical arguments preserved; selected release-note and source applicability review only, not full CLI or runtime validation.",
       "required_reconciliation": [
-        "Keep TP1 BF16 as the quality control and compare exact FP8/NVFP4 exports separately. Blackwell FA4 head-geometry restrictions remain; hd512 does not become supported merely because a Gemma class is registered. No all-layer FA4 or measured export winner is established."
+        "v0.33.0 contains Gemma 4 multimodal fixes for this class: encoder CUDA-graph sizing/correctness (#61365, #60687; only with compilation_config.cudagraph_mm_encoder enabled, default False) and image/audio placeholder strings under --chat-template-content-format string (#61196). This array sets neither and loads the vision encoder: include image requests in the release-parity check and record content format and encoder-graph setting. CUDA 13.0 / torch 2.14.0 platform bump also applies."
       ],
       "source_ids": [
-        "RR-GM-VLLM-RELEASE",
-        "V032-H-FAUTIL"
+        "V033-RELEASE",
+        "O06-HF-HEADS",
+        "V033-PR-61365",
+        "V033-PR-61196",
+        "V033-COMPILATION-CONFIG"
       ],
       "tested_on_target": false
-    }
+    },
+    "prior_release_rechecks": [
+      {
+        "checked_on": "2026-10-26",
+        "engine_release": "v0.32.0",
+        "model_revision_matches_current_head": true,
+        "model_review_field": "latest_stable_review",
+        "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+        "required_reconciliation": [
+          "Keep TP1 BF16 as the quality control and compare exact FP8/NVFP4 exports separately. Blackwell FA4 head-geometry restrictions remain; hd512 does not become supported merely because a Gemma class is registered. No all-layer FA4 or measured export winner is established."
+        ],
+        "source_ids": [
+          "RR-GM-VLLM-RELEASE",
+          "V032-H-FAUTIL"
+        ],
+        "tested_on_target": false
+      }
+    ]
   },
   {
     "id": "gemma-4-31b-it.nvfp4.vllm.baseline",
@@ -1566,20 +2063,41 @@
     "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository.",
     "reference_scope": "historical-source-snapshot",
     "latest_release_recheck": {
-      "checked_on": "2026-10-26",
-      "engine_release": "v0.32.0",
+      "checked_on": "2026-11-06",
+      "engine_release": "v0.33.0",
+      "engine_commit": "4ba787ec9959e566d3b587a796dff07673324da5",
       "model_revision_matches_current_head": true,
       "model_review_field": "latest_stable_review",
-      "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+      "argument_array_status": "Historical arguments preserved; selected release-note and source applicability review only, not full CLI or runtime validation.",
       "required_reconciliation": [
-        "Keep TP1 BF16 as the quality control and compare exact FP8/NVFP4 exports separately. Blackwell FA4 head-geometry restrictions remain; hd512 does not become supported merely because a Gemma class is registered. No all-layer FA4 or measured export winner is established."
+        "v0.33.0 contains Gemma 4 multimodal fixes for this class: encoder CUDA-graph sizing/correctness (#61365, #60687; only with compilation_config.cudagraph_mm_encoder enabled, default False) and image/audio placeholder strings under --chat-template-content-format string (#61196). This array sets neither and loads the vision encoder: include image requests in the release-parity check and record content format and encoder-graph setting. CUDA 13.0 / torch 2.14.0 platform bump also applies."
       ],
       "source_ids": [
-        "RR-GM-VLLM-RELEASE",
-        "V032-H-FAUTIL"
+        "V033-RELEASE",
+        "O06-HF-HEADS",
+        "V033-PR-61365",
+        "V033-PR-61196",
+        "V033-COMPILATION-CONFIG"
       ],
       "tested_on_target": false
-    }
+    },
+    "prior_release_rechecks": [
+      {
+        "checked_on": "2026-10-26",
+        "engine_release": "v0.32.0",
+        "model_revision_matches_current_head": true,
+        "model_review_field": "latest_stable_review",
+        "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+        "required_reconciliation": [
+          "Keep TP1 BF16 as the quality control and compare exact FP8/NVFP4 exports separately. Blackwell FA4 head-geometry restrictions remain; hd512 does not become supported merely because a Gemma class is registered. No all-layer FA4 or measured export winner is established."
+        ],
+        "source_ids": [
+          "RR-GM-VLLM-RELEASE",
+          "V032-H-FAUTIL"
+        ],
+        "tested_on_target": false
+      }
+    ]
   },
   {
     "id": "gemma-4-31b-it.nvfp4.sglang.baseline",
@@ -1617,21 +2135,39 @@
     "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository.",
     "reference_scope": "historical-source-snapshot",
     "latest_release_recheck": {
-      "checked_on": "2026-10-26",
-      "engine_release": "v0.5.22",
+      "checked_on": "2026-11-06",
+      "engine_release": "v0.5.23",
+      "engine_commit": "297e54fd105e974cdf401e5b4d20253a22c16f90",
       "model_revision_matches_current_head": true,
       "model_review_field": "latest_stable_review",
-      "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+      "argument_array_status": "Historical arguments preserved; selected release-note and source applicability review only, not full CLI or runtime validation.",
       "required_reconciliation": [
-        "Use the explicit Triton/BF16-KV comparison from the retained review; the model override defaults SM10x to TRT-LLM MHA when no backend is supplied. Gemma FA4 PR 42019 explicitly concerns SM90/H200 and cannot qualify B300."
+        "No targeted v0.5.23 item."
       ],
       "source_ids": [
-        "RR-GM-SGLANG-RELEASE",
-        "S0522-Q-GEMMA-OVERRIDE",
-        "S0522-Q-GEMMA-FA4-PR"
+        "S0523-RELEASE",
+        "O06-HF-HEADS"
       ],
       "tested_on_target": false
-    }
+    },
+    "prior_release_rechecks": [
+      {
+        "checked_on": "2026-10-26",
+        "engine_release": "v0.5.22",
+        "model_revision_matches_current_head": true,
+        "model_review_field": "latest_stable_review",
+        "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+        "required_reconciliation": [
+          "Use the explicit Triton/BF16-KV comparison from the retained review; the model override defaults SM10x to TRT-LLM MHA when no backend is supplied. Gemma FA4 PR 42019 explicitly concerns SM90/H200 and cannot qualify B300."
+        ],
+        "source_ids": [
+          "RR-GM-SGLANG-RELEASE",
+          "S0522-Q-GEMMA-OVERRIDE",
+          "S0522-Q-GEMMA-FA4-PR"
+        ],
+        "tested_on_target": false
+      }
+    ]
   },
   {
     "id": "mistral-medium-3.5.fp8.vllm.baseline",
@@ -1676,20 +2212,38 @@
     "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository.",
     "reference_scope": "historical-source-snapshot",
     "latest_release_recheck": {
-      "checked_on": "2026-10-26",
-      "engine_release": "v0.32.0",
+      "checked_on": "2026-11-06",
+      "engine_release": "v0.33.0",
+      "engine_commit": "4ba787ec9959e566d3b587a796dff07673324da5",
       "model_revision_matches_current_head": true,
       "model_review_field": "latest_stable_review",
-      "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+      "argument_array_status": "Historical arguments preserved; selected release-note and source applicability review only, not full CLI or runtime validation.",
       "required_reconciliation": [
-        "Retain the publisher FP8 TP8 baseline and exact separate EAGLE artifact. The release has the Mistral EAGLE model path; native/HF serialization, tokenizer and draft context remain part of the compatibility contract. Narrower TP requires full-history KV and workspace capacity checks."
+        "mistral_eagle.py byte-identical to v0.32.0; lookahead block hashes on by default change the EAGLE prefix-cache baseline (#61589)."
       ],
       "source_ids": [
-        "RR-GM-VLLM-RELEASE",
-        "V032-KM-MISTRAL-EAGLE"
+        "V033-RELEASE",
+        "O06-HF-HEADS"
       ],
       "tested_on_target": false
-    }
+    },
+    "prior_release_rechecks": [
+      {
+        "checked_on": "2026-10-26",
+        "engine_release": "v0.32.0",
+        "model_revision_matches_current_head": true,
+        "model_review_field": "latest_stable_review",
+        "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+        "required_reconciliation": [
+          "Retain the publisher FP8 TP8 baseline and exact separate EAGLE artifact. The release has the Mistral EAGLE model path; native/HF serialization, tokenizer and draft context remain part of the compatibility contract. Narrower TP requires full-history KV and workspace capacity checks."
+        ],
+        "source_ids": [
+          "RR-GM-VLLM-RELEASE",
+          "V032-KM-MISTRAL-EAGLE"
+        ],
+        "tested_on_target": false
+      }
+    ]
   },
   {
     "id": "mistral-medium-3.5.fp8.vllm.tp2-probe",
@@ -1727,20 +2281,38 @@
     "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository.",
     "reference_scope": "historical-source-snapshot",
     "latest_release_recheck": {
-      "checked_on": "2026-10-26",
-      "engine_release": "v0.32.0",
+      "checked_on": "2026-11-06",
+      "engine_release": "v0.33.0",
+      "engine_commit": "4ba787ec9959e566d3b587a796dff07673324da5",
       "model_revision_matches_current_head": true,
       "model_review_field": "latest_stable_review",
-      "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+      "argument_array_status": "Historical arguments preserved; selected release-note and source applicability review only, not full CLI or runtime validation.",
       "required_reconciliation": [
-        "Retain the publisher FP8 TP8 baseline and exact separate EAGLE artifact. The release has the Mistral EAGLE model path; native/HF serialization, tokenizer and draft context remain part of the compatibility contract. Narrower TP requires full-history KV and workspace capacity checks."
+        "mistral_eagle.py byte-identical to v0.32.0; lookahead block hashes on by default change the EAGLE prefix-cache baseline (#61589)."
       ],
       "source_ids": [
-        "RR-GM-VLLM-RELEASE",
-        "V032-KM-MISTRAL-EAGLE"
+        "V033-RELEASE",
+        "O06-HF-HEADS"
       ],
       "tested_on_target": false
-    }
+    },
+    "prior_release_rechecks": [
+      {
+        "checked_on": "2026-10-26",
+        "engine_release": "v0.32.0",
+        "model_revision_matches_current_head": true,
+        "model_review_field": "latest_stable_review",
+        "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+        "required_reconciliation": [
+          "Retain the publisher FP8 TP8 baseline and exact separate EAGLE artifact. The release has the Mistral EAGLE model path; native/HF serialization, tokenizer and draft context remain part of the compatibility contract. Narrower TP requires full-history KV and workspace capacity checks."
+        ],
+        "source_ids": [
+          "RR-GM-VLLM-RELEASE",
+          "V032-KM-MISTRAL-EAGLE"
+        ],
+        "tested_on_target": false
+      }
+    ]
   },
   {
     "id": "mistral-medium-3.5.fp8.sglang.baseline",
@@ -1778,21 +2350,40 @@
     "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository.",
     "reference_scope": "historical-source-snapshot",
     "latest_release_recheck": {
-      "checked_on": "2026-10-26",
-      "engine_release": "v0.5.22",
+      "checked_on": "2026-11-06",
+      "engine_release": "v0.5.23",
+      "engine_commit": "297e54fd105e974cdf401e5b4d20253a22c16f90",
       "model_revision_matches_current_head": true,
       "model_review_field": "latest_stable_review",
-      "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+      "argument_array_status": "Historical arguments preserved; selected release-note and source applicability review only, not full CLI or runtime validation.",
       "required_reconciliation": [
-        "The release includes the Mistral EAGLE implementation. Retain target-only TP8 first and the published BF16 compute boundary with EAGLE; the publisher dev image name is not a stable-image qualification. Native draft packaging must be preserved.",
-        "Historical array omits the publisher mistral reasoning/tool parsers; add them in a new execution configuration. EAGLE also needs the documented BF16 boundary and separate draft."
+        "v0.5.23 contains the Mistral3 wrapper fix (4542fc8f); processor fix #45868 still open."
       ],
       "source_ids": [
-        "RR-GM-SGLANG-RELEASE",
-        "S0522-K-MISTRAL-EAGLE"
+        "S0523-RELEASE",
+        "O26-MISTRAL-WRAPPER-IN-0523",
+        "O06-HF-HEADS"
       ],
       "tested_on_target": false
-    }
+    },
+    "prior_release_rechecks": [
+      {
+        "checked_on": "2026-10-26",
+        "engine_release": "v0.5.22",
+        "model_revision_matches_current_head": true,
+        "model_review_field": "latest_stable_review",
+        "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+        "required_reconciliation": [
+          "The release includes the Mistral EAGLE implementation. Retain target-only TP8 first and the published BF16 compute boundary with EAGLE; the publisher dev image name is not a stable-image qualification. Native draft packaging must be preserved.",
+          "Historical array omits the publisher mistral reasoning/tool parsers; add them in a new execution configuration. EAGLE also needs the documented BF16 boundary and separate draft."
+        ],
+        "source_ids": [
+          "RR-GM-SGLANG-RELEASE",
+          "S0522-K-MISTRAL-EAGLE"
+        ],
+        "tested_on_target": false
+      }
+    ]
   },
   {
     "id": "qwen3.8-flash-next.nvfp4.vllm.baseline",
@@ -1834,20 +2425,39 @@
     "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository.",
     "reference_scope": "historical-source-snapshot",
     "latest_release_recheck": {
-      "checked_on": "2026-10-26",
-      "engine_release": "v0.32.0",
+      "checked_on": "2026-11-06",
+      "engine_release": "v0.33.0",
+      "engine_commit": "4ba787ec9959e566d3b587a796dff07673324da5",
       "model_revision_matches_current_head": true,
       "model_review_field": "latest_stable_review",
-      "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+      "argument_array_status": "Historical arguments preserved; selected release-note and source applicability review only, not full CLI or runtime validation.",
       "required_reconciliation": [
-        "Retain official FP8 TP4+EP and separate NVIDIA mixed TP8 candidates. QSA honors numeric KV skip-layer indices; layer 48 can retain BF16 draft KV with the 48-layer target using FP8. Indexer and PLE precision remain separate."
+        "v0.33.0 PLE short-conv prefill checkpoints (#61601) apply with FlashInfer GDN prefill and prefix caching: the Mamba block moves onto the 64-token grid and TTFT changes; record resolved block size and GDN prefill backend. Lookahead block hashes change MTP prefix-cache baselines. Ampere, DGX Spark and ROCm Flash-Next items do not apply to this NVFP4 TP8 array; SM103 TP1 BF16 plans (#64650) are main-only."
       ],
       "source_ids": [
-        "RR-GM-VLLM-RELEASE",
-        "V032-H-QSA"
+        "V033-RELEASE",
+        "O06-HF-HEADS",
+        "V033-PR-61601"
       ],
       "tested_on_target": false
-    }
+    },
+    "prior_release_rechecks": [
+      {
+        "checked_on": "2026-10-26",
+        "engine_release": "v0.32.0",
+        "model_revision_matches_current_head": true,
+        "model_review_field": "latest_stable_review",
+        "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+        "required_reconciliation": [
+          "Retain official FP8 TP4+EP and separate NVIDIA mixed TP8 candidates. QSA honors numeric KV skip-layer indices; layer 48 can retain BF16 draft KV with the 48-layer target using FP8. Indexer and PLE precision remain separate."
+        ],
+        "source_ids": [
+          "RR-GM-VLLM-RELEASE",
+          "V032-H-QSA"
+        ],
+        "tested_on_target": false
+      }
+    ]
   },
   {
     "id": "qwen3.8-flash-next.nvfp4.vllm.mtp",
@@ -1893,20 +2503,39 @@
     "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository.",
     "reference_scope": "historical-source-snapshot",
     "latest_release_recheck": {
-      "checked_on": "2026-10-26",
-      "engine_release": "v0.32.0",
+      "checked_on": "2026-11-06",
+      "engine_release": "v0.33.0",
+      "engine_commit": "4ba787ec9959e566d3b587a796dff07673324da5",
       "model_revision_matches_current_head": true,
       "model_review_field": "latest_stable_review",
-      "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+      "argument_array_status": "Historical arguments preserved; selected release-note and source applicability review only, not full CLI or runtime validation.",
       "required_reconciliation": [
-        "Retain official FP8 TP4+EP and separate NVIDIA mixed TP8 candidates. QSA honors numeric KV skip-layer indices; layer 48 can retain BF16 draft KV with the 48-layer target using FP8. Indexer and PLE precision remain separate."
+        "v0.33.0 PLE short-conv prefill checkpoints (#61601) apply with FlashInfer GDN prefill and prefix caching: the Mamba block moves onto the 64-token grid and TTFT changes; record resolved block size and GDN prefill backend. Lookahead block hashes change MTP prefix-cache baselines. Ampere, DGX Spark and ROCm Flash-Next items do not apply to this NVFP4 TP8 array; SM103 TP1 BF16 plans (#64650) are main-only."
       ],
       "source_ids": [
-        "RR-GM-VLLM-RELEASE",
-        "V032-H-QSA"
+        "V033-RELEASE",
+        "O06-HF-HEADS",
+        "V033-PR-61601"
       ],
       "tested_on_target": false
-    }
+    },
+    "prior_release_rechecks": [
+      {
+        "checked_on": "2026-10-26",
+        "engine_release": "v0.32.0",
+        "model_revision_matches_current_head": true,
+        "model_review_field": "latest_stable_review",
+        "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+        "required_reconciliation": [
+          "Retain official FP8 TP4+EP and separate NVIDIA mixed TP8 candidates. QSA honors numeric KV skip-layer indices; layer 48 can retain BF16 draft KV with the 48-layer target using FP8. Indexer and PLE precision remain separate."
+        ],
+        "source_ids": [
+          "RR-GM-VLLM-RELEASE",
+          "V032-H-QSA"
+        ],
+        "tested_on_target": false
+      }
+    ]
   },
   {
     "id": "qwen3.8-flash-next.nvfp4.sglang.baseline",
@@ -1955,22 +2584,40 @@
     "notes": "Source-derived configuration reference, not a measured optimum. Qualify the exact model, engine build and B300 allocation in the separate execution repository.",
     "reference_scope": "historical-source-snapshot",
     "latest_release_recheck": {
-      "checked_on": "2026-10-26",
-      "engine_release": "v0.5.22",
+      "checked_on": "2026-11-06",
+      "engine_release": "v0.5.23",
+      "engine_commit": "297e54fd105e974cdf401e5b4d20253a22c16f90",
       "model_revision_matches_current_head": true,
       "model_review_field": "latest_stable_review",
-      "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+      "argument_array_status": "Historical arguments preserved; selected release-note and source applicability review only, not full CLI or runtime validation.",
       "required_reconciliation": [
-        "Official FP8 TP4+EP4 remains a candidate; compressed QSA forces page64 and rejects unified memory. The NVIDIA NVFP4 TP1 B300 cookbook cell remains unverified. The complete prefill-CP model port is still absent from v0.5.22 ancestry."
+        "v0.5.23 contains Qwen3.8 prefill context parallelism (#39724) with QSA CP and indexer changes; the cookbook defaults FP8 KV and the QSA indexer. Prefill CP is a separate experiment from this array."
       ],
       "source_ids": [
-        "RR-GM-SGLANG-RELEASE",
-        "S0522-Q-Q4-OVERRIDE",
-        "S0522-Q-Q4-RECIPES",
-        "S0522-Q-CP-ANCESTRY"
+        "S0523-RELEASE",
+        "O06-HF-HEADS"
       ],
       "tested_on_target": false
-    }
+    },
+    "prior_release_rechecks": [
+      {
+        "checked_on": "2026-10-26",
+        "engine_release": "v0.5.22",
+        "model_revision_matches_current_head": true,
+        "model_review_field": "latest_stable_review",
+        "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+        "required_reconciliation": [
+          "Official FP8 TP4+EP4 remains a candidate; compressed QSA forces page64 and rejects unified memory. The NVIDIA NVFP4 TP1 B300 cookbook cell remains unverified. The complete prefill-CP model port is still absent from v0.5.22 ancestry."
+        ],
+        "source_ids": [
+          "RR-GM-SGLANG-RELEASE",
+          "S0522-Q-Q4-OVERRIDE",
+          "S0522-Q-Q4-RECIPES",
+          "S0522-Q-CP-ANCESTRY"
+        ],
+        "tested_on_target": false
+      }
+    ]
   },
   {
     "id": "qwen3.8-27b.bf16.vllm.v031.fi-bf16-kv",
@@ -2039,21 +2686,43 @@
     "notes": "One GPU per KServe replica; installed resource kind/runtime and image digest unresolved. Match serialized token IDs/padding across export tokenizers. Compare complete quantized exports, then isolate cache/backend changes; no measured winner. Automatic GDN/graph resolution remains separate. Modality limits must be held constant; separate AOT cache roots when changing modality profiles. MTP deliberately off; release-specific optional delta is in family serving.md.",
     "reference_scope": "release-specific-comparison",
     "latest_release_recheck": {
-      "checked_on": "2026-10-26",
-      "engine_release": "v0.32.0",
-      "model_revision_matches_current_head": true,
+      "checked_on": "2026-11-06",
+      "engine_release": "v0.33.0",
+      "engine_commit": "4ba787ec9959e566d3b587a796dff07673324da5",
+      "model_revision_matches_current_head": false,
       "model_review_field": "latest_stable_review",
-      "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+      "argument_array_status": "Historical arguments preserved; selected release-note and source applicability review only, not full CLI or runtime validation.",
       "required_reconciliation": [
-        "Compare complete BF16, official FP8 and NVIDIA mixed NVFP4 exports at TP1 with matched KV. The mixed-NVFP4 optimization predicate remains present; Blackwell FA4 hd256 still rejects quantized KV. Keep FlashInfer/FP8 KV and FA4/BF16 KV as separate comparisons."
+        "v0.33.0 FlashInfer GDN prefill checkpoints (#60050) are active by default on B300 for this model (K = V = 128, CUDA 13.0): with prefix caching on, the Mamba align block moves to the 64-token grid and TTFT changes; set prefix caching identically in both arms and record resolved GDN prefill backend and block size. --mamba-cache-mode has no effect (#60043); lookahead block hashes change MTP prefix-cache baselines.",
+        "Hub head moved to 8c0b3d30 by a README-only commit; weights and configuration unchanged, so model_revision remains the serving identity."
       ],
       "source_ids": [
-        "RR-GM-VLLM-RELEASE",
-        "V032-H-MODEL-CONFIG",
-        "V032-H-FAUTIL"
+        "V033-RELEASE",
+        "O06-HF-HEADS",
+        "O06-HEAD-TREE-DIFF",
+        "V033-PR-60050",
+        "V033-QWEN-GDN"
       ],
       "tested_on_target": false
-    }
+    },
+    "prior_release_rechecks": [
+      {
+        "checked_on": "2026-10-26",
+        "engine_release": "v0.32.0",
+        "model_revision_matches_current_head": true,
+        "model_review_field": "latest_stable_review",
+        "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+        "required_reconciliation": [
+          "Compare complete BF16, official FP8 and NVIDIA mixed NVFP4 exports at TP1 with matched KV. The mixed-NVFP4 optimization predicate remains present; Blackwell FA4 hd256 still rejects quantized KV. Keep FlashInfer/FP8 KV and FA4/BF16 KV as separate comparisons."
+        ],
+        "source_ids": [
+          "RR-GM-VLLM-RELEASE",
+          "V032-H-MODEL-CONFIG",
+          "V032-H-FAUTIL"
+        ],
+        "tested_on_target": false
+      }
+    ]
   },
   {
     "id": "qwen3.8-27b.fp8.vllm.v031.fi-bf16-kv",
@@ -2122,21 +2791,41 @@
     "notes": "One GPU per KServe replica; installed resource kind/runtime and image digest unresolved. Match serialized token IDs/padding across export tokenizers. Compare complete quantized exports, then isolate cache/backend changes; no measured winner. Automatic GDN/graph resolution remains separate. Modality limits must be held constant; separate AOT cache roots when changing modality profiles. MTP deliberately off; release-specific optional delta is in family serving.md.",
     "reference_scope": "release-specific-comparison",
     "latest_release_recheck": {
-      "checked_on": "2026-10-26",
-      "engine_release": "v0.32.0",
+      "checked_on": "2026-11-06",
+      "engine_release": "v0.33.0",
+      "engine_commit": "4ba787ec9959e566d3b587a796dff07673324da5",
       "model_revision_matches_current_head": true,
       "model_review_field": "latest_stable_review",
-      "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+      "argument_array_status": "Historical arguments preserved; selected release-note and source applicability review only, not full CLI or runtime validation.",
       "required_reconciliation": [
-        "Compare complete BF16, official FP8 and NVIDIA mixed NVFP4 exports at TP1 with matched KV. The mixed-NVFP4 optimization predicate remains present; Blackwell FA4 hd256 still rejects quantized KV. Keep FlashInfer/FP8 KV and FA4/BF16 KV as separate comparisons."
+        "v0.33.0 FlashInfer GDN prefill checkpoints (#60050) are active by default on B300 for this model (K = V = 128, CUDA 13.0): with prefix caching on, the Mamba align block moves to the 64-token grid and TTFT changes; set prefix caching identically in both arms and record resolved GDN prefill backend and block size. --mamba-cache-mode has no effect (#60043); lookahead block hashes change MTP prefix-cache baselines."
       ],
       "source_ids": [
-        "RR-GM-VLLM-RELEASE",
-        "V032-H-MODEL-CONFIG",
-        "V032-H-FAUTIL"
+        "V033-RELEASE",
+        "O06-HF-HEADS",
+        "V033-PR-60050",
+        "V033-QWEN-GDN"
       ],
       "tested_on_target": false
-    }
+    },
+    "prior_release_rechecks": [
+      {
+        "checked_on": "2026-10-26",
+        "engine_release": "v0.32.0",
+        "model_revision_matches_current_head": true,
+        "model_review_field": "latest_stable_review",
+        "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+        "required_reconciliation": [
+          "Compare complete BF16, official FP8 and NVIDIA mixed NVFP4 exports at TP1 with matched KV. The mixed-NVFP4 optimization predicate remains present; Blackwell FA4 hd256 still rejects quantized KV. Keep FlashInfer/FP8 KV and FA4/BF16 KV as separate comparisons."
+        ],
+        "source_ids": [
+          "RR-GM-VLLM-RELEASE",
+          "V032-H-MODEL-CONFIG",
+          "V032-H-FAUTIL"
+        ],
+        "tested_on_target": false
+      }
+    ]
   },
   {
     "id": "qwen3.8-27b.nvfp4.vllm.v031.fi-bf16-kv",
@@ -2205,21 +2894,41 @@
     "notes": "One GPU per KServe replica; installed resource kind/runtime and image digest unresolved. Match serialized token IDs/padding across export tokenizers. Compare complete quantized exports, then isolate cache/backend changes; no measured winner. Automatic GDN/graph resolution remains separate. Modality limits must be held constant; separate AOT cache roots when changing modality profiles. MTP deliberately off; release-specific optional delta is in family serving.md.",
     "reference_scope": "release-specific-comparison",
     "latest_release_recheck": {
-      "checked_on": "2026-10-26",
-      "engine_release": "v0.32.0",
+      "checked_on": "2026-11-06",
+      "engine_release": "v0.33.0",
+      "engine_commit": "4ba787ec9959e566d3b587a796dff07673324da5",
       "model_revision_matches_current_head": true,
       "model_review_field": "latest_stable_review",
-      "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+      "argument_array_status": "Historical arguments preserved; selected release-note and source applicability review only, not full CLI or runtime validation.",
       "required_reconciliation": [
-        "Compare complete BF16, official FP8 and NVIDIA mixed NVFP4 exports at TP1 with matched KV. The mixed-NVFP4 optimization predicate remains present; Blackwell FA4 hd256 still rejects quantized KV. Keep FlashInfer/FP8 KV and FA4/BF16 KV as separate comparisons."
+        "v0.33.0 FlashInfer GDN prefill checkpoints (#60050) are active by default on B300 for this model (K = V = 128, CUDA 13.0): with prefix caching on, the Mamba align block moves to the 64-token grid and TTFT changes; set prefix caching identically in both arms and record resolved GDN prefill backend and block size. --mamba-cache-mode has no effect (#60043); lookahead block hashes change MTP prefix-cache baselines."
       ],
       "source_ids": [
-        "RR-GM-VLLM-RELEASE",
-        "V032-H-MODEL-CONFIG",
-        "V032-H-FAUTIL"
+        "V033-RELEASE",
+        "O06-HF-HEADS",
+        "V033-PR-60050",
+        "V033-QWEN-GDN"
       ],
       "tested_on_target": false
-    }
+    },
+    "prior_release_rechecks": [
+      {
+        "checked_on": "2026-10-26",
+        "engine_release": "v0.32.0",
+        "model_revision_matches_current_head": true,
+        "model_review_field": "latest_stable_review",
+        "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+        "required_reconciliation": [
+          "Compare complete BF16, official FP8 and NVIDIA mixed NVFP4 exports at TP1 with matched KV. The mixed-NVFP4 optimization predicate remains present; Blackwell FA4 hd256 still rejects quantized KV. Keep FlashInfer/FP8 KV and FA4/BF16 KV as separate comparisons."
+        ],
+        "source_ids": [
+          "RR-GM-VLLM-RELEASE",
+          "V032-H-MODEL-CONFIG",
+          "V032-H-FAUTIL"
+        ],
+        "tested_on_target": false
+      }
+    ]
   },
   {
     "id": "qwen3.8-27b.fp8.vllm.v031.fi-fp8-kv",
@@ -2288,21 +2997,41 @@
     "notes": "One GPU per KServe replica; installed resource kind/runtime and image digest unresolved. Match serialized token IDs/padding across export tokenizers. Compare complete quantized exports, then isolate cache/backend changes; no measured winner. Automatic GDN/graph resolution remains separate. Modality limits must be held constant; separate AOT cache roots when changing modality profiles. MTP deliberately off; release-specific optional delta is in family serving.md.",
     "reference_scope": "release-specific-comparison",
     "latest_release_recheck": {
-      "checked_on": "2026-10-26",
-      "engine_release": "v0.32.0",
+      "checked_on": "2026-11-06",
+      "engine_release": "v0.33.0",
+      "engine_commit": "4ba787ec9959e566d3b587a796dff07673324da5",
       "model_revision_matches_current_head": true,
       "model_review_field": "latest_stable_review",
-      "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+      "argument_array_status": "Historical arguments preserved; selected release-note and source applicability review only, not full CLI or runtime validation.",
       "required_reconciliation": [
-        "Compare complete BF16, official FP8 and NVIDIA mixed NVFP4 exports at TP1 with matched KV. The mixed-NVFP4 optimization predicate remains present; Blackwell FA4 hd256 still rejects quantized KV. Keep FlashInfer/FP8 KV and FA4/BF16 KV as separate comparisons."
+        "v0.33.0 FlashInfer GDN prefill checkpoints (#60050) are active by default on B300 for this model (K = V = 128, CUDA 13.0): with prefix caching on, the Mamba align block moves to the 64-token grid and TTFT changes; set prefix caching identically in both arms and record resolved GDN prefill backend and block size. --mamba-cache-mode has no effect (#60043); lookahead block hashes change MTP prefix-cache baselines."
       ],
       "source_ids": [
-        "RR-GM-VLLM-RELEASE",
-        "V032-H-MODEL-CONFIG",
-        "V032-H-FAUTIL"
+        "V033-RELEASE",
+        "O06-HF-HEADS",
+        "V033-PR-60050",
+        "V033-QWEN-GDN"
       ],
       "tested_on_target": false
-    }
+    },
+    "prior_release_rechecks": [
+      {
+        "checked_on": "2026-10-26",
+        "engine_release": "v0.32.0",
+        "model_revision_matches_current_head": true,
+        "model_review_field": "latest_stable_review",
+        "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+        "required_reconciliation": [
+          "Compare complete BF16, official FP8 and NVIDIA mixed NVFP4 exports at TP1 with matched KV. The mixed-NVFP4 optimization predicate remains present; Blackwell FA4 hd256 still rejects quantized KV. Keep FlashInfer/FP8 KV and FA4/BF16 KV as separate comparisons."
+        ],
+        "source_ids": [
+          "RR-GM-VLLM-RELEASE",
+          "V032-H-MODEL-CONFIG",
+          "V032-H-FAUTIL"
+        ],
+        "tested_on_target": false
+      }
+    ]
   },
   {
     "id": "qwen3.8-27b.nvfp4.vllm.v031.fi-fp8-kv",
@@ -2371,21 +3100,41 @@
     "notes": "One GPU per KServe replica; installed resource kind/runtime and image digest unresolved. Match serialized token IDs/padding across export tokenizers. Compare complete quantized exports, then isolate cache/backend changes; no measured winner. Automatic GDN/graph resolution remains separate. Modality limits must be held constant; separate AOT cache roots when changing modality profiles. MTP deliberately off; release-specific optional delta is in family serving.md.",
     "reference_scope": "release-specific-comparison",
     "latest_release_recheck": {
-      "checked_on": "2026-10-26",
-      "engine_release": "v0.32.0",
+      "checked_on": "2026-11-06",
+      "engine_release": "v0.33.0",
+      "engine_commit": "4ba787ec9959e566d3b587a796dff07673324da5",
       "model_revision_matches_current_head": true,
       "model_review_field": "latest_stable_review",
-      "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+      "argument_array_status": "Historical arguments preserved; selected release-note and source applicability review only, not full CLI or runtime validation.",
       "required_reconciliation": [
-        "Compare complete BF16, official FP8 and NVIDIA mixed NVFP4 exports at TP1 with matched KV. The mixed-NVFP4 optimization predicate remains present; Blackwell FA4 hd256 still rejects quantized KV. Keep FlashInfer/FP8 KV and FA4/BF16 KV as separate comparisons."
+        "v0.33.0 FlashInfer GDN prefill checkpoints (#60050) are active by default on B300 for this model (K = V = 128, CUDA 13.0): with prefix caching on, the Mamba align block moves to the 64-token grid and TTFT changes; set prefix caching identically in both arms and record resolved GDN prefill backend and block size. --mamba-cache-mode has no effect (#60043); lookahead block hashes change MTP prefix-cache baselines."
       ],
       "source_ids": [
-        "RR-GM-VLLM-RELEASE",
-        "V032-H-MODEL-CONFIG",
-        "V032-H-FAUTIL"
+        "V033-RELEASE",
+        "O06-HF-HEADS",
+        "V033-PR-60050",
+        "V033-QWEN-GDN"
       ],
       "tested_on_target": false
-    }
+    },
+    "prior_release_rechecks": [
+      {
+        "checked_on": "2026-10-26",
+        "engine_release": "v0.32.0",
+        "model_revision_matches_current_head": true,
+        "model_review_field": "latest_stable_review",
+        "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+        "required_reconciliation": [
+          "Compare complete BF16, official FP8 and NVIDIA mixed NVFP4 exports at TP1 with matched KV. The mixed-NVFP4 optimization predicate remains present; Blackwell FA4 hd256 still rejects quantized KV. Keep FlashInfer/FP8 KV and FA4/BF16 KV as separate comparisons."
+        ],
+        "source_ids": [
+          "RR-GM-VLLM-RELEASE",
+          "V032-H-MODEL-CONFIG",
+          "V032-H-FAUTIL"
+        ],
+        "tested_on_target": false
+      }
+    ]
   },
   {
     "id": "qwen3.8-27b.nvfp4.vllm.v031.fa4-bf16-kv",
@@ -2454,18 +3203,1056 @@
     "notes": "One GPU per KServe replica; installed resource kind/runtime and image digest unresolved. Match serialized token IDs/padding across export tokenizers. Compare complete quantized exports, then isolate cache/backend changes; no measured winner. Automatic GDN/graph resolution remains separate. Modality limits must be held constant; separate AOT cache roots when changing modality profiles. MTP deliberately off; release-specific optional delta is in family serving.md.",
     "reference_scope": "release-specific-comparison",
     "latest_release_recheck": {
-      "checked_on": "2026-10-26",
-      "engine_release": "v0.32.0",
+      "checked_on": "2026-11-06",
+      "engine_release": "v0.33.0",
+      "engine_commit": "4ba787ec9959e566d3b587a796dff07673324da5",
       "model_revision_matches_current_head": true,
       "model_review_field": "latest_stable_review",
-      "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+      "argument_array_status": "Historical arguments preserved; selected release-note and source applicability review only, not full CLI or runtime validation.",
       "required_reconciliation": [
-        "Compare complete BF16, official FP8 and NVIDIA mixed NVFP4 exports at TP1 with matched KV. The mixed-NVFP4 optimization predicate remains present; Blackwell FA4 hd256 still rejects quantized KV. Keep FlashInfer/FP8 KV and FA4/BF16 KV as separate comparisons."
+        "v0.33.0 FlashInfer GDN prefill checkpoints (#60050) are active by default on B300 for this model (K = V = 128, CUDA 13.0): with prefix caching on, the Mamba align block moves to the 64-token grid and TTFT changes; set prefix caching identically in both arms and record resolved GDN prefill backend and block size. --mamba-cache-mode has no effect (#60043); lookahead block hashes change MTP prefix-cache baselines."
       ],
       "source_ids": [
-        "RR-GM-VLLM-RELEASE",
-        "V032-H-MODEL-CONFIG",
-        "V032-H-FAUTIL"
+        "V033-RELEASE",
+        "O06-HF-HEADS",
+        "V033-PR-60050",
+        "V033-QWEN-GDN"
+      ],
+      "tested_on_target": false
+    },
+    "prior_release_rechecks": [
+      {
+        "checked_on": "2026-10-26",
+        "engine_release": "v0.32.0",
+        "model_revision_matches_current_head": true,
+        "model_review_field": "latest_stable_review",
+        "argument_array_status": "Historical arguments preserved; selected applicability review only, not full CLI or runtime validation.",
+        "required_reconciliation": [
+          "Compare complete BF16, official FP8 and NVIDIA mixed NVFP4 exports at TP1 with matched KV. The mixed-NVFP4 optimization predicate remains present; Blackwell FA4 hd256 still rejects quantized KV. Keep FlashInfer/FP8 KV and FA4/BF16 KV as separate comparisons."
+        ],
+        "source_ids": [
+          "RR-GM-VLLM-RELEASE",
+          "V032-H-MODEL-CONFIG",
+          "V032-H-FAUTIL"
+        ],
+        "tested_on_target": false
+      }
+    ]
+  },
+  {
+    "id": "deepseek-v4.1-flash-1017.native.vllm.tp2",
+    "model_key": "deepseek-v4.1-flash-1017",
+    "variant": "native",
+    "engine": "vllm",
+    "hf_id": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+    "engine_args": [
+      "--revision",
+      "1bae0e1088993b9b82de08f59de5be5a34e42170",
+      "--tensor-parallel-size",
+      "2",
+      "--max-model-len",
+      "65536",
+      "--tokenizer-mode",
+      "deepseek_v41",
+      "--reasoning-parser",
+      "deepseek_v41",
+      "--tool-call-parser",
+      "deepseek_v41",
+      "--enable-auto-tool-choice",
+      "--attention-config",
+      "{\"backend\":\"FLASHINFER_MLA_SPARSE_DSV41\",\"indexer_kv_dtype\":\"mxfp4\",\"indexer_sparse_logits\":true}",
+      "--kv-cache-dtype",
+      "fp8",
+      "--engram-config",
+      "{\"cpu_offload\":true}",
+      "--compilation-config",
+      "{\"mode\":\"VLLM_COMPILE\",\"cudagraph_mode\":\"FULL_AND_PIECEWISE\",\"cudagraph_capture_sizes\":[6,12,18,24,30,36,48,60,72,96,120,144,192,240,288,384,480,576,768,1020,1536,2046,3072,4092,6144,8190]}",
+      "--max-cudagraph-capture-size",
+      "8190",
+      "--max-num-batched-tokens",
+      "8192",
+      "--max-num-seqs",
+      "256"
+    ],
+    "gpu_count": 2,
+    "tensor_parallel_size": 2,
+    "data_parallel_size": 1,
+    "context_cap": 65536,
+    "status": "candidate",
+    "reason": "Recipe B300 single-node TP2 cell (four replicas per node through KServe); Engram tables in pinned host memory. Target-only first; the recipe B300 numbers were measured on 0909 weights.",
+    "source_ids": [
+      "V033-RECIPE-DSV41",
+      "V033-RELEASE",
+      "deepseek-v4.1-flash-1017-CARD",
+      "deepseek-v4.1-flash-1017-CFG"
+    ],
+    "reviewed_source_commit": "4ba787ec9959e566d3b587a796dff07673324da5",
+    "model_revision": "1bae0e1088993b9b82de08f59de5be5a34e42170",
+    "draft_hf_id": null,
+    "draft_revision": null,
+    "tested_on_target": false,
+    "notes": "Publisher recipe/cookbook transcription with an atlas 64K context cap unless stated; not a measured optimum. Qualify the exact model, engine image digest and B300 allocation in the separate execution repository.",
+    "reference_scope": "publisher-recipe-transcription",
+    "engine_release": "v0.33.0",
+    "deployment_layer": "KServe required; installed version, resource kind and runtime integration unknown",
+    "reviewed_on": "2026-11-06",
+    "latest_release_recheck": {
+      "checked_on": "2026-11-06",
+      "engine_release": "v0.33.0",
+      "engine_commit": "4ba787ec9959e566d3b587a796dff07673324da5",
+      "model_revision_matches_current_head": true,
+      "model_review_field": "latest_stable_review",
+      "argument_array_status": "Transcribed on 2026-11-06 from the cited recipe/cookbook; not CLI- or runtime-validated.",
+      "required_reconciliation": [
+        "Set VLLM_ENGINE_READY_TIMEOUT_S=3600 (7200 with FlashInfer autotune) and size the KServe startup probe accordingly.",
+        "fp8 here is per-tensor FP8 on the FlashInfer backend, not the publisher-trained FP4 compressed cache; compare nvfp4_ds_mla separately.",
+        "Engram cpu_offload (explicit here; also vLLM's default when --engram-config is absent) pins about 183-189 GiB host memory per replica; four replicas need about 730-755 GiB and a node RAM inventory.",
+        "Compilation config (VLLM_COMPILE, FULL_AND_PIECEWISE, recipe capture sizes) and --max-cudagraph-capture-size 8190 are transcribed from the recipe B300 cell. Issue #59970 reports an illegal memory access only with DSpark adaptive verification true + FULL_AND_PIECEWISE (fix #59986 is main-only); this target-only array has no speculation and is outside that report. A DSpark arm on v0.33.0 must set enable_adaptive_verification false, or pair true with cudagraph_mode FULL_DECODE_ONLY."
+      ],
+      "source_ids": [
+        "V033-RECIPE-DSV41",
+        "V033-RELEASE",
+        "deepseek-v4.1-flash-1017-CARD",
+        "deepseek-v4.1-flash-1017-VLLM-ISSUE59970"
+      ],
+      "tested_on_target": false
+    }
+  },
+  {
+    "id": "deepseek-v4.1-flash-1017.native.sglang.tp4ep4",
+    "model_key": "deepseek-v4.1-flash-1017",
+    "variant": "native",
+    "engine": "sglang",
+    "hf_id": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+    "engine_args": [
+      "--revision",
+      "1bae0e1088993b9b82de08f59de5be5a34e42170",
+      "--trust-remote-code",
+      "--tp",
+      "4",
+      "--ep-size",
+      "4",
+      "--context-length",
+      "65536",
+      "--max-running-requests",
+      "256",
+      "--reasoning-parser",
+      "auto",
+      "--tool-call-parser",
+      "auto"
+    ],
+    "gpu_count": 4,
+    "tensor_parallel_size": 4,
+    "data_parallel_size": 1,
+    "context_cap": 65536,
+    "status": "compatibility-probe",
+    "reason": "Cookbook B300 1017 high-throughput cell (two replicas per node); the cookbook marks it verified:false and points at the stale dev-dsv41 image. Use the v0.5.23 release image and confirm resolved backends.",
+    "source_ids": [
+      "S0523-COOKBOOK-DSV41",
+      "S0523-RELEASE",
+      "S0523-DSV41-CONFIG",
+      "deepseek-v4.1-flash-1017-CARD",
+      "S0523-DSV4-HOOK"
+    ],
+    "reviewed_source_commit": "297e54fd105e974cdf401e5b4d20253a22c16f90",
+    "model_revision": "1bae0e1088993b9b82de08f59de5be5a34e42170",
+    "draft_hf_id": null,
+    "draft_revision": null,
+    "tested_on_target": false,
+    "notes": "Publisher recipe/cookbook transcription with an atlas 64K context cap unless stated; not a measured optimum. Qualify the exact model, engine image digest and B300 allocation in the separate execution repository.",
+    "reference_scope": "publisher-recipe-transcription",
+    "engine_release": "v0.5.23",
+    "deployment_layer": "KServe required; installed version, resource kind and runtime integration unknown",
+    "reviewed_on": "2026-11-06",
+    "latest_release_recheck": {
+      "checked_on": "2026-11-06",
+      "engine_release": "v0.5.23",
+      "engine_commit": "297e54fd105e974cdf401e5b4d20253a22c16f90",
+      "model_revision_matches_current_head": true,
+      "model_review_field": "latest_stable_review",
+      "argument_array_status": "Transcribed on 2026-11-06 from the cited recipe/cookbook; not CLI- or runtime-validated.",
+      "required_reconciliation": [
+        "Decoder SWA bounded replay is on by default in v0.5.23 only for supported configurations (CUDA; no prefill/attention CP or DCP; prefill CUDA graph disabled or breakable; under DP attention only attention TP 1 with --moe-a2a-backend none or megamoe); confirm the startup log line 'DeepSeek-V4.1 decoder SWA bounded replay resolved to \u2026'. Add --no-enable-decoder-swa-bounded-replay for a full-prefill parity/quality reference arm or when output-token logprobs must match full prefill.",
+        "Do not override attention, MoE runner or FP8 GEMM backends; record the resolved values from the startup log."
+      ],
+      "source_ids": [
+        "S0523-COOKBOOK-DSV41",
+        "S0523-RELEASE",
+        "S0523-DSV41-CONFIG",
+        "S0523-DSV4-HOOK",
+        "S0523-EXEC-FIELDS"
+      ],
+      "tested_on_target": false
+    }
+  },
+  {
+    "id": "kimi-k3.1-pro.native.vllm.tp8",
+    "model_key": "kimi-k3.1-pro",
+    "variant": "native",
+    "engine": "vllm",
+    "hf_id": "moonshotai/Kimi-K3.1-Pro",
+    "engine_args": [
+      "--revision",
+      "d9e99b0792a5e93b78ea9bea62a68167e36ddd9e",
+      "--tensor-parallel-size",
+      "8",
+      "--trust-remote-code",
+      "--load-format",
+      "fastsafetensors",
+      "--max-model-len",
+      "65536",
+      "--enable-auto-tool-choice",
+      "--tool-call-parser",
+      "kimi_k3",
+      "--reasoning-parser",
+      "kimi_k3"
+    ],
+    "gpu_count": 8,
+    "tensor_parallel_size": 8,
+    "data_parallel_size": 1,
+    "context_cap": 65536,
+    "status": "compatibility-probe",
+    "reason": "Recipe B300 TP8 baseline. No stable vLLM release supports K3.1; requires the vllm/vllm-openai:kimi-k31 development image referenced by digest.",
+    "source_ids": [
+      "kimi-k3.1-pro-VR-B300-TP",
+      "kimi-k3.1-pro-IMG-VLLM",
+      "kimi-k3.1-pro-VPR66030",
+      "kimi-k3.1-pro-CARD"
+    ],
+    "reviewed_source_commit": "development image (open PRs #66030/#66037/#66028/#65685/#66027)",
+    "model_revision": "d9e99b0792a5e93b78ea9bea62a68167e36ddd9e",
+    "draft_hf_id": null,
+    "draft_revision": null,
+    "tested_on_target": false,
+    "notes": "Publisher recipe/cookbook transcription with an atlas 64K context cap unless stated; not a measured optimum. Qualify the exact model, engine image digest and B300 allocation in the separate execution repository.",
+    "reference_scope": "publisher-recipe-transcription",
+    "engine_release": "none (requires >= 0.34.0 or kimi-k31 image)",
+    "deployment_layer": "KServe required; installed version, resource kind and runtime integration unknown",
+    "reviewed_on": "2026-11-06",
+    "latest_release_recheck": {
+      "checked_on": "2026-11-06",
+      "engine_release": "none (requires >= 0.34.0 or kimi-k31 image)",
+      "engine_commit": "development image (open PRs #66030/#66037/#66028/#65685/#66027)",
+      "model_revision_matches_current_head": true,
+      "model_review_field": "latest_stable_review",
+      "argument_array_status": "Transcribed on 2026-11-06 from the cited recipe/cookbook; not CLI- or runtime-validated.",
+      "required_reconciliation": [
+        "Set VLLM_ENGINE_READY_TIMEOUT_S=3600 and size the KServe startup probe.",
+        "Record the image digest and the vLLM commit inside it before any comparison."
+      ],
+      "source_ids": [
+        "kimi-k3.1-pro-VR-B300-TP",
+        "kimi-k3.1-pro-IMG-VLLM",
+        "kimi-k3.1-pro-VPR66030"
+      ],
+      "tested_on_target": false
+    }
+  },
+  {
+    "id": "kimi-k3.1-pro.native.sglang.tp8",
+    "model_key": "kimi-k3.1-pro",
+    "variant": "native",
+    "engine": "sglang",
+    "hf_id": "moonshotai/Kimi-K3.1-Pro",
+    "engine_args": [
+      "--revision",
+      "d9e99b0792a5e93b78ea9bea62a68167e36ddd9e",
+      "--trust-remote-code",
+      "--tp-size",
+      "8",
+      "--context-length",
+      "65536",
+      "--mem-fraction-static",
+      "0.85",
+      "--max-running-requests",
+      "64",
+      "--weight-loader-prefetch-checkpoints",
+      "--model-loader-extra-config",
+      "{\"enable_multithread_load\": true}",
+      "--reasoning-parser",
+      "kimi_k3",
+      "--tool-call-parser",
+      "kimi_k3"
+    ],
+    "gpu_count": 8,
+    "tensor_parallel_size": 8,
+    "data_parallel_size": 1,
+    "context_cap": 65536,
+    "status": "compatibility-probe",
+    "reason": "Cookbook B300 Unified Low-Latency cell (marked final verification in progress), transcribed with all its flags including --trust-remote-code and the two loader flags; the atlas adds --revision and a 64K --context-length. Requires SGLang main at or after 61a3c7f2 (after v0.5.23). Plain DCP is on main from 188cf7da; DFLASH and PD need the day-0 branch or image.",
+    "source_ids": [
+      "kimi-k3.1-pro-GR",
+      "kimi-k3.1-pro-GR-CELLS",
+      "kimi-k3.1-pro-SCMP-V0523",
+      "kimi-k3.1-pro-SPR48415",
+      "kimi-k3.1-pro-CARD"
+    ],
+    "reviewed_source_commit": "main >= 61a3c7f2 (no stable release)",
+    "model_revision": "d9e99b0792a5e93b78ea9bea62a68167e36ddd9e",
+    "draft_hf_id": null,
+    "draft_revision": null,
+    "tested_on_target": false,
+    "notes": "Publisher recipe/cookbook transcription with an atlas 64K context cap unless stated; not a measured optimum. Qualify the exact model, engine image digest and B300 allocation in the separate execution repository.",
+    "reference_scope": "publisher-recipe-transcription",
+    "engine_release": "none (main >= 61a3c7f2)",
+    "deployment_layer": "KServe required; installed version, resource kind and runtime integration unknown",
+    "reviewed_on": "2026-11-06",
+    "latest_release_recheck": {
+      "checked_on": "2026-11-06",
+      "engine_release": "none (main >= 61a3c7f2)",
+      "engine_commit": "main >= 61a3c7f2 (no stable release)",
+      "model_revision_matches_current_head": true,
+      "model_review_field": "latest_stable_review",
+      "argument_array_status": "Transcribed on 2026-11-06 from the cited recipe/cookbook; not CLI- or runtime-validated.",
+      "required_reconciliation": [
+        "KDA state is about 52 MB per request per rank at TP8 and is not sharded by DCP; size max-running-requests accordingly."
+      ],
+      "source_ids": [
+        "kimi-k3.1-pro-GR",
+        "kimi-k3.1-pro-GR-CELLS",
+        "kimi-k3.1-pro-SCMP-V0523",
+        "kimi-k3.1-pro-SPR48415"
+      ],
+      "tested_on_target": false
+    }
+  },
+  {
+    "id": "mistral-large-4.nvfp4.vllm.tp8",
+    "model_key": "mistral-large-4",
+    "variant": "nvfp4",
+    "engine": "vllm",
+    "hf_id": "mistralai/Mistral-Large-4-1T-A52B-NVFP4",
+    "engine_args": [
+      "--revision",
+      "bb6d00fe249b0e876f0cffc6b85014be02de3e68",
+      "--tensor-parallel-size",
+      "8",
+      "--tokenizer-mode",
+      "mistral",
+      "--config-format",
+      "mistral",
+      "--load-format",
+      "mistral",
+      "--max-model-len",
+      "65536",
+      "--max-num-batched-tokens",
+      "8192",
+      "--max-num-seqs",
+      "128",
+      "--gpu-memory-utilization",
+      "0.85",
+      "--kv-cache-dtype",
+      "fp8_ds_mla",
+      "--tool-call-parser",
+      "mistral",
+      "--reasoning-parser",
+      "mistral",
+      "--enable-auto-tool-choice"
+    ],
+    "gpu_count": 8,
+    "tensor_parallel_size": 8,
+    "data_parallel_size": 1,
+    "context_cap": 65536,
+    "status": "compatibility-probe",
+    "reason": "First B300 candidate: recipe NVFP4 TP8 layout (B300 listed as validated; no B300 measurement table). No stable vLLM release supports Mistral Large 4; requires vllm/vllm-openai:mistral-large-4 by digest (draft PR #64534). Header-derived weights ~80.2 GB/GPU target-only; ~3.4-3.5M FP8 KV tokens at 0.85 of 288 GB (calculation). FP8 checkpoint is the quality control.",
+    "source_ids": [
+      "mistral-large-4-VLLM-RECIPE",
+      "mistral-large-4-VLLM-IMAGE",
+      "mistral-large-4-NVFP4-CARD",
+      "mistral-large-4-VLLM-PR64534",
+      "mistral-large-4-VLLM-PR-MODELOPT",
+      "mistral-large-4-VLLM-V033-NVFP4-ORACLE",
+      "mistral-large-4-VLLM-PR-TRTLLM-NVFP4",
+      "mistral-large-4-NVFP4-HEADERS",
+      "V033-REGISTRY"
+    ],
+    "reviewed_source_commit": "development image (draft PR #64534)",
+    "model_revision": "bb6d00fe249b0e876f0cffc6b85014be02de3e68",
+    "draft_hf_id": null,
+    "draft_revision": null,
+    "tested_on_target": false,
+    "notes": "Publisher recipe/cookbook transcription with an atlas 64K context cap unless stated; not a measured optimum. Qualify the exact model, engine image digest and B300 allocation in the separate execution repository.",
+    "reference_scope": "publisher-recipe-transcription",
+    "engine_release": "none (recipe min_vllm_version 0.34.0)",
+    "deployment_layer": "KServe required; installed version, resource kind and runtime integration unknown",
+    "reviewed_on": "2026-11-06",
+    "latest_release_recheck": {
+      "checked_on": "2026-11-06",
+      "engine_release": "none (recipe min_vllm_version 0.34.0)",
+      "engine_commit": "development image vllm/vllm-openai@sha256:83a52c97e78b284d031e98135f17a448789358be31aa246237d6ad0130ef7657 (engine commit unknown; draft PR #64534 head 28a4495d at 2026-11-06T12:45Z)",
+      "model_revision_matches_current_head": true,
+      "model_review_field": "latest_stable_review",
+      "argument_array_status": "Re-verified on 2026-11-06T12:48Z against the recipe at vLLM main f358f057 (byte-identical to 6c15c6cc) and the pinned NVFP4 card; not CLI- or runtime-validated.",
+      "required_reconciliation": [
+        "Set VLLM_ENGINE_READY_TIMEOUT_S=6000; cold starts of 1,300-1,800 s require matching KServe startup probes.",
+        "Expect quantization modelopt_mixed (auto-detected; also present in v0.33.0) and the FLASHINFER_TRTLLM NVFP4 MoE backend on SM103; record the block-FP8 GEMM kernel from the startup log.",
+        "Use Chat Completions; Responses API issues #64793/#64789 open at 2026-11-06T12:54Z.",
+        "DSpark (num_speculative_tokens 3, BF16 embedded draft) is a second step after target-only correctness; vLLM #64855 (indexer on ragged spec-decode steps) is open with unknown applicability."
+      ],
+      "source_ids": [
+        "mistral-large-4-VLLM-RECIPE",
+        "mistral-large-4-VLLM-IMAGE",
+        "mistral-large-4-NVFP4-CARD",
+        "mistral-large-4-VLLM-PR64534",
+        "mistral-large-4-VLLM-PR-MODELOPT",
+        "mistral-large-4-VLLM-ISSUE64855"
+      ],
+      "tested_on_target": false
+    }
+  },
+  {
+    "id": "mistral-large-4.fp8.sglang.tp8",
+    "model_key": "mistral-large-4",
+    "variant": "fp8",
+    "engine": "sglang",
+    "hf_id": "mistralai/Mistral-Large-4-1T-A52B",
+    "engine_args": [
+      "--revision",
+      "af26e7869af601441d5cdf75a1272469ddc3d059",
+      "--tp-size",
+      "8",
+      "--context-length",
+      "65536",
+      "--mem-fraction-static",
+      "0.85",
+      "--reasoning-parser",
+      "auto",
+      "--tool-call-parser",
+      "auto"
+    ],
+    "gpu_count": 8,
+    "tensor_parallel_size": 8,
+    "data_parallel_size": 1,
+    "context_cap": 65536,
+    "status": "compatibility-probe",
+    "reason": "Only cookbook-verified B300 cell (FP8 TP8, default FP8 KV). No stable SGLang release supports Mistral Large 4; requires lmsysorg/sglang:mistral-large-4 by digest (open PR #47271).",
+    "source_ids": [
+      "mistral-large-4-SGL-CONFIG-SRC",
+      "mistral-large-4-SGL-IMAGE",
+      "mistral-large-4-SGL-PR47271",
+      "mistral-large-4-CARD"
+    ],
+    "reviewed_source_commit": "development image (open PR #47271)",
+    "model_revision": "af26e7869af601441d5cdf75a1272469ddc3d059",
+    "draft_hf_id": null,
+    "draft_revision": null,
+    "tested_on_target": false,
+    "notes": "Publisher recipe/cookbook transcription with an atlas 64K context cap unless stated; not a measured optimum. Qualify the exact model, engine image digest and B300 allocation in the separate execution repository.",
+    "reference_scope": "publisher-recipe-transcription",
+    "engine_release": "none (open PR #47271)",
+    "deployment_layer": "KServe required; installed version, resource kind and runtime integration unknown",
+    "reviewed_on": "2026-11-06",
+    "latest_release_recheck": {
+      "checked_on": "2026-11-06",
+      "engine_release": "none (open PR #47271)",
+      "engine_commit": "development image (open PR #47271)",
+      "model_revision_matches_current_head": true,
+      "model_review_field": "latest_stable_review",
+      "argument_array_status": "Transcribed on 2026-11-06 from the cited recipe/cookbook; not CLI- or runtime-validated.",
+      "required_reconciliation": [
+        "Do not pass --enable-kv-cache-sharding (rejected). DSPARK without draft-path flags is a second step; keep max-running-requests at or below 48 for long context."
+      ],
+      "source_ids": [
+        "mistral-large-4-SGL-CONFIG-SRC",
+        "mistral-large-4-SGL-IMAGE",
+        "mistral-large-4-SGL-PR47271"
+      ],
+      "tested_on_target": false
+    }
+  },
+  {
+    "id": "muse-glimmer-30b.bf16.vllm.tp1",
+    "model_key": "muse-glimmer-30b",
+    "variant": "bf16",
+    "engine": "vllm",
+    "hf_id": "meta-models/Muse-Glimmer-30B",
+    "engine_args": [
+      "--revision",
+      "cec94fcfd6512f2cfe708138c32533b346ea4f69",
+      "--tensor-parallel-size",
+      "1",
+      "--max-model-len",
+      "131072",
+      "--generation-config",
+      "auto",
+      "--tool-call-parser",
+      "muse_glimmer",
+      "--reasoning-parser",
+      "muse_glimmer",
+      "--enable-auto-tool-choice"
+    ],
+    "gpu_count": 1,
+    "tensor_parallel_size": 1,
+    "data_parallel_size": 1,
+    "context_cap": 131072,
+    "status": "candidate",
+    "reason": "BF16 target-only, one replica per GPU (up to eight KServe replicas). Recipe parsers and generation config; the TP1-per-replica layout on B300 is an atlas hypothesis (the recipe shows a GB300 layout).",
+    "source_ids": [
+      "muse-glimmer-30b-V-RECIPE",
+      "muse-glimmer-30b-V-REGISTRY",
+      "muse-glimmer-30b-CARD",
+      "muse-glimmer-30b-CFG"
+    ],
+    "reviewed_source_commit": "4ba787ec9959e566d3b587a796dff07673324da5",
+    "model_revision": "cec94fcfd6512f2cfe708138c32533b346ea4f69",
+    "draft_hf_id": null,
+    "draft_revision": null,
+    "tested_on_target": false,
+    "notes": "Atlas candidate derived from the vLLM v0.33.0 recipe, not a verbatim recipe command; reference_scope keeps the November 6 recipe-derived grouping label. Recipe elements: --generation-config auto (base_args), tool and reasoning parser features, --max-model-len 131072 (GB300 launch). Atlas choices: --revision pin and --tensor-parallel-size 1 (the recipe's single-GPU DGX Spark shape, not its GB300 TP4 launch). GB300 launch settings not carried: --tensor-parallel-size 4, --gpu-memory-utilization 0.92, --max-num-seqs 64. Not a measured optimum. Qualify the exact model, engine image digest and B300 allocation in the separate execution repository.",
+    "reference_scope": "publisher-recipe-transcription",
+    "engine_release": "v0.33.0",
+    "deployment_layer": "KServe required; installed version, resource kind and runtime integration unknown",
+    "reviewed_on": "2026-11-06",
+    "latest_release_recheck": {
+      "checked_on": "2026-11-06",
+      "engine_release": "v0.33.0",
+      "engine_commit": "4ba787ec9959e566d3b587a796dff07673324da5",
+      "model_revision_matches_current_head": true,
+      "model_review_field": "latest_stable_review",
+      "argument_array_status": "Derived on 2026-11-06 from the cited recipe: parsers, --enable-auto-tool-choice, --generation-config auto and --max-model-len 131072 are recipe values; --revision and TP1 are atlas choices; the GB300 launch's TP4, --gpu-memory-utilization 0.92 and --max-num-seqs 64 are not carried. Not CLI- or runtime-validated.",
+      "required_reconciliation": [
+        "Do not add token 200007 as an extra EOS (recipe).",
+        "DFlash (meta-models/Muse-Glimmer-30B-assistant, num_speculative_tokens 15) is a separate arm; measure natural acceptance because drafter layer wiring has had silent upstream bugs."
+      ],
+      "source_ids": [
+        "muse-glimmer-30b-V-RECIPE",
+        "muse-glimmer-30b-V-REGISTRY",
+        "V033-RELEASE"
+      ],
+      "tested_on_target": false
+    }
+  },
+  {
+    "id": "muse-glimmer-30b.bf16.sglang.tp1",
+    "model_key": "muse-glimmer-30b",
+    "variant": "bf16",
+    "engine": "sglang",
+    "hf_id": "meta-models/Muse-Glimmer-30B",
+    "engine_args": [
+      "--revision",
+      "cec94fcfd6512f2cfe708138c32533b346ea4f69",
+      "--tp-size",
+      "1",
+      "--context-length",
+      "131072",
+      "--reasoning-parser",
+      "muse",
+      "--tool-call-parser",
+      "muse"
+    ],
+    "gpu_count": 1,
+    "tensor_parallel_size": 1,
+    "data_parallel_size": 1,
+    "context_cap": 131072,
+    "status": "candidate",
+    "reason": "BF16 target-only TP1 challenger. Cookbook verified cells cover B200, H200, RTX 5090, RTX PRO 6000, DGX Spark and Apple MLX; there is no B300 cell, and the cookbook install text is stale (dev-muse-glimmer image); v0.5.23 contains the model. Quantized checkpoints cannot exceed TP2 (KV heads = 2).",
+    "source_ids": [
+      "muse-glimmer-30b-S-COOKBOOK",
+      "muse-glimmer-30b-S-MODEL",
+      "muse-glimmer-30b-CARD",
+      "muse-glimmer-30b-CFG"
+    ],
+    "reviewed_source_commit": "297e54fd105e974cdf401e5b4d20253a22c16f90",
+    "model_revision": "cec94fcfd6512f2cfe708138c32533b346ea4f69",
+    "draft_hf_id": null,
+    "draft_revision": null,
+    "tested_on_target": false,
+    "notes": "Atlas candidate derived from the SGLang v0.5.23 cookbook, not a verbatim cookbook cell; reference_scope keeps the November 6 recipe-derived grouping label. Atlas additions: --revision pin, explicit --tp-size 1, --context-length 131072. Cookbook settings not carried: --mem-fraction-static 0.85 (every B200/H200 BF16 cell), the default text-only overlay --language-model-only (omitted to keep image input), --host/--port. Not a measured optimum. Qualify the exact model, engine image digest and B300 allocation in the separate execution repository.",
+    "reference_scope": "publisher-recipe-transcription",
+    "engine_release": "v0.5.23",
+    "deployment_layer": "KServe required; installed version, resource kind and runtime integration unknown",
+    "reviewed_on": "2026-11-06",
+    "latest_release_recheck": {
+      "checked_on": "2026-11-06",
+      "engine_release": "v0.5.23",
+      "engine_commit": "297e54fd105e974cdf401e5b4d20253a22c16f90",
+      "model_revision_matches_current_head": true,
+      "model_review_field": "latest_stable_review",
+      "argument_array_status": "Derived on 2026-11-06 from the cited cookbook: --reasoning-parser muse and --tool-call-parser muse match the B200/H200 BF16 cells; --revision, --tp-size 1 and --context-length 131072 are atlas additions; the cells' --mem-fraction-static 0.85 and default --language-model-only overlay are not carried. Not CLI- or runtime-validated.",
+      "required_reconciliation": [
+        "Add --language-model-only only for text-only traffic (drops vision weights, rejects images).",
+        "The cookbook FP8 KV setting for NVFP4 is supported only by a 200-question GSM8K run on RTX 5090; check long-context quality before adopting."
+      ],
+      "source_ids": [
+        "muse-glimmer-30b-S-COOKBOOK",
+        "muse-glimmer-30b-S-MODEL",
+        "S0523-RELEASE"
+      ],
+      "tested_on_target": false
+    }
+  },
+  {
+    "id": "mistral-medium-3.5.nvfp4.vllm.tp4",
+    "model_key": "mistral-medium-3.5",
+    "variant": "nvfp4",
+    "engine": "vllm",
+    "hf_id": "nvidia/Mistral-Medium-3.5-128B-NVFP4",
+    "engine_args": [
+      "--revision",
+      "b8c66d2098edd8c9c26bde2b2ff41b5967e111ae",
+      "--tokenizer-revision",
+      "b8c66d2098edd8c9c26bde2b2ff41b5967e111ae",
+      "--tensor-parallel-size",
+      "4",
+      "--tokenizer-mode",
+      "hf",
+      "--kv-cache-dtype",
+      "fp8",
+      "--max-model-len",
+      "32768",
+      "--gpu-memory-utilization",
+      "0.85",
+      "--max-num-seqs",
+      "32",
+      "--max-num-batched-tokens",
+      "16384",
+      "--tool-call-parser",
+      "mistral",
+      "--reasoning-parser",
+      "mistral",
+      "--enable-auto-tool-choice",
+      "--served-model-name",
+      "mistral-medium-3.5-nvfp4",
+      "--host",
+      "0.0.0.0",
+      "--port",
+      "8000"
+    ],
+    "gpu_count": 4,
+    "tensor_parallel_size": 4,
+    "data_parallel_size": 1,
+    "context_cap": 32768,
+    "status": "candidate",
+    "reason": "First NVFP4 B300 candidate: exporter TP width, 23.81 GB weights per GPU (even shard), two replicas per node; vLLM v0.33.0 has the modelopt_mixed load path by source reading. FP8 publisher baseline is the quality control.",
+    "source_ids": [
+      "mistral-medium-3.5-NV-NVFP4-CARD",
+      "mistral-medium-3.5-NV-NVFP4-CFG",
+      "mistral-medium-3.5-NV-NVFP4-HEADERS",
+      "mistral-medium-3.5-V033-MODELOPT",
+      "mistral-medium-3.5-V033-MISTRAL3",
+      "mistral-medium-3.5-V033-LINEAR-KERNELS",
+      "mistral-medium-3.5-V033-IMAGE",
+      "mistral-medium-3.5-VLLM-PR45525"
+    ],
+    "reviewed_source_commit": "4ba787ec9959e566d3b587a796dff07673324da5",
+    "model_revision": "b8c66d2098edd8c9c26bde2b2ff41b5967e111ae",
+    "draft_hf_id": null,
+    "draft_revision": null,
+    "tested_on_target": false,
+    "notes": "Atlas-derived argument array for vLLM v0.33.0 (exporter card TP4/B200/v0.21.0 is the only publisher-side validation); not a measured optimum. 2 independent KServe replicas per 8-GPU node. Qualify the exact model, image digest and B300 allocation in the separate execution repository. Dossier: companies/mistral-ai/mistral-medium-3.5/nvfp4.md.",
+    "reference_scope": "release-specific-comparison",
+    "engine_release": "v0.33.0",
+    "deployment_layer": "KServe required; installed version, resource kind and runtime integration unknown",
+    "reviewed_on": "2026-11-06",
+    "latest_release_recheck": {
+      "checked_on": "2026-11-06",
+      "engine_release": "v0.33.0",
+      "engine_commit": "4ba787ec9959e566d3b587a796dff07673324da5",
+      "model_revision_matches_current_head": true,
+      "model_review_field": "nvfp4_b300_review",
+      "argument_array_status": "Derived on 2026-11-06 from v0.33.0 source and the exporter card; not CLI- or runtime-validated.",
+      "required_reconciliation": [
+        "Image vllm/vllm-openai@sha256:d825baf9ce4b1b6bfc5ecc7b79880c7e6748c65a72d697ce3d47607aafa84c6e (v0.33.0); set VLLM_ENGINE_READY_TIMEOUT_S=1800 and a matching KServe startup budget until cold start is measured.",
+        "Do not pass --config-format mistral (params.json is the publisher FP8 file) or --tokenizer-mode mistral (#45525 open); leave --config-format auto when adding EAGLE because the draft inherits it.",
+        "EAGLE is step 2: --speculative-config with mistralai/Mistral-Medium-3.5-128B-EAGLE revision d31694b0f55b51d4d962b5c3dbf0e03d1f019275, method eagle, num_speculative_tokens 3, no draft max_model_len above the target; acceptance with the NVFP4 target is unknown.",
+        "Hold the chat renderer fixed against the FP8 control (export chat_template.jinja differs from the publisher template).",
+        "Startup log must show modelopt_mixed, non-weight-only NVFP4/FP8 kernels and FP8 KV with scales."
+      ],
+      "source_ids": [
+        "mistral-medium-3.5-V033-MODELOPT",
+        "mistral-medium-3.5-V033-IMAGE",
+        "mistral-medium-3.5-NV-NVFP4-API"
+      ],
+      "tested_on_target": false
+    }
+  },
+  {
+    "id": "mistral-medium-3.5.nvfp4.vllm.tp2",
+    "model_key": "mistral-medium-3.5",
+    "variant": "nvfp4",
+    "engine": "vllm",
+    "hf_id": "nvidia/Mistral-Medium-3.5-128B-NVFP4",
+    "engine_args": [
+      "--revision",
+      "b8c66d2098edd8c9c26bde2b2ff41b5967e111ae",
+      "--tokenizer-revision",
+      "b8c66d2098edd8c9c26bde2b2ff41b5967e111ae",
+      "--tensor-parallel-size",
+      "2",
+      "--tokenizer-mode",
+      "hf",
+      "--kv-cache-dtype",
+      "fp8",
+      "--max-model-len",
+      "32768",
+      "--gpu-memory-utilization",
+      "0.85",
+      "--max-num-seqs",
+      "32",
+      "--max-num-batched-tokens",
+      "16384",
+      "--tool-call-parser",
+      "mistral",
+      "--reasoning-parser",
+      "mistral",
+      "--enable-auto-tool-choice",
+      "--served-model-name",
+      "mistral-medium-3.5-nvfp4",
+      "--host",
+      "0.0.0.0",
+      "--port",
+      "8000"
+    ],
+    "gpu_count": 2,
+    "tensor_parallel_size": 2,
+    "data_parallel_size": 1,
+    "context_cap": 32768,
+    "status": "compatibility-probe",
+    "reason": "Capacity alternative: 47.61 GB weights per GPU versus 66.80 GB for FP8, four replicas per node, about 2.19M FP8 KV tokens per replica (upper bound). No TP2 validation by any party.",
+    "source_ids": [
+      "mistral-medium-3.5-NV-NVFP4-CARD",
+      "mistral-medium-3.5-NV-NVFP4-CFG",
+      "mistral-medium-3.5-NV-NVFP4-HEADERS",
+      "mistral-medium-3.5-V033-MODELOPT",
+      "mistral-medium-3.5-V033-MISTRAL3",
+      "mistral-medium-3.5-V033-LINEAR-KERNELS",
+      "mistral-medium-3.5-V033-IMAGE",
+      "mistral-medium-3.5-VLLM-PR45525"
+    ],
+    "reviewed_source_commit": "4ba787ec9959e566d3b587a796dff07673324da5",
+    "model_revision": "b8c66d2098edd8c9c26bde2b2ff41b5967e111ae",
+    "draft_hf_id": null,
+    "draft_revision": null,
+    "tested_on_target": false,
+    "notes": "Atlas-derived argument array for vLLM v0.33.0 (exporter card TP4/B200/v0.21.0 is the only publisher-side validation); not a measured optimum. 4 independent KServe replicas per 8-GPU node. Qualify the exact model, image digest and B300 allocation in the separate execution repository. Dossier: companies/mistral-ai/mistral-medium-3.5/nvfp4.md.",
+    "reference_scope": "release-specific-comparison",
+    "engine_release": "v0.33.0",
+    "deployment_layer": "KServe required; installed version, resource kind and runtime integration unknown",
+    "reviewed_on": "2026-11-06",
+    "latest_release_recheck": {
+      "checked_on": "2026-11-06",
+      "engine_release": "v0.33.0",
+      "engine_commit": "4ba787ec9959e566d3b587a796dff07673324da5",
+      "model_revision_matches_current_head": true,
+      "model_review_field": "nvfp4_b300_review",
+      "argument_array_status": "Derived on 2026-11-06 from v0.33.0 source and the exporter card; not CLI- or runtime-validated.",
+      "required_reconciliation": [
+        "Image vllm/vllm-openai@sha256:d825baf9ce4b1b6bfc5ecc7b79880c7e6748c65a72d697ce3d47607aafa84c6e (v0.33.0); set VLLM_ENGINE_READY_TIMEOUT_S=1800 and a matching KServe startup budget until cold start is measured.",
+        "Do not pass --config-format mistral (params.json is the publisher FP8 file) or --tokenizer-mode mistral (#45525 open); leave --config-format auto when adding EAGLE because the draft inherits it.",
+        "EAGLE is step 2: --speculative-config with mistralai/Mistral-Medium-3.5-128B-EAGLE revision d31694b0f55b51d4d962b5c3dbf0e03d1f019275, method eagle, num_speculative_tokens 3, no draft max_model_len above the target; acceptance with the NVFP4 target is unknown.",
+        "Hold the chat renderer fixed against the FP8 control (export chat_template.jinja differs from the publisher template).",
+        "Startup log must show modelopt_mixed, non-weight-only NVFP4/FP8 kernels and FP8 KV with scales."
+      ],
+      "source_ids": [
+        "mistral-medium-3.5-V033-MODELOPT",
+        "mistral-medium-3.5-V033-IMAGE",
+        "mistral-medium-3.5-NV-NVFP4-API"
+      ],
+      "tested_on_target": false
+    }
+  },
+  {
+    "id": "mistral-medium-3.5.nvfp4.sglang.tp4",
+    "model_key": "mistral-medium-3.5",
+    "variant": "nvfp4",
+    "engine": "sglang",
+    "hf_id": "nvidia/Mistral-Medium-3.5-128B-NVFP4",
+    "engine_args": [
+      "--revision",
+      "b8c66d2098edd8c9c26bde2b2ff41b5967e111ae",
+      "--tp-size",
+      "4",
+      "--kv-cache-dtype",
+      "fp8_e4m3",
+      "--context-length",
+      "32768",
+      "--mem-fraction-static",
+      "0.82",
+      "--max-running-requests",
+      "32",
+      "--tool-call-parser",
+      "mistral",
+      "--reasoning-parser",
+      "mistral",
+      "--served-model-name",
+      "mistral-medium-3.5-nvfp4",
+      "--host",
+      "0.0.0.0",
+      "--port",
+      "8000"
+    ],
+    "gpu_count": 4,
+    "tensor_parallel_size": 4,
+    "data_parallel_size": 1,
+    "context_cap": 32768,
+    "status": "compatibility-probe",
+    "reason": "Expected weight-load failure at v0.5.23 by source reading: Mistral3/Llava/Llama declare no packed_modules_mapping and ModelOptMixedPrecisionConfig._resolve_quant_algo has no fused-name fallback, so qkv_proj/gate_up_proj load as BF16. Unchanged at main 62384de1; no upstream PR found.",
+    "source_ids": [
+      "mistral-medium-3.5-S0523-MODELOPT",
+      "mistral-medium-3.5-S0523-WEIGHT-UTILS",
+      "S0523-LOADER",
+      "S0523-K-MISTRAL",
+      "mistral-medium-3.5-S0523-LLAVA",
+      "mistral-medium-3.5-S0523-LLAMA",
+      "mistral-medium-3.5-SMAIN-MODELOPT",
+      "S0523-IMAGE",
+      "mistral-medium-3.5-NV-NVFP4-CFG"
+    ],
+    "reviewed_source_commit": "297e54fd105e974cdf401e5b4d20253a22c16f90",
+    "model_revision": "b8c66d2098edd8c9c26bde2b2ff41b5967e111ae",
+    "draft_hf_id": null,
+    "draft_revision": null,
+    "tested_on_target": false,
+    "notes": "Atlas-derived probe kept for when a packed_modules_mapping fix exists in a digest-pinned image; do not deploy on lmsysorg/sglang:v0.5.23. Dossier: companies/mistral-ai/mistral-medium-3.5/nvfp4.md.",
+    "reference_scope": "release-specific-comparison",
+    "engine_release": "v0.5.23",
+    "deployment_layer": "KServe required; installed version, resource kind and runtime integration unknown",
+    "reviewed_on": "2026-11-06",
+    "latest_release_recheck": {
+      "checked_on": "2026-11-06",
+      "engine_release": "v0.5.23",
+      "engine_commit": "297e54fd105e974cdf401e5b4d20253a22c16f90",
+      "model_revision_matches_current_head": true,
+      "model_review_field": "nvfp4_b300_review",
+      "argument_array_status": "Derived on 2026-11-06 from v0.5.23 source; expected to fail at weight load; not CLI- or runtime-validated.",
+      "required_reconciliation": [
+        "Needs an image whose SGLang Mistral3 path declares packed_modules_mapping {qkv_proj, gate_up_proj} or whose _resolve_quant_algo has a fused-name fallback; pin it by digest.",
+        "With EAGLE add --speculative-algorithm EAGLE, the pinned draft, 3 steps / topk 1 / 4 draft tokens and --dtype bfloat16.",
+        "Confirm KV scale loading and the FP4 GEMM backend (auto -> flashinfer_cutedsl on SM100-family) in the startup log."
+      ],
+      "source_ids": [
+        "mistral-medium-3.5-S0523-MODELOPT",
+        "mistral-medium-3.5-SMAIN-MODELOPT",
+        "S0523-IMAGE"
+      ],
+      "tested_on_target": false
+    }
+  },
+  {
+    "id": "mistral-large-4.nvfp4.vllm.tp4",
+    "model_key": "mistral-large-4",
+    "variant": "nvfp4",
+    "engine": "vllm",
+    "hf_id": "mistralai/Mistral-Large-4-1T-A52B-NVFP4",
+    "engine_args": [
+      "--revision",
+      "bb6d00fe249b0e876f0cffc6b85014be02de3e68",
+      "--tensor-parallel-size",
+      "4",
+      "--tokenizer-mode",
+      "mistral",
+      "--config-format",
+      "mistral",
+      "--load-format",
+      "mistral",
+      "--max-model-len",
+      "65536",
+      "--max-num-batched-tokens",
+      "8192",
+      "--max-num-seqs",
+      "128",
+      "--gpu-memory-utilization",
+      "0.85",
+      "--kv-cache-dtype",
+      "fp8_ds_mla",
+      "--tool-call-parser",
+      "mistral",
+      "--reasoning-parser",
+      "mistral",
+      "--enable-auto-tool-choice"
+    ],
+    "gpu_count": 4,
+    "tensor_parallel_size": 4,
+    "data_parallel_size": 1,
+    "context_cap": 65536,
+    "status": "compatibility-probe",
+    "reason": "TP4 x 2 replicas alternative. Recipe validates NVFP4 TP4 on one 4-GPU GB300 tray and as the GB300 P/D decode side (1.96M KV tokens, no spec), and documents two TP4 replicas per node only for AMD; no B300 TP4 run published. Header-derived weights ~155.3 GB/GPU target-only (~159.5 GB with replicated draft). Requires vllm/vllm-openai:mistral-large-4 by digest (draft PR #64534).",
+    "source_ids": [
+      "mistral-large-4-VLLM-RECIPE",
+      "mistral-large-4-VLLM-IMAGE",
+      "mistral-large-4-NVFP4-CARD",
+      "mistral-large-4-VLLM-PR64534",
+      "mistral-large-4-VLLM-PR-MODELOPT",
+      "mistral-large-4-VLLM-V033-NVFP4-ORACLE",
+      "mistral-large-4-VLLM-PR-TRTLLM-NVFP4",
+      "mistral-large-4-NVFP4-HEADERS",
+      "V033-REGISTRY"
+    ],
+    "reviewed_source_commit": "development image (draft PR #64534)",
+    "model_revision": "bb6d00fe249b0e876f0cffc6b85014be02de3e68",
+    "draft_hf_id": null,
+    "draft_revision": null,
+    "tested_on_target": false,
+    "notes": "Recipe-derived atlas alternative with an atlas 64K context cap; gpu_count is per replica (two replicas per 8-GPU node). Not a measured optimum. Qualify the exact model, engine image digest and B300 allocation in the separate execution repository.",
+    "reference_scope": "publisher-recipe-transcription",
+    "engine_release": "none (recipe min_vllm_version 0.34.0)",
+    "deployment_layer": "KServe required; installed version, resource kind and runtime integration unknown",
+    "reviewed_on": "2026-11-06",
+    "latest_release_recheck": {
+      "checked_on": "2026-11-06",
+      "engine_release": "none (recipe min_vllm_version 0.34.0)",
+      "engine_commit": "development image vllm/vllm-openai@sha256:83a52c97e78b284d031e98135f17a448789358be31aa246237d6ad0130ef7657 (engine commit unknown; draft PR #64534 head 28a4495d at 2026-11-06T12:45Z)",
+      "model_revision_matches_current_head": true,
+      "model_review_field": "latest_stable_review",
+      "argument_array_status": "Derived on 2026-11-06 from the recipe base_args with --tensor-parallel-size 4; not CLI- or runtime-validated.",
+      "required_reconciliation": [
+        "Set VLLM_ENGINE_READY_TIMEOUT_S=6000; cold starts of 1,300-1,800 s require matching KServe startup probes.",
+        "Expect quantization modelopt_mixed (auto-detected; also present in v0.33.0) and the FLASHINFER_TRTLLM NVFP4 MoE backend on SM103; record the block-FP8 GEMM kernel from the startup log.",
+        "Use Chat Completions; Responses API issues #64793/#64789 open at 2026-11-06T12:54Z.",
+        "DSpark (num_speculative_tokens 3, BF16 embedded draft) is a second step after target-only correctness; vLLM #64855 (indexer on ragged spec-decode steps) is open with unknown applicability.",
+        "Two replicas per node: one engine per 4-GPU group (two InferenceServices or two replicas of 4 GPUs on the same node); ~1.8-1.9M FP8 KV tokens per replica (calculation)."
+      ],
+      "source_ids": [
+        "mistral-large-4-VLLM-RECIPE",
+        "mistral-large-4-VLLM-IMAGE",
+        "mistral-large-4-NVFP4-CARD",
+        "mistral-large-4-VLLM-PR64534",
+        "mistral-large-4-VLLM-PR-MODELOPT",
+        "mistral-large-4-VLLM-ISSUE64855"
+      ],
+      "tested_on_target": false
+    }
+  },
+  {
+    "id": "mistral-large-4.nvfp4.sglang.tp8",
+    "model_key": "mistral-large-4",
+    "variant": "nvfp4",
+    "engine": "sglang",
+    "hf_id": "mistralai/Mistral-Large-4-1T-A52B-NVFP4",
+    "engine_args": [
+      "--revision",
+      "bb6d00fe249b0e876f0cffc6b85014be02de3e68",
+      "--tp-size",
+      "8",
+      "--mem-fraction-static",
+      "0.85",
+      "--context-length",
+      "65536",
+      "--reasoning-parser",
+      "auto",
+      "--tool-call-parser",
+      "auto"
+    ],
+    "gpu_count": 8,
+    "tensor_parallel_size": 8,
+    "data_parallel_size": 1,
+    "context_cap": 65536,
+    "status": "compatibility-probe",
+    "reason": "First SGLang NVFP4 B300 candidate: cookbook B300 NVFP4 high-throughput cell (TP8, target-only), marked 'Not yet verified' (derived from the 4xGB300 NVFP4 recipe). No stable SGLang release supports Mistral Large 4; requires lmsysorg/sglang:mistral-large-4 by digest (open PR #47271). DSPARK with --max-running-requests 64 is the cookbook low-latency second step.",
+    "source_ids": [
+      "mistral-large-4-SGL-CONFIG-SRC",
+      "mistral-large-4-SGL-COOKBOOK-SRC",
+      "mistral-large-4-SGL-IMAGE",
+      "mistral-large-4-SGL-PR47271",
+      "mistral-large-4-NVFP4-CARD",
+      "mistral-large-4-SGL-PR-MODEL-CONFIG",
+      "mistral-large-4-SGL-PR-OVERRIDES",
+      "mistral-large-4-SGL-PR-MODELOPT",
+      "mistral-large-4-NVFP4-HEADERS",
+      "S0523-MODELS-TREE"
+    ],
+    "reviewed_source_commit": "development image (open PR #47271)",
+    "model_revision": "bb6d00fe249b0e876f0cffc6b85014be02de3e68",
+    "draft_hf_id": null,
+    "draft_revision": null,
+    "tested_on_target": false,
+    "notes": "Cookbook transcription with an atlas 64K context cap; not a measured optimum. Qualify the exact model, engine image digest and B300 allocation in the separate execution repository.",
+    "reference_scope": "publisher-recipe-transcription",
+    "engine_release": "none (open PR #47271)",
+    "deployment_layer": "KServe required; installed version, resource kind and runtime integration unknown",
+    "reviewed_on": "2026-11-06",
+    "latest_release_recheck": {
+      "checked_on": "2026-11-06",
+      "engine_release": "none (open PR #47271)",
+      "engine_commit": "development image lmsysorg/sglang@sha256:6c9e19a08f30ef8472f3c2ae2d01de99b452cf1fed77f720cd3b6fec61625770 (engine commit unknown; PR #47271 head eb80b0b6 at 2026-11-06T12:45Z)",
+      "model_revision_matches_current_head": true,
+      "model_review_field": "latest_stable_review",
+      "argument_array_status": "Transcribed on 2026-11-06 from the cookbook command matrix at SGLang main 62384de1 (byte-identical to 80eedfaf); not CLI- or runtime-validated.",
+      "required_reconciliation": [
+        "Expect quantization modelopt_mixed (auto-detected; also present in v0.5.23), moe_runner_backend flashinfer_trtllm (DeepSeek-family SM100 override, SM103 included) and the dsa attention backend.",
+        "Set --port 8000 and replace the container command under KServe (the v0.21.0 LLM template launches vLLM).",
+        "Do not pass --enable-kv-cache-sharding or draft path/length flags; reasoning_effort none returns HTTP 400."
+      ],
+      "source_ids": [
+        "mistral-large-4-SGL-CONFIG-SRC",
+        "mistral-large-4-SGL-IMAGE",
+        "mistral-large-4-SGL-PR47271",
+        "mistral-large-4-SGL-PR-OVERRIDES"
+      ],
+      "tested_on_target": false
+    }
+  },
+  {
+    "id": "mistral-large-4.nvfp4.sglang.tp4",
+    "model_key": "mistral-large-4",
+    "variant": "nvfp4",
+    "engine": "sglang",
+    "hf_id": "mistralai/Mistral-Large-4-1T-A52B-NVFP4",
+    "engine_args": [
+      "--revision",
+      "bb6d00fe249b0e876f0cffc6b85014be02de3e68",
+      "--tp-size",
+      "4",
+      "--mem-fraction-static",
+      "0.85",
+      "--speculative-algorithm",
+      "DSPARK",
+      "--max-running-requests",
+      "64",
+      "--reasoning-parser",
+      "auto",
+      "--tool-call-parser",
+      "auto",
+      "--context-length",
+      "65536"
+    ],
+    "gpu_count": 4,
+    "tensor_parallel_size": 4,
+    "data_parallel_size": 1,
+    "context_cap": 65536,
+    "status": "compatibility-probe",
+    "reason": "Publisher NVFP4 card SGLang command ('example tensor-parallel size for a Blackwell node'); TP4 x 2 replicas per node. Cookbook verifies NVFP4 TP4 only on 4xGB300 and one Vera Rubin tray and hides TP4 for B300 ('The TP4 command on 4x B300 has not been validated here'). Header-derived weights ~155.3 GB/GPU (SGLang reports 145.8, consistent if GiB). Requires lmsysorg/sglang:mistral-large-4 by digest (open PR #47271).",
+    "source_ids": [
+      "mistral-large-4-SGL-CONFIG-SRC",
+      "mistral-large-4-SGL-COOKBOOK-SRC",
+      "mistral-large-4-SGL-IMAGE",
+      "mistral-large-4-SGL-PR47271",
+      "mistral-large-4-NVFP4-CARD",
+      "mistral-large-4-SGL-PR-MODEL-CONFIG",
+      "mistral-large-4-SGL-PR-OVERRIDES",
+      "mistral-large-4-SGL-PR-MODELOPT",
+      "mistral-large-4-NVFP4-HEADERS",
+      "S0523-MODELS-TREE"
+    ],
+    "reviewed_source_commit": "development image (open PR #47271)",
+    "model_revision": "bb6d00fe249b0e876f0cffc6b85014be02de3e68",
+    "draft_hf_id": null,
+    "draft_revision": null,
+    "tested_on_target": false,
+    "notes": "Publisher card transcription with an atlas 64K context cap; DSpark draft is embedded in the same snapshot (draft_hf_id null). gpu_count is per replica. Not a measured optimum. Qualify in the separate execution repository.",
+    "reference_scope": "publisher-recipe-transcription",
+    "engine_release": "none (open PR #47271)",
+    "deployment_layer": "KServe required; installed version, resource kind and runtime integration unknown",
+    "reviewed_on": "2026-11-06",
+    "latest_release_recheck": {
+      "checked_on": "2026-11-06",
+      "engine_release": "none (open PR #47271)",
+      "engine_commit": "development image lmsysorg/sglang@sha256:6c9e19a08f30ef8472f3c2ae2d01de99b452cf1fed77f720cd3b6fec61625770 (engine commit unknown; PR #47271 head eb80b0b6 at 2026-11-06T12:45Z)",
+      "model_revision_matches_current_head": true,
+      "model_review_field": "latest_stable_review",
+      "argument_array_status": "Transcribed on 2026-11-06 from the pinned NVFP4 publisher card SGLang command (TP4, DSPARK, max-running-requests 64, mem 0.85) plus atlas revision/context cap; equals the cookbook 4xGB300 NVFP4 low-latency cell; not CLI- or runtime-validated.",
+      "required_reconciliation": [
+        "Expect quantization modelopt_mixed (auto-detected; also present in v0.5.23), moe_runner_backend flashinfer_trtllm (DeepSeek-family SM100 override, SM103 included) and the dsa attention backend.",
+        "Set --port 8000 and replace the container command under KServe (the v0.21.0 LLM template launches vLLM).",
+        "Do not pass --enable-kv-cache-sharding or draft path/length flags; reasoning_effort none returns HTTP 400.",
+        "Run target-only first (drop --speculative-algorithm DSPARK), then DSPARK; keep --max-running-requests <= 48 for long-context traffic.",
+        "Two replicas per node: one engine per 4-GPU group; ~1.8-1.9M FP8 KV tokens per replica (calculation)."
+      ],
+      "source_ids": [
+        "mistral-large-4-NVFP4-CARD",
+        "mistral-large-4-SGL-CONFIG-SRC",
+        "mistral-large-4-SGL-IMAGE",
+        "mistral-large-4-SGL-PR47271"
       ],
       "tested_on_target": false
     }

@@ -1,6 +1,6 @@
 # Kimi K3
 
-**Latest scoped recheck: October 26, 2026 (UTC).** Stable references remain **vLLM v0.32.0** and **SGLang v0.5.22**, under required KServe (upstream v0.21.0; installed version unknown). All concrete catalog variants still match their retained revisions. Current publisher cards/configurations and selected engine restrictions were rechecked; no B300 execution was performed. See [current serving assessment](serving.md#october-26-stable-release-recheck) and [Hugging Face README snapshots](#hugging-face-readme-snapshots).
+**Latest scoped recheck: November 6, 2026 (UTC).** Latest stable releases are **vLLM v0.33.0** and **SGLang v0.5.23**, under required KServe (upstream v0.21.0 unchanged; installed version unknown). November 6 Hub head recheck: 2 of 2 concrete variants (native `moonshotai/Kimi-K3`, NVIDIA `nvidia/Kimi-K3-NVFP4`) equal retained pins; the catalog `fp8` entry is a placeholder with no Hub artifact and was not checked (README/configuration not re-downloaded). Release notes, selected source and publisher recipes were reviewed at the release commits; no B300 execution was performed. See the [November 6 release update](serving.md#november-6-stable-releases-vllm-v0330-and-sglang-v0523), the retained [October 26 recheck](serving.md#october-26-stable-release-recheck) and [Hugging Face README snapshots](#hugging-face-readme-snapshots).
 
 **Reverified 2026-10-16 (UTC).** Publisher reports 2.8T total / 104B active; hybrid KDA + gated MLA; latent MoE. The current publisher and NVIDIA repository heads still match the retained immutable revisions. [Publisher identity](https://huggingface.co/api/models/moonshotai/Kimi-K3), [NVIDIA identity](https://huggingface.co/api/models/nvidia/Kimi-K3-NVFP4).
 
@@ -26,6 +26,7 @@ KDA layers maintain recurrent state, gated MLA layers retain compressed token hi
 | Base revision pin | `f831ab66814297da540d832a5235f8e904f29d06` |
 | License scope | Kimi K3 License; pinned file reviewed |
 | Verification level | Immutable publisher card/config/license retrieved; no local GPU load or benchmark |
+| AA Intelligence Index v5.0.1 (third-party) | low: 17.419 (v5.0 17.419); max: null (v5.0 null). Null means incomplete AA coverage. The highest published variant is Low; AA publishes no Max composite, and no captured AA page carries a Kimi K3 release-level index. AA marks the release deprecated (successor `kimi-k3-1-pro`). [Kimi K3.1 Pro](../kimi-k3.1-pro/README.md) is a separate catalog family (46.453 in v5.0.1); its score is not substituted. Not reproduced; not tied to this revision or any export. [Details](../../../reports/intelligence-index.md) [AA-MODEL-KIMI-K3](https://artificialanalysis.ai/models/kimi-k3) [AA-MODEL-KIMI-K3-LOW](https://artificialanalysis.ai/models/kimi-k3-low) |
 
 
 The positional limit is not a promise of that many usable tokens under arbitrary batching, image load or cache precision. [kimi-k3-CARD](https://huggingface.co/moonshotai/Kimi-K3/blob/f831ab66814297da540d832a5235f8e904f29d06/README.md) [kimi-k3-CFG](https://huggingface.co/moonshotai/Kimi-K3/raw/f831ab66814297da540d832a5235f8e904f29d06/config.json)

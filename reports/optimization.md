@@ -1,8 +1,10 @@
 # Optimization on one 8×B300 node
 
+**November 6, 2026 note:** the current stable pair is **vLLM v0.33.0 versus SGLang v0.5.23**, deployed through KServe (upstream v0.21.0 unchanged; installed version unknown). Release-level changes and per-family elements are in the [vLLM v0.33.0](vllm-v033-upgrade.md) and [SGLang v0.5.23](sglang-v0523-upgrade.md) reviews; identities are in the [November 6 channel observation](nightly-readiness.md#november-6-release-and-channel-observation). The October 26 priorities below retain their v0.32.0 / v0.5.22 scope and were not re-derived against the new releases. They cover the eight October families; Kimi K3.1 Pro, DeepSeek V4.1 Flash 1017, Mistral Large 4 and Muse Glimmer 30B have November 6 `optimization_review` records in the [model catalog](../catalog/models.json) and their own serving pages (serving and optimization on B300), not here.
+
 ## October 26 priorities
 
-The current stable comparison is **vLLM v0.32.0 versus SGLang v0.5.22, deployed through KServe**. KServe v0.21.0 is the upstream reference; the installed controller, resource kind and runtime remain unknown. Release APIs, development branches and wheel indexes were checked again for this optimization follow-up. [Current identities](nightly-readiness.md#october-26-catalog-wide-recheck).
+At that date the stable comparison was **vLLM v0.32.0 versus SGLang v0.5.22, deployed through KServe**. KServe v0.21.0 is the upstream reference; the installed controller, resource kind and runtime remain unknown. Release APIs, development branches and wheel indexes were checked again for this optimization follow-up. [Identities at that date](nightly-readiness.md#october-26-catalog-wide-recheck).
 
 The first improvement is a trustworthy quality/latency baseline for the exact artifact. Next compare weight/cache precision, valid replica placement and speculation separately. Development changes below follow those controls; an open PR is an unmerged experiment, and a main-branch merge does not prove inclusion in an advertised nightly image. Each family has a matching `optimization_review` in the [model catalog](../catalog/models.json). Historical configurations retain their own release scope.
 

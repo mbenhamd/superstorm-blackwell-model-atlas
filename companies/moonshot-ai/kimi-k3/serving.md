@@ -1,5 +1,15 @@
 # Kimi K3: serving and optimization on B300
 
+## November 6 stable releases: vLLM v0.33.0 and SGLang v0.5.23
+
+The latest stable releases are vLLM v0.33.0 (commit `4ba787ec9959e566d3b587a796dff07673324da5`; the GitHub release object carries tag name `v0.33.0rc3`) and SGLang v0.5.23 (commit `297e54fd105e974cdf401e5b4d20253a22c16f90`). KServe upstream v0.21.0 is unchanged; the installed version remains unknown. This review covers release notes, selected source and publisher recipes at the release commits. No image or B300 workload was executed, and every performance figure quoted is an upstream claim. Full reviews: [vLLM v0.33.0](../../../reports/vllm-v033-upgrade.md), [SGLang v0.5.23](../../../reports/sglang-v0523-upgrade.md).
+
+**Identity.** November 6 Hub head recheck: 2 of 2 concrete variants (native `moonshotai/Kimi-K3`, NVIDIA `nvidia/Kimi-K3-NVFP4`) equal retained pins; the catalog `fp8` entry is a placeholder with no Hub artifact and was not checked (README/configuration not re-downloaded).
+
+**vLLM v0.33.0.** Release adds KDA RecoverSSM CuTe verify/commit kernels on SM10x and moves verify records out of the KV cache so KV connectors work (#63045). `--mamba-cache-mode` is deprecated with no effect (#60043): remove it rather than treat it as a control. The GB300 specialized decode (#61867) gate was not inspected for B300. Images are CUDA 13.0 only. [V033-RELEASE](https://api.github.com/repos/vllm-project/vllm/releases/tags/v0.33.0rc3)
+
+**SGLang v0.5.23.** Unified-cache external linker for FULL + MAMBA MLA models (#44977) and image cache identity (#43043). Kimi/KDA items #46464 and #46465 are SM107-only and do not apply to SM103. The release note does not tie its generic ModelOpt NVFP4 MoE fixes (#45289 replacing #44858; TRT-LLM clamps #45386; routing scale #44901, #44904) to Kimi K3; upstream validation used Qwen3-30B-A3B-NVFP4, `nvidia/GLM-5.3-Flash-NVFP4` and DeepSeek-V4/V4.1 routing. Their effect on `nvidia/Kimi-K3-NVFP4` (`modelopt_mixed`) is an inference that depends on the resolved MoE runner and all-to-all path: rerun correctness before throughput. [S0523-RELEASE](https://api.github.com/repos/sgl-project/sglang/releases/tags/v0.5.23), [S0523-PR45289](https://api.github.com/repos/sgl-project/sglang/pulls/45289), [S0523-PR45386](https://api.github.com/repos/sgl-project/sglang/pulls/45386), [S0523-PR44901](https://api.github.com/repos/sgl-project/sglang/pulls/44901), [S0523-PR44904](https://api.github.com/repos/sgl-project/sglang/pulls/44904)
+
 ## October 26 stable release recheck
 
 The latest stable releases are unchanged: vLLM v0.32.0 and SGLang v0.5.22. This selected-source recheck retains the exact model/export revisions and the existing KServe requirement. It does not requalify historical launch arrays or an installed image.

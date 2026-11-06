@@ -1,5 +1,7 @@
 # Precision, serialization and kernels
 
+**November 6, 2026 scope note:** the family-specific analysis in this report predates the four families added on November 6 and covers only the eight October families. Kimi K3.1 Pro, DeepSeek V4.1 Flash 1017, Mistral Large 4 and Muse Glimmer 30B are analysed in their own family pages (architecture, precision, serving) and catalog records, not here.
+
 **NVFP4 evidence refreshed October 16, 2026 UTC.** Numeric definitions, selected released vLLM source and a separate main snapshot were inspected. The equations and byte ratios below are calculations; this atlas contains no reproduced inference, throughput or quality results.
 
 ## A precision name is not a deployment contract

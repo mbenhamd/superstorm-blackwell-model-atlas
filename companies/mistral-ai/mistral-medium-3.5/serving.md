@@ -1,5 +1,33 @@
 # Mistral Medium 3.5: serving and optimization on B300
 
+## November 6 stable releases: vLLM v0.33.0 and SGLang v0.5.23
+
+The latest stable releases are vLLM v0.33.0 (commit `4ba787ec9959e566d3b587a796dff07673324da5`; the GitHub release object carries tag name `v0.33.0rc3`) and SGLang v0.5.23 (commit `297e54fd105e974cdf401e5b4d20253a22c16f90`). KServe upstream v0.21.0 is unchanged; the installed version remains unknown. This review covers release notes, selected source and publisher recipes at the release commits. No image or B300 workload was executed, and every performance figure quoted is an upstream claim. Full reviews: [vLLM v0.33.0](../../../reports/vllm-v033-upgrade.md), [SGLang v0.5.23](../../../reports/sglang-v0523-upgrade.md).
+
+**Identity.** November 6: target and EAGLE heads equal retained pins; README, config, params, LICENSE and EAGLE card/params byte-identical. The NVIDIA NVFP4 export is promoted to catalog variant `nvfp4` (source review only; see [NVFP4 on B300](#november-6-nvfp4-variant-on-b300-vllm-v0330-and-sglang-v0523)).
+
+**vLLM v0.33.0.** `mistral_eagle.py` is byte-identical to v0.32.0 and recipe flags are unchanged. Lookahead block hashes on by default (#61589) change the EAGLE prefix-cache baseline. Pixtral real-valued RoPE under compile (#63145) affects image traffic only. [V033-RELEASE](https://api.github.com/repos/vllm-project/vllm/releases/tags/v0.33.0rc3)
+
+**SGLang v0.5.23.** v0.5.23 contains the Mistral3 Llava-subclass wrapper fix `4542fc8f`; processor fix #45868 remains open and `mistral_eagle.py` is unchanged. [S0523-RELEASE](https://api.github.com/repos/sgl-project/sglang/releases/tags/v0.5.23), [O26-MISTRAL-WRAPPER-IN-0523](https://api.github.com/repos/sgl-project/sglang/compare/4542fc8f598e55d90f655de482b1b5cdf7c6228f...v0.5.23?per_page=1), [S0523-K-MISTRAL](https://raw.githubusercontent.com/sgl-project/sglang/297e54fd105e974cdf401e5b4d20253a22c16f90/python/sglang/srt/models/mistral.py)
+
+## November 6: NVFP4 variant on B300 (vLLM v0.33.0 and SGLang v0.5.23)
+
+Artifact `nvidia/Mistral-Medium-3.5-128B-NVFP4` @ `b8c66d2098edd8c9c26bde2b2ff41b5967e111ae` (ModelOpt mixed NVFP4/FP8; 95,224,812,960 serialized bytes). The full evidence, memory tables, launch commands, KServe settings and qualification plan are in the [NVFP4 dossier](nvfp4.md); this section states the decision and its constraints. Source inspection only; nothing was executed.
+
+| | vLLM v0.33.0 | SGLang v0.5.23 |
+| --- | --- | --- |
+| Load path | `Mistral3ForConditionalGeneration` + `modelopt_mixed` (auto); fused `qkv_proj`/`gate_up_proj` resolved from shard entries | `modelopt_mixed` (auto), but fused `qkv_proj`/`gate_up_proj` are not resolved (no `packed_modules_mapping` on the Mistral3/Llava/Llama classes, no fallback) → expected weight-load failure; unchanged at main `62384de1` |
+| Status | candidate (TP4 ×2), alternative TP2 ×4 | compatibility probe pending an upstream fix in a digest-pinned image |
+| Catalog | `mistral-medium-3.5.nvfp4.vllm.tp4`, `mistral-medium-3.5.nvfp4.vllm.tp2` | `mistral-medium-3.5.nvfp4.sglang.tp4` |
+
+**Mechanism → implementation.** NVFP4 W4A4 replaces the FP8 MLP GEMMs of layers 4–86 (the bulk of weight bytes); attention and edge-layer MLPs stay static per-tensor FP8; KV is FP8 with calibrated scales. On SM103, vLLM's first NVFP4 linear kernel is FlashInfer CuTe-DSL and its first per-tensor FP8 kernel is FlashInfer scaled-mm; the actual selection depends on the FlashInfer build in the image.
+
+**Constraints.** Use `--tokenizer-mode hf` (the `mistral` path crashes on HF-format Mistral3; PR #45525 open); never `--config-format mistral` (`params.json` is the publisher's FP8 file); leave `--config-format` at `auto` when adding EAGLE because the draft inherits it. Hold the chat renderer fixed in any FP8-vs-NVFP4 comparison: the export's `chat_template.jinja` has an empty default system message, unlike the publisher template.
+
+**Optimization rationale.** Weight bytes per GPU fall from 33.40 GB to 23.81 GB at TP4 and from 66.80 GB to 47.61 GB at TP2 (even shard). At TP4–TP8 this adds only ≈2–5% KV room over the FP8 control; at TP2 ≈11% and at TP1 ≈35%. The expected gains are therefore (a) narrower layouts with more replicas per node and (b) lower per-token MLP weight traffic during decode — the latter is a hypothesis to measure, not an evidenced speedup.
+
+**Evidence and its limits.** Exporter validation is vLLM v0.21.0 at TP4 on B200; its seven-task accuracy table is not reproduced and lacks repeat counts. The EAGLE draft is trained against the FP8 target; acceptance with NVFP4 is unknown. Licence metadata (`nvidia-open-model-license`) conflicts with the card body (Mistral Modified MIT). Runtime memory, kernels, quality and latency on B300 are unmeasured.
+
 ## October 26 stable release recheck
 
 The latest stable releases are unchanged: vLLM v0.32.0 and SGLang v0.5.22. This selected-source recheck retains the exact model/export revisions and the existing KServe requirement. It does not requalify historical launch arrays or an installed image.
@@ -86,4 +114,4 @@ After the TP8 correctness baseline, measure TP1 if it fits the workload, TP2, TP
 
 ## Remaining uncertainty
 
-Installed-image and B300 compatibility at the pinned corrected revision; runtime memory beyond the reported weight payload; maximum safe concurrency and best TP width; no audited NVFP4 variant. SGLang support is documented upstream, but has not been run locally.
+Installed-image and B300 compatibility at the pinned corrected revision; runtime memory beyond the reported weight payload; maximum safe concurrency and best TP width; the NVIDIA mixed NVFP4/FP8 export (catalog variant `nvfp4`) is source-reviewed only: vLLM v0.33.0 loads it by source reading, SGLang v0.5.23 is expected to fail at weight load, EAGLE acceptance with it is unknown and the exporter validation is vLLM v0.21.0/B200 ([dossier](nvfp4.md#14-open-gaps-and-the-evidence-that-would-close-them)). SGLang support for the FP8 publisher artifact is documented upstream, but has not been run locally.

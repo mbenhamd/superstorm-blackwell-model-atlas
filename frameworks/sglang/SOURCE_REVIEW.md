@@ -1,6 +1,16 @@
 # SGLang: source review and upgrade candidates
 
-**October 26 scoped recheck:** v0.5.22 is still the latest stable release, with unchanged tag commit and advertised stable-image digest. Selected model overrides and backend restrictions were reread. GLM flagship FP8/DCP8 remains excluded pending a verified correction; Flash Next complete prefill CP remains outside the release; Gemma FA4 SM90 evidence does not qualify B300. [Current source and channel scope](../../reports/nightly-readiness.md#october-26-catalog-wide-recheck).
+## November 6: v0.5.23 is the current stable release
+
+**November 6, 2026 (UTC).** SGLang **v0.5.23** is the latest stable release: published 2026-11-02T22:14:10Z, `prerelease=false`; annotated tag object `7df5dd09bc2f0e7e1509a1f7c2a40dff00ad8a01` resolves to commit `297e54fd105e974cdf401e5b4d20253a22c16f90`. `lmsysorg/sglang:v0.5.23` is index `sha256:f832b5c39559c9caa900b22ad37c76fcce66470676855c42052102c537812f1f`, and `:latest` resolved to the same digest on November 6 (registry metadata only). The [v0.5.23 B300 upgrade review](../../reports/sglang-v0523-upgrade.md) compares it with v0.5.22 for the twelve catalog families. No image, engine or B300 workload was executed. The v0.5.22 and older sections below are historical. [S0523-RELEASE](https://api.github.com/repos/sgl-project/sglang/releases/tags/v0.5.23), [S0523-TAG](https://api.github.com/repos/sgl-project/sglang/git/tags/7df5dd09bc2f0e7e1509a1f7c2a40dff00ad8a01), [S0523-IMAGE](https://hub.docker.com/v2/repositories/lmsysorg/sglang/tags/v0.5.23).
+
+Key boundaries: DeepSeek V4.1 decoder SWA bounded replay is on by default only for supported configurations, so confirm the resolved value from the startup log; DeepSeek chat moves to `deepseek-recipe` rendering; the GLM 5.3 FP8 DCP8 exclusion remains; ModelOpt NVFP4 MoE fixes are cross-family and do not cover compressed-tensors exports; the DeepSeek V4.1 and Muse Glimmer cookbooks still point to preview images (`dev-dsv41`, `dev-muse-glimmer`) that predate the releases containing support.
+
+## October 26 scoped recheck
+
+**November 6 scoped recheck:** v0.5.23 (release commit `297e54f`) is the latest stable release. Release-level changes, migration items and per-family elements are in the [SGLang v0.5.23 review](../../reports/sglang-v0523-upgrade.md); each family's `latest_stable_review` now records the v0.5.23 assessment, and the October 26 result is in `prior_stable_reviews`. [November 6 channel observation](../../reports/nightly-readiness.md#november-6-release-and-channel-observation).
+
+**October 26 scoped recheck (historical):** v0.5.22 was then still the latest stable release, with unchanged tag commit and advertised stable-image digest. Selected model overrides and backend restrictions were reread. GLM flagship FP8/DCP8 remains excluded pending a verified correction; Flash Next complete prefill CP remains outside the release; Gemma FA4 SM90 evidence does not qualify B300. [Current source and channel scope](../../reports/nightly-readiness.md#october-26-catalog-wide-recheck).
 
 ## October 19: v0.5.22 release comparison
 

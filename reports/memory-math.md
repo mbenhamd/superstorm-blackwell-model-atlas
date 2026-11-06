@@ -1,5 +1,7 @@
 # Memory mathematics, with boundaries
 
+**November 6, 2026 scope note:** the family-specific analysis in this report predates the four families added on November 6 and covers only the eight October families. Kimi K3.1 Pro, DeepSeek V4.1 Flash 1017, Mistral Large 4 and Muse Glimmer 30B are analysed in their own family pages (architecture, precision, serving) and catalog records, not here.
+
 ## Uniform weight payload illustrations
 
 For `P` parameters represented uniformly at `b` bits, the ideal payload is `P × b / 8` bytes. These columns exclude scales, alignment, mixed precision, any modules outside the stated count, and runtime memory. Rounded publisher headlines are approximate accounting inputs, not exact tensor counts or strict memory lower bounds. All table sizes use decimal GB.

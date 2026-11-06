@@ -1,0 +1,2916 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-11-06",
+  "date_basis": "UTC. Live Artificial Analysis pages report Intelligence Index v5.0.1: leaderboard, methodology, homepage and release model pages retrieved 2026-11-06 07:50-08:34Z; per-variant model pages (/models/<variant-slug>) retrieved 2026-11-06 12:32-12:33Z. Each source entry in evidence/sources.json records its own retrieved_at and response_sha256. v5.0 values are read from Internet Archive captures taken 2026-10-29 to 2026-11-03 that label the index v5.0.",
+  "evidence_label": "Third-party benchmark published by Artificial Analysis. Extracted from page data; not reproduced, not a B300 measurement and not tied to a catalog revision or export.",
+  "index": {
+    "name": "Artificial Analysis Intelligence Index",
+    "publisher": "Artificial Analysis",
+    "scale": "0-100 weighted average; AA leaderboards display integer-rounded values",
+    "versions": {
+      "v4.3.2": {
+        "status": "superseded",
+        "last_observed_snapshot_utc": "2026-10-28T01:03:49Z",
+        "source_id": "AA-WB-II-20261028"
+      },
+      "v5.0": {
+        "effective": "October 2026 to November 2026 per AA version history; AA changelog dates the v5.0 methodology update and v5 announcement 2026-10-27. Last archived capture labelled v4.3.2 is 2026-10-28T01:03:49Z; first labelled v5.0 is 2026-10-29T01:01:15Z; latest labelled v5.0 used here is 2026-11-03T19:33:41Z.",
+        "changes_from_v4_3_2": [
+          "Added HLE-Diamond (10%), Terminal-Bench-Science 0.1 (15%) and FrontierCode 2.0 (15%)",
+          "GDP.pdf weight reduced from 10% to 5%",
+          "CritPt replaced by CritPt v2 (Hard Subset) at 10%",
+          "Removed GDPval-AA, SciCode, AA-LCR and Humanity's Last Exam",
+          "AA-Omniscience upgraded to v1.1",
+          "Category weights rebalanced to Knowledge Work, Coding, Science and General at 25% each"
+        ],
+        "source_ids": [
+          "AA-II-METHOD",
+          "AA-HOME",
+          "AA-WB-II-20261028",
+          "AA-WB-II-20261029",
+          "AA-WB-II-20261101",
+          "AA-WB-MODEL-GEMINI-4-CARBON-20261103"
+        ],
+        "archived_capture_source_ids": [
+          "AA-WB-II-20261029",
+          "AA-WB-II-20261030",
+          "AA-WB-II-20261031",
+          "AA-WB-II-20261101",
+          "AA-WB-MODEL-CLAUDE-FABLE-5-1-20261103125312",
+          "AA-WB-MODEL-CLAUDE-OPUS-5-5-20261103125537",
+          "AA-WB-MODEL-CLAUDE-SONNET-5-5-20261103125351",
+          "AA-WB-MODEL-GEMINI-4-ARGON-20261030002113",
+          "AA-WB-MODEL-GEMINI-4-CARBON-20261029025114",
+          "AA-WB-MODEL-GEMINI-4-CARBON-20261029075948",
+          "AA-WB-MODEL-GEMINI-4-CARBON-20261029145906",
+          "AA-WB-MODEL-GEMINI-4-CARBON-20261030002019",
+          "AA-WB-MODEL-GEMINI-4-CARBON-20261101",
+          "AA-WB-MODEL-GEMINI-4-CARBON-20261102133624",
+          "AA-WB-MODEL-GEMINI-4-CARBON-20261103",
+          "AA-WB-MODEL-GEMMA-4-31B-20261030094323",
+          "AA-WB-MODEL-GLM-5-3-20261103193004",
+          "AA-WB-MODEL-GLM-5-3-FLASH-20261029131341",
+          "AA-WB-MODEL-GLM-5-3-FLASH-20261030084945",
+          "AA-WB-MODEL-GPT-6-ASTRA-20261102133622",
+          "AA-WB-MODEL-QWEN3-8-27B-20261029130832",
+          "AA-WB-MODEL-QWEN3-8-27B-20261103125658",
+          "AA-WB-MODEL-QWEN3-8-FLASH-NEXT-20261029131610"
+        ]
+      },
+      "v5.0.1": {
+        "effective": "AA changelog dates the v5.0.1 methodology update 2026-11-03; the latest v5.0-labelled capture (2026-11-03T19:33:41Z) shows rollout after that time. Observed live on 2026-11-06.",
+        "changes_from_v5_0": [
+          "CritPt v2 regraded for all models with grading-robustness improvements from the CritPt authors; weights and components unchanged"
+        ],
+        "source_ids": [
+          "AA-II-METHOD",
+          "AA-HOME",
+          "AA-II-LEADERBOARD"
+        ]
+      }
+    },
+    "components": [
+      {
+        "category": "Knowledge Work",
+        "evaluation": "AA-Briefcase v1.1",
+        "weight": 0.15,
+        "aa_data_field": "briefcase_elo",
+        "scoring": "Combined Elo; index uses clamp((Elo - 500) / 2000) on the Elo frozen at model addition"
+      },
+      {
+        "category": "Knowledge Work",
+        "evaluation": "AutomationBench-AA",
+        "weight": 0.05,
+        "aa_data_field": "automationBenchPartialScore",
+        "scoring": "Objective completion; zero credit on guardrail violation"
+      },
+      {
+        "category": "Knowledge Work",
+        "evaluation": "GDP.pdf",
+        "weight": 0.05,
+        "aa_data_field": "gdpPdfAllPass",
+        "scoring": "All-pass over 100 tasks x 5 repeats"
+      },
+      {
+        "category": "Coding",
+        "evaluation": "FrontierCode 2.0",
+        "weight": 0.15,
+        "aa_data_field": "frontierCode20",
+        "scoring": "Tests plus LLM-judge rubric; any blocking check scores zero"
+      },
+      {
+        "category": "Coding",
+        "evaluation": "Terminal-Bench 4.0",
+        "weight": 0.1,
+        "aa_data_field": "terminalBench40",
+        "scoring": "Test-suite pass@1, 66 tasks x 3"
+      },
+      {
+        "category": "Science",
+        "evaluation": "Terminal-Bench-Science 0.1",
+        "weight": 0.15,
+        "aa_data_field": "terminalBenchScience",
+        "scoring": "Test-suite pass@1, 70 tasks x 3"
+      },
+      {
+        "category": "Science",
+        "evaluation": "CritPt v2 (Hard Subset)",
+        "weight": 0.1,
+        "aa_data_field": "critptAgenticHard",
+        "scoring": "Official grading server, pass@1, 40 problems x 5; regraded in v5.0.1"
+      },
+      {
+        "category": "General",
+        "evaluation": "AA-Omniscience v1.1 accuracy",
+        "weight": 0.1,
+        "aa_data_field": "omniscienceAccuracy",
+        "scoring": "Proportion correct"
+      },
+      {
+        "category": "General",
+        "evaluation": "AA-Omniscience v1.1 non-hallucination",
+        "weight": 0.05,
+        "aa_data_field": "omniscienceHallucinationRate",
+        "scoring": "Index uses 1 - hallucination rate"
+      },
+      {
+        "category": "General",
+        "evaluation": "HLE-Diamond",
+        "weight": 0.1,
+        "aa_data_field": "hleDiamond",
+        "scoring": "Equality-checker LLM, pass@1, 1,000 questions"
+      }
+    ],
+    "composite_rule": "Index = 100 x sum(weight x normalized component). AA does not publish a composite for a variant missing any component.",
+    "testing_parameters": "Temperature 0 for non-reasoning and 0.6 for reasoning models unless the lab recommends otherwise; reasoning models use the creator-disclosed maximum output tokens; pass@1 scoring; effort variants are separate entries.",
+    "source_ids": [
+      "AA-II-METHOD"
+    ]
+  },
+  "verification": {
+    "v5_0_to_v5_0_1_delta": "For every variant observed in both versions, index(v5.0.1) - index(v5.0) equals 10 x (CritPt v2 Hard score change) to rounding, consistent with the documented CritPt-only regrade.",
+    "reconstruction": "Recomputing each published v5.0.1 index from the ten component values, documented weights and Briefcase normalization reproduces it within 0.173 points. The residual is consistent with AA using the Briefcase Elo frozen at model addition while pages display the current Elo; the frozen Elo is not published.",
+    "archived_consistency": "Across 19 archived model-page captures (2026-10-29T02:51:14Z to 2026-11-03T19:33:41Z) and 4 leaderboard captures (2026-10-29T01:01:15Z to 2026-11-01T01:04:03Z) labelled v5.0, no target variant record shows two different non-null values under the same AA record name. The only slug carrying two record names is mistral-large-4 (Mistral Large 4 Preview, then Mistral Large 4 (High)); see that release's aa_slug_history. glm-5-3-flash, kimi-k3-low, qwen3-8-27b-low and qwen3-8-27b-medium were null in captures up to 2026-10-29T14:59:06Z and published from 2026-10-30T00:20:19Z; qwen3-8-27b-non-reasoning first appears with a value at 2026-11-01T18:03:13Z.",
+    "archived_consistency_source_ids": [
+      "AA-WB-II-20261029",
+      "AA-WB-II-20261030",
+      "AA-WB-II-20261031",
+      "AA-WB-II-20261101",
+      "AA-WB-MODEL-CLAUDE-FABLE-5-1-20261103125312",
+      "AA-WB-MODEL-CLAUDE-OPUS-5-5-20261103125537",
+      "AA-WB-MODEL-CLAUDE-SONNET-5-5-20261103125351",
+      "AA-WB-MODEL-GEMINI-4-ARGON-20261030002113",
+      "AA-WB-MODEL-GEMINI-4-CARBON-20261029025114",
+      "AA-WB-MODEL-GEMINI-4-CARBON-20261029075948",
+      "AA-WB-MODEL-GEMINI-4-CARBON-20261029145906",
+      "AA-WB-MODEL-GEMINI-4-CARBON-20261030002019",
+      "AA-WB-MODEL-GEMINI-4-CARBON-20261101",
+      "AA-WB-MODEL-GEMINI-4-CARBON-20261102133624",
+      "AA-WB-MODEL-GEMINI-4-CARBON-20261103",
+      "AA-WB-MODEL-GEMMA-4-31B-20261030094323",
+      "AA-WB-MODEL-GLM-5-3-20261103193004",
+      "AA-WB-MODEL-GLM-5-3-FLASH-20261029131341",
+      "AA-WB-MODEL-GLM-5-3-FLASH-20261030084945",
+      "AA-WB-MODEL-GPT-6-ASTRA-20261102133622",
+      "AA-WB-MODEL-QWEN3-8-27B-20261029130832",
+      "AA-WB-MODEL-QWEN3-8-27B-20261103125658",
+      "AA-WB-MODEL-QWEN3-8-FLASH-NEXT-20261029131610"
+    ],
+    "release_level_objects": "The glm-5-3 release-page capture embeds a release-level summary object for Claude Fable 5.1 (modelCount 5) whose intelligenceIndex 50.022 equals the Xhigh variant, not the Max variant (49.160). No captured page embeds a Kimi K3 release-level object carrying an index; the deprecated Kimi K3 release object has only slug, name, deprecation and release date. The Kimi K3 highest_published_variant (Low, 17.419) is computed here as the maximum over published variants; it is not an AA-published release figure.",
+    "release_level_objects_source_ids": [
+      "AA-MODEL-GLM-5-3",
+      "AA-MODEL-KIMI-K3"
+    ],
+    "homepage_crosscheck": "The AA homepage capture (2026-11-06T08:09:37Z) embeds v5.0.1 records for 11 of the target variants (kimi-k3-1-pro, glm-5-3, deepseek-v4-1-flash-1017, qwen3-8-27b, mistral-large-4, claude-opus-5-5, claude-fable-5-1, claude-sonnet-5-5, gpt-6-astra, gpt-6-1-sol, gemini-4-carbon); all equal the values recorded here. Its full model dataset is delivered as encrypted manifests and was not used.",
+    "independent_corroboration": "None available. No pinned publisher card in this atlas quotes an AA Intelligence Index value; AA is the only primary source for these composites."
+  },
+  "applicability": [
+    "Scores describe AA runs of each lab or provider endpoint at the stated effort setting. They do not identify the catalog revision, the NVFP4/MXFP4/FP8 export, the engine, KServe path or B300 node.",
+    "A quantized export or different chat-template, reasoning-budget or tool-call configuration requires its own quality evaluation; the AA composite does not transfer to it.",
+    "Effort variants differ substantially (for example Claude Opus 5.5 Low 34.75 versus Max 59.11 in v5.0.1). Compare like-for-like effort settings and report token use and cost per task alongside the index.",
+    "Null composites mean incomplete AA coverage, not a zero score. Do not substitute a neighbouring variant, successor release or older index version."
+  ],
+  "releases": [
+    {
+      "key": "kimi-k3",
+      "role": "catalog",
+      "catalog_key": "kimi-k3",
+      "successor_of_catalog_key": null,
+      "successor_basis": null,
+      "aa_slug_history": null,
+      "aa_slug_history_source_ids": null,
+      "aa_release_slug": "kimi-k3",
+      "aa_release_name": "Kimi K3",
+      "creator": "Kimi",
+      "aa_release_date": "2026-07-16",
+      "open_weights": true,
+      "aa_weights_url": "https://huggingface.co/moonshotai/Kimi-K3",
+      "aa_deprecated": true,
+      "aa_deprecated_to": "kimi-k3-1-pro",
+      "aa_performance_data_source": {
+        "type": "firstParty",
+        "providerName": "Kimi"
+      },
+      "aa_category_classification": {
+        "open_weights_category": "Open Weights (Commercial Use Restricted)",
+        "aa_license_name": "Kimi K3 License",
+        "input_modalities": [
+          "text",
+          "image"
+        ],
+        "creator_country": "CN",
+        "scope": "AA classifications used by the homepage Open Weights / Proprietary, Text Only / Multimodal Inputs and By Country tabs. Not a licence review or a verification of model input support.",
+        "source_ids": [
+          "AA-MODEL-KIMI-K3",
+          "AA-HOME"
+        ]
+      },
+      "highest_published_variant": {
+        "v5_0": {
+          "aa_slug": "kimi-k3-low",
+          "index": 17.419
+        },
+        "v5_0_1": {
+          "aa_slug": "kimi-k3-low",
+          "index": 17.419
+        }
+      },
+      "variants": [
+        {
+          "aa_slug": "kimi-k3-low",
+          "aa_name": "Kimi K3 (Low)",
+          "effort": "low",
+          "is_reasoning": true,
+          "v5_0": {
+            "index": 17.419,
+            "status": "published",
+            "missing_components": [],
+            "critpt_v2_hard": 0.055,
+            "snapshot_utc": "2026-11-01T18:03:13Z",
+            "source_id": "AA-WB-MODEL-GEMINI-4-CARBON-20261101"
+          },
+          "v5_0_1": {
+            "index": 17.419,
+            "status": "published",
+            "missing_components": [],
+            "components": {
+              "AA-Briefcase v1.1": 985.1,
+              "AutomationBench-AA": 0.4926,
+              "GDP.pdf": 0.186,
+              "FrontierCode 2.0": 0.109,
+              "Terminal-Bench 4.0": 0.1263,
+              "Terminal-Bench-Science 0.1": 0.0095,
+              "CritPt v2 (Hard Subset)": 0.055,
+              "AA-Omniscience v1.1 accuracy": 0.424,
+              "AA-Omniscience v1.1 non-hallucination": 0.7656,
+              "HLE-Diamond": 0.14
+            },
+            "reconstructed_index": 17.433,
+            "reconstruction_residual": -0.014,
+            "source_id": "AA-MODEL-KIMI-K3-LOW"
+          }
+        },
+        {
+          "aa_slug": "kimi-k3",
+          "aa_name": "Kimi K3 (Max)",
+          "effort": "max",
+          "is_reasoning": true,
+          "v5_0": {
+            "index": null,
+            "status": "not_published_incomplete_components",
+            "missing_components": [
+              "FrontierCode 2.0",
+              "AA-Omniscience v1.1 accuracy",
+              "AA-Omniscience v1.1 non-hallucination"
+            ],
+            "critpt_v2_hard": 0.395,
+            "snapshot_utc": "2026-11-01T18:03:13Z",
+            "source_id": "AA-WB-MODEL-GEMINI-4-CARBON-20261101"
+          },
+          "v5_0_1": {
+            "index": null,
+            "status": "not_published_incomplete_components",
+            "missing_components": [
+              "FrontierCode 2.0",
+              "AA-Omniscience v1.1 accuracy",
+              "AA-Omniscience v1.1 non-hallucination"
+            ],
+            "components": {
+              "AA-Briefcase v1.1": 1497.24,
+              "AutomationBench-AA": 0.5827,
+              "GDP.pdf": 0.22,
+              "FrontierCode 2.0": null,
+              "Terminal-Bench 4.0": 0.1263,
+              "Terminal-Bench-Science 0.1": 0.081,
+              "CritPt v2 (Hard Subset)": 0.405,
+              "AA-Omniscience v1.1 accuracy": null,
+              "AA-Omniscience v1.1 non-hallucination": null,
+              "HLE-Diamond": 0.269
+            },
+            "reconstructed_index": null,
+            "reconstruction_residual": null,
+            "source_id": "AA-MODEL-KIMI-K3"
+          }
+        }
+      ],
+      "identity_check": {
+        "catalog_hf_id": "moonshotai/Kimi-K3",
+        "aa_weights_repository": "moonshotai/Kimi-K3",
+        "repository_match": true,
+        "catalog_revision": "f831ab66814297da540d832a5235f8e904f29d06",
+        "scope": "AA links the publisher repository but records no revision, serving precision or evaluation endpoint. The catalog revision and the NVFP4/MXFP4/FP8 export variants are not established as the artifacts AA evaluated."
+      }
+    },
+    {
+      "key": "kimi-k3.1-pro",
+      "role": "catalog",
+      "catalog_key": "kimi-k3.1-pro",
+      "successor_of_catalog_key": "kimi-k3",
+      "successor_basis": "AA deprecation kimi-k3 -> kimi-k3-1-pro. Separate catalog family with its own Hugging Face repository and revision; its score is not attributed to the predecessor.",
+      "aa_slug_history": null,
+      "aa_slug_history_source_ids": null,
+      "aa_release_slug": "kimi-k3-1-pro",
+      "aa_release_name": "Kimi K3.1 Pro",
+      "creator": "Kimi",
+      "aa_release_date": "2026-10-23",
+      "open_weights": true,
+      "aa_weights_url": "https://huggingface.co/moonshotai/Kimi-K3.1-Pro",
+      "aa_deprecated": false,
+      "aa_deprecated_to": null,
+      "aa_performance_data_source": {
+        "type": "firstParty",
+        "providerName": "Kimi"
+      },
+      "aa_category_classification": {
+        "open_weights_category": "Open Weights (Commercial Use Restricted)",
+        "aa_license_name": "Kimi K3.1-Pro Licence",
+        "input_modalities": [
+          "text",
+          "image"
+        ],
+        "creator_country": "CN",
+        "scope": "AA classifications used by the homepage Open Weights / Proprietary, Text Only / Multimodal Inputs and By Country tabs. Not a licence review or a verification of model input support.",
+        "source_ids": [
+          "AA-MODEL-KIMI-K3-1-PRO",
+          "AA-HOME"
+        ]
+      },
+      "highest_published_variant": {
+        "v5_0": {
+          "aa_slug": "kimi-k3-1-pro",
+          "index": 46.003
+        },
+        "v5_0_1": {
+          "aa_slug": "kimi-k3-1-pro",
+          "index": 46.453
+        }
+      },
+      "variants": [
+        {
+          "aa_slug": "kimi-k3-1-pro",
+          "aa_name": "Kimi K3.1 Pro",
+          "effort": "max",
+          "is_reasoning": true,
+          "v5_0": {
+            "index": 46.003,
+            "status": "published",
+            "missing_components": [],
+            "critpt_v2_hard": 0.45,
+            "snapshot_utc": "2026-11-03T19:33:41Z",
+            "source_id": "AA-WB-MODEL-GEMINI-4-CARBON-20261103"
+          },
+          "v5_0_1": {
+            "index": 46.453,
+            "status": "published",
+            "missing_components": [],
+            "components": {
+              "AA-Briefcase v1.1": 1674.81,
+              "AutomationBench-AA": 0.733,
+              "GDP.pdf": 0.314,
+              "FrontierCode 2.0": 0.2545,
+              "Terminal-Bench 4.0": 0.6717,
+              "Terminal-Bench-Science 0.1": 0.3429,
+              "CritPt v2 (Hard Subset)": 0.495,
+              "AA-Omniscience v1.1 accuracy": 0.4893,
+              "AA-Omniscience v1.1 non-hallucination": 0.3734,
+              "HLE-Diamond": 0.373
+            },
+            "reconstructed_index": 46.43,
+            "reconstruction_residual": 0.022,
+            "source_id": "AA-MODEL-KIMI-K3-1-PRO"
+          }
+        }
+      ],
+      "identity_check": {
+        "catalog_hf_id": "moonshotai/Kimi-K3.1-Pro",
+        "aa_weights_repository": "moonshotai/Kimi-K3.1-Pro",
+        "repository_match": true,
+        "catalog_revision": "d9e99b0792a5e93b78ea9bea62a68167e36ddd9e",
+        "scope": "AA links the publisher repository but records no revision, serving precision or evaluation endpoint. The catalog revision and the NVFP4/MXFP4/FP8 export variants are not established as the artifacts AA evaluated."
+      }
+    },
+    {
+      "key": "glm-5.3",
+      "role": "catalog",
+      "catalog_key": "glm-5.3",
+      "successor_of_catalog_key": null,
+      "successor_basis": null,
+      "aa_slug_history": null,
+      "aa_slug_history_source_ids": null,
+      "aa_release_slug": "glm-5-3",
+      "aa_release_name": "GLM-5.3",
+      "creator": "Z AI",
+      "aa_release_date": "2026-08-18",
+      "open_weights": true,
+      "aa_weights_url": "https://huggingface.co/zai-org/GLM-5.3",
+      "aa_deprecated": false,
+      "aa_deprecated_to": null,
+      "aa_performance_data_source": {
+        "type": "firstParty",
+        "providerName": "Z AI"
+      },
+      "aa_category_classification": {
+        "open_weights_category": "Open Weights (Commercial Use Restricted)",
+        "aa_license_name": "GLM-5.3 License",
+        "input_modalities": [
+          "text"
+        ],
+        "creator_country": "CN",
+        "scope": "AA classifications used by the homepage Open Weights / Proprietary, Text Only / Multimodal Inputs and By Country tabs. Not a licence review or a verification of model input support.",
+        "source_ids": [
+          "AA-MODEL-GLM-5-3",
+          "AA-HOME"
+        ]
+      },
+      "highest_published_variant": {
+        "v5_0": {
+          "aa_slug": "glm-5-3",
+          "index": 31.653
+        },
+        "v5_0_1": {
+          "aa_slug": "glm-5-3",
+          "index": 31.653
+        }
+      },
+      "variants": [
+        {
+          "aa_slug": "glm-5-3",
+          "aa_name": "GLM-5.3 (Max)",
+          "effort": "max",
+          "is_reasoning": true,
+          "v5_0": {
+            "index": 31.653,
+            "status": "published",
+            "missing_components": [],
+            "critpt_v2_hard": 0.335,
+            "snapshot_utc": "2026-11-03T19:33:41Z",
+            "source_id": "AA-WB-MODEL-GEMINI-4-CARBON-20261103"
+          },
+          "v5_0_1": {
+            "index": 31.653,
+            "status": "published",
+            "missing_components": [],
+            "components": {
+              "AA-Briefcase v1.1": 1502.84,
+              "AutomationBench-AA": 0.622,
+              "GDP.pdf": 0.112,
+              "FrontierCode 2.0": 0.2159,
+              "Terminal-Bench 4.0": 0.4192,
+              "Terminal-Bench-Science 0.1": 0.0952,
+              "CritPt v2 (Hard Subset)": 0.335,
+              "AA-Omniscience v1.1 accuracy": 0.3233,
+              "AA-Omniscience v1.1 non-hallucination": 0.3887,
+              "HLE-Diamond": 0.179
+            },
+            "reconstructed_index": 31.48,
+            "reconstruction_residual": 0.173,
+            "source_id": "AA-MODEL-GLM-5-3"
+          }
+        },
+        {
+          "aa_slug": "glm-5-3-low",
+          "aa_name": "GLM-5.3 (Low)",
+          "effort": "low",
+          "is_reasoning": true,
+          "v5_0": {
+            "index": 23.058,
+            "status": "published",
+            "missing_components": [],
+            "critpt_v2_hard": 0.21,
+            "snapshot_utc": "2026-11-01T18:03:13Z",
+            "source_id": "AA-WB-MODEL-GEMINI-4-CARBON-20261101"
+          },
+          "v5_0_1": {
+            "index": 23.108,
+            "status": "published",
+            "missing_components": [],
+            "components": {
+              "AA-Briefcase v1.1": 1185.12,
+              "AutomationBench-AA": 0.5198,
+              "GDP.pdf": 0.088,
+              "FrontierCode 2.0": 0.1274,
+              "Terminal-Bench 4.0": 0.3485,
+              "Terminal-Bench-Science 0.1": 0.0381,
+              "CritPt v2 (Hard Subset)": 0.215,
+              "AA-Omniscience v1.1 accuracy": 0.319,
+              "AA-Omniscience v1.1 non-hallucination": 0.6324,
+              "HLE-Diamond": 0.175
+            },
+            "reconstructed_index": 23.072,
+            "reconstruction_residual": 0.036,
+            "source_id": "AA-MODEL-GLM-5-3-LOW"
+          }
+        }
+      ],
+      "identity_check": {
+        "catalog_hf_id": "zai-org/GLM-5.3",
+        "aa_weights_repository": "zai-org/GLM-5.3",
+        "repository_match": true,
+        "catalog_revision": "ba32f8c19c8738e2c57c71798c601d477a7bf844",
+        "scope": "AA links the publisher repository but records no revision, serving precision or evaluation endpoint. The catalog revision and the NVFP4/MXFP4/FP8 export variants are not established as the artifacts AA evaluated."
+      }
+    },
+    {
+      "key": "glm-5.3-flash",
+      "role": "catalog",
+      "catalog_key": "glm-5.3-flash",
+      "successor_of_catalog_key": null,
+      "successor_basis": null,
+      "aa_slug_history": null,
+      "aa_slug_history_source_ids": null,
+      "aa_release_slug": "glm-5-3-flash",
+      "aa_release_name": "GLM-5.3-Flash",
+      "creator": "Z AI",
+      "aa_release_date": "2026-08-26",
+      "open_weights": true,
+      "aa_weights_url": "https://huggingface.co/zai-org/GLM-5.3-Flash",
+      "aa_deprecated": false,
+      "aa_deprecated_to": null,
+      "aa_performance_data_source": {
+        "type": "firstParty",
+        "providerName": "Z AI"
+      },
+      "aa_category_classification": {
+        "open_weights_category": "Open Weights",
+        "aa_license_name": "MIT",
+        "input_modalities": [
+          "text",
+          "image"
+        ],
+        "creator_country": "CN",
+        "scope": "AA classifications used by the homepage Open Weights / Proprietary, Text Only / Multimodal Inputs and By Country tabs. Not a licence review or a verification of model input support.",
+        "source_ids": [
+          "AA-MODEL-GLM-5-3-FLASH",
+          "AA-HOME"
+        ]
+      },
+      "highest_published_variant": {
+        "v5_0": {
+          "aa_slug": "glm-5-3-flash",
+          "index": 27.754
+        },
+        "v5_0_1": {
+          "aa_slug": "glm-5-3-flash",
+          "index": 27.804
+        }
+      },
+      "variants": [
+        {
+          "aa_slug": "glm-5-3-flash",
+          "aa_name": "GLM-5.3-Flash",
+          "effort": "max",
+          "is_reasoning": true,
+          "v5_0": {
+            "index": 27.754,
+            "status": "published",
+            "missing_components": [],
+            "critpt_v2_hard": 0.24,
+            "snapshot_utc": "2026-11-01T18:03:13Z",
+            "source_id": "AA-WB-MODEL-GEMINI-4-CARBON-20261101"
+          },
+          "v5_0_1": {
+            "index": 27.804,
+            "status": "published",
+            "missing_components": [],
+            "components": {
+              "AA-Briefcase v1.1": 1450.94,
+              "AutomationBench-AA": 0.6037,
+              "GDP.pdf": 0.154,
+              "FrontierCode 2.0": 0.1761,
+              "Terminal-Bench 4.0": 0.3283,
+              "Terminal-Bench-Science 0.1": 0.0476,
+              "CritPt v2 (Hard Subset)": 0.245,
+              "AA-Omniscience v1.1 accuracy": 0.282,
+              "AA-Omniscience v1.1 non-hallucination": 0.3835,
+              "HLE-Diamond": 0.182
+            },
+            "reconstructed_index": 27.731,
+            "reconstruction_residual": 0.073,
+            "source_id": "AA-MODEL-GLM-5-3-FLASH"
+          }
+        }
+      ],
+      "identity_check": {
+        "catalog_hf_id": "zai-org/GLM-5.3-Flash",
+        "aa_weights_repository": "zai-org/GLM-5.3-Flash",
+        "repository_match": true,
+        "catalog_revision": "46a050bec13002ad29ee795c16e61cf4fa3c4a9c",
+        "scope": "AA links the publisher repository but records no revision, serving precision or evaluation endpoint. The catalog revision and the NVFP4/MXFP4/FP8 export variants are not established as the artifacts AA evaluated."
+      }
+    },
+    {
+      "key": "deepseek-v4-flash-0731",
+      "role": "catalog",
+      "catalog_key": "deepseek-v4-flash-0731",
+      "successor_of_catalog_key": null,
+      "successor_basis": null,
+      "aa_slug_history": null,
+      "aa_slug_history_source_ids": null,
+      "aa_release_slug": "deepseek-v4-flash",
+      "aa_release_name": "DeepSeek V4 Flash 0731",
+      "creator": "DeepSeek",
+      "aa_release_date": "2026-07-31",
+      "open_weights": true,
+      "aa_weights_url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731",
+      "aa_deprecated": true,
+      "aa_deprecated_to": "deepseek-v4-1-flash",
+      "aa_performance_data_source": {
+        "type": "median"
+      },
+      "aa_category_classification": {
+        "open_weights_category": "Open Weights",
+        "aa_license_name": "MIT",
+        "input_modalities": [
+          "text"
+        ],
+        "creator_country": "CN",
+        "scope": "AA classifications used by the homepage Open Weights / Proprietary, Text Only / Multimodal Inputs and By Country tabs. Not a licence review or a verification of model input support.",
+        "source_ids": [
+          "AA-MODEL-DEEPSEEK-V4-FLASH",
+          "AA-HOME"
+        ]
+      },
+      "highest_published_variant": {
+        "v5_0": null,
+        "v5_0_1": null
+      },
+      "variants": [
+        {
+          "aa_slug": "deepseek-v4-flash",
+          "aa_name": "DeepSeek V4 Flash 0731 (Max)",
+          "effort": "max",
+          "is_reasoning": true,
+          "v5_0": {
+            "index": null,
+            "status": "not_published_incomplete_components",
+            "missing_components": [
+              "FrontierCode 2.0",
+              "Terminal-Bench-Science 0.1",
+              "CritPt v2 (Hard Subset)",
+              "AA-Omniscience v1.1 accuracy",
+              "AA-Omniscience v1.1 non-hallucination",
+              "HLE-Diamond"
+            ],
+            "critpt_v2_hard": null,
+            "snapshot_utc": "2026-11-01T18:03:13Z",
+            "source_id": "AA-WB-MODEL-GEMINI-4-CARBON-20261101"
+          },
+          "v5_0_1": {
+            "index": null,
+            "status": "not_published_incomplete_components",
+            "missing_components": [
+              "FrontierCode 2.0",
+              "Terminal-Bench-Science 0.1",
+              "CritPt v2 (Hard Subset)",
+              "AA-Omniscience v1.1 accuracy",
+              "AA-Omniscience v1.1 non-hallucination",
+              "HLE-Diamond"
+            ],
+            "components": {
+              "AA-Briefcase v1.1": 1255.38,
+              "AutomationBench-AA": 0.5397,
+              "GDP.pdf": 0.11,
+              "FrontierCode 2.0": null,
+              "Terminal-Bench 4.0": 0.1212,
+              "Terminal-Bench-Science 0.1": null,
+              "CritPt v2 (Hard Subset)": null,
+              "AA-Omniscience v1.1 accuracy": null,
+              "AA-Omniscience v1.1 non-hallucination": null,
+              "HLE-Diamond": null
+            },
+            "reconstructed_index": null,
+            "reconstruction_residual": null,
+            "source_id": "AA-MODEL-DEEPSEEK-V4-FLASH"
+          }
+        }
+      ],
+      "identity_check": {
+        "catalog_hf_id": "deepseek-ai/DeepSeek-V4-Flash-0731",
+        "aa_weights_repository": "deepseek-ai/DeepSeek-V4-Flash-0731",
+        "repository_match": true,
+        "catalog_revision": "7872f01b1d1fe23eabc4c98b48bffcef5a386062",
+        "scope": "AA links the publisher repository but records no revision, serving precision or evaluation endpoint. The catalog revision and the NVFP4/MXFP4/FP8 export variants are not established as the artifacts AA evaluated."
+      }
+    },
+    {
+      "key": "deepseek-v4.1-flash-1017",
+      "role": "catalog",
+      "catalog_key": "deepseek-v4.1-flash-1017",
+      "successor_of_catalog_key": "deepseek-v4-flash-0731",
+      "successor_basis": "AA deprecation chain deepseek-v4-flash -> deepseek-v4-1-flash -> deepseek-v4-1-flash-1017. Separate catalog family with its own Hugging Face repository and revision; its score is not attributed to the predecessor.",
+      "aa_slug_history": null,
+      "aa_slug_history_source_ids": null,
+      "aa_release_slug": "deepseek-v4-1-flash-1017",
+      "aa_release_name": "DeepSeek V4.1 Flash 1017",
+      "creator": "DeepSeek",
+      "aa_release_date": "2026-10-17",
+      "open_weights": true,
+      "aa_weights_url": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "aa_deprecated": false,
+      "aa_deprecated_to": null,
+      "aa_performance_data_source": {
+        "type": "firstParty",
+        "providerName": "DeepSeek"
+      },
+      "aa_category_classification": {
+        "open_weights_category": "Open Weights",
+        "aa_license_name": "MIT",
+        "input_modalities": [
+          "text",
+          "image"
+        ],
+        "creator_country": "CN",
+        "scope": "AA classifications used by the homepage Open Weights / Proprietary, Text Only / Multimodal Inputs and By Country tabs. Not a licence review or a verification of model input support.",
+        "source_ids": [
+          "AA-MODEL-DEEPSEEK-V4-1-FLASH-1017",
+          "AA-HOME"
+        ]
+      },
+      "highest_published_variant": {
+        "v5_0": {
+          "aa_slug": "deepseek-v4-1-flash-1017",
+          "index": 32.49
+        },
+        "v5_0_1": {
+          "aa_slug": "deepseek-v4-1-flash-1017",
+          "index": 32.59
+        }
+      },
+      "variants": [
+        {
+          "aa_slug": "deepseek-v4-1-flash-1017",
+          "aa_name": "DeepSeek V4.1 Flash 1017 (Max)",
+          "effort": "max",
+          "is_reasoning": true,
+          "v5_0": {
+            "index": 32.49,
+            "status": "published",
+            "missing_components": [],
+            "critpt_v2_hard": 0.24,
+            "snapshot_utc": "2026-11-03T19:33:41Z",
+            "source_id": "AA-WB-MODEL-GEMINI-4-CARBON-20261103"
+          },
+          "v5_0_1": {
+            "index": 32.59,
+            "status": "published",
+            "missing_components": [],
+            "components": {
+              "AA-Briefcase v1.1": 1570.42,
+              "AutomationBench-AA": 0.6664,
+              "GDP.pdf": 0.172,
+              "FrontierCode 2.0": 0.2847,
+              "Terminal-Bench 4.0": 0.3384,
+              "Terminal-Bench-Science 0.1": 0.1286,
+              "CritPt v2 (Hard Subset)": 0.25,
+              "AA-Omniscience v1.1 accuracy": 0.396,
+              "AA-Omniscience v1.1 non-hallucination": 0.6407,
+              "HLE-Diamond": 0.253
+            },
+            "reconstructed_index": 32.59,
+            "reconstruction_residual": -0.0,
+            "source_id": "AA-MODEL-DEEPSEEK-V4-1-FLASH-1017"
+          }
+        },
+        {
+          "aa_slug": "deepseek-v4-1-flash-1017-high",
+          "aa_name": "DeepSeek V4.1 Flash 1017 (High)",
+          "effort": "high",
+          "is_reasoning": true,
+          "v5_0": {
+            "index": null,
+            "status": "evaluated_under_v5_0_value_not_captured",
+            "aa_changelog_evaluation_date": "2026-11-01",
+            "note": "AA changelog lists this evaluation while v5.0 was current; archived captures list the slug in the model selector but embed no scored record.",
+            "source_id": "AA-HOME"
+          },
+          "v5_0_1": {
+            "index": 28.644,
+            "status": "published",
+            "missing_components": [],
+            "components": {
+              "AA-Briefcase v1.1": 1415.7,
+              "AutomationBench-AA": 0.6849,
+              "GDP.pdf": 0.142,
+              "FrontierCode 2.0": 0.1684,
+              "Terminal-Bench 4.0": 0.2879,
+              "Terminal-Bench-Science 0.1": 0.1048,
+              "CritPt v2 (Hard Subset)": 0.275,
+              "AA-Omniscience v1.1 accuracy": 0.3893,
+              "AA-Omniscience v1.1 non-hallucination": 0.6124,
+              "HLE-Diamond": 0.208
+            },
+            "reconstructed_index": 28.64,
+            "reconstruction_residual": 0.003,
+            "source_id": "AA-MODEL-DEEPSEEK-V4-1-FLASH-1017-HIGH"
+          }
+        },
+        {
+          "aa_slug": "deepseek-v4-1-flash-1017-non-reasoning",
+          "aa_name": "DeepSeek V4.1 Flash 1017 (Non-reasoning)",
+          "effort": "non-reasoning",
+          "is_reasoning": false,
+          "v5_0": {
+            "index": 18.513,
+            "status": "published",
+            "missing_components": [],
+            "critpt_v2_hard": 0.01,
+            "snapshot_utc": "2026-11-01T18:03:13Z",
+            "source_id": "AA-WB-MODEL-GEMINI-4-CARBON-20261101"
+          },
+          "v5_0_1": {
+            "index": 18.513,
+            "status": "published",
+            "missing_components": [],
+            "components": {
+              "AA-Briefcase v1.1": 1425.32,
+              "AutomationBench-AA": 0.4878,
+              "GDP.pdf": 0.044,
+              "FrontierCode 2.0": 0.061,
+              "Terminal-Bench 4.0": 0.0909,
+              "Terminal-Bench-Science 0.1": 0.0238,
+              "CritPt v2 (Hard Subset)": 0.01,
+              "AA-Omniscience v1.1 accuracy": 0.2187,
+              "AA-Omniscience v1.1 non-hallucination": 0.253,
+              "HLE-Diamond": 0.071
+            },
+            "reconstructed_index": 18.512,
+            "reconstruction_residual": 0.002,
+            "source_id": "AA-MODEL-DEEPSEEK-V4-1-FLASH-1017-NON-REASONING"
+          }
+        }
+      ],
+      "identity_check": {
+        "catalog_hf_id": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+        "aa_weights_repository": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+        "repository_match": true,
+        "catalog_revision": "1bae0e1088993b9b82de08f59de5be5a34e42170",
+        "scope": "AA links the publisher repository but records no revision, serving precision or evaluation endpoint. The catalog revision and the NVFP4/MXFP4/FP8 export variants are not established as the artifacts AA evaluated."
+      }
+    },
+    {
+      "key": "qwen3.8-27b",
+      "role": "catalog",
+      "catalog_key": "qwen3.8-27b",
+      "successor_of_catalog_key": null,
+      "successor_basis": null,
+      "aa_slug_history": null,
+      "aa_slug_history_source_ids": null,
+      "aa_release_slug": "qwen3-8-27b",
+      "aa_release_name": "Qwen3.8 27B",
+      "creator": "Alibaba",
+      "aa_release_date": "2026-08-14",
+      "open_weights": true,
+      "aa_weights_url": "https://huggingface.co/Qwen/Qwen3.8-27B",
+      "aa_deprecated": false,
+      "aa_deprecated_to": null,
+      "aa_performance_data_source": {
+        "type": "firstParty",
+        "providerName": "Alibaba"
+      },
+      "aa_category_classification": {
+        "open_weights_category": "Open Weights",
+        "aa_license_name": "Apache 2.0",
+        "input_modalities": [
+          "text",
+          "image",
+          "video"
+        ],
+        "creator_country": "CN",
+        "scope": "AA classifications used by the homepage Open Weights / Proprietary, Text Only / Multimodal Inputs and By Country tabs. Not a licence review or a verification of model input support.",
+        "source_ids": [
+          "AA-MODEL-QWEN3-8-27B",
+          "AA-HOME"
+        ]
+      },
+      "highest_published_variant": {
+        "v5_0": {
+          "aa_slug": "qwen3-8-27b",
+          "index": 20.107
+        },
+        "v5_0_1": {
+          "aa_slug": "qwen3-8-27b",
+          "index": 20.107
+        }
+      },
+      "variants": [
+        {
+          "aa_slug": "qwen3-8-27b",
+          "aa_name": "Qwen3.8 27B (Xhigh)",
+          "effort": "xhigh",
+          "is_reasoning": true,
+          "v5_0": {
+            "index": 20.107,
+            "status": "published",
+            "missing_components": [],
+            "critpt_v2_hard": 0.04,
+            "snapshot_utc": "2026-11-03T19:33:41Z",
+            "source_id": "AA-WB-MODEL-GEMINI-4-CARBON-20261103"
+          },
+          "v5_0_1": {
+            "index": 20.107,
+            "status": "published",
+            "missing_components": [],
+            "components": {
+              "AA-Briefcase v1.1": 1391.36,
+              "AutomationBench-AA": 0.4824,
+              "GDP.pdf": 0.164,
+              "FrontierCode 2.0": 0.1491,
+              "Terminal-Bench 4.0": 0.0556,
+              "Terminal-Bench-Science 0.1": 0.0048,
+              "CritPt v2 (Hard Subset)": 0.04,
+              "AA-Omniscience v1.1 accuracy": 0.173,
+              "AA-Omniscience v1.1 non-hallucination": 0.2862,
+              "HLE-Diamond": 0.153
+            },
+            "reconstructed_index": 20.011,
+            "reconstruction_residual": 0.096,
+            "source_id": "AA-MODEL-QWEN3-8-27B"
+          }
+        },
+        {
+          "aa_slug": "qwen3-8-27b-medium",
+          "aa_name": "Qwen3.8 27B (Medium)",
+          "effort": "medium",
+          "is_reasoning": true,
+          "v5_0": {
+            "index": 17.483,
+            "status": "published",
+            "missing_components": [],
+            "critpt_v2_hard": 0.165,
+            "snapshot_utc": "2026-11-01T18:03:13Z",
+            "source_id": "AA-WB-MODEL-GEMINI-4-CARBON-20261101"
+          },
+          "v5_0_1": {
+            "index": 17.483,
+            "status": "published",
+            "missing_components": [],
+            "components": {
+              "AA-Briefcase v1.1": 1371.79,
+              "AutomationBench-AA": 0.4025,
+              "GDP.pdf": 0.128,
+              "FrontierCode 2.0": 0.115,
+              "Terminal-Bench 4.0": 0.0505,
+              "Terminal-Bench-Science 0.1": 0.0095,
+              "CritPt v2 (Hard Subset)": 0.165,
+              "AA-Omniscience v1.1 accuracy": 0.1787,
+              "AA-Omniscience v1.1 non-hallucination": 0.6542,
+              "HLE-Diamond": 0.067
+            },
+            "reconstructed_index": 17.4,
+            "reconstruction_residual": 0.083,
+            "source_id": "AA-MODEL-QWEN3-8-27B-MEDIUM"
+          }
+        },
+        {
+          "aa_slug": "qwen3-8-27b-low",
+          "aa_name": "Qwen3.8 27B (Low)",
+          "effort": "low",
+          "is_reasoning": true,
+          "v5_0": {
+            "index": 15.685,
+            "status": "published",
+            "missing_components": [],
+            "critpt_v2_hard": 0.055,
+            "snapshot_utc": "2026-11-01T18:03:13Z",
+            "source_id": "AA-WB-MODEL-GEMINI-4-CARBON-20261101"
+          },
+          "v5_0_1": {
+            "index": 15.685,
+            "status": "published",
+            "missing_components": [],
+            "components": {
+              "AA-Briefcase v1.1": 1269.55,
+              "AutomationBench-AA": 0.301,
+              "GDP.pdf": 0.104,
+              "FrontierCode 2.0": 0.1237,
+              "Terminal-Bench 4.0": 0.0253,
+              "Terminal-Bench-Science 0.1": 0.0048,
+              "CritPt v2 (Hard Subset)": 0.055,
+              "AA-Omniscience v1.1 accuracy": 0.183,
+              "AA-Omniscience v1.1 non-hallucination": 0.4867,
+              "HLE-Diamond": 0.068
+            },
+            "reconstructed_index": 15.602,
+            "reconstruction_residual": 0.083,
+            "source_id": "AA-MODEL-QWEN3-8-27B-LOW"
+          }
+        },
+        {
+          "aa_slug": "qwen3-8-27b-non-reasoning",
+          "aa_name": "Qwen3.8 27B (Non-reasoning)",
+          "effort": "non-reasoning",
+          "is_reasoning": false,
+          "v5_0": {
+            "index": 10.032,
+            "status": "published",
+            "missing_components": [],
+            "critpt_v2_hard": 0.02,
+            "snapshot_utc": "2026-11-01T18:03:13Z",
+            "source_id": "AA-WB-MODEL-GEMINI-4-CARBON-20261101"
+          },
+          "v5_0_1": {
+            "index": 10.032,
+            "status": "published",
+            "missing_components": [],
+            "components": {
+              "AA-Briefcase v1.1": 900.84,
+              "AutomationBench-AA": 0.1243,
+              "GDP.pdf": 0.052,
+              "FrontierCode 2.0": 0.0372,
+              "Terminal-Bench 4.0": 0,
+              "Terminal-Bench-Science 0.1": 0,
+              "CritPt v2 (Hard Subset)": 0.02,
+              "AA-Omniscience v1.1 accuracy": 0.091,
+              "AA-Omniscience v1.1 non-hallucination": 0.1801,
+              "HLE-Diamond": 0.042
+            },
+            "reconstructed_index": 10.076,
+            "reconstruction_residual": -0.044,
+            "source_id": "AA-MODEL-QWEN3-8-27B-NON-REASONING"
+          }
+        }
+      ],
+      "identity_check": {
+        "catalog_hf_id": "Qwen/Qwen3.8-27B",
+        "aa_weights_repository": "Qwen/Qwen3.8-27B",
+        "repository_match": true,
+        "catalog_revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
+        "scope": "AA links the publisher repository but records no revision, serving precision or evaluation endpoint. The catalog revision and the NVFP4/MXFP4/FP8 export variants are not established as the artifacts AA evaluated."
+      }
+    },
+    {
+      "key": "qwen3.8-flash-next",
+      "role": "catalog",
+      "catalog_key": "qwen3.8-flash-next",
+      "successor_of_catalog_key": null,
+      "successor_basis": null,
+      "aa_slug_history": null,
+      "aa_slug_history_source_ids": null,
+      "aa_release_slug": "qwen3-8-flash-next",
+      "aa_release_name": "Qwen3.8-Flash-Next",
+      "creator": "Alibaba",
+      "aa_release_date": "2026-08-26",
+      "open_weights": true,
+      "aa_weights_url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next",
+      "aa_deprecated": false,
+      "aa_deprecated_to": null,
+      "aa_performance_data_source": {
+        "type": "firstParty",
+        "providerName": "Alibaba"
+      },
+      "aa_category_classification": {
+        "open_weights_category": "Open Weights (Commercial Use Restricted)",
+        "aa_license_name": "Qwen Community License 1.0",
+        "input_modalities": [
+          "text",
+          "image",
+          "video"
+        ],
+        "creator_country": "CN",
+        "scope": "AA classifications used by the homepage Open Weights / Proprietary, Text Only / Multimodal Inputs and By Country tabs. Not a licence review or a verification of model input support.",
+        "source_ids": [
+          "AA-MODEL-QWEN3-8-FLASH-NEXT",
+          "AA-HOME"
+        ]
+      },
+      "highest_published_variant": {
+        "v5_0": null,
+        "v5_0_1": null
+      },
+      "variants": [
+        {
+          "aa_slug": "qwen3-8-flash-next",
+          "aa_name": "Qwen3.8-Flash-Next",
+          "effort": "reasoning, no effort setting",
+          "is_reasoning": true,
+          "v5_0": {
+            "index": null,
+            "status": "not_published_incomplete_components",
+            "missing_components": [
+              "FrontierCode 2.0",
+              "Terminal-Bench-Science 0.1",
+              "CritPt v2 (Hard Subset)"
+            ],
+            "critpt_v2_hard": null,
+            "snapshot_utc": "2026-11-01T18:03:13Z",
+            "source_id": "AA-WB-MODEL-GEMINI-4-CARBON-20261101"
+          },
+          "v5_0_1": {
+            "index": null,
+            "status": "not_published_incomplete_components",
+            "missing_components": [
+              "FrontierCode 2.0",
+              "Terminal-Bench-Science 0.1",
+              "CritPt v2 (Hard Subset)"
+            ],
+            "components": {
+              "AA-Briefcase v1.1": 1573.51,
+              "AutomationBench-AA": 0.5591,
+              "GDP.pdf": 0.156,
+              "FrontierCode 2.0": null,
+              "Terminal-Bench 4.0": 0.2525,
+              "Terminal-Bench-Science 0.1": null,
+              "CritPt v2 (Hard Subset)": null,
+              "AA-Omniscience v1.1 accuracy": 0.2353,
+              "AA-Omniscience v1.1 non-hallucination": 0.4677,
+              "HLE-Diamond": 0.163
+            },
+            "reconstructed_index": null,
+            "reconstruction_residual": null,
+            "source_id": "AA-MODEL-QWEN3-8-FLASH-NEXT"
+          }
+        }
+      ],
+      "identity_check": {
+        "catalog_hf_id": "Qwen/Qwen3.8-Flash-Next",
+        "aa_weights_repository": "Qwen/Qwen3.8-Flash-Next",
+        "repository_match": true,
+        "catalog_revision": "de4b8e4d43b917e7706784d8bb445c9af86a3540",
+        "scope": "AA links the publisher repository but records no revision, serving precision or evaluation endpoint. The catalog revision and the NVFP4/MXFP4/FP8 export variants are not established as the artifacts AA evaluated."
+      }
+    },
+    {
+      "key": "gemma-4-31b-it",
+      "role": "catalog",
+      "catalog_key": "gemma-4-31b-it",
+      "successor_of_catalog_key": null,
+      "successor_basis": null,
+      "aa_slug_history": null,
+      "aa_slug_history_source_ids": null,
+      "aa_release_slug": "gemma-4-31b",
+      "aa_release_name": "Gemma 4 31B",
+      "creator": "Google",
+      "aa_release_date": "2026-04-02",
+      "open_weights": true,
+      "aa_weights_url": "https://huggingface.co/google/gemma-4-31B-it",
+      "aa_deprecated": false,
+      "aa_deprecated_to": null,
+      "aa_performance_data_source": {
+        "type": "firstParty",
+        "providerName": "Google"
+      },
+      "aa_category_classification": {
+        "open_weights_category": "Open Weights",
+        "aa_license_name": "Apache 2.0",
+        "input_modalities": [
+          "text",
+          "image",
+          "video"
+        ],
+        "creator_country": "US",
+        "scope": "AA classifications used by the homepage Open Weights / Proprietary, Text Only / Multimodal Inputs and By Country tabs. Not a licence review or a verification of model input support.",
+        "source_ids": [
+          "AA-MODEL-GEMMA-4-31B",
+          "AA-HOME"
+        ]
+      },
+      "highest_published_variant": {
+        "v5_0": null,
+        "v5_0_1": {
+          "aa_slug": "gemma-4-31b",
+          "index": 4.384
+        }
+      },
+      "variants": [
+        {
+          "aa_slug": "gemma-4-31b",
+          "aa_name": "Gemma 4 31B (Reasoning)",
+          "effort": "reasoning, no effort setting",
+          "is_reasoning": true,
+          "v5_0": {
+            "index": null,
+            "status": "not_published_incomplete_components",
+            "missing_components": [
+              "FrontierCode 2.0",
+              "Terminal-Bench-Science 0.1",
+              "HLE-Diamond"
+            ],
+            "critpt_v2_hard": 0.04,
+            "snapshot_utc": "2026-11-01T18:03:13Z",
+            "source_id": "AA-WB-MODEL-GEMINI-4-CARBON-20261101"
+          },
+          "v5_0_1": {
+            "index": 4.384,
+            "status": "published",
+            "missing_components": [],
+            "components": {
+              "AA-Briefcase v1.1": 368.55,
+              "AutomationBench-AA": 0.0493,
+              "GDP.pdf": 0.06,
+              "FrontierCode 2.0": 0,
+              "Terminal-Bench 4.0": 0,
+              "Terminal-Bench-Science 0.1": 0,
+              "CritPt v2 (Hard Subset)": 0.04,
+              "AA-Omniscience v1.1 accuracy": 0.1993,
+              "AA-Omniscience v1.1 non-hallucination": 0.8551,
+              "HLE-Diamond": 0.072
+            },
+            "reconstructed_index": 4.384,
+            "reconstruction_residual": 0.0,
+            "source_id": "AA-MODEL-GEMMA-4-31B"
+          }
+        },
+        {
+          "aa_slug": "gemma-4-31b-non-reasoning",
+          "aa_name": "Gemma 4 31B (Non-reasoning)",
+          "effort": "non-reasoning",
+          "is_reasoning": false,
+          "v5_0": {
+            "index": null,
+            "status": "not_published_incomplete_components",
+            "missing_components": [
+              "AA-Briefcase v1.1",
+              "AutomationBench-AA",
+              "GDP.pdf",
+              "FrontierCode 2.0",
+              "Terminal-Bench 4.0",
+              "Terminal-Bench-Science 0.1",
+              "CritPt v2 (Hard Subset)",
+              "AA-Omniscience v1.1 accuracy",
+              "AA-Omniscience v1.1 non-hallucination",
+              "HLE-Diamond"
+            ],
+            "critpt_v2_hard": null,
+            "snapshot_utc": "2026-11-01T18:03:13Z",
+            "source_id": "AA-WB-MODEL-GEMINI-4-CARBON-20261101"
+          },
+          "v5_0_1": {
+            "index": null,
+            "status": "not_published_incomplete_components",
+            "missing_components": [
+              "AA-Briefcase v1.1",
+              "AutomationBench-AA",
+              "GDP.pdf",
+              "FrontierCode 2.0",
+              "Terminal-Bench 4.0",
+              "Terminal-Bench-Science 0.1",
+              "CritPt v2 (Hard Subset)",
+              "AA-Omniscience v1.1 accuracy",
+              "AA-Omniscience v1.1 non-hallucination",
+              "HLE-Diamond"
+            ],
+            "components": {
+              "AA-Briefcase v1.1": null,
+              "AutomationBench-AA": null,
+              "GDP.pdf": null,
+              "FrontierCode 2.0": null,
+              "Terminal-Bench 4.0": null,
+              "Terminal-Bench-Science 0.1": null,
+              "CritPt v2 (Hard Subset)": null,
+              "AA-Omniscience v1.1 accuracy": null,
+              "AA-Omniscience v1.1 non-hallucination": null,
+              "HLE-Diamond": null
+            },
+            "reconstructed_index": null,
+            "reconstruction_residual": null,
+            "source_id": "AA-MODEL-GEMMA-4-31B-NON-REASONING"
+          }
+        }
+      ],
+      "identity_check": {
+        "catalog_hf_id": "google/gemma-4-31B-it",
+        "aa_weights_repository": "google/gemma-4-31B-it",
+        "repository_match": true,
+        "catalog_revision": "842da3794eaa0b77d5f08bae87a17459d91ff475",
+        "scope": "AA links the publisher repository but records no revision, serving precision or evaluation endpoint. The catalog revision and the NVFP4/MXFP4/FP8 export variants are not established as the artifacts AA evaluated."
+      }
+    },
+    {
+      "key": "mistral-medium-3.5",
+      "role": "catalog",
+      "catalog_key": "mistral-medium-3.5",
+      "successor_of_catalog_key": null,
+      "successor_basis": null,
+      "aa_slug_history": null,
+      "aa_slug_history_source_ids": null,
+      "aa_release_slug": "mistral-medium-3-5",
+      "aa_release_name": "Mistral Medium 3.5",
+      "creator": "Mistral",
+      "aa_release_date": "2026-04-29",
+      "open_weights": true,
+      "aa_weights_url": "https://huggingface.co/mistralai/Mistral-Medium-3.5-128B",
+      "aa_deprecated": false,
+      "aa_deprecated_to": null,
+      "aa_performance_data_source": {
+        "type": "firstParty",
+        "providerName": "Mistral"
+      },
+      "aa_category_classification": {
+        "open_weights_category": "Open Weights (Commercial Use Restricted)",
+        "aa_license_name": "Modified MIT License",
+        "input_modalities": [
+          "text",
+          "image"
+        ],
+        "creator_country": "FR",
+        "scope": "AA classifications used by the homepage Open Weights / Proprietary, Text Only / Multimodal Inputs and By Country tabs. Not a licence review or a verification of model input support.",
+        "source_ids": [
+          "AA-MODEL-MISTRAL-MEDIUM-3-5",
+          "AA-HOME"
+        ]
+      },
+      "highest_published_variant": {
+        "v5_0": null,
+        "v5_0_1": {
+          "aa_slug": "mistral-medium-3-5",
+          "index": 4.645
+        }
+      },
+      "variants": [
+        {
+          "aa_slug": "mistral-medium-3-5",
+          "aa_name": "Mistral Medium 3.5",
+          "effort": "high",
+          "is_reasoning": true,
+          "v5_0": {
+            "index": null,
+            "status": "not_published_incomplete_components",
+            "missing_components": [
+              "FrontierCode 2.0",
+              "CritPt v2 (Hard Subset)"
+            ],
+            "critpt_v2_hard": null,
+            "snapshot_utc": "2026-11-01T18:03:13Z",
+            "source_id": "AA-WB-MODEL-GEMINI-4-CARBON-20261101"
+          },
+          "v5_0_1": {
+            "index": 4.645,
+            "status": "published",
+            "missing_components": [],
+            "components": {
+              "AA-Briefcase v1.1": 523.26,
+              "AutomationBench-AA": 0.063,
+              "GDP.pdf": 0.028,
+              "FrontierCode 2.0": 0.0177,
+              "Terminal-Bench 4.0": 0,
+              "Terminal-Bench-Science 0.1": 0,
+              "CritPt v2 (Hard Subset)": 0.005,
+              "AA-Omniscience v1.1 accuracy": 0.2303,
+              "AA-Omniscience v1.1 non-hallucination": 0.8021,
+              "HLE-Diamond": 0.047
+            },
+            "reconstructed_index": 4.708,
+            "reconstruction_residual": -0.063,
+            "source_id": "AA-MODEL-MISTRAL-MEDIUM-3-5"
+          }
+        }
+      ],
+      "identity_check": {
+        "catalog_hf_id": "mistralai/Mistral-Medium-3.5-128B",
+        "aa_weights_repository": "mistralai/Mistral-Medium-3.5-128B",
+        "repository_match": true,
+        "catalog_revision": "22b2b868a15677cfa6061277ed2f653d1349a9ab",
+        "scope": "AA links the publisher repository but records no revision, serving precision or evaluation endpoint. The catalog revision and the NVFP4/MXFP4/FP8 export variants are not established as the artifacts AA evaluated."
+      }
+    },
+    {
+      "key": "mistral-large-4",
+      "role": "catalog",
+      "catalog_key": "mistral-large-4",
+      "successor_of_catalog_key": null,
+      "successor_basis": null,
+      "aa_slug_history": "The 2026-10-29T01:01:15Z leaderboard capture and the 2026-10-29T02:51:14Z model-page capture show the deprecated Mistral Large 4 Preview record (v5.0 25.286; no weights link) on the mistral-large-4 slug. From the 2026-10-29T07:59:48Z capture the Preview is on its own mistral-large-4-preview slug and no mistral-large-4 record is embedded; the released Mistral Large 4 (High) record appears on mistral-large-4 from the 2026-10-29T14:59:06Z capture. Preview records are excluded by name.",
+      "aa_slug_history_source_ids": [
+        "AA-WB-II-20261029",
+        "AA-WB-MODEL-GEMINI-4-CARBON-20261029025114",
+        "AA-WB-MODEL-GEMINI-4-CARBON-20261029075948",
+        "AA-WB-MODEL-GEMINI-4-CARBON-20261029145906"
+      ],
+      "aa_release_slug": "mistral-large-4",
+      "aa_release_name": "Mistral Large 4",
+      "creator": "Mistral",
+      "aa_release_date": "2026-10-29",
+      "open_weights": true,
+      "aa_weights_url": "https://huggingface.co/mistralai/Mistral-Large-4-1T-A52B",
+      "aa_deprecated": false,
+      "aa_deprecated_to": null,
+      "aa_performance_data_source": {
+        "type": "firstParty",
+        "providerName": "Mistral"
+      },
+      "aa_category_classification": {
+        "open_weights_category": "Open Weights (Commercial Use Restricted)",
+        "aa_license_name": "Mistral Ecosystem Open-Weight License",
+        "input_modalities": [
+          "text",
+          "image"
+        ],
+        "creator_country": "FR",
+        "scope": "AA classifications used by the homepage Open Weights / Proprietary, Text Only / Multimodal Inputs and By Country tabs. Not a licence review or a verification of model input support.",
+        "source_ids": [
+          "AA-MODEL-MISTRAL-LARGE-4",
+          "AA-HOME"
+        ]
+      },
+      "highest_published_variant": {
+        "v5_0": {
+          "aa_slug": "mistral-large-4",
+          "index": 26.025
+        },
+        "v5_0_1": {
+          "aa_slug": "mistral-large-4",
+          "index": 26.125
+        }
+      },
+      "variants": [
+        {
+          "aa_slug": "mistral-large-4",
+          "aa_name": "Mistral Large 4 (High)",
+          "effort": "high",
+          "is_reasoning": true,
+          "v5_0": {
+            "index": 26.025,
+            "status": "published",
+            "missing_components": [],
+            "critpt_v2_hard": 0.26,
+            "snapshot_utc": "2026-11-03T19:33:41Z",
+            "source_id": "AA-WB-MODEL-GEMINI-4-CARBON-20261103"
+          },
+          "v5_0_1": {
+            "index": 26.125,
+            "status": "published",
+            "missing_components": [],
+            "components": {
+              "AA-Briefcase v1.1": 1348.31,
+              "AutomationBench-AA": 0.5783,
+              "GDP.pdf": 0.176,
+              "FrontierCode 2.0": 0.1496,
+              "Terminal-Bench 4.0": 0.2475,
+              "Terminal-Bench-Science 0.1": 0.0429,
+              "CritPt v2 (Hard Subset)": 0.27,
+              "AA-Omniscience v1.1 accuracy": 0.26,
+              "AA-Omniscience v1.1 non-hallucination": 0.282,
+              "HLE-Diamond": 0.173
+            },
+            "reconstructed_index": 26.115,
+            "reconstruction_residual": 0.01,
+            "source_id": "AA-MODEL-MISTRAL-LARGE-4"
+          }
+        },
+        {
+          "aa_slug": "mistral-large-4-medium",
+          "aa_name": "Mistral Large 4 (Medium)",
+          "effort": "medium",
+          "is_reasoning": true,
+          "v5_0": {
+            "index": 23.078,
+            "status": "published",
+            "missing_components": [],
+            "critpt_v2_hard": 0.22,
+            "snapshot_utc": "2026-11-01T18:03:13Z",
+            "source_id": "AA-WB-MODEL-GEMINI-4-CARBON-20261101"
+          },
+          "v5_0_1": {
+            "index": 23.128,
+            "status": "published",
+            "missing_components": [],
+            "components": {
+              "AA-Briefcase v1.1": 1187.74,
+              "AutomationBench-AA": 0.528,
+              "GDP.pdf": 0.168,
+              "FrontierCode 2.0": 0.1332,
+              "Terminal-Bench 4.0": 0.2323,
+              "Terminal-Bench-Science 0.1": 0.0333,
+              "CritPt v2 (Hard Subset)": 0.225,
+              "AA-Omniscience v1.1 accuracy": 0.225,
+              "AA-Omniscience v1.1 non-hallucination": 0.2482,
+              "HLE-Diamond": 0.139
+            },
+            "reconstructed_index": 23.109,
+            "reconstruction_residual": 0.019,
+            "source_id": "AA-MODEL-MISTRAL-LARGE-4-MEDIUM"
+          }
+        }
+      ],
+      "identity_check": {
+        "catalog_hf_id": "mistralai/Mistral-Large-4-1T-A52B",
+        "aa_weights_repository": "mistralai/Mistral-Large-4-1T-A52B",
+        "repository_match": true,
+        "catalog_revision": "af26e7869af601441d5cdf75a1272469ddc3d059",
+        "scope": "AA links the publisher repository but records no revision, serving precision or evaluation endpoint. The catalog revision and the NVFP4/MXFP4/FP8 export variants are not established as the artifacts AA evaluated."
+      }
+    },
+    {
+      "key": "muse-glimmer-30b",
+      "role": "catalog",
+      "catalog_key": "muse-glimmer-30b",
+      "successor_of_catalog_key": null,
+      "successor_basis": null,
+      "aa_slug_history": null,
+      "aa_slug_history_source_ids": null,
+      "aa_release_slug": "muse-glimmer",
+      "aa_release_name": "Muse Glimmer",
+      "creator": "Meta",
+      "aa_release_date": "2026-08-10",
+      "open_weights": true,
+      "aa_weights_url": "https://huggingface.co/meta-models/Muse-Glimmer-30B",
+      "aa_deprecated": false,
+      "aa_deprecated_to": null,
+      "aa_performance_data_source": {
+        "type": "median"
+      },
+      "aa_category_classification": {
+        "open_weights_category": "Open Weights",
+        "aa_license_name": "Apache 2.0",
+        "input_modalities": [
+          "text",
+          "image"
+        ],
+        "creator_country": "US",
+        "scope": "AA classifications used by the homepage Open Weights / Proprietary, Text Only / Multimodal Inputs and By Country tabs. Not a licence review or a verification of model input support.",
+        "source_ids": [
+          "AA-MODEL-MUSE-GLIMMER",
+          "AA-HOME"
+        ]
+      },
+      "highest_published_variant": {
+        "v5_0": {
+          "aa_slug": "muse-glimmer",
+          "index": 6.341
+        },
+        "v5_0_1": {
+          "aa_slug": "muse-glimmer",
+          "index": 6.341
+        }
+      },
+      "variants": [
+        {
+          "aa_slug": "muse-glimmer",
+          "aa_name": "Muse Glimmer (High)",
+          "effort": "high",
+          "is_reasoning": true,
+          "v5_0": {
+            "index": 6.341,
+            "status": "published",
+            "missing_components": [],
+            "critpt_v2_hard": 0.07,
+            "snapshot_utc": "2026-11-01T18:03:13Z",
+            "source_id": "AA-WB-MODEL-GEMINI-4-CARBON-20261101"
+          },
+          "v5_0_1": {
+            "index": 6.341,
+            "status": "published",
+            "missing_components": [],
+            "components": {
+              "AA-Briefcase v1.1": 477.83,
+              "AutomationBench-AA": 0.0683,
+              "GDP.pdf": 0.1,
+              "FrontierCode 2.0": 0.0147,
+              "Terminal-Bench 4.0": 0.0051,
+              "Terminal-Bench-Science 0.1": 0,
+              "CritPt v2 (Hard Subset)": 0.07,
+              "AA-Omniscience v1.1 accuracy": 0.2797,
+              "AA-Omniscience v1.1 non-hallucination": 0.8357,
+              "HLE-Diamond": 0.091
+            },
+            "reconstructed_index": 6.341,
+            "reconstruction_residual": 0.0,
+            "source_id": "AA-MODEL-MUSE-GLIMMER"
+          }
+        }
+      ],
+      "identity_check": {
+        "catalog_hf_id": "meta-models/Muse-Glimmer-30B",
+        "aa_weights_repository": "meta-models/Muse-Glimmer-30B",
+        "repository_match": true,
+        "catalog_revision": "cec94fcfd6512f2cfe708138c32533b346ea4f69",
+        "scope": "AA links the publisher repository but records no revision, serving precision or evaluation endpoint. The catalog revision and the NVFP4/MXFP4/FP8 export variants are not established as the artifacts AA evaluated."
+      }
+    },
+    {
+      "key": "claude-opus-5.5",
+      "role": "frontier_reference",
+      "catalog_key": null,
+      "successor_of_catalog_key": null,
+      "successor_basis": null,
+      "aa_slug_history": null,
+      "aa_slug_history_source_ids": null,
+      "aa_release_slug": "claude-opus-5-5",
+      "aa_release_name": "Claude Opus 5.5",
+      "creator": "Anthropic",
+      "aa_release_date": "2026-09-22",
+      "open_weights": false,
+      "aa_weights_url": null,
+      "aa_deprecated": false,
+      "aa_deprecated_to": null,
+      "aa_performance_data_source": {
+        "type": "firstParty",
+        "providerName": "Anthropic"
+      },
+      "aa_category_classification": {
+        "open_weights_category": "Proprietary",
+        "aa_license_name": null,
+        "input_modalities": [
+          "text",
+          "image"
+        ],
+        "creator_country": "US",
+        "scope": "AA classifications used by the homepage Open Weights / Proprietary, Text Only / Multimodal Inputs and By Country tabs. Not a licence review or a verification of model input support.",
+        "source_ids": [
+          "AA-MODEL-CLAUDE-OPUS-5-5",
+          "AA-HOME"
+        ]
+      },
+      "highest_published_variant": {
+        "v5_0": {
+          "aa_slug": "claude-opus-5-5",
+          "index": 58.406
+        },
+        "v5_0_1": {
+          "aa_slug": "claude-opus-5-5",
+          "index": 59.106
+        }
+      },
+      "variants": [
+        {
+          "aa_slug": "claude-opus-5-5",
+          "aa_name": "Claude Opus 5.5 (Max, Default Fallback)",
+          "effort": "max",
+          "is_reasoning": true,
+          "v5_0": {
+            "index": 58.406,
+            "status": "published",
+            "missing_components": [],
+            "critpt_v2_hard": 0.61,
+            "snapshot_utc": "2026-11-03T19:33:41Z",
+            "source_id": "AA-WB-MODEL-GEMINI-4-CARBON-20261103"
+          },
+          "v5_0_1": {
+            "index": 59.106,
+            "status": "published",
+            "missing_components": [],
+            "components": {
+              "AA-Briefcase v1.1": 1799.89,
+              "AutomationBench-AA": 0.6954,
+              "GDP.pdf": 0.262,
+              "FrontierCode 2.0": 0.4644,
+              "Terminal-Bench 4.0": 0.596,
+              "Terminal-Bench-Science 0.1": 0.5905,
+              "CritPt v2 (Hard Subset)": 0.68,
+              "AA-Omniscience v1.1 accuracy": 0.655,
+              "AA-Omniscience v1.1 non-hallucination": 0.5034,
+              "HLE-Diamond": 0.679
+            },
+            "reconstructed_index": 58.941,
+            "reconstruction_residual": 0.165,
+            "source_id": "AA-MODEL-CLAUDE-OPUS-5-5"
+          }
+        },
+        {
+          "aa_slug": "claude-opus-5-5-xhigh",
+          "aa_name": "Claude Opus 5.5 (Xhigh, Default Fallback)",
+          "effort": "xhigh",
+          "is_reasoning": true,
+          "v5_0": {
+            "index": 56.995,
+            "status": "published",
+            "missing_components": [],
+            "critpt_v2_hard": 0.63,
+            "snapshot_utc": "2026-11-01T18:03:13Z",
+            "source_id": "AA-WB-MODEL-GEMINI-4-CARBON-20261101"
+          },
+          "v5_0_1": {
+            "index": 57.445,
+            "status": "published",
+            "missing_components": [],
+            "components": {
+              "AA-Briefcase v1.1": 1759.61,
+              "AutomationBench-AA": 0.6495,
+              "GDP.pdf": 0.266,
+              "FrontierCode 2.0": 0.4375,
+              "Terminal-Bench 4.0": 0.596,
+              "Terminal-Bench-Science 0.1": 0.619,
+              "CritPt v2 (Hard Subset)": 0.675,
+              "AA-Omniscience v1.1 accuracy": 0.6553,
+              "AA-Omniscience v1.1 non-hallucination": 0.6499,
+              "HLE-Diamond": 0.64
+            },
+            "reconstructed_index": 57.287,
+            "reconstruction_residual": 0.158,
+            "source_id": "AA-MODEL-CLAUDE-OPUS-5-5-XHIGH"
+          }
+        },
+        {
+          "aa_slug": "claude-opus-5-5-high",
+          "aa_name": "Claude Opus 5.5 (High, Default Fallback)",
+          "effort": "high",
+          "is_reasoning": true,
+          "v5_0": {
+            "index": 51.686,
+            "status": "published",
+            "missing_components": [],
+            "critpt_v2_hard": 0.58,
+            "snapshot_utc": "2026-11-01T18:03:13Z",
+            "source_id": "AA-WB-MODEL-GEMINI-4-CARBON-20261101"
+          },
+          "v5_0_1": {
+            "index": 51.836,
+            "status": "published",
+            "missing_components": [],
+            "components": {
+              "AA-Briefcase v1.1": 1682.43,
+              "AutomationBench-AA": 0.6321,
+              "GDP.pdf": 0.288,
+              "FrontierCode 2.0": 0.3593,
+              "Terminal-Bench 4.0": 0.5657,
+              "Terminal-Bench-Science 0.1": 0.4905,
+              "CritPt v2 (Hard Subset)": 0.595,
+              "AA-Omniscience v1.1 accuracy": 0.6483,
+              "AA-Omniscience v1.1 non-hallucination": 0.6389,
+              "HLE-Diamond": 0.556
+            },
+            "reconstructed_index": 51.67,
+            "reconstruction_residual": 0.166,
+            "source_id": "AA-MODEL-CLAUDE-OPUS-5-5-HIGH"
+          }
+        },
+        {
+          "aa_slug": "claude-opus-5-5-medium",
+          "aa_name": "Claude Opus 5.5 (Medium, Default Fallback)",
+          "effort": "medium",
+          "is_reasoning": true,
+          "v5_0": {
+            "index": 48.058,
+            "status": "published",
+            "missing_components": [],
+            "critpt_v2_hard": 0.525,
+            "snapshot_utc": "2026-11-01T18:03:13Z",
+            "source_id": "AA-WB-MODEL-GEMINI-4-CARBON-20261101"
+          },
+          "v5_0_1": {
+            "index": 48.208,
+            "status": "published",
+            "missing_components": [],
+            "components": {
+              "AA-Briefcase v1.1": 1620.14,
+              "AutomationBench-AA": 0.6122,
+              "GDP.pdf": 0.256,
+              "FrontierCode 2.0": 0.3308,
+              "Terminal-Bench 4.0": 0.5253,
+              "Terminal-Bench-Science 0.1": 0.4333,
+              "CritPt v2 (Hard Subset)": 0.54,
+              "AA-Omniscience v1.1 accuracy": 0.639,
+              "AA-Omniscience v1.1 non-hallucination": 0.6685,
+              "HLE-Diamond": 0.514
+            },
+            "reconstructed_index": 48.044,
+            "reconstruction_residual": 0.164,
+            "source_id": "AA-MODEL-CLAUDE-OPUS-5-5-MEDIUM"
+          }
+        },
+        {
+          "aa_slug": "claude-opus-5-5-low",
+          "aa_name": "Claude Opus 5.5 (Low, Default Fallback)",
+          "effort": "low",
+          "is_reasoning": true,
+          "v5_0": {
+            "index": 34.503,
+            "status": "published",
+            "missing_components": [],
+            "critpt_v2_hard": 0.335,
+            "snapshot_utc": "2026-11-01T18:03:13Z",
+            "source_id": "AA-WB-MODEL-GEMINI-4-CARBON-20261101"
+          },
+          "v5_0_1": {
+            "index": 34.753,
+            "status": "published",
+            "missing_components": [],
+            "components": {
+              "AA-Briefcase v1.1": 1278.95,
+              "AutomationBench-AA": 0.5293,
+              "GDP.pdf": 0.256,
+              "FrontierCode 2.0": 0.1584,
+              "Terminal-Bench 4.0": 0.3131,
+              "Terminal-Bench-Science 0.1": 0.2429,
+              "CritPt v2 (Hard Subset)": 0.36,
+              "AA-Omniscience v1.1 accuracy": 0.6333,
+              "AA-Omniscience v1.1 non-hallucination": 0.6627,
+              "HLE-Diamond": 0.417
+            },
+            "reconstructed_index": 34.708,
+            "reconstruction_residual": 0.045,
+            "source_id": "AA-MODEL-CLAUDE-OPUS-5-5-LOW"
+          }
+        }
+      ]
+    },
+    {
+      "key": "claude-fable-5.1",
+      "role": "frontier_reference",
+      "catalog_key": null,
+      "successor_of_catalog_key": null,
+      "successor_basis": null,
+      "aa_slug_history": null,
+      "aa_slug_history_source_ids": null,
+      "aa_release_slug": "claude-fable-5-1",
+      "aa_release_name": "Claude Fable 5.1",
+      "creator": "Anthropic",
+      "aa_release_date": "2026-09-01",
+      "open_weights": false,
+      "aa_weights_url": null,
+      "aa_deprecated": false,
+      "aa_deprecated_to": null,
+      "aa_performance_data_source": {
+        "type": "firstParty",
+        "providerName": "Anthropic"
+      },
+      "aa_category_classification": {
+        "open_weights_category": "Proprietary",
+        "aa_license_name": null,
+        "input_modalities": [
+          "text",
+          "image"
+        ],
+        "creator_country": "US",
+        "scope": "AA classifications used by the homepage Open Weights / Proprietary, Text Only / Multimodal Inputs and By Country tabs. Not a licence review or a verification of model input support.",
+        "source_ids": [
+          "AA-MODEL-CLAUDE-FABLE-5-1",
+          "AA-HOME"
+        ]
+      },
+      "highest_published_variant": {
+        "v5_0": {
+          "aa_slug": "claude-fable-5-1-xhigh",
+          "index": 49.672
+        },
+        "v5_0_1": {
+          "aa_slug": "claude-fable-5-1-xhigh",
+          "index": 50.022
+        }
+      },
+      "variants": [
+        {
+          "aa_slug": "claude-fable-5-1-xhigh",
+          "aa_name": "Claude Fable 5.1 (Xhigh, Default Fallback)",
+          "effort": "xhigh",
+          "is_reasoning": true,
+          "v5_0": {
+            "index": 49.672,
+            "status": "published",
+            "missing_components": [],
+            "critpt_v2_hard": 0.565,
+            "snapshot_utc": "2026-11-01T18:03:13Z",
+            "source_id": "AA-WB-MODEL-GEMINI-4-CARBON-20261101"
+          },
+          "v5_0_1": {
+            "index": 50.022,
+            "status": "published",
+            "missing_components": [],
+            "components": {
+              "AA-Briefcase v1.1": 1648.98,
+              "AutomationBench-AA": 0.5777,
+              "GDP.pdf": 0.262,
+              "FrontierCode 2.0": 0.3573,
+              "Terminal-Bench 4.0": 0.5505,
+              "Terminal-Bench-Science 0.1": 0.4048,
+              "CritPt v2 (Hard Subset)": 0.6,
+              "AA-Omniscience v1.1 accuracy": 0.6717,
+              "AA-Omniscience v1.1 non-hallucination": 0.6954,
+              "HLE-Diamond": 0.588
+            },
+            "reconstructed_index": 49.872,
+            "reconstruction_residual": 0.15,
+            "source_id": "AA-MODEL-CLAUDE-FABLE-5-1-XHIGH"
+          }
+        },
+        {
+          "aa_slug": "claude-fable-5-1",
+          "aa_name": "Claude Fable 5.1 (Max, Default Fallback)",
+          "effort": "max",
+          "is_reasoning": true,
+          "v5_0": {
+            "index": 49.01,
+            "status": "published",
+            "missing_components": [],
+            "critpt_v2_hard": 0.51,
+            "snapshot_utc": "2026-11-03T19:33:41Z",
+            "source_id": "AA-WB-MODEL-GEMINI-4-CARBON-20261103"
+          },
+          "v5_0_1": {
+            "index": 49.16,
+            "status": "published",
+            "missing_components": [],
+            "components": {
+              "AA-Briefcase v1.1": 1669.49,
+              "AutomationBench-AA": 0.5938,
+              "GDP.pdf": 0.262,
+              "FrontierCode 2.0": 0.3162,
+              "Terminal-Bench 4.0": 0.5202,
+              "Terminal-Bench-Science 0.1": 0.4333,
+              "CritPt v2 (Hard Subset)": 0.525,
+              "AA-Omniscience v1.1 accuracy": 0.684,
+              "AA-Omniscience v1.1 non-hallucination": 0.7004,
+              "HLE-Diamond": 0.601
+            },
+            "reconstructed_index": 49.094,
+            "reconstruction_residual": 0.067,
+            "source_id": "AA-MODEL-CLAUDE-FABLE-5-1"
+          }
+        },
+        {
+          "aa_slug": "claude-fable-5-1-high",
+          "aa_name": "Claude Fable 5.1 (High, Default Fallback)",
+          "effort": "high",
+          "is_reasoning": true,
+          "v5_0": {
+            "index": 47.025,
+            "status": "published",
+            "missing_components": [],
+            "critpt_v2_hard": 0.605,
+            "snapshot_utc": "2026-11-01T18:03:13Z",
+            "source_id": "AA-WB-MODEL-GEMINI-4-CARBON-20261101"
+          },
+          "v5_0_1": {
+            "index": 47.175,
+            "status": "published",
+            "missing_components": [],
+            "components": {
+              "AA-Briefcase v1.1": 1576.5,
+              "AutomationBench-AA": 0.5532,
+              "GDP.pdf": 0.268,
+              "FrontierCode 2.0": 0.303,
+              "Terminal-Bench 4.0": 0.5202,
+              "Terminal-Bench-Science 0.1": 0.3952,
+              "CritPt v2 (Hard Subset)": 0.62,
+              "AA-Omniscience v1.1 accuracy": 0.647,
+              "AA-Omniscience v1.1 non-hallucination": 0.7016,
+              "HLE-Diamond": 0.504
+            },
+            "reconstructed_index": 47.057,
+            "reconstruction_residual": 0.118,
+            "source_id": "AA-MODEL-CLAUDE-FABLE-5-1-HIGH"
+          }
+        },
+        {
+          "aa_slug": "claude-fable-5-1-medium",
+          "aa_name": "Claude Fable 5.1 (Medium, Default Fallback)",
+          "effort": "medium",
+          "is_reasoning": true,
+          "v5_0": {
+            "index": 42.972,
+            "status": "published",
+            "missing_components": [],
+            "critpt_v2_hard": 0.565,
+            "snapshot_utc": "2026-11-01T18:03:13Z",
+            "source_id": "AA-WB-MODEL-GEMINI-4-CARBON-20261101"
+          },
+          "v5_0_1": {
+            "index": 43.172,
+            "status": "published",
+            "missing_components": [],
+            "components": {
+              "AA-Briefcase v1.1": 1524.5,
+              "AutomationBench-AA": 0.5466,
+              "GDP.pdf": 0.268,
+              "FrontierCode 2.0": 0.2877,
+              "Terminal-Bench 4.0": 0.4495,
+              "Terminal-Bench-Science 0.1": 0.2905,
+              "CritPt v2 (Hard Subset)": 0.585,
+              "AA-Omniscience v1.1 accuracy": 0.6257,
+              "AA-Omniscience v1.1 non-hallucination": 0.6981,
+              "HLE-Diamond": 0.45
+            },
+            "reconstructed_index": 43.041,
+            "reconstruction_residual": 0.131,
+            "source_id": "AA-MODEL-CLAUDE-FABLE-5-1-MEDIUM"
+          }
+        },
+        {
+          "aa_slug": "claude-fable-5-1-low",
+          "aa_name": "Claude Fable 5.1 (Low, Default Fallback)",
+          "effort": "low",
+          "is_reasoning": true,
+          "v5_0": {
+            "index": 38.484,
+            "status": "published",
+            "missing_components": [],
+            "critpt_v2_hard": 0.475,
+            "snapshot_utc": "2026-11-01T18:03:13Z",
+            "source_id": "AA-WB-MODEL-GEMINI-4-CARBON-20261101"
+          },
+          "v5_0_1": {
+            "index": 38.684,
+            "status": "published",
+            "missing_components": [],
+            "components": {
+              "AA-Briefcase v1.1": 1478.4,
+              "AutomationBench-AA": 0.5224,
+              "GDP.pdf": 0.28,
+              "FrontierCode 2.0": 0.2284,
+              "Terminal-Bench 4.0": 0.404,
+              "Terminal-Bench-Science 0.1": 0.2143,
+              "CritPt v2 (Hard Subset)": 0.495,
+              "AA-Omniscience v1.1 accuracy": 0.5867,
+              "AA-Omniscience v1.1 non-hallucination": 0.5984,
+              "HLE-Diamond": 0.374
+            },
+            "reconstructed_index": 38.595,
+            "reconstruction_residual": 0.088,
+            "source_id": "AA-MODEL-CLAUDE-FABLE-5-1-LOW"
+          }
+        }
+      ]
+    },
+    {
+      "key": "claude-sonnet-5.5",
+      "role": "frontier_reference",
+      "catalog_key": null,
+      "successor_of_catalog_key": null,
+      "successor_basis": null,
+      "aa_slug_history": null,
+      "aa_slug_history_source_ids": null,
+      "aa_release_slug": "claude-sonnet-5-5",
+      "aa_release_name": "Claude Sonnet 5.5",
+      "creator": "Anthropic",
+      "aa_release_date": "2026-09-28",
+      "open_weights": false,
+      "aa_weights_url": null,
+      "aa_deprecated": false,
+      "aa_deprecated_to": null,
+      "aa_performance_data_source": {
+        "type": "firstParty",
+        "providerName": "Anthropic"
+      },
+      "aa_category_classification": {
+        "open_weights_category": "Proprietary",
+        "aa_license_name": null,
+        "input_modalities": [
+          "text",
+          "image"
+        ],
+        "creator_country": "US",
+        "scope": "AA classifications used by the homepage Open Weights / Proprietary, Text Only / Multimodal Inputs and By Country tabs. Not a licence review or a verification of model input support.",
+        "source_ids": [
+          "AA-MODEL-CLAUDE-SONNET-5-5",
+          "AA-HOME"
+        ]
+      },
+      "highest_published_variant": {
+        "v5_0": {
+          "aa_slug": "claude-sonnet-5-5",
+          "index": 54.241
+        },
+        "v5_0_1": {
+          "aa_slug": "claude-sonnet-5-5",
+          "index": 54.541
+        }
+      },
+      "variants": [
+        {
+          "aa_slug": "claude-sonnet-5-5",
+          "aa_name": "Claude Sonnet 5.5 (Max, Default Fallback)",
+          "effort": "max",
+          "is_reasoning": true,
+          "v5_0": {
+            "index": 54.241,
+            "status": "published",
+            "missing_components": [],
+            "critpt_v2_hard": 0.56,
+            "snapshot_utc": "2026-11-03T19:33:41Z",
+            "source_id": "AA-WB-MODEL-GEMINI-4-CARBON-20261103"
+          },
+          "v5_0_1": {
+            "index": 54.541,
+            "status": "published",
+            "missing_components": [],
+            "components": {
+              "AA-Briefcase v1.1": 1813.33,
+              "AutomationBench-AA": 0.7177,
+              "GDP.pdf": 0.258,
+              "FrontierCode 2.0": 0.417,
+              "Terminal-Bench 4.0": 0.6364,
+              "Terminal-Bench-Science 0.1": 0.5333,
+              "CritPt v2 (Hard Subset)": 0.59,
+              "AA-Omniscience v1.1 accuracy": 0.5147,
+              "AA-Omniscience v1.1 non-hallucination": 0.4327,
+              "HLE-Diamond": 0.533
+            },
+            "reconstructed_index": 54.56,
+            "reconstruction_residual": -0.019,
+            "source_id": "AA-MODEL-CLAUDE-SONNET-5-5"
+          }
+        },
+        {
+          "aa_slug": "claude-sonnet-5-5-xhigh",
+          "aa_name": "Claude Sonnet 5.5 (Xhigh, Default Fallback)",
+          "effort": "xhigh",
+          "is_reasoning": true,
+          "v5_0": {
+            "index": 49.574,
+            "status": "published",
+            "missing_components": [],
+            "critpt_v2_hard": 0.54,
+            "snapshot_utc": "2026-11-01T18:03:13Z",
+            "source_id": "AA-WB-MODEL-GEMINI-4-CARBON-20261101"
+          },
+          "v5_0_1": {
+            "index": 49.924,
+            "status": "published",
+            "missing_components": [],
+            "components": {
+              "AA-Briefcase v1.1": 1741.64,
+              "AutomationBench-AA": 0.6552,
+              "GDP.pdf": 0.246,
+              "FrontierCode 2.0": 0.3565,
+              "Terminal-Bench 4.0": 0.5707,
+              "Terminal-Bench-Science 0.1": 0.5238,
+              "CritPt v2 (Hard Subset)": 0.575,
+              "AA-Omniscience v1.1 accuracy": 0.509,
+              "AA-Omniscience v1.1 non-hallucination": 0.6171,
+              "HLE-Diamond": 0.441
+            },
+            "reconstructed_index": 49.894,
+            "reconstruction_residual": 0.03,
+            "source_id": "AA-MODEL-CLAUDE-SONNET-5-5-XHIGH"
+          }
+        },
+        {
+          "aa_slug": "claude-sonnet-5-5-high",
+          "aa_name": "Claude Sonnet 5.5 (High, Default Fallback)",
+          "effort": "high",
+          "is_reasoning": true,
+          "v5_0": {
+            "index": 41.115,
+            "status": "published",
+            "missing_components": [],
+            "critpt_v2_hard": 0.475,
+            "snapshot_utc": "2026-11-01T18:03:13Z",
+            "source_id": "AA-WB-MODEL-GEMINI-4-CARBON-20261101"
+          },
+          "v5_0_1": {
+            "index": 41.515,
+            "status": "published",
+            "missing_components": [],
+            "components": {
+              "AA-Briefcase v1.1": 1634.38,
+              "AutomationBench-AA": 0.5943,
+              "GDP.pdf": 0.252,
+              "FrontierCode 2.0": 0.2574,
+              "Terminal-Bench 4.0": 0.4394,
+              "Terminal-Bench-Science 0.1": 0.3429,
+              "CritPt v2 (Hard Subset)": 0.515,
+              "AA-Omniscience v1.1 accuracy": 0.5033,
+              "AA-Omniscience v1.1 non-hallucination": 0.6362,
+              "HLE-Diamond": 0.338
+            },
+            "reconstructed_index": 41.519,
+            "reconstruction_residual": -0.004,
+            "source_id": "AA-MODEL-CLAUDE-SONNET-5-5-HIGH"
+          }
+        },
+        {
+          "aa_slug": "claude-sonnet-5-5-medium",
+          "aa_name": "Claude Sonnet 5.5 (Medium, Default Fallback)",
+          "effort": "medium",
+          "is_reasoning": true,
+          "v5_0": {
+            "index": 30.32,
+            "status": "published",
+            "missing_components": [],
+            "critpt_v2_hard": 0.285,
+            "snapshot_utc": "2026-11-01T18:03:13Z",
+            "source_id": "AA-WB-MODEL-GEMINI-4-CARBON-20261101"
+          },
+          "v5_0_1": {
+            "index": 30.82,
+            "status": "published",
+            "missing_components": [],
+            "components": {
+              "AA-Briefcase v1.1": 1439.22,
+              "AutomationBench-AA": 0.5491,
+              "GDP.pdf": 0.202,
+              "FrontierCode 2.0": 0.1097,
+              "Terminal-Bench 4.0": 0.298,
+              "Terminal-Bench-Science 0.1": 0.1619,
+              "CritPt v2 (Hard Subset)": 0.335,
+              "AA-Omniscience v1.1 accuracy": 0.4577,
+              "AA-Omniscience v1.1 non-hallucination": 0.5003,
+              "HLE-Diamond": 0.238
+            },
+            "reconstructed_index": 30.659,
+            "reconstruction_residual": 0.161,
+            "source_id": "AA-MODEL-CLAUDE-SONNET-5-5-MEDIUM"
+          }
+        },
+        {
+          "aa_slug": "claude-sonnet-5-5-low",
+          "aa_name": "Claude Sonnet 5.5 (Low, Default Fallback)",
+          "effort": "low",
+          "is_reasoning": true,
+          "v5_0": {
+            "index": 25.3,
+            "status": "published",
+            "missing_components": [],
+            "critpt_v2_hard": 0.225,
+            "snapshot_utc": "2026-11-01T18:03:13Z",
+            "source_id": "AA-WB-MODEL-GEMINI-4-CARBON-20261101"
+          },
+          "v5_0_1": {
+            "index": 25.65,
+            "status": "published",
+            "missing_components": [],
+            "components": {
+              "AA-Briefcase v1.1": 1267.6,
+              "AutomationBench-AA": 0.4942,
+              "GDP.pdf": 0.16,
+              "FrontierCode 2.0": 0.0713,
+              "Terminal-Bench 4.0": 0.2071,
+              "Terminal-Bench-Science 0.1": 0.1048,
+              "CritPt v2 (Hard Subset)": 0.26,
+              "AA-Omniscience v1.1 accuracy": 0.46,
+              "AA-Omniscience v1.1 non-hallucination": 0.4765,
+              "HLE-Diamond": 0.206
+            },
+            "reconstructed_index": 25.616,
+            "reconstruction_residual": 0.033,
+            "source_id": "AA-MODEL-CLAUDE-SONNET-5-5-LOW"
+          }
+        }
+      ]
+    },
+    {
+      "key": "gpt-6-astra",
+      "role": "frontier_reference",
+      "catalog_key": null,
+      "successor_of_catalog_key": null,
+      "successor_basis": null,
+      "aa_slug_history": null,
+      "aa_slug_history_source_ids": null,
+      "aa_release_slug": "gpt-6-astra",
+      "aa_release_name": "GPT-6 Astra",
+      "creator": "OpenAI",
+      "aa_release_date": "2026-09-03",
+      "open_weights": false,
+      "aa_weights_url": null,
+      "aa_deprecated": false,
+      "aa_deprecated_to": null,
+      "aa_performance_data_source": {
+        "type": "firstParty",
+        "providerName": "OpenAI"
+      },
+      "aa_category_classification": {
+        "open_weights_category": "Proprietary",
+        "aa_license_name": null,
+        "input_modalities": [
+          "text",
+          "image"
+        ],
+        "creator_country": "US",
+        "scope": "AA classifications used by the homepage Open Weights / Proprietary, Text Only / Multimodal Inputs and By Country tabs. Not a licence review or a verification of model input support.",
+        "source_ids": [
+          "AA-MODEL-GPT-6-ASTRA",
+          "AA-HOME"
+        ]
+      },
+      "highest_published_variant": {
+        "v5_0": {
+          "aa_slug": "gpt-6-astra",
+          "index": 56.854
+        },
+        "v5_0_1": {
+          "aa_slug": "gpt-6-astra",
+          "index": 56.854
+        }
+      },
+      "variants": [
+        {
+          "aa_slug": "gpt-6-astra",
+          "aa_name": "GPT-6 Astra (Max)",
+          "effort": "max",
+          "is_reasoning": true,
+          "v5_0": {
+            "index": 56.854,
+            "status": "published",
+            "missing_components": [],
+            "critpt_v2_hard": 0.705,
+            "snapshot_utc": "2026-11-03T19:33:41Z",
+            "source_id": "AA-WB-MODEL-GEMINI-4-CARBON-20261103"
+          },
+          "v5_0_1": {
+            "index": 56.854,
+            "status": "published",
+            "missing_components": [],
+            "components": {
+              "AA-Briefcase v1.1": 1568.59,
+              "AutomationBench-AA": 0.6849,
+              "GDP.pdf": 0.31,
+              "FrontierCode 2.0": 0.4237,
+              "Terminal-Bench 4.0": 0.5909,
+              "Terminal-Bench-Science 0.1": 0.6333,
+              "CritPt v2 (Hard Subset)": 0.705,
+              "AA-Omniscience v1.1 accuracy": 0.6157,
+              "AA-Omniscience v1.1 non-hallucination": 0.4978,
+              "HLE-Diamond": 0.638
+            },
+            "reconstructed_index": 56.852,
+            "reconstruction_residual": 0.002,
+            "source_id": "AA-MODEL-GPT-6-ASTRA"
+          }
+        },
+        {
+          "aa_slug": "gpt-6-astra-xhigh",
+          "aa_name": "GPT-6 Astra (Xhigh)",
+          "effort": "xhigh",
+          "is_reasoning": true,
+          "v5_0": {
+            "index": 55.256,
+            "status": "published",
+            "missing_components": [],
+            "critpt_v2_hard": 0.705,
+            "snapshot_utc": "2026-11-01T18:03:13Z",
+            "source_id": "AA-WB-MODEL-GEMINI-4-CARBON-20261101"
+          },
+          "v5_0_1": {
+            "index": 55.306,
+            "status": "published",
+            "missing_components": [],
+            "components": {
+              "AA-Briefcase v1.1": 1543.53,
+              "AutomationBench-AA": 0.6718,
+              "GDP.pdf": 0.322,
+              "FrontierCode 2.0": 0.414,
+              "Terminal-Bench 4.0": 0.596,
+              "Terminal-Bench-Science 0.1": 0.5476,
+              "CritPt v2 (Hard Subset)": 0.71,
+              "AA-Omniscience v1.1 accuracy": 0.6103,
+              "AA-Omniscience v1.1 non-hallucination": 0.4457,
+              "HLE-Diamond": 0.615
+            },
+            "reconstructed_index": 55.305,
+            "reconstruction_residual": 0.001,
+            "source_id": "AA-MODEL-GPT-6-ASTRA-XHIGH"
+          }
+        },
+        {
+          "aa_slug": "gpt-6-astra-high",
+          "aa_name": "GPT-6 Astra (High)",
+          "effort": "high",
+          "is_reasoning": true,
+          "v5_0": {
+            "index": 54.85,
+            "status": "published",
+            "missing_components": [],
+            "critpt_v2_hard": 0.715,
+            "snapshot_utc": "2026-11-01T18:03:13Z",
+            "source_id": "AA-WB-MODEL-GEMINI-4-CARBON-20261101"
+          },
+          "v5_0_1": {
+            "index": 54.85,
+            "status": "published",
+            "missing_components": [],
+            "components": {
+              "AA-Briefcase v1.1": 1504.54,
+              "AutomationBench-AA": 0.6661,
+              "GDP.pdf": 0.31,
+              "FrontierCode 2.0": 0.4014,
+              "Terminal-Bench 4.0": 0.5404,
+              "Terminal-Bench-Science 0.1": 0.5952,
+              "CritPt v2 (Hard Subset)": 0.715,
+              "AA-Omniscience v1.1 accuracy": 0.611,
+              "AA-Omniscience v1.1 non-hallucination": 0.425,
+              "HLE-Diamond": 0.593
+            },
+            "reconstructed_index": 54.832,
+            "reconstruction_residual": 0.017,
+            "source_id": "AA-MODEL-GPT-6-ASTRA-HIGH"
+          }
+        },
+        {
+          "aa_slug": "gpt-6-astra-medium",
+          "aa_name": "GPT-6 Astra (Medium)",
+          "effort": "medium",
+          "is_reasoning": true,
+          "v5_0": {
+            "index": 51.455,
+            "status": "published",
+            "missing_components": [],
+            "critpt_v2_hard": 0.71,
+            "snapshot_utc": "2026-11-01T18:03:13Z",
+            "source_id": "AA-WB-MODEL-GEMINI-4-CARBON-20261101"
+          },
+          "v5_0_1": {
+            "index": 51.555,
+            "status": "published",
+            "missing_components": [],
+            "components": {
+              "AA-Briefcase v1.1": 1460.93,
+              "AutomationBench-AA": 0.6459,
+              "GDP.pdf": 0.304,
+              "FrontierCode 2.0": 0.3658,
+              "Terminal-Bench 4.0": 0.4949,
+              "Terminal-Bench-Science 0.1": 0.5333,
+              "CritPt v2 (Hard Subset)": 0.72,
+              "AA-Omniscience v1.1 accuracy": 0.5963,
+              "AA-Omniscience v1.1 non-hallucination": 0.4517,
+              "HLE-Diamond": 0.527
+            },
+            "reconstructed_index": 51.568,
+            "reconstruction_residual": -0.013,
+            "source_id": "AA-MODEL-GPT-6-ASTRA-MEDIUM"
+          }
+        },
+        {
+          "aa_slug": "gpt-6-astra-low",
+          "aa_name": "GPT-6 Astra (Low)",
+          "effort": "low",
+          "is_reasoning": true,
+          "v5_0": {
+            "index": 43.035,
+            "status": "published",
+            "missing_components": [],
+            "critpt_v2_hard": 0.6,
+            "snapshot_utc": "2026-11-01T18:03:13Z",
+            "source_id": "AA-WB-MODEL-GEMINI-4-CARBON-20261101"
+          },
+          "v5_0_1": {
+            "index": 43.335,
+            "status": "published",
+            "missing_components": [],
+            "components": {
+              "AA-Briefcase v1.1": 1256.49,
+              "AutomationBench-AA": 0.591,
+              "GDP.pdf": 0.304,
+              "FrontierCode 2.0": 0.2622,
+              "Terminal-Bench 4.0": 0.4192,
+              "Terminal-Bench-Science 0.1": 0.3714,
+              "CritPt v2 (Hard Subset)": 0.63,
+              "AA-Omniscience v1.1 accuracy": 0.586,
+              "AA-Omniscience v1.1 non-hallucination": 0.442,
+              "HLE-Diamond": 0.451
+            },
+            "reconstructed_index": 43.304,
+            "reconstruction_residual": 0.031,
+            "source_id": "AA-MODEL-GPT-6-ASTRA-LOW"
+          }
+        }
+      ]
+    },
+    {
+      "key": "gpt-6.1-sol",
+      "role": "frontier_reference",
+      "catalog_key": null,
+      "successor_of_catalog_key": null,
+      "successor_basis": null,
+      "aa_slug_history": null,
+      "aa_slug_history_source_ids": null,
+      "aa_release_slug": "gpt-6-1-sol",
+      "aa_release_name": "GPT-6.1 Sol",
+      "creator": "OpenAI",
+      "aa_release_date": "2026-09-29",
+      "open_weights": false,
+      "aa_weights_url": null,
+      "aa_deprecated": false,
+      "aa_deprecated_to": null,
+      "aa_performance_data_source": {
+        "type": "firstParty",
+        "providerName": "OpenAI"
+      },
+      "aa_category_classification": {
+        "open_weights_category": "Proprietary",
+        "aa_license_name": null,
+        "input_modalities": [
+          "text",
+          "image"
+        ],
+        "creator_country": "US",
+        "scope": "AA classifications used by the homepage Open Weights / Proprietary, Text Only / Multimodal Inputs and By Country tabs. Not a licence review or a verification of model input support.",
+        "source_ids": [
+          "AA-MODEL-GPT-6-1-SOL",
+          "AA-HOME"
+        ]
+      },
+      "highest_published_variant": {
+        "v5_0": {
+          "aa_slug": "gpt-6-1-sol",
+          "index": 54.509
+        },
+        "v5_0_1": {
+          "aa_slug": "gpt-6-1-sol",
+          "index": 54.609
+        }
+      },
+      "variants": [
+        {
+          "aa_slug": "gpt-6-1-sol",
+          "aa_name": "GPT-6.1 Sol (Max)",
+          "effort": "max",
+          "is_reasoning": true,
+          "v5_0": {
+            "index": 54.509,
+            "status": "published",
+            "missing_components": [],
+            "critpt_v2_hard": 0.685,
+            "snapshot_utc": "2026-11-03T19:33:41Z",
+            "source_id": "AA-WB-MODEL-GEMINI-4-CARBON-20261103"
+          },
+          "v5_0_1": {
+            "index": 54.609,
+            "status": "published",
+            "missing_components": [],
+            "components": {
+              "AA-Briefcase v1.1": 1555.09,
+              "AutomationBench-AA": 0.6487,
+              "GDP.pdf": 0.31,
+              "FrontierCode 2.0": 0.4063,
+              "Terminal-Bench 4.0": 0.5606,
+              "Terminal-Bench-Science 0.1": 0.581,
+              "CritPt v2 (Hard Subset)": 0.695,
+              "AA-Omniscience v1.1 accuracy": 0.6183,
+              "AA-Omniscience v1.1 non-hallucination": 0.5188,
+              "HLE-Diamond": 0.588
+            },
+            "reconstructed_index": 54.54,
+            "reconstruction_residual": 0.068,
+            "source_id": "AA-MODEL-GPT-6-1-SOL"
+          }
+        },
+        {
+          "aa_slug": "gpt-6-1-sol-xhigh",
+          "aa_name": "GPT-6.1 Sol (Xhigh)",
+          "effort": "xhigh",
+          "is_reasoning": true,
+          "v5_0": {
+            "index": 52.308,
+            "status": "published",
+            "missing_components": [],
+            "critpt_v2_hard": 0.68,
+            "snapshot_utc": "2026-11-01T18:03:13Z",
+            "source_id": "AA-WB-MODEL-GEMINI-4-CARBON-20261101"
+          },
+          "v5_0_1": {
+            "index": 52.458,
+            "status": "published",
+            "missing_components": [],
+            "components": {
+              "AA-Briefcase v1.1": 1503.18,
+              "AutomationBench-AA": 0.6657,
+              "GDP.pdf": 0.318,
+              "FrontierCode 2.0": 0.3852,
+              "Terminal-Bench 4.0": 0.5404,
+              "Terminal-Bench-Science 0.1": 0.5048,
+              "CritPt v2 (Hard Subset)": 0.695,
+              "AA-Omniscience v1.1 accuracy": 0.6107,
+              "AA-Omniscience v1.1 non-hallucination": 0.4803,
+              "HLE-Diamond": 0.558
+            },
+            "reconstructed_index": 52.431,
+            "reconstruction_residual": 0.027,
+            "source_id": "AA-MODEL-GPT-6-1-SOL-XHIGH"
+          }
+        },
+        {
+          "aa_slug": "gpt-6-1-sol-high",
+          "aa_name": "GPT-6.1 Sol (High)",
+          "effort": "high",
+          "is_reasoning": true,
+          "v5_0": {
+            "index": 50.229,
+            "status": "published",
+            "missing_components": [],
+            "critpt_v2_hard": 0.675,
+            "snapshot_utc": "2026-11-01T18:03:13Z",
+            "source_id": "AA-WB-MODEL-GEMINI-4-CARBON-20261101"
+          },
+          "v5_0_1": {
+            "index": 50.329,
+            "status": "published",
+            "missing_components": [],
+            "components": {
+              "AA-Briefcase v1.1": 1468.52,
+              "AutomationBench-AA": 0.645,
+              "GDP.pdf": 0.32,
+              "FrontierCode 2.0": 0.3674,
+              "Terminal-Bench 4.0": 0.5152,
+              "Terminal-Bench-Science 0.1": 0.4619,
+              "CritPt v2 (Hard Subset)": 0.685,
+              "AA-Omniscience v1.1 accuracy": 0.604,
+              "AA-Omniscience v1.1 non-hallucination": 0.4899,
+              "HLE-Diamond": 0.519
+            },
+            "reconstructed_index": 50.31,
+            "reconstruction_residual": 0.019,
+            "source_id": "AA-MODEL-GPT-6-1-SOL-HIGH"
+          }
+        },
+        {
+          "aa_slug": "gpt-6-1-sol-medium",
+          "aa_name": "GPT-6.1 Sol (Medium)",
+          "effort": "medium",
+          "is_reasoning": true,
+          "v5_0": {
+            "index": 46.147,
+            "status": "published",
+            "missing_components": [],
+            "critpt_v2_hard": 0.65,
+            "snapshot_utc": "2026-11-01T18:03:13Z",
+            "source_id": "AA-WB-MODEL-GEMINI-4-CARBON-20261101"
+          },
+          "v5_0_1": {
+            "index": 46.347,
+            "status": "published",
+            "missing_components": [],
+            "components": {
+              "AA-Briefcase v1.1": 1360.05,
+              "AutomationBench-AA": 0.6257,
+              "GDP.pdf": 0.3,
+              "FrontierCode 2.0": 0.3339,
+              "Terminal-Bench 4.0": 0.4798,
+              "Terminal-Bench-Science 0.1": 0.3714,
+              "CritPt v2 (Hard Subset)": 0.67,
+              "AA-Omniscience v1.1 accuracy": 0.596,
+              "AA-Omniscience v1.1 non-hallucination": 0.481,
+              "HLE-Diamond": 0.46
+            },
+            "reconstructed_index": 46.311,
+            "reconstruction_residual": 0.035,
+            "source_id": "AA-MODEL-GPT-6-1-SOL-MEDIUM"
+          }
+        },
+        {
+          "aa_slug": "gpt-6-1-sol-low",
+          "aa_name": "GPT-6.1 Sol (Low)",
+          "effort": "low",
+          "is_reasoning": true,
+          "v5_0": {
+            "index": 34.503,
+            "status": "published",
+            "missing_components": [],
+            "critpt_v2_hard": 0.595,
+            "snapshot_utc": "2026-11-01T18:03:13Z",
+            "source_id": "AA-WB-MODEL-GEMINI-4-CARBON-20261101"
+          },
+          "v5_0_1": {
+            "index": 34.803,
+            "status": "published",
+            "missing_components": [],
+            "components": {
+              "AA-Briefcase v1.1": 1114.11,
+              "AutomationBench-AA": 0.5257,
+              "GDP.pdf": 0.27,
+              "FrontierCode 2.0": 0.2016,
+              "Terminal-Bench 4.0": 0.3081,
+              "Terminal-Bench-Science 0.1": 0.1095,
+              "CritPt v2 (Hard Subset)": 0.625,
+              "AA-Omniscience v1.1 accuracy": 0.5863,
+              "AA-Omniscience v1.1 non-hallucination": 0.4988,
+              "HLE-Diamond": 0.382
+            },
+            "reconstructed_index": 34.771,
+            "reconstruction_residual": 0.032,
+            "source_id": "AA-MODEL-GPT-6-1-SOL-LOW"
+          }
+        }
+      ]
+    },
+    {
+      "key": "gemini-4-carbon",
+      "role": "frontier_reference",
+      "catalog_key": null,
+      "successor_of_catalog_key": null,
+      "successor_basis": null,
+      "aa_slug_history": null,
+      "aa_slug_history_source_ids": null,
+      "aa_release_slug": "gemini-4-carbon",
+      "aa_release_name": "Gemini 4 Carbon",
+      "creator": "Google",
+      "aa_release_date": "2026-10-28",
+      "open_weights": false,
+      "aa_weights_url": null,
+      "aa_deprecated": false,
+      "aa_deprecated_to": null,
+      "aa_performance_data_source": {
+        "type": "firstParty",
+        "providerName": "Google"
+      },
+      "aa_category_classification": {
+        "open_weights_category": "Proprietary",
+        "aa_license_name": null,
+        "input_modalities": [
+          "text",
+          "image",
+          "video",
+          "speech"
+        ],
+        "creator_country": "US",
+        "scope": "AA classifications used by the homepage Open Weights / Proprietary, Text Only / Multimodal Inputs and By Country tabs. Not a licence review or a verification of model input support.",
+        "source_ids": [
+          "AA-MODEL-GEMINI-4-CARBON",
+          "AA-HOME"
+        ]
+      },
+      "highest_published_variant": {
+        "v5_0": {
+          "aa_slug": "gemini-4-carbon",
+          "index": 59.426
+        },
+        "v5_0_1": {
+          "aa_slug": "gemini-4-carbon",
+          "index": 60.026
+        }
+      },
+      "variants": [
+        {
+          "aa_slug": "gemini-4-carbon",
+          "aa_name": "Gemini 4 Carbon (High)",
+          "effort": "high",
+          "is_reasoning": true,
+          "v5_0": {
+            "index": 59.426,
+            "status": "published",
+            "missing_components": [],
+            "critpt_v2_hard": 0.63,
+            "snapshot_utc": "2026-11-03T19:33:41Z",
+            "source_id": "AA-WB-MODEL-GEMINI-4-CARBON-20261103"
+          },
+          "v5_0_1": {
+            "index": 60.026,
+            "status": "published",
+            "missing_components": [],
+            "components": {
+              "AA-Briefcase v1.1": 1610.63,
+              "AutomationBench-AA": 0.7782,
+              "GDP.pdf": 0.284,
+              "FrontierCode 2.0": 0.4056,
+              "Terminal-Bench 4.0": 0.6515,
+              "Terminal-Bench-Science 0.1": 0.6476,
+              "CritPt v2 (Hard Subset)": 0.69,
+              "AA-Omniscience v1.1 accuracy": 0.5827,
+              "AA-Omniscience v1.1 non-hallucination": 0.1142,
+              "HLE-Diamond": 0.691
+            },
+            "reconstructed_index": 60.02,
+            "reconstruction_residual": 0.006,
+            "source_id": "AA-MODEL-GEMINI-4-CARBON"
+          }
+        },
+        {
+          "aa_slug": "gemini-4-carbon-medium",
+          "aa_name": "Gemini 4 Carbon (Medium)",
+          "effort": "medium",
+          "is_reasoning": true,
+          "v5_0": {
+            "index": null,
+            "status": "evaluated_under_v5_0_value_not_captured",
+            "aa_changelog_evaluation_date": "2026-11-01",
+            "note": "AA changelog lists this evaluation while v5.0 was current; archived captures list the slug in the model selector but embed no scored record.",
+            "source_id": "AA-HOME"
+          },
+          "v5_0_1": {
+            "index": 58.259,
+            "status": "published",
+            "missing_components": [],
+            "components": {
+              "AA-Briefcase v1.1": 1601.74,
+              "AutomationBench-AA": 0.776,
+              "GDP.pdf": 0.296,
+              "FrontierCode 2.0": 0.3945,
+              "Terminal-Bench 4.0": 0.6061,
+              "Terminal-Bench-Science 0.1": 0.6238,
+              "CritPt v2 (Hard Subset)": 0.69,
+              "AA-Omniscience v1.1 accuracy": 0.4893,
+              "AA-Omniscience v1.1 non-hallucination": 0.0424,
+              "HLE-Diamond": 0.674
+            },
+            "reconstructed_index": 58.28,
+            "reconstruction_residual": -0.021,
+            "source_id": "AA-MODEL-GEMINI-4-CARBON-MEDIUM"
+          }
+        },
+        {
+          "aa_slug": "gemini-4-carbon-low",
+          "aa_name": "Gemini 4 Carbon (Low)",
+          "effort": "low",
+          "is_reasoning": true,
+          "v5_0": {
+            "index": null,
+            "status": "evaluated_under_v5_0_value_not_captured",
+            "aa_changelog_evaluation_date": "2026-11-02",
+            "note": "AA changelog lists this evaluation while v5.0 was current; archived captures list the slug in the model selector but embed no scored record.",
+            "source_id": "AA-HOME"
+          },
+          "v5_0_1": {
+            "index": 54.221,
+            "status": "published",
+            "missing_components": [],
+            "components": {
+              "AA-Briefcase v1.1": 1567.14,
+              "AutomationBench-AA": 0.6346,
+              "GDP.pdf": 0.286,
+              "FrontierCode 2.0": 0.2962,
+              "Terminal-Bench 4.0": 0.6263,
+              "Terminal-Bench-Science 0.1": 0.619,
+              "CritPt v2 (Hard Subset)": 0.65,
+              "AA-Omniscience v1.1 accuracy": 0.4923,
+              "AA-Omniscience v1.1 non-hallucination": 0.1976,
+              "HLE-Diamond": 0.619
+            },
+            "reconstructed_index": 54.223,
+            "reconstruction_residual": -0.002,
+            "source_id": "AA-MODEL-GEMINI-4-CARBON-LOW"
+          }
+        }
+      ]
+    },
+    {
+      "key": "gemini-4-argon",
+      "role": "frontier_reference",
+      "catalog_key": null,
+      "successor_of_catalog_key": null,
+      "successor_basis": null,
+      "aa_slug_history": null,
+      "aa_slug_history_source_ids": null,
+      "aa_release_slug": "gemini-4-argon",
+      "aa_release_name": "Gemini 4 Argon",
+      "creator": "Google",
+      "aa_release_date": "2026-09-30",
+      "open_weights": false,
+      "aa_weights_url": null,
+      "aa_deprecated": false,
+      "aa_deprecated_to": null,
+      "aa_performance_data_source": {
+        "type": "firstParty",
+        "providerName": "Google"
+      },
+      "aa_category_classification": {
+        "open_weights_category": "Proprietary",
+        "aa_license_name": null,
+        "input_modalities": [
+          "text",
+          "image"
+        ],
+        "creator_country": "US",
+        "scope": "AA classifications used by the homepage Open Weights / Proprietary, Text Only / Multimodal Inputs and By Country tabs. Not a licence review or a verification of model input support.",
+        "source_ids": [
+          "AA-MODEL-GEMINI-4-ARGON",
+          "AA-HOME"
+        ]
+      },
+      "highest_published_variant": {
+        "v5_0": {
+          "aa_slug": "gemini-4-argon",
+          "index": 50.412
+        },
+        "v5_0_1": {
+          "aa_slug": "gemini-4-argon",
+          "index": 50.412
+        }
+      },
+      "variants": [
+        {
+          "aa_slug": "gemini-4-argon",
+          "aa_name": "Gemini 4 Argon (High)",
+          "effort": "high",
+          "is_reasoning": true,
+          "v5_0": {
+            "index": 50.412,
+            "status": "published",
+            "missing_components": [],
+            "critpt_v2_hard": 0.525,
+            "snapshot_utc": "2026-11-01T18:03:13Z",
+            "source_id": "AA-WB-MODEL-GEMINI-4-CARBON-20261101"
+          },
+          "v5_0_1": {
+            "index": 50.412,
+            "status": "published",
+            "missing_components": [],
+            "components": {
+              "AA-Briefcase v1.1": 1485.03,
+              "AutomationBench-AA": 0.7751,
+              "GDP.pdf": 0.218,
+              "FrontierCode 2.0": 0.2571,
+              "Terminal-Bench 4.0": 0.5707,
+              "Terminal-Bench-Science 0.1": 0.5286,
+              "CritPt v2 (Hard Subset)": 0.525,
+              "AA-Omniscience v1.1 accuracy": 0.483,
+              "AA-Omniscience v1.1 non-hallucination": 0.0426,
+              "HLE-Diamond": 0.567
+            },
+            "reconstructed_index": 50.382,
+            "reconstruction_residual": 0.03,
+            "source_id": "AA-MODEL-GEMINI-4-ARGON"
+          }
+        }
+      ]
+    }
+  ]
+}

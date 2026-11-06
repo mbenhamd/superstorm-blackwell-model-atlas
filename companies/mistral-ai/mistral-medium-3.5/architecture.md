@@ -86,6 +86,6 @@ The numeric examples are calculations from stated dimensions and assumptions, no
 
 ## What this report does not establish
 
-Installed-image and B300 compatibility at the pinned corrected revision; runtime memory beyond the reported weight payload; maximum safe concurrency and best TP width; no audited NVFP4 variant. SGLang support is documented upstream, but has not been run locally.
+Installed-image and B300 compatibility at the pinned corrected revision; runtime memory beyond the reported weight payload; maximum safe concurrency and best TP width; the NVIDIA mixed NVFP4/FP8 export (catalog variant `nvfp4`) is source-reviewed only: vLLM v0.33.0 loads it by source reading, SGLang v0.5.23 is expected to fail at weight load, EAGLE acceptance with it is unknown and the exporter validation is vLLM v0.21.0/B200 ([dossier](nvfp4.md#14-open-gaps-and-the-evidence-that-would-close-them)). SGLang support for the FP8 publisher artifact is documented upstream, but has not been run locally.
 
 The public artifacts do not disclose every training-data, optimization or implementation detail. This report does not fill missing details with assumptions or present a complete formal reconstruction of private training.

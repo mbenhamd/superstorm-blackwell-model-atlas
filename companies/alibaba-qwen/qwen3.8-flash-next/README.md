@@ -1,6 +1,6 @@
 # Qwen 3.8 Flash Next
 
-**Latest scoped recheck: October 26, 2026 (UTC).** Stable references remain **vLLM v0.32.0** and **SGLang v0.5.22**, under required KServe (upstream v0.21.0; installed version unknown). All concrete catalog variants still match their retained revisions. Current publisher cards/configurations and selected engine restrictions were rechecked; no B300 execution was performed. See [current serving assessment](serving.md#october-26-stable-release-recheck) and [Hugging Face README snapshots](#hugging-face-readme-snapshots).
+**Latest scoped recheck: November 6, 2026 (UTC).** Latest stable releases are **vLLM v0.33.0** and **SGLang v0.5.23**, under required KServe (upstream v0.21.0 unchanged; installed version unknown). November 6 Hub head recheck: 2 of 3 concrete variants equal retained pins (README/configuration not re-downloaded). Qwen/Qwen3.8-Flash-Next head moved to 7ecef55a (2026-11-05, model-card table colours); only README.md changed. Weights, configuration and tokenizer unchanged: the retained pin and its README snapshot remain the serving identity. Release notes, selected source and publisher recipes were reviewed at the release commits; no B300 execution was performed. See the [November 6 release update](serving.md#november-6-stable-releases-vllm-v0330-and-sglang-v0523), the retained [October 26 recheck](serving.md#october-26-stable-release-recheck) and [Hugging Face README snapshots](#hugging-face-readme-snapshots).
 
 **As of 2026-10-16.** 125B main + 51B n-gram + 4B MTP; 6B active main; GDN + QSA.
 
@@ -24,6 +24,7 @@ The backbone combines Gated DeltaNet, Qwen Sparse Attention and MoE layers with 
 | Base revision pin | de4b8e4d43b917e7706784d8bb445c9af86a3540 |
 | License scope | Qwen Community License 1.0; NVIDIA derivative also names NVIDIA Open Model License |
 | Verification level | Publisher cards and immutable metadata rechecked; no weight load or GPU benchmark |
+| AA Intelligence Index v5.0.1 (third-party) | reasoning, no effort setting: null (v5.0 null). Null means incomplete AA coverage. Not reproduced; not tied to this revision or any export. [Details](../../../reports/intelligence-index.md) [AA-MODEL-QWEN3-8-FLASH-NEXT](https://artificialanalysis.ai/models/qwen3-8-flash-next) |
 
 
 The positional limit is not a promise of that many usable tokens under arbitrary batching, image load or cache precision. [qwen3.8-flash-next-CARD](https://huggingface.co/Qwen/Qwen3.8-Flash-Next/raw/de4b8e4d43b917e7706784d8bb445c9af86a3540/README.md) [qwen3.8-flash-next-CFG](https://huggingface.co/Qwen/Qwen3.8-Flash-Next/raw/de4b8e4d43b917e7706784d8bb445c9af86a3540/config.json)
