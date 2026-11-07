@@ -1,0 +1,14 @@
+node_modules/
+.env
+.env.*
+!.env.example
+.DS_Store
+coverage/
+test-results/
+playwright-report/
+public/assets/
+preview.html
+
+
+#Ignore vscode AI rules
+.github/instructions/codacy.instructions.md

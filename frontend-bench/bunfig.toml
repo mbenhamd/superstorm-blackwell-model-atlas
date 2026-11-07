@@ -1,0 +1,12 @@
+[install]
+exact = true
+
+[fmt]
+printWidth = 100
+semi = true
+singleQuote = false
+tabWidth = 2
+ignorePatterns = ["public/", "preview.html", "node_modules/"]
+
+[test]
+timeout = 10000

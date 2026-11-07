@@ -1,0 +1,59 @@
+{
+  "name": "bench-console-poc",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "description": "Bench Console: an LLM-serving benchmark console prototype (React, Tailwind v4, shadcn/ui, dashboardcn) over the research atlas, Hugging Face cards and Artificial Analysis scores.",
+  "packageManager": "bun@1.4.0",
+  "engines": {
+    "bun": ">=1.4.0"
+  },
+  "scripts": {
+    "dev": "bun scripts/dev.ts",
+    "build": "bun scripts/build.ts",
+    "start": "bun src/server/index.ts",
+    "preview": "bun scripts/preview.ts",
+    "quality": "bun scripts/quality.ts",
+    "test:unit": "bun test tests/domain.test.ts tests/repository.test.ts tests/runs.test.ts tests/scale.test.ts",
+    "test:browser": "bun test tests/browser.test.ts --timeout 30000",
+    "test:postgres": "bun test tests/postgres.test.ts --timeout 30000",
+    "browser:install": "bunx --bun playwright install chromium",
+    "design:lint": "bunx @google/design.md lint DESIGN.md",
+    "db:up": "bun scripts/database.ts up",
+    "db:down": "bun scripts/database.ts down",
+    "db:migrate": "bun scripts/migrate.ts",
+    "db:seed": "bun scripts/seed.ts",
+    "import:runs": "bun scripts/import-runs.ts",
+    "typecheck": "bunx tsc -p tsconfig.json --noEmit && bunx tsc -p tsconfig.client.json --noEmit",
+    "screenshots": "bun scripts/screenshots.ts",
+    "import:atlas": "bun scripts/import-atlas.ts"
+  },
+  "dependencies": {
+    "@tanstack/react-table": "9.3.1",
+    "class-variance-authority": "0.7.1",
+    "clsx": "2.1.1",
+    "cmdk": "1.1.1",
+    "effect": "4.1.0",
+    "lucide-react": "1.70.0",
+    "pg": "8.23.1",
+    "radix-ui": "1.8.1",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "recharts": "3.10.1",
+    "sonner": "2.0.8",
+    "tailwind-merge": "3.7.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "4.3.5",
+    "@types/bun": "1.3.0",
+    "@types/pg": "8.23.1",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "bun-plugin-tailwind": "0.1.2",
+    "playwright": "1.56.1",
+    "tailwindcss": "4.3.5",
+    "tw-animate-css": "1.4.0",
+    "typescript": "7.0.2"
+  }
+}

@@ -1,0 +1,18 @@
+services:
+  db:
+    image: postgres:18-alpine
+    environment:
+      POSTGRES_DB: bench_console
+      POSTGRES_USER: bench_console
+      POSTGRES_PASSWORD: local_poc_only
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - bench_pg:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U bench_console -d bench_console"]
+      interval: 3s
+      timeout: 3s
+      retries: 15
+volumes:
+  bench_pg:

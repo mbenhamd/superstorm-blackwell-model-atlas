@@ -1,0 +1,84 @@
+# Verification record
+
+Date: 7 November 2026 (density pass, then a visual-review fix pass; see "Visual review fixes" and "Density pass" below). Environment: macOS (Darwin 25.4, arm64), TypeScript 7.0.2, Playwright 1.56.1 Chromium. Bun: the shell `bun --version` is 1.4.0 (the pinned `packageManager` and CI version); `bun run <script>` resolves `node_modules/.bin/bun`, which is Bun 1.4.4 installed as the `bun` peer dependency of `bun-plugin-tailwind`, so the test runner reports `bun test v1.4.4`. `bun scripts/import-atlas.ts --check` ran directly under 1.4.0. No gate was run separately under a pure 1.4.0 runner. Only checks listed here were run.
+
+| Check | Command | Result |
+| --- | --- | --- |
+| Atlas snapshot | `bun scripts/import-atlas.ts --check` | "src/data/atlas.json matches the atlas" (exit 0), re-run after the visual-review pass. Not regenerated; the snapshot (12 models, 34 exports, 54 configurations, 19 AA releases, 50 HF cards) is from the review-fix pass. |
+| Types | `bun run typecheck` (server + client tsconfig) | Passed, 0 errors (visual-review pass) |
+| Unit tests | `bun run test:unit` (domain, repository, runs, scale) | 113 pass, 0 fail, 303 expect() calls (no unit test changed in the density or visual-review pass) |
+| Build | `bun run build` | `public/` (app.js 1720 KiB, styles.css 140 KiB) and `preview.html` (1861 KiB; includes the catalog snapshot). |
+| Browser tests | `bun run test:browser` | Visual-review pass: 44 pass, 0 fail in two consecutive full runs after the final build (≈20.8 s each); the first run after the edits failed one new assertion (SLO pill measured during the 1440→390 resize transition) and was fixed by waiting for layout, not by relaxing the check. Density pass: 44 pass, 0 fail in three consecutive full runs (≈21.4 s each). The first run of the density pass failed one assertion: TL;DR overflowed the document by 32 px at 390 px (the models-glance grid column sized to its content); fixed with `grid-cols-1` and `min-w-0`, not by relaxing the test. Updated assertions: glance rows (12, no zero-value AA bar), champion tiles (6), hidden ladder SLO/latest-run columns offline, card Δ "−0.44" and collapsed card tables, grouped configuration rows, engine-review popover, closed pairs/engine-only/benchmark-key disclosures, Compare Values toggle and no head-to-head offline, Throughput single empty state and collapsed per-level table (8 levels), Methodology Comparability tab and dataset reference dialog. |
+| Screenshots | `bun run screenshots` (`SCREENSHOT_DIR` outside the repository) | 36 PNGs (12 views × 1440×900 light, 1440×900 dark, 390×844 light); no document overflow, no page/console errors. Visual-review pass, reviewed by eye: TL;DR (1440, 390, ladder expanded at 390), Model detail overview (1440 with an export expanded, 390), Precision cards (390), Throughput (1440, 390), Compare, Engine, Intelligence (1440, 390), Deployments (1440, 390), New benchmark, Methodology (1440). Density pass, reviewed by eye: every route at 1440 light, TL;DR/Engine/Compare/Models precision at 1440 dark, TL;DR/Compare/Throughput/Engine/Models overview/Methodology/Intelligence at 390. |
+| DESIGN.md | `bun run design:lint` | 0 errors, 0 warnings, 1 info (token summary), after the visual-review DESIGN.md edits |
+
+Manual check (Playwright against `preview.html`, not part of the suite): the Models precision ladder lists the 3 requested exports without a Hub artifact as "No artifact" rows (kimi-k3 FP8; kimi-k3.1-pro NVFP4 and FP8) and does not link them to the base repository.
+
+## Visual review fixes (7 November 2026)
+
+An independent visual review of the density-pass screenshots raised 14 issues; all were addressed in the client (no data, metric or catalog change). Contract changes are recorded in DESIGN.md (Elevation, Components, States, Responsive Behavior).
+
+- Variant ladder (TL;DR and Model detail): while no configuration of the family is measured, one summary block per export (export, repository, weights, card Δ, "n configs · vLLM/SGLang") with rows as stacked cards in a native `<details>`; the per-row table returns once a row is measured (≥ 768 px). Model detail Overview shows this ladder as its only configuration list; the separate Configurations list (`models-configurations.tsx`, deleted) and the Overview Exports panel are gone (Exports stays on Precision).
+- Phones: Deployments renders one stacked card per configuration below 768 px (sorting columns kept hidden); ladder rows are stacked cards with wrapping chips; Precision card headers put the repository on its own line (`break-all`) and badges plus the table toggle on a second line.
+- Empty chart groups: Throughput, Compare (also replacing the SLO grid) and Engine show one compact `NotMeasuredBlock` (dataset, what appears after import, SLO chips, Plan run) instead of empty plots. Intelligence's unmeasured frontier is a compact block with all 10 composites in a ranked, labelled "Not benched" strip.
+- Throughput header: selector (wraps to two lines on phones, precision visible), Add to compare and one overflow menu (Evidence, Plan run, Workloads); the run picker appears only once runs exist. Hardware, chips, build and recheck moved to the Configuration tab (GPUs and Flags rows added). The SLO strip keeps only the SLO name chip and the TTFT ceiling; no literal "·" separators.
+- Deployments: the five all-dash metric columns collapse into one "Metrics · not measured" column (Configuration column 340 px); the table grows with the page (no nested 600 px scroll area), so the 1440 px page is now 3,512 px tall; the empty "Throughput by load level" card is replaced by one sentence in the leaderboard caption.
+- Intelligence heatmap: ≤ 6-character column codes with the full name as title, a 0–100 legend, and on phones each model label above its 10-cell strip with ≤ 4-character codes.
+- Model detail: AA score is the hero with the effort as a small badge; "First candidate" has a one-line title from catalog facts (`KServe TP<baseline> · <precisions>`) with the catalog prose as regular body text; the duplicate model selector became a breadcrumb switcher; four header pills (Params, Context, Layout, License with full text in a tooltip); Publisher, Baseline and Weights moved into the Architecture panel.
+- Missing values: lone neutral "—" without units or inline labels (Throughput strip, Models cards); the Sustainable accent applies only to a real value.
+- One `StatusBadge` (Candidate = accent dot, Probe = warning dot) on TL;DR, Model detail, Throughput, Compare, Engine and Deployments; Engine cards title "vLLM · source snapshot" at 13px/600 with "Rechecked v…" as the second line.
+- Canonical names: the AA index list renders the catalog display name; AA's label is kept in the link title.
+- Elevation: the shadcn `Card` base used `shadow-sm` (tailwind-merge did not treat `shadow-panel` as a conflict), which gave Methodology stat cards and the Model detail cards a drop shadow; the base now uses `shadow-panel`. All panel and card titles are 13px/600, including the Deployments "Leaderboard".
+- New benchmark: with 0 experiments one centred empty state (New experiment only; there is no import feature, so no "Import plan" button was added) replaces the week strip and the board; below 768 px the board is a stacked list grouped by status.
+- Chart cards: below 640 px the chart actions collapse into one overflow button on the title row (Download PNG, Copy image; Expand dropped).
+- Top bar: below 640 px the SLO is a separate outlined pill showing the preset name; thresholds are in its accessible name and the popover; 640–767 px shows labelled values ("Prefill 1.3K · ITL 26ms").
+
+Updated browser assertions (same 44 tests): collapsed ladder and export summary text; Model detail ladder rows, no Exports panel on Overview, four header pills and switcher; Compare/Throughput/Engine compact blocks with Plan run and SLO chips and no empty chart frames; Throughput run picker absent offline and overflow menu present; Deployments "Metrics · not measured" header and no nested scroll; Engine card title and shared status palette; New benchmark empty state, then five columns after the first card; SLO pill separate from the workload select at 390 px with values in the accessible name; ladder rows opened from the keyboard after expanding their export.
+
+Visible words / document height after this pass (offline preview, light, method as below): 1440×900 — TL;DR 323 / 1309, Intelligence 362 / 1616, Throughput 111 / 900, Compare 145 / 900, Engine 203 / 1246, Model detail (Qwen 3.8 27B overview) 217 / 1448, Deployments 1410 / 3512, New benchmark 29 / 900. 390×844 — TL;DR 319 / 2034, Intelligence 338 / 2842, Throughput 111 / 1037, Compare 127 / 1114, Engine 203 / 1966, Model detail 213 / 2549, Deployments 1540 / 7992, New benchmark 29 / 844.
+
+Not verified in this pass: the measured-mode phone layouts (ladder table → stacked cards, chart overflow menu) were checked only by code path, not by a 390 px capture against the TEST fixture; dark theme was captured but reviewed only on the density-pass routes.
+
+## Density pass (7 November 2026)
+
+Visible words = whitespace-separated words of `main.innerText` (closed `<details>` content and tooltips excluded); height = `document.documentElement.scrollHeight`. Offline preview, 1440×900, light theme, default route state.
+
+| Route | Before (words / px) | After (words / px) |
+| --- | --- | --- |
+| TL;DR | 723 / 2168 | 566 / 1890 |
+| Intelligence | 353 / 1948 | 338 / 1884 |
+| Throughput | 257 / 1786 | 151 / 1065 |
+| Compare | 306 / 1620 | 206 / 1537 |
+| Engine | 430 / 2650 | 196 / 1522 |
+| Deployments | — / ≈1111 | 1638 / 1111 (54-row table kept) |
+| Models | 327 / 1111 | 327 / 1111 (landing unchanged) |
+| New benchmark | 90 / 900 | 90 / 900 |
+| Methodology | 705 / 2311 | 439 / 1495 |
+
+Integration fixes made after the parallel page edits: TL;DR models-glance overflow at 390 px; Compare and Engine head-to-head cards hidden while no compared configuration is measured (they repeated "—" 8–12 times); Throughput SLO chips laid out in a row instead of a four-line column; Methodology definition tabs no longer overlap the panel content when they wrap at 390 px.
+
+## Browser test coverage
+
+The browser suite runs the offline preview (no runs: the shipped state) and the API server with `RUNS_FILE=tests/fixtures/sample-runs.json` (invented TEST data, used only to exercise measured views).
+
+- Every route: one h1, no `.error-state`, no horizontal document overflow at 1440×900 and 390×844, no page or console errors. Sidebar order. All aliases resolve (`quant` → `models?model=qwen3.8-27b&tab=precision`).
+- Shipped state: TL;DR champion tiles and models glance; deployments "54 of 54", dashed facet triggers, conditional measured columns; compare identity rows ("—"), no head-to-head cards while nothing is measured, AA component values (Values toggle) without clipping; throughput run identity in the command caption and one "Not measured on <dataset>" empty state; serve commands one flag per line with a copy button.
+- Focus: evidence drawer returns focus to the opening row on Escape; ⌘K returns focus to its opener, including after opening a configuration from it; intelligence scatter points keep focus across Tab and hover; frontier points (measured mode) toggle with Enter and expose `aria-pressed`.
+- ⌘K matching is word-prefix ("comp" → Compare only, "eng" → Engine only, "zzq" → none).
+- SLO custom inputs commit on Enter; top bar keeps dataset/SLO left and provenance/theme right.
+- Measured mode (TEST data): persistent "TEST DATA — invented values" banner on every route (no controls, stays visible after scrolling), absent offline; provenance badge "Catalog <date> · HF + AA · 3 runs (TEST)"; throughput tooltip names concurrent requests; Download PNG yields a valid PNG under the CSP; compare draws throughput, ITL, TTFT p95, success-rate and throughput-vs-interactivity panels plus the per-level SLO grid.
+- TL;DR: variant ladder (13 Qwen 3.8 27B variants, Compare variants opens four), champions by workload (six tiles, active marked, tile switches dataset), models glance (12 rows, Enter re-scopes the family). Intelligence: unscored models keep hatched cells, ten-row benchmark key inside a closed disclosure. Engine: 14-row pairs table inside a closed disclosure, runtime-versions panel. Throughput overview: workload profile, SLO evaluation (calculated 6,154 ms TTFT ceiling for single-turn-8k under Classic), serve command.
+- Engine build: run identity shows `vllm-v0.31.0` for the v0.31 FlashInfer FP8-KV configuration, with the v0.33.0 recheck, "Not tested on B300" and the required reconciliation list in the Configuration tab; the Deployments engine cell shows the configured build with a separate recheck line; the provenance badge carries no repository name or commit.
+- Workloads dialog: lucide tag icons and an input/output share bar per dataset (six); one Escape closes it.
+- Planning board: create with datasets and run-identity preview, week strip, keyboard "Move to", persistence. Theme persistence; the dataset select lists six datasets.
+
+## Not verified
+
+- `bun run test:postgres` was not run in this pass, and neither `db/003_scheduler_columns.sql` nor `db/004_runtime_version_distribution.sql` has been applied to a database. 003 was edited in place (a column rename to `scheduler_run_id`) because it was never applied. Comment lines of `db/002_bench_schema.sql` were also edited; 002 had been applied only to a throwaway local PostgreSQL 18.6 earlier the same day, so any such database must be recreated (its stored checksum no longer matches). That earlier report was not re-run here.
+- The GitHub workflow was not run. It lives in this folder's `.github/workflows/`, so GitHub runs it only if this folder becomes a repository root; inside the parent repository it is inert. A static deploy to a public host was not performed or verified here. "Copy image" to the clipboard was not exercised (clipboard permissions).
+- Screen-reader behaviour and WCAG conformance were not audited beyond focus handling and recorded contrast choices.
+- `PerformanceStrip` and `ConcurrencyTable` (`components/app/performance.tsx`) are mounted on Throughput, but the measured states were only exercised against the TEST fixture; no real bench run has been rendered.
+- The total-token sustainable throughput definition (numerator, rate window, incomplete handling) and the reading of `num_gpus` as GPUs per replica are assumptions, not confirmed at source.
+- The six workload definitions and the three SLO preset values need owner confirmation that they may be published; their provenance attributions were removed but the values were kept.
+- 390 px layout (Compare radar, Engine argument tables, Throughput metric strip, TL;DR glance, Methodology tabs) is verified by DOM measurement in the browser suite and by screenshot review in the density pass; 390 px was reviewed in the light theme only.
+- No benchmark result is included. All throughput and latency fields are empty until bench runs are imported. AA scores and HF card tables are third-party published claims, not reproduced.
