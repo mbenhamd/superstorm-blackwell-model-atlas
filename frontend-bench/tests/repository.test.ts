@@ -61,8 +61,10 @@ describe("memory store without runs (catalog only)", () => {
 describe("memory store with runs (TEST fixture)", () => {
   test("RUNS_FILE loader validates and resolves configurations", async () => {
     const runs = await loadRunsFile(SAMPLE_RUNS);
-    expect(runs).toHaveLength(3);
-    expect(runs.map((r) => r.configurationId)).toEqual([CONFIG, "qwen3.8-27b.fp8.sglang.baseline", CONFIG]);
+    // Fourth entry: SGLang on chat-8-turn with a different recorded max_running_requests (matched by artifact, engine
+    // and GPUs). Fifth: an older runtime_version (vllm-v0.32.0) of the same configuration and dataset; the newest run still measures the row.
+    expect(runs).toHaveLength(5);
+    expect(runs.map((r) => r.configurationId)).toEqual([CONFIG, "qwen3.8-27b.fp8.sglang.baseline", CONFIG, "qwen3.8-27b.fp8.sglang.baseline", CONFIG]);
     expect(runs.every((r) => r.benchmarkTool.startsWith("test-fixture"))).toBe(true);
   });
   test("measured runs fill the catalog row in place and add a sibling for another dataset", async () => {
@@ -84,9 +86,10 @@ describe("memory store with runs (TEST fixture)", () => {
     const sibling = snapshot.deployments.find((d) => d.id === `${CONFIG}@chat-8-turn`)!;
     expect(sibling.configurationId).toBe(CONFIG);
     expect(sibling.workloadId).toBe("chat-8-turn");
-    expect(snapshot.deployments).toHaveLength(ATLAS.configurations.length + 1);
+    // Two siblings on chat-8-turn: the vLLM and SGLang fp8 baselines.
+    expect(snapshot.deployments).toHaveLength(ATLAS.configurations.length + 2);
     // Other configurations stay reference-only.
-    expect(snapshot.deployments.filter((d) => d.evidence === "measured")).toHaveLength(3);
+    expect(snapshot.deployments.filter((d) => d.evidence === "measured")).toHaveLength(4);
   });
   test("a measured sibling plans its base configuration on the sibling's dataset", async () => {
     const store = memoryStore(await loadRunsFile(SAMPLE_RUNS));

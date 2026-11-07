@@ -58,10 +58,10 @@ suite("PostgreSQL store", () => {
     await cleanupRuns();
     const first = await importRuns("tests/fixtures/sample-runs.json");
     expect(first.code).toBe(0);
-    expect(first.stdout).toContain("3 new, 0 replaced");
+    expect(first.stdout).toContain("5 new, 0 replaced");
     expect(first.stdout).toContain(`matched    qwen3.8-27b-fp8 · sglang-v0.5.23`);
     const ids = await pool.query<{ id: string; engine: string; engine_version: string; engine_flavor: string | null }>("SELECT id::text, engine, engine_version, engine_flavor FROM experiments WHERE model_name = $1 AND benchmark_tool LIKE 'test-fixture%' ORDER BY run_date", [fixtureModel]);
-    expect(ids.rows.map((r) => [r.engine, r.engine_version, r.engine_flavor])).toEqual([["vllm", "0.33.0", null], ["sglang", "0.5.23", null], ["vllm", "0.33.0", null]]);
+    expect(ids.rows.map((r) => [r.engine, r.engine_version, r.engine_flavor])).toEqual([["vllm", "0.32.0", null], ["vllm", "0.33.0", null], ["sglang", "0.5.23", null], ["vllm", "0.33.0", null], ["sglang", "0.5.23", null]]);
 
     const snapshot = await Effect.runPromise(postgresStore(pool).snapshot());
     const measured = snapshot.deployments.find((d) => d.id === CONFIG)!;
@@ -72,11 +72,11 @@ suite("PostgreSQL store", () => {
 
     // Re-import of the same file: same cells, metrics replaced, ids kept.
     const again = await importRuns("tests/fixtures/sample-runs.json");
-    expect(again.stdout).toContain("0 new, 3 replaced");
+    expect(again.stdout).toContain("0 new, 5 replaced");
     const after = await pool.query<{ id: string }>("SELECT id::text FROM experiments WHERE model_name = $1 AND benchmark_tool LIKE 'test-fixture%' ORDER BY run_date", [fixtureModel]);
     expect(after.rows.map((r) => r.id)).toEqual(ids.rows.map((r) => r.id));
     const levels = await pool.query<{ count: number }>("SELECT COUNT(*)::int AS count FROM metrics WHERE experiment_id = ANY($1::uuid[])", [ids.rows.map((r) => r.id)]);
-    expect(levels.rows[0]?.count).toBe(8 + 7 + 6);
+    expect(levels.rows[0]?.count).toBe(8 + 7 + 6 + 6 + 7);
 
     // An older run for an existing cell is skipped; a newer one with fewer levels replaces the set.
     const sample = await Bun.file(join(root, "tests/fixtures/sample-runs.json")).json() as { runs: Record<string, unknown>[] };

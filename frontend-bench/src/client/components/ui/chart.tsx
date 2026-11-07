@@ -38,6 +38,46 @@ function useChart() {
   return context
 }
 
+/**
+ * Re-measure guard. Recharts' ResponsiveContainer sizes the SVG from its own ResizeObserver; a measurement taken
+ * mid-transition (theme toggle, then a hash route change while the previous page unmounts) can leave the SVG wider
+ * than its card. After any resize of the container, theme attribute change or route change, compare the drawn SVG
+ * with the container and remount the ResponsiveContainer when it overflows (at most three times per trigger).
+ */
+function useChartFit(ref: React.RefObject<HTMLDivElement | null>): number {
+  const [epoch, setEpoch] = React.useState(0)
+  React.useEffect(() => {
+    const element = ref.current
+    if (!element || typeof ResizeObserver === "undefined") return
+    let frame = 0
+    let budget = 3
+    const check = () => {
+      cancelAnimationFrame(frame)
+      frame = requestAnimationFrame(() => {
+        const svg = element.querySelector<SVGSVGElement>("svg.recharts-surface")
+        if (!svg || budget <= 0) return
+        if (svg.getBoundingClientRect().width > element.getBoundingClientRect().width + 1) {
+          budget -= 1
+          setEpoch((value) => value + 1)
+        }
+      })
+    }
+    const reset = () => { budget = 3; check() }
+    const resize = new ResizeObserver(check)
+    resize.observe(element)
+    const theme = new MutationObserver(reset)
+    theme.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme", "class"] })
+    window.addEventListener("hashchange", reset)
+    return () => {
+      cancelAnimationFrame(frame)
+      resize.disconnect()
+      theme.disconnect()
+      window.removeEventListener("hashchange", reset)
+    }
+  }, [ref])
+  return epoch
+}
+
 function ChartContainer({
   id,
   className,
@@ -57,11 +97,15 @@ function ChartContainer({
 }) {
   const uniqueId = React.useId()
   const chartId = `chart-${id ?? uniqueId.replace(/:/g, "")}`
+  const frame = React.useRef<HTMLDivElement>(null)
+  const epoch = useChartFit(frame)
 
   return (
     <ChartContext.Provider value={{ config }}>
       <div
+        ref={frame}
         data-slot="chart"
+        data-fit-epoch={epoch}
         data-chart={chartId}
         className={cn(
           "flex aspect-video justify-center text-xs [&_.recharts-cartesian-axis-tick_text]:fill-muted-foreground [&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-border/50 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-border [&_.recharts-dot[stroke='#fff']]:stroke-transparent [&_.recharts-layer]:outline-hidden [&_.recharts-polar-grid_[stroke='#ccc']]:stroke-border [&_.recharts-radial-bar-background-sector]:fill-muted [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-muted [&_.recharts-reference-line_[stroke='#ccc']]:stroke-border [&_.recharts-sector]:outline-hidden [&_.recharts-sector[stroke='#fff']]:stroke-transparent [&_.recharts-surface]:outline-hidden",
@@ -71,6 +115,7 @@ function ChartContainer({
       >
         <ChartStyle id={chartId} config={config} />
         <RechartsPrimitive.ResponsiveContainer
+          key={epoch}
           initialDimension={initialDimension}
         >
           {children}

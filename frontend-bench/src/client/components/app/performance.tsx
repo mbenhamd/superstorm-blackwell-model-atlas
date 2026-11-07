@@ -2,19 +2,20 @@ import * as React from "react";
 import { HardDrive, MessagesSquare, Play, Scale, ShieldCheck, Tag, Timer, TriangleAlert, type LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { KpiRowCard, type KpiRowMetric } from "@/components/blocks/kpi-row-card";
 import { configChips } from "../../../domain/config-chips.js";
-import { nominalTtftCeilingMs, tieBand } from "../../../domain/metrics.js";
+import { nominalTtftCeilingMs, SLO_PRESETS, tieBand } from "../../../domain/metrics.js";
 import type { Deployment, PointMetrics, RankedDeployment, SloPolicy, Workload } from "../../../domain/types.js";
-import { useAppState } from "../../state.js";
+import { update } from "../../state.js";
 import { compactNum, gpusOf, hardwareShape, isMeasured, num, pct } from "../../lib/display.js";
 import { LevelsBadge } from "./primitives.js";
+import { budgetLabel, PROFILE_HINT, workloadProfile } from "./throughput-profile.js";
 
 /*
- * Shared performance vocabulary for every page: the SLO strip, workload tags, knob chips and
- * per-level table. Values come from domain/metrics (capacity, measurePoint); this file formats, never computes.
+ * Shared performance vocabulary for every page: the SLO strip, workload tags and profile, knob chips and
+ * verdict badges (the Throughput tables live in throughput-tables.tsx). Values come from domain/metrics (capacity, measurePoint); this file formats, never computes.
  * Missing values render "—"; an unmeasured row keeps the same layout with a dashed frame and one "Not measured" badge.
  */
 
@@ -68,6 +69,12 @@ export function IncompleteBadge({ count, className }: { count: number | null | u
   return <Badge variant="warning" className={className} data-testid="incomplete-badge" title="Requests that did not finish; they count against the success rate">{num(count)} incomplete</Badge>;
 }
 
+/** Red "n errored" when requests failed with an error; nothing for 0 or unknown. One badge on every page. */
+export function ErroredBadge({ count, className }: { count: number | null | undefined; className?: string }) {
+  if (!count) return null;
+  return <Badge variant="critical" className={className} data-testid="errored-badge" title="Requests that ended in an error; they count against the success rate">{num(count)} errored</Badge>;
+}
+
 /** Verdict for one level (or C_max): pass, out of SLO (with the failed gates), or — when unmeasured. */
 export function SloVerdictBadge({ point, className }: { point: Pick<PointMetrics, "passes" | "failures"> | null | undefined; className?: string }) {
   if (!point) return <span className={cn("text-muted-foreground", className)}>—</span>;
@@ -117,18 +124,47 @@ export function SloChips({ slo, direction = "row", className }: { slo: SloPolicy
   );
 }
 
+/* ── Workload profile ──────────────────────────────────────────────────────────────────────── */
+
+/** Balanced / Decode-intensive / Prefill-intensive (console classification, see throughput-profile.ts); nothing without a fixed budget. */
+export function ProfileBadge({ workload, plain = false, className }: { workload: Workload | null | undefined; plain?: boolean; className?: string }) {
+  const profile = workloadProfile(workload);
+  if (!profile) return null;
+  // Inside another control (a tile button) the badge must not be a focus stop: the hint moves to a title.
+  if (plain) return <Badge variant="outline" className={className} data-profile={profile} title={PROFILE_HINT}>{profile}</Badge>;
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <Badge variant="outline" tabIndex={0} className={cn("cursor-default", className)} data-profile={profile}>{profile}</Badge>
+      </TooltipTrigger>
+      <TooltipContent className="max-w-72 text-pretty">{PROFILE_HINT}</TooltipContent>
+    </Tooltip>
+  );
+}
+
 /* ── Performance strip ─────────────────────────────────────────────────────────────────────── */
 
-const budget = (workload: Workload | null | undefined): string | null =>
-  !workload || workload.inputTokens === null || workload.outputTokens === null ? null
-    : `${num(workload.inputTokens)} in / ${num(workload.outputTokens)} out${workload.turns > 1 ? ` · ${workload.turns} turns` : ""}`;
-
-/** TTFT ceiling: the measured one at C_max (prompt tokens ÷ prefill), else the nominal budget one, else per level. */
+/** TTFT ceiling: at C_max, computed from the measured prompt tokens ÷ prefill speed; else the nominal budget one; else per level. */
 function ttftCeilingLabel(row: RankedDeployment, workload: Workload | null | undefined, slo: SloPolicy): string {
   const measured = row.capacity.selectedPoint?.ttftCeilingMs ?? null;
-  if (measured !== null) return `TTFT p95 ≤ ${num(measured)} ms measured`;
+  if (measured !== null) return `TTFT p95 ≤ ${num(measured)} ms (computed from measured prompt length)`;
   const nominal = nominalTtftCeilingMs(workload, slo);
   return nominal === null ? "TTFT ceiling per level" : `TTFT p95 ≤ ${num(nominal)} ms nominal`;
+}
+
+/** SLO preset switch inside the strip (same state as the top-bar SLO popover; custom values are edited there). */
+function PresetSwitch({ slo }: { slo: SloPolicy }) {
+  return (
+    <ToggleGroup
+      type="single" variant="outline" size="sm" value={slo.preset === "custom" ? "" : slo.preset} aria-label="SLO expectancy"
+      data-testid="strip-slo-presets"
+      onValueChange={(value: string) => { if (value in SLO_PRESETS) update((s) => { s.slo = { ...SLO_PRESETS[value as keyof typeof SLO_PRESETS] }; }); }}
+    >
+      {(Object.keys(SLO_PRESETS) as (keyof typeof SLO_PRESETS)[]).map((key) => (
+        <ToggleGroupItem key={key} value={key} className="px-2.5 text-xs" data-strip-preset={key}>{PRESET_LABEL[key]}</ToggleGroupItem>
+      ))}
+    </ToggleGroup>
+  );
 }
 
 export interface PerformanceStripProps {
@@ -140,10 +176,15 @@ export interface PerformanceStripProps {
   className?: string;
 }
 
+const lines = (...items: (React.ReactNode | null | false)[]) => (
+  <span className="flex flex-col gap-0.5">{items.filter(Boolean).map((item, index) => <span key={index}>{item}</span>)}</span>
+);
+
 /**
- * SLO strip: header (SLO name chip, TTFT ceiling, incomplete count or "Not measured"; the thresholds themselves are in
- * the top bar), then four cells: C_max, sustainable tok/min/GPU, per-user speed, deployment-wide tok/min.
- * A missing value is a lone neutral "—": no unit and no inline label next to it; the caption names what the cell holds.
+ * SLO strip. Header: SLO preset chip, workload profile, token budget, TTFT and ITL ceilings, or "Not measured"
+ * (incomplete / errored request badges sit once on the identity line above); on the right the SLO expectancy switch and the threshold chips. Four cells: C_max, sustainable
+ * tok/min/GPU (hero), per-user speed, deployment-wide tok/min. A missing value is a lone neutral "—": no unit and no
+ * inline label next to it; the caption names what the cell holds. Rates are the report's per-level values at C_max.
  */
 export function PerformanceStrip({ row, workload, slo, action, className }: PerformanceStripProps) {
   const c = row.capacity, d = row.deployment, point = c.selectedPoint;
@@ -151,35 +192,53 @@ export function PerformanceStrip({ row, workload, slo, action, className }: Perf
   const has = measured && point !== null;
   const text = (value: number | null | undefined, digits = 0) => value === null || value === undefined || !has ? null : num(value, digits);
   const gpus = `${gpusOf(d)} GPU${gpusOf(d) === 1 ? "" : "s"}`;
+  const budget = budgetLabel(workload, (value) => num(value));
   const metrics: KpiRowMetric[] = [
     {
       label: "C_max", value: measured && c.highestPassingConcurrency !== null ? num(c.highestPassingConcurrency) : null, unit: "concurrent",
       adornment: measured ? <LevelsBadge capacity={c} /> : undefined,
-      detail: measured ? `${c.passingLevels} of ${c.totalLevels} levels in SLO` : "Highest level inside the SLO",
+      detail: measured ? `${c.passingLevels} of ${c.totalLevels} measured levels in SLO` : "Highest measured level inside the SLO",
+      attrs: { "data-kpi": "cmax" },
     },
     {
       label: "Sustainable throughput", value: text(c.sustainableTpmPerGpu), unit: "tok/min/GPU",
-      detail: has ? `observed ${num(c.observedTotalTpsPerGpu)} total tok/s/GPU at C_max · ×${slo.margin}` : `Total tok at C_max × ${slo.margin} ÷ ${gpus}`,
+      detail: has ? `Observed ${num(c.observedTotalTpsPerGpu)} tok/s/GPU at the C_max ring · ×${slo.margin} margin` : `Total tok/s at C_max × ${slo.margin} × 60 ÷ ${gpus}`,
+      attrs: { "data-kpi": "sustainable" },
     },
     {
-      label: "Per-user speed p50", value: text(point?.outputTpsPerUser, 1), unit: "tok/s/user",
-      detail: has && point?.itlP50Ms != null ? `ITL p50 ${num(point.itlP50Ms, 1)} ms` : "Output tok/s per request at C_max",
+      label: "Per-user speed", value: text(point?.outputTpsPerUser, 1), unit: "tok/s/user median",
+      detail: has ? lines(
+        point?.itlP95Ms != null ? `ITL p95 ${num(point.itlP95Ms, 1)} ms` : null,
+        point?.itlP50Ms != null ? `median token every ${num(point.itlP50Ms, 1)} ms` : null,
+      ) : "Output tok/s per request at C_max",
+      attrs: { "data-kpi": "per-user" },
     },
     {
       label: "Deployment-wide", value: text(c.deploymentWideTpm), unit: "tok/min",
-      detail: has ? `${compactNum(c.deploymentInputTpm)} in / ${compactNum(c.deploymentOutputTpm)} out tok/min · ${hardwareShape(d)}` : hardwareShape(d),
+      detail: has ? lines(
+        `observed ${num(point!.totalTps)} tok/s · ${hardwareShape(d)}`,
+        `${compactNum(c.deploymentInputTpm)} in / ${compactNum(c.deploymentOutputTpm)} out tok/min`,
+        `${num(point!.requestsPerSecond, 2)} req/s at C_max`,
+      ) : `Per replica × ${slo.margin} · ${hardwareShape(d)}`,
+      attrs: { "data-kpi": "deployment" },
     },
   ];
   const header = (
     <span className="flex flex-wrap items-center gap-x-3 gap-y-1.5 text-xs font-normal">
-      <Badge variant="info" title={`Prefill ≥ ${num(slo.prefillTps)} tok/s · ITL p95 ≤ ${num(slo.itlP95Ms)} ms · success ≥ ${pct(slo.minSuccessRate, 0)} · ×${slo.margin} margin`}>{PRESET_LABEL[slo.preset]} SLO</Badge>
-      <span className="text-muted-foreground tabular-nums" data-testid="strip-ttft-ceiling" title={workload ? budget(workload) ?? undefined : undefined}>{ttftCeilingLabel(row, workload, slo)}</span>
-      {measured ? <IncompleteBadge count={c.incomplete} /> : <><Badge variant="neutral" data-testid="not-measured-badge">Not measured</Badge>{action}</>}
+      <Badge variant="info" data-testid="strip-slo" title={`Prefill ≥ ${num(slo.prefillTps)} tok/s · ITL p95 ≤ ${num(slo.itlP95Ms)} ms · success ≥ ${pct(slo.minSuccessRate, 0)} · ×${slo.margin} margin`}>{PRESET_LABEL[slo.preset]} SLO</Badge>
+      <ProfileBadge workload={workload} />
+      <span className="text-muted-foreground inline-flex flex-wrap items-center gap-x-3 gap-y-1 tabular-nums" data-testid="strip-budget">
+        {budget ? <span className="text-foreground">{budget}</span> : null}
+        <span data-testid="strip-ttft-ceiling">{ttftCeilingLabel(row, workload, slo)}</span>
+        <span>ITL p95 ≤ {num(slo.itlP95Ms)} ms</span>
+      </span>
+      {measured ? null : <><Badge variant="neutral" data-testid="not-measured-badge">Not measured</Badge>{action}</>}
     </span>
   );
   return (
     <KpiRowCard
       title={header}
+      headerAction={<span className="flex flex-col items-start gap-1.5 sm:items-end"><PresetSwitch slo={slo} /><SloChips slo={slo} className="sm:justify-end" /></span>}
       metrics={metrics}
       data-testid="performance-strip"
       data-measured={measured || undefined}
@@ -187,71 +246,10 @@ export function PerformanceStrip({ row, workload, slo, action, className }: Perf
         "gap-3 rounded-lg py-4",
         // The accent marks the sustainable value only when there is one; a missing value stays neutral.
         has && c.sustainableTpmPerGpu !== null && "[&_[data-slot=kpi-row-metric]:nth-child(2)_[data-slot=metric-value]]:text-brand",
+        "[&_[data-slot=kpi-row-metric]:nth-child(2)_[data-slot=metric-value]]:@lg:text-[28px]",
         !measured && "border-dashed shadow-none",
         className,
       )}
     />
-  );
-}
-
-/* ── Concurrency table ─────────────────────────────────────────────────────────────────────── */
-
-function VsCeiling({ p50, p95, ceiling, digits = 0 }: { p50: number | null; p95: number | null; ceiling: number | null; digits?: number }) {
-  const over = p95 !== null && ceiling !== null && p95 > ceiling;
-  return (
-    <span className="inline-flex flex-col items-end leading-tight">
-      <span className="tabular-nums">{num(p50, digits)} / <span className={cn(over && "text-critical-text font-medium")}>{num(p95, digits)}</span></span>
-      <span className="text-muted-foreground text-[11px] tabular-nums">≤ {num(ceiling, digits)}</span>
-    </span>
-  );
-}
-
-/** Every measured level: rates, per-user speed, TTFT and ITL against their ceilings, request outcomes, verdict. */
-export function ConcurrencyTable({ row, className }: { row: RankedDeployment; className?: string }) {
-  const { slo } = useAppState();
-  const c = row.capacity, d = row.deployment, gpus = gpusOf(d);
-  const measured = isMeasured(d);
-  return (
-    <Table className={className} data-testid="concurrency-table">
-      <TableHeader>
-        <TableRow>
-          <TableHead>Concurrency</TableHead>
-          <TableHead className="text-right">req/s</TableHead>
-          <TableHead className="text-right">Total tok/s/GPU</TableHead>
-          <TableHead className="text-right">Output tok/s/GPU</TableHead>
-          <TableHead className="text-right">Per-user p50</TableHead>
-          <TableHead className="text-right">TTFT p50 / p95 ms</TableHead>
-          <TableHead className="text-right">ITL p50 / p95 ms</TableHead>
-          <TableHead className="text-right">Success · err · inc</TableHead>
-          <TableHead>Verdict</TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {measured ? c.points.map((p) => {
-          const cmax = p === c.selectedPoint;
-          return (
-            <TableRow key={p.concurrency} data-capacity={cmax || undefined} className={cn(cmax && "bg-selection hover:bg-selection")}>
-              <TableCell className="font-medium tabular-nums">{p.concurrency}{cmax ? <Badge variant="info" className="ml-2">C_max</Badge> : null}</TableCell>
-              <TableCell className="text-right tabular-nums">{num(p.requestsPerSecond, 2)}</TableCell>
-              <TableCell className="text-right tabular-nums">{num(p.totalTps / gpus)}</TableCell>
-              <TableCell className="text-right tabular-nums">{num(p.outputTps / gpus)}</TableCell>
-              <TableCell className="text-right tabular-nums">{num(p.outputTpsPerUser, 1)}</TableCell>
-              <TableCell className="text-right"><VsCeiling p50={p.ttftP50Ms} p95={p.ttftP95Ms} ceiling={p.ttftCeilingMs} /></TableCell>
-              <TableCell className="text-right"><VsCeiling p50={p.itlP50Ms} p95={p.itlP95Ms} ceiling={slo.itlP95Ms} digits={1} /></TableCell>
-              <TableCell className="text-right tabular-nums">
-                <span className={cn(p.successRate !== null && p.successRate < slo.minSuccessRate && "text-critical-text font-medium")}>{pct(p.successRate)}</span>
-                <span className="text-muted-foreground"> · {num(p.errored)} · </span>
-                <span className={cn(p.incomplete > 0 ? "text-warning-text font-medium" : "text-muted-foreground")}>{num(p.incomplete)}</span>
-              </TableCell>
-              <TableCell><SloVerdictBadge point={p} /></TableCell>
-            </TableRow>
-          );
-        }) : (
-          <TableRow data-empty="true">
-            <TableCell colSpan={9} className="text-muted-foreground py-6 text-center"><Badge variant="neutral">Not measured</Badge></TableCell>
-          </TableRow>
-        )}
-      </TableBody>
-    </Table>
   );
 }

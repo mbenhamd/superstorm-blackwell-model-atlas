@@ -11,8 +11,11 @@ import { appState } from "../../state.js";
 import { configDetail, configName, engineVersion, isMeasured, num, precisionIndex, shape, topology, workloadOf } from "../../lib/display.js";
 import { substringFilter } from "../../lib/search.js";
 
-/** `keywords` are searched after the label and value (contiguous substrings, see lib/search.ts); `detail` and `group` are display only. */
-export interface ComboOption { value: string; label: string; detail?: string; group?: string; disabled?: boolean; keywords?: string[] }
+/**
+ * `keywords` are searched after the label and value (contiguous substrings, see lib/search.ts); `detail`, `meta`
+ * and `group` are display only. `meta` lines render in a right-aligned column that never truncates (counts, values).
+ */
+export interface ComboOption { value: string; label: string; detail?: string; meta?: string[]; group?: string; disabled?: boolean; keywords?: string[] }
 
 /** Keep the open list's selected item in view: scroll the list (not the page) so the item sits in its middle. */
 function centerSelected(list: HTMLElement | null, value: string): void {
@@ -27,11 +30,14 @@ function centerSelected(list: HTMLElement | null, value: string): void {
  * contiguous substring match on label, value and keywords (label prefix ranks first), not cmdk's fuzzy score.
  * On open the current option is the highlighted item and is scrolled to the middle of the list.
  */
-export function Combobox({ label, value, options, onChange, placeholder = "Select…", searchPlaceholder = "Search…", emptyLabel = "No results", className, triggerLabel, testId, align = "start", variant = "outline", wrap = false }: {
+export function Combobox({ label, value, options, onChange, placeholder = "Select…", searchPlaceholder = "Search…", emptyLabel = "No results", className, triggerLabel, testId, align = "start", variant = "outline", wrap = false, contentClassName }: {
   label: string; value: string; options: ComboOption[]; onChange: (value: string) => void; placeholder?: string; searchPlaceholder?: string;
   emptyLabel?: string; className?: string; triggerLabel?: React.ReactNode; testId?: string; align?: "start" | "end";
-  /** Local additions: a ghost trigger (breadcrumb switchers) and a trigger label that may wrap to two lines instead of truncating. */
-  variant?: "outline" | "ghost"; wrap?: boolean;
+  /**
+   * Local additions: a ghost trigger (breadcrumb switchers); `wrap` lets the trigger label and each option's detail
+   * wrap instead of truncating; `contentClassName` sizes the popover (e.g. a wider list for long knob strings).
+   */
+  variant?: "outline" | "ghost"; wrap?: boolean; contentClassName?: string;
 }) {
   const [open, setOpen] = React.useState(false);
   const selected = options.find((option) => option.value === value);
@@ -53,7 +59,7 @@ export function Combobox({ label, value, options, onChange, placeholder = "Selec
           <ChevronsUpDown className="text-muted-foreground size-3.5 shrink-0" aria-hidden="true" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent align={align} className="w-[max(var(--radix-popover-trigger-width),240px)] p-0">
+      <PopoverContent align={align} className={cn("w-[max(var(--radix-popover-trigger-width),240px)] p-0", contentClassName)}>
         <Command loop filter={substringFilter} defaultValue={selected?.value}>
           <CommandInput placeholder={searchPlaceholder} aria-label={searchPlaceholder} />
           <CommandList ref={listRef} className="max-h-72">
@@ -72,10 +78,15 @@ export function Combobox({ label, value, options, onChange, placeholder = "Selec
                       className="items-start gap-2 py-1.5"
                     >
                       <Check className={cn("mt-0.5 size-3.5 shrink-0", option.value === value ? "opacity-100" : "opacity-0")} aria-hidden="true" />
-                      <span className="grid min-w-0">
+                      <span className="grid min-w-0 flex-1">
                         <span className="truncate">{option.label}</span>
-                        {option.detail ? <span className="text-muted-foreground truncate text-xs">{option.detail}</span> : null}
+                        {option.detail ? <span className={cn("text-muted-foreground text-xs", wrap ? "[overflow-wrap:anywhere] whitespace-normal" : "truncate")} data-option-detail="">{option.detail}</span> : null}
                       </span>
+                      {option.meta?.length ? (
+                        <span className="text-muted-foreground ml-2 flex shrink-0 flex-col items-end text-right text-xs whitespace-nowrap tabular-nums" data-option-meta="">
+                          {option.meta.map((line) => <span key={line}>{line}</span>)}
+                        </span>
+                      ) : null}
                     </CommandItem>
                   ))}
                 </CommandGroup>

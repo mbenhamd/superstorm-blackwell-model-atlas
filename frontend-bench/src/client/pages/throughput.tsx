@@ -1,28 +1,29 @@
 import * as React from "react";
-import { Activity, BookOpen, ChevronDown, ChevronRight, Columns2, Ellipsis, ExternalLink, FileSearch, Info, ListOrdered, Plus, SquareTerminal } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { Activity, ChevronRight, Ellipsis, ExternalLink, FileSearch, Info, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { capacity, nominalTtftCeilingMs } from "../../domain/metrics.js";
-import type { BenchmarkRun, Deployment, RankedDeployment } from "../../domain/types.js";
+import type { BenchmarkRun, Deployment, RankedDeployment, SloPolicy } from "../../domain/types.js";
 import { InteractivityChart, SweepChart } from "../components/app/charts.js";
 import { ChartPanel } from "../components/app/chart-panel.js";
-import { addToCompare, openExperimentForm, openRun } from "../components/app/overlays.js";
-import { Combobox, setupOptions } from "../components/app/pickers.js";
+import { openExperimentForm, openRun } from "../components/app/overlays.js";
 import { EmptyState, LevelsBadge, PageHeader, Panel, Term } from "../components/app/primitives.js";
 import { NotMeasuredBlock } from "../components/app/not-measured-block.js";
-import { StatusBadge } from "../components/app/status-badge.js";
-import { ConcurrencyTable, ConfigChips, IncompleteBadge, PerformanceStrip } from "../components/app/performance.js";
+import { ConfigChips, PerformanceStrip } from "../components/app/performance.js";
 import { RecheckDetails } from "../components/app/engine-build.js";
 import { CommandBlock } from "../components/app/command-block.js";
-import { openWorkloads } from "../components/app/workloads.js";
-import { appState, configurationIdOf, routeUrl, updateView, useAppState } from "../state.js";
+import { ThroughputConcurrencyChart } from "../components/app/throughput-chart.js";
+import { MeasuredResultsTable, SloEvaluationTable } from "../components/app/throughput-tables.js";
+import { WorkloadProfileTiles } from "../components/app/throughput-profiles.js";
+import { deploymentForRun, RuntimeVersionsPanel } from "../components/app/throughput-versions.js";
+import { IdentityLine, runsOf, ThroughputActions, ThroughputSelectors } from "../components/app/throughput-selectors.js";
+import { updateView, useAppState } from "../state.js";
 import {
-  compactNum, configDetail, configName, engineBuildDetail, gpuDivisorUnconfirmed, gpuTotals, gpusOf, hardwareShape, isMeasured, modelOf, num, rankedRows,
-  recheckNote, runtimeTag, shape, statusLabel, testedLabel, workloadBudget, workloadOf,
+  compactNum, engineBuildDetail, gpuTotals, gpusOf, hardwareShape, isMeasured, modelOf, num, rankedRows,
+  measuredHereLabel, recheckNote, runtimeTag, shape, statusLabel, testedLabel, workloadBudget, workloadOf,
 } from "../lib/display.js";
 import { artifact, hfUrl, paramsLabel, shortSha } from "../lib/atlas.js";
 
@@ -42,22 +43,19 @@ export function runIdentity(d: Deployment, dataset: string): [string, string][] 
   ];
 }
 
-const runsOf = (d: Deployment): BenchmarkRun[] =>
-  (appState.snapshot.runs ?? []).filter((run) => run.configurationId === d.configurationId).sort((a, b) => Date.parse(b.runDate) - Date.parse(a.runDate));
-
 /** The row shown for a picked run: the same configuration with that run's metrics and recorded identity. */
-function rowForRun(row: RankedDeployment, run: BenchmarkRun | undefined, slo = appState.slo): RankedDeployment {
+function rowForRun(row: RankedDeployment, run: BenchmarkRun | undefined, slo: SloPolicy): RankedDeployment {
   const d = row.deployment;
   if (!run || run.id === d.runId) return row;
-  const { identity } = run;
-  const shown: Deployment = {
-    ...d, workloadId: identity.dataset, points: run.metrics, measuredAt: run.runDate, evidence: "measured", runId: run.id,
-    runtimeTag: identity.runtimeVersion, gpuType: identity.gpuType, replicas: identity.maxSystemReplicas, runConfig: identity.runtimeConfig,
-    runGpus: identity.numGpus, topologyMismatch: identity.numGpus !== d.gpus,
-  };
+  const shown: Deployment = { ...deploymentForRun(d, run), id: d.id };
   return { ...row, deployment: shown, capacity: capacity(shown, slo) };
 }
 
+/**
+ * Throughput: selector row (model → runtime → hardware → runtime config → run) with the identity line, the always
+ * visible KPI strip, then Overview (profile tiles, total throughput vs concurrency with the SLO evaluation table,
+ * runtime versions, latency charts, measured results) or Configuration.
+ */
 export function ThroughputPage() {
   const state = useAppState();
   const rows = rankedRows();
@@ -70,68 +68,44 @@ export function ThroughputPage() {
   const picked = runs.find((run) => run.id === pickedRun && run.identity.dataset === state.workload);
   const row = rowForRun(base, picked, state.slo);
   const d = row.deployment;
-  const measured = isMeasured(d);
   const workload = workloadOf(d.workloadId) ?? workloadOf(state.workload);
+  const latestOnDataset = runs.find((run) => run.identity.dataset === state.workload)?.runDate ?? null;
+  const pick = (run: BenchmarkRun) => {
+    setPickedRun(run.id);
+    if (run.identity.dataset !== state.workload) updateView((s) => { s.workload = run.identity.dataset; });
+  };
   return (
     <div className="space-y-4">
       <PageHeader
         title="Throughput"
         description={<>C_max and sustainable throughput under the <Term name="SLO" />.</>}
-        actions={
-          <>
-            <Combobox
-              label="Configuration" testId="run-picker" value={base.deployment.id} wrap align="end" searchPlaceholder="Search model, quant, engine…"
-              onChange={(value) => updateView((s) => { s.run = rows.find((item) => item.deployment.id === value)?.deployment.configurationId ?? configurationIdOf(value); })}
-              options={setupOptions(rows)}
-              className="max-sm:w-full sm:w-[min(360px,calc(100vw-420px))] sm:min-w-[240px]"
-              triggerLabel={<span className="flex min-w-0 flex-col sm:flex-row sm:items-baseline sm:gap-1.5"><span className="font-medium">{configName(d)}</span><span className="text-muted-foreground text-xs sm:truncate">{configDetail(d)}</span></span>}
-            />
-            {runs.length ? <RunPicker runs={runs} shown={d} onPick={(run) => { setPickedRun(run.id); if (run.identity.dataset !== state.workload) updateView((s) => { s.workload = run.identity.dataset; }); }} /> : null}
-            <Button variant="outline" onClick={() => addToCompare(d.id)}><Columns2 aria-hidden="true" />Add to compare</Button>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="icon" aria-label="More actions" data-testid="throughput-more"><Ellipsis aria-hidden="true" /></Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-48">
-                <DropdownMenuItem onSelect={() => openRun(d.id)}><FileSearch aria-hidden="true" />Evidence</DropdownMenuItem>
-                <DropdownMenuItem onSelect={() => openExperimentForm(base.deployment.id)}><Plus aria-hidden="true" />Plan run</DropdownMenuItem>
-                <DropdownMenuItem onSelect={openWorkloads}><BookOpen aria-hidden="true" />Workloads</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </>
-        }
+        actions={<>
+          <ThroughputActions shown={d} />
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" size="icon" aria-label="More actions" data-testid="throughput-more"><Ellipsis aria-hidden="true" /></Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-48">
+              <DropdownMenuItem onSelect={() => openRun(d.id)}><FileSearch aria-hidden="true" />Evidence</DropdownMenuItem>
+              <DropdownMenuItem onSelect={() => openExperimentForm(base.deployment.id)}><Plus aria-hidden="true" />Plan run</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </>}
       />
-      <IdentityLine row={row} />
+      <section className="bg-card shadow-panel space-y-3 rounded-lg border px-3 py-3 sm:px-4" aria-label="Setup">
+        <ThroughputSelectors rows={rows} base={base} shown={d} runs={runs} onPickRun={pick} />
+        <div className="border-t pt-2.5"><IdentityLine row={row} latestRunDate={latestOnDataset} /></div>
+      </section>
       <PerformanceStrip row={row} workload={workload} slo={state.slo} />
       <Tabs value={state.runTab} onValueChange={(value) => updateView((s) => { s.runTab = value === "configuration" ? "configuration" : "sweep"; })}>
         <TabsList variant="pill" className="mb-1">
           <TabsTrigger value="sweep">Overview</TabsTrigger>
           <TabsTrigger value="configuration">Configuration</TabsTrigger>
         </TabsList>
-        <TabsContent value="sweep" className="space-y-4 pt-3"><Sweep row={row} planFor={base.deployment.id} /></TabsContent>
+        <TabsContent value="sweep" className="space-y-4 pt-3"><Sweep row={row} base={base.deployment} onPickRun={pick} /></TabsContent>
         <TabsContent value="configuration" className="pt-3"><RunConfiguration deployment={d} dataset={d.workloadId === base.deployment.workloadId ? state.workload : d.workloadId} /></TabsContent>
       </Tabs>
     </div>
-  );
-}
-
-/** Runs recorded for this configuration (date · dataset · runtime_version); disabled with "No runs" until a run is imported. */
-function RunPicker({ runs, shown, onPick }: { runs: BenchmarkRun[]; shown: Deployment; onPick: (run: BenchmarkRun) => void }) {
-  const options = runs.map((run) => ({
-    value: run.id,
-    label: `${run.runDate.slice(0, 10)} · ${run.identity.dataset}`,
-    detail: run.identity.runtimeVersion,
-    group: run.identity.dataset,
-    keywords: [run.identity.runtimeVersion ?? ""],
-  }));
-  const current = runs.find((run) => run.id === shown.runId);
-  return (
-    <Combobox
-      label="Run" testId="run-history" value={shown.runId ?? ""} options={options} searchPlaceholder="Search runs…" align="end"
-      onChange={(value) => { const run = runs.find((item) => item.id === value); if (run) onPick(run); }}
-      className="w-[min(260px,calc(100vw-120px))]"
-      triggerLabel={<span className="flex min-w-0 items-baseline gap-1.5"><span className="text-muted-foreground text-xs">Run</span><span className="truncate">{current ? `${current.runDate.slice(0, 10)} · ${current.identity.dataset}` : `${runs.length} run${runs.length === 1 ? "" : "s"} · none on this dataset`}</span></span>}
-    />
   );
 }
 
@@ -148,45 +122,12 @@ function InfoTip({ label, children }: { label: string; children: React.ReactNode
 }
 
 /**
- * Status line under the header: evidence state, warnings that change how a number reads (incomplete requests, GPU
- * count or divisor), and the serve-command toggle. Hardware, knobs, build and recheck live in the Configuration tab.
+ * Overview. Measured: total throughput vs concurrency beside the SLO evaluation table (visible by default: it is the
+ * evidence behind C_max), the compact workload-profile strip, runtime versions, TTFT / ITL / per-user / interactivity charts, then
+ * the measured results in a native <details> (rows stay mounted while collapsed). Not measured: the profile tiles of
+ * other measured datasets (if any) and one compact block (dataset, "Plan run", SLO thresholds); no empty chart.
  */
-function IdentityLine({ row }: { row: RankedDeployment }) {
-  const d = row.deployment;
-  const measured = isMeasured(d);
-  const [open, setOpen] = React.useState(false);
-  return (
-    <section className="space-y-2" aria-label="Configuration status">
-      <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5 text-xs" data-testid="throughput-identity">
-        <Badge variant={measured ? "good" : "neutral"}>{measured ? `Measured · ${d.measuredAt?.slice(0, 10)}` : "Reference · no run"}</Badge>
-        <StatusBadge deployment={d} />
-        {measured ? <IncompleteBadge count={row.capacity.incomplete} /> : null}
-        {d.topologyMismatch ? <Badge variant="warning" title={`Run used ${gpusOf(d)} GPUs; the catalog shape has ${d.gpus}.`}>GPU count differs</Badge> : null}
-        {gpuDivisorUnconfirmed(d) ? <Badge variant="warning" data-testid="gpu-divisor-unconfirmed" title={`${d.replicas} system replicas: tok/min/GPU divides by num_gpus = ${gpusOf(d)}, read as GPUs per replica (unconfirmed). If throughput is aggregated over replicas, the per-GPU figure is overstated by ×${d.replicas}.`}>GPU divisor unconfirmed</Badge> : null}
-        <Button variant="ghost" size="sm" className="ml-auto h-7 px-2 text-xs" asChild>
-          <a href={routeUrl("tldr", { model: d.modelId })} data-testid="throughput-all-setups" title={`Every setup of ${modelOf(d)?.name ?? d.modelId} ranked by sustainable tok/min/GPU (TL;DR)`}>
-            <ListOrdered aria-hidden="true" />All setups of this model
-          </a>
-        </Button>
-        <Button variant="ghost" size="sm" className="h-7 px-2 text-xs" aria-expanded={open} aria-controls="throughput-serve" onClick={() => setOpen((value) => !value)}>
-          <SquareTerminal aria-hidden="true" />Serve command<ChevronDown className={cn("transition-transform", open && "rotate-180")} aria-hidden="true" />
-        </Button>
-      </div>
-      {open ? (
-        <div id="throughput-serve">
-          <CommandBlock className="shadow-panel" testId="throughput-serve-command" title={`Serve command · ${engineBuildDetail(d)}`} caption={<><span className="font-mono">{d.exportHfId}@{shortSha(d.artifactRevision)}</span> · KServe container command</>} command={d.command} />
-        </div>
-      ) : null}
-    </section>
-  );
-}
-
-/**
- * Measured: throughput full width, then TTFT, ITL, per-user speed and interactivity, then the per-level table in a
- * native <details> (rows stay mounted while collapsed). Not measured: one compact block names the dataset, offers
- * "Plan run" and lists the SLO thresholds; no chart renders without a series.
- */
-function Sweep({ row, planFor }: { row: RankedDeployment; planFor: string }) {
+function Sweep({ row, base, onPickRun }: { row: RankedDeployment; base: Deployment; onPickRun: (run: BenchmarkRun) => void }) {
   const state = useAppState();
   const d = row.deployment, c = row.capacity, point = c.selectedPoint;
   const measured = isMeasured(d);
@@ -194,25 +135,40 @@ function Sweep({ row, planFor }: { row: RankedDeployment; planFor: string }) {
   const nominal = workload ? nominalTtftCeilingMs(workload, state.slo) : null;
   const ttft = point?.ttftCeilingMs ?? nominal;
   const ttftLabel = ttft === null ? undefined : point?.ttftCeilingMs != null ? `Ceiling ${num(ttft)} ms at C_max` : `Ceiling ${num(ttft)} ms (nominal)`;
+  const tiles = <WorkloadProfileTiles configurationId={base.configurationId} slo={state.slo} />;
   if (!measured) {
     return (
-      <NotMeasuredBlock
-        testId="throughput-not-measured"
-        planFor={planFor}
-        description="Throughput per GPU, TTFT, ITL, per-user speed and the per-level table appear after a run is imported."
-      />
+      <>
+        {tiles}
+        <NotMeasuredBlock
+          testId="throughput-not-measured"
+          planFor={base.id}
+          description="Total throughput vs concurrency, the SLO evaluation per level, runtime versions, TTFT, ITL, per-user speed and the measured results appear after a run is imported."
+        />
+      </>
     );
   }
-  const throughput = (
-    <ChartPanel
-      title="Throughput per GPU"
-      description="Total tok/min per GPU · ring marks C_max"
-      chart={(expanded) => <SweepChart expanded={expanded} title="Throughput per GPU" deployments={[d]} metric="totalTpsPerGpu" perMinute yAxisTitle="Total tok/min per GPU" unit="tok/min/GPU" markCapacity sustainable />}
-    />
-  );
   return (
     <>
-      {throughput}
+      <div className="grid items-start gap-4 xl:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)]">
+        <ChartPanel
+          title="Total throughput vs concurrency"
+          description={`Total (input + output) tok/s per GPU at each measured level · ${hardwareShape(d)}`}
+          chart={(expanded) => <ThroughputConcurrencyChart deployment={d} capacity={c} margin={state.slo.margin} expanded={expanded} />}
+        />
+        <Panel
+          title="SLO evaluation"
+          description={<>Per level: p95 TTFT against prompt ÷ prefill speed, p95 ITL ≤ {num(state.slo.itlP95Ms)} ms, success ≥ {num(state.slo.minSuccessRate * 100)}%</>}
+          actions={<LevelsBadge capacity={c} />}
+          bodyClassName="p-0"
+          id="slo-evaluation"
+        >
+          <SloEvaluationTable row={row} slo={state.slo} />
+        </Panel>
+      </div>
+      {/* Profile tiles follow the chart and SLO evaluation (the core evidence stays above the fold at 1440). */}
+      {tiles}
+      <RuntimeVersionsPanel base={base} shownRunId={d.runId} onPick={onPickRun} />
       <div className="grid gap-4 xl:grid-cols-2">
         <ChartPanel title="Time to first token, p95" description={nominal === null && !point ? "Ceiling per level (multi-turn)" : "Dashed: prompt ÷ prefill speed"} chart={(expanded) => <SweepChart expanded={expanded} title="TTFT p95" deployments={[d]} metric="ttftP95Ms" yAxisTitle="TTFT p95, ms" unit="ms" threshold={ttft} thresholdLabel={ttftLabel} markCapacity />} />
         <ChartPanel title="Inter-token latency" description="p95 solid · p50 dashed" chart={(expanded) => <SweepChart expanded={expanded} title="ITL p95 and p50" deployments={[d]} metric="itlP95Ms" secondary={{ metric: "itlP50Ms", label: "p50" }} yAxisTitle="ITL, ms" unit="ms" threshold={state.slo.itlP95Ms} thresholdLabel={`ITL p95 ≤ ${num(state.slo.itlP95Ms)} ms`} digits={1} markCapacity />} />
@@ -222,10 +178,9 @@ function Sweep({ row, planFor }: { row: RankedDeployment; planFor: string }) {
       <details className="group bg-card shadow-panel rounded-lg border" data-testid="concurrency-details">
         <summary className="flex cursor-pointer list-none flex-wrap items-center gap-x-2 gap-y-1 px-4 py-3 text-[13px] font-medium [&::-webkit-details-marker]:hidden">
           <ChevronRight className="text-muted-foreground size-4 transition-transform group-open:rotate-90" aria-hidden="true" />
-          Per-level table<span className="text-muted-foreground font-normal tabular-nums">· {c.totalLevels} level{c.totalLevels === 1 ? "" : "s"}</span>
-          <span className="ml-auto"><LevelsBadge capacity={c} /></span>
+          Measured results<span className="text-muted-foreground font-normal tabular-nums">· {c.totalLevels} level{c.totalLevels === 1 ? "" : "s"} · rates, TTFT, ITL and request latency (mean · p50 · p95 · p99) as reported</span>
         </summary>
-        <div className="border-t"><ConcurrencyTable row={row} /></div>
+        <div className="border-t"><MeasuredResultsTable row={row} /></div>
       </details>
     </>
   );
@@ -321,7 +276,8 @@ function RunConfiguration({ deployment: d, dataset }: { deployment: Deployment; 
             ["Configured build", engineBuildDetail(d)],
             ["Latest recheck", recheckNote(d) ?? "None"],
             ["Run runtime_version", d.runtimeTag ? mono(d.runtimeTag) : "No run"],
-            ["Target", testedLabel(d.testedOnTarget)],
+            ["Imported runs", measuredHereLabel(d) ?? "None in this console"],
+            ["Catalog B300 record", <span key="atlas" className="text-ink-2 font-normal" title="Catalog flag (testedOnTarget), independent of imported runs">{testedLabel(d.testedOnTarget)}</span>],
             ["Shape", `${shape(d)} · ${hardwareShape(d)}`],
             ["GPUs", gpuTotals(d)],
             ["Knob", d.knob ?? "Baseline"],

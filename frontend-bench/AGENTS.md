@@ -16,7 +16,7 @@ Target Bun 1.4.0+, TypeScript 7, React 19, Tailwind CSS 4.3.5, Effect 4, and Pos
 bun install --frozen-lockfile
 bun scripts/import-atlas.ts --check   # committed snapshot matches ../catalog (parent repository only)
 bun run typecheck      # bunx tsc -p tsconfig.json --noEmit && bunx tsc -p tsconfig.client.json --noEmit
-bun run test:unit      # domain, repository, runs, scale, search
+bun run test:unit      # domain, engine, repository, runs, scale, search
 bun run build          # public/ + preview.html
 bun run browser:install  # Playwright Chromium, once per machine
 bun run test:browser   # after a fresh build

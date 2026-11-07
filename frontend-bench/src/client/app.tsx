@@ -85,8 +85,9 @@ export function App() {
       <MobileNav />
       <div className="min-h-dvh min-[900px]:py-2 min-[900px]:pr-2 min-[900px]:pl-[220px]">
         <div className="bg-canvas min-h-dvh min-[900px]:shadow-canvas min-[900px]:min-h-[calc(100dvh-16px)] min-[900px]:rounded-lg">
-        {/* One sticky region: the TEST DATA banner (when fixture runs are loaded) stays visible above the top bar. */}
-        <div className="sticky top-0 z-20">
+        {/* One sticky region: the TEST DATA banner (when fixture runs are loaded) stays visible above the top bar. Opaque
+            canvas behind both (the banner tint and the top bar are translucent) and above page content (charts, meters). */}
+        <div className="bg-canvas sticky top-0 z-40 min-[900px]:rounded-t-lg">
         <TestDataBanner />
         <Topbar end={<><DataBadge /><ThemeToggle /></>}>
           <div className="flex min-w-0 items-center gap-0.5">

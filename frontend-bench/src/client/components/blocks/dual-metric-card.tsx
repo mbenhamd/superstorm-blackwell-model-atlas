@@ -31,6 +31,8 @@ export interface DualMetricCardMetric {
   unit?: React.ReactNode
   adornment?: React.ReactNode
   maximumFractionDigits?: number
+  /** Values at or above this abbreviate (MetricValue default); Infinity always shows the full value. */
+  compactFrom?: number
   format?: NumberFormat
   currency?: string
   /** Bar fill from 0 to 100. Defaults to the metric's share of the total across all metrics. */
@@ -150,6 +152,7 @@ function DualMetricCard({
                       format={metric.format}
                       currency={metric.currency}
                       maximumFractionDigits={metric.maximumFractionDigits}
+                      compactFrom={metric.compactFrom}
                       data-missing={metric.value === null || undefined}
                       className={cn("text-3xl font-semibold tracking-tight", metric.value === null && "text-muted-foreground")}
                     />

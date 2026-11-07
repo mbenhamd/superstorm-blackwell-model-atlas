@@ -94,11 +94,17 @@ export function sweepValue(point: PointMetrics, key: SweepMetric, deployment: De
 /** Two x positions with no series values: gives the empty frame an x domain so policy reference lines draw. */
 const EMPTY_FRAME = [{ concurrency: 0 }, { concurrency: 1 }];
 
-export function SweepChart({ deployments, metric, yAxisTitle, unit, threshold, thresholdLabel, markCapacity = false, sustainable = false, perMinute = false, percent = false, digits = 0, className, colorOffset = 0, title, expanded = false, legend = true, emptyLabel = "Not measured", secondary }: {
+/** Per-series stroke: colour and optional dash pattern, with an optional legend label. */
+export interface SweepSeriesStyle { color: string; dash?: string; label?: string }
+
+export function SweepChart({ deployments, metric, yAxisTitle, unit, threshold, thresholdLabel, markCapacity = false, sustainable = false, perMinute = false, percent = false, digits = 0, className, colorOffset = 0, title, expanded = false, legend = true, emptyLabel = "Not measured", secondary, seriesStyle }: {
   deployments: Deployment[]; metric: SweepMetric; yAxisTitle: string; unit: string; threshold?: number | null; thresholdLabel?: string;
   markCapacity?: boolean; sustainable?: boolean; perMinute?: boolean; percent?: boolean; digits?: number; className?: string; colorOffset?: number; title: string; expanded?: boolean; legend?: boolean; emptyLabel?: string;
   secondary?: { metric: SweepMetric; label: string };
+  /** Overrides the default index colour per series (e.g. a fixed engine hue with versions told apart by lightness and dash). */
+  seriesStyle?: (deployment: Deployment, index: number) => SweepSeriesStyle;
 }) {
+  const styleOf = (deployment: Deployment, index: number): SweepSeriesStyle => seriesStyle?.(deployment, index) ?? { color: `var(--chart-${((index + colorOffset) % 4) + 1})` };
   const sweeps = deployments.map((deployment) => ({ deployment, c: capacity(deployment, appState.slo) }));
   const levels = [...new Set(sweeps.flatMap(({ c }) => c.points.map((point) => point.concurrency)))].sort((a, b) => a - b);
   const limit = threshold ?? undefined;
@@ -134,13 +140,14 @@ export function SweepChart({ deployments, metric, yAxisTitle, unit, threshold, t
     ? (sweepValue(single.c.selectedPoint, metric, single.deployment, perMinute) ?? 0) * appState.slo.margin : null;
   const values = data.flatMap((row) => sweeps.flatMap((_, index) => [Number(row[`s${index}`]), Number(row[`s${index}_b`])])).filter(Number.isFinite);
   const y = percent ? { min: 0, max: 100, ticks: [0, 25, 50, 75, 100] } : niceDomain(0, Math.max(...values, limit ?? 0) * 1.04, 4);
+  const styles = sweeps.map(({ deployment }, index) => styleOf(deployment, index));
   const series: ComposedSeries[] = sweeps.map(({ deployment }, index) => ({
-    key: `s${index}`, label: configLabel(deployment), type: sweeps.length === 1 ? "area" : "line", curve: "linear", passKey: `s${index}_pass`,
-    color: `var(--chart-${((index + colorOffset) % 4) + 1})`,
+    key: `s${index}`, label: styles[index]!.label ?? configLabel(deployment), type: sweeps.length === 1 ? "area" : "line", curve: "linear", passKey: `s${index}_pass`,
+    color: styles[index]!.color, dashArray: styles[index]!.dash,
   }));
   if (secondary) sweeps.forEach(({ deployment }, index) => series.push({
     key: `s${index}_b`, label: `${configLabel(deployment)} · ${secondary.label}`, type: "line", curve: "linear", dashed: true,
-    color: `var(--chart-${((index + colorOffset) % 4) + 1})`,
+    color: styles[index]!.color,
   }));
   const markers = markCapacity ? sweeps.flatMap(({ deployment, c }, index) => {
     const point = c.selectedPoint;
@@ -179,9 +186,9 @@ export function SweepChart({ deployments, metric, yAxisTitle, unit, threshold, t
       />
       {legend || expanded ? <figcaption className="text-ink-2 mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs">
         {sweeps.length > 1 ? sweeps.map(({ deployment }, index) => (
-          <span key={deployment.id} className="inline-flex items-center gap-1.5">
-            <span className="h-0.5 w-3 rounded-full" style={{ backgroundColor: `var(--chart-${((index + colorOffset) % 4) + 1})` }} aria-hidden="true" />
-            {configLabel(deployment)}
+          <span key={deployment.id} className="inline-flex items-center gap-1.5" data-series-legend={index} data-series-color={styles[index]!.color} data-series-dash={styles[index]!.dash ?? "solid"}>
+            <svg width="14" height="4" viewBox="0 0 14 4" aria-hidden="true" className="shrink-0"><line x1="0" y1="2" x2="14" y2="2" stroke={styles[index]!.color} strokeWidth="2" strokeDasharray={styles[index]!.dash} /></svg>
+            {styles[index]!.label ?? configLabel(deployment)}
           </span>
         )) : null}
         <SweepKey className={sweeps.length > 1 ? "sm:ml-auto" : undefined} />

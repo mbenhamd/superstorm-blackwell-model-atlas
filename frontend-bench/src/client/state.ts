@@ -39,7 +39,9 @@ export const appState = {
   route: "tldr" as Route, workload: DEFAULT_WORKLOAD, theme: "light" as Theme, storageAvailable: true,
   query: "", gpu: [] as string[], shape: [] as string[], runtime: [] as string[], precision: [] as string[], model: "all",
   selected: [] as string[], compare: ["qwen3.8-27b.bf16.vllm.baseline", "qwen3.8-27b.fp8.vllm.baseline", "qwen3.8-27b.nvfp4.vllm.baseline"] as string[],
-  run: "qwen3.8-27b.fp8.vllm.baseline", pair: "", modelTab: "overview" as ModelTab, runTab: "sweep" as "sweep" | "configuration", experimentView: "board" as "board" | "table",
+  run: "qwen3.8-27b.fp8.vllm.baseline", pair: "", modelTab: "overview" as ModelTab, runTab: "sweep" as "sweep" | "configuration",
+  /** Throughput: the two newest runtime versions overlaid in the Runtime versions panel (URL `overlay=versions`). */
+  versionOverlay: false, experimentView: "board" as "board" | "table",
   frontierOnly: false, logScale: false, sort: "capacity" as SortKey, sortDirection: "desc" as "asc" | "desc",
   slo: { ...DEFAULT_SLO } as SloPolicy, focusId: "",
   /** TL;DR: GPU shape key ("8xB300"; "" = all shapes) and setup sort. The model is `model` ("all" = default model). */
@@ -101,6 +103,7 @@ export function readRoute(): void {
   const tab = params.get("tab");
   appState.modelTab = tab === "precision" ? "precision" : "overview";
   appState.runTab = route === "throughput" && tab === "configuration" ? "configuration" : "sweep";
+  appState.versionOverlay = route === "throughput" && params.get("overlay") === "versions";
   appState.logScale = params.get("scale") === "log";
   appState.frontierOnly = params.get("frontier") === "1";
   const pair = params.get("pair");
@@ -130,7 +133,7 @@ export function viewParams(route: Route = appState.route): Record<string, string
   }
   if (route === "models") { if (appState.model !== "all") { params.model = appState.model; params.tab = appState.modelTab; } else if (appState.query) params.q = appState.query; }
   if (route === "compare") params.runs = appState.compare.join(",");
-  if (route === "throughput") { params.run = appState.run; if (appState.runTab === "configuration") params.tab = "configuration"; }
+  if (route === "throughput") { params.run = appState.run; if (appState.runTab === "configuration") params.tab = "configuration"; if (appState.versionOverlay) params.overlay = "versions"; }
   if (route === "engine") { if (appState.pair) params.pair = appState.pair; else if (appState.model !== "all") params.model = appState.model; }
   if (route === "tldr") {
     if (appState.model !== "all") params.model = appState.model;

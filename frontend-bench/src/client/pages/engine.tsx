@@ -2,14 +2,13 @@ import * as React from "react";
 import { Check, ChevronRight, Columns2, Info, Server, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { DeltaBadge } from "@/components/ui/delta-badge";
 import { TickBar } from "@/components/ui/tick-bar";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Timeline, TimelineConnector, TimelineContent, TimelineHeader, TimelineItem, TimelineMarker, TimelineRail, TimelineTime, TimelineTitle } from "@/components/ui/timeline";
-import { capacity, relativeDelta, tieBand } from "../../domain/metrics.js";
+import { capacity, tieBand } from "../../domain/metrics.js";
 import { splitRuntime } from "../../domain/catalog.js";
 import type { Deployment } from "../../domain/types.js";
 import { SweepChart } from "../components/app/charts.js";
@@ -20,11 +19,14 @@ import { NotMeasuredBlock } from "../components/app/not-measured-block.js";
 import { StatusBadge } from "../components/app/status-badge.js";
 import { EngineBuild } from "../components/app/engine-build.js";
 import { EngineIntelDisclosure } from "../components/app/engine-intel-disclosure.js";
+import { EngineMatchup } from "../components/app/engine-matchup.js";
+import { EngineVersions } from "../components/app/engine-versions.js";
+import { EngineWorkloadVerdicts } from "../components/app/engine-workload-verdicts.js";
 import { openRun } from "../components/app/overlays.js";
 import { Combobox } from "../components/app/pickers.js";
-import { EmptyState, PageHeader, Panel, SeriesSwatch, Term } from "../components/app/primitives.js";
+import { EmptyState, PageHeader, Panel, SeriesSwatch } from "../components/app/primitives.js";
 import { appState, navigate, updateView, useAppState } from "../state.js";
-import { engineVersion, isMeasured, recheckNote, runtimeTag, testedLabel, modelOf, num, shape, topology } from "../lib/display.js";
+import { engineVersion, isMeasured, measuredHereLabel, recheckNote, runtimeTag, testedLabel, modelOf, num, shape, topology } from "../lib/display.js";
 import { cn } from "@/lib/utils";
 import { aaHeadline, atlasModel, effortLabel, shortSha } from "../lib/atlas.js";
 
@@ -135,9 +137,13 @@ function MatchedPairs({ pairs, active }: { pairs: EnginePair[]; active: string }
   );
 }
 
-/** One engine of the pair: configured build, latest recheck, status and the release review, in one card. */
+/**
+ * One engine of the baseline pair: configured build, status, imported-run state and the release review. The atlas
+ * B300 flag is labelled as catalog evidence so it never reads as a statement about the imported runs.
+ */
 function EngineSide({ deployment: d, review }: { deployment: Deployment; review?: { release: string; assessment: string; nvfp4Assessment: string | null; sourceIds: string[] } }) {
   const count = flags(d.engineArgs).size;
+  const here = measuredHereLabel(d);
   return (
     <section className="flex min-w-0 flex-col gap-3 rounded-md border p-4" data-engine-side={d.runtime}>
       {/* Title: engine and configured build at panel-title size; the release recheck is the secondary line. */}
@@ -146,7 +152,8 @@ function EngineSide({ deployment: d, review }: { deployment: Deployment; review?
         <StatusBadge deployment={d} />
       </div>
       <div className="flex flex-wrap items-center gap-1.5">
-        <Badge variant="neutral">{testedLabel(d.testedOnTarget)}</Badge>
+        {here ? <Badge variant="good" data-measured-here={d.runtime}>{here}</Badge> : null}
+        <Badge variant="neutral" title="Catalog flag (testedOnTarget): whether the catalog holds a B300 validation record. Independent of runs imported here." data-catalog-target={d.testedOnTarget}>{testedLabel(d.testedOnTarget)}</Badge>
         <Badge variant="neutral">{count} flags</Badge>
         {isMeasured(d) && d.runtimeTag ? <Badge variant="mono" title={`Run ${d.measuredAt?.slice(0, 10) ?? ""}`} data-run-tag={d.runtimeTag}>run {d.runtimeTag}</Badge> : null}
         <Button variant="ghost" size="sm" className="h-6 px-2 text-xs" onClick={() => openRun(d.id)}>Details</Button>
@@ -226,6 +233,7 @@ function ArgumentsDiff({ pair }: { pair: EnginePair }) {
       title={<span className="inline-flex items-center gap-1.5">Argument differences
         <Tooltip><TooltipTrigger asChild><Info tabIndex={0} className="text-muted-foreground size-3.5 cursor-help" aria-label="About flag mapping" /></TooltipTrigger><TooltipContent className="max-w-72">A row maps related flags. Semantics can differ.</TooltipContent></Tooltip>
       </span>}
+      description="Configured commands (catalog). A run's recorded runtime_config takes precedence for the matchup and verdicts."
       actions={<Badge variant="neutral">{differing.length + (otherA.length || otherB.length ? 1 : 0)} differ · {matching.length} same</Badge>}
       bodyClassName="px-0 pb-0"
     >
@@ -260,34 +268,23 @@ function ArgumentsDiff({ pair }: { pair: EnginePair }) {
 
 type VersionEvent = { key: string; date: string | null; status: "default" | "current" | "done"; title: React.ReactNode; detail?: React.ReactNode; tip?: React.ReactNode; row: string; onClick?: () => void };
 
+/** Catalog configurations of the pair's export on its GPU count (every knob and engine). */
+const pairBases = (deployments: Deployment[], pair: EnginePair) =>
+  deployments.filter((d) => d.id === d.configurationId && d.artifactId === pair.vllm.artifactId && d.gpus === pair.vllm.gpus);
+
 /**
- * Version history per engine for the selected export and GPU count: each configured build, the release rechecks
- * (reviews, not validations) and every imported run on the active dataset with its change against the previous run.
+ * Configured builds and release rechecks (reviews, not validations) per engine for the selected export and GPU
+ * count. Imported runs are listed once, in Every measured version; this timeline adds only the catalog facts and
+ * sits collapsed inside that panel.
  */
-function RuntimeVersions({ pair }: { pair: EnginePair }) {
+function BuildsAndRechecks({ pair }: { pair: EnginePair }) {
   const state = useAppState();
-  const bases = state.snapshot.deployments.filter((d) => d.id === d.configurationId && d.artifactId === pair.vllm.artifactId && d.gpus === pair.vllm.gpus);
-  const runs = (state.snapshot.runs ?? []).filter((run) => run.identity.dataset === state.workload && bases.some((d) => d.configurationId === run.configurationId));
-  const measured = runs.map((run) => {
-    const base = bases.find((d) => d.configurationId === run.configurationId)!;
-    const version = splitRuntime(run.identity.runtimeVersion).version ?? run.identity.runtimeVersion;
-    // Each historical run keeps its own recorded identity (GPU divisor, replicas, tag); the configured build
-    // (runtimeVersion) stays the catalog's, and the run's version appears in the knob and runtimeTag.
-    const { identity } = run;
-    const deployment: Deployment = {
-      ...base, id: `${base.id}#${run.id}`, knob: [`v${version.replace(/^v/, "")}`, base.knob].filter(Boolean).join(" · "),
-      points: run.metrics, evidence: "measured", measuredAt: run.runDate, runId: run.id, workloadId: identity.dataset,
-      runtimeTag: identity.runtimeVersion, runConfig: identity.runtimeConfig, gpuType: identity.gpuType,
-      replicas: identity.maxSystemReplicas, runGpus: identity.numGpus, topologyMismatch: identity.numGpus !== base.gpus,
-    };
-    return { run, base, deployment };
-  });
+  const bases = pairBases(state.snapshot.deployments, pair);
   const events = (runtime: "vLLM" | "SGLang"): VersionEvent[] => {
     const list: VersionEvent[] = [];
     const seen = new Set<string>();
     for (const d of bases.filter((item) => item.runtime === runtime)) {
-      // A measured configuration is represented by its runs; its recheck facts are still listed below.
-      if (!measured.some((m) => m.base.configurationId === d.configurationId)) list.push({ key: d.id, date: d.reviewedOn, status: "default", row: runtimeTag(d), title: <span className="font-mono text-xs">{runtimeTag(d)}</span>, detail: `${shape(d)} · ${d.knob ?? "baseline"}`, onClick: () => openRun(d.id) });
+      list.push({ key: d.id, date: d.reviewedOn, status: "default", row: runtimeTag(d), title: <span className="font-mono text-xs">{runtimeTag(d)}</span>, detail: `${shape(d)} · ${d.knob ?? "baseline"} · configured build`, onClick: () => openRun(d.id) });
       for (const prior of d.priorRechecks) {
         const key = `${prior.engineRelease}@${prior.checkedOn}`;
         if (seen.has(key)) continue; seen.add(key);
@@ -301,51 +298,82 @@ function RuntimeVersions({ pair }: { pair: EnginePair }) {
         }
       }
     }
-    const own = measured.filter((m) => m.base.runtime === runtime).sort((x, y) => (x.run.runDate ?? "").localeCompare(y.run.runDate ?? ""));
-    own.forEach((m, index) => {
-      const c = capacity(m.deployment, state.slo);
-      const before = own.slice(0, index).reverse().find((other) => other.base.configurationId === m.base.configurationId);
-      const delta = before ? relativeDelta(c.sustainableTpmPerGpu, capacity(before.deployment, state.slo).sustainableTpmPerGpu) : null;
-      list.push({ key: m.run.id, date: m.run.runDate, status: "done", row: m.run.identity.runtimeVersion, onClick: () => openRun(m.base.id),
-        title: <span className="font-mono text-xs">{m.run.identity.runtimeVersion}</span>,
-        detail: <span className="inline-flex items-center gap-2">{num(c.sustainableTpmPerGpu)} tok/min/GPU · C_max {num(c.highestPassingConcurrency)}{delta !== null ? <DeltaBadge delta={delta} variant="soft" /> : null}</span> });
-    });
     return list.sort((x, y) => (x.date ?? "").localeCompare(y.date ?? ""));
   };
-  const chartDeployments = measured.map((m) => m.deployment).slice(-6);
-  // Only a version-over-version chart: with one run per engine it would duplicate the head-to-head chart.
-  const multiVersion = (["vLLM", "SGLang"] as const).some((runtime) => measured.filter((m) => m.base.runtime === runtime).length > 1);
+  const total = events("vLLM").length + events("SGLang").length;
   return (
-    <>
-      <Panel title="Runtime versions" description={state.workload}>
-        <div className="grid gap-6 md:grid-cols-2" data-testid="runtime-versions">
-          {(["vLLM", "SGLang"] as const).map((runtime, index) => (
-            <div key={runtime} className="min-w-0">
-              <h3 className="mb-3 inline-flex items-center gap-1.5 text-[13px] font-medium"><SeriesSwatch index={index} />{runtime}</h3>
-              <Timeline>
-                {events(runtime).map((event) => (
-                  <TimelineItem key={event.key} status={event.status} data-runtime-row={event.row}>
-                    <TimelineRail><TimelineMarker className="size-3" /><TimelineConnector /></TimelineRail>
-                    <TimelineContent className="pb-4">
-                      <TimelineHeader>
-                        <TimelineTitle className="text-[13px] font-normal">
-                          {event.tip ? (
-                            <Tooltip><TooltipTrigger asChild><span tabIndex={0} className="cursor-help underline decoration-dotted underline-offset-2">{event.title}</span></TooltipTrigger><TooltipContent className="max-w-80">{event.tip}</TooltipContent></Tooltip>
-                          ) : event.onClick ? <button type="button" className="hover:underline" onClick={event.onClick}>{event.title}</button> : event.title}
-                        </TimelineTitle>
-                        <TimelineTime>{event.date?.slice(0, 10) ?? "—"}</TimelineTime>
-                      </TimelineHeader>
-                      {event.detail ? <span className="text-muted-foreground text-xs">{event.detail}</span> : null}
-                    </TimelineContent>
-                  </TimelineItem>
-                ))}
-              </Timeline>
-            </div>
-          ))}
-        </div>
-      </Panel>
-      {multiVersion ? <ChartPanel title="Throughput by runtime version" chart={(expanded) => <SweepChart expanded={expanded} title="Throughput by runtime version" deployments={chartDeployments} metric="totalTpsPerGpu" perMinute markCapacity yAxisTitle="Total tok/min per GPU" unit="tok/min/GPU" />} /> : null}
-    </>
+    <EngineIntelDisclosure summary="Configured builds and release rechecks" meta={`${total} catalog entr${total === 1 ? "y" : "ies"} · reviews, not validations`} data-testid="runtime-versions-disclosure">
+      <div className="grid gap-6 px-4 pt-1 pb-2 md:grid-cols-2" data-testid="runtime-versions">
+        {(["vLLM", "SGLang"] as const).map((runtime, index) => (
+          <div key={runtime} className="min-w-0">
+            <h3 className="mb-3 inline-flex items-center gap-1.5 text-[13px] font-medium"><SeriesSwatch index={index} />{runtime}</h3>
+            <Timeline>
+              {events(runtime).map((event) => (
+                <TimelineItem key={event.key} status={event.status} data-runtime-row={event.row}>
+                  <TimelineRail><TimelineMarker className="size-3" /><TimelineConnector /></TimelineRail>
+                  <TimelineContent className="pb-4">
+                    <TimelineHeader>
+                      <TimelineTitle className="text-[13px] font-normal">
+                        {event.tip ? (
+                          <Tooltip><TooltipTrigger asChild><span tabIndex={0} className="cursor-help underline decoration-dotted underline-offset-2">{event.title}</span></TooltipTrigger><TooltipContent className="max-w-80">{event.tip}</TooltipContent></Tooltip>
+                        ) : event.onClick ? <button type="button" className="hover:underline" onClick={event.onClick}>{event.title}</button> : event.title}
+                      </TimelineTitle>
+                      <TimelineTime>{event.date?.slice(0, 10) ?? "—"}</TimelineTime>
+                    </TimelineHeader>
+                    {event.detail ? <span className="text-muted-foreground text-xs">{event.detail}</span> : null}
+                  </TimelineContent>
+                </TimelineItem>
+              ))}
+            </Timeline>
+          </div>
+        ))}
+      </div>
+    </EngineIntelDisclosure>
+  );
+}
+
+/** Engine hue stays fixed (vLLM chart-1, SGLang chart-2); older versions of an engine are lighter and dashed. */
+const VERSION_DASH = [undefined, "6 3", "2 3"] as const;
+const VERSION_MIX = [100, 62, 42] as const;
+
+/**
+ * Total throughput per GPU against concurrency for each imported run of the pair's export and GPU count on the
+ * active dataset (up to six). Drawn only when an engine has more than one run: otherwise it repeats the pair chart.
+ */
+function VersionChart({ pair }: { pair: EnginePair }) {
+  const state = useAppState();
+  const bases = pairBases(state.snapshot.deployments, pair);
+  const runs = (state.snapshot.runs ?? []).filter((run) => run.identity.dataset === state.workload && bases.some((d) => d.configurationId === run.configurationId));
+  const measured = runs.map((run) => {
+    const base = bases.find((d) => d.configurationId === run.configurationId)!;
+    const version = splitRuntime(run.identity.runtimeVersion).version ?? run.identity.runtimeVersion;
+    // Each historical run keeps its own recorded identity (GPU divisor, replicas, tag); the configured build
+    // (runtimeVersion) stays the catalog's, and the run's version appears in the knob and runtimeTag.
+    const { identity } = run;
+    const deployment: Deployment = {
+      ...base, id: `${base.id}#${run.id}`, knob: [`v${version.replace(/^v/, "")}`, base.knob].filter(Boolean).join(" · "),
+      points: run.metrics, evidence: "measured", measuredAt: run.runDate, runId: run.id, workloadId: identity.dataset,
+      runtimeTag: identity.runtimeVersion, runConfig: identity.runtimeConfig, gpuType: identity.gpuType,
+      replicas: identity.maxSystemReplicas, runGpus: identity.numGpus, topologyMismatch: identity.numGpus !== base.gpus,
+    };
+    return deployment;
+  });
+  const multiVersion = (["vLLM", "SGLang"] as const).some((runtime) => measured.filter((d) => d.runtime === runtime).length > 1);
+  if (!multiVersion) return null;
+  const shown = measured.slice(-6);
+  // Rank within the engine, newest run first: rank 0 is the full engine colour, solid.
+  const rank = (d: Deployment) => shown.filter((other) => other.runtime === d.runtime && (other.measuredAt ?? "") > (d.measuredAt ?? "")).length;
+  const style = (d: Deployment) => {
+    const r = Math.min(rank(d), VERSION_DASH.length - 1);
+    const hue = `var(--chart-${engineIndex(d) + 1})`;
+    return { color: VERSION_MIX[r] === 100 ? hue : `color-mix(in oklab, ${hue} ${VERSION_MIX[r]}%, var(--card))`, dash: VERSION_DASH[r] };
+  };
+  return (
+    <ChartPanel
+      title="Throughput by runtime version"
+      description="Total tok/s per GPU · engine colour fixed; older versions lighter and dashed"
+      chart={(expanded) => <SweepChart expanded={expanded} title="Throughput by runtime version" deployments={shown} metric="totalTpsPerGpu" markCapacity yAxisTitle="Total tok/s per GPU" unit="tok/s/GPU" seriesStyle={style} />}
+    />
   );
 }
 
@@ -390,42 +418,62 @@ export function EnginePage() {
   const aa = model ? aaHeadline(model.id) : null;
   const reviews = model ? atlasModel(model.id)?.reviews.engines ?? [] : [];
   const reviewOf = (d: Deployment) => reviews.find((review) => review.engine === d.runtime);
+  // Model-level sections: one base model on the pair's GPU count, across its exports, knobs and engines.
+  const scope = { modelId: pair.vllm.modelId, gpus: pair.vllm.gpus, hardwareId: pair.vllm.hardwareId };
+  const shapeKey = `${pair.vllm.gpus}x${pair.vllm.gpuType}`, shapeLabel = `${pair.vllm.gpus}× ${pair.vllm.gpuType}`;
+  const modelName = model?.name ?? pair.vllm.modelId;
   return (
     <div className="space-y-4">
       <PageHeader
         title="Engine"
-        description="vLLM vs SGLang on one export and shape."
+        description="vLLM vs SGLang: best measured configuration per engine, verdicts per workload, then the matched baseline pair of one export and shape."
         actions={
           <Combobox label="Matched pair" testId="engine-model" value={pair.key} onChange={(value) => updateView((s) => { s.pair = value; s.model = "all"; })} className="w-[min(300px,calc(100vw-48px))]" align="end" searchPlaceholder="Search pairs…"
             triggerLabel={<span className="flex min-w-0 items-baseline gap-1.5"><span className="truncate font-medium">{pairLabel(pair)}</span><span className="text-muted-foreground truncate text-xs">{shape(pair.vllm)}</span></span>}
             options={pairs.map((item) => ({ value: item.key, label: pairLabel(item), detail: `${shape(item.vllm)} · ${topology(item.vllm)}`, group: modelOf(item.vllm)?.name, keywords: [modelOf(item.vllm)?.name ?? "", shape(item.vllm), topology(item.vllm)] }))} />
         }
       />
-      <Panel
-        title={`${pairLabel(pair)} · ${shape(pair.vllm)} · ${topology(pair.vllm)}`}
-        description={<span className="inline-flex flex-wrap items-center gap-x-2"><span data-testid="engine-verdict">{verdict}</span><span aria-hidden="true">·</span><span>{state.workload}</span>{aa ? <><span aria-hidden="true">·</span><span title="Artificial Analysis index, model level: identical for both engines">AA (model) {aa.index.toFixed(1)} {effortLabel(aa.variant)}</span></> : null}</span>}
-        actions={<Button variant="outline" size="sm" onClick={() => { appState.compare = [a.id, b.id]; navigate("compare", { runs: `${a.id},${b.id}` }); }}><Columns2 aria-hidden="true" />Open in Compare</Button>}
-        bodyClassName="space-y-4"
-      >
-        <div className="grid gap-3 md:grid-cols-2">
-          <EngineSide deployment={a} review={reviewOf(a)} />
-          <EngineSide deployment={b} review={reviewOf(b)} />
-        </div>
-        <Controls a={a} b={b} />
-      </Panel>
-      {/* Head-to-head only once either engine is measured; before that the panel description already reads "Not measured". */}
-      {isMeasured(a) || isMeasured(b) ? <HeadToHead deployments={[a, b]} capacities={[ca, cb]} /> : null}
+      <EngineMatchup
+        scope={scope} fallback={{ vLLM: a, SGLang: b }} shapeKey={shapeKey} modelName={modelName}
+        details={
+          /* The selected baseline pair (builds, controls, values at C_max) is the matchup's detail, not a second card. */
+          <EngineIntelDisclosure
+            summary="Baseline pair details"
+            meta={`${pairLabel(pair)} · ${shape(pair.vllm)} · ${topology(pair.vllm)}`}
+            aside={<span className="text-muted-foreground hidden text-xs sm:inline">builds, controls{isMeasured(a) || isMeasured(b) ? ", values at C_max" : ""}</span>}
+            data-testid="engine-baseline-pair"
+            className="-mx-4 -mb-4"
+            contentClassName="space-y-4 px-4 pt-1 pb-4"
+          >
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <p className="text-muted-foreground inline-flex flex-wrap items-center gap-x-2 text-xs">
+                <span className="text-foreground font-medium" data-testid="engine-verdict">{verdict}</span><span aria-hidden="true">·</span><span>{state.workload}</span>
+                {aa ? <><span aria-hidden="true">·</span><span title="Artificial Analysis index, model level: identical for both engines">AA (model) {aa.index.toFixed(1)} {effortLabel(aa.variant)}</span></> : null}
+              </p>
+              <Button variant="outline" size="sm" onClick={() => { appState.compare = [a.id, b.id]; navigate("compare", { runs: `${a.id},${b.id}` }); }}><Columns2 aria-hidden="true" />Open in Compare</Button>
+            </div>
+            <div className="grid gap-3 md:grid-cols-2">
+              <EngineSide deployment={a} review={reviewOf(a)} />
+              <EngineSide deployment={b} review={reviewOf(b)} />
+            </div>
+            <Controls a={a} b={b} />
+            {isMeasured(a) || isMeasured(b) ? <div data-testid="engine-head-to-head"><HeadToHead deployments={[a, b]} capacities={[ca, cb]} /></div> : null}
+          </EngineIntelDisclosure>
+        }
+      />
+      <EngineWorkloadVerdicts scope={scope} modelName={modelName} shapeLabel={shapeLabel} />
+      <EngineVersions scope={scope} modelName={modelName} shapeLabel={shapeLabel}><BuildsAndRechecks pair={pair} /></EngineVersions>
+      <VersionChart pair={pair} />
       {isMeasured(a) || isMeasured(b) ? (
       <div className="grid gap-4 xl:grid-cols-2">
-        <ChartPanel title="Sustainable throughput vs concurrency" chart={(expanded) => <SweepChart expanded={expanded} title="Engine throughput" deployments={[a, b]} metric="totalTpsPerGpu" perMinute markCapacity yAxisTitle="Total tok/min per GPU" unit="tok/min/GPU" />} />
-        <ChartPanel title="ITL p95 vs concurrency" chart={(expanded) => <SweepChart expanded={expanded} title="Engine ITL p95" deployments={[a, b]} metric="itlP95Ms" digits={1} threshold={state.slo.itlP95Ms} thresholdLabel={`ITL p95 ≤ ${num(state.slo.itlP95Ms)} ms`} yAxisTitle="ITL p95 (ms)" unit="ms" />} />
+        <ChartPanel title="Total throughput vs concurrency" description={`Baseline pair · total (input + output) tok/s per GPU at each measured level`} chart={(expanded) => <SweepChart expanded={expanded} title="Engine throughput" deployments={[a, b]} metric="totalTpsPerGpu" markCapacity yAxisTitle="Total tok/s per GPU" unit="tok/s/GPU" />} />
+        <ChartPanel title="ITL p95 vs concurrency" description="Baseline pair" chart={(expanded) => <SweepChart expanded={expanded} title="Engine ITL p95" deployments={[a, b]} metric="itlP95Ms" digits={1} threshold={state.slo.itlP95Ms} thresholdLabel={`ITL p95 ≤ ${num(state.slo.itlP95Ms)} ms`} yAxisTitle="ITL p95 (ms)" unit="ms" />} />
       </div>
       ) : (
         <NotMeasuredBlock testId="engine-charts-empty" planFor={pair.vllm.id} description="Sustainable throughput and ITL p95 against concurrency for both engines appear once either configuration has an imported run." />
       )}
       <ArgumentsDiff pair={pair} />
       <ServeCommands a={a} b={b} />
-      <RuntimeVersions pair={pair} />
       <MatchedPairs pairs={pairs} active={pair.key} />
     </div>
   );

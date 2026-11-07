@@ -163,15 +163,17 @@ export function TestDataBanner() {
 export function DataBadge() {
   const state = useAppState();
   const measured = state.snapshot.deployments.filter((d) => d.evidence === "measured").length;
+  // Label counts imported runs (every runtime version and dataset); the tooltip names the measured configuration rows.
+  const runs = state.snapshot.runs?.length ?? measured;
   return (
     <Tooltip>
       <TooltipTrigger asChild>
         <a href={routeUrl("methodology")} className="border-border-strong text-ink-2 hover:bg-accent hover:text-foreground hidden h-6 shrink-0 items-center gap-1.5 rounded-sm border px-1.5 text-xs font-medium tabular-nums transition-colors sm:inline-flex" data-testid="data-badge">
           <span className={measured ? "bg-good size-1.5 rounded-full" : "bg-muted-foreground/60 size-1.5 rounded-full"} aria-hidden="true" />
-          Catalog {catalogAsOf} · HF + AA · {measured} run{measured === 1 ? "" : "s"}{state.snapshot.testData ? " (TEST)" : ""}
+          Catalog {catalogAsOf} · HF + AA · {runs} run{runs === 1 ? "" : "s"}{state.snapshot.testData ? " (TEST)" : ""}
         </a>
       </TooltipTrigger>
-      <TooltipContent className="max-w-72">Models, exports and configurations as of {catalogAsOf}, pinned to immutable Hugging Face revisions. Intelligence scores are Artificial Analysis v5.0.1 (model-level). {measured ? `${measured} configuration rows carry a measured run${state.snapshot.testData ? " from TEST fixture entries (invented values)" : ""}.` : "No measured runs are loaded; throughput fields stay empty rather than estimated."}</TooltipContent>
+      <TooltipContent className="max-w-72">Models, exports and configurations as of {catalogAsOf}, pinned to immutable Hugging Face revisions. Intelligence scores are Artificial Analysis v5.0.1 (model-level). {measured ? `${runs} imported run${runs === 1 ? "" : "s"}; ${measured} configuration × dataset rows carry a measured run${state.snapshot.testData ? " from TEST fixture entries (invented values)" : ""}.` : "No measured runs are loaded; throughput fields stay empty rather than estimated."}</TooltipContent>
     </Tooltip>
   );
 }

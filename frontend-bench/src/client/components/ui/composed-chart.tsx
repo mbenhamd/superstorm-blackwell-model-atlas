@@ -19,6 +19,8 @@ import {
   ReferenceLine,
   XAxis,
   YAxis,
+  usePlotArea,
+  useYAxisScale,
 } from "recharts"
 
 import { cn } from "@/lib/utils"
@@ -46,6 +48,8 @@ export interface ComposedSeries {
   pattern?: "solid" | "hatched"
   /** Lines and areas only. */
   dashed?: boolean
+  /** Lines and areas only: an explicit SVG dash pattern (e.g. "6 3"); overrides `dashed`. */
+  dashArray?: string
   curve?: "monotone" | "linear" | "step"
   /** Lines only: draw a dot on every point. */
   dots?: boolean
@@ -182,6 +186,43 @@ function ComposedTooltipContent({ active, payload, label, xKey, series, config, 
   )
 }
 
+/**
+ * Marker label (e.g. "C_max 64"). Default: above-left of the ring, so it clears the dashed vertical C_max line and
+ * the rising segment to the next level (above-right for a falling series or near the left edge). When a horizontal reference line (an SLO
+ * threshold) would run through the text, the label moves above the plot area at the top of the vertical C_max line.
+ * Local addition: reads the y scale and plot area from the chart, so it must render inside it.
+ */
+function MarkerLabel({ cx, cy, label, avoid, falling = false }: { cx: number; cy: number; label: string; avoid: number[]; falling?: boolean }) {
+  const scale = useYAxisScale("left")
+  const plot = usePlotArea()
+  const lines = scale ? avoid.map((value) => Number(scale(value))).filter(Number.isFinite) : []
+  const width = label.length * 6.5
+  // Text box for a baseline y at 11.5px: about 9px above the baseline to 3px below; keep 3px of clearance.
+  const hits = (baseline: number) => lines.some((line) => line > baseline - 12 && line < baseline + 6)
+  const leftRoom = !plot || cx - 6 - width >= plot.x
+  const rightRoom = !plot || cx + 6 + width <= plot.x + plot.width + 12
+  // A falling series enters the ring from the upper left: put the label above-right instead.
+  const left = falling ? !rightRoom : leftRoom
+  let x = left ? cx - 6 : cx + 6, y = cy - 12
+  let anchor: "start" | "end" | "middle" = left ? "end" : "start"
+  let placement = "above"
+  if (hits(y)) {
+    if (plot) {
+      // Above the plot area, at the top of the vertical C_max line: no series or threshold line reaches there.
+      y = plot.y - 5; placement = "top"
+      const right = plot.x + plot.width + 12
+      if (cx + width / 2 <= right) { x = cx; anchor = "middle" } else { x = right; anchor = "end" }
+    } else {
+      y = cy + 4; placement = "side"; x = cx + 12; anchor = "start"
+    }
+  }
+  return (
+    <text x={x} y={y} textAnchor={anchor} fill="var(--foreground)" fontSize={11.5} fontWeight={500} data-marker-label={label} data-placement={placement}>
+      {label}
+    </text>
+  )
+}
+
 function ComposedChart({
   data,
   xKey,
@@ -237,6 +278,7 @@ function ComposedChart({
     .filter((p): p is NonNullable<typeof p> => p !== null)
 
 
+  const avoidLines = referenceLines.filter((line) => line.y !== undefined && (line.axis ?? "left") === "left").map((line) => line.y!)
   // Pass/fail dots; a marker (e.g. the capacity point) is drawn as a ring on the
   // matching data point so it shares the series' exact scale position.
   const renderPassDot = (s: ComposedSeries, color: string) =>
@@ -247,11 +289,7 @@ function ComposedChart({
       return (
         <g key={dotProps.index}>
           {marker ? <circle cx={dotProps.cx} cy={dotProps.cy} r={8} fill="none" stroke={color} strokeWidth={1.5} /> : null}
-          {marker?.label ? (
-            <text x={dotProps.cx} y={dotProps.cy - 14} textAnchor="middle" fill="var(--foreground)" fontSize={11.5} fontWeight={500}>
-              {marker.label}
-            </text>
-          ) : null}
+          {marker?.label ? <MarkerLabel cx={dotProps.cx} cy={dotProps.cy} label={marker.label} avoid={avoidLines} falling={Number(data[(dotProps.index ?? 0) - 1]?.[s.key]) > Number(dotProps.payload?.[s.key])} /> : null}
           <circle cx={dotProps.cx} cy={dotProps.cy} r={4} fill={pass ? color : "var(--card)"} stroke={pass ? "var(--card)" : color} strokeWidth={2} />
         </g>
       )
@@ -383,7 +421,7 @@ function ComposedChart({
                 type={s.curve ?? "monotone"}
                 stroke={color}
                 strokeWidth={2}
-                strokeDasharray={s.dashed ? "4 4" : undefined}
+                strokeDasharray={s.dashArray ?? (s.dashed ? "4 4" : undefined)}
                 dot={
                   s.passKey
                     ? renderPassDot(s, color)
@@ -402,7 +440,7 @@ function ComposedChart({
               type={s.curve ?? "monotone"}
               stroke={color}
               strokeWidth={2}
-              strokeDasharray={s.dashed ? "4 4" : undefined}
+              strokeDasharray={s.dashArray ?? (s.dashed ? "4 4" : undefined)}
               fill={`url(#${id}-fill-${s.key})`}
               dot={
                 s.passKey

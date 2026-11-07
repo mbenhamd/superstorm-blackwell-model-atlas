@@ -86,7 +86,7 @@ export function HeadToHead({ deployments, capacities, metrics = ENGINE_HEAD_TO_H
               const c = capacities[index]!, value = values[index] ?? null;
               const name = label(d, index);
               return {
-                label: isMeasured(d) ? name : `${name} · not measured`, value, unit: card.unit, maximumFractionDigits: card.digits, meter: "bar" as const, showShare: false,
+                label: isMeasured(d) ? name : `${name} · not measured`, value, unit: card.unit, maximumFractionDigits: card.digits, compactFrom: Number.POSITIVE_INFINITY, meter: "bar" as const, showShare: false,
                 progress: progress(c, value), color: `var(--chart-${index + 1})`,
                 detail: card.detail && isMeasured(d) ? { label: "At C_max", value: card.detail(c, d) } : undefined,
               };

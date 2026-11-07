@@ -15,7 +15,7 @@ import { gpuFootprint } from "../../../domain/validation.js";
 import { runIdentity } from "../../pages/throughput.js";
 import { capacity } from "../../../domain/metrics.js";
 import { appState, applyTheme, configurationIdOf, createExperiment, MAX_COMPARE, navigate, persistLocal, update, updateView, useAppState, type Route } from "../../state.js";
-import { NOT_CONNECTED, compactNum, configDetail, configLabel, configName, engineBuildDetail, engineVersion, hardwareOf, hardwareShape, isMeasured, modelOf, num, recheckNote, shape, statusLabel, testedLabel, workloadBudget, workloadLabel, workloadOf } from "../../lib/display.js";
+import { NOT_CONNECTED, compactNum, configDetail, configLabel, configName, engineBuildDetail, engineVersion, hardwareOf, hardwareShape, isMeasured, modelOf, num, recheckNote, shape, statusLabel, testedLabel, measuredHereLabel, workloadBudget, workloadLabel, workloadOf } from "../../lib/display.js";
 import { aaHeadline, artifact, effortLabel, hfUrl, paramsLabel, shortSha } from "../../lib/atlas.js";
 import { rememberOpener, restoreOpener } from "../../lib/focus-return.js";
 import { exportRun } from "../../lib/export.js";
@@ -137,8 +137,8 @@ export function EvidenceSheet() {
                 <dd className="min-w-0"><a className="hover:text-link inline-flex items-center gap-1 font-mono text-[12px] break-all underline-offset-2 hover:underline" href={hfUrl(deployment.exportHfId, deployment.artifactRevision)} target="_blank" rel="noreferrer">{deployment.exportHfId}@{shortSha(deployment.artifactRevision)}<ExternalLink className="size-3 shrink-0" aria-hidden="true" /></a></dd>
                 <dt className="text-muted-foreground">Speculative</dt>
                 <dd>{deployment.draftHfId ? <span className="font-mono text-[12px]">{deployment.draftHfId}</span> : deployment.speculativeDecoding ? "In-model" : "Off"}</dd>
-                <dt className="text-muted-foreground">Target</dt>
-                <dd><Badge variant={deployment.testedOnTarget ? "good" : "neutral"}>{testedLabel(deployment.testedOnTarget)}</Badge></dd>
+                <dt className="text-muted-foreground">B300 evidence</dt>
+                <dd className="flex flex-wrap items-center gap-1.5">{measuredHereLabel(deployment) ? <Badge variant="good" data-testid="drawer-measured-here">{measuredHereLabel(deployment)}</Badge> : null}<Badge variant="neutral" title="Catalog flag (testedOnTarget), independent of imported runs">{testedLabel(deployment.testedOnTarget)}</Badge></dd>
                 {measured ? <><dt className="text-muted-foreground">Run</dt><dd className="flex flex-wrap items-center gap-1.5">{workloadLabel(deployment.workloadId)} · {deployment.measuredAt?.slice(0, 10)} <SloVerdictBadge point={c.selectedPoint} /><LevelsBadge capacity={c} /><IncompleteBadge count={c.incomplete} /></dd></> : null}
               </dl>
               <p className="text-ink-2 line-clamp-2 text-[13px] text-pretty" title={deployment.reason}>{deployment.reason}</p>

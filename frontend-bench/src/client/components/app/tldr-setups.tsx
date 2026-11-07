@@ -16,7 +16,7 @@ import { NARROW_MD, useMediaQuery } from "../../lib/use-media.js";
 import { openRun } from "./overlays.js";
 import { EngineBuild } from "./engine-build.js";
 import { Panel } from "./primitives.js";
-import { ConfigChips, IncompleteBadge } from "./performance.js";
+import { ConfigChips, ErroredBadge, IncompleteBadge } from "./performance.js";
 import { StatusBadge } from "./status-badge.js";
 import { rowsFor, setupName, shapeKey, shapeLabel, useRowsByWorkload } from "./tldr-data.js";
 
@@ -89,12 +89,6 @@ export function StandingCell({ standing, leader, compact = false }: { standing: 
       </TooltipContent>
     </Tooltip>
   );
-}
-
-/** Amber "n errored" when requests failed with an error; nothing for 0 or unknown. */
-function ErroredBadge({ count, className }: { count: number | null | undefined; className?: string }) {
-  if (!count) return null;
-  return <Badge variant="warning" className={className} data-testid="errored-badge" title="Requests that ended in an error; they count against the success rate">{num(count)} errored</Badge>;
 }
 
 function RunWarnings({ row, className }: { row: RankedDeployment; className?: string }) {

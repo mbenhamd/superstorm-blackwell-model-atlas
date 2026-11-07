@@ -46,7 +46,19 @@ export const engineBuildDetail = (deployment: Deployment): string =>
 /** The latest release recheck, stated as a review, not a validation; null without a recheck. */
 export const recheckNote = (deployment: Deployment): string | null =>
   deployment.recheck ? `Rechecked ${/^v\d/.test(deployment.recheck.engineRelease) ? deployment.recheck.engineRelease : "for an unreleased build"} · arguments not revalidated` : null;
-export const testedLabel = (tested: boolean): string => tested ? "Tested on B300" : "Not tested on B300";
+/**
+ * Atlas catalog flag (testedOnTarget), labelled as catalog evidence: it states whether the atlas holds a B300
+ * validation record, not whether this console has imported runs (see importedRunCount / measuredHereLabel).
+ */
+export const testedLabel = (tested: boolean): string => tested ? "Catalog: B300 validation recorded" : "Catalog: no B300 validation record";
+/** Imported bench runs of this configuration across datasets and runtime versions; 0 when none are loaded. */
+export const importedRunCount = (deployment: Deployment): number =>
+  (appState.snapshot.runs ?? []).filter((run) => run.configurationId === deployment.configurationId).length;
+/** "Measured here · 3 runs" when runs of the configuration are imported, else null. */
+export const measuredHereLabel = (deployment: Deployment): string | null => {
+  const n = importedRunCount(deployment);
+  return n ? `Measured here · ${n} run${n === 1 ? "" : "s"}` : null;
+};
 /**
  * Bench runtime_version. A measured row shows the run's recorded tag verbatim (e.g. "vllm-openai-v0.33.0-cu130");
  * a reference row derives "<engine>-<release>" from the configured build, and no tag is invented for an untagged build.
@@ -73,10 +85,13 @@ export const topology = (deployment: Deployment): string => `${gpusOf(deployment
  */
 export const hardwareShape = (deployment: Deployment): string =>
   deployment.replicas === null ? topology(deployment) : `${deployment.replicas}x${gpusOf(deployment) === 1 ? "" : gpusOf(deployment)}${deployment.gpuType}`;
-/** "1 GPU per replica · 1 GPU total" when replicas are known; "8 GPUs per replica" otherwise. */
+/**
+ * "1 GPU per replica · 1 GPU total" when a run recorded its replicas; otherwise the catalog shape at one KServe
+ * replica, stated as such: "8 GPUs per replica · 8 GPUs total (1 replica)". The catalog carries no replica count.
+ */
 export const gpuTotals = (deployment: Deployment): string => {
   const per = gpusOf(deployment), plural = (n: number) => `${n} GPU${n === 1 ? "" : "s"}`;
-  return deployment.replicas === null ? `${plural(per)} per replica` : `${plural(per)} per replica · ${plural(per * deployment.replicas)} total`;
+  return deployment.replicas === null ? `${plural(per)} per replica · ${plural(per)} total (1 replica)` : `${plural(per)} per replica · ${plural(per * deployment.replicas)} total`;
 };
 /**
  * Naming convention for a benchmarked configuration:

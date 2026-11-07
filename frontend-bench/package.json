@@ -15,7 +15,7 @@
     "start": "bun src/server/index.ts",
     "preview": "bun scripts/preview.ts",
     "quality": "bun scripts/quality.ts",
-    "test:unit": "bun test tests/domain.test.ts tests/repository.test.ts tests/runs.test.ts tests/scale.test.ts tests/search.test.ts",
+    "test:unit": "bun test tests/domain.test.ts tests/engine.test.ts tests/repository.test.ts tests/runs.test.ts tests/scale.test.ts tests/search.test.ts",
     "test:browser": "bun test tests/browser.test.ts --timeout 30000",
     "test:postgres": "bun test tests/postgres.test.ts --timeout 30000",
     "browser:install": "bunx --bun playwright install chromium",

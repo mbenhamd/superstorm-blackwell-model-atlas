@@ -63,7 +63,7 @@ function fromArgs(args: readonly string[]): string[] {
   return [...primary, ...secondary].filter((chip): chip is string => chip !== null);
 }
 
-const RUN_KEYS = new Set(["kv_cache_dtype", "speculative_algorithm", "speculative_config", "num_speculative_tokens", "speculative_num_steps", "max_model_len", "context_length", "attention_backend", "max_num_seqs", "max_running_requests", "enable_prefix_caching", "disable_radix_cache"]);
+const RUN_KEYS = new Set(["kv_cache_dtype", "speculative_algorithm", "speculative_config", "num_speculative_tokens", "speculative_num_steps", "max_model_len", "context_length", "attention_backend", "max_num_seqs", "max_running_requests", "gpu_memory_utilization", "mem_fraction_static", "enable_prefix_caching", "disable_radix_cache"]);
 function fromRunConfig(config: Record<string, unknown>): string[] {
   const spec = config.speculative_config && typeof config.speculative_config === "object" ? config.speculative_config as Record<string, unknown> : null;
   const chips = [
@@ -72,7 +72,8 @@ function fromRunConfig(config: Record<string, unknown>): string[] {
     ctxChip(config.max_model_len ?? config.context_length),
     typeof config.attention_backend === "string" ? `attn ${config.attention_backend.toLowerCase()}` : null,
     config.max_num_seqs ?? config.max_running_requests ? `seqs ${String(config.max_num_seqs ?? config.max_running_requests)}` : null,
-    config.enable_prefix_caching === false || config.disable_radix_cache === true ? "prefix cache off" : config.enable_prefix_caching === true ? "prefix cache on" : null,
+    config.gpu_memory_utilization ?? config.mem_fraction_static ? `mem ${String(config.gpu_memory_utilization ?? config.mem_fraction_static)}` : null,
+    config.enable_prefix_caching === false || config.disable_radix_cache === true ? "prefix cache off" : config.enable_prefix_caching === true || config.disable_radix_cache === false ? "prefix cache on" : null,
   ];
   // Remaining recorded keys stay visible as key=value (the "+N" overflow), so nothing recorded is hidden.
   const rest = Object.keys(config).filter((key) => !RUN_KEYS.has(key)).sort().map((key) => `${key}=${typeof config[key] === "object" ? JSON.stringify(config[key]) : String(config[key])}`);
