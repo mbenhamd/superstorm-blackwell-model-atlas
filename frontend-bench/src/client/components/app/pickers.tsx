@@ -6,13 +6,27 @@ import { Badge } from "@/components/ui/badge";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator } from "@/components/ui/command";
 import { Separator } from "@/components/ui/separator";
-import type { Deployment } from "../../../domain/types.js";
+import type { Deployment, RankedDeployment } from "../../../domain/types.js";
 import { appState } from "../../state.js";
-import { configDetail, configName, workloadOf } from "../../lib/display.js";
+import { configDetail, configName, engineVersion, isMeasured, num, precisionIndex, shape, topology, workloadOf } from "../../lib/display.js";
+import { substringFilter } from "../../lib/search.js";
 
+/** `keywords` are searched after the label and value (contiguous substrings, see lib/search.ts); `detail` and `group` are display only. */
 export interface ComboOption { value: string; label: string; detail?: string; group?: string; disabled?: boolean; keywords?: string[] }
 
-/** Searchable single-select: Popover + Command, grouped, type-ahead, check on the selected item. */
+/** Keep the open list's selected item in view: scroll the list (not the page) so the item sits in its middle. */
+function centerSelected(list: HTMLElement | null, value: string): void {
+  const item = list?.querySelector<HTMLElement>(`[cmdk-item][data-value="${CSS.escape(value)}"]`);
+  if (!list || !item) return;
+  const listBox = list.getBoundingClientRect(), itemBox = item.getBoundingClientRect();
+  list.scrollTop += itemBox.top - listBox.top - (listBox.height - itemBox.height) / 2;
+}
+
+/**
+ * Searchable single-select: Popover + Command, grouped, type-ahead, check on the selected item. Search is a
+ * contiguous substring match on label, value and keywords (label prefix ranks first), not cmdk's fuzzy score.
+ * On open the current option is the highlighted item and is scrolled to the middle of the list.
+ */
 export function Combobox({ label, value, options, onChange, placeholder = "Select…", searchPlaceholder = "Search…", emptyLabel = "No results", className, triggerLabel, testId, align = "start", variant = "outline", wrap = false }: {
   label: string; value: string; options: ComboOption[]; onChange: (value: string) => void; placeholder?: string; searchPlaceholder?: string;
   emptyLabel?: string; className?: string; triggerLabel?: React.ReactNode; testId?: string; align?: "start" | "end";
@@ -22,6 +36,13 @@ export function Combobox({ label, value, options, onChange, placeholder = "Selec
   const [open, setOpen] = React.useState(false);
   const selected = options.find((option) => option.value === value);
   const groups = [...new Set(options.map((option) => option.group ?? ""))];
+  const listRef = React.useRef<HTMLDivElement>(null);
+  const selectedValue = selected?.value;
+  React.useEffect(() => {
+    if (!open || !selectedValue) return;
+    const frame = requestAnimationFrame(() => centerSelected(listRef.current, selectedValue));
+    return () => cancelAnimationFrame(frame);
+  }, [open, selectedValue]);
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -33,9 +54,9 @@ export function Combobox({ label, value, options, onChange, placeholder = "Selec
         </Button>
       </PopoverTrigger>
       <PopoverContent align={align} className="w-[max(var(--radix-popover-trigger-width),240px)] p-0">
-        <Command loop>
+        <Command loop filter={substringFilter} defaultValue={selected?.value}>
           <CommandInput placeholder={searchPlaceholder} aria-label={searchPlaceholder} />
-          <CommandList className="max-h-72">
+          <CommandList ref={listRef} className="max-h-72">
             <CommandEmpty>{emptyLabel}</CommandEmpty>
             {groups.map((group, index) => (
               <React.Fragment key={group || "default"}>
@@ -44,8 +65,8 @@ export function Combobox({ label, value, options, onChange, placeholder = "Selec
                   {options.filter((option) => (option.group ?? "") === group).map((option) => (
                     <CommandItem
                       key={option.value}
-                      value={`${option.label} ${option.detail ?? ""} ${option.value}`}
-                      keywords={option.keywords}
+                      value={option.value}
+                      keywords={[option.label, option.value, ...(option.keywords ?? [])]}
                       disabled={option.disabled}
                       onSelect={() => { onChange(option.value); setOpen(false); }}
                       className="items-start gap-2 py-1.5"
@@ -77,8 +98,36 @@ export function configOptions(deployments: Deployment[], showWorkload = false): 
       label: configName(deployment),
       detail: `${configDetail(deployment)}${showWorkload ? ` · ${workloadOf(deployment.workloadId)?.name ?? deployment.workloadId}` : ""}`,
       group: models.find((m) => m.id === deployment.modelId)?.name ?? deployment.modelId,
-      keywords: [deployment.id, deployment.runtime, deployment.hardwareId],
+      keywords: [deployment.id, deployment.runtime, deployment.hardwareId, deployment.precision, deployment.exportLabel, configDetail(deployment)],
     }));
+}
+
+/**
+ * Setup options grouped model → weights export ("Qwen 3.8 27B · FP8"), so a quantization is one picker interaction
+ * away. Label: knob · engine; detail: configured build, shape, GPUs and, when measured on the active dataset, the
+ * sustainable tok/min/GPU ("not measured" otherwise; never 0). Searchable by model, export, precision, engine and id.
+ */
+export function setupOptions(rows: readonly RankedDeployment[]): ComboOption[] {
+  const models = appState.snapshot.models;
+  const modelIndex = (id: string) => models.findIndex((m) => m.id === id);
+  return [...rows]
+    .sort((a, b) => modelIndex(a.deployment.modelId) - modelIndex(b.deployment.modelId)
+      || precisionIndex(a.deployment.precision) - precisionIndex(b.deployment.precision)
+      || a.deployment.exportLabel.localeCompare(b.deployment.exportLabel)
+      || a.deployment.runtime.localeCompare(b.deployment.runtime)
+      || a.deployment.gpus - b.deployment.gpus
+      || (a.deployment.knob ?? "").localeCompare(b.deployment.knob ?? ""))
+    .map(({ deployment: d, model, capacity }) => {
+      const value = isMeasured(d) ? capacity.sustainableTpmPerGpu : null;
+      const metric = !isMeasured(d) ? "not measured" : value === null ? "measured · none inside SLO" : `${num(value)} tok/min/GPU`;
+      return {
+        value: d.id,
+        label: `${d.knob ?? "Baseline"} · ${d.runtime}`,
+        detail: [engineVersion(d), shape(d), topology(d), metric].join(" · "),
+        group: `${model.name} · ${d.exportLabel}`,
+        keywords: [d.id, model.name, d.exportLabel, d.precision, d.runtime, d.hardwareId, engineVersion(d), shape(d)],
+      };
+    });
 }
 
 /**

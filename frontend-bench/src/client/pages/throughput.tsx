@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Activity, BookOpen, ChevronDown, ChevronRight, Columns2, Ellipsis, ExternalLink, FileSearch, Info, Plus, SquareTerminal } from "lucide-react";
+import { Activity, BookOpen, ChevronDown, ChevronRight, Columns2, Ellipsis, ExternalLink, FileSearch, Info, ListOrdered, Plus, SquareTerminal } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -11,7 +11,7 @@ import type { BenchmarkRun, Deployment, RankedDeployment } from "../../domain/ty
 import { InteractivityChart, SweepChart } from "../components/app/charts.js";
 import { ChartPanel } from "../components/app/chart-panel.js";
 import { addToCompare, openExperimentForm, openRun } from "../components/app/overlays.js";
-import { Combobox, configOptions } from "../components/app/pickers.js";
+import { Combobox, setupOptions } from "../components/app/pickers.js";
 import { EmptyState, LevelsBadge, PageHeader, Panel, Term } from "../components/app/primitives.js";
 import { NotMeasuredBlock } from "../components/app/not-measured-block.js";
 import { StatusBadge } from "../components/app/status-badge.js";
@@ -19,7 +19,7 @@ import { ConcurrencyTable, ConfigChips, IncompleteBadge, PerformanceStrip } from
 import { RecheckDetails } from "../components/app/engine-build.js";
 import { CommandBlock } from "../components/app/command-block.js";
 import { openWorkloads } from "../components/app/workloads.js";
-import { appState, configurationIdOf, updateView, useAppState } from "../state.js";
+import { appState, configurationIdOf, routeUrl, updateView, useAppState } from "../state.js";
 import {
   compactNum, configDetail, configName, engineBuildDetail, gpuDivisorUnconfirmed, gpuTotals, gpusOf, hardwareShape, isMeasured, modelOf, num, rankedRows,
   recheckNote, runtimeTag, shape, statusLabel, testedLabel, workloadBudget, workloadOf,
@@ -80,9 +80,9 @@ export function ThroughputPage() {
         actions={
           <>
             <Combobox
-              label="Configuration" testId="run-picker" value={base.deployment.id} wrap align="end" searchPlaceholder="Search configurations…"
+              label="Configuration" testId="run-picker" value={base.deployment.id} wrap align="end" searchPlaceholder="Search model, quant, engine…"
               onChange={(value) => updateView((s) => { s.run = rows.find((item) => item.deployment.id === value)?.deployment.configurationId ?? configurationIdOf(value); })}
-              options={configOptions(rows.map((item) => item.deployment))}
+              options={setupOptions(rows)}
               className="max-sm:w-full sm:w-[min(360px,calc(100vw-420px))] sm:min-w-[240px]"
               triggerLabel={<span className="flex min-w-0 flex-col sm:flex-row sm:items-baseline sm:gap-1.5"><span className="font-medium">{configName(d)}</span><span className="text-muted-foreground text-xs sm:truncate">{configDetail(d)}</span></span>}
             />
@@ -122,6 +122,7 @@ function RunPicker({ runs, shown, onPick }: { runs: BenchmarkRun[]; shown: Deplo
     label: `${run.runDate.slice(0, 10)} · ${run.identity.dataset}`,
     detail: run.identity.runtimeVersion,
     group: run.identity.dataset,
+    keywords: [run.identity.runtimeVersion ?? ""],
   }));
   const current = runs.find((run) => run.id === shown.runId);
   return (
@@ -162,7 +163,12 @@ function IdentityLine({ row }: { row: RankedDeployment }) {
         {measured ? <IncompleteBadge count={row.capacity.incomplete} /> : null}
         {d.topologyMismatch ? <Badge variant="warning" title={`Run used ${gpusOf(d)} GPUs; the catalog shape has ${d.gpus}.`}>GPU count differs</Badge> : null}
         {gpuDivisorUnconfirmed(d) ? <Badge variant="warning" data-testid="gpu-divisor-unconfirmed" title={`${d.replicas} system replicas: tok/min/GPU divides by num_gpus = ${gpusOf(d)}, read as GPUs per replica (unconfirmed). If throughput is aggregated over replicas, the per-GPU figure is overstated by ×${d.replicas}.`}>GPU divisor unconfirmed</Badge> : null}
-        <Button variant="ghost" size="sm" className="ml-auto h-7 px-2 text-xs" aria-expanded={open} aria-controls="throughput-serve" onClick={() => setOpen((value) => !value)}>
+        <Button variant="ghost" size="sm" className="ml-auto h-7 px-2 text-xs" asChild>
+          <a href={routeUrl("tldr", { model: d.modelId })} data-testid="throughput-all-setups" title={`Every setup of ${modelOf(d)?.name ?? d.modelId} ranked by sustainable tok/min/GPU (TL;DR)`}>
+            <ListOrdered aria-hidden="true" />All setups of this model
+          </a>
+        </Button>
+        <Button variant="ghost" size="sm" className="h-7 px-2 text-xs" aria-expanded={open} aria-controls="throughput-serve" onClick={() => setOpen((value) => !value)}>
           <SquareTerminal aria-hidden="true" />Serve command<ChevronDown className={cn("transition-transform", open && "rotate-180")} aria-hidden="true" />
         </Button>
       </div>

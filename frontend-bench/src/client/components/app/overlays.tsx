@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Activity, Boxes, BookOpen, ChartScatter, Columns2, Download, ExternalLink, FlaskConical, Gauge, Info, Layers, Moon, Plus, Rows3, Server, Sun } from "lucide-react";
+import { Activity, Boxes, BookOpen, ChartScatter, Columns2, Download, ExternalLink, FlaskConical, Gauge, Info, Layers, ListOrdered, Moon, Plus, Rows3, Server, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { CommandPalette, type CommandPaletteGroup } from "@/components/ui/command-palette";
@@ -83,6 +83,10 @@ export function EvidenceSheet() {
   const aa = deployment ? aaHeadline(deployment.modelId) : null;
   const c = deployment ? capacity(deployment, state.slo) : null;
   const measured = deployment ? isMeasured(deployment) : false;
+  // Opened from the TL;DR (a throughput ranking): lead with Sustainable and C_max; the model-level AA index moves into
+  // a collapsed "Model quality" group below the decision facts. Other pages keep the AA-first order.
+  const throughputFirst = state.route === "tldr";
+  const point = c?.selectedPoint ?? null;
   return (
     <Sheet open={open} onOpenChange={(next) => { if (!next) update((s) => { s.drawerId = ""; }); }}>
       <SheetContent
@@ -102,13 +106,17 @@ export function EvidenceSheet() {
               </div>
             </SheetHeader>
             <div className="flex-1 space-y-5 overflow-y-auto px-5 py-5">
-              <dl className="grid grid-cols-2 overflow-hidden rounded-lg border" data-testid="drawer-kpis">
-                {([
-                  ["aa", <Term key="q" name="Intelligence">AA index (model)</Term>, aa ? num(aa.index, 1) : "—", aa ? effortLabel(aa.variant) : "No composite"],
-                  ["context", "Context cap", deployment.contextCap ? compactNum(deployment.contextCap) : "—", deployment.contextCap ? `of ${compactNum(model?.contextTokens)}` : "Not capped"],
-                  ["capacity", <Term key="c" name="Sustainable throughput">Sustainable</Term>, measured ? num(c.sustainableTpmPerGpu) : "—", measured ? "tok/min/GPU" : "tok/min/GPU · not measured"],
-                  ["cmax", <Term key="m" name="C_max" />, measured ? num(c.highestPassingConcurrency) : "—", measured ? `concurrent · ${c.passingLevels}/${c.totalLevels} levels` : "concurrent · not measured"],
-                ] as [string, React.ReactNode, string, string][]).map(([key, label, value, unit]) => (
+              <dl className="grid grid-cols-2 overflow-hidden rounded-lg border" data-testid="drawer-kpis" data-order={throughputFirst ? "throughput" : "default"}>
+                {((): [string, React.ReactNode, string, string][] => {
+                  const kpi: Record<string, [string, React.ReactNode, string, string]> = {
+                    aa: ["aa", <Term key="q" name="Intelligence">AA index (model)</Term>, aa ? num(aa.index, 1) : "—", aa ? effortLabel(aa.variant) : "No composite"],
+                    context: ["context", "Context cap", deployment.contextCap ? compactNum(deployment.contextCap) : "—", deployment.contextCap ? `of ${compactNum(model?.contextTokens)}` : "Not capped"],
+                    capacity: ["capacity", <Term key="c" name="Sustainable throughput">Sustainable</Term>, measured ? num(c.sustainableTpmPerGpu) : "—", measured ? "tok/min/GPU" : "tok/min/GPU · not measured"],
+                    cmax: ["cmax", <Term key="m" name="C_max" />, measured ? num(c.highestPassingConcurrency) : "—", measured ? `concurrent · ${c.passingLevels}/${c.totalLevels} levels` : "concurrent · not measured"],
+                    latency: ["latency", "TTFT / ITL p95", measured && point ? `${num(point.ttftP95Ms)} / ${num(point.itlP95Ms, 1)}` : "—", measured && point ? "ms at C_max" : "ms · not measured"],
+                  };
+                  return (throughputFirst ? ["capacity", "cmax", "latency", "context"] : ["aa", "context", "capacity", "cmax"]).map((key) => kpi[key]!);
+                })().map(([key, label, value, unit]) => (
                   <div key={key} className="flex flex-col gap-0.5 px-3.5 py-3 shadow-[-1px_-1px_0_var(--border)]">
                     <dt className="text-ink-2 text-xs font-medium">{label}</dt>
                     <dd className="text-lg font-semibold tracking-[-0.01em] tabular-nums">{value}</dd>
@@ -138,6 +146,13 @@ export function EvidenceSheet() {
               <div className="divide-y rounded-lg border text-[13px]">
                 {deployment.recheck ? (
                   <Details title={`Release recheck notes${deployment.recheck.reconciliation.length ? ` (${deployment.recheck.reconciliation.length})` : ""}`}><RecheckDetails deployment={deployment} /></Details>
+                ) : null}
+                {throughputFirst ? (
+                  <Details title="Model quality">
+                    <dl className="divide-border divide-y" data-testid="drawer-model-quality">
+                      <Field label={<Term name="Intelligence">AA index (model)</Term>} value={aa ? `${num(aa.index, 1)} · ${effortLabel(aa.variant)}` : "No composite"} />
+                    </dl>
+                  </Details>
                 ) : null}
                 <Details title="Configuration notes"><p className="text-ink-2 text-pretty">{deployment.notes}</p></Details>
                 <Details title="Weights export">
@@ -184,7 +199,7 @@ export function CommandMenu() {
   const go = (route: Route, params: Record<string, string> = {}) => () => { update((s) => { s.commandOpen = false; }); navigate(route, params); };
   const groups: CommandPaletteGroup[] = [
     { heading: "Pages", items: [
-      { id: "tldr", label: "TL;DR", description: "Catalog status and first candidates", icon: <Gauge />, keywords: ["overview", "summary"], onSelect: go("tldr") },
+      { id: "tldr", label: "TL;DR", description: "Every setup of a model ranked by sustainable throughput", icon: <Gauge />, keywords: ["overview", "summary"], onSelect: go("tldr") },
       { id: "intelligence", label: "Intelligence", description: "AA index and SLO capacity", icon: <ChartScatter />, keywords: ["frontier", "quality", "aa"], onSelect: go("intelligence") },
       { id: "throughput", label: "Throughput", description: "Concurrency sweep under the SLO", icon: <Activity />, keywords: ["latency", "ttft", "itl", "sweep"], onSelect: go("throughput") },
       { id: "compare", label: "Compare", description: "Up to four configurations", icon: <Columns2 />, keywords: ["overlay"], onSelect: go("compare") },
@@ -196,6 +211,11 @@ export function CommandMenu() {
       { id: "methodology", label: "Methodology", description: "Definitions, sources and limits", icon: <BookOpen />, keywords: ["help", "definitions", "slo"], onSelect: go("methodology") },
     ] },
     { heading: "Models", items: state.snapshot.models.map((model) => ({ id: `model-${model.id}`, label: model.name, description: `${paramsLabel({ totalParamsB: model.parametersB, activeParamsB: model.activeParamsB })} · ${model.architecture}`, icon: <Boxes />, keywords: [model.company, model.hfId], onSelect: go("models", { model: model.id }) })) },
+    // One entry per model: TL;DR for that model (every setup, quant, engine and knob ranked with Δ vs best).
+    { heading: "Compare setups", items: state.snapshot.models.map((model) => {
+      const setups = state.snapshot.deployments.filter((d) => d.modelId === model.id && d.id === d.configurationId).length;
+      return { id: `setups-${model.id}`, label: `Compare setups: ${model.name}`, description: `${setups} setup${setups === 1 ? "" : "s"} · TL;DR`, icon: <ListOrdered />, keywords: [model.name, model.company, "setups", "variants", "quant", "tldr"], onSelect: go("tldr", { model: model.id }) };
+    }) },
     { heading: "Configurations", items: state.snapshot.deployments.map((deployment) => ({ id: `run-${deployment.id}`, label: configName(deployment), description: configDetail(deployment), icon: <Rows3 />, keywords: [configLabel(deployment), deployment.id, deployment.precision], onSelect: () => update((s) => { s.commandOpen = false; s.drawerId = deployment.id; }) })) },
     { heading: "Actions", items: [
       { id: "workloads", label: "About workloads", icon: <Info />, keywords: ["dataset", "tokens", "workload"], onSelect: () => update((s) => { s.commandOpen = false; s.workloadsOpen = true; }) },

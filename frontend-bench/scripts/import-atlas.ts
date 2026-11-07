@@ -24,7 +24,13 @@ const aa = await read(join(atlas, "catalog/aa-intelligence-index.json"));
 const registry = (await read(join(atlas, "evidence/sources.json"))).sources as Record<string, Json>;
 const cardFile = Bun.file(join(root, "data/hf-card-benchmarks.json"));
 const cards = (await cardFile.exists()) ? ((await cardFile.json()) as Json) : null;
-const atlasCommit = (await new Response(Bun.spawn(["git", "rev-parse", "HEAD"], { cwd: atlas, stdout: "pipe" }).stdout).text()).trim();
+/**
+ * Pinned atlas commit: the last commit that changed one of the four inputs above, not HEAD. Pinning HEAD made the
+ * committed snapshot stale on every unrelated commit (this folder lives in the same repository), so `--check`
+ * failed although the catalog content was identical. Content drift is still caught by the byte comparison below.
+ */
+const ATLAS_INPUTS = ["catalog/models.json", "catalog/configurations.json", "catalog/aa-intelligence-index.json", "evidence/sources.json"];
+const atlasCommit = (await new Response(Bun.spawn(["git", "log", "-1", "--format=%H", "--", ...ATLAS_INPUTS], { cwd: atlas, stdout: "pipe" }).stdout).text()).trim();
 
 /**
  * Display rule for catalog prose rendered verbatim in the UI (configuration notes/reason, recheck text, engine

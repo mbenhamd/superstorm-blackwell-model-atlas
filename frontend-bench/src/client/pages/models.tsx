@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Activity, ArrowRight, ChevronRight, ExternalLink, FileSearch, Info, Layers, SearchX, X } from "lucide-react";
+import { Activity, ArrowRight, ChevronRight, ExternalLink, FileSearch, Info, Layers, ListOrdered, SearchX, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -498,7 +498,12 @@ export function ModelsPage() {
         <PageHeader
           title={model.name}
           description={<span className="line-clamp-1" title={model.description}>{model.description}</span>}
-          actions={<Button variant="outline" asChild><a href={routeUrl("deployments", { model: model.id })}>{configurations.length} configurations<ArrowRight aria-hidden="true" /></a></Button>}
+          actions={
+            <>
+              <Button asChild><a href={routeUrl("tldr", { model: model.id })} data-testid="model-compare-setups" title="Every setup of this model ranked by sustainable tok/min/GPU, with its gap to the best (TL;DR)"><ListOrdered aria-hidden="true" />Compare all setups</a></Button>
+              <Button variant="outline" asChild><a href={routeUrl("deployments", { model: model.id })}>{configurations.length} configurations<ArrowRight aria-hidden="true" /></a></Button>
+            </>
+          }
         />
         <dl className="mt-3 flex flex-wrap gap-1.5 text-xs" data-testid="model-chips">
           {chips.map(([label, value, title]) => {

@@ -2,6 +2,7 @@ import { describe, expect, test } from "bun:test";
 import { applyRuns, ATLAS, createCatalogSnapshot, launchCommand, matchConfiguration, parseIdentity, parseMetricRow, splitRuntime } from "../src/domain/catalog.js";
 import { capacity, comparability, composite, DEFAULT_SLO, frontier, measurePoint, nominalTtftCeilingMs, percentile, rank, relativeDelta, safeCsv, SLO_PRESETS, tieBand, ttftCeilingMs } from "../src/domain/metrics.js";
 import { configChips } from "../src/domain/config-chips.js";
+import { deltaVsBest, groupSetups, setupStandings, sortSetups } from "../src/domain/setups.js";
 import { ConflictError, migrateExperiment, parseExperiment, transitionExperiment, ValidationError } from "../src/domain/validation.js";
 import type { BenchmarkRun, Deployment, MetricRow, SloPolicy } from "../src/domain/types.js";
 import { configurationIdOf } from "../src/client/state.js";
@@ -296,5 +297,67 @@ describe("stored selections use base configuration ids", () => {
   });
   test("workloads carry no unpinned dataset revision or sampling text", () => {
     for (const workload of snapshot.workloads) { expect(workload.datasetRevision).toBeNull(); expect(workload.sampling).toBeNull(); }
+  });
+});
+
+describe("setup standings (TL;DR): Δ vs best, ±3% tie band, measured before unmeasured", () => {
+  // Hand-written inputs: sustainable = total tok/s at C_max × 0.8 × 60 ÷ 1 GPU.
+  const measuredSnapshot = applyRuns(snapshot, [
+    run("qwen3.8-27b.fp8.vllm.baseline", [row(1), row(2), row(4)]),
+    run("qwen3.8-27b.fp8.sglang.baseline", [row(1), row(2), row(4, { totalTps: 9000 * 4 * 0.98 })]),
+    run("qwen3.8-27b.bf16.vllm.baseline", [row(1), row(2), row(4, { itl95: 100 })]),
+    run("qwen3.8-27b.nvfp4.vllm.baseline", [row(1, { itl95: 100 })]),
+  ]);
+  const rows = rank(measuredSnapshot, "single-turn-8k").filter((item) => item.model.id === "qwen3.8-27b");
+  const entries = setupStandings([...rows].reverse());
+  const byId = (id: string) => entries.find((entry) => entry.row.deployment.configurationId === id)!;
+
+  test("deltaVsBest is null unless both values exist; ties use the same band as tieBand", () => {
+    expect(deltaVsBest(null, 100)).toBeNull();
+    expect(deltaVsBest(100, null)).toBeNull();
+    expect(deltaVsBest(97, 100)).toEqual({ fraction: -0.03, absolute: -3, tie: true });
+    expect(deltaVsBest(96, 100)!.tie).toBe(false);
+    expect(deltaVsBest(96, 100)!.fraction).toBeCloseTo(-0.04, 10);
+  });
+  test("best, tie, behind, no passing level and unmeasured, with competition positions", () => {
+    expect(byId("qwen3.8-27b.fp8.vllm.baseline").standing).toEqual({ kind: "best" });
+    expect(byId("qwen3.8-27b.fp8.vllm.baseline").position).toBe(1);
+    const tie = byId("qwen3.8-27b.fp8.sglang.baseline").standing;
+    expect(tie.kind).toBe("tie");
+    if (tie.kind === "tie") { expect(tie.fraction).toBeCloseTo(-0.02, 10); expect(tie.absolute).toBeCloseTo(-9000 * 4 * 0.02 * 0.8 * 60, 6); }
+    const behind = byId("qwen3.8-27b.bf16.vllm.baseline").standing;
+    expect(behind.kind).toBe("behind");
+    if (behind.kind === "behind") expect(behind.fraction).toBeCloseTo(-0.5, 10);
+    expect(byId("qwen3.8-27b.bf16.vllm.baseline").position).toBe(3);
+    expect(byId("qwen3.8-27b.nvfp4.vllm.baseline").standing).toEqual({ kind: "no-passing" });
+    expect(byId("qwen3.8-27b.nvfp4.vllm.baseline").position).toBeNull();
+    expect(entries.filter((entry) => entry.standing.kind === "unmeasured").length).toBe(rows.length - 4);
+    // Order: measured with a value (descending), measured without a passing level, then unmeasured.
+    expect(entries.slice(0, 4).map((entry) => entry.standing.kind)).toEqual(["best", "tie", "behind", "no-passing"]);
+    expect(entries.slice(4).every((entry) => entry.standing.kind === "unmeasured")).toBe(true);
+  });
+  test("no Δ without a measured best: every unmeasured row stays unmeasured, never zero", () => {
+    const plain = setupStandings(rank(snapshot, "single-turn-8k").filter((item) => item.model.id === "qwen3.8-27b"));
+    expect(plain.every((entry) => entry.standing.kind === "unmeasured" && entry.position === null)).toBe(true);
+  });
+  test("equal values share a position", () => {
+    const tied = applyRuns(snapshot, [run("qwen3.8-27b.fp8.vllm.baseline", [row(2)]), run("qwen3.8-27b.fp8.sglang.baseline", [row(2)]), run("qwen3.8-27b.bf16.vllm.baseline", [row(1)])]);
+    const result = setupStandings(rank(tied, "single-turn-8k").filter((item) => item.model.id === "qwen3.8-27b"));
+    expect(result.slice(0, 3).map((entry) => entry.position)).toEqual([1, 1, 3]);
+    expect(result[1]!.standing).toEqual({ kind: "tie", fraction: 0, absolute: 0 });
+  });
+  test("sorts keep measured rows first; C_max and name orders; groups follow first appearance", () => {
+    const name = (item: (typeof rows)[number]) => item.deployment.id;
+    const byName = sortSetups(entries, "name", name);
+    expect(byName.slice(0, 3).map((entry) => entry.row.deployment.configurationId)).toEqual(["qwen3.8-27b.bf16.vllm.baseline", "qwen3.8-27b.fp8.sglang.baseline", "qwen3.8-27b.fp8.vllm.baseline"]);
+    expect(byName[3]!.standing.kind).toBe("no-passing");
+    expect(byName.slice(4).every((entry) => entry.standing.kind === "unmeasured")).toBe(true);
+    const byCmax = sortSetups(entries, "cmax", name);
+    // fp8 vLLM and SGLang both reach C_max 4: sustainable breaks the tie; BF16 passes only up to 2.
+    expect(byCmax.slice(0, 3).map((entry) => entry.row.capacity.highestPassingConcurrency)).toEqual([4, 4, 2]);
+    expect(byCmax[0]!.standing.kind).toBe("best");
+    const groups = groupSetups(sortSetups(entries, "sustainable", name), (entry) => entry.row.deployment.artifactId);
+    expect(groups[0]!.key).toBe("qwen3.8-27b.fp8");
+    expect(groups.reduce((total, group) => total + group.items.length, 0)).toBe(entries.length);
   });
 });

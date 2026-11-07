@@ -17,6 +17,14 @@ export const signedPct = (fraction: number | null): string =>
 export const signedPp = (value: number | null): string =>
   value === null || !Number.isFinite(value) ? "—" : `${value > 0 ? "+" : value < 0 ? "−" : "±"}${Math.abs(value).toFixed(1)} pp`;
 
+/** Display order of weight precisions, highest to lowest bit width (catalog values). */
+export const PRECISION_ORDER = ["BF16", "FP8", "FP4/FP8", "MXFP4", "NVFP4"] as const;
+/** Sort index of a precision; unknown values sort last. */
+export const precisionIndex = (precision: string): number => {
+  const index = (PRECISION_ORDER as readonly string[]).indexOf(precision);
+  return index < 0 ? PRECISION_ORDER.length : index;
+};
+
 export const modelOf = (deployment: Deployment): Model | undefined => appState.snapshot.models.find((item) => item.id === deployment.modelId);
 export const hardwareOf = (deployment: Deployment): Hardware | undefined => appState.snapshot.hardware.find((item) => item.id === deployment.hardwareId);
 export const shortHardware = (hardware: Hardware | undefined): string => hardware?.name.replace("NVIDIA ", "") ?? "Unknown";

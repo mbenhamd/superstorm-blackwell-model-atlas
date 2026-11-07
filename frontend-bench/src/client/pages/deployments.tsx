@@ -17,7 +17,7 @@ import { ConfigChips, IncompleteBadge } from "../components/app/performance.js";
 import { StatusBadge } from "../components/app/status-badge.js";
 import { NARROW_MD, useMediaQuery } from "../lib/use-media.js";
 import { MAX_COMPARE, navigate, update, updateView, useAppState } from "../state.js";
-import { compactNum, configLabel, engineBuildDetail, engineVersion, filteredRows, gpusOf, hardwareShape, isMeasured, modelQuality, num, rankedRows, recheckNote, shape, sloSummary, testedLabel } from "../lib/display.js";
+import { compactNum, configLabel, engineBuildDetail, engineVersion, filteredRows, gpusOf, hardwareShape, isMeasured, modelQuality, num, PRECISION_ORDER, precisionIndex, rankedRows, recheckNote, shape, sloSummary, testedLabel } from "../lib/display.js";
 import { artifact } from "../lib/atlas.js";
 import { exportRows } from "../lib/export.js";
 import { toast } from "../lib/toast.js";
@@ -165,7 +165,6 @@ const columnsAll: DataTableColumnDef<RankedDeployment>[] = [
       <div className="flex min-w-0 flex-col gap-1 py-0.5" title={row.original.deployment.knob ? `${row.original.deployment.id} · ${row.original.deployment.knob}` : row.original.deployment.id}>
         <span className="flex min-w-0 items-center gap-1.5">
           <button type="button" className="hover:text-link min-w-0 truncate font-medium outline-none focus-visible:underline" data-action="open-run" data-id={row.original.deployment.id} onClick={(event) => { event.stopPropagation(); openRun(row.original.deployment.id); }}>{row.original.model.name}</button>
-          <Badge variant="neutral" className="shrink-0">{row.original.deployment.exportLabel}</Badge>
         </span>
         <span className="flex min-w-0 items-center gap-1 overflow-hidden [&_[data-slot=badge]]:h-[18px] [&_[data-slot=badge]]:text-[10.5px]">
           <StatusBadge deployment={row.original.deployment} className="shrink-0" />
@@ -174,6 +173,20 @@ const columnsAll: DataTableColumnDef<RankedDeployment>[] = [
         </span>
       </div>
     ),
+  },
+  {
+    // Weights export: precision chip and exporter; the quantization recipe is the title. Sorts BF16 → NVFP4.
+    id: "precision", size: 132, accessorFn: (row) => `${precisionIndex(row.deployment.precision)} ${row.deployment.exportLabel}`, enableHiding: false,
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Precision" />,
+    cell: ({ row }) => {
+      const d = row.original.deployment;
+      const exporter = d.exportLabel.replace(d.precision, "").replace(/^\s*·\s*/, "").trim();
+      return (
+        <span className="flex max-w-[150px] min-w-0 items-center gap-1.5" data-precision-cell={d.precision} title={`${d.exportLabel}: ${d.quantMethod}`}>
+          <Badge variant="neutral" className="shrink-0">{d.precision}</Badge>{exporter ? <span className="text-ink-2 truncate text-xs">{exporter}</span> : null}
+        </span>
+      );
+    },
   },
   {
     id: "engine", size: 140, accessorFn: (row) => `${row.deployment.runtime} ${row.deployment.runtimeVersion}`,
@@ -303,11 +316,11 @@ export function DeploymentsPage() {
     if (narrow) return [columnsAll[0]!, stackedColumn, ...columnsAll.slice(1).map((column) => ({ ...column, enableHiding: true })), actionsColumn];
     if (anyMeasured) return [columnsAll[0]!, rankColumn, ...columnsAll.slice(1), actionsColumn];
     // Nothing measured: one "Metrics" column in place of five all-dash columns; the freed width goes to the name.
-    const kept = columnsAll.slice(1).filter((column) => !METRIC_IDS.includes(column.id!)).map((column) => (column.id === "model" ? { ...column, size: 340 } : column));
+    const kept = columnsAll.slice(1).filter((column) => !METRIC_IDS.includes(column.id!)).map((column) => (column.id === "model" ? { ...column, size: 300 } : column));
     const metricsAt = kept.findIndex((column) => column.id === "engine") + 1;
     return [columnsAll[0]!, ...kept.slice(0, metricsAt), metricsPlaceholder, ...kept.slice(metricsAt), actionsColumn];
   }, [anyMeasured, narrow]);
-  const precisions = ["BF16", "FP8", "FP4/FP8", "MXFP4", "NVFP4"].filter((value) => all.some((row) => row.deployment.precision === value));
+  const precisions = PRECISION_ORDER.filter((value) => all.some((row) => row.deployment.precision === value));
   const shapeValues = [...new Set(all.map((row) => hardwareShape(row.deployment)))].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
   const selection: Record<string, true> = Object.fromEntries(state.selected.map((id) => [id, true as const]));
   const candidates = all.filter((row) => row.deployment.status === "candidate").length;

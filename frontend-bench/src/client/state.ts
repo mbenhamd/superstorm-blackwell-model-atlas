@@ -3,6 +3,7 @@ import { createCatalogSnapshot, DEFAULT_WORKLOAD } from "../domain/catalog.js";
 import { DEFAULT_SLO } from "../domain/metrics.js";
 import type { Experiment, ExperimentInput, ExperimentStatus, SloPolicy, Snapshot } from "../domain/types.js";
 import { migrateExperiment, parseExperiment, transitionExperiment } from "../domain/validation.js";
+import { SETUP_SORTS, type SetupSort } from "../domain/setups.js";
 
 export type Route = "tldr" | "intelligence" | "throughput" | "compare" | "engine" | "models" | "deployments" | "new-benchmark" | "methodology";
 export type ModelTab = "overview" | "precision";
@@ -41,6 +42,8 @@ export const appState = {
   run: "qwen3.8-27b.fp8.vllm.baseline", pair: "", modelTab: "overview" as ModelTab, runTab: "sweep" as "sweep" | "configuration", experimentView: "board" as "board" | "table",
   frontierOnly: false, logScale: false, sort: "capacity" as SortKey, sortDirection: "desc" as "asc" | "desc",
   slo: { ...DEFAULT_SLO } as SloPolicy, focusId: "",
+  /** TL;DR: GPU shape key ("8xB300"; "" = all shapes) and setup sort. The model is `model` ("all" = default model). */
+  tldrShape: "", tldrSort: "sustainable" as SetupSort,
   drawerId: "", commandOpen: false, workloadsOpen: false, experimentFormFor: null as string | null, navOpen: false,
   loading: false, apiError: "",
 };
@@ -64,6 +67,8 @@ const list = (value: string | null): string[] => (value ?? "").split(",").map((i
 export function configurationIdOf(id: string, snapshot: Snapshot = appState.snapshot): string {
   return snapshot.deployments.find((deployment) => deployment.id === id)?.configurationId ?? id;
 }
+/** TL;DR shape key: "<GPUs>x<gpu_type>", e.g. "8xB300". */
+export const TLDR_SHAPE = /^\d{1,3}x[A-Za-z0-9]{1,24}$/;
 export function readRoute(): void {
   const hash = location.hash.replace(/^#\/?/, "");
   const [path = "", query = ""] = hash.split("?");
@@ -89,6 +94,10 @@ export function readRoute(): void {
   appState.precision = list(params.get("precision")).filter((id) => ["BF16", "FP8", "NVFP4", "MXFP4", "FP4/FP8"].includes(id));
   const model = params.get("model");
   appState.model = model && snapshot.models.some((item) => item.id === model) ? model : "all";
+  const tldrShape = params.get("shape");
+  appState.tldrShape = route === "tldr" && tldrShape && TLDR_SHAPE.test(tldrShape) ? tldrShape : "";
+  const tldrSort = params.get("sort");
+  appState.tldrSort = route === "tldr" && SETUP_SORTS.includes(tldrSort as SetupSort) ? tldrSort as SetupSort : "sustainable";
   const tab = params.get("tab");
   appState.modelTab = tab === "precision" ? "precision" : "overview";
   appState.runTab = route === "throughput" && tab === "configuration" ? "configuration" : "sweep";
@@ -123,6 +132,11 @@ export function viewParams(route: Route = appState.route): Record<string, string
   if (route === "compare") params.runs = appState.compare.join(",");
   if (route === "throughput") { params.run = appState.run; if (appState.runTab === "configuration") params.tab = "configuration"; }
   if (route === "engine") { if (appState.pair) params.pair = appState.pair; else if (appState.model !== "all") params.model = appState.model; }
+  if (route === "tldr") {
+    if (appState.model !== "all") params.model = appState.model;
+    if (appState.tldrShape) params.shape = appState.tldrShape;
+    if (appState.tldrSort !== "sustainable") params.sort = appState.tldrSort;
+  }
   if (route === "intelligence") { if (appState.logScale) params.scale = "log"; if (appState.frontierOnly) params.frontier = "1"; }
   return params;
 }

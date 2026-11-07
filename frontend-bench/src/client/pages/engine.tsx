@@ -398,7 +398,7 @@ export function EnginePage() {
         actions={
           <Combobox label="Matched pair" testId="engine-model" value={pair.key} onChange={(value) => updateView((s) => { s.pair = value; s.model = "all"; })} className="w-[min(300px,calc(100vw-48px))]" align="end" searchPlaceholder="Search pairs…"
             triggerLabel={<span className="flex min-w-0 items-baseline gap-1.5"><span className="truncate font-medium">{pairLabel(pair)}</span><span className="text-muted-foreground truncate text-xs">{shape(pair.vllm)}</span></span>}
-            options={pairs.map((item) => ({ value: item.key, label: pairLabel(item), detail: `${shape(item.vllm)} · ${topology(item.vllm)}`, group: modelOf(item.vllm)?.name }))} />
+            options={pairs.map((item) => ({ value: item.key, label: pairLabel(item), detail: `${shape(item.vllm)} · ${topology(item.vllm)}`, group: modelOf(item.vllm)?.name, keywords: [modelOf(item.vllm)?.name ?? "", shape(item.vllm), topology(item.vllm)] }))} />
         }
       />
       <Panel
