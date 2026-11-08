@@ -3,11 +3,12 @@ import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { hasMeasuredLevels, SETUP_SORTS, type SetupSort } from "../../../domain/setups.js";
 import { updateView, useAppState } from "../../state.js";
 import { Combobox, type ComboOption } from "./pickers.js";
-import { publisherLabel, rowsFor, shapeKey, shapeLabel, useRowsByWorkload } from "./tldr-data.js";
+import { publisherLabel, rowsFor, shapeKey, shapeLabel, useVariantRowsByWorkload } from "./tldr-data.js";
 
 /*
  * TL;DR control row: model (searchable, grouped by publisher), GPU shape ("All shapes" allowed) and setup sort.
  * The workload is the top bar's (one source of truth). Every control writes the URL (#/tldr?model=…&shape=…&sort=…).
+ * Counts are setups = measured variants plus unmeasured catalog configurations on the active dataset.
  */
 
 const SORT_LABEL: Record<SetupSort, { short: string; long: string }> = {
@@ -19,7 +20,7 @@ const ALL = "all";
 
 export function TldrControls({ modelId }: { modelId: string }) {
   const state = useAppState();
-  const byWorkload = useRowsByWorkload();
+  const byWorkload = useVariantRowsByWorkload();
   const current = byWorkload.get(state.workload) ?? [];
   const modelOptions: ComboOption[] = state.snapshot.models.map((model) => {
     const rows = rowsFor(current, model.id, "");
@@ -34,6 +35,7 @@ export function TldrControls({ modelId }: { modelId: string }) {
   const shapes = [...new Set(modelRows.map((row) => shapeKey(row.deployment)))].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
   const shape = shapes.includes(state.tldrShape) ? state.tldrShape : "";
   const selectModel = (id: string) => updateView((s) => {
+    if (s.model !== id) s.tldrFilter = { engines: [], precisions: [], spec: "all" };
     s.model = id;
     // A shape the new model does not run on would empty the table: fall back to all shapes.
     if (s.tldrShape && !rowsFor(current, id, s.tldrShape).length) s.tldrShape = "";
@@ -52,7 +54,7 @@ export function TldrControls({ modelId }: { modelId: string }) {
         className="h-8 w-full sm:w-[280px]"
         triggerLabel={<><span className="text-muted-foreground">Model</span> <span className="font-medium">{selected?.name ?? "—"}</span></>}
       />
-      <Select value={shape || ALL} onValueChange={(value) => updateView((s) => { s.tldrShape = value === ALL ? "" : value; })}>
+      <Select value={shape || ALL} onValueChange={(value) => updateView((s) => { const next = value === ALL ? "" : value; if (next !== s.tldrShape) s.tldrFilter = { engines: [], precisions: [], spec: "all" }; s.tldrShape = next; })}>
         <SelectTrigger size="sm" className="h-8 min-w-0 flex-1 sm:w-[200px] sm:flex-none" aria-label="GPU shape" data-testid="tldr-shape">
           <span className="text-muted-foreground max-sm:hidden">GPUs</span>
           <SelectValue />
@@ -78,6 +80,6 @@ export function TldrControls({ modelId }: { modelId: string }) {
 /** The shape the page applies: the URL's shape when the model runs on it, else all shapes. */
 export function useTldrShape(modelId: string): string {
   const state = useAppState();
-  const byWorkload = useRowsByWorkload();
+  const byWorkload = useVariantRowsByWorkload();
   return state.tldrShape && rowsFor(byWorkload.get(state.workload), modelId, state.tldrShape).length ? state.tldrShape : "";
 }

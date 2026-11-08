@@ -75,6 +75,22 @@ export function ErroredBadge({ count, className }: { count: number | null | unde
   return <Badge variant="critical" className={className} data-testid="errored-badge" title="Requests that ended in an error; they count against the success rate">{num(count)} errored</Badge>;
 }
 
+/**
+ * Dense ladders: incomplete and errored requests merged into one short badge ("1 inc · 3 err"), critical when any
+ * request errored; the full counts are its accessible name and title. Nothing for 0 / unknown on both.
+ */
+export function RunQualityBadge({ incomplete, errored, className }: { incomplete: number | null | undefined; errored: number | null | undefined; className?: string }) {
+  if (!incomplete && !errored) return null;
+  const parts = [incomplete ? `${num(incomplete)} inc` : null, errored ? `${num(errored)} err` : null].filter(Boolean).join(" · ");
+  const full = [incomplete ? `${num(incomplete)} incomplete` : null, errored ? `${num(errored)} errored` : null].filter(Boolean).join(", ");
+  return (
+    <Badge variant={errored ? "critical" : "warning"} className={cn("h-4 px-1.5 text-[11px]", className)} data-testid="run-quality-badge" data-incomplete={incomplete || undefined} data-errored={errored || undefined}
+      aria-label={`${full} requests`} title={`${full} requests in the fronting run; they count against the success rate`}>
+      {parts}
+    </Badge>
+  );
+}
+
 /** Verdict for one level (or C_max): pass, out of SLO (with the failed gates), or — when unmeasured. */
 export function SloVerdictBadge({ point, className }: { point: Pick<PointMetrics, "passes" | "failures"> | null | undefined; className?: string }) {
   if (!point) return <span className={cn("text-muted-foreground", className)}>—</span>;
@@ -176,7 +192,7 @@ export interface PerformanceStripProps {
   className?: string;
 }
 
-const lines = (...items: (React.ReactNode | null | false)[]) => (
+const lines = (...items: React.ReactNode[]) => (
   <span className="flex flex-col gap-0.5">{items.filter(Boolean).map((item, index) => <span key={index}>{item}</span>)}</span>
 );
 
@@ -207,9 +223,11 @@ export function PerformanceStrip({ row, workload, slo, action, className }: Perf
     },
     {
       label: "Per-user speed", value: text(point?.outputTpsPerUser, 1), unit: "tok/s/user median",
+      // The imported report carries the per-user median only: the p95 is named as missing, never replaced by another metric.
       detail: has ? lines(
-        point?.itlP95Ms != null ? `ITL p95 ${num(point.itlP95Ms, 1)} ms` : null,
-        point?.itlP50Ms != null ? `median token every ${num(point.itlP50Ms, 1)} ms` : null,
+        <span data-missing-metric="per-user-p95" title="The imported GuideLLM report records the per-user output rate as a median only">per-user p95 not in run data</span>,
+        point?.itlP50Ms != null ? <span title="ITL p50: median inter-token latency at C_max">median token every {num(point.itlP50Ms, 1)} ms</span> : null,
+        point?.itlP95Ms != null ? `ITL p95 ${num(point.itlP95Ms, 1)} ms${point.itlP50Ms != null ? ` · p50 ${num(point.itlP50Ms, 1)} ms` : ""}` : null,
       ) : "Output tok/s per request at C_max",
       attrs: { "data-kpi": "per-user" },
     },
@@ -219,6 +237,7 @@ export function PerformanceStrip({ row, workload, slo, action, className }: Perf
         `observed ${num(point!.totalTps)} tok/s · ${hardwareShape(d)}`,
         `${compactNum(c.deploymentInputTpm)} in / ${compactNum(c.deploymentOutputTpm)} out tok/min`,
         `${num(point!.requestsPerSecond, 2)} req/s at C_max`,
+        <span data-missing-metric="request-rate-percentiles" title="The imported report records one request rate per level; p50 / p95 request rates are not recorded">request rate p50 / p95 not in run data</span>,
       ) : `Per replica × ${slo.margin} · ${hardwareShape(d)}`,
       attrs: { "data-kpi": "deployment" },
     },
@@ -243,7 +262,7 @@ export function PerformanceStrip({ row, workload, slo, action, className }: Perf
       data-testid="performance-strip"
       data-measured={measured || undefined}
       className={cn(
-        "gap-3 rounded-lg py-4",
+        "gap-3 rounded-lg py-3",
         // The accent marks the sustainable value only when there is one; a missing value stays neutral.
         has && c.sustainableTpmPerGpu !== null && "[&_[data-slot=kpi-row-metric]:nth-child(2)_[data-slot=metric-value]]:text-brand",
         "[&_[data-slot=kpi-row-metric]:nth-child(2)_[data-slot=metric-value]]:@lg:text-[28px]",

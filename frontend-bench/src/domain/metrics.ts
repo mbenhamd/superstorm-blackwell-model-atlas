@@ -75,10 +75,13 @@ export function measurePoint(row: MetricRow, slo: SloPolicy): PointMetrics {
  */
 export function capacity(deployment: Deployment, slo: SloPolicy = DEFAULT_SLO): Capacity {
   // The measured run's topology wins over the catalog shape: throughput is divided by the GPUs that produced it.
-  const gpus = deployment.runGpus ?? deployment.gpus;
+  return sweepCapacity(deployment.points, deployment.runGpus ?? deployment.gpus, slo);
+}
+/** capacity() over raw measured rows and the GPU divisor that produced them (a run's num_gpus). Same lens, no catalog row needed. */
+export function sweepCapacity(rows: readonly MetricRow[], gpus: number, slo: SloPolicy = DEFAULT_SLO): Capacity {
   if (!Number.isInteger(gpus) || gpus <= 0) throw new RangeError("GPU count must be a positive integer");
   if (!Number.isFinite(slo.margin) || slo.margin <= 0 || slo.margin > 1) throw new RangeError("Margin must be in (0, 1]");
-  const points = deployment.points.map((point) => measurePoint(point, slo)).sort((a, b) => a.concurrency - b.concurrency);
+  const points = rows.map((point) => measurePoint(point, slo)).sort((a, b) => a.concurrency - b.concurrency);
   const passing = points.filter((point) => point.passes);
   const p = passing.at(-1) ?? null;
   const perMinute = (tps: number) => tps * slo.margin * 60;
@@ -116,13 +119,17 @@ export function rank(snapshot: Snapshot, workloadId = snapshot.workloads[0]?.id 
   const bases = snapshot.deployments.filter((deployment) => deployment.id === deployment.configurationId);
   return bases.map((base) => {
     const measured = snapshot.deployments.find((d) => d.configurationId === base.configurationId && d.workloadId === workloadId && d.evidence === "measured");
-    const deployment: Deployment = measured ?? (base.workloadId === workloadId ? base : { ...base, workloadId, points: [], evidence: "reference", measuredAt: null, runId: null, runtimeTag: null, replicas: null, runConfig: null, runGpus: null, topologyMismatch: false, gpuType: hardwareName(snapshot, base.hardwareId) });
+    const deployment: Deployment = measured ?? referenceDeployment(snapshot, base, workloadId);
     const model = snapshot.models.find((item) => item.id === deployment.modelId);
     const hardware = snapshot.hardware.find((item) => item.id === deployment.hardwareId);
     if (!model || !hardware) throw new Error(`Invalid catalog reference: ${deployment.id}`);
     const evaluation = qualityOf ? { score: qualityOf(deployment), coverage: 1 } : composite(deployment.evaluation?.artifactRevision === deployment.artifactRevision ? deployment.evaluation : null);
     return { deployment, model, hardware, capacity: capacity(deployment, slo), quality: evaluation.score, coverage: evaluation.score === null ? 0 : evaluation.coverage };
   }).sort((a, b) => (b.capacity.sustainableTpmPerGpu ?? -Infinity) - (a.capacity.sustainableTpmPerGpu ?? -Infinity) || (b.quality ?? -Infinity) - (a.quality ?? -Infinity));
+}
+/** The unmeasured (reference) view of a catalog configuration on `workloadId`: no points, no run, never zero. */
+export function referenceDeployment(snapshot: Snapshot, base: Deployment, workloadId: string): Deployment {
+  return base.workloadId === workloadId && base.evidence === "reference" ? base : { ...base, workloadId, points: [], evidence: "reference", measuredAt: null, runId: null, runtimeTag: null, replicas: null, runConfig: null, runGpus: null, topologyMismatch: false, gpuType: hardwareName(snapshot, base.hardwareId) };
 }
 /** gpu_type as the bench identity spells it ("B300"), from the catalog hardware name. */
 const hardwareName = (snapshot: Snapshot, id: string) => (snapshot.hardware.find((item) => item.id === id)?.name ?? id).replace(/^NVIDIA\s+/i, "");

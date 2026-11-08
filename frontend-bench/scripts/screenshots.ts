@@ -26,6 +26,7 @@ const routes: [string, string][] = [
   ["models-overview", "models?model=deepseek-v4-flash-0731&tab=overview"],
   ["models-precision", "models?model=qwen3.8-27b&tab=precision"],
   ["deployments", "deployments"],
+  ["published", "published"],
   ["new-benchmark", "new-benchmark"],
   ["methodology", "methodology"],
 ];
@@ -58,7 +59,13 @@ try {
       await page.reload();
       await page.waitForTimeout(350);
       const overflow = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
+      // Grow the viewport to the document height before capturing: a plain full-page capture resizes during the
+      // shot, and charts that track their container can be caught mid-resize (drawn at a fraction of their size).
+      const height = await page.evaluate(() => document.documentElement.scrollHeight);
+      await page.setViewportSize({ width: shot.width, height: Math.min(Math.max(height, shot.height), 16000) });
+      await page.waitForTimeout(400);
       await page.screenshot({ path: join(out, `${name}-${shot.name}.png`), fullPage: true });
+      await page.setViewportSize({ width: shot.width, height: shot.height });
       console.log(`${name}-${shot.name}.png${overflow > 0 ? `  OVERFLOW ${overflow}px` : ""}`);
     }
     if (errors.length) console.log(`errors (${shot.name}):`, [...new Set(errors)].join("\n"));

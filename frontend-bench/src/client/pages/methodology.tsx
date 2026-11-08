@@ -11,10 +11,12 @@ import { PageHeader, Panel, Term } from "../components/app/primitives.js";
 import { WorkloadTags, workloadTagHint } from "../components/app/performance.js";
 import { SLO_PRESETS, nominalTtftCeilingMs } from "../../domain/metrics.js";
 import { openWorkloads } from "../components/app/workloads.js";
-import { useAppState } from "../state.js";
+import { navigate, useAppState } from "../state.js";
 import { isMeasured, num, workloadBudget } from "../lib/display.js";
 import { atlasMeta, cardBenchmarks, intelligence } from "../lib/atlas.js";
 import { ATLAS } from "../../domain/catalog.js";
+import { VERSION_CLASSES, VERSION_CLASS_LABELS, isWeak } from "../../domain/external.js";
+import { externalDataset } from "../lib/external.js";
 
 /** Term → one-line definition. Long-form caveats live in the tooltips of the pages that use the term. */
 function Glossary({ items }: { items: [string, React.ReactNode][] }) {
@@ -168,6 +170,39 @@ function DatasetsPanel() {
   );
 }
 
+/**
+ * External published results (evidence class "external", the Published page): what they are, the engine-version
+ * audit classes and what they are excluded from. One short section; the per-flag descriptions sit in the tooltips.
+ */
+function ExternalDataPanel() {
+  const data = externalDataset();
+  const weak = data.records.filter(isWeak).length;
+  return (
+    <Panel
+      title="External published results"
+      id="methodology-external"
+      description={`${data.records.length} records from ${Object.keys(data.sources).length} sources · retrieved ${data.retrievedOn}`}
+      actions={<Button variant="outline" size="sm" onClick={() => navigate("published")} data-testid="methodology-published">Open Published</Button>}
+    >
+      <div data-testid="methodology-external">
+        <Glossary items={[
+          ["Evidence class", "External (published): ladders and points published by third parties, engine projects and vendors. Distinct from Measured (imported runs) and Catalog; never measured here"],
+          ["Excluded from", "Rankings, sustainable throughput, C_max, Δ vs best, ties, champions, frontier, Compare deltas and CSV measured columns. No SLO is applied"],
+          ["Metrics", "The source's names and units (output or total tok/s/GPU, per-user tok/s, TTFT, TPOT/ITL); per-GPU values computed as aggregate ÷ GPUs are labelled derived"],
+          ["Engine version", <span key="classes" className="flex flex-wrap gap-1">{VERSION_CLASSES.map((value) => (
+            <Tooltip key={value}>
+              <TooltipTrigger asChild><Badge variant="neutral" tabIndex={0} className="cursor-help" data-version-class={value}>{VERSION_CLASS_LABELS[value]}</Badge></TooltipTrigger>
+              <TooltipContent className="max-w-72 text-pretty">{data.conventions.versionClasses[value]}</TooltipContent>
+            </Tooltip>
+          ))}<span className="text-ink-2 basis-full text-[13px]">Each published version string is checked against the engine's release lists; a version is never inferred from a date</span></span>],
+          ["Hidden by default", `Invalid engine version, unverified extraction and superseded runs (${weak} records); “Show weak records” reveals them`],
+          ["Deployment", data.conventions.kserve],
+        ]} />
+      </div>
+    </Panel>
+  );
+}
+
 export function MethodologyPage() {
   const state = useAppState();
   const aa = intelligence;
@@ -191,6 +226,7 @@ export function MethodologyPage() {
       </section>
       <p className="text-muted-foreground text-xs">Missing values show “—”. Nothing is estimated, synthesized or borrowed from a neighbouring model.</p>
       <Definitions />
+      <ExternalDataPanel />
       <div className="grid items-start gap-4 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]">
         <Panel title="SLO presets" bodyClassName="p-0" id="slo-presets">
           <Table data-testid="slo-presets">

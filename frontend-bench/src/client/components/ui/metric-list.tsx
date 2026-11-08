@@ -47,6 +47,8 @@ export interface MetricListItem {
   attrs?: RowAttributes
   /** Local addition: extra classes on the row element. */
   className?: string
+  /** Local addition: label and detail wrap instead of truncating (labels whose tail tells rows apart). */
+  wrap?: boolean
 }
 
 /** Local addition: a labelled run of rows. */
@@ -130,8 +132,8 @@ function MetricListRow({
           </span>
         ) : null}
         <span className="flex min-w-0 flex-col">
-          <span className="truncate">{item.label}</span>
-          {item.detail ? <span className="text-muted-foreground truncate text-xs">{item.detail}</span> : null}
+          <span className={item.wrap ? "min-w-0 [overflow-wrap:anywhere]" : "truncate"}>{item.label}</span>
+          {item.detail ? <span className={cn("text-muted-foreground text-xs", item.wrap ? "min-w-0 [overflow-wrap:anywhere]" : "truncate")}>{item.detail}</span> : null}
         </span>
       </div>
       {item.trend && item.trend.length > 1 ? (

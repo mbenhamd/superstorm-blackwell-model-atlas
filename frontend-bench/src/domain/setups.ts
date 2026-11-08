@@ -22,8 +22,8 @@ export type SetupStanding =
   | { kind: "no-passing" }
   | { kind: "unmeasured" };
 
-export interface SetupEntry {
-  row: RankedDeployment;
+export interface SetupEntry<T extends RankedDeployment = RankedDeployment> {
+  row: T;
   /** Competition rank (1, 2, 2, 4) by sustainable tok/min/GPU among setups with a value; null otherwise. */
   position: number | null;
   standing: SetupStanding;
@@ -50,12 +50,12 @@ export function deltaVsBest(value: number | null, best: number | null, band = SE
  * value (input order breaks exact ties); rows within ±band of it read "tie". Output order: sustainable descending,
  * then measured rows without a passing level, then unmeasured rows (input order within each tier).
  */
-export function setupStandings(rows: readonly RankedDeployment[], band = SETUP_TIE_BAND): SetupEntry[] {
+export function setupStandings<T extends RankedDeployment>(rows: readonly T[], band = SETUP_TIE_BAND): SetupEntry<T>[] {
   const ordered = rows.map((row, index) => ({ row, index })).sort((a, b) => tier(a.row) - tier(b.row) || desc(sustainable(a.row), sustainable(b.row)) || a.index - b.index).map((item) => item.row);
   const leader = ordered.find((row) => sustainable(row) !== null) ?? null;
   const best = leader ? sustainable(leader) : null;
   let previous: number | null = null, position = 0;
-  return ordered.map((row, index) => {
+  return ordered.map((row, index): SetupEntry<T> => {
     const value = sustainable(row);
     if (value !== null && value !== previous) { position = index + 1; previous = value; }
     if (!hasMeasuredLevels(row)) return { row, position: null, standing: { kind: "unmeasured" } };
@@ -70,7 +70,7 @@ export function setupStandings(rows: readonly RankedDeployment[], band = SETUP_T
  * Display order of standings. Measured setups always precede unmeasured ones; within a tier "sustainable" orders by
  * sustainable tok/min/GPU, "cmax" by highest passing concurrency (then sustainable), "name" by `nameOf`. Stable.
  */
-export function sortSetups(entries: readonly SetupEntry[], sort: SetupSort, nameOf: (row: RankedDeployment) => string): SetupEntry[] {
+export function sortSetups<T extends RankedDeployment>(entries: readonly SetupEntry<T>[], sort: SetupSort, nameOf: (row: T) => string): SetupEntry<T>[] {
   return entries.map((entry, index) => ({ entry, index })).sort((a, b) => {
     const x = a.entry.row, y = b.entry.row;
     const byTier = tier(x) - tier(y);

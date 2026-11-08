@@ -145,6 +145,23 @@ export function matchConfiguration(identity: RunIdentity, snapshot: Snapshot, ex
 }
 
 /**
+ * The measured view of one catalog configuration under one run: the catalog row keeps its reference identity and
+ * configured build (runtimeVersion = engine_release); the run supplies metrics, date, runtime tag, topology and its
+ * recorded runtime_config. A run on the catalog's default workload keeps the base id, other datasets use
+ * `<configuration>@<dataset>`.
+ */
+export function measuredDeployment(base: Deployment, run: BenchmarkRun): Deployment {
+  // runtimeVersion stays the configured build (engine_release); the run's full runtime_version is runtimeTag.
+  const { identity } = run;
+  return {
+    ...base, id: identity.dataset === base.workloadId ? base.id : `${base.configurationId}@${identity.dataset}`, workloadId: identity.dataset,
+    points: run.metrics, measuredAt: run.runDate, evidence: "measured", runId: run.id,
+    runtimeTag: identity.runtimeVersion, gpuType: identity.gpuType, replicas: identity.maxSystemReplicas, runConfig: identity.runtimeConfig,
+    runGpus: identity.numGpus, topologyMismatch: identity.numGpus !== base.gpus,
+  };
+}
+
+/**
  * Merge measured runs: the newest run per configuration and dataset supplies metrics. The catalog row keeps its
  * reference identity; a run on the catalog's default workload measures it in place, other datasets add a sibling
  * deployment `<configuration>@<dataset>`.
@@ -161,14 +178,7 @@ export function applyRuns(snapshot: Snapshot, runs: BenchmarkRun[]): Snapshot {
   for (const run of latest.values()) {
     const base = snapshot.deployments.find((d) => d.id === run.configurationId);
     if (!base) continue;
-    // runtimeVersion stays the configured build (engine_release); the run's full runtime_version is runtimeTag.
-    const { identity } = run;
-    const measured: Deployment = {
-      ...base, id: identity.dataset === base.workloadId ? base.id : `${base.configurationId}@${identity.dataset}`, workloadId: identity.dataset,
-      points: run.metrics, measuredAt: run.runDate, evidence: "measured", runId: run.id,
-      runtimeTag: identity.runtimeVersion, gpuType: identity.gpuType, replicas: identity.maxSystemReplicas, runConfig: identity.runtimeConfig,
-      runGpus: identity.numGpus, topologyMismatch: identity.numGpus !== base.gpus,
-    };
+    const measured = measuredDeployment(base, run);
     const index = deployments.findIndex((d) => d.id === measured.id);
     if (index >= 0) deployments[index] = measured; else deployments.push(measured);
   }

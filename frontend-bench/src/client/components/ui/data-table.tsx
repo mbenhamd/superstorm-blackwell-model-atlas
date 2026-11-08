@@ -821,6 +821,15 @@ export interface DataTableContentProps<TData extends RowData>
     row: DataTableRow<TData>,
     element: React.ReactElement
   ) => React.ReactNode
+  /**
+   * Local addition: "fixed" renders `table-layout: fixed` with a <colgroup> of
+   * the columns' `size` (px; columns without a `size` share the rest), so long
+   * cell content wraps inside its column instead of widening the table, and
+   * cells never overlap. `minTableWidth` keeps a floor below which the table
+   * scrolls inside its container.
+   */
+  layout?: "auto" | "fixed"
+  minTableWidth?: number
 }
 
 /** The bordered table itself: header, rows, and their loading states. */
@@ -838,6 +847,8 @@ function DataTableContent<TData extends RowData>({
   rowClassName,
   rowProps,
   renderRow,
+  layout = "auto",
+  minTableWidth,
   className,
   style,
   ref,
@@ -952,7 +963,20 @@ function DataTableContent<TData extends RowData>({
           className="bg-primary/60 absolute inset-x-0 top-0 z-40 h-0.5 animate-pulse"
         />
       ) : null}
-      <Table>
+      <Table
+        className={cn(layout === "fixed" && "table-fixed [&_[data-slot=table-cell]]:whitespace-normal [&_[data-slot=table-head]]:whitespace-normal")}
+        style={layout === "fixed" && minTableWidth ? { minWidth: minTableWidth } : undefined}
+      >
+        {layout === "fixed" ? (
+          <colgroup>
+            {visibleColumns.map((column) => (
+              <col
+                key={column.id}
+                style={column.columnDef.size !== undefined ? { width: column.getSize() } : undefined}
+              />
+            ))}
+          </colgroup>
+        ) : null}
         <TableHeader className={cn(stickyHeader && "[&_tr]:border-b-0")}>
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow

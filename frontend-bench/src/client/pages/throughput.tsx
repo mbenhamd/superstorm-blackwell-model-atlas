@@ -8,7 +8,8 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { capacity, nominalTtftCeilingMs } from "../../domain/metrics.js";
 import type { BenchmarkRun, Deployment, RankedDeployment, SloPolicy } from "../../domain/types.js";
 import { InteractivityChart, SweepChart } from "../components/app/charts.js";
-import { ChartPanel } from "../components/app/chart-panel.js";
+import { ExpandableChartPanel as ChartPanel } from "../components/app/throughput-chart-panel.js";
+import { ExternalCurvesToggle, PublishedCurvesPanel, usePublishedCurves } from "../components/app/throughput-external.js";
 import { openExperimentForm, openRun } from "../components/app/overlays.js";
 import { EmptyState, LevelsBadge, PageHeader, Panel, Term } from "../components/app/primitives.js";
 import { NotMeasuredBlock } from "../components/app/not-measured-block.js";
@@ -22,26 +23,14 @@ import { deploymentForRun, RuntimeVersionsPanel } from "../components/app/throug
 import { IdentityLine, runsOf, ThroughputActions, ThroughputSelectors } from "../components/app/throughput-selectors.js";
 import { updateView, useAppState } from "../state.js";
 import {
-  compactNum, engineBuildDetail, gpuTotals, gpusOf, hardwareShape, isMeasured, modelOf, num, rankedRows,
-  measuredHereLabel, recheckNote, runtimeTag, shape, statusLabel, testedLabel, workloadBudget, workloadOf,
+  compactNum, engineBuildDetail, gpuTotals, hardwareShape, isMeasured, modelOf, num, rankedRows,
+  measuredHereLabel, recheckNote, shape, statusLabel, testedLabel, workloadBudget, workloadOf,
 } from "../lib/display.js";
 import { artifact, hfUrl, paramsLabel, shortSha } from "../lib/atlas.js";
+import { runIdentity } from "../components/app/throughput-identity.js";
 
-/**
- * Run identity (seven-column upsert key of the experiments table) as it would be written for this configuration.
- * max_system_replicas is the KServe replica count recorded by a run; the catalog does not know it (never in-engine DP).
- */
-export function runIdentity(d: Deployment, dataset: string): [string, string][] {
-  return [
-    ["model_name", artifact(d.artifactId)?.slug ?? d.artifactId],
-    ["gpu_type", d.gpuType],
-    ["num_gpus", String(gpusOf(d))],
-    ["max_system_replicas", d.replicas === null ? "—" : String(d.replicas)],
-    ["runtime_version", runtimeTag(d)],
-    ["dataset", dataset],
-    ["runtime_config", d.runConfig ? `${Object.keys(d.runConfig).length} recorded keys` : d.knob ? `${d.knob} · ${d.engineArgs.length} args` : `baseline · ${d.engineArgs.length} args`],
-  ];
-}
+// Kept here for existing importers; the definition lives outside the page so CSV export does not import the page.
+export { runIdentity };
 
 /** The row shown for a picked run: the same configuration with that run's metrics and recorded identity. */
 function rowForRun(row: RankedDeployment, run: BenchmarkRun | undefined, slo: SloPolicy): RankedDeployment {
@@ -53,26 +42,30 @@ function rowForRun(row: RankedDeployment, run: BenchmarkRun | undefined, slo: Sl
 
 /**
  * Throughput: selector row (model → runtime → hardware → runtime config → run) with the identity line, the always
- * visible KPI strip, then Overview (profile tiles, total throughput vs concurrency with the SLO evaluation table,
- * runtime versions, latency charts, measured results) or Configuration.
+ * visible KPI strip and the workload-profile tiles, then Overview (total throughput vs concurrency with the SLO
+ * evaluation table, published curves when toggled, runtime versions, latency charts, measured results) or Configuration.
  */
 export function ThroughputPage() {
   const state = useAppState();
   const rows = rankedRows();
   // state.run holds a base configuration id; rows carry the measured sibling for the active dataset when one exists.
   const base = rows.find((item) => item.deployment.configurationId === state.run) ?? rows[0];
-  const [pickedRun, setPickedRun] = React.useState<string | null>(null);
-  React.useEffect(() => setPickedRun(null), [base?.deployment.configurationId]);
+  // A picked run (URL `rid`, e.g. from a TL;DR variant row) belongs to one configuration: it applies only while that
+  // configuration is selected and the run is on the active dataset, so picking a runtime-config variant
+  // (configuration + its best run) is one state change, not a reset followed by a pick.
   if (!base) return <EmptyState icon={Activity} title="No configurations in the catalog" description="The catalog is empty." />;
   const runs = runsOf(base.deployment);
-  const picked = runs.find((run) => run.id === pickedRun && run.identity.dataset === state.workload);
+  const picked = state.runPick ? runs.find((run) => run.id === state.runPick && run.identity.dataset === state.workload) : undefined;
   const row = rowForRun(base, picked, state.slo);
   const d = row.deployment;
   const workload = workloadOf(d.workloadId) ?? workloadOf(state.workload);
   const latestOnDataset = runs.find((run) => run.identity.dataset === state.workload)?.runDate ?? null;
   const pick = (run: BenchmarkRun) => {
-    setPickedRun(run.id);
-    if (run.identity.dataset !== state.workload) updateView((s) => { s.workload = run.identity.dataset; });
+    updateView((s) => { s.runPick = run.id; if (run.identity.dataset !== s.workload) s.workload = run.identity.dataset; });
+  };
+  /** Runtime-config picker: a configuration, and for a measured variant the run that fronts it (best of its runtimes). */
+  const pickConfig = (configurationId: string, runId: string | null) => {
+    updateView((s) => { s.run = configurationId; s.runPick = runId ?? ""; });
   };
   return (
     <div className="space-y-4">
@@ -92,18 +85,20 @@ export function ThroughputPage() {
           </DropdownMenu>
         </>}
       />
-      <section className="bg-card shadow-panel space-y-3 rounded-lg border px-3 py-3 sm:px-4" aria-label="Setup">
-        <ThroughputSelectors rows={rows} base={base} shown={d} runs={runs} onPickRun={pick} />
-        <div className="border-t pt-2.5"><IdentityLine row={row} latestRunDate={latestOnDataset} /></div>
+      <section className="bg-card shadow-panel space-y-2.5 rounded-lg border px-3 py-3 sm:px-4" aria-label="Setup">
+        <ThroughputSelectors rows={rows} base={base} shown={d} runs={runs} onPickRun={pick} onPickConfig={pickConfig} />
+        <div className="border-t pt-2"><IdentityLine row={row} latestRunDate={latestOnDataset} /></div>
       </section>
       <PerformanceStrip row={row} workload={workload} slo={state.slo} />
+      {/* Profile tiles sit directly under the KPI strip: both describe the selected configuration across datasets. */}
+      <WorkloadProfileTiles configurationId={base.deployment.configurationId} slo={state.slo} />
       <Tabs value={state.runTab} onValueChange={(value) => updateView((s) => { s.runTab = value === "configuration" ? "configuration" : "sweep"; })}>
-        <TabsList variant="pill" className="mb-1">
+        <TabsList variant="pill">
           <TabsTrigger value="sweep">Overview</TabsTrigger>
           <TabsTrigger value="configuration">Configuration</TabsTrigger>
         </TabsList>
-        <TabsContent value="sweep" className="space-y-4 pt-3"><Sweep row={row} base={base.deployment} onPickRun={pick} /></TabsContent>
-        <TabsContent value="configuration" className="pt-3"><RunConfiguration deployment={d} dataset={d.workloadId === base.deployment.workloadId ? state.workload : d.workloadId} /></TabsContent>
+        <TabsContent value="sweep" className="space-y-4 pt-2"><Sweep row={row} base={base.deployment} onPickRun={pick} /></TabsContent>
+        <TabsContent value="configuration" className="pt-2"><RunConfiguration deployment={d} dataset={d.workloadId === base.deployment.workloadId ? state.workload : d.workloadId} /></TabsContent>
       </Tabs>
     </div>
   );
@@ -123,9 +118,10 @@ function InfoTip({ label, children }: { label: string; children: React.ReactNode
 
 /**
  * Overview. Measured: total throughput vs concurrency beside the SLO evaluation table (visible by default: it is the
- * evidence behind C_max), the compact workload-profile strip, runtime versions, TTFT / ITL / per-user / interactivity charts, then
- * the measured results in a native <details> (rows stay mounted while collapsed). Not measured: the profile tiles of
- * other measured datasets (if any) and one compact block (dataset, "Plan run", SLO thresholds); no empty chart.
+ * evidence behind C_max); with "External curves" on, published ladders of the same metric overlay the chart (grey,
+ * short-dashed) and the published-curves panel follows with sources, flags and small multiples for other metrics;
+ * then runtime versions, TTFT / ITL / per-user / interactivity charts and the measured results in a native <details>
+ * (rows stay mounted while collapsed). Not measured: one compact block (dataset, "Plan run", SLO thresholds); no empty chart.
  */
 function Sweep({ row, base, onPickRun }: { row: RankedDeployment; base: Deployment; onPickRun: (run: BenchmarkRun) => void }) {
   const state = useAppState();
@@ -135,39 +131,48 @@ function Sweep({ row, base, onPickRun }: { row: RankedDeployment; base: Deployme
   const nominal = workload ? nominalTtftCeilingMs(workload, state.slo) : null;
   const ttft = point?.ttftCeilingMs ?? nominal;
   const ttftLabel = ttft === null ? undefined : point?.ttftCeilingMs != null ? `Ceiling ${num(ttft)} ms at C_max` : `Ceiling ${num(ttft)} ms (nominal)`;
-  const tiles = <WorkloadProfileTiles configurationId={base.configurationId} slo={state.slo} />;
+  const published = usePublishedCurves(d);
+  const modelName = modelOf(d)?.name ?? d.modelId;
   if (!measured) {
     return (
       <>
-        {tiles}
         <NotMeasuredBlock
           testId="throughput-not-measured"
           planFor={base.id}
           description="Total throughput vs concurrency, the SLO evaluation per level, runtime versions, TTFT, ITL, per-user speed and the measured results appear after a run is imported."
         />
+        {published.counts.all ? (
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 text-xs" data-testid="published-offline">
+            <ExternalCurvesToggle state={published} />
+            <span className="text-muted-foreground text-pretty">{published.counts.all} published ladder{published.counts.all === 1 ? "" : "s"} of {modelName} (external evidence, {published.counts.same} on {published.hardware} with {d.runtime}).</span>
+          </div>
+        ) : null}
+        {published.on && published.counts.all ? <PublishedCurvesPanel state={published} deployment={d} modelName={modelName} standalone /> : null}
       </>
     );
   }
   return (
     <>
-      <div className="grid items-start gap-4 xl:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)]">
+      <div className="grid items-start gap-4 xl:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]">
         <ChartPanel
           title="Total throughput vs concurrency"
           description={`Total (input + output) tok/s per GPU at each measured level · ${hardwareShape(d)}`}
-          chart={(expanded) => <ThroughputConcurrencyChart deployment={d} capacity={c} margin={state.slo.margin} expanded={expanded} />}
+          actions={<ExternalCurvesToggle state={published} />}
+          chart={(expanded) => <ThroughputConcurrencyChart deployment={d} capacity={c} margin={state.slo.margin} expanded={expanded} external={published.overlay} />}
         />
         <Panel
           title="SLO evaluation"
-          description={<>Per level: p95 TTFT against prompt ÷ prefill speed, p95 ITL ≤ {num(state.slo.itlP95Ms)} ms, success ≥ {num(state.slo.minSuccessRate * 100)}%</>}
+          description={<>TTFT p95 ≤ prompt ÷ prefill · ITL p95 ≤ {num(state.slo.itlP95Ms)} ms · success ≥ {num(state.slo.minSuccessRate * 100)}%</>}
           actions={<LevelsBadge capacity={c} />}
+          // The level ticks stay on the title row (the shared header wraps actions under a long description).
+          className="[&>div:first-child]:flex-nowrap [&>div:first-child]:items-start"
           bodyClassName="p-0"
           id="slo-evaluation"
         >
           <SloEvaluationTable row={row} slo={state.slo} />
         </Panel>
       </div>
-      {/* Profile tiles follow the chart and SLO evaluation (the core evidence stays above the fold at 1440). */}
-      {tiles}
+      {published.on ? <PublishedCurvesPanel state={published} deployment={d} modelName={modelName} /> : null}
       <RuntimeVersionsPanel base={base} shownRunId={d.runId} onPick={onPickRun} />
       <div className="grid gap-4 xl:grid-cols-2">
         <ChartPanel title="Time to first token, p95" description={nominal === null && !point ? "Ceiling per level (multi-turn)" : "Dashed: prompt ÷ prefill speed"} chart={(expanded) => <SweepChart expanded={expanded} title="TTFT p95" deployments={[d]} metric="ttftP95Ms" yAxisTitle="TTFT p95, ms" unit="ms" threshold={ttft} thresholdLabel={ttftLabel} markCapacity />} />

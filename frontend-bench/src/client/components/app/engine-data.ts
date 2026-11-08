@@ -1,5 +1,6 @@
 import { capacity, comparability, relativeDelta, tieBand } from "../../../domain/metrics.js";
 import { controlDifferences, type ControlDifference } from "../../../domain/run-config.js";
+import { configKeyOf } from "../../../domain/variants.js";
 import type { BenchmarkRun, Capacity, Deployment, SloPolicy, Snapshot } from "../../../domain/types.js";
 
 /*
@@ -146,8 +147,9 @@ export function runDeployment(base: Deployment, run: BenchmarkRun): Deployment {
 
 /**
  * Every imported run of the scope on one dataset, newest run first. Δ prev compares a row with the highest older
- * release of the same engine and the same catalog configuration on the same dataset (never across configurations,
- * datasets or GPU counts); rows whose tag has no release number get no Δ.
+ * release of the same engine, the same catalog configuration and the same recorded runtime_config (the same measured
+ * variant, domain/variants.ts) on the same dataset — never across configurations, runtime configs, datasets or GPU
+ * counts, so the Δ isolates the engine release; rows whose tag has no release number get no Δ.
  */
 export function everyMeasuredVersion(snapshot: Pick<Snapshot, "deployments" | "runs">, scope: EngineScope, workloadId: string, slo: SloPolicy): VersionRow[] {
   const bases = scopeBases(snapshot.deployments, scope);
@@ -166,6 +168,7 @@ export function everyMeasuredVersion(snapshot: Pick<Snapshot, "deployments" | "r
     for (const other of rows) {
       if (other === row || other.engine !== row.engine || other.base.configurationId !== row.base.configurationId) continue;
       if ((other.run.identity.numGpus) !== row.run.identity.numGpus) continue;
+      if (configKeyOf(other.run.identity.runtimeConfig) !== configKeyOf(row.run.identity.runtimeConfig)) continue;
       const key = versionKey(other.run.identity.runtimeVersion);
       if (!key || compareVersions(key, own) >= 0) continue;
       const order = previousKey ? compareVersions(key, previousKey) : 1;

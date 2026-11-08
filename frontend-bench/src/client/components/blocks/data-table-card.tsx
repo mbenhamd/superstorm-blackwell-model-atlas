@@ -42,6 +42,8 @@ export interface DataTableCardProps<TData extends RowData>
       | "rowClassName"
       | "rowProps"
       | "renderRow"
+      | "layout"
+      | "minTableWidth"
     > {
   title: React.ReactNode
   description?: React.ReactNode
@@ -102,6 +104,8 @@ function DataTableCard<TData extends RowData>({
   rowClassName,
   rowProps,
   renderRow,
+  layout,
+  minTableWidth,
   className,
   ...props
 }: DataTableCardProps<TData>) {
@@ -179,6 +183,8 @@ function DataTableCard<TData extends RowData>({
           rowClassName={rowClassName}
           rowProps={rowProps}
           renderRow={renderRow}
+          layout={layout}
+          minTableWidth={minTableWidth}
         />
       </CardContent>
       {showFooter ? (

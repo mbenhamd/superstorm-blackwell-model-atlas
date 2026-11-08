@@ -25,7 +25,8 @@ describe("best configuration per engine", () => {
     const best = bestPerEngine(snapshot.deployments, scope, "single-turn-8k", DEFAULT_SLO);
     expect(best.vLLM.deployment?.configurationId).toBe(VLLM);
     expect(best.SGLang.deployment?.configurationId).toBe(SGLANG);
-    expect(best.vLLM.measured).toBe(1);
+    // Fixture: four vLLM configurations of qwen3.8-27b × 1 GPU are measured on single-turn-8k (FP8, BF16, NVFP4 baselines and FP8 FlashInfer FP8 KV).
+    expect(best.vLLM.measured).toBe(4);
     expect(best.vLLM.capacity?.sustainableTpmPerGpu).not.toBeNull();
   });
   test("chat-8-turn: both engines measured with different max sequences, so no verdict; a dataset with no run has no best", () => {
@@ -76,7 +77,9 @@ describe("engine verdict", () => {
   });
   test("a matched pair where one engine has no passing level names the engine that passes", () => {
     const strict = { ...SLO_PRESETS["low-latency"], itlP95Ms: 9.5 };
-    const best = bestPerEngine(snapshot.deployments, scope, "single-turn-8k", strict);
+    // The fp8 pair alone (the first five fixture runs): the later invented runs add other artifacts to the scope.
+    const pair = applyRuns(createCatalogSnapshot(), runs.slice(0, 5));
+    const best = bestPerEngine(pair.deployments, scope, "single-turn-8k", strict);
     // ITL p95 ≤ 9.5 ms: SGLang passes at c=1 (9.22 ms) only; vLLM never (9.84 ms at c=1).
     expect(best.vLLM.capacity?.sustainableTpmPerGpu ?? null).toBeNull();
     expect(engineVerdict(best)).toEqual({ kind: "no-passing", passing: "SGLang" });
@@ -130,12 +133,23 @@ describe("every measured version", () => {
   });
   test("fixture: one row per run on the dataset, newest first; Δ prev only against an older release", () => {
     const rows = everyMeasuredVersion(snapshot, scope, "single-turn-8k", DEFAULT_SLO);
-    expect(rows.map((row) => row.run.identity.runtimeVersion)).toEqual(["sglang-v0.5.23", "vllm-v0.33.0", "vllm-v0.32.0"]);
-    const latest = rows[1]!, older = rows[2]!;
+    expect(rows.map((row) => row.run.identity.runtimeVersion)).toEqual([
+      "sglang-v0.5.23", "vllm-v0.33.0", "vllm-v0.33.0", "sglang-v0.5.23", "vllm-v0.33.0", "sglang-v0.5.23", "vllm-v0.33.0", "vllm-v0.31.0", "vllm-v0.32.0", "vllm-v0.32.0",
+    ]);
+    const latest = rows[1]!, older = rows[9]!;
+    expect(latest.run.configurationId).toBe(VLLM);
     expect(latest.previous).toBe(older);
     expect(latest.delta).toBeCloseTo((latest.capacity.sustainableTpmPerGpu! - older.capacity.sustainableTpmPerGpu!) / older.capacity.sustainableTpmPerGpu!, 10);
     expect(older.delta).toBeNull();
     expect(rows[0]!.delta).toBeNull();
+    // Same configuration, other recorded runtime_config (prefix cache on, 512 sequences): no Δ against the v0.32.0 run.
+    const prefixOn = rows.find((row) => row.run.configurationId === VLLM && row.run.identity.runtimeConfig.enable_prefix_caching === true)!;
+    expect(prefixOn.previous).toBeNull();
+    expect(prefixOn.delta).toBeNull();
+    // NVFP4: v0.33.0 compares with the v0.32.0 run of the same runtime config (a regression in the fixture).
+    const nvfp4 = rows.find((row) => row.run.configurationId === "qwen3.8-27b.nvfp4.vllm.baseline" && row.run.identity.runtimeVersion === "vllm-v0.33.0")!;
+    expect(nvfp4.previous?.run.identity.runtimeVersion).toBe("vllm-v0.32.0");
+    expect(nvfp4.delta!).toBeLessThan(0);
     expect(everyMeasuredVersion(snapshot, scope, "chat-8-turn", DEFAULT_SLO)).toHaveLength(2);
   });
   test("Δ prev uses the highest older release of the same engine and configuration, not the most recent run", () => {
@@ -147,12 +161,86 @@ describe("every measured version", () => {
     };
     const extended = applyRuns(createCatalogSnapshot(), [...runs, scaled]);
     const rows = everyMeasuredVersion(extended, scope, "single-turn-8k", DEFAULT_SLO);
-    expect(rows.map((row) => row.run.identity.runtimeVersion)).toEqual(["sglang-v0.5.23", "vllm-v0.33.0", "vllm-v0.31.0", "vllm-v0.32.0"]);
-    const byVersion = (v: string) => rows.find((row) => row.run.identity.runtimeVersion === v)!;
+    const fp8 = rows.filter((row) => row.run.configurationId === VLLM || row.run.configurationId === SGLANG).filter((row) => row.run.identity.runtimeConfig.enable_prefix_caching !== true);
+    expect(fp8.map((row) => row.run.identity.runtimeVersion)).toEqual(["sglang-v0.5.23", "vllm-v0.33.0", "vllm-v0.31.0", "vllm-v0.32.0"]);
+    const byVersion = (v: string) => fp8.find((row) => row.run.identity.runtimeVersion === v)!;
     expect(byVersion("vllm-v0.33.0").previous?.run.identity.runtimeVersion).toBe("vllm-v0.32.0");
     expect(byVersion("vllm-v0.32.0").previous?.run.identity.runtimeVersion).toBe("vllm-v0.31.0");
     expect(byVersion("vllm-v0.31.0").delta).toBeNull();
     // SGLang never compares with a vLLM release.
     expect(byVersion("sglang-v0.5.23").previous).toBeNull();
+  });
+});
+
+/*
+ * Published (external) curves for the Throughput overlay and the Engine small multiples, over the committed external
+ * dataset (published records, not measurements). Selection only: these functions never produce a capacity, verdict
+ * or ranking input (tests/external.test.ts covers the import graph and ranking invariance).
+ */
+describe("published curves (external evidence) for Throughput and Engine", async () => {
+  const { externalDataset } = await import("../src/client/lib/external.ts");
+  const { hardwareClass, isWeak, engineFamily, recordDate, HARDWARE_CLASSES } = await import("../src/domain/external.ts");
+  const { MIN_CURVE_LEVELS, publishedCurves } = await import("../src/client/components/app/throughput-external-data.ts");
+  const { PUBLISHED_PER_ENGINE, publishedEngineCharts } = await import("../src/client/components/app/engine-published-data.ts");
+  const data = externalDataset();
+  const base = { modelId: "qwen3.8-27b", hardware: "B300" as const, showWeak: false, overlayKind: "total-per-gpu" as const };
+
+  test("default scope is the same GPU class and engine family; curves are ladders with at least two levels", () => {
+    const curves = publishedCurves(data, { ...base, engine: "vllm", scope: "same" });
+    expect(curves.length).toBeGreaterThan(0);
+    for (const curve of curves) {
+      expect(curve.record.evidence).toBe("external");
+      expect(curve.record.kind).toBe("ladder");
+      expect(hardwareClass(curve.record.gpuType)).toBe("B300");
+      expect(engineFamily(curve.record)).toBe("vllm");
+      expect(isWeak(curve.record)).toBe(false);
+      expect(curve.points.length).toBeGreaterThanOrEqual(MIN_CURVE_LEVELS);
+      expect(curve.points.map((point) => point.concurrency)).toEqual([...curve.points.map((point) => point.concurrency)].sort((a, b) => a - b));
+    }
+    expect(curves.map((curve) => curve.tag)).toEqual(curves.map((_, index) => `P${index + 1}`));
+  });
+
+  test("overlay only when the plotted metric is the chart's (total tok/s per GPU); otherwise an own-axis chart", () => {
+    const curves = publishedCurves(data, { ...base, engine: "sglang", scope: "engine" });
+    const overlay = curves.filter((curve) => curve.overlay);
+    expect(overlay.length).toBeGreaterThan(0);
+    for (const curve of overlay) { expect(curve.metric.kind).toBe("total-per-gpu"); expect(curve.metric.unit).toBe("tok/s/GPU"); expect(curve.metric.perGpu).toBe(true); }
+    for (const curve of curves.filter((item) => !item.overlay)) expect(curve.metric.kind).not.toBe("total-per-gpu");
+    // Without a host metric nothing is an overlay.
+    expect(publishedCurves(data, { ...base, engine: "sglang", scope: "engine", overlayKind: null }).some((curve) => curve.overlay)).toBe(false);
+    // Newest first by the record's (else the source's) date.
+    const dates = curves.map((curve) => recordDate(curve.record, data.sources) ?? "");
+    expect(dates).toEqual([...dates].sort().reverse());
+  });
+
+  test("weak records (invalid version, unverified extraction, superseded run) appear only with showWeak", () => {
+    const hidden = publishedCurves(data, { ...base, modelId: "kimi-k3", engine: "vllm", scope: "all" });
+    const shown = publishedCurves(data, { ...base, modelId: "kimi-k3", engine: "vllm", scope: "all", showWeak: true });
+    expect(hidden.some((curve) => isWeak(curve.record))).toBe(false);
+    expect(shown.some((curve) => isWeak(curve.record))).toBe(true);
+    expect(shown.length).toBeGreaterThan(hidden.length);
+  });
+
+  test("Engine: one chart per GPU class, one metric per chart, vLLM and SGLang only, newest ladders per engine", () => {
+    for (const modelId of ["qwen3.8-27b", "kimi-k3", "glm-5.3"]) {
+      const charts = publishedEngineCharts(data, modelId, false);
+      expect(charts.length).toBeGreaterThan(0);
+      expect(charts.map((chart) => chart.hardware)).toEqual(HARDWARE_CLASSES.filter((hardware) => charts.some((chart) => chart.hardware === hardware)));
+      for (const chart of charts) {
+        expect(new Set(chart.curves.map((curve) => curve.metric.kind))).toEqual(new Set([chart.kind]));
+        for (const curve of chart.curves) {
+          expect(hardwareClass(curve.record.gpuType)).toBe(chart.hardware);
+          expect(engineFamily(curve.record)).toBe(curve.family);
+          expect(isWeak(curve.record)).toBe(false);
+          expect(curve.record.modelId).toBe(modelId);
+        }
+        for (const family of ["vllm", "sglang"]) expect(chart.curves.filter((curve) => curve.family === family).length).toBeLessThanOrEqual(PUBLISHED_PER_ENGINE);
+        expect(chart.engines.length).toBeGreaterThan(0);
+      }
+    }
+    // Kimi K3 on B300: both engines published per-GPU output throughput, so that metric wins over latency.
+    const b300 = publishedEngineCharts(data, "kimi-k3", false).find((chart) => chart.hardware === "B300")!;
+    expect(b300.kind).toBe("output-per-gpu");
+    expect(b300.engines).toEqual(["vllm", "sglang"]);
   });
 });

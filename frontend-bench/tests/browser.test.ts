@@ -22,7 +22,7 @@ const mod = process.platform === "darwin" ? "Meta" : "Control";
 const routes = [
   "tldr", "intelligence", "throughput", "throughput?run=gemma-4-31b-it.nvfp4.sglang.baseline&tab=configuration", "compare",
   "engine", "engine?pair=glm-5.3.fp8@8", "models", "models?model=deepseek-v4-flash-0731&tab=overview", "models?model=qwen3.8-27b&tab=precision",
-  "deployments", "new-benchmark", "methodology",
+  "deployments", "published", "new-benchmark", "methodology",
 ];
 const aliases: [string, RegExp][] = [
   ["overview", /#\/tldr/], ["intelligence-vs-throughput", /#\/intelligence/],
@@ -31,7 +31,7 @@ const aliases: [string, RegExp][] = [
   ["quant", /#\/models\?.*model=qwen3\.8-27b.*tab=precision/], ["quantization", /#\/models\?.*tab=precision/],
   ["hardware", /#\/deployments/], ["experiments", /#\/new-benchmark/],
 ];
-const navLabels = ["TL;DR", "Intelligence", "Throughput", "Compare", "Engine", "Models", "Deployments", "New benchmark", "Methodology"];
+const navLabels = ["TL;DR", "Intelligence", "Throughput", "Compare", "Engine", "Models", "Deployments", "Published", "New benchmark", "Methodology"];
 
 let servers: ReturnType<typeof Bun.spawn>[] = [];
 let browser: Browser;
@@ -251,6 +251,48 @@ describe("offline console (atlas, Hugging Face and Artificial Analysis data)", (
     await page.keyboard.type("gemma");
     await page.keyboard.press("Enter");
     await page.waitForFunction(() => location.hash.includes("model=gemma-4-31b-it"));
+    expect(await overflow()).toBeLessThanOrEqual(0);
+    expect(pageErrors).toEqual([]);
+  });
+
+  test("TL;DR published results (external): coverage, B300 by default, sources and audit classes, weak records hidden, sub-rows outside the ranking", async () => {
+    await go("tldr");
+    // Kimi K3 (default offline model) has published B300 ladders. The block is external evidence beside the ladder.
+    const block = page.getByTestId("published-results");
+    const records = Number(await block.getAttribute("data-records"));
+    expect(records).toBeGreaterThan(0);
+    expect(await page.locator('[data-testid="published-coverage"] [data-coverage="B300"]').count()).toBe(1);
+    expect(await page.locator('[data-testid="published-hardware"] [data-hardware="B300"]').getAttribute("data-state")).toBe("on");
+    const best = page.locator("[data-published-best]");
+    expect(await best.count()).toBeGreaterThan(0);
+    expect((await best.evaluateAll((items) => items.map((item) => item.getAttribute("data-published-best") ?? ""))).every((key) => key.startsWith("B300|"))).toBe(true);
+    // Every published number: a source link, an engine-version audit class; never called "sustainable".
+    expect(await best.first().locator("[data-source-link]").getAttribute("href")).toMatch(/^https?:\/\//);
+    expect(await best.first().getByTestId("version-class").count()).toBe(1);
+    expect(await block.innerText()).not.toMatch(/sustainable/i);
+    // Records that state an exact catalog setup sit under it as a sub-row, outside the ranking columns.
+    expect(await page.locator("[data-setup-row]").count()).toBe(5);
+    expect(await page.locator("[data-published-row]").count()).toBe(3);
+    expect(await page.locator("[data-published-row] [data-delta], [data-published-row] [data-bar], [data-published-row] [data-action]").count()).toBe(0);
+    expect(await page.locator('[data-published-row="kimi-k3.native.vllm.baseline"]').innerText()).toContain("Published");
+    // Other hardware: "All" lists non-B300 bests, each marked.
+    await page.locator('[data-testid="published-hardware"] [data-hardware="all"]').click();
+    await page.waitForFunction(() => [...document.querySelectorAll("[data-published-best]")].some((row) => !row.getAttribute("data-published-best")!.startsWith("B300|")));
+    expect(await page.locator("[data-published-best] [data-hardware-mismatch]").count()).toBeGreaterThan(0);
+    // Weak records (invalid engine version, unverified extraction, superseded run) are hidden until the switch is on.
+    await page.getByTestId("published-weak").click();
+    await page.waitForFunction((n) => Number(document.querySelector('[data-testid="published-results"]')?.getAttribute("data-records")) > n, records);
+    expect(await page.getByTestId("published-explorer").getAttribute("href")).toMatch(/^#\/published\?.*model=kimi-k3/);
+    expect(await page.locator("main").innerText()).not.toMatch(/\bAA\b|Artificial Analysis|Intelligence Index/);
+    expect(pageErrors).toEqual([]);
+  });
+
+  test("TL;DR published results at 390 px: stacked cards, no document overflow", async () => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await go("tldr");
+    expect(await page.getByTestId("published-best").getAttribute("data-layout")).toBe("cards");
+    const clipped = await page.locator("li[data-published-best]").evaluateAll((cards) => cards.filter((card) => card.scrollWidth > card.clientWidth + 1).length);
+    expect(clipped).toBe(0);
     expect(await overflow()).toBeLessThanOrEqual(0);
     expect(pageErrors).toEqual([]);
   });
@@ -683,7 +725,8 @@ describe("offline console (atlas, Hugging Face and Artificial Analysis data)", (
     expect(await identity.getByTestId("identity-hardware").innerText()).toBe("8× B300");
     // Offline: the catalog shape at one KServe replica, stated as such (the catalog carries no replica count).
     expect(await identity.getByTestId("identity-gpus").innerText()).toBe("8 GPUs per replica · 8 GPUs total (1 replica)");
-    expect(await identity.getByTestId("config-chips").innerText()).toContain("mtp ×5");
+    // The knob chips are stated once, in the Runtime config trigger above, not repeated on the identity line.
+    expect(await identity.getByTestId("config-chips").count()).toBe(0);
     // KPI strip header (offline): profile, budget, ceilings, preset switch and threshold chips stay for planning.
     expect(await strip.locator('[data-profile="Balanced"]').count()).toBe(1);
     expect(await strip.getByTestId("strip-budget").innerText()).toContain("8,000 in / 500 out");
@@ -783,6 +826,241 @@ describe("offline console (atlas, Hugging Face and Artificial Analysis data)", (
     const open = await page.getByTestId("open-evidence").innerText();
     expect(open).toContain("Sustainable definition");
     expect(open).not.toMatch(/\.py\b|production|8,451|6,501/i);
+    // External published results: one short section with the evidence class, exclusions and the six audit classes.
+    const external = await page.getByTestId("methodology-external").innerText();
+    expect(external).toMatch(/External \(published\)[\s\S]*Excluded from[\s\S]*sustainable throughput[\s\S]*No SLO is applied/);
+    expect(external).toMatch(/Hidden by default[\s\S]*Show weak records/);
+    expect(await page.getByTestId("methodology-external").locator("[data-version-class]").count()).toBe(6);
+    expect(pageErrors).toEqual([]);
+  });
+
+  test("published: weak records and invalid versions hidden by default, filters in the URL, coverage heatmap, row expansion", async () => {
+    await go("published");
+    const records = page.getByTestId("published-records");
+    const rows = records.locator("tbody tr[data-record-id]");
+    const count = async () => { const match = /^(\d+) of (\d+)$/.exec((await page.getByTestId("published-count").innerText()).trim()); return { shown: Number(match![1]), total: Number(match![2]) }; };
+    // Default: weak records (invalid engine version, unverified extraction, superseded run) are hidden and counted.
+    const initial = await count();
+    const hidden = Number(/(\d+) hidden/.exec(await page.getByTestId("published-weak-hidden").innerText())![1]);
+    expect(hidden).toBeGreaterThan(0);
+    expect(initial.shown + hidden).toBe(initial.total);
+    expect(await records.locator("[data-weak]").count()).toBe(0);
+    expect(await records.locator('[data-version-class="invalid"]').count()).toBe(0);
+    expect(await rows.count()).toBe(Math.min(20, initial.shown));
+    // Every row carries source link, version audit badge and evidence badge on the card.
+    expect(await rows.first().locator("[data-source-id]").count()).toBe(1);
+    expect(await rows.first().locator("[data-version-class]").count()).toBe(1);
+    expect(await records.locator('[data-evidence="external"]').count()).toBeGreaterThan(0);
+    // Show weak records + Version audit "invalid": only invalid rows, flagged weak; both in the URL.
+    await page.getByTestId("published-weak").click();
+    expect((await count()).shown).toBe(initial.total);
+    await page.locator('[data-facet="version audit"]').click();
+    await page.locator('[data-facet-option="invalid"]').click();
+    await page.keyboard.press("Escape");
+    const invalid = await count();
+    expect(invalid.shown).toBeGreaterThan(0);
+    expect(await rows.count()).toBe(Math.min(20, invalid.shown));
+    expect(await records.locator('tr[data-record-id] [data-version-class="invalid"]').count()).toBe(await rows.count());
+    expect(await records.locator("tr[data-record-id] [data-weak]").count()).toBe(await rows.count());
+    expect(decodeURIComponent(page.url())).toMatch(/version=invalid/);
+    expect(page.url()).toMatch(/weak=1/);
+    // Turning weak records off again hides every invalid record.
+    await page.getByTestId("published-weak").click();
+    expect((await count()).shown).toBe(0);
+    await page.getByTestId("published-reset").click();
+    expect((await count()).shown).toBe(initial.shown);
+    // Model and GPU from the URL; a GPU chip and an engine facet narrow the list.
+    await go("published?model=kimi-k3&hw=B300");
+    expect((await count()).shown).toBeGreaterThan(0);
+    expect(await records.locator('tr[data-record-id] [data-hardware]').evaluateAll((els) => [...new Set(els.map((el) => el.getAttribute("data-hardware")))])).toEqual(["B300"]);
+    expect(await page.getByTestId("published-coverage-clear").innerText()).toMatch(/Kimi K3[\s\S]*B300/);
+    const b300 = (await count()).shown;
+    await page.locator('[data-hardware-chip="GB300"]').click();
+    expect((await count()).shown).toBeGreaterThan(b300);
+    for (const value of await records.locator('tr[data-record-id] [data-hardware]').evaluateAll((els) => els.map((el) => el.getAttribute("data-hardware")))) expect(["B300", "GB300"]).toContain(value!);
+    expect(page.url()).toMatch(/hw=B300&hw=GB300|hw=GB300&hw=B300/);
+    // A global view change (top-bar workload) keeps the Published filters in the URL.
+    await page.getByTestId("workload-select").click();
+    await page.getByRole("option", { name: /chat-8-turn/ }).click();
+    await page.waitForFunction(() => location.hash.includes("workload=chat-8-turn"));
+    expect(page.url()).toMatch(/model=kimi-k3/);
+    expect(page.url()).toMatch(/hw=B300&hw=GB300|hw=GB300&hw=B300/);
+    await page.locator('[data-facet="engine"]').click();
+    await page.locator('[data-facet-option="vllm"]').click();
+    await page.keyboard.press("Escape");
+    expect(await records.locator('tr[data-record-id] [data-engine-family]').evaluateAll((els) => [...new Set(els.map((el) => el.getAttribute("data-engine-family")))])).toEqual(["vllm"]);
+    // Coverage heatmap: models × GPU classes; a cell click filters to that model and GPU.
+    await go("published");
+    const coverage = page.getByTestId("published-coverage");
+    expect(Number(await coverage.getAttribute("data-models"))).toBeGreaterThanOrEqual(10);
+    const cell = coverage.locator('[data-slot="heatmap-chart-cell"]:not([data-missing])').first();
+    await cell.click();
+    expect(page.url()).toMatch(/model=[^&]+/);
+    expect(page.url()).toMatch(/hw=/);
+    await page.getByTestId("published-coverage-clear").click();
+    expect(page.url()).not.toMatch(/model=/);
+    // Expand a ladder: chart (x = concurrency, labelled axes), metric picker, levels table, facts and source link.
+    await go("published?model=kimi-k3&hw=B300&kind=ladder");
+    await rows.first().locator("[data-expand]").click();
+    const detail = page.getByTestId("published-detail").first();
+    await detail.waitFor();
+    expect(await rows.first().locator("[data-expand]").getAttribute("aria-expanded")).toBe("true");
+    expect(await detail.getByTestId("published-levels").locator("tbody tr").count()).toBeGreaterThan(1);
+    expect(await detail.locator("[data-source-id]").count()).toBeGreaterThan(0);
+    if (await detail.getByTestId("published-ladder-chart").count()) {
+      expect(await detail.getByTestId("published-ladder-chart").innerText()).toContain("Concurrency (published levels)");
+      expect(await detail.getByTestId("published-ladder-legend").innerText()).toContain("Published curve (external)");
+    }
+    // 390 px with a row expanded: stacked cards, the levels table scrolls inside its frame.
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.waitForTimeout(150);
+    expect(await overflow()).toBeLessThanOrEqual(0);
+    expect(await records.locator("[data-stacked-record]").count()).toBeGreaterThan(0);
+    expect(pageErrors).toEqual([]);
+  });
+
+  test("published: the records table fits its card and the expanded ladder detail's values stay in view (1440 and 390)", async () => {
+    await go("published?model=kimi-k3&hw=B300");
+    const records = page.getByTestId("published-records");
+    const fits = () => records.locator('[data-slot="table-container"]').evaluate((el) => ({ scroll: el.querySelector("table")!.scrollWidth, client: el.clientWidth }));
+    let size = await fits();
+    expect(size.scroll).toBeLessThanOrEqual(size.client);
+    // Default order: highest output tok/s/GPU first, records without one last.
+    expect(await records.locator("tbody tr[data-record-id]").first().locator("[data-headline]").count()).toBe(1);
+    await records.locator("tbody tr[data-record-id] [data-expand]").first().click();
+    const detail = page.getByTestId("published-detail").first();
+    await detail.waitFor();
+    const inView = () => detail.getByTestId("published-levels").locator("tbody td").first().evaluate((cell) => {
+      const r = cell.getBoundingClientRect();
+      const frame = cell.closest('[data-slot="table-container"]')!.getBoundingClientRect();
+      return r.left >= frame.left - 1 && r.right <= frame.right + 1 && r.right <= window.innerWidth;
+    });
+    expect(await inView()).toBe(true);
+    size = await fits();
+    expect(size.scroll).toBeLessThanOrEqual(size.client);
+    // The level table is not stretched: its first value column sits next to Concurrency.
+    expect(await detail.getByTestId("published-levels").evaluate((el) => el.getBoundingClientRect().width)).toBeLessThan(await detail.evaluate((el) => el.getBoundingClientRect().width));
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.waitForFunction(() => {
+      const c = document.querySelector('[data-testid="published-records"] [data-slot="table-container"]') as HTMLElement | null;
+      return !!c && c.querySelector("table")!.scrollWidth <= c.clientWidth;
+    });
+    if (!(await page.getByTestId("published-detail").count())) await records.locator("[data-stacked-record] [data-expand]").first().click();
+    await page.getByTestId("published-detail").first().waitFor();
+    expect(await page.getByTestId("published-detail").first().getByTestId("published-levels").locator("tbody td").first().evaluate((cell) => {
+      const r = cell.getBoundingClientRect();
+      return r.left >= 0 && r.right <= window.innerWidth;
+    })).toBe(true);
+    expect(await overflow()).toBeLessThanOrEqual(0);
+    // Coverage ticks on phones: two-line labels, so GB300 and GB200 stay distinguishable.
+    await go("published");
+    const ticks = await page.locator('[data-testid="published-coverage"] [data-slot="heatmap-chart-column-label"]').allInnerTexts();
+    expect(ticks.map((tick) => tick.replace(/\s+/g, ""))).toEqual(expect.arrayContaining(["GB300", "GB200", "B300"]));
+    expect(pageErrors).toEqual([]);
+  });
+
+  test("published: derivation stated once, readable source link for slug titles, tooltip kept in view at 390, points-only coverage marked", async () => {
+    const id = "kimi-k3-b300x8-sglang-fixstars-deploying-kimi-k3-on-day-0-can-a-2-8t-model-run-on-a-single-node-of-nvidia-b300-x8";
+    await go("published?model=kimi-k3&hw=B300&kind=ladder&engine=sglang");
+    await page.locator(`[data-expand="${id}"]`).first().click();
+    const detail = page.locator(`[data-testid="published-detail"][data-record-id="${id}"]`);
+    await detail.waitFor();
+    // The source title only repeats an id slug: the link reads "Fixstars · <date>" (full title in its title attribute).
+    const link = detail.locator("[data-source-id]").first();
+    expect(await link.innerText()).toMatch(/^Fixstars · \d{4}-\d{2}-\d{2}$/);
+    expect(await detail.innerText()).not.toContain("fixstars-deploying");
+    // Pick the derived per-GPU metric: "derived" once in the picker and once in the legend.
+    await detail.getByTestId("published-ladder-metric").click();
+    const option = page.getByRole("option", { name: /^output throughput per GPU/ });
+    expect(await option.innerText()).toBe("output throughput per GPU · tok/s/GPU · derived");
+    await option.click();
+    expect(await detail.locator('[data-testid="published-ladder-legend"] [data-derived]').innerText()).toBe("Derived: aggregate ÷ 8 GPUs");
+    // 390 px: hovering the last point keeps the tooltip inside the viewport.
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.waitForTimeout(200);
+    const chart = detail.getByTestId("published-ladder-chart").locator(".recharts-surface");
+    await chart.scrollIntoViewIfNeeded();
+    const box = await chart.boundingBox();
+    let shown = 0;
+    for (const fraction of [0.97, 0.9, 0.8, 0.5, 0.2]) {
+      await page.mouse.move(box!.x + box!.width * fraction, box!.y + box!.height / 2);
+      await page.waitForTimeout(80);
+      const tip = page.getByTestId("published-ladder-tooltip");
+      if (await tip.isVisible().catch(() => false)) {
+        shown++;
+        const r = (await tip.boundingBox())!;
+        expect(r.x).toBeGreaterThanOrEqual(0);
+        expect(r.x + r.width).toBeLessThanOrEqual(390);
+        expect((await tip.innerText()).trim()).not.toBe("");
+      }
+    }
+    expect(shown).toBeGreaterThan(0);
+    expect(await overflow()).toBeLessThanOrEqual(0);
+    // Coverage: a model × GPU with single points but no ladder carries a dot, and the legend explains it.
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await go("published");
+    const coverage = page.getByTestId("published-coverage");
+    const marked = coverage.locator('[data-slot="heatmap-chart-cell"][data-marked]');
+    expect(await marked.count()).toBeGreaterThan(0);
+    expect(await marked.first().getAttribute("aria-label")).toMatch(/^Points only: \d+ points?, no ladder/);
+    expect(await page.locator('#published-coverage [data-legend="points-only"]').innerText()).toBe("points only");
+    expect(pageErrors).toEqual([]);
+  });
+
+  test("TL;DR published: an empty B300 view offers the GPU classes that publish output tok/s/GPU", async () => {
+    await go("tldr?model=deepseek-v4-flash-0731");
+    const empty = page.getByTestId("published-best-empty");
+    expect(await empty.innerText()).toContain("No published output tok/s/GPU for B300");
+    const filter = page.locator('[data-testid="published-alternatives"] [data-alternative="H200"]');
+    expect(await filter.getAttribute("data-alternative-kind")).toBe("filter");
+    expect(await filter.innerText()).toMatch(/^H200 · \d+ with output tok\/s\/GPU$/);
+    // A class without output tok/s/GPU opens the explorer on that model × GPU instead.
+    expect(await page.locator('[data-alternative="GB300"]').getAttribute("href")).toMatch(/^#\/published\?.*model=deepseek-v4-flash-0731.*hw=GB300/);
+    await filter.click();
+    await page.getByTestId("published-best").waitFor();
+    expect(await page.locator('[data-testid="published-hardware"] [data-hardware="H200"]').getAttribute("data-state")).toBe("on");
+    expect(await page.locator("[data-published-best]").first().getAttribute("data-published-best")).toMatch(/^H200\|/);
+    expect(pageErrors).toEqual([]);
+  });
+
+  test("published hardware: an unstated GPU type reads 'hardware not stated', never 'not B300'; versions show inline", async () => {
+    await go("engine?model=kimi-k3");
+    const published = page.locator("#engine-published");
+    await published.waitFor();
+    const unstated = published.locator('[data-published-hardware="other"]');
+    expect(await unstated.count()).toBe(1);
+    expect(await unstated.locator("figcaption").innerText()).toContain("Hardware not stated");
+    expect(await unstated.innerText()).not.toContain("not B300");
+    expect(await unstated.locator('[data-hardware-status="unstated"]').count()).toBeGreaterThan(0);
+    // TL;DR published sub-rows: the resolved engine version is visible inline next to its audit badge.
+    await go("tldr?model=kimi-k3");
+    const line = page.locator("[data-published-row] [data-published-record]").filter({ has: page.locator("[data-engine-version]") }).first();
+    expect(await line.locator("[data-engine-version]").innerText()).not.toBe("");
+    expect(await line.locator("[data-testid=version-class]").count()).toBe(1);
+    // No "engine version not stated" chip beside a "not stated" audit badge; no repeated metric names.
+    for (const item of await page.locator("[data-published-record]").all()) {
+      if (await item.locator('[data-version-class="not-stated"]').count()) expect(await item.locator('[data-flag="engine-version-not-stated"]').count()).toBe(0);
+    }
+    for (const text of await page.locator("[data-no-throughput]").allInnerTexts()) {
+      const names = /\((.*)\)/.exec(text)![1]!.split(", ");
+      expect(new Set(names).size).toBe(names.length);
+    }
+    // Sub-rows under a setup always carry a figure, its load level is never truncated away, and a linked record
+    // that states differences says so ("differs") instead of reading as the same setup.
+    expect(await page.locator("[data-published-row] [data-no-throughput]").count()).toBe(0);
+    for (const load of await page.locator("[data-published-row] [data-load]").all()) {
+      expect(await load.evaluate((el) => el.scrollWidth <= el.clientWidth + 1 && el.textContent!.trim().length > 0)).toBe(true);
+    }
+    // Best published table at 1440: the Output annotation never overlaps the engine column.
+    const best = page.locator("[data-published-best]");
+    for (const row of await best.all()) {
+      const [engine, output] = await row.locator("td").evaluateAll((cells) => [cells[1]!, cells[2]!].map((cell) => {
+        const inner = [...cell.querySelectorAll("*")].map((el) => el.getBoundingClientRect()).filter((r) => r.width > 0);
+        return { left: Math.min(...inner.map((r) => r.left)), right: Math.max(...inner.map((r) => r.right)), cellLeft: cell.getBoundingClientRect().left, cellRight: cell.getBoundingClientRect().right };
+      }));
+      expect(engine!.right).toBeLessThanOrEqual(engine!.cellRight + 1);
+      expect(output!.left).toBeGreaterThanOrEqual(output!.cellLeft - 1);
+    }
     expect(pageErrors).toEqual([]);
   });
 
@@ -898,26 +1176,37 @@ describe("measured-data views (TEST fixture runs via RUNS_FILE)", () => {
     // Default model: the first catalog model with a measured run.
     expect(await page.getByTestId("tldr-model").innerText()).toContain("Qwen 3.8 27B");
     const rows = page.locator("[data-setup-row]");
-    expect(await rows.count()).toBe(13);
+    expect(await rows.count()).toBe(14);
     const best = rows.nth(0), second = rows.nth(1);
     expect(await best.getAttribute("data-standing")).toBe("best");
     expect(await best.getAttribute("data-position")).toBe("1");
     expect(await best.innerText()).toContain("2,882,918");
     expect(await best.locator('[data-delta="best"]').innerText()).toBe("Best");
-    // Incomplete and errored requests are flagged inline on the row.
-    expect(await best.getByTestId("incomplete-badge").innerText()).toBe("1 incomplete");
-    expect(await best.getByTestId("errored-badge").innerText()).toBe("3 errored");
+    // Incomplete and errored requests are flagged inline on the row, merged into one compact badge (full counts in its label).
+    const quality = best.getByTestId("run-quality-badge");
+    expect(await quality.innerText()).toBe("1 inc · 3 err");
+    expect(await quality.getAttribute("aria-label")).toBe("1 incomplete, 3 errored requests");
+    // Compact rows at ≥1280 px: every ladder row (measured or not) fits in 48 px; the recheck folds into an icon.
+    const heights = await rows.evaluateAll((items) => items.map((item) => item.getBoundingClientRect().height));
+    expect(Math.max(...heights)).toBeLessThanOrEqual(48);
+    expect(await best.locator("[data-recheck]").getAttribute("aria-label")).toMatch(/^Rechecked /);
     // Classic SLO: SGLang 2,771,947 vs vLLM 2,882,918 = −3.8%, outside the ±3% band.
     expect(await second.getAttribute("data-standing")).toBe("behind");
     expect(await second.locator("[data-delta]").innerText()).toMatch(/^−3\.8%/);
     expect(Number(await second.locator("[data-delta]").getAttribute("data-fraction"))).toBeCloseTo(-0.0385, 3);
-    // Unmeasured setups are listed after the measured ones, with "—" and one badge each.
+    // Fixture: 8 measured variants on single-turn-8k (7 of the 13 configurations; the FP8 vLLM baseline has two recorded
+    // runtime configs) plus 6 unmeasured configurations: best, 6 behind, 1 without a passing level, 6 unmeasured listed
+    // after the measured ones, with "—" and one badge each.
     const standings = await rows.evaluateAll((items) => items.map((item) => item.getAttribute("data-standing")));
-    expect(standings.slice(2).every((kind) => kind === "unmeasured")).toBe(true);
-    expect(await page.locator('[data-bar="best"]').count()).toBe(1);
+    const tally = (kind: string) => standings.filter((item) => item === kind).length;
+    expect([tally("best"), tally("behind"), tally("no-passing"), tally("unmeasured")]).toEqual([1, 6, 1, 6]);
+    // Rows are grouped by weights export; inside every group measured setups precede unmeasured ones.
+    const groups = await page.locator("[data-setup-group]").evaluateAll((items) => items.map((group) => [...group.querySelectorAll("[data-setup-row]")].map((row) => row.getAttribute("data-standing"))));
+    for (const group of groups) expect(group.findIndex((kind) => kind === "unmeasured") === -1 || group.slice(group.findIndex((kind) => kind === "unmeasured")).every((kind) => kind === "unmeasured")).toBe(true);
+    expect(await page.getByTestId("setups-table").locator('[data-bar="best"]').count()).toBe(1);
     // Mixed table: full metric columns; each unmeasured row carries one dashed track (sustainable), not one per column.
     expect(await page.getByTestId("setups-table").getAttribute("data-collapsed")).toBeNull();
-    expect(await page.locator('[data-setup-row][data-standing="unmeasured"] [data-bar="empty"]').count()).toBe(11);
+    expect(await page.locator('[data-setup-row][data-standing="unmeasured"] [data-bar="empty"]').count()).toBe(6);
     // Row actions: Throughput opens this setup in one click.
     expect(await best.locator('[data-action="throughput"]').getAttribute("href")).toContain("run=qwen3.8-27b.fp8.vllm.baseline");
     // Evidence from a TL;DR row leads with Sustainable and C_max; the model-level AA index sits in a collapsed group.
@@ -944,15 +1233,21 @@ describe("measured-data views (TEST fixture runs via RUNS_FILE)", () => {
     // Sort by name or C_max keeps measured setups first.
     for (const sort of ["name", "cmax"]) {
       await go(`tldr?sort=${sort}`);
-      const kinds = await page.locator("[data-setup-row]").evaluateAll((items) => items.map((item) => item.getAttribute("data-standing")));
-      expect(kinds.slice(0, 2).sort()).toEqual(["behind", "best"]);
-      expect(kinds.slice(2).every((kind) => kind === "unmeasured")).toBe(true);
+      // Per export group: setups with a value, then measured without a passing level, then unmeasured.
+      const tiers = await page.locator("[data-setup-group]").evaluateAll((items) => items.map((group) => [...group.querySelectorAll("[data-setup-row]")]
+        .map((row) => ({ best: 0, behind: 0, tie: 0, "no-passing": 1, unmeasured: 2 } as Record<string, number>)[row.getAttribute("data-standing") ?? ""] ?? 3)));
+      for (const group of tiers) expect(group).toEqual([...group].sort((x, y) => x - y));
+      expect(tiers.flat().filter((tier) => tier === 0)).toHaveLength(7);
     }
     // Compare top: the measured setups, then the Compare page.
     await go("tldr");
     await page.getByTestId("compare-top").click();
     await page.waitForFunction(() => location.hash.startsWith("#/compare"));
-    expect(decodeURIComponent(new URL(page.url()).hash.match(/runs=([^&]+)/)?.[1] ?? "").split(",")).toEqual(["qwen3.8-27b.fp8.vllm.baseline", "qwen3.8-27b.fp8.sglang.baseline"]);
+    expect(decodeURIComponent(new URL(page.url()).hash.match(/runs=([^&]+)/)?.[1] ?? "").split(",")).toEqual(["qwen3.8-27b.fp8.vllm.baseline", "qwen3.8-27b.fp8.sglang.baseline", "qwen3.8-27b.nvfp4.vllm.baseline"]);
+    // The button says why rank 3 is skipped: Compare holds configurations, and rank 3 is a second variant of rank 1's.
+    await go("tldr");
+    expect(await page.getByTestId("compare-top").getAttribute("data-skipped")).toBe("1");
+    expect(await page.locator("#compare-top-note").textContent()).toContain("variants of one configuration count once (1 ladder row skipped)");
     expect(pageErrors).toEqual([]);
   });
 
@@ -983,14 +1278,130 @@ describe("measured-data views (TEST fixture runs via RUNS_FILE)", () => {
     expect(pageErrors).toEqual([]);
   });
 
+  test("TL;DR variants: two runtime configs of one configuration, best of 2 runtimes, full knobs, expandable runs, filter chips", async () => {
+    await go("tldr");
+    // The FP8 vLLM baseline was measured with two recorded runtime configs: two ladder rows of one configuration.
+    const fp8 = page.locator('tr[data-setup-row="qwen3.8-27b.fp8.vllm.baseline"]');
+    expect(await fp8.count()).toBe(2);
+    const best = fp8.first();
+    expect(await best.getAttribute("data-standing")).toBe("best");
+    // Dense row: "best of 2" (the Runtime header reads "best of N runtimes"; the full list is in the title).
+    expect(await best.locator("[data-runtime-count]").innerText()).toContain("best of 2");
+    expect(await best.locator("[data-runtime-count]").getAttribute("title")).toContain("Best of 2 runtimes");
+    expect(await page.getByTestId("setups-table").locator("thead").innerText()).toContain("best of N runtimes");
+    // ≥1280 px: the full recorded knob string is the row's second line.
+    expect(await best.locator("[data-knob-string]").isVisible()).toBe(true);
+    expect(await best.locator("[data-knob-string]").innerText()).toBe("kv fp8 · seqs 256 · prefix cache off · fixture=TEST");
+    expect(await fp8.nth(1).locator("[data-knob-string]").innerText()).toBe("kv fp8 · seqs 512 · prefix cache on · fixture=TEST");
+    expect(await fp8.nth(1).locator("[data-delta]").innerText()).toMatch(/^−14\.0%/);
+    // NVFP4 vLLM: the older v0.32.0 run is faster, so it fronts the variant; expanding lists both runs, newest first.
+    const nvfp4 = page.locator('tr[data-setup-row="qwen3.8-27b.nvfp4.vllm.baseline"]');
+    expect(await nvfp4.innerText()).toContain("ran vllm-v0.32.0");
+    await nvfp4.locator('[data-action="expand"]').click();
+    expect(await nvfp4.locator('[data-action="expand"]').getAttribute("aria-expanded")).toBe("true");
+    const detail = page.locator("[data-variant-detail]");
+    await detail.waitFor();
+    expect(await detail.locator("[data-variant-run]").count()).toBe(2);
+    expect(await detail.locator("[data-variant-run]").first().innerText()).toContain("vllm-v0.33.0");
+    expect(await detail.locator("[data-variant-run][data-fronts]").innerText()).toContain("vllm-v0.32.0");
+    expect(await detail.innerText()).toContain("Throughput opens this variant's best run");
+    // The header stays visible while scrolling a long ladder.
+    expect(await page.locator('[data-testid="setups-table"] thead th').first().evaluate((el) => getComputedStyle(el).position)).toBe("sticky");
+    // Filter chips hide rows but never re-elect the best: the SGLang FP8 setup still reads −3.8% vs the hidden vLLM best.
+    await page.locator('[data-testid="filter-engine"] [data-filter="SGLang"]').click();
+    await page.waitForFunction(() => document.querySelectorAll("tr[data-setup-row]").length === 4);
+    expect(await page.getByTestId("filter-count").innerText()).toBe("4 of 14 shown");
+    // The chips are in the URL: a reload (or a shared link) restores the filtered ladder.
+    await page.waitForFunction(() => location.hash.includes("engine=SGLang"));
+    await page.reload();
+    await page.waitForFunction(() => document.querySelectorAll("tr[data-setup-row]").length === 4);
+    expect(await page.locator('[data-testid="filter-engine"] [data-filter="SGLang"]').getAttribute("data-state")).toBe("on");
+    expect(await page.getByTestId("filter-count").innerText()).toBe("4 of 14 shown");
+    expect(await page.locator('tr[data-setup-row="qwen3.8-27b.fp8.sglang.baseline"] [data-delta]').innerText()).toMatch(/^−3\.8%/);
+    expect(await page.getByTestId("setups-table").locator('[data-delta="best"]').count()).toBe(0);
+    await page.locator('[data-testid="filter-spec"] [data-filter="spec-on"]').click();
+    await page.waitForFunction(() => document.querySelectorAll("tr[data-setup-row]").length === 1);
+    expect(page.url()).toMatch(/spec=on/);
+    expect(await page.locator("tr[data-setup-row]").getAttribute("data-setup-row")).toBe("qwen3.8-27b.nvfp4.sglang.mtp");
+    await page.getByTestId("filter-clear").click();
+    await page.waitForFunction(() => document.querySelectorAll("tr[data-setup-row]").length === 14);
+    expect(page.url()).not.toMatch(/engine=|spec=/);
+    // Two engine families measured: the caption links the engine head-to-head.
+    expect(await page.getByTestId("setups-engine-link").getAttribute("href")).toMatch(/^#\/engine\?.*model=qwen3\.8-27b/);
+    expect(pageErrors).toEqual([]);
+  });
+
+  test("TL;DR Throughput action opens the row's variant (its best run), not the configuration's newest run", async () => {
+    await go("tldr");
+    const row = page.locator('tr[data-setup-row="qwen3.8-27b.fp8.vllm.baseline"]', { has: page.locator("[data-knob-string]", { hasText: "seqs 512" }) });
+    expect(await row.count()).toBe(1);
+    expect(await row.locator('[data-action="compare"]').getAttribute("aria-label")).toContain("configuration");
+    await row.locator('[data-action="throughput"]').click();
+    await page.waitForFunction(() => location.hash.startsWith("#/throughput") && location.hash.includes("rid="));
+    await page.waitForFunction(() => document.querySelector('[data-testid="run-picker-chips"]')?.textContent?.includes("seqs 512") === true);
+    expect(await page.getByTestId("run-picker-chips").innerText()).toContain("seqs 512 · prefix cache on");
+    expect(await page.locator("main").innerText()).toContain("2,479,310");
+    // A reload keeps the variant (the run id is in the URL).
+    await page.reload();
+    await page.waitForFunction(() => document.querySelector('[data-testid="run-picker-chips"]')?.textContent?.includes("seqs 512") === true);
+    expect(pageErrors).toEqual([]);
+  });
+
+  test("TL;DR winner and gaps at 390 px: labels wrap and the knobs that separate variants stay visible", async () => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await go("tldr");
+    const items = page.locator('[data-testid="winner-gaps"] [data-rank-row]');
+    await items.first().waitFor();
+    const knobs = await page.locator('[data-testid="winner-gaps"] [data-rank-knobs]').allInnerTexts();
+    expect(knobs).toContain("seqs 256 · prefix cache off");
+    expect(knobs).toContain("seqs 512 · prefix cache on");
+    // Nothing in the list is clipped: every label and detail fits its own box.
+    expect(await page.locator('[data-testid="winner-gaps"] [data-rank-row] span').evaluateAll((els) => els.filter((el) => el.scrollWidth > el.clientWidth + 1 && getComputedStyle(el).overflow === "hidden").length)).toBe(0);
+    expect(await overflow()).toBeLessThanOrEqual(0);
+    expect(pageErrors).toEqual([]);
+  });
+
+  test("TL;DR winner and gaps (ranked across exports) and best by export × engine matrix", async () => {
+    await go("tldr");
+    const items = page.locator('[data-testid="winner-gaps"] [data-rank-row]');
+    // Top 5 of the 7 setups with a sustainable value (the BF16 SGLang variant has no passing level), ranked across
+    // exports; the ladder carries the full ranking ("See all 14 in the ladder").
+    expect(await items.count()).toBe(5);
+    expect(await page.getByTestId("winner-see-all").innerText()).toBe("See all 14 in the ladder");
+    expect(await items.first().getAttribute("data-standing")).toBe("best");
+    expect(await items.first().innerText()).toContain("2,882,918");
+    expect(await items.nth(1).innerText()).toContain("−3.8%");
+    expect(await items.nth(2).innerText()).toContain("seqs 512 · prefix cache on");
+    // Selecting a ranked row focuses that setup in the ladder.
+    const key = await items.nth(3).getAttribute("data-rank-row");
+    await items.nth(3).click();
+    await page.waitForFunction((k) => document.activeElement?.closest("[data-variant-key]")?.getAttribute("data-variant-key") === k, key);
+    // Matrix: 3 exports × (vLLM, SGLang, SGLang · spec); hatched cells have no sustainable value (unmeasured, no passing level, absent).
+    const matrix = page.getByTestId("export-engine-matrix");
+    expect([await matrix.getAttribute("data-rows"), await matrix.getAttribute("data-columns")]).toEqual(["3", "3"]);
+    expect(await matrix.locator('[data-slot="heatmap-chart-cell"]').count()).toBe(9);
+    expect(await matrix.locator('[data-slot="heatmap-chart-cell"][data-missing]').count()).toBe(4);
+    expect(await page.getByTestId("matrix-readout").innerText()).toContain("FP8 × vLLM: 2,882,918 tok/min/GPU (best)");
+    // Selecting a cell filters the ladder to it.
+    await matrix.locator('[data-slot="heatmap-chart-cell"][aria-label^="NVFP4"][aria-label*="SGLang · spec"]').click();
+    await page.waitForFunction(() => document.querySelectorAll("tr[data-setup-row]").length === 1);
+    expect(await page.locator("tr[data-setup-row]").getAttribute("data-setup-row")).toBe("qwen3.8-27b.nvfp4.sglang.mtp");
+    expect(await page.locator('[data-testid="filter-engine"] [data-filter="SGLang"]').getAttribute("data-state")).toBe("on");
+    expect(await page.getByTestId("filter-count").innerText()).toBe("1 of 14 shown");
+    expect(pageErrors).toEqual([]);
+  });
+
   test("throughput pickers: runtime config states knob chips, run count and sustainable tok/min/GPU per export group", async () => {
     await go("throughput?run=qwen3.8-27b.bf16.vllm.baseline");
     await page.getByTestId("run-picker").click();
     const fp8 = page.locator("[cmdk-group]", { has: page.locator("[cmdk-group-heading]", { hasText: /^Qwen 3\.8 27B · FP8$/ }) });
     const items = await fp8.locator("[cmdk-item]").allInnerTexts();
-    // Fixture (vLLM, 1× B300): FP8 baseline 2,882,918 (Classic SLO) with its recorded knob chips and 3 runs; others "not measured", never 0.
-    expect(items.some((text) => text.includes("Baseline") && text.includes("kv fp8") && text.includes("3 runs") && text.includes("2,882,918 tok/min/GPU"))).toBe(true);
-    expect(items.filter((text) => text.includes("not measured")).length).toBe(items.length - 1);
+    // Fixture (vLLM, 1× B300): the FP8 baseline is two measured variants on single-turn-8k (two recorded runtime
+    // configs): prefix cache off, best of 2 runtimes (v0.33.0 2,882,918 under Classic; v0.32.0 older), and prefix
+    // cache on with 512 sequences (one run). Every other FP8 setup is "not measured", never 0.
+    expect(items.some((text) => text.includes("Baseline") && text.includes("kv fp8") && text.includes("prefix cache off") && text.includes("2 runs · best of 2 runtimes") && text.includes("2,882,918 tok/min/GPU"))).toBe(true);
+    expect(items.some((text) => text.includes("Baseline") && text.includes("prefix cache on") && text.includes("seqs 512") && text.includes("1 run"))).toBe(true);
+    expect(items.filter((text) => text.includes("not measured")).length).toBe(items.length - 2);
     expect(items.join("\n")).not.toMatch(/(^|\s)0 tok\/min/);
     // The current setup carries the check mark.
     expect(await page.locator('[cmdk-item][data-value="qwen3.8-27b.bf16.vllm.baseline"] svg.opacity-100').count()).toBe(1);
@@ -1035,7 +1446,7 @@ describe("measured-data views (TEST fixture runs via RUNS_FILE)", () => {
     await page.mouse.wheel(0, 4000);
     await page.waitForTimeout(100);
     expect(await page.getByTestId("test-data-banner").isVisible()).toBe(true);
-    expect(await page.getByTestId("data-badge").innerText()).toMatch(/HF \+ AA · 5 runs \(TEST\)/);
+    expect(await page.getByTestId("data-badge").innerText()).toMatch(/HF \+ AA · 12 runs \(TEST\)/);
     expect(pageErrors).toEqual([]);
   });
 
@@ -1051,6 +1462,12 @@ describe("measured-data views (TEST fixture runs via RUNS_FILE)", () => {
     expect(await identity.getByTestId("errored-badge").innerText()).toBe("3 errored");
     expect(await page.getByTestId("performance-strip").getByTestId("incomplete-badge").count()).toBe(0);
     expect(await page.getByTestId("performance-strip").getByTestId("errored-badge").count()).toBe(0);
+    // The warning badges sit in one group with the run tag (never alone on a wrapped line); the knob string is stated
+    // once, in the Runtime config trigger, not repeated as chips on the identity line.
+    expect(await identity.getByTestId("identity-run").getByTestId("incomplete-badge").count()).toBe(1);
+    expect(await identity.getByTestId("identity-run").innerText()).toContain("vllm-v0.33.0");
+    expect(await identity.getByTestId("config-chips").count()).toBe(0);
+    expect(await page.getByTestId("run-picker-chips").innerText()).toContain("kv fp8");
     // Fixture (TEST data): C_max 64 with 7 of 8 levels inside the SLO; sustainable = total tok/s at C_max × 0.8 × 60 ÷ GPUs.
     const strip = page.getByTestId("performance-strip");
     expect(await strip.getAttribute("data-measured")).toBe("true");
@@ -1062,9 +1479,12 @@ describe("measured-data views (TEST fixture runs via RUNS_FILE)", () => {
     expect(perUser).toContain("60.0");
     expect(perUser).toContain("ITL p95 22.5 ms");
     expect(perUser).toContain("median token every 16.7 ms");
+    // The run data has no per-user p95 and no request-rate percentiles: named as missing, not replaced by another metric.
+    expect(await strip.locator('[data-kpi="per-user"] [data-missing-metric="per-user-p95"]').innerText()).toBe("per-user p95 not in run data");
     const wide = await strip.locator('[data-kpi="deployment"]').innerText();
     expect(wide).toContain("observed 60,061 tok/s");
     expect(wide).toContain("7.07 req/s at C_max");
+    expect(await strip.locator('[data-kpi="deployment"] [data-missing-metric="request-rate-percentiles"]').innerText()).toBe("request rate p50 / p95 not in run data");
     expect(await strip.locator('[data-profile="Balanced"]').count()).toBe(1);
     expect(await strip.getByTestId("strip-budget").innerText()).toContain("8,000 in / 500 out");
     expect(await page.getByTestId("strip-ttft-ceiling").innerText()).toBe("TTFT p95 ≤ 6,154 ms (computed from measured prompt length)");
@@ -1139,6 +1559,16 @@ describe("measured-data views (TEST fixture runs via RUNS_FILE)", () => {
     const overlay = page.getByTestId("version-overlay");
     await overlay.waitFor();
     expect(await overlay.innerText()).toContain("vllm-v0.32.0");
+    // One engine, two versions: a sequential encoding in the vLLM hue (newer solid, older lighter and dashed), never
+    // the SGLang hue (chart-2) for an older vLLM version.
+    const versionLegend = await overlay.locator("[data-series-legend]").evaluateAll((items) => items.map((item) => ({ text: (item as HTMLElement).innerText, color: item.getAttribute("data-series-color") ?? "", dash: item.getAttribute("data-series-dash") })));
+    expect(versionLegend).toHaveLength(2);
+    expect(versionLegend[0]).toEqual({ text: "vllm-v0.33.0 (newer)", color: "var(--chart-1)", dash: "solid" });
+    expect(versionLegend[1]!.text).toBe("vllm-v0.32.0 (older)");
+    expect(versionLegend[1]!.color).toContain("--chart-1");
+    expect(versionLegend[1]!.color).toContain("color-mix");
+    expect(versionLegend[1]!.dash).not.toBe("solid");
+    expect(versionLegend.some((entry) => entry.color.includes("--chart-2"))).toBe(false);
     expect(await page.getByTestId("compare-top-versions").getAttribute("aria-expanded")).toBe("true");
     await page.waitForFunction(() => location.hash.includes("overlay=versions"));
     await page.reload();
@@ -1208,12 +1638,21 @@ describe("measured-data views (TEST fixture runs via RUNS_FILE)", () => {
     await page.getByTestId("run-picker").click();
     const item = page.locator('[cmdk-item][data-value="qwen3.8-27b.fp8.vllm.baseline"]');
     const meta = item.locator("[data-option-meta]");
-    expect(await meta.innerText()).toMatch(/3 runs\s+2,882,918 tok\/min\/GPU/);
+    expect(await meta.innerText()).toMatch(/2 runs · best of 2 runtimes\s+2,882,918 tok\/min\/GPU/);
     expect(await meta.evaluate((el) => el.scrollWidth <= el.clientWidth + 1)).toBe(true);
     expect(await item.locator("[data-option-detail]").evaluate((el) => el.scrollWidth <= el.clientWidth + 1)).toBe(true);
     const popover = await page.locator('[data-slot="popover-content"][data-state="open"]').boundingBox();
     expect(popover!.width).toBeGreaterThanOrEqual(420);
-    await page.keyboard.press("Escape");
+    // The second runtime config of the same catalog configuration (prefix cache on, 512 sequences) is its own option;
+    // picking it shows that variant's best run, and Runtime versions then lists only runs of that runtime config.
+    await page.locator('[data-slot="popover-content"][data-state="open"] [cmdk-item]', { hasText: "seqs 512" }).click();
+    await page.waitForFunction(() => document.querySelector('[data-testid="run-picker-chips"]')?.textContent?.includes("seqs 512") === true);
+    expect(await page.getByTestId("throughput-identity").innerText()).toContain("Measured · 2026-10-28");
+    expect(await page.getByTestId("run-picker-summary").innerText()).toMatch(/· 1 run$/);
+    expect(await page.locator("[data-testid=runtime-version-rows] tbody tr").count()).toBe(1);
+    expect(await page.getByTestId("versions-other-configs").innerText()).toContain("1 other runtime config");
+    expect(await page.getByTestId("run-history").innerText()).toContain("2026-10-28 · single-turn-8k");
+    await go("throughput?run=qwen3.8-27b.fp8.vllm.baseline");
     // ITL chart: the C_max label never sits on the dashed ITL p95 threshold line (fixture ITL p95 22.5 ms at C_max vs 26 ms).
     const itl = page.locator('[data-chart-panel="inter-token-latency"]');
     await itl.scrollIntoViewIfNeeded();
@@ -1330,16 +1769,21 @@ describe("measured-data views (TEST fixture runs via RUNS_FILE)", () => {
     expect(await row("coding-agent-48-turn").locator("xpath=ancestor::*[@data-testid='verdicts-unmeasured']").innerText()).toContain("No engine pair on these 4 workloads");
     expect(await page.locator('[data-testid=verdicts-unmeasured] [data-verdict-workload][data-verdict-kind="none"]').count()).toBe(4);
     expect(await row("coding-agent-48-turn").locator('[data-workload-engine]').count()).toBe(0);
-    // Every measured version on the active dataset: newest run first; Δ prev only vs an older release of the same engine and configuration.
+    // Every measured version on the active dataset: newest run first; Δ prev only vs an older release of the same engine,
+    // configuration and recorded runtime config. Fixture: 10 runs of qwen3.8-27b × 1 GPU on single-turn-8k.
     const versions = page.locator("[data-version-row]");
+    expect(await versions.count()).toBe(10);
     expect(await versions.first().getAttribute("data-version-row")).toBe("sglang-v0.5.23");
-    expect(await page.locator('[data-version-row="sglang-v0.5.23"] [data-delta]').getAttribute("data-delta")).toBe("none");
-    const latest = page.locator('[data-version-row="vllm-v0.33.0"]');
+    const version = (tag: string, config: string) => page.locator(`[data-version-row="${tag}"][data-version-config="${config}"]`);
+    expect(await version("sglang-v0.5.23", "qwen3.8-27b.fp8.sglang.baseline").locator("[data-delta]").getAttribute("data-delta")).toBe("none");
+    // Two v0.33.0 runs of the FP8 vLLM baseline: the newest (prefix cache off) first, then the prefix-cache-on runtime config.
+    const latest = version("vllm-v0.33.0", "qwen3.8-27b.fp8.vllm.baseline").first();
+    expect(await version("vllm-v0.33.0", "qwen3.8-27b.fp8.vllm.baseline").nth(1).locator("[data-delta]").getAttribute("data-delta")).toBe("none");
     expect(await latest.innerText()).toContain("2,882,918");
     // Fixture: vllm-v0.32.0 (1,876,709) is the older release of the same configuration, so v0.33.0 reads +53.6%.
     expect(await latest.locator("[data-delta]").getAttribute("data-delta")).toBe("+53.6%");
     expect(await latest.innerText()).toContain("vs vllm-v0.32.0");
-    expect(await page.locator('[data-version-row="vllm-v0.32.0"] [data-delta]').getAttribute("data-delta")).toBe("none");
+    expect(await version("vllm-v0.32.0", "qwen3.8-27b.fp8.vllm.baseline").locator("[data-delta]").getAttribute("data-delta")).toBe("none");
     // Selecting a workload makes it the active dataset; the matchup follows.
     await row("chat-8-turn").getByRole("button", { name: "Show workload chat-8-turn" }).click();
     await page.waitForFunction(() => location.hash.includes("workload=chat-8-turn"));
@@ -1375,31 +1819,41 @@ describe("measured-data views (TEST fixture runs via RUNS_FILE)", () => {
     // Throughput by runtime version: vLLM stays chart-1 and SGLang chart-2; the older vLLM version is lighter and dashed.
     const legend = page.locator('[data-chart-panel="throughput-by-runtime-version"] [data-series-legend]');
     const entries = await legend.evaluateAll((items) => items.map((item) => ({ text: (item as HTMLElement).innerText, color: item.getAttribute("data-series-color") ?? "", dash: item.getAttribute("data-series-dash") })));
-    expect(entries.length).toBe(3);
+    // Fixture: four vLLM runs of the pair's FP8 export (v0.33.0 twice with different runtime configs, v0.32.0, v0.31.0) and one SGLang run.
+    expect(entries.length).toBe(5);
     for (const entry of entries) expect(entry.color).toContain(entry.text.includes("vLLM") ? "--chart-1" : "--chart-2");
-    const newest = entries.find((entry) => entry.text.includes("v0.33.0"))!, older = entries.find((entry) => entry.text.includes("v0.32.0"))!;
-    expect(newest.dash).toBe("solid");
+    const v033 = entries.filter((entry) => entry.text.includes("v0.33.0")), older = entries.find((entry) => entry.text.includes("v0.32.0"))!;
+    expect(v033).toHaveLength(2);
+    const newest = v033.find((entry) => entry.dash === "solid")!;
     expect(newest.color).toBe("var(--chart-1)");
+    expect(v033.filter((entry) => entry.dash === "solid")).toHaveLength(1);
     expect(older.dash).not.toBe("solid");
     expect(older.color).toContain("color-mix");
+    // Two runtime configs share v0.33.0: the legend tells them apart by the knob chips that differ (no duplicate label).
+    expect(new Set(entries.map((entry) => entry.text)).size).toBe(entries.length);
+    expect(v033.some((entry) => entry.text.includes("prefix cache on"))).toBe(true);
     // The page no longer repeats the pair or the runtime timeline as separate panels.
     expect(await page.getByRole("heading", { name: "Runtime versions" }).count()).toBe(0);
     expect(await page.locator("[data-engine-side]").evaluateAll((items) => items.every((item) => item.closest("[data-testid=engine-baseline-pair]") !== null))).toBe(true);
     expect(pageErrors).toEqual([]);
   });
 
-  test("throughput: SLO evaluation above the fold at 1440, compact profile strip below it; configuration labels the atlas flag", async () => {
+  test("throughput: compact profile strip directly under the KPI strip, SLO evaluation still above the fold at 1440; configuration labels the atlas flag", async () => {
     await go("throughput?run=qwen3.8-27b.fp8.vllm.baseline");
     const slo = page.locator("#slo-evaluation");
     await slo.waitFor();
     const sloBox = (await slo.boundingBox())!;
     expect(sloBox.y).toBeLessThan(900);
-    // The table header and first level are inside the first viewport (profile tiles no longer sit above it).
+    // The table header and first level are inside the first viewport, below the compact profile strip.
     const first = (await page.locator("[data-testid=slo-evaluation] tbody tr").first().boundingBox())!;
     expect(first.y + first.height).toBeLessThanOrEqual(900);
     const strip = page.getByTestId("profile-strip");
-    expect((await strip.boundingBox())!.y).toBeGreaterThan(sloBox.y);
-    expect((await strip.boundingBox())!.height).toBeLessThan(140);
+    const kpi = (await page.getByTestId("performance-strip").boundingBox())!;
+    const stripBox = (await strip.boundingBox())!;
+    expect(stripBox.y).toBeGreaterThanOrEqual(kpi.y + kpi.height);
+    expect(stripBox.y - (kpi.y + kpi.height)).toBeLessThanOrEqual(24);
+    expect(stripBox.y).toBeLessThan(sloBox.y);
+    expect(stripBox.height).toBeLessThan(140);
     await page.getByRole("tab", { name: "Configuration" }).click();
     const config = await page.getByTestId("run-configuration").innerText();
     expect(config).toMatch(/Imported runs\s*Measured here · \d+ runs?/);
@@ -1415,6 +1869,144 @@ describe("measured-data views (TEST fixture runs via RUNS_FILE)", () => {
     const [rBox, hBox] = [(await runtime.boundingBox())!, (await page.getByTestId("throughput-hardware").boundingBox())!];
     expect(hBox.y).toBeGreaterThan(rBox.y);
     expect(await overflow()).toBeLessThanOrEqual(0);
+    expect(pageErrors).toEqual([]);
+  });
+
+  test("throughput: external curves toggle — same GPU + engine by default, overlay only on the chart's metric, small multiples otherwise, sources and flags", async () => {
+    const turnOn = async () => {
+      const toggle = page.getByTestId("external-curves-toggle");
+      if ((await toggle.getAttribute("aria-pressed")) !== "true") await toggle.click();
+      await page.getByTestId("published-curves").waitFor();
+    };
+    // FP8 vLLM on 1× B300: the default scope (B300 · vLLM) holds published ladders in other metrics only, so the main
+    // chart keeps one series and each published curve gets its own small chart with its own title and axis.
+    await go("throughput?run=qwen3.8-27b.fp8.vllm.baseline");
+    expect(await page.getByTestId("published-curves").count()).toBe(0);
+    await turnOn();
+    expect(await page.locator('[data-testid=published-scope] [data-scope="same"]').getAttribute("data-state")).toBe("on");
+    const listed = page.locator("[data-testid=published-curve-list] > li");
+    expect(await listed.count()).toBeGreaterThan(0);
+    expect(await page.locator("[data-testid=published-curve-list] > li[data-overlay]").count()).toBe(0);
+    for (const hardware of await listed.locator("[data-hardware]").evaluateAll((items) => items.map((item) => item.getAttribute("data-hardware")))) expect(hardware).toBe("B300");
+    expect(await page.getByTestId("throughput-chart").getAttribute("data-external-curves")).toBeNull();
+    expect(await page.locator('[data-legend="external"]').count()).toBe(0);
+    expect(await page.locator("[data-small-multiple]").count()).toBe(await listed.count());
+    // Every curve names its source (link), engine version with its audit class and the plotted metric.
+    expect(await listed.first().locator("[data-source-link]").getAttribute("href")).toMatch(/^https:\/\//);
+    expect(await listed.first().locator("[data-audit-class]").count()).toBe(1);
+    expect(await listed.first().locator("[data-plotted-metric]").count()).toBe(1);
+    // NVFP4 SGLang MTP: no SGLang ladder on B300, so the default scope explains it; "Same engine" brings H200 ladders
+    // in total tok/s per GPU (the chart's metric), drawn on the chart in neutral grey and tagged; the others stay below.
+    await go("throughput?run=qwen3.8-27b.nvfp4.sglang.mtp");
+    await turnOn();
+    expect(await page.getByTestId("published-empty").innerText()).toContain("No published concurrency ladder");
+    await page.locator('[data-testid=published-scope] [data-scope="engine"]').click();
+    await page.getByTestId("published-curve-list").waitFor();
+    const overlayRows = page.locator("[data-testid=published-curve-list] > li[data-overlay][data-chosen]");
+    const drawn = await overlayRows.count();
+    expect(drawn).toBeGreaterThan(0);
+    expect(drawn).toBeLessThanOrEqual(4);
+    const chart = page.getByTestId("throughput-chart");
+    expect(await chart.getAttribute("data-external-curves")).toBe(String(drawn));
+    expect(await chart.locator("[data-external-tag]").count()).toBe(drawn);
+    expect(await page.locator('[data-legend="external"]').innerText()).toContain("Published (external)");
+    expect(await chart.getAttribute("data-external-curves")).not.toBeNull();
+    // The H200 ladders ran other ISL/OSL than the run's 8K → 500: the legend says so per tag, and so does the list.
+    expect(await page.locator('[data-legend="workload-differs"]').innerText()).toMatch(/workload differs[\s\S]*P\d+ ISL [\d,]+ \/ OSL [\d,]+/);
+    expect(await overlayRows.first().locator("[data-workload-differs]").innerText()).toBe("workload differs");
+    // Tooltip: each P-tag line carries its ISL/OSL.
+    const box = await chart.locator(".recharts-surface").first().boundingBox();
+    for (const fraction of [0.15, 0.3, 0.5, 0.7, 0.9]) {
+      await page.mouse.move(box!.x + box!.width * fraction, box!.y + box!.height / 2);
+      if (await page.locator("[data-tooltip-curve] [data-workload-differs]").first().isVisible().catch(() => false)) break;
+    }
+    expect(await page.locator("[data-tooltip-curve] [data-workload-differs]").first().innerText()).toMatch(/^ISL [\d,]+ \/ OSL [\d,]+ · workload differs$/);
+    // Measured evidence is unchanged by the overlay: C_max ring and the sustainable line still come from the run.
+    expect(await chart.locator("[data-cmax-label]").count()).toBeLessThanOrEqual(1);
+    const firstOverlay = overlayRows.first();
+    expect(await firstOverlay.locator('[data-plotted-metric="total-per-gpu"]').count()).toBe(1);
+    expect(await firstOverlay.locator("[data-hardware]").innerText()).toContain("not B300");
+    expect(await firstOverlay.locator('[data-flag="hardware-mismatch"]').innerText()).toBe("not B300");
+    // Unchecking a curve removes it from the chart.
+    await firstOverlay.getByRole("checkbox").click();
+    await page.waitForFunction((n) => document.querySelector('[data-testid="throughput-chart"]')?.getAttribute("data-external-curves") === (n ? String(n) : null), drawn - 1);
+    // Weak records are hidden by default; the switch only adds records.
+    const before = await page.locator("[data-testid=published-curve-list] > li").count();
+    await page.getByTestId("published-show-weak").click();
+    expect(await page.locator("[data-testid=published-curve-list] > li").count()).toBeGreaterThanOrEqual(before);
+    // 390 px: no document overflow; Expand stays a direct button on the chart panel and opens the dialog.
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.waitForTimeout(150);
+    expect(await overflow()).toBeLessThanOrEqual(0);
+    const expand = page.locator("section", { has: page.locator('[data-chart-panel="total-throughput-vs-concurrency"]') }).locator('[data-chart-action="expand-direct"]');
+    expect(await expand.isVisible()).toBe(true);
+    await expand.click();
+    await page.getByTestId("chart-dialog").waitFor();
+    await page.keyboard.press("Escape");
+    await page.getByTestId("chart-dialog").waitFor({ state: "detached" });
+    expect(pageErrors).toEqual([]);
+  });
+
+  test("engine: published vLLM vs SGLang small multiples per GPU (external, no verdict); argument differences use the matchup's normalised controls", async () => {
+    await go("engine?pair=qwen3.8-27b.fp8@1");
+    const published = page.getByTestId("engine-published");
+    await published.waitFor();
+    const charts = published.locator("[data-published-hardware]");
+    expect(await charts.count()).toBeGreaterThan(0);
+    expect(await charts.first().getAttribute("data-published-hardware")).toBe("B300");
+    // One metric per chart; every legend entry is a vLLM or SGLang ladder of this GPU with its source and audit class.
+    for (const chart of await charts.all()) {
+      const hardware = await chart.getAttribute("data-published-hardware");
+      const entries = chart.locator("[data-published-engine]");
+      expect(await entries.count()).toBeGreaterThan(0);
+      for (const engine of await entries.evaluateAll((items) => items.map((item) => item.getAttribute("data-published-engine") ?? ""))) expect(["vllm", "sglang"]).toContain(engine);
+      for (const value of await chart.locator("[data-hardware]").evaluateAll((items) => items.map((item) => item.getAttribute("data-hardware")))) expect(value).toBe(hardware);
+      expect(await chart.locator("[data-source-link]").count()).toBe(await entries.count());
+      expect(await chart.locator("[data-audit-class]").count()).toBe(await entries.count());
+      // The plotted metric is the chart subtitle (one per chart), not a chip on every legend line; x is log concurrency.
+      expect(await chart.locator("[data-chart-metric]").getAttribute("data-chart-metric")).toBe(await chart.getAttribute("data-published-kind"));
+      expect(await chart.locator("[data-published-engine] [data-plotted-metric]").count()).toBe(0);
+      expect(await chart.innerText()).toContain("Concurrent requests (log scale)");
+      // Caveats fold to two chips plus "+N" per legend line.
+      for (const flags of await chart.locator('[data-published-engine] [data-testid="published-flags"]').all()) expect(await flags.locator("[data-flag]").count()).toBeLessThanOrEqual(2);
+    }
+    // H200: vLLM and SGLang ladders ran different ISL/OSL, so the chart says "workloads differ" and lists each workload
+    // with its tags; B300 (one shared workload) carries no such chip.
+    const h200 = published.locator('[data-published-hardware="H200"]');
+    expect(await h200.getByTestId("published-workloads-differ").innerText()).toBe("workloads differ");
+    expect(await h200.getByTestId("published-workload-list").innerText()).toBe("V1, V2: ISL 61 / OSL 1,152 · S1, S2: ISL 1,024 / OSL 256");
+    expect(await published.locator('[data-published-hardware="B300"]').getByTestId("published-workloads-differ").count()).toBe(0);
+    // External only: no verdict, Δ or tie is derived from published ladders.
+    expect(await page.locator("#engine-published").innerText()).not.toMatch(/matched pair|engines tied|[+−]\d+(\.\d)?% (vLLM|SGLang)/);
+    // Argument differences read the same normalised controls as the matchup: the fixture's recorded fp8 vs fp8_e4m3,
+    // 256 vs 256 sequences and memory fraction 0.85 (configured) vs 0.85 (recorded) are identical, as the matched
+    // pair verdict says; none of these rows is listed as a difference.
+    for (const label of ["KV-cache dtype", "Max concurrent sequences", "Memory fraction"]) {
+      const row = page.locator(`[data-arg-row="${label}"]`);
+      expect(await row.getAttribute("data-normalised")).toBe("true");
+      expect(await row.evaluate((el) => el.closest("details")?.querySelector("summary")?.textContent ?? "")).toContain("Identical values");
+    }
+    expect(await page.locator('[data-arg-row="KV-cache dtype"]').textContent()).toContain("kv_cache_dtype fp8_e4m3 (recorded)");
+    expect(await page.locator('[data-arg-row="Memory fraction"]').textContent()).toContain("--gpu-memory-utilization 0.85 (configured)");
+    expect(await page.getByTestId("matchup-verdict").getAttribute("data-verdict-kind")).toBe("lead");
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.waitForTimeout(150);
+    expect(await overflow()).toBeLessThanOrEqual(0);
+    expect(pageErrors).toEqual([]);
+  });
+
+  test("TL;DR published sub-rows: per-user units normalised, four aligned cells per record", async () => {
+    await go("tldr");
+    const lines = page.locator("tr[data-published-row] [data-published-record]");
+    await lines.first().waitFor();
+    for (const line of await lines.all()) {
+      expect(await line.locator('[data-cell]').count()).toBe(4);
+      const unit = await line.locator("[data-unit]").getAttribute("data-unit");
+      if (unit !== null) expect(unit).not.toBe("tok/s");
+    }
+    // Same grid: the source cell starts at the same x on every sub-row.
+    const xs = await lines.locator('[data-cell="source"]').evaluateAll((cells) => cells.map((cell) => Math.round(cell.getBoundingClientRect().x)));
+    expect(new Set(xs).size).toBe(1);
     expect(pageErrors).toEqual([]);
   });
 

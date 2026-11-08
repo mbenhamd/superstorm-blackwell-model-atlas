@@ -10,9 +10,12 @@ import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Timeline, TimelineConnector, TimelineContent, TimelineHeader, TimelineItem, TimelineMarker, TimelineRail, TimelineTime, TimelineTitle } from "@/components/ui/timeline";
 import { capacity, tieBand } from "../../domain/metrics.js";
 import { splitRuntime } from "../../domain/catalog.js";
+import { configChips } from "../../domain/config-chips.js";
+import { CONTROLS, effectiveControls, type ControlKey, type ControlValue } from "../../domain/run-config.js";
 import type { Deployment } from "../../domain/types.js";
 import { SweepChart } from "../components/app/charts.js";
-import { ChartPanel } from "../components/app/chart-panel.js";
+import { ExpandableChartPanel as ChartPanel } from "../components/app/throughput-chart-panel.js";
+import { EnginePublished } from "../components/app/engine-published.js";
 import { CommandBlock } from "../components/app/command-block.js";
 import { HeadToHead } from "../components/app/head-to-head.js";
 import { NotMeasuredBlock } from "../components/app/not-measured-block.js";
@@ -46,7 +49,14 @@ export function enginePairs(deployments: Deployment[]): EnginePair[] {
   return pairs;
 }
 
-/** Flag-name mapping between the engines. Names map; semantics can differ and are not asserted equal. */
+/**
+ * Flag-name mapping between the engines. Names map; semantics can differ and are not asserted equal. The five
+ * engine-equivalent runtime controls (CONTROL_ROWS) are not read from these flags but from the same normalised values
+ * the matchup verdict uses (domain/run-config.ts), so both views agree.
+ */
+const CONTROL_ROWS: Partial<Record<string, ControlKey>> = {
+  "Context length": "max_model_len", "Memory fraction": "memory_fraction", "Max concurrent sequences": "max_num_seqs", "KV-cache dtype": "kv_cache_dtype", "Prefix cache": "prefix_caching",
+};
 const concepts: [string, string[], string[]][] = [
   ["Model revision", ["--revision"], ["--revision"]],
   ["Tensor parallel", ["--tensor-parallel-size", "-tp"], ["--tp-size", "--tp"]],
@@ -57,6 +67,7 @@ const concepts: [string, string[], string[]][] = [
   ["Max concurrent sequences", ["--max-num-seqs"], ["--max-running-requests"]],
   ["Prefill chunk", ["--max-num-batched-tokens"], ["--chunked-prefill-size"]],
   ["KV-cache dtype", ["--kv-cache-dtype"], ["--kv-cache-dtype"]],
+  ["Prefix cache", ["--enable-prefix-caching", "--no-enable-prefix-caching"], ["--disable-radix-cache"]],
   ["Quantization", ["--quantization"], ["--quantization"]],
   ["Attention backend", ["--attention-backend", "--attention-config"], ["--attention-backend"]],
   ["MoE backend", ["--moe-backend"], ["--moe-runner-backend"]],
@@ -208,32 +219,53 @@ function Controls({ a, b }: { a: Deployment; b: Deployment }) {
 
 const flagValue = (text: string | null) => text?.replace(/^\S+\s?/, "") ?? null;
 
-function ArgumentsDiff({ pair }: { pair: EnginePair }) {
+/** "--kv-cache-dtype fp8" / "kv_cache_dtype fp8_e4m3" with its source; null when neither run nor command sets it. */
+const controlCell = (value: ControlValue): string | null => value.value === null ? null : `${value.field ?? value.key} ${value.raw ?? value.value}`.replace(/ on$/, "");
+
+interface ArgRow { label: string; vllm: string | null; sglang: string | null; same: boolean; sources?: [ControlValue["source"], ControlValue["source"]] }
+
+/**
+ * Argument differences of the baseline pair. Runtime controls (KV dtype, max sequences, memory fraction, prefix cache,
+ * context length) come from the measured runs' recorded runtime_config, else the configured command, normalised as
+ * the matchup verdict normalises them (fp8 ≈ fp8_e4m3); every other row maps the configured command flags (catalog).
+ */
+function ArgumentsDiff({ pair, a: shownA, b: shownB }: { pair: EnginePair; a: Deployment; b: Deployment }) {
   const a = flags(pair.vllm.engineArgs), b = flags(pair.sglang.engineArgs);
   const used = new Set<string>();
   const pick = (map: Map<string, string>, names: string[]) => {
     for (const name of names) if (map.has(name)) { used.add(name); return `${name} ${map.get(name)}`.replace(/ on$/, ""); }
     return null;
   };
-  const rows = concepts.map(([label, va, sg]) => ({ label, vllm: pick(a, va), sglang: pick(b, sg) })).filter((row) => row.vllm || row.sglang);
+  const controlsA = effectiveControls(shownA), controlsB = effectiveControls(shownB);
+  for (const spec of CONTROLS) for (const flag of spec.flags) used.add(flag);
+  const rows: ArgRow[] = concepts.map(([label, va, sg]): ArgRow => {
+    const key = CONTROL_ROWS[label];
+    if (key) {
+      const x = controlsA.find((item) => item.key === key)!, y = controlsB.find((item) => item.key === key)!;
+      return { label, vllm: controlCell(x), sglang: controlCell(y), same: x.value === y.value, sources: [x.source, y.source] };
+    }
+    const vllm = pick(a, va), sglang = pick(b, sg);
+    return { label, vllm, sglang, same: vllm !== null && sglang !== null && flagValue(vllm) === flagValue(sglang) };
+  }).filter((row) => row.vllm || row.sglang);
   const rest = (map: Map<string, string>) => [...map].filter(([name]) => !used.has(name)).map(([name, value]) => value === "on" ? name : `${name} ${value}`);
   const otherA = rest(a), otherB = rest(b);
-  const same = (row: (typeof rows)[number]) => row.vllm !== null && row.sglang !== null && flagValue(row.vllm) === flagValue(row.sglang);
-  const differing = rows.filter((row) => !same(row)), matching = rows.filter(same);
-  const cell = (value: string | null) => value ?? <span className="text-muted-foreground font-sans">default</span>;
-  const row = (r: (typeof rows)[number]) => (
-    <TableRow key={r.label} data-arg-row={r.label}>
-      <TableCell className="text-ink-2 whitespace-nowrap">{r.label}</TableCell>
-      <TableCell className="font-mono text-xs break-all whitespace-normal">{cell(r.vllm)}</TableCell>
-      <TableCell className="font-mono text-xs break-all whitespace-normal">{cell(r.sglang)}</TableCell>
+  const differing = rows.filter((row) => !row.same), matching = rows.filter((row) => row.same);
+  const cell = (value: string | null, source?: ControlValue["source"]) => value === null
+    ? <span className="text-muted-foreground font-sans">default</span>
+    : <>{value}{source && source !== "default" ? <span className="text-muted-foreground font-sans" data-control-source={source}> ({source})</span> : null}</>;
+  const row = (r: ArgRow) => (
+    <TableRow key={r.label} data-arg-row={r.label} data-normalised={r.sources ? "true" : undefined}>
+      <TableCell className="text-ink-2 whitespace-nowrap">{r.label}{r.sources ? <span className="text-muted-foreground block text-[11px]">normalised</span> : null}</TableCell>
+      <TableCell className="font-mono text-xs break-all whitespace-normal">{cell(r.vllm, r.sources?.[0])}</TableCell>
+      <TableCell className="font-mono text-xs break-all whitespace-normal">{cell(r.sglang, r.sources?.[1])}</TableCell>
     </TableRow>
   );
   return (
     <Panel
       title={<span className="inline-flex items-center gap-1.5">Argument differences
-        <Tooltip><TooltipTrigger asChild><Info tabIndex={0} className="text-muted-foreground size-3.5 cursor-help" aria-label="About flag mapping" /></TooltipTrigger><TooltipContent className="max-w-72">A row maps related flags. Semantics can differ.</TooltipContent></Tooltip>
+        <Tooltip><TooltipTrigger asChild><Info tabIndex={0} className="text-muted-foreground size-3.5 cursor-help" aria-label="About flag mapping" /></TooltipTrigger><TooltipContent className="max-w-72 text-pretty">A row maps related flags. Semantics can differ. Rows marked normalised use the matchup's values (recorded runtime_config, else the configured command; fp8 ≈ fp8_e4m3, max_num_seqs ≈ max_running_requests, gpu_memory_utilization ≈ mem_fraction_static).</TooltipContent></Tooltip>
       </span>}
-      description="Configured commands (catalog). A run's recorded runtime_config takes precedence for the matchup and verdicts."
+      description="Runtime controls as the matchup reads them (recorded runtime_config, else configured; normalised); other flags from the configured commands (catalog)."
       actions={<Badge variant="neutral">{differing.length + (otherA.length || otherB.length ? 1 : 0)} differ · {matching.length} same</Badge>}
       bodyClassName="px-0 pb-0"
     >
@@ -360,6 +392,16 @@ function VersionChart({ pair }: { pair: EnginePair }) {
   });
   const multiVersion = (["vLLM", "SGLang"] as const).some((runtime) => measured.filter((d) => d.runtime === runtime).length > 1);
   if (!multiVersion) return null;
+  // Runs sharing one version of one configuration (several recorded runtime configs) are told apart by the knob chips
+  // that differ between them, so the legend never lists the same label twice.
+  const chipsOf = (d: Deployment) => configChips({ runConfig: d.runConfig, engineArgs: [] });
+  for (const d of measured) {
+    const twins = measured.filter((other) => other.configurationId === d.configurationId && other.runtimeTag === d.runtimeTag);
+    if (twins.length < 2) continue;
+    const common = chipsOf(d).filter((chip) => twins.every((other) => chipsOf(other).includes(chip)));
+    const own = chipsOf(d).filter((chip) => !common.includes(chip)).slice(0, 2);
+    d.knob = [d.knob, own.length ? own.join(" · ") : `run ${d.measuredAt?.slice(0, 10) ?? ""}`].filter(Boolean).join(" · ");
+  }
   const shown = measured.slice(-6);
   // Rank within the engine, newest run first: rank 0 is the full engine colour, solid.
   const rank = (d: Deployment) => shown.filter((other) => other.runtime === d.runtime && (other.measuredAt ?? "") > (d.measuredAt ?? "")).length;
@@ -472,7 +514,8 @@ export function EnginePage() {
       ) : (
         <NotMeasuredBlock testId="engine-charts-empty" planFor={pair.vllm.id} description="Sustainable throughput and ITL p95 against concurrency for both engines appear once either configuration has an imported run." />
       )}
-      <ArgumentsDiff pair={pair} />
+      <EnginePublished modelId={pair.vllm.modelId} modelName={modelName} />
+      <ArgumentsDiff pair={pair} a={a} b={b} />
       <ServeCommands a={a} b={b} />
       <MatchedPairs pairs={pairs} active={pair.key} />
     </div>

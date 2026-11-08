@@ -2,7 +2,7 @@
 
 ## Read first
 
-Read `README.md`, `DESIGN.md`, `docs/VERIFICATION.md`, and the relevant architecture decision (ADR 0005 for the client) before editing. Keep the nine routes (tldr, intelligence, throughput, compare, engine, models, deployments, new-benchmark, methodology) and every legacy alias in `src/client/state.ts` functional.
+Read `README.md`, `DESIGN.md`, `docs/VERIFICATION.md`, and the relevant architecture decision (ADR 0005 for the client) before editing. Keep the ten routes (tldr, intelligence, throughput, compare, engine, models, deployments, published, new-benchmark, methodology) and every legacy alias in `src/client/state.ts` functional.
 
 Bench Console is an original prototype with a Linear-derived visual system. Do not add third-party logos, proprietary fonts, real customer data, or approval claims. Show only traceable data: the pinned atlas snapshot, pinned Hugging Face cards and published Artificial Analysis scores until bench results are imported. Never add mock or estimated measurements; keep provenance (catalog date, evidence class) on every view and export; do not show the source repository name or commit in the UI. Show the configured engine release, never the latest recheck release, as the build. Image captures are written outside the repository.
 
@@ -15,8 +15,9 @@ Target Bun 1.4.0+, TypeScript 7, React 19, Tailwind CSS 4.3.5, Effect 4, and Pos
 ```sh
 bun install --frozen-lockfile
 bun scripts/import-atlas.ts --check   # committed snapshot matches ../catalog (parent repository only)
+bun scripts/import-external.ts --check  # committed external dataset valid, canonical, docs/SOURCES.md in sync
 bun run typecheck      # bunx tsc -p tsconfig.json --noEmit && bunx tsc -p tsconfig.client.json --noEmit
-bun run test:unit      # domain, engine, repository, runs, scale, search
+bun run test:unit      # domain, engine, repository, runs, scale, search, variants, external, tldr, published-view
 bun run build          # public/ + preview.html
 bun run browser:install  # Playwright Chromium, once per machine
 bun run test:browser   # after a fresh build
@@ -29,6 +30,7 @@ Add shadcn or dashboardcn components with `bunx shadcn@latest add <name>` / `@da
 ## Data flow
 
 - `bun run import:atlas` reads `../catalog/*.json` and `../evidence/sources.json`, so it works only inside the parent atlas repository; it writes the committed `src/data/atlas.json`. Builds, tests and static deploys use the committed snapshot and never run it.
+- `bun run import:external <research-export.json>` (or `EXTERNAL_SOURCE=<file>`) transforms an external published-results export (concurrency ladders and points with engine-version audits) into the committed `data/external-benchmarks.json` and regenerates the external source table in `docs/SOURCES.md`; `--check [<file>]` validates the committed file (schema, unique ids, sources, catalog model/configuration ids, labelled flags, no local paths), its canonical form and the docs table, and with a source also that a fresh import changes nothing. The client bundles the file (`src/client/lib/external.ts`); its evidence class is "external", distinct from "measured" and "reference", and it never enters `rank()`, `capacity()`, standings, variants, champions, frontier, Compare deltas or CSV measured columns (`tests/external.test.ts` checks the import graph).
 - `bun run import:runs <file.json> [--dry-run] [--replace-older] [--dataset-map=<map.json>]` validates bench run exports and writes them to PostgreSQL; it refuses files with `"_test"` entries (`--dry-run` still validates them).
 - `RUNS_FILE=<file.json>` loads a validated runs file into the memory store of the API server only; the static build never carries runs.
 
@@ -38,7 +40,7 @@ Migrations 003 and 004 have not been applied to any database; no real bench run 
 
 ## Architecture boundaries
 
-`src/domain` is pure, framework-independent TypeScript. It owns the catalog mapping plus run-identity parsing and matching (`catalog.ts`: `parseIdentity`, `parseMetricRow`, `matchConfiguration`, `applyRuns`), metrics (`metrics.ts`), knob chips (`config-chips.ts`), comparison eligibility, validation and experiment transitions (`validation.ts`). Run-file parsing, canonical identity and upsert live at the boundary in `src/server/runs.ts`, which calls the domain parsers. No DOM, SQL, network calls, clocks, or UI state belong in metric calculations.
+`src/domain` is pure, framework-independent TypeScript. It owns the catalog mapping plus run-identity parsing and matching (`catalog.ts`: `parseIdentity`, `parseMetricRow`, `matchConfiguration`, `applyRuns`, `measuredDeployment`), metrics (`metrics.ts`, incl. `sweepCapacity`), setup standings (`setups.ts`), measured variants (`variants.ts`: runs grouped by configuration × shape × canonical runtime_config × dataset, best run across engine versions, run/runtime counts, planning rows), knob chips (`config-chips.ts`), external published results (`external.ts`: parsing, validation, selectors; never a ranking input), comparison eligibility, validation and experiment transitions (`validation.ts`). Run-file parsing, canonical identity and upsert live at the boundary in `src/server/runs.ts`, which calls the domain parsers. No DOM, SQL, network calls, clocks, or UI state belong in metric calculations.
 
 `src/client` owns rendering and interaction: React + Tailwind v4 + shadcn/ui + dashboardcn (ADR 0005). State lives in `state.ts` (external store + `useSyncExternalStore`, hash routing, URL sync, local storage). Tokens live in `styles.css` and mirror DESIGN.md. Shared app components are in `components/app/`; vendor components in `components/ui/` are edited in place. Chart scale helpers in `scale.ts` are covered by `tests/scale.test.ts`.
 

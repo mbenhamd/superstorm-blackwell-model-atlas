@@ -4,32 +4,35 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip
 import { cn } from "@/lib/utils";
 import { hasMeasuredLevels, setupStandings, type SetupEntry } from "../../../domain/setups.js";
 import type { RankedDeployment, Workload } from "../../../domain/types.js";
+import type { VariantRow } from "../../../domain/variants.js";
 import { updateView, useAppState } from "../../state.js";
 import { num, runtimeTag, workloadBudget } from "../../lib/display.js";
 import { NARROW_MD, useMediaQuery } from "../../lib/use-media.js";
 import { openRun } from "./overlays.js";
 import { Panel } from "./primitives.js";
-import { rowsFor, setupName, shapeLabel, useRowsByWorkload } from "./tldr-data.js";
-import { signedPercent, TIE_NOTE } from "./tldr-setups.js";
+import { rowsFor, shapeLabel, useVariantRowsByWorkload, variantName } from "./tldr-data.js";
+import { catalogOrder, signedPercent, TIE_NOTE } from "./tldr-parts.js";
 
 /*
  * Champions by workload: for the selected model × GPU shape, the best setup on every dataset (sustainable tok/min/GPU
  * and C_max under the active SLO) and its challengers with their Δ vs that champion. Leaders are never pooled across
- * datasets. Selecting a workload makes it the active (top-bar) workload.
+ * datasets. Setups are measured variants (configuration × recorded runtime_config, best run across engine versions), as
+ * in the ladder. Selecting a workload makes it the active (top-bar) workload.
  */
 
 const INLINE = 3;
 const PRESET: Record<string, string> = { classic: "Classic", "low-latency": "Low-latency", frontier: "Frontier", custom: "Custom" };
 
-interface ChampionRow { workload: Workload; entries: SetupEntry[]; champion: SetupEntry | null; challengers: SetupEntry[]; measured: number }
+interface ChampionRow { workload: Workload; rows: VariantRow[]; entries: SetupEntry<VariantRow>[]; champion: SetupEntry<VariantRow> | null; challengers: SetupEntry<VariantRow>[]; measured: number }
 
 function useChampionRows(modelId: string, shape: string): ChampionRow[] {
   const state = useAppState();
-  const byWorkload = useRowsByWorkload();
+  const byWorkload = useVariantRowsByWorkload();
   return state.snapshot.workloads.map((workload) => {
-    const entries = setupStandings(rowsFor(byWorkload.get(workload.id), modelId, shape));
+    const rows = rowsFor(byWorkload.get(workload.id), modelId, shape).sort(catalogOrder);
+    const entries = setupStandings(rows);
     return {
-      workload, entries,
+      workload, rows, entries,
       champion: entries.find((entry) => entry.standing.kind === "best") ?? null,
       challengers: entries.filter((entry) => entry.standing.kind === "tie" || entry.standing.kind === "behind"),
       measured: entries.filter((entry) => hasMeasuredLevels(entry.row)).length,
@@ -40,12 +43,12 @@ function useChampionRows(modelId: string, shape: string): ChampionRow[] {
 const tpm = (row: RankedDeployment) => row.capacity.sustainableTpmPerGpu;
 
 /** One challenger: setup name and its Δ vs the champion ("tie −0.8%" inside the band). */
-function Challenger({ entry }: { entry: SetupEntry }) {
+function Challenger({ entry, rows }: { entry: SetupEntry<VariantRow>; rows: VariantRow[] }) {
   const standing = entry.standing;
   if (standing.kind !== "tie" && standing.kind !== "behind") return null;
   return (
-    <span className="inline-flex min-w-0 items-center gap-1.5 text-xs" data-challenger={entry.row.deployment.configurationId} data-delta={standing.kind}>
-      <span className="text-ink-2 min-w-0 truncate">{setupName(entry.row.deployment)}</span>
+    <span className="inline-flex min-w-0 items-center gap-1.5 text-xs" data-challenger={entry.row.deployment.configurationId} data-variant={entry.row.key} data-delta={standing.kind}>
+      <span className="text-ink-2 min-w-0 truncate" title={variantName(entry.row, rows)}>{variantName(entry.row, rows)}</span>
       {standing.kind === "tie" ? <Badge variant="neutral">tie</Badge> : null}
       <span className={cn("shrink-0 tabular-nums", standing.kind === "tie" ? "text-muted-foreground" : "text-foreground font-medium")}>{signedPercent(standing.fraction)}</span>
     </span>
@@ -58,14 +61,14 @@ function Challengers({ row }: { row: ChampionRow }) {
   const shown = row.challengers.slice(0, INLINE), rest = row.challengers.slice(INLINE);
   return (
     <span className="flex min-w-0 flex-col gap-0.5">
-      {shown.map((entry) => <Challenger key={entry.row.deployment.id} entry={entry} />)}
+      {shown.map((entry) => <Challenger key={entry.row.key} entry={entry} rows={row.rows} />)}
       {rest.length ? (
         <Tooltip>
           <TooltipTrigger asChild><button type="button" className="text-muted-foreground w-fit text-xs underline decoration-dotted underline-offset-2" onClick={(event) => event.stopPropagation()}>+{rest.length} more</button></TooltipTrigger>
           <TooltipContent className="max-w-80">
             <span className="flex flex-col gap-0.5">
               {rest.map((entry) => entry.standing.kind === "tie" || entry.standing.kind === "behind" ? (
-                <span key={entry.row.deployment.id} className="flex justify-between gap-4"><span className="truncate">{setupName(entry.row.deployment)}</span><span className="tabular-nums">{entry.standing.kind === "tie" ? "tie " : ""}{signedPercent(entry.standing.fraction)}</span></span>
+                <span key={entry.row.key} className="flex justify-between gap-4"><span className="truncate">{variantName(entry.row, row.rows)}</span><span className="tabular-nums">{entry.standing.kind === "tie" ? "tie " : ""}{signedPercent(entry.standing.fraction)}</span></span>
               ) : null)}
             </span>
           </TooltipContent>
@@ -82,11 +85,13 @@ function Champion({ row }: { row: ChampionRow }) {
       ? <Badge variant="critical" title="Measured, but no tested level meets the SLO">{row.measured} measured · none inside SLO</Badge>
       : <Badge variant="neutral" className="border-dashed" data-testid="champion-not-measured">Not measured</Badge>;
   }
-  const d = row.champion.row.deployment;
+  const champion = row.champion.row, d = champion.deployment;
+  const name = variantName(champion, row.rows);
+  const runtimes = champion.variant?.runtimeCount ?? 0;
   return (
-    <span className="flex min-w-0 flex-col gap-0.5">
-      <button type="button" className="hover:text-link min-w-0 truncate text-left text-[13px] font-medium hover:underline" title={setupName(d)} onClick={(event) => { event.stopPropagation(); openRun(d.id); }}>{setupName(d)}</button>
-      <span className="text-muted-foreground truncate font-mono text-[11px]">{runtimeTag(d)}</span>
+    <span className="flex min-w-0 flex-col gap-0.5" data-champion={champion.key}>
+      <button type="button" className="hover:text-link min-w-0 truncate text-left text-[13px] font-medium hover:underline" title={name} onClick={(event) => { event.stopPropagation(); openRun(d.id); }}>{name}</button>
+      <span className="text-muted-foreground truncate font-mono text-[11px]">{runtimeTag(d)}{runtimes > 1 ? <span className="font-sans"> · best of {runtimes} runtimes</span> : null}</span>
     </span>
   );
 }

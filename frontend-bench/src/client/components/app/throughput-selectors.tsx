@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { configChips } from "../../../domain/config-chips.js";
 import { recordedOverrides } from "../../../domain/run-config.js";
+import { groupVariants, variantKey, variantsOfConfiguration, type Variant } from "../../../domain/variants.js";
 import type { BenchmarkRun, Deployment, RankedDeployment } from "../../../domain/types.js";
 import { appState, routeUrl, updateView, useAppState } from "../../state.js";
 import {
@@ -14,13 +15,15 @@ import { shortSha } from "../../lib/atlas.js";
 import { CommandBlock } from "./command-block.js";
 import { addToCompare } from "./overlays.js";
 import { Combobox, type ComboOption } from "./pickers.js";
-import { ConfigChips, ErroredBadge, IncompleteBadge } from "./performance.js";
+import { ErroredBadge, IncompleteBadge } from "./performance.js";
 import { StatusBadge } from "./status-badge.js";
 import { openWorkloads } from "./workloads.js";
 
 /*
  * Throughput selector row: Base model → Runtime (engine · configured build) → Hardware (GPUs · shape) → Runtime config
- * (export × knob, with its knob chips and run count) → Run (date · dataset); Workloads and Add to compare are visible
+ * (one option per measured variant: export × knob × recorded runtime_config on the dataset, fronted by its best run
+ * across engine versions, "best of N runtimes"; one planning option per unmeasured setup) → Run (date · dataset);
+ * Workloads and Add to compare are visible
  * buttons in the page header (ThroughputActions). Each picker lists only what exists under the pickers to its left; changing one keeps the other
  * choices where a setup with them exists, else takes the best-ranked setup that matches. Below: the identity line.
  */
@@ -42,8 +45,12 @@ function Field({ label, children, className }: { label: string; children: React.
 const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? "" : "s"}`;
 const runsLabel = (n: number) => n ? plural(n, "run") : "no runs";
 
-export function ThroughputSelectors({ rows, base, shown, runs, onPickRun }: {
+interface ConfigChoice { configurationId: string; runId: string | null; variant: Variant | null }
+
+export function ThroughputSelectors({ rows, base, shown, runs, onPickRun, onPickConfig }: {
   rows: readonly RankedDeployment[]; base: RankedDeployment; shown: Deployment; runs: readonly BenchmarkRun[]; onPickRun: (run: BenchmarkRun) => void;
+  /** A runtime-config option: the configuration and, for a measured variant, its best run. */
+  onPickConfig: (configurationId: string, runId: string | null) => void;
 }) {
   const state = useAppState();
   const b = base.deployment;
@@ -59,7 +66,7 @@ export function ThroughputSelectors({ rows, base, shown, runs, onPickRun }: {
       ?? candidates.find((row) => row.deployment.artifactId === b.artifactId)
       ?? candidates.find((row) => row.deployment.knob === b.knob)
       ?? candidates[0];
-    if (pick) updateView((s) => { s.run = pick.deployment.configurationId; });
+    if (pick) updateView((s) => { s.run = pick.deployment.configurationId; s.runPick = ""; });
   };
   const unique = <T,>(items: readonly RankedDeployment[], key: (d: Deployment) => string, make: (d: Deployment, group: RankedDeployment[]) => T): T[] => {
     const seen = new Map<string, RankedDeployment[]>();
@@ -78,18 +85,47 @@ export function ThroughputSelectors({ rows, base, shown, runs, onPickRun }: {
   const hardwareOptions: ComboOption[] = unique(ofRuntime, hardwareKey, (d, group) => ({
     value: hardwareKey(d), label: hardwareLabel(d), detail: plural(group.length, "setup"), keywords: [shape(d), topology(d)],
   }));
+  // Measured variants on the active dataset under the active SLO (domain/variants.ts): a configuration measured with
+  // two recorded runtime_configs is two options; each states its best run across engine versions.
+  const variants = groupVariants(state.snapshot, state.slo);
+  const choices = new Map<string, ConfigChoice>();
+  const shownRun = allRuns.find((run) => run.id === shown.runId);
+  const shownKey = shownRun ? variantKey(shownRun) : null;
+  let currentValue = b.id;
   const configOptions: ComboOption[] = [...ofHardware]
     .sort((x, y) => precisionIndex(x.deployment.precision) - precisionIndex(y.deployment.precision) || x.deployment.exportLabel.localeCompare(y.deployment.exportLabel) || (x.deployment.knob ?? "").localeCompare(y.deployment.knob ?? ""))
-    .map(({ deployment: d, model, capacity }) => {
-      const chips = configChips(d);
-      const metric = !isMeasured(d) ? "not measured" : capacity.sustainableTpmPerGpu === null ? "measured · none inside SLO" : `${num(capacity.sustainableTpmPerGpu)} tok/min/GPU`;
-      return {
-        value: d.id, label: d.knob ?? "Baseline", group: `${model.name} · ${d.exportLabel}`,
-        detail: chips.length ? chips.join(" · ") : "default arguments",
-        meta: [runsLabel(runCount(d)), metric],
-        keywords: [d.id, d.exportLabel, d.precision, ...chips],
-      };
+    .flatMap(({ deployment: d, model }) => {
+      const group = `${model.name} · ${d.exportLabel}`, label = d.knob ?? "Baseline";
+      const own = variantsOfConfiguration(variants, d.configurationId, state.workload);
+      if (!own.length) {
+        const chips = configChips(d);
+        choices.set(d.id, { configurationId: d.configurationId, runId: null, variant: null });
+        return [{
+          value: d.id, label, group, detail: chips.length ? chips.join(" · ") : "default arguments",
+          meta: [runCount(d) ? `${runsLabel(runCount(d))} · none on this dataset` : "no runs", "not measured"], keywords: [d.id, d.exportLabel, d.precision, ...chips],
+        }];
+      }
+      // The variant holding the configuration's newest run on the dataset (what the page shows by default) keeps the
+      // configuration id as its value; other variants of the same configuration get a suffixed value.
+      const newest = allRuns.filter((run) => run.configurationId === d.configurationId && run.identity.dataset === state.workload).sort((x, y) => Date.parse(y.runDate) - Date.parse(x.runDate))[0];
+      const defaultKey = newest ? variantKey(newest) : own[0]!.key;
+      return own.map((variant, index) => {
+        const value = variant.key === defaultKey ? d.id : `${d.id}#${index + 1}`;
+        if (variant.key === shownKey) currentValue = value;
+        choices.set(value, { configurationId: d.configurationId, runId: variant.best.run.id, variant });
+        const best = variant.best.capacity.sustainableTpmPerGpu;
+        return {
+          value, label, group,
+          detail: variant.chips.length ? variant.chips.join(" · ") : "no recorded runtime_config keys",
+          meta: [
+            `${plural(variant.runCount, "run")}${variant.runtimeCount > 1 ? ` · best of ${variant.runtimeCount} runtimes` : ""}`,
+            best === null ? "measured · none inside SLO" : `${num(best)} tok/min/GPU`,
+          ],
+          keywords: [d.id, d.exportLabel, d.precision, ...variant.chips, ...variant.runtimeVersions],
+        };
+      });
     });
+  const currentVariant = choices.get(currentValue)?.variant ?? null;
   const runOptions: ComboOption[] = runs.map((run) => ({
     value: run.id, label: `${run.runDate.slice(0, 10)} · ${run.identity.dataset}`, detail: run.identity.runtimeVersion, group: run.identity.dataset, keywords: [run.identity.runtimeVersion],
   }));
@@ -97,33 +133,40 @@ export function ThroughputSelectors({ rows, base, shown, runs, onPickRun }: {
   const chipText = configChips(shown);
   return (
     <div className="flex flex-wrap items-end gap-2" data-testid="throughput-selectors">
-      <Field label="Base model" className="max-sm:w-full sm:w-[200px]">
+      <Field label="Base model" className="max-sm:w-full sm:w-[176px]">
         <Combobox label="Base model" testId="throughput-model" value={b.modelId} options={modelOptions} searchPlaceholder="Search models…" className="w-full"
           onChange={(value) => select(rows.filter((row) => row.deployment.modelId === value))} />
       </Field>
-      <Field label="Runtime" className="max-sm:w-full sm:w-[200px]">
+      <Field label="Runtime" className="max-sm:w-full sm:w-[208px]">
         <Combobox label="Runtime" testId="throughput-runtime" value={runtimeKey(b)} options={runtimeOptions} searchPlaceholder="Search runtimes…" className="w-full"
           onChange={(value) => select(ofModel.filter((row) => runtimeKey(row.deployment) === value))} />
       </Field>
-      <Field label="Hardware" className="max-sm:w-full sm:w-[160px]">
+      <Field label="Hardware" className="max-sm:w-full sm:w-[148px]">
         <Combobox label="Hardware" testId="throughput-hardware" value={hardwareKey(b)} options={hardwareOptions} searchPlaceholder="Search shapes…" className="w-full"
           onChange={(value) => select(ofRuntime.filter((row) => hardwareKey(row.deployment) === value))} />
       </Field>
       <Field label="Runtime config" className="max-sm:w-full sm:w-[min(340px,100%)] sm:flex-1 sm:min-w-[240px]">
         <Combobox
-          label="Runtime config" testId="run-picker" value={b.id} options={configOptions} searchPlaceholder="Search export, knob, chip…" wrap className="w-full"
-          contentClassName="w-[max(var(--radix-popover-trigger-width),min(460px,calc(100vw-32px)))]"
-          onChange={(value) => updateView((s) => { s.run = rows.find((row) => row.deployment.id === value)?.deployment.configurationId ?? value; })}
+          label="Runtime config" testId="run-picker" value={currentValue} options={configOptions} searchPlaceholder="Search export, knob, chip, version…" wrap className="w-full"
+          contentClassName="w-[max(var(--radix-popover-trigger-width),min(500px,calc(100vw-32px)))]"
+          onChange={(value) => {
+            const choice = choices.get(value);
+            if (choice) onPickConfig(choice.configurationId, choice.runId);
+            else updateView((s) => { s.run = rows.find((row) => row.deployment.id === value)?.deployment.configurationId ?? value; s.runPick = ""; });
+          }}
           triggerLabel={
             <span className="flex min-w-0 flex-col">
-              <span className="truncate"><span className="font-medium">{shown.exportLabel}</span> · {shown.knob ?? "Baseline"} <span className="text-muted-foreground text-xs">· {runsLabel(runCount(b))}</span></span>
+              <span className="truncate" data-testid="run-picker-summary">
+                <span className="font-medium">{shown.exportLabel}</span> · {shown.knob ?? "Baseline"}{" "}
+                <span className="text-muted-foreground text-xs" title={currentVariant ? "Runs and engine versions of this runtime config on the active dataset" : "Runs of this configuration (all datasets)"}>· {currentVariant ? `${plural(currentVariant.runCount, "run")}${currentVariant.runtimeCount > 1 ? ` · ${currentVariant.runtimeCount} runtimes` : ""}` : runsLabel(runCount(b))}</span>
+              </span>
               <span className="text-muted-foreground font-mono text-[11px] [overflow-wrap:anywhere]" data-testid="run-picker-chips">{chipText.length ? chipText.join(" · ") : "default arguments"}</span>
             </span>
           }
         />
       </Field>
       {runs.length ? (
-        <Field label="Run" className="max-sm:w-full sm:w-[230px]">
+        <Field label="Run" className="max-sm:w-full sm:w-[222px]">
           <Combobox
             label="Run" testId="run-history" value={shown.runId ?? ""} options={runOptions} searchPlaceholder="Search runs…" align="end" className="w-full"
             onChange={(value) => { const run = runs.find((item) => item.id === value); if (run) onPickRun(run); }}
@@ -149,10 +192,11 @@ export function ThroughputActions({ shown }: { shown: Deployment }) {
 }
 
 /**
- * Identity line: evidence state and date, status, hardware label and GPU totals, knob chips, the run's recorded
- * runtime_version (beside, never instead of, the configured build), latest run when an older one is shown, and the
- * warnings that change how a number reads (legacy dataset, incomplete requests, GPU count or divisor). Separators are
- * flex gaps. Serve command expands below; "All setups of this model" opens the TL;DR.
+ * Identity line: evidence state and date, status, hardware label and GPU totals, the run's recorded runtime_version
+ * (beside, never instead of, the configured build), latest run when an older one is shown, and the warnings that
+ * change how a number reads (legacy dataset, incomplete requests, GPU count or divisor), grouped with the run tag.
+ * The knob string is not repeated here: the Runtime config trigger above states it. Separators are flex gaps.
+ * Serve command expands below; "All setups of this model" opens the TL;DR.
  */
 export function IdentityLine({ row, latestRunDate }: { row: RankedDeployment; latestRunDate: string | null }) {
   const d = row.deployment;
@@ -168,18 +212,20 @@ export function IdentityLine({ row, latestRunDate }: { row: RankedDeployment; la
         <StatusBadge deployment={d} />
         <Badge variant="mono" data-testid="identity-hardware" title="<replicas>x<GPUs per replica><GPU type>; read as GPUs per replica">{hardwareShape(d)}</Badge>
         <span className="text-ink-2 tabular-nums" data-testid="identity-gpus" title={d.replicas === null ? "Catalog shape at one KServe replica; a run records its replica count" : "GPUs per replica × recorded system replicas"}>{gpuTotals(d)}</span>
-        <ConfigChips deployment={d} max={4} />
-        {measured && d.runtimeTag ? <span className="text-muted-foreground" title="Run runtime_version (recorded); the configured build is in the Runtime picker">run <span className="text-foreground font-mono">{d.runtimeTag}</span></span> : null}
-        {measured && latest && latest !== d.measuredAt?.slice(0, 10) ? <span className="text-muted-foreground" data-testid="identity-latest">latest run {latest}</span> : null}
-        {legacy ? <Badge variant="warning" data-testid="legacy-badge" title="V1 profile, not prefix-immune: compare with care">legacy dataset</Badge> : null}
-        {measured ? <IncompleteBadge count={row.capacity.incomplete} /> : null}
-        {measured ? <ErroredBadge count={row.capacity.errored} /> : null}
-        {d.topologyMismatch ? <Badge variant="warning" title={`Run used ${gpusOf(d)} GPUs; the catalog shape has ${d.gpus}.`}>GPU count differs</Badge> : null}
-        {gpuDivisorUnconfirmed(d) ? <Badge variant="warning" data-testid="gpu-divisor-unconfirmed" title={`${d.replicas} system replicas: tok/min/GPU divides by num_gpus = ${gpusOf(d)}, read as GPUs per replica (unconfirmed). If throughput is aggregated over replicas, the per-GPU figure is overstated by ×${d.replicas}.`}>GPU divisor unconfirmed</Badge> : null}
+        {/* Run tag, latest-run note and warnings form one group, so a warning badge never wraps onto a line alone. */}
+        <span className="inline-flex flex-wrap items-center gap-x-2 gap-y-1.5" data-testid="identity-run">
+          {measured && d.runtimeTag ? <span className="text-muted-foreground" title="Run runtime_version (recorded); the configured build is in the Runtime picker">run <span className="text-foreground font-mono">{d.runtimeTag}</span></span> : null}
+          {measured && latest && latest !== d.measuredAt?.slice(0, 10) ? <span className="text-muted-foreground" data-testid="identity-latest">latest run {latest}</span> : null}
+          {legacy ? <Badge variant="warning" data-testid="legacy-badge" title="V1 profile, not prefix-immune: compare with care">legacy dataset</Badge> : null}
+          {measured ? <IncompleteBadge count={row.capacity.incomplete} /> : null}
+          {measured ? <ErroredBadge count={row.capacity.errored} /> : null}
+          {d.topologyMismatch ? <Badge variant="warning" title={`Run used ${gpusOf(d)} GPUs; the catalog shape has ${d.gpus}.`}>GPU count differs</Badge> : null}
+          {gpuDivisorUnconfirmed(d) ? <Badge variant="warning" data-testid="gpu-divisor-unconfirmed" title={`${d.replicas} system replicas: tok/min/GPU divides by num_gpus = ${gpusOf(d)}, read as GPUs per replica (unconfirmed). If throughput is aggregated over replicas, the per-GPU figure is overstated by ×${d.replicas}.`}>GPU divisor unconfirmed</Badge> : null}
+        </span>
         <span className="ml-auto flex flex-wrap items-center gap-1">
           <Button variant="ghost" size="sm" className="h-7 px-2 text-xs" asChild>
-            <a href={routeUrl("tldr", { model: d.modelId })} data-testid="throughput-all-setups" title={`Every setup of ${modelOf(d)?.name ?? d.modelId} ranked by sustainable tok/min/GPU (TL;DR)`}>
-              <ListOrdered aria-hidden="true" />All setups of this model
+            <a href={routeUrl("tldr", { model: d.modelId })} data-testid="throughput-all-setups" aria-label={`All setups of ${modelOf(d)?.name ?? d.modelId} (TL;DR)`} title={`Every setup of ${modelOf(d)?.name ?? d.modelId} ranked by sustainable tok/min/GPU (TL;DR)`}>
+              <ListOrdered aria-hidden="true" />All setups
             </a>
           </Button>
           <Button variant="outline" size="sm" className="h-7 px-2 text-xs" aria-expanded={open} aria-controls="throughput-serve" onClick={() => setOpen((value) => !value)} data-testid="serve-toggle" title="Configured command from the catalog">

@@ -20,11 +20,12 @@ import { ComparePage } from "./pages/compare.js";
 import { ExperimentsPage } from "./pages/experiments.js";
 import { MethodologyPage } from "./pages/methodology.js";
 import { EnginePage } from "./pages/engine.js";
+import { PublishedPage } from "./pages/published.js";
 
 const pages: Record<Route, () => React.ReactElement> = {
   tldr: () => <OverviewPage view="tldr" />, intelligence: () => <OverviewPage view="intelligence" />,
   throughput: ThroughputPage, compare: ComparePage, engine: EnginePage, models: ModelsPage,
-  deployments: DeploymentsPage, "new-benchmark": ExperimentsPage, methodology: MethodologyPage,
+  deployments: DeploymentsPage, published: PublishedPage, "new-benchmark": ExperimentsPage, methodology: MethodologyPage,
 };
 
 class PageBoundary extends React.Component<{ children: React.ReactNode; route: string }, { error: string }> {

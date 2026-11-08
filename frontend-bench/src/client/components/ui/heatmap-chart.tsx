@@ -17,6 +17,8 @@ export interface HeatmapRow {
   values: number[]
   /** Optional per-column flags for cells with no value (drawn hatched, never as 0). */
   missing?: boolean[]
+  /** Local addition: per-column flags for a secondary mark (a centred dot), e.g. "points only, no ladder". */
+  marked?: boolean[]
 }
 
 /** A cell's position by row and column index. */
@@ -61,12 +63,17 @@ export interface HeatmapChartProps extends React.ComponentProps<"div"> {
   /** Replace the tooltip body. Return `null` to hide it for that cell. */
   renderTooltip?: (datum: HeatmapDatum) => React.ReactNode
   onCellClick?: (datum: HeatmapDatum) => void
-  /** Local addition: full column names shown as each column label's title (labels truncate instead of overlapping). */
+  /**
+   * Local addition: full column names shown as each column label's title (labels truncate instead of overlapping;
+   * a label containing "\n" wraps onto two lines instead).
+   */
   columnTitles?: string[]
   /** Local addition: put each row label on its own line above its cells (narrow screens). */
   rowLabelsAbove?: boolean
   /** Local addition: legend end labels, e.g. ["0", "100"]. Defaults to Less / More. */
   legendLabels?: [string, string]
+  /** Local addition: extra legend entries (e.g. the hatched and dot marks), rendered before the ramp. */
+  legendExtra?: React.ReactNode
   /** The hovered cell, to control it from outside. */
   activeCell?: HeatmapCell | null
   /** Called when the hovered cell changes, with null when the pointer leaves. */
@@ -124,6 +131,7 @@ function HeatmapChart({
   columnTitles,
   rowLabelsAbove = false,
   legendLabels = ["Less", "More"],
+  legendExtra,
   className,
   ...props
 }: HeatmapChartProps) {
@@ -196,6 +204,7 @@ function HeatmapChart({
                   value,
                 }
                 const isMissing = row.missing?.[c] === true
+                const isMarked = !isMissing && row.marked?.[c] === true
                 const isActive = active?.row === r && active?.column === c
                 const body = renderTooltip ? (
                   renderTooltip(datum)
@@ -213,6 +222,7 @@ function HeatmapChart({
                     type="button"
                     aria-label={cellLabel ? cellLabel(datum) : isMissing ? `Not published, ${row.label} ${column}` : `${withUnit(value)}, ${row.label} ${column}`}
                     data-missing={isMissing || undefined}
+                    data-marked={isMarked || undefined}
                     data-slot="heatmap-chart-cell"
                     data-row={r}
                     data-column={c}
@@ -227,7 +237,7 @@ function HeatmapChart({
                     }}
                     onClick={onCellClick ? () => onCellClick(datum) : undefined}
                     className={cn(
-                      "inset-ring-foreground/6 w-full rounded-sm outline-none inset-ring transition-[box-shadow] duration-100",
+                      "inset-ring-foreground/6 flex w-full items-center justify-center rounded-sm outline-none inset-ring transition-[box-shadow] duration-100",
                       cellHeight === undefined && "aspect-square",
                       "data-[active=true]:inset-ring-foreground/45 data-[active=true]:inset-ring-2",
                       "focus-visible:inset-ring-ring focus-visible:inset-ring-2",
@@ -243,7 +253,9 @@ function HeatmapChart({
                         ? "repeating-linear-gradient(135deg, var(--border-strong) 0 1px, transparent 1px 5px)"
                         : undefined,
                     }}
-                  />
+                  >
+                    {isMarked ? <span aria-hidden className="bg-foreground/55 size-1.5 rounded-full" data-slot="heatmap-chart-mark" /> : null}
+                  </button>
                 )
 
                 if (body === null) {
@@ -272,7 +284,11 @@ function HeatmapChart({
                   data-active={active?.column === c}
                   title={columnTitles?.[c]}
                   onPointerEnter={() => setActive(null)}
-                  className="text-muted-foreground data-[active=true]:text-foreground min-w-0 truncate pt-0.5 text-center leading-none whitespace-nowrap transition-colors"
+                  className={cn(
+                    "text-muted-foreground data-[active=true]:text-foreground min-w-0 pt-0.5 text-center transition-colors",
+                    // Local addition: a label with a line break renders on two lines (narrow columns) instead of truncating.
+                    column.includes("\n") ? "leading-tight whitespace-pre-line" : "truncate leading-none whitespace-nowrap"
+                  )}
                 >
                   {c % every === 0 ? column : ""}
                 </div>
@@ -283,7 +299,8 @@ function HeatmapChart({
       </TooltipProvider>
 
       {showLegend ? (
-        <div className="text-muted-foreground flex items-center justify-end gap-1">
+        <div className="text-muted-foreground flex flex-wrap items-center justify-end gap-1">
+          {legendExtra ? <span className="mr-2 inline-flex flex-wrap items-center gap-x-3 gap-y-1">{legendExtra}</span> : null}
           <span className="mr-0.5 tabular-nums">{legendLabels[0]}</span>
           {swatches.map((fill, index) => (
             <span

@@ -26,8 +26,8 @@ const entry = (overrides: Record<string, unknown> = {}) => ({
 
 describe("parse", () => {
   test("accepts the TEST fixture file in its { runs } wrapper and as a bare array", () => {
-    expect(parseRunsFile(sample)).toHaveLength(5);
-    expect(parseRunsFile(sample.runs)).toHaveLength(5);
+    expect(parseRunsFile(sample)).toHaveLength(12);
+    expect(parseRunsFile(sample.runs)).toHaveLength(12);
   });
   test("\"_test\" entries are flagged as TEST fixtures; real entries are not", () => {
     expect(parseRunsFile(sample).every((run) => run.test)).toBe(true);
@@ -150,7 +150,7 @@ describe("upsert-replace", () => {
   test("runsFromFile assigns deterministic ids", () => {
     const a = runsFromFile(sample, catalog); const b = runsFromFile(sample, catalog);
     expect(a.map((r) => r.id)).toEqual(b.map((r) => r.id));
-    expect(new Set(a.map((r) => r.id)).size).toBe(5);
+    expect(new Set(a.map((r) => r.id)).size).toBe(12);
   });
 });
 

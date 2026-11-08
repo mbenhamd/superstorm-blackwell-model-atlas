@@ -1142,6 +1142,1823 @@
           "durationSeconds": 120.0
         }
       ]
+    },
+    {
+      "_test": "TEST FIXTURE: invented values for automated tests only. Not a measurement; never load outside tests.",
+      "identity": {
+        "modelName": "qwen3.8-27b-fp8",
+        "gpuType": "B300",
+        "numGpus": 1,
+        "maxSystemReplicas": 1,
+        "runtimeVersion": "vllm-v0.33.0",
+        "dataset": "single-turn-8k",
+        "runtimeConfig": {
+          "kv_cache_dtype": "fp8",
+          "enable_prefix_caching": true,
+          "max_num_seqs": 512,
+          "fixture": "TEST"
+        }
+      },
+      "configurationId": "qwen3.8-27b.fp8.vllm.baseline",
+      "benchmarkTool": "test-fixture (not a measurement)",
+      "runDate": "2026-10-28T09:00:00Z",
+      "systemConfig": {
+        "fixture": "TEST DATA - not measured"
+      },
+      "datasetConfig": {
+        "fixture": "TEST DATA - not measured"
+      },
+      "metrics": [
+        {
+          "concurrency": 1,
+          "ttftMs": {
+            "mean": 437.5,
+            "p50": 411.2,
+            "p95": 678.1,
+            "p99": null
+          },
+          "itlMs": {
+            "mean": 7.51,
+            "p50": 7.29,
+            "p95": 9.84,
+            "p99": 12.39
+          },
+          "requestLatencyMs": {
+            "mean": 4082.5,
+            "p50": 4056.2,
+            "p95": 5598.9,
+            "p99": null
+          },
+          "requestsPerSecond": 0.217,
+          "inputTps": 1733.8,
+          "outputTps": 108.5,
+          "totalTps": 1842.3,
+          "outputTpsPerUserP50": 137.14,
+          "successful": 30,
+          "errored": 0,
+          "incomplete": 0,
+          "durationSeconds": 120
+        },
+        {
+          "concurrency": 2,
+          "ttftMs": {
+            "mean": 455,
+            "p50": 427.7,
+            "p95": 705.2,
+            "p99": 864.5
+          },
+          "itlMs": {
+            "mean": 7.66,
+            "p50": 7.44,
+            "p95": 10.04,
+            "p99": 12.65
+          },
+          "requestLatencyMs": {
+            "mean": 4175,
+            "p50": 4147.7,
+            "p95": 5727.2,
+            "p99": 7188.5
+          },
+          "requestsPerSecond": 0.426,
+          "inputTps": 3405.6,
+          "outputTps": 212.7,
+          "totalTps": 3618.3,
+          "outputTpsPerUserP50": 134.4,
+          "successful": 59,
+          "errored": 0,
+          "incomplete": 0,
+          "durationSeconds": 120
+        },
+        {
+          "concurrency": 4,
+          "ttftMs": {
+            "mean": 490,
+            "p50": 460.6,
+            "p95": 759.5,
+            "p99": 931
+          },
+          "itlMs": {
+            "mean": 7.97,
+            "p50": 7.74,
+            "p95": 10.45,
+            "p99": 13.16
+          },
+          "requestLatencyMs": {
+            "mean": 4360,
+            "p50": 4330.6,
+            "p95": 5984,
+            "p99": 7510
+          },
+          "requestsPerSecond": 0.818,
+          "inputTps": 6542.9,
+          "outputTps": 409,
+          "totalTps": 6951.9,
+          "outputTpsPerUserP50": 129.23,
+          "successful": 114,
+          "errored": 0,
+          "incomplete": 0,
+          "durationSeconds": 120
+        },
+        {
+          "concurrency": 8,
+          "ttftMs": {
+            "mean": 560,
+            "p50": 526.4,
+            "p95": 868,
+            "p99": 1064
+          },
+          "itlMs": {
+            "mean": 8.58,
+            "p50": 8.33,
+            "p95": 11.25,
+            "p99": 14.16
+          },
+          "requestLatencyMs": {
+            "mean": 4725,
+            "p50": 4691.4,
+            "p95": 6490.8,
+            "p99": 8144.5
+          },
+          "requestsPerSecond": 1.519,
+          "inputTps": 12150.1,
+          "outputTps": 759.6,
+          "totalTps": 12909.7,
+          "outputTpsPerUserP50": 120,
+          "successful": 211,
+          "errored": 0,
+          "incomplete": 0,
+          "durationSeconds": 120
+        },
+        {
+          "concurrency": 16,
+          "ttftMs": {
+            "mean": 700,
+            "p50": 658,
+            "p95": 1085,
+            "p99": 1330
+          },
+          "itlMs": {
+            "mean": 9.81,
+            "p50": 9.52,
+            "p95": 12.85,
+            "p99": 16.18
+          },
+          "requestLatencyMs": {
+            "mean": 5460,
+            "p50": 5418,
+            "p95": 7511,
+            "p99": 9422
+          },
+          "requestsPerSecond": 2.658,
+          "inputTps": 21266.1,
+          "outputTps": 1329.2,
+          "totalTps": 22595.3,
+          "outputTpsPerUserP50": 105,
+          "successful": 370,
+          "errored": 0,
+          "incomplete": 0,
+          "durationSeconds": 120
+        },
+        {
+          "concurrency": 32,
+          "ttftMs": {
+            "mean": 980,
+            "p50": 921.2,
+            "p95": 1519,
+            "p99": 1862
+          },
+          "itlMs": {
+            "mean": 12.26,
+            "p50": 11.9,
+            "p95": 16.07,
+            "p99": 20.23
+          },
+          "requestLatencyMs": {
+            "mean": 6930,
+            "p50": 6871.2,
+            "p95": 9551.5,
+            "p99": 11977
+          },
+          "requestsPerSecond": 4.254,
+          "inputTps": 34028.5,
+          "outputTps": 2126.8,
+          "totalTps": 36155.3,
+          "outputTpsPerUserP50": 84,
+          "successful": 593,
+          "errored": 0,
+          "incomplete": 0,
+          "durationSeconds": 120
+        },
+        {
+          "concurrency": 64,
+          "ttftMs": {
+            "mean": 1540,
+            "p50": 1447.6,
+            "p95": 2387,
+            "p99": 2926
+          },
+          "itlMs": {
+            "mean": 17.17,
+            "p50": 16.67,
+            "p95": 22.5,
+            "p99": 28.34
+          },
+          "requestLatencyMs": {
+            "mean": 9875,
+            "p50": 9782.6,
+            "p95": 13639.3,
+            "p99": 17095.5
+          },
+          "requestsPerSecond": 6.077,
+          "inputTps": 48614.1,
+          "outputTps": 3038.2,
+          "totalTps": 51652.3,
+          "outputTpsPerUserP50": 60,
+          "successful": 847,
+          "errored": 0,
+          "incomplete": 0,
+          "durationSeconds": 120
+        },
+        {
+          "concurrency": 128,
+          "ttftMs": {
+            "mean": 2660,
+            "p50": 2500.4,
+            "p95": 4123,
+            "p99": 5054
+          },
+          "itlMs": {
+            "mean": 26.98,
+            "p50": 26.19,
+            "p95": 35.36,
+            "p99": 44.52
+          },
+          "requestLatencyMs": {
+            "mean": 15755,
+            "p50": 15595.4,
+            "p95": 21801.3,
+            "p99": 27315.5
+          },
+          "requestsPerSecond": 7.734,
+          "inputTps": 61871.8,
+          "outputTps": 3866.8,
+          "totalTps": 65738.6,
+          "outputTpsPerUserP50": 38.18,
+          "successful": 1075,
+          "errored": 3,
+          "incomplete": 1,
+          "durationSeconds": 120
+        }
+      ]
+    },
+    {
+      "_test": "TEST FIXTURE: invented values for automated tests only. Not a measurement; never load outside tests.",
+      "identity": {
+        "modelName": "qwen3.8-27b",
+        "gpuType": "B300",
+        "numGpus": 1,
+        "maxSystemReplicas": 1,
+        "runtimeVersion": "vllm-v0.33.0",
+        "dataset": "single-turn-8k",
+        "runtimeConfig": {
+          "kv_cache_dtype": "auto",
+          "enable_prefix_caching": false,
+          "max_num_seqs": 256,
+          "fixture": "TEST"
+        }
+      },
+      "configurationId": "qwen3.8-27b.bf16.vllm.baseline",
+      "benchmarkTool": "test-fixture (not a measurement)",
+      "runDate": "2026-10-26T09:00:00Z",
+      "systemConfig": {
+        "fixture": "TEST DATA - not measured"
+      },
+      "datasetConfig": {
+        "fixture": "TEST DATA - not measured"
+      },
+      "metrics": [
+        {
+          "concurrency": 1,
+          "ttftMs": {
+            "mean": 437.5,
+            "p50": 411.2,
+            "p95": 678.1,
+            "p99": null
+          },
+          "itlMs": {
+            "mean": 7.51,
+            "p50": 7.29,
+            "p95": 9.84,
+            "p99": 12.39
+          },
+          "requestLatencyMs": {
+            "mean": 4082.5,
+            "p50": 4056.2,
+            "p95": 5598.9,
+            "p99": null
+          },
+          "requestsPerSecond": 0.156,
+          "inputTps": 1249.9,
+          "outputTps": 78.2,
+          "totalTps": 1328.1,
+          "outputTpsPerUserP50": 137.14,
+          "successful": 30,
+          "errored": 0,
+          "incomplete": 0,
+          "durationSeconds": 120
+        },
+        {
+          "concurrency": 2,
+          "ttftMs": {
+            "mean": 455,
+            "p50": 427.7,
+            "p95": 705.2,
+            "p99": 864.5
+          },
+          "itlMs": {
+            "mean": 7.66,
+            "p50": 7.44,
+            "p95": 10.04,
+            "p99": 12.65
+          },
+          "requestLatencyMs": {
+            "mean": 4175,
+            "p50": 4147.7,
+            "p95": 5727.2,
+            "p99": 7188.5
+          },
+          "requestsPerSecond": 0.307,
+          "inputTps": 2455.2,
+          "outputTps": 153.3,
+          "totalTps": 2608.5,
+          "outputTpsPerUserP50": 134.4,
+          "successful": 59,
+          "errored": 0,
+          "incomplete": 0,
+          "durationSeconds": 120
+        },
+        {
+          "concurrency": 4,
+          "ttftMs": {
+            "mean": 490,
+            "p50": 460.6,
+            "p95": 759.5,
+            "p99": 931
+          },
+          "itlMs": {
+            "mean": 7.97,
+            "p50": 7.74,
+            "p95": 10.45,
+            "p99": 13.16
+          },
+          "requestLatencyMs": {
+            "mean": 4360,
+            "p50": 4330.6,
+            "p95": 5984,
+            "p99": 7510
+          },
+          "requestsPerSecond": 0.59,
+          "inputTps": 4717,
+          "outputTps": 294.9,
+          "totalTps": 5011.9,
+          "outputTpsPerUserP50": 129.23,
+          "successful": 114,
+          "errored": 0,
+          "incomplete": 0,
+          "durationSeconds": 120
+        },
+        {
+          "concurrency": 8,
+          "ttftMs": {
+            "mean": 560,
+            "p50": 526.4,
+            "p95": 868,
+            "p99": 1064
+          },
+          "itlMs": {
+            "mean": 8.58,
+            "p50": 8.33,
+            "p95": 11.25,
+            "p99": 14.16
+          },
+          "requestLatencyMs": {
+            "mean": 4725,
+            "p50": 4691.4,
+            "p95": 6490.8,
+            "p99": 8144.5
+          },
+          "requestsPerSecond": 1.095,
+          "inputTps": 8759.4,
+          "outputTps": 547.6,
+          "totalTps": 9307,
+          "outputTpsPerUserP50": 120,
+          "successful": 211,
+          "errored": 0,
+          "incomplete": 0,
+          "durationSeconds": 120
+        },
+        {
+          "concurrency": 16,
+          "ttftMs": {
+            "mean": 700,
+            "p50": 658,
+            "p95": 1085,
+            "p99": 1330
+          },
+          "itlMs": {
+            "mean": 9.81,
+            "p50": 9.52,
+            "p95": 12.85,
+            "p99": 16.18
+          },
+          "requestLatencyMs": {
+            "mean": 5460,
+            "p50": 5418,
+            "p95": 7511,
+            "p99": 9422
+          },
+          "requestsPerSecond": 1.916,
+          "inputTps": 15331.4,
+          "outputTps": 958.3,
+          "totalTps": 16289.7,
+          "outputTpsPerUserP50": 105,
+          "successful": 370,
+          "errored": 0,
+          "incomplete": 0,
+          "durationSeconds": 120
+        },
+        {
+          "concurrency": 32,
+          "ttftMs": {
+            "mean": 980,
+            "p50": 921.2,
+            "p95": 1519,
+            "p99": 1862
+          },
+          "itlMs": {
+            "mean": 12.26,
+            "p50": 11.9,
+            "p95": 16.07,
+            "p99": 20.23
+          },
+          "requestLatencyMs": {
+            "mean": 6930,
+            "p50": 6871.2,
+            "p95": 9551.5,
+            "p99": 11977
+          },
+          "requestsPerSecond": 3.067,
+          "inputTps": 24532.2,
+          "outputTps": 1533.3,
+          "totalTps": 26065.5,
+          "outputTpsPerUserP50": 84,
+          "successful": 593,
+          "errored": 0,
+          "incomplete": 0,
+          "durationSeconds": 120
+        },
+        {
+          "concurrency": 64,
+          "ttftMs": {
+            "mean": 1540,
+            "p50": 1447.6,
+            "p95": 2387,
+            "p99": 2926
+          },
+          "itlMs": {
+            "mean": 17.17,
+            "p50": 16.67,
+            "p95": 22.5,
+            "p99": 28.34
+          },
+          "requestLatencyMs": {
+            "mean": 9875,
+            "p50": 9782.6,
+            "p95": 13639.3,
+            "p99": 17095.5
+          },
+          "requestsPerSecond": 4.381,
+          "inputTps": 35047.4,
+          "outputTps": 2190.3,
+          "totalTps": 37237.7,
+          "outputTpsPerUserP50": 60,
+          "successful": 847,
+          "errored": 0,
+          "incomplete": 0,
+          "durationSeconds": 120
+        },
+        {
+          "concurrency": 128,
+          "ttftMs": {
+            "mean": 2660,
+            "p50": 2500.4,
+            "p95": 4123,
+            "p99": 5054
+          },
+          "itlMs": {
+            "mean": 26.98,
+            "p50": 26.19,
+            "p95": 35.36,
+            "p99": 44.52
+          },
+          "requestLatencyMs": {
+            "mean": 15755,
+            "p50": 15595.4,
+            "p95": 21801.3,
+            "p99": 27315.5
+          },
+          "requestsPerSecond": 5.576,
+          "inputTps": 44605.3,
+          "outputTps": 2787.7,
+          "totalTps": 47393,
+          "outputTpsPerUserP50": 38.18,
+          "successful": 1075,
+          "errored": 3,
+          "incomplete": 1,
+          "durationSeconds": 120
+        }
+      ]
+    },
+    {
+      "_test": "TEST FIXTURE: invented values for automated tests only. Not a measurement; never load outside tests.",
+      "identity": {
+        "modelName": "qwen3.8-27b-nvfp4",
+        "gpuType": "B300",
+        "numGpus": 1,
+        "maxSystemReplicas": 1,
+        "runtimeVersion": "vllm-v0.33.0",
+        "dataset": "single-turn-8k",
+        "runtimeConfig": {
+          "kv_cache_dtype": "fp8",
+          "enable_prefix_caching": false,
+          "max_num_seqs": 256,
+          "fixture": "TEST"
+        }
+      },
+      "configurationId": "qwen3.8-27b.nvfp4.vllm.baseline",
+      "benchmarkTool": "test-fixture (not a measurement)",
+      "runDate": "2026-10-30T09:00:00Z",
+      "systemConfig": {
+        "fixture": "TEST DATA - not measured"
+      },
+      "datasetConfig": {
+        "fixture": "TEST DATA - not measured"
+      },
+      "metrics": [
+        {
+          "concurrency": 1,
+          "ttftMs": {
+            "mean": 437.5,
+            "p50": 411.2,
+            "p95": 678.1,
+            "p99": null
+          },
+          "itlMs": {
+            "mean": 7.51,
+            "p50": 7.29,
+            "p95": 9.84,
+            "p99": 12.39
+          },
+          "requestLatencyMs": {
+            "mean": 4082.5,
+            "p50": 4056.2,
+            "p95": 5598.9,
+            "p99": null
+          },
+          "requestsPerSecond": 0.179,
+          "inputTps": 1431.4,
+          "outputTps": 89.6,
+          "totalTps": 1521,
+          "outputTpsPerUserP50": 137.14,
+          "successful": 30,
+          "errored": 0,
+          "incomplete": 0,
+          "durationSeconds": 120
+        },
+        {
+          "concurrency": 2,
+          "ttftMs": {
+            "mean": 455,
+            "p50": 427.7,
+            "p95": 705.2,
+            "p99": 864.5
+          },
+          "itlMs": {
+            "mean": 7.66,
+            "p50": 7.44,
+            "p95": 10.04,
+            "p99": 12.65
+          },
+          "requestLatencyMs": {
+            "mean": 4175,
+            "p50": 4147.7,
+            "p95": 5727.2,
+            "p99": 7188.5
+          },
+          "requestsPerSecond": 0.351,
+          "inputTps": 2811.6,
+          "outputTps": 175.6,
+          "totalTps": 2987.2,
+          "outputTpsPerUserP50": 134.4,
+          "successful": 59,
+          "errored": 0,
+          "incomplete": 0,
+          "durationSeconds": 120
+        },
+        {
+          "concurrency": 4,
+          "ttftMs": {
+            "mean": 490,
+            "p50": 460.6,
+            "p95": 759.5,
+            "p99": 931
+          },
+          "itlMs": {
+            "mean": 7.97,
+            "p50": 7.74,
+            "p95": 10.45,
+            "p99": 13.16
+          },
+          "requestLatencyMs": {
+            "mean": 4360,
+            "p50": 4330.6,
+            "p95": 5984,
+            "p99": 7510
+          },
+          "requestsPerSecond": 0.675,
+          "inputTps": 5401.7,
+          "outputTps": 337.7,
+          "totalTps": 5739.4,
+          "outputTpsPerUserP50": 129.23,
+          "successful": 114,
+          "errored": 0,
+          "incomplete": 0,
+          "durationSeconds": 120
+        },
+        {
+          "concurrency": 8,
+          "ttftMs": {
+            "mean": 560,
+            "p50": 526.4,
+            "p95": 868,
+            "p99": 1064
+          },
+          "itlMs": {
+            "mean": 8.58,
+            "p50": 8.33,
+            "p95": 11.25,
+            "p99": 14.16
+          },
+          "requestLatencyMs": {
+            "mean": 4725,
+            "p50": 4691.4,
+            "p95": 6490.8,
+            "p99": 8144.5
+          },
+          "requestsPerSecond": 1.254,
+          "inputTps": 10030.9,
+          "outputTps": 627.1,
+          "totalTps": 10658,
+          "outputTpsPerUserP50": 120,
+          "successful": 211,
+          "errored": 0,
+          "incomplete": 0,
+          "durationSeconds": 120
+        },
+        {
+          "concurrency": 16,
+          "ttftMs": {
+            "mean": 700,
+            "p50": 658,
+            "p95": 1085,
+            "p99": 1330
+          },
+          "itlMs": {
+            "mean": 9.81,
+            "p50": 9.52,
+            "p95": 12.85,
+            "p99": 16.18
+          },
+          "requestLatencyMs": {
+            "mean": 5460,
+            "p50": 5418,
+            "p95": 7511,
+            "p99": 9422
+          },
+          "requestsPerSecond": 2.195,
+          "inputTps": 17556.9,
+          "outputTps": 1097.4,
+          "totalTps": 18654.3,
+          "outputTpsPerUserP50": 105,
+          "successful": 370,
+          "errored": 0,
+          "incomplete": 0,
+          "durationSeconds": 120
+        },
+        {
+          "concurrency": 32,
+          "ttftMs": {
+            "mean": 980,
+            "p50": 921.2,
+            "p95": 1519,
+            "p99": 1862
+          },
+          "itlMs": {
+            "mean": 12.26,
+            "p50": 11.9,
+            "p95": 16.07,
+            "p99": 20.23
+          },
+          "requestLatencyMs": {
+            "mean": 6930,
+            "p50": 6871.2,
+            "p95": 9551.5,
+            "p99": 11977
+          },
+          "requestsPerSecond": 3.512,
+          "inputTps": 28093.3,
+          "outputTps": 1755.8,
+          "totalTps": 29849.1,
+          "outputTpsPerUserP50": 84,
+          "successful": 593,
+          "errored": 0,
+          "incomplete": 0,
+          "durationSeconds": 120
+        },
+        {
+          "concurrency": 64,
+          "ttftMs": {
+            "mean": 1540,
+            "p50": 1447.6,
+            "p95": 2387,
+            "p99": 2926
+          },
+          "itlMs": {
+            "mean": 17.17,
+            "p50": 16.67,
+            "p95": 22.5,
+            "p99": 28.34
+          },
+          "requestLatencyMs": {
+            "mean": 9875,
+            "p50": 9782.6,
+            "p95": 13639.3,
+            "p99": 17095.5
+          },
+          "requestsPerSecond": 5.017,
+          "inputTps": 40134.9,
+          "outputTps": 2508.3,
+          "totalTps": 42643.2,
+          "outputTpsPerUserP50": 60,
+          "successful": 847,
+          "errored": 0,
+          "incomplete": 0,
+          "durationSeconds": 120
+        },
+        {
+          "concurrency": 128,
+          "ttftMs": {
+            "mean": 2660,
+            "p50": 2500.4,
+            "p95": 4123,
+            "p99": 5054
+          },
+          "itlMs": {
+            "mean": 26.98,
+            "p50": 26.19,
+            "p95": 35.36,
+            "p99": 44.52
+          },
+          "requestLatencyMs": {
+            "mean": 15755,
+            "p50": 15595.4,
+            "p95": 21801.3,
+            "p99": 27315.5
+          },
+          "requestsPerSecond": 6.385,
+          "inputTps": 51080.2,
+          "outputTps": 3192.4,
+          "totalTps": 54272.6,
+          "outputTpsPerUserP50": 38.18,
+          "successful": 1075,
+          "errored": 3,
+          "incomplete": 1,
+          "durationSeconds": 120
+        }
+      ]
+    },
+    {
+      "_test": "TEST FIXTURE: invented values for automated tests only. Not a measurement; never load outside tests.",
+      "identity": {
+        "modelName": "qwen3.8-27b-nvfp4",
+        "gpuType": "B300",
+        "numGpus": 1,
+        "maxSystemReplicas": 1,
+        "runtimeVersion": "vllm-v0.32.0",
+        "dataset": "single-turn-8k",
+        "runtimeConfig": {
+          "kv_cache_dtype": "fp8",
+          "enable_prefix_caching": false,
+          "max_num_seqs": 256,
+          "fixture": "TEST"
+        }
+      },
+      "configurationId": "qwen3.8-27b.nvfp4.vllm.baseline",
+      "benchmarkTool": "test-fixture (not a measurement)",
+      "runDate": "2026-10-22T09:00:00Z",
+      "systemConfig": {
+        "fixture": "TEST DATA - not measured"
+      },
+      "datasetConfig": {
+        "fixture": "TEST DATA - not measured"
+      },
+      "metrics": [
+        {
+          "concurrency": 1,
+          "ttftMs": {
+            "mean": 437.5,
+            "p50": 411.2,
+            "p95": 678.1,
+            "p99": null
+          },
+          "itlMs": {
+            "mean": 7.51,
+            "p50": 7.29,
+            "p95": 9.84,
+            "p99": 12.39
+          },
+          "requestLatencyMs": {
+            "mean": 4082.5,
+            "p50": 4056.2,
+            "p95": 5598.9,
+            "p99": null
+          },
+          "requestsPerSecond": 0.197,
+          "inputTps": 1572.5,
+          "outputTps": 98.4,
+          "totalTps": 1670.9,
+          "outputTpsPerUserP50": 137.14,
+          "successful": 30,
+          "errored": 0,
+          "incomplete": 0,
+          "durationSeconds": 120
+        },
+        {
+          "concurrency": 2,
+          "ttftMs": {
+            "mean": 455,
+            "p50": 427.7,
+            "p95": 705.2,
+            "p99": 864.5
+          },
+          "itlMs": {
+            "mean": 7.66,
+            "p50": 7.44,
+            "p95": 10.04,
+            "p99": 12.65
+          },
+          "requestLatencyMs": {
+            "mean": 4175,
+            "p50": 4147.7,
+            "p95": 5727.2,
+            "p99": 7188.5
+          },
+          "requestsPerSecond": 0.386,
+          "inputTps": 3088.8,
+          "outputTps": 192.9,
+          "totalTps": 3281.7,
+          "outputTpsPerUserP50": 134.4,
+          "successful": 59,
+          "errored": 0,
+          "incomplete": 0,
+          "durationSeconds": 120
+        },
+        {
+          "concurrency": 4,
+          "ttftMs": {
+            "mean": 490,
+            "p50": 460.6,
+            "p95": 759.5,
+            "p99": 931
+          },
+          "itlMs": {
+            "mean": 7.97,
+            "p50": 7.74,
+            "p95": 10.45,
+            "p99": 13.16
+          },
+          "requestLatencyMs": {
+            "mean": 4360,
+            "p50": 4330.6,
+            "p95": 5984,
+            "p99": 7510
+          },
+          "requestsPerSecond": 0.742,
+          "inputTps": 5934.2,
+          "outputTps": 371,
+          "totalTps": 6305.2,
+          "outputTpsPerUserP50": 129.23,
+          "successful": 114,
+          "errored": 0,
+          "incomplete": 0,
+          "durationSeconds": 120
+        },
+        {
+          "concurrency": 8,
+          "ttftMs": {
+            "mean": 560,
+            "p50": 526.4,
+            "p95": 868,
+            "p99": 1064
+          },
+          "itlMs": {
+            "mean": 8.58,
+            "p50": 8.33,
+            "p95": 11.25,
+            "p99": 14.16
+          },
+          "requestLatencyMs": {
+            "mean": 4725,
+            "p50": 4691.4,
+            "p95": 6490.8,
+            "p99": 8144.5
+          },
+          "requestsPerSecond": 1.377,
+          "inputTps": 11019.8,
+          "outputTps": 688.9,
+          "totalTps": 11708.7,
+          "outputTpsPerUserP50": 120,
+          "successful": 211,
+          "errored": 0,
+          "incomplete": 0,
+          "durationSeconds": 120
+        },
+        {
+          "concurrency": 16,
+          "ttftMs": {
+            "mean": 700,
+            "p50": 658,
+            "p95": 1085,
+            "p99": 1330
+          },
+          "itlMs": {
+            "mean": 9.81,
+            "p50": 9.52,
+            "p95": 12.85,
+            "p99": 16.18
+          },
+          "requestLatencyMs": {
+            "mean": 5460,
+            "p50": 5418,
+            "p95": 7511,
+            "p99": 9422
+          },
+          "requestsPerSecond": 2.411,
+          "inputTps": 19287.8,
+          "outputTps": 1205.6,
+          "totalTps": 20493.4,
+          "outputTpsPerUserP50": 105,
+          "successful": 370,
+          "errored": 0,
+          "incomplete": 0,
+          "durationSeconds": 120
+        },
+        {
+          "concurrency": 32,
+          "ttftMs": {
+            "mean": 980,
+            "p50": 921.2,
+            "p95": 1519,
+            "p99": 1862
+          },
+          "itlMs": {
+            "mean": 12.26,
+            "p50": 11.9,
+            "p95": 16.07,
+            "p99": 20.23
+          },
+          "requestLatencyMs": {
+            "mean": 6930,
+            "p50": 6871.2,
+            "p95": 9551.5,
+            "p99": 11977
+          },
+          "requestsPerSecond": 3.858,
+          "inputTps": 30863,
+          "outputTps": 1928.9,
+          "totalTps": 32791.9,
+          "outputTpsPerUserP50": 84,
+          "successful": 593,
+          "errored": 0,
+          "incomplete": 0,
+          "durationSeconds": 120
+        },
+        {
+          "concurrency": 64,
+          "ttftMs": {
+            "mean": 1540,
+            "p50": 1447.6,
+            "p95": 2387,
+            "p99": 2926
+          },
+          "itlMs": {
+            "mean": 17.17,
+            "p50": 16.67,
+            "p95": 22.5,
+            "p99": 28.34
+          },
+          "requestLatencyMs": {
+            "mean": 9875,
+            "p50": 9782.6,
+            "p95": 13639.3,
+            "p99": 17095.5
+          },
+          "requestsPerSecond": 5.511,
+          "inputTps": 44091.8,
+          "outputTps": 2755.6,
+          "totalTps": 46847.4,
+          "outputTpsPerUserP50": 60,
+          "successful": 847,
+          "errored": 0,
+          "incomplete": 0,
+          "durationSeconds": 120
+        },
+        {
+          "concurrency": 128,
+          "ttftMs": {
+            "mean": 2660,
+            "p50": 2500.4,
+            "p95": 4123,
+            "p99": 5054
+          },
+          "itlMs": {
+            "mean": 26.98,
+            "p50": 26.19,
+            "p95": 35.36,
+            "p99": 44.52
+          },
+          "requestLatencyMs": {
+            "mean": 15755,
+            "p50": 15595.4,
+            "p95": 21801.3,
+            "p99": 27315.5
+          },
+          "requestsPerSecond": 7.015,
+          "inputTps": 56116.3,
+          "outputTps": 3507.1,
+          "totalTps": 59623.4,
+          "outputTpsPerUserP50": 38.18,
+          "successful": 1075,
+          "errored": 3,
+          "incomplete": 1,
+          "durationSeconds": 120
+        }
+      ]
+    },
+    {
+      "_test": "TEST FIXTURE: invented values for automated tests only. Not a measurement; never load outside tests.",
+      "identity": {
+        "modelName": "qwen3.8-27b-nvfp4",
+        "gpuType": "B300",
+        "numGpus": 1,
+        "maxSystemReplicas": 1,
+        "runtimeVersion": "sglang-v0.5.23",
+        "dataset": "single-turn-8k",
+        "runtimeConfig": {
+          "kv_cache_dtype": "fp8_e4m3",
+          "speculative_algorithm": "EAGLE",
+          "speculative_num_steps": 3,
+          "max_running_requests": 256,
+          "mem_fraction_static": 0.85,
+          "fixture": "TEST"
+        }
+      },
+      "configurationId": "qwen3.8-27b.nvfp4.sglang.mtp",
+      "benchmarkTool": "test-fixture (not a measurement)",
+      "runDate": "2026-10-29T09:00:00Z",
+      "systemConfig": {
+        "fixture": "TEST DATA - not measured"
+      },
+      "datasetConfig": {
+        "fixture": "TEST DATA - not measured"
+      },
+      "metrics": [
+        {
+          "concurrency": 1,
+          "ttftMs": {
+            "mean": 416.7,
+            "p50": 391.7,
+            "p95": 645.9,
+            "p99": 791.7
+          },
+          "itlMs": {
+            "mean": 7.03,
+            "p50": 6.83,
+            "p95": 9.22,
+            "p99": 11.61
+          },
+          "requestLatencyMs": {
+            "mean": 3831.7,
+            "p50": 3806.7,
+            "p95": 5256.1,
+            "p99": 6597.2
+          },
+          "requestsPerSecond": 0.18,
+          "inputTps": 1441.8,
+          "outputTps": 90.2,
+          "totalTps": 1532,
+          "outputTpsPerUserP50": 146.34,
+          "successful": 32,
+          "errored": 0,
+          "incomplete": 0,
+          "durationSeconds": 120
+        },
+        {
+          "concurrency": 2,
+          "ttftMs": {
+            "mean": 433.3,
+            "p50": 407.3,
+            "p95": 671.6,
+            "p99": 823.3
+          },
+          "itlMs": {
+            "mean": 7.21,
+            "p50": 7,
+            "p95": 9.45,
+            "p99": 11.9
+          },
+          "requestLatencyMs": {
+            "mean": 3933.3,
+            "p50": 3907.3,
+            "p95": 5396.6,
+            "p99": 6773.3
+          },
+          "requestsPerSecond": 0.352,
+          "inputTps": 2819.4,
+          "outputTps": 176.1,
+          "totalTps": 2995.5,
+          "outputTpsPerUserP50": 142.86,
+          "successful": 63,
+          "errored": 0,
+          "incomplete": 0,
+          "durationSeconds": 120
+        },
+        {
+          "concurrency": 4,
+          "ttftMs": {
+            "mean": 466.7,
+            "p50": 438.7,
+            "p95": 723.4,
+            "p99": 886.7
+          },
+          "itlMs": {
+            "mean": 7.55,
+            "p50": 7.33,
+            "p95": 9.9,
+            "p99": 12.46
+          },
+          "requestLatencyMs": {
+            "mean": 4131.7,
+            "p50": 4103.7,
+            "p95": 5671.1,
+            "p99": 7117.2
+          },
+          "requestsPerSecond": 0.673,
+          "inputTps": 5381.4,
+          "outputTps": 336.2,
+          "totalTps": 5717.6,
+          "outputTpsPerUserP50": 136.36,
+          "successful": 120,
+          "errored": 0,
+          "incomplete": 0,
+          "durationSeconds": 120
+        },
+        {
+          "concurrency": 8,
+          "ttftMs": {
+            "mean": 533.3,
+            "p50": 501.3,
+            "p95": 826.6,
+            "p99": 1013.3
+          },
+          "itlMs": {
+            "mean": 8.24,
+            "p50": 8,
+            "p95": 10.8,
+            "p99": 13.6
+          },
+          "requestLatencyMs": {
+            "mean": 4533.3,
+            "p50": 4501.3,
+            "p95": 6226.6,
+            "p99": 7813.3
+          },
+          "requestsPerSecond": 1.233,
+          "inputTps": 9862.4,
+          "outputTps": 616.4,
+          "totalTps": 10478.8,
+          "outputTpsPerUserP50": 125,
+          "successful": 220,
+          "errored": 0,
+          "incomplete": 0,
+          "durationSeconds": 120
+        },
+        {
+          "concurrency": 16,
+          "ttftMs": {
+            "mean": 666.7,
+            "p50": 626.7,
+            "p95": 1033.4,
+            "p99": 1266.7
+          },
+          "itlMs": {
+            "mean": 9.61,
+            "p50": 9.33,
+            "p95": 12.6,
+            "p99": 15.86
+          },
+          "requestLatencyMs": {
+            "mean": 5331.7,
+            "p50": 5291.7,
+            "p95": 7331.1,
+            "p99": 9197.2
+          },
+          "requestsPerSecond": 2.113,
+          "inputTps": 16905.4,
+          "outputTps": 1056.7,
+          "totalTps": 17962.1,
+          "outputTpsPerUserP50": 107.14,
+          "successful": 378,
+          "errored": 0,
+          "incomplete": 0,
+          "durationSeconds": 120
+        },
+        {
+          "concurrency": 32,
+          "ttftMs": {
+            "mean": 933.3,
+            "p50": 877.3,
+            "p95": 1446.6,
+            "p99": 1773.3
+          },
+          "itlMs": {
+            "mean": 12.36,
+            "p50": 12,
+            "p95": 16.2,
+            "p99": 20.4
+          },
+          "requestLatencyMs": {
+            "mean": 6933.3,
+            "p50": 6877.3,
+            "p95": 9546.6,
+            "p99": 11973.3
+          },
+          "requestsPerSecond": 3.288,
+          "inputTps": 26301.5,
+          "outputTps": 1643.7,
+          "totalTps": 27945.2,
+          "outputTpsPerUserP50": 83.33,
+          "successful": 588,
+          "errored": 0,
+          "incomplete": 0,
+          "durationSeconds": 120
+        },
+        {
+          "concurrency": 64,
+          "ttftMs": {
+            "mean": 1466.7,
+            "p50": 1378.7,
+            "p95": 2273.4,
+            "p99": 2786.7
+          },
+          "itlMs": {
+            "mean": 17.85,
+            "p50": 17.33,
+            "p95": 23.4,
+            "p99": 29.46
+          },
+          "requestLatencyMs": {
+            "mean": 10131.7,
+            "p50": 10043.7,
+            "p95": 13971.1,
+            "p99": 17517.2
+          },
+          "requestsPerSecond": 4.552,
+          "inputTps": 36415.8,
+          "outputTps": 2275.9,
+          "totalTps": 38691.7,
+          "outputTpsPerUserP50": 57.69,
+          "successful": 814,
+          "errored": 1,
+          "incomplete": 0,
+          "durationSeconds": 120
+        }
+      ]
+    },
+    {
+      "_test": "TEST FIXTURE: invented values for automated tests only. Not a measurement; never load outside tests.",
+      "identity": {
+        "modelName": "qwen3.8-27b-fp8",
+        "gpuType": "B300",
+        "numGpus": 1,
+        "maxSystemReplicas": 1,
+        "runtimeVersion": "vllm-v0.31.0",
+        "dataset": "single-turn-8k",
+        "runtimeConfig": {
+          "kv_cache_dtype": "fp8",
+          "attention_backend": "FLASHINFER",
+          "max_num_seqs": 256,
+          "fixture": "TEST"
+        }
+      },
+      "configurationId": "qwen3.8-27b.fp8.vllm.v031.fi-fp8-kv",
+      "benchmarkTool": "test-fixture (not a measurement)",
+      "runDate": "2026-10-24T09:00:00Z",
+      "systemConfig": {
+        "fixture": "TEST DATA - not measured"
+      },
+      "datasetConfig": {
+        "fixture": "TEST DATA - not measured"
+      },
+      "metrics": [
+        {
+          "concurrency": 1,
+          "ttftMs": {
+            "mean": 437.5,
+            "p50": 411.2,
+            "p95": 678.1,
+            "p99": null
+          },
+          "itlMs": {
+            "mean": 7.51,
+            "p50": 7.29,
+            "p95": 9.84,
+            "p99": 12.39
+          },
+          "requestLatencyMs": {
+            "mean": 4082.5,
+            "p50": 4056.2,
+            "p95": 5598.9,
+            "p99": null
+          },
+          "requestsPerSecond": 0.139,
+          "inputTps": 1108.8,
+          "outputTps": 69.4,
+          "totalTps": 1178.2,
+          "outputTpsPerUserP50": 137.14,
+          "successful": 30,
+          "errored": 0,
+          "incomplete": 0,
+          "durationSeconds": 120
+        },
+        {
+          "concurrency": 2,
+          "ttftMs": {
+            "mean": 455,
+            "p50": 427.7,
+            "p95": 705.2,
+            "p99": 864.5
+          },
+          "itlMs": {
+            "mean": 7.66,
+            "p50": 7.44,
+            "p95": 10.04,
+            "p99": 12.65
+          },
+          "requestLatencyMs": {
+            "mean": 4175,
+            "p50": 4147.7,
+            "p95": 5727.2,
+            "p99": 7188.5
+          },
+          "requestsPerSecond": 0.272,
+          "inputTps": 2178,
+          "outputTps": 136,
+          "totalTps": 2314,
+          "outputTpsPerUserP50": 134.4,
+          "successful": 59,
+          "errored": 0,
+          "incomplete": 0,
+          "durationSeconds": 120
+        },
+        {
+          "concurrency": 4,
+          "ttftMs": {
+            "mean": 490,
+            "p50": 460.6,
+            "p95": 759.5,
+            "p99": 931
+          },
+          "itlMs": {
+            "mean": 7.97,
+            "p50": 7.74,
+            "p95": 10.45,
+            "p99": 13.16
+          },
+          "requestLatencyMs": {
+            "mean": 4360,
+            "p50": 4330.6,
+            "p95": 5984,
+            "p99": 7510
+          },
+          "requestsPerSecond": 0.523,
+          "inputTps": 4184.4,
+          "outputTps": 261.6,
+          "totalTps": 4446,
+          "outputTpsPerUserP50": 129.23,
+          "successful": 114,
+          "errored": 0,
+          "incomplete": 0,
+          "durationSeconds": 120
+        },
+        {
+          "concurrency": 8,
+          "ttftMs": {
+            "mean": 560,
+            "p50": 526.4,
+            "p95": 868,
+            "p99": 1064
+          },
+          "itlMs": {
+            "mean": 8.58,
+            "p50": 8.33,
+            "p95": 11.25,
+            "p99": 14.16
+          },
+          "requestLatencyMs": {
+            "mean": 4725,
+            "p50": 4691.4,
+            "p95": 6490.8,
+            "p99": 8144.5
+          },
+          "requestsPerSecond": 0.971,
+          "inputTps": 7770.4,
+          "outputTps": 485.8,
+          "totalTps": 8256.2,
+          "outputTpsPerUserP50": 120,
+          "successful": 211,
+          "errored": 0,
+          "incomplete": 0,
+          "durationSeconds": 120
+        },
+        {
+          "concurrency": 16,
+          "ttftMs": {
+            "mean": 700,
+            "p50": 658,
+            "p95": 1085,
+            "p99": 1330
+          },
+          "itlMs": {
+            "mean": 9.81,
+            "p50": 9.52,
+            "p95": 12.85,
+            "p99": 16.18
+          },
+          "requestLatencyMs": {
+            "mean": 5460,
+            "p50": 5418,
+            "p95": 7511,
+            "p99": 9422
+          },
+          "requestsPerSecond": 1.7,
+          "inputTps": 13600.4,
+          "outputTps": 850.1,
+          "totalTps": 14450.5,
+          "outputTpsPerUserP50": 105,
+          "successful": 370,
+          "errored": 0,
+          "incomplete": 0,
+          "durationSeconds": 120
+        },
+        {
+          "concurrency": 32,
+          "ttftMs": {
+            "mean": 980,
+            "p50": 921.2,
+            "p95": 1519,
+            "p99": 1862
+          },
+          "itlMs": {
+            "mean": 12.26,
+            "p50": 11.9,
+            "p95": 16.07,
+            "p99": 20.23
+          },
+          "requestLatencyMs": {
+            "mean": 6930,
+            "p50": 6871.2,
+            "p95": 9551.5,
+            "p99": 11977
+          },
+          "requestsPerSecond": 2.72,
+          "inputTps": 21762.4,
+          "outputTps": 1360.2,
+          "totalTps": 23122.6,
+          "outputTpsPerUserP50": 84,
+          "successful": 593,
+          "errored": 0,
+          "incomplete": 0,
+          "durationSeconds": 120
+        },
+        {
+          "concurrency": 64,
+          "ttftMs": {
+            "mean": 1540,
+            "p50": 1447.6,
+            "p95": 2387,
+            "p99": 2926
+          },
+          "itlMs": {
+            "mean": 17.17,
+            "p50": 16.67,
+            "p95": 22.5,
+            "p99": 28.34
+          },
+          "requestLatencyMs": {
+            "mean": 9875,
+            "p50": 9782.6,
+            "p95": 13639.3,
+            "p99": 17095.5
+          },
+          "requestsPerSecond": 3.886,
+          "inputTps": 31090.4,
+          "outputTps": 1943,
+          "totalTps": 33033.4,
+          "outputTpsPerUserP50": 60,
+          "successful": 847,
+          "errored": 0,
+          "incomplete": 0,
+          "durationSeconds": 120
+        },
+        {
+          "concurrency": 128,
+          "ttftMs": {
+            "mean": 2660,
+            "p50": 2500.4,
+            "p95": 4123,
+            "p99": 5054
+          },
+          "itlMs": {
+            "mean": 26.98,
+            "p50": 26.19,
+            "p95": 35.36,
+            "p99": 44.52
+          },
+          "requestLatencyMs": {
+            "mean": 15755,
+            "p50": 15595.4,
+            "p95": 21801.3,
+            "p99": 27315.5
+          },
+          "requestsPerSecond": 4.946,
+          "inputTps": 39569.2,
+          "outputTps": 2473,
+          "totalTps": 42042.2,
+          "outputTpsPerUserP50": 38.18,
+          "successful": 1075,
+          "errored": 3,
+          "incomplete": 1,
+          "durationSeconds": 120
+        }
+      ]
+    },
+    {
+      "_test": "TEST FIXTURE: invented values for automated tests only. Not a measurement; never load outside tests.",
+      "identity": {
+        "modelName": "qwen3.8-27b",
+        "gpuType": "B300",
+        "numGpus": 1,
+        "maxSystemReplicas": 1,
+        "runtimeVersion": "sglang-v0.5.23",
+        "dataset": "single-turn-8k",
+        "runtimeConfig": {
+          "disable_radix_cache": true,
+          "max_running_requests": 256,
+          "mem_fraction_static": 0.85,
+          "fixture": "TEST"
+        }
+      },
+      "benchmarkTool": "test-fixture (not a measurement)",
+      "runDate": "2026-10-27T09:00:00Z",
+      "systemConfig": {
+        "fixture": "TEST DATA - not measured"
+      },
+      "datasetConfig": {
+        "fixture": "TEST DATA - not measured"
+      },
+      "metrics": [
+        {
+          "concurrency": 1,
+          "ttftMs": {
+            "mean": 416.7,
+            "p50": 391.7,
+            "p95": 645.9,
+            "p99": 791.7
+          },
+          "itlMs": {
+            "mean": 7.03,
+            "p50": 6.83,
+            "p95": 60,
+            "p99": 11.61
+          },
+          "requestLatencyMs": {
+            "mean": 3831.7,
+            "p50": 3806.7,
+            "p95": 5256.1,
+            "p99": 6597.2
+          },
+          "requestsPerSecond": 0.135,
+          "inputTps": 1076,
+          "outputTps": 67.3,
+          "totalTps": 1143.3,
+          "outputTpsPerUserP50": 146.34,
+          "successful": 32,
+          "errored": 0,
+          "incomplete": 0,
+          "durationSeconds": 120
+        },
+        {
+          "concurrency": 2,
+          "ttftMs": {
+            "mean": 433.3,
+            "p50": 407.3,
+            "p95": 671.6,
+            "p99": 823.3
+          },
+          "itlMs": {
+            "mean": 7.21,
+            "p50": 7,
+            "p95": 60,
+            "p99": 11.9
+          },
+          "requestLatencyMs": {
+            "mean": 3933.3,
+            "p50": 3907.3,
+            "p95": 5396.6,
+            "p99": 6773.3
+          },
+          "requestsPerSecond": 0.263,
+          "inputTps": 2104,
+          "outputTps": 131.5,
+          "totalTps": 2235.5,
+          "outputTpsPerUserP50": 142.86,
+          "successful": 63,
+          "errored": 0,
+          "incomplete": 0,
+          "durationSeconds": 120
+        },
+        {
+          "concurrency": 4,
+          "ttftMs": {
+            "mean": 466.7,
+            "p50": 438.7,
+            "p95": 723.4,
+            "p99": 886.7
+          },
+          "itlMs": {
+            "mean": 7.55,
+            "p50": 7.33,
+            "p95": 60,
+            "p99": 12.46
+          },
+          "requestLatencyMs": {
+            "mean": 4131.7,
+            "p50": 4103.7,
+            "p95": 5671.1,
+            "p99": 7117.2
+          },
+          "requestsPerSecond": 0.502,
+          "inputTps": 4016,
+          "outputTps": 250.9,
+          "totalTps": 4266.9,
+          "outputTpsPerUserP50": 136.36,
+          "successful": 120,
+          "errored": 0,
+          "incomplete": 0,
+          "durationSeconds": 120
+        },
+        {
+          "concurrency": 8,
+          "ttftMs": {
+            "mean": 533.3,
+            "p50": 501.3,
+            "p95": 826.6,
+            "p99": 1013.3
+          },
+          "itlMs": {
+            "mean": 8.24,
+            "p50": 8,
+            "p95": 60,
+            "p99": 13.6
+          },
+          "requestLatencyMs": {
+            "mean": 4533.3,
+            "p50": 4501.3,
+            "p95": 6226.6,
+            "p99": 7813.3
+          },
+          "requestsPerSecond": 0.92,
+          "inputTps": 7360,
+          "outputTps": 460,
+          "totalTps": 7820,
+          "outputTpsPerUserP50": 125,
+          "successful": 220,
+          "errored": 0,
+          "incomplete": 0,
+          "durationSeconds": 120
+        },
+        {
+          "concurrency": 16,
+          "ttftMs": {
+            "mean": 666.7,
+            "p50": 626.7,
+            "p95": 1033.4,
+            "p99": 1266.7
+          },
+          "itlMs": {
+            "mean": 9.61,
+            "p50": 9.33,
+            "p95": 60,
+            "p99": 15.86
+          },
+          "requestLatencyMs": {
+            "mean": 5331.7,
+            "p50": 5291.7,
+            "p95": 7331.1,
+            "p99": 9197.2
+          },
+          "requestsPerSecond": 1.577,
+          "inputTps": 12616,
+          "outputTps": 788.6,
+          "totalTps": 13404.6,
+          "outputTpsPerUserP50": 107.14,
+          "successful": 378,
+          "errored": 0,
+          "incomplete": 0,
+          "durationSeconds": 120
+        },
+        {
+          "concurrency": 32,
+          "ttftMs": {
+            "mean": 933.3,
+            "p50": 877.3,
+            "p95": 1446.6,
+            "p99": 1773.3
+          },
+          "itlMs": {
+            "mean": 12.36,
+            "p50": 12,
+            "p95": 60,
+            "p99": 20.4
+          },
+          "requestLatencyMs": {
+            "mean": 6933.3,
+            "p50": 6877.3,
+            "p95": 9546.6,
+            "p99": 11973.3
+          },
+          "requestsPerSecond": 2.454,
+          "inputTps": 19628,
+          "outputTps": 1226.7,
+          "totalTps": 20854.7,
+          "outputTpsPerUserP50": 83.33,
+          "successful": 588,
+          "errored": 0,
+          "incomplete": 0,
+          "durationSeconds": 120
+        },
+        {
+          "concurrency": 64,
+          "ttftMs": {
+            "mean": 1466.7,
+            "p50": 1378.7,
+            "p95": 2273.4,
+            "p99": 2786.7
+          },
+          "itlMs": {
+            "mean": 17.85,
+            "p50": 17.33,
+            "p95": 60,
+            "p99": 29.46
+          },
+          "requestLatencyMs": {
+            "mean": 10131.7,
+            "p50": 10043.7,
+            "p95": 13971.1,
+            "p99": 17517.2
+          },
+          "requestsPerSecond": 3.397,
+          "inputTps": 27176,
+          "outputTps": 1698.5,
+          "totalTps": 28874.5,
+          "outputTpsPerUserP50": 57.69,
+          "successful": 814,
+          "errored": 1,
+          "incomplete": 0,
+          "durationSeconds": 120
+        }
+      ]
     }
   ]
 }

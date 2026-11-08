@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { capacity, relativeDelta, tieBand } from "../../../domain/metrics.js";
 import { splitRuntime } from "../../../domain/catalog.js";
+import { configKeyOf } from "../../../domain/variants.js";
 import type { BenchmarkRun, Capacity, Deployment, SloPolicy } from "../../../domain/types.js";
 import { routeUrl, updateView, useAppState } from "../../state.js";
 import { engineBuildDetail, num, signedPct, workloadOf } from "../../lib/display.js";
@@ -38,11 +39,16 @@ function compareVersions(a: BenchmarkRun, b: BenchmarkRun): number {
 
 interface VersionRow { run: BenchmarkRun; deployment: Deployment; capacity: Capacity; delta: number | null; tie: boolean; previous: string | null }
 
-/** One row per recorded runtime_version of this configuration on a dataset (its newest run), newest version first. */
-export function versionRows(base: Deployment, runs: readonly BenchmarkRun[], dataset: string, slo: SloPolicy): VersionRow[] {
+/**
+ * One row per recorded runtime_version of this configuration on a dataset (its newest run), newest version first.
+ * With `configKey` (canonical recorded runtime_config, domain/variants.ts) only runs of that runtime config count, so
+ * a Δ between two versions never also mixes a knob change (e.g. prefix cache off vs on).
+ */
+export function versionRows(base: Deployment, runs: readonly BenchmarkRun[], dataset: string, slo: SloPolicy, configKey?: string): VersionRow[] {
   const newest = new Map<string, BenchmarkRun>();
   for (const run of runs) {
     if (run.configurationId !== base.configurationId || run.identity.dataset !== dataset) continue;
+    if (configKey !== undefined && configKeyOf(run.identity.runtimeConfig) !== configKey) continue;
     const current = newest.get(run.identity.runtimeVersion);
     if (!current || Date.parse(run.runDate) > Date.parse(current.runDate)) newest.set(run.identity.runtimeVersion, run);
   }
@@ -94,7 +100,11 @@ function VersionQuality({ row }: { row: VersionRow }) {
 export function RuntimeVersionsPanel({ base, shownRunId, onPick }: { base: Deployment; shownRunId: string | null; onPick: (run: BenchmarkRun) => void }) {
   const state = useAppState();
   const narrow = useMediaQuery(NARROW_MD);
-  const rows = versionRows(base, state.snapshot.runs ?? [], state.workload, state.slo);
+  const shownRun = (state.snapshot.runs ?? []).find((run) => run.id === shownRunId);
+  const configKey = shownRun ? configKeyOf(shownRun.identity.runtimeConfig) : undefined;
+  const rows = versionRows(base, state.snapshot.runs ?? [], state.workload, state.slo, configKey);
+  // Other runtime configs of this configuration on the dataset (listed in the Runtime config picker).
+  const otherConfigs = new Set((state.snapshot.runs ?? []).filter((run) => run.configurationId === base.configurationId && run.identity.dataset === state.workload).map((run) => configKeyOf(run.identity.runtimeConfig))).size - (configKey === undefined ? 0 : 1);
   if (!rows.length) return null;
   const max = Math.max(0, ...rows.map((row) => row.capacity.sustainableTpmPerGpu ?? 0));
   const top = rows.slice(0, 2);
@@ -104,6 +114,11 @@ export function RuntimeVersionsPanel({ base, shownRunId, onPick }: { base: Deplo
   const dataset = workloadOf(state.workload)?.name ?? state.workload;
   // Overlay labels name the version: two runs of one configuration would otherwise share a label.
   const overlay = top.map((row) => ({ ...row.deployment, id: `${row.deployment.id}#${row.run.id}`, knob: [row.run.identity.runtimeVersion, base.knob].filter(Boolean).join(" · ") }));
+  // Both versions belong to one engine, so the overlay is sequential, not categorical: one hue (chart-1), the newer
+  // version solid and full strength, the older lighter and dashed (as on the Engine page). No second engine hue.
+  const overlayStyle = (_: Deployment, index: number) => index === 0
+    ? { color: "var(--chart-1)", label: `${top[0]!.run.identity.runtimeVersion} (newer)` }
+    : { color: "color-mix(in oklab, var(--chart-1) 50%, var(--card))", dash: "6 3", label: `${top[index]!.run.identity.runtimeVersion} (older)` };
   const versionButton = (row: VersionRow, shown: boolean) => (
     <button type="button" className="inline-flex items-center gap-2 rounded-sm font-mono text-xs outline-none hover:underline focus-visible:ring-2 focus-visible:ring-ring" onClick={(event) => { event.stopPropagation(); onPick(row.run); }} aria-current={shown || undefined} title="Show this run">
       {row.run.identity.runtimeVersion}
@@ -112,7 +127,7 @@ export function RuntimeVersionsPanel({ base, shownRunId, onPick }: { base: Deplo
   return (
     <Panel
       title="Runtime versions"
-      description={<>Each recorded runtime_version of this configuration on <span className="font-mono">{dataset}</span> · catalog build: {engineBuildDetail(base)}</>}
+      description={<>Each recorded runtime_version of this configuration and recorded runtime config on <span className="font-mono">{dataset}</span> · catalog build: {engineBuildDetail(base)}{otherConfigs > 0 ? <span data-testid="versions-other-configs"> · {otherConfigs} other runtime config{otherConfigs === 1 ? "" : "s"} in the Runtime config picker</span> : null}</>}
       actions={
         <span className="flex flex-col items-end gap-1">
           <Button variant="outline" size="sm" disabled={!canCompare} aria-expanded={canCompare ? open : undefined} aria-controls="version-overlay" aria-describedby={canCompare ? undefined : "versions-compare-reason"} onClick={() => updateView((s) => { s.versionOverlay = !open; })} data-testid="compare-top-versions">
@@ -179,11 +194,11 @@ export function RuntimeVersionsPanel({ base, shownRunId, onPick }: { base: Deplo
       )}
       {open ? (
         <div id="version-overlay" className="border-t px-4 pt-3" data-testid="version-overlay">
-          <SweepChart title="Throughput by runtime version" deployments={overlay} metric="totalTpsPerGpu" yAxisTitle="Total tok/s per GPU" unit="tok/s/GPU" markCapacity />
+          <SweepChart title="Throughput by runtime version" deployments={overlay} metric="totalTpsPerGpu" yAxisTitle="Total tok/s per GPU" unit="tok/s/GPU" markCapacity seriesStyle={overlayStyle} />
         </div>
       ) : null}
       <div className="text-muted-foreground flex flex-wrap items-center gap-x-4 gap-y-1 border-t px-4 py-2.5 text-xs">
-        <span className="text-pretty">Newest first; Δ compares each version with the next older one of this configuration (same engine) under the active SLO; within ±3% reads as a tie (assumed single-run noise). The overlay is part of the page URL.</span>
+        <span className="text-pretty">Newest first; Δ compares each version with the next older one of this configuration and runtime config (same engine) under the active SLO; within ±3% reads as a tie (assumed single-run noise). The overlay is part of the page URL. Compare holds one run per configuration, so two versions are compared here, not on the Compare page.</span>
         <a className="text-link inline-flex items-center gap-0.5 hover:underline" href={routeUrl("tldr", { model: base.modelId })} data-testid="versions-quant-ladder">Open the quantization ladder<ArrowUpRight className="size-3" aria-hidden="true" /></a>
         <a className="text-link inline-flex items-center gap-0.5 hover:underline" href={routeUrl("engine", pair ? { pair } : { model: base.modelId })} data-testid="versions-engine">Open the engine head-to-head<ArrowUpRight className="size-3" aria-hidden="true" /></a>
       </div>

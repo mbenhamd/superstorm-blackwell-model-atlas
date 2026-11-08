@@ -5,7 +5,7 @@ import { appState } from "../state.js";
 import { toast } from "./toast.js";
 import { modelQuality, rankedRows } from "./display.js";
 import { gpuFootprint } from "../../domain/validation.js";
-import { runIdentity } from "../pages/throughput.js";
+import { runIdentity } from "../components/app/throughput-identity.js";
 
 function download(filename: string, content: string, mime = "application/json"): void {
   const url = URL.createObjectURL(new Blob([content], { type: mime }));

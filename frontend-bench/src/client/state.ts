@@ -5,7 +5,7 @@ import type { Experiment, ExperimentInput, ExperimentStatus, SloPolicy, Snapshot
 import { migrateExperiment, parseExperiment, transitionExperiment } from "../domain/validation.js";
 import { SETUP_SORTS, type SetupSort } from "../domain/setups.js";
 
-export type Route = "tldr" | "intelligence" | "throughput" | "compare" | "engine" | "models" | "deployments" | "new-benchmark" | "methodology";
+export type Route = "tldr" | "intelligence" | "throughput" | "compare" | "engine" | "models" | "deployments" | "published" | "new-benchmark" | "methodology";
 export type ModelTab = "overview" | "precision";
 export type Theme = "light" | "dark";
 export type SortKey = "model" | "quality" | "capacity" | "latency" | "memory";
@@ -13,7 +13,7 @@ export type SortKey = "model" | "quality" | "capacity" | "latency" | "memory";
 /** Sidebar order of the canonical routes; Methodology last. */
 export const routeLabels: Record<Route, string> = {
   tldr: "TL;DR", intelligence: "Intelligence", throughput: "Throughput", compare: "Compare", engine: "Engine",
-  models: "Models", deployments: "Deployments", "new-benchmark": "New benchmark", methodology: "Methodology",
+  models: "Models", deployments: "Deployments", published: "Published", "new-benchmark": "New benchmark", methodology: "Methodology",
 };
 /** Route names from the original app and the previous redesign, resolved to a canonical route plus default parameters. */
 export const aliases: Record<string, { route: Route; params?: Record<string, string> }> = {
@@ -44,8 +44,15 @@ export const appState = {
   versionOverlay: false, experimentView: "board" as "board" | "table",
   frontierOnly: false, logScale: false, sort: "capacity" as SortKey, sortDirection: "desc" as "asc" | "desc",
   slo: { ...DEFAULT_SLO } as SloPolicy, focusId: "",
+  /**
+   * Throughput: a picked run id (URL `rid`), e.g. a TL;DR variant's best run. It applies only while its configuration
+   * is selected and the run is on the active dataset; otherwise the configuration's newest run is shown.
+   */
+  runPick: "",
   /** TL;DR: GPU shape key ("8xB300"; "" = all shapes) and setup sort. The model is `model` ("all" = default model). */
   tldrShape: "", tldrSort: "sustainable" as SetupSort,
+  /** TL;DR ladder filter chips (URL `engine`, `precision`, `spec`); reset when the model or shape changes. */
+  tldrFilter: { engines: [] as string[], precisions: [] as string[], spec: "all" as "all" | "on" | "off" },
   drawerId: "", commandOpen: false, workloadsOpen: false, experimentFormFor: null as string | null, navOpen: false,
   loading: false, apiError: "",
 };
@@ -71,6 +78,9 @@ export function configurationIdOf(id: string, snapshot: Snapshot = appState.snap
 }
 /** TL;DR shape key: "<GPUs>x<gpu_type>", e.g. "8xB300". */
 export const TLDR_SHAPE = /^\d{1,3}x[A-Za-z0-9]{1,24}$/;
+/** Run ids are UUID-like strings; anything else in `rid` is ignored. */
+const RUN_ID = /^[A-Za-z0-9._:-]{1,128}$/;
+const TLDR_PRECISIONS = ["BF16", "FP8", "FP4/FP8", "MXFP4", "NVFP4"];
 export function readRoute(): void {
   const hash = location.hash.replace(/^#\/?/, "");
   const [path = "", query = ""] = hash.split("?");
@@ -100,6 +110,14 @@ export function readRoute(): void {
   appState.tldrShape = route === "tldr" && tldrShape && TLDR_SHAPE.test(tldrShape) ? tldrShape : "";
   const tldrSort = params.get("sort");
   appState.tldrSort = route === "tldr" && SETUP_SORTS.includes(tldrSort as SetupSort) ? tldrSort as SetupSort : "sustainable";
+  const spec = params.get("spec");
+  appState.tldrFilter = route === "tldr" ? {
+    engines: [...new Set(list(params.get("engine")).filter((id) => /^[A-Za-z0-9.-]{1,24}$/.test(id)))],
+    precisions: [...new Set(list(params.get("precision")).filter((id) => TLDR_PRECISIONS.includes(id)))],
+    spec: spec === "on" || spec === "off" ? spec : "all",
+  } : { engines: [], precisions: [], spec: "all" };
+  const rid = params.get("rid");
+  appState.runPick = route === "throughput" && rid && RUN_ID.test(rid) ? rid : "";
   const tab = params.get("tab");
   appState.modelTab = tab === "precision" ? "precision" : "overview";
   appState.runTab = route === "throughput" && tab === "configuration" ? "configuration" : "sweep";
@@ -133,17 +151,30 @@ export function viewParams(route: Route = appState.route): Record<string, string
   }
   if (route === "models") { if (appState.model !== "all") { params.model = appState.model; params.tab = appState.modelTab; } else if (appState.query) params.q = appState.query; }
   if (route === "compare") params.runs = appState.compare.join(",");
-  if (route === "throughput") { params.run = appState.run; if (appState.runTab === "configuration") params.tab = "configuration"; if (appState.versionOverlay) params.overlay = "versions"; }
+  if (route === "throughput") { params.run = appState.run; if (appState.runPick) params.rid = appState.runPick; if (appState.runTab === "configuration") params.tab = "configuration"; if (appState.versionOverlay) params.overlay = "versions"; }
   if (route === "engine") { if (appState.pair) params.pair = appState.pair; else if (appState.model !== "all") params.model = appState.model; }
   if (route === "tldr") {
     if (appState.model !== "all") params.model = appState.model;
     if (appState.tldrShape) params.shape = appState.tldrShape;
     if (appState.tldrSort !== "sustainable") params.sort = appState.tldrSort;
+    if (appState.tldrFilter.engines.length) params.engine = appState.tldrFilter.engines.join(",");
+    if (appState.tldrFilter.precisions.length) params.precision = appState.tldrFilter.precisions.join(",");
+    if (appState.tldrFilter.spec !== "all") params.spec = appState.tldrFilter.spec;
   }
   if (route === "intelligence") { if (appState.logScale) params.scale = "log"; if (appState.frontierOnly) params.frontier = "1"; }
   return params;
 }
-export function syncUrl(): void { history.replaceState(null, "", routeUrl(appState.route, viewParams())); }
+export function syncUrl(): void {
+  // Published keeps its own filter parameters in the hash (repeated keys, written by the page); a global view change
+  // (e.g. the workload select) only refreshes `workload` and must not drop them.
+  if (appState.route === "published" && /^#\/published(\?|$)/.test(location.hash)) {
+    const search = new URLSearchParams(location.hash.split("?")[1] ?? "");
+    search.set("workload", appState.workload);
+    history.replaceState(null, "", `#/published?${search}`);
+    return;
+  }
+  history.replaceState(null, "", routeUrl(appState.route, viewParams()));
+}
 /** Mutate view state, write it to the URL, and re-render. */
 export function updateView(mutator: (state: typeof appState) => void): void { mutator(appState); syncUrl(); emit(); }
 

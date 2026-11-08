@@ -15,7 +15,7 @@
     "start": "bun src/server/index.ts",
     "preview": "bun scripts/preview.ts",
     "quality": "bun scripts/quality.ts",
-    "test:unit": "bun test tests/domain.test.ts tests/engine.test.ts tests/repository.test.ts tests/runs.test.ts tests/scale.test.ts tests/search.test.ts",
+    "test:unit": "bun test tests/domain.test.ts tests/engine.test.ts tests/repository.test.ts tests/runs.test.ts tests/scale.test.ts tests/search.test.ts tests/variants.test.ts tests/external.test.ts tests/tldr.test.ts tests/published-view.test.ts",
     "test:browser": "bun test tests/browser.test.ts --timeout 30000",
     "test:postgres": "bun test tests/postgres.test.ts --timeout 30000",
     "browser:install": "bunx --bun playwright install chromium",
@@ -27,7 +27,8 @@
     "import:runs": "bun scripts/import-runs.ts",
     "typecheck": "bunx tsc -p tsconfig.json --noEmit && bunx tsc -p tsconfig.client.json --noEmit",
     "screenshots": "bun scripts/screenshots.ts",
-    "import:atlas": "bun scripts/import-atlas.ts"
+    "import:atlas": "bun scripts/import-atlas.ts",
+    "import:external": "bun scripts/import-external.ts"
   },
   "dependencies": {
     "@tanstack/react-table": "9.3.1",

@@ -34,12 +34,13 @@ export function WorkloadProfileTiles({ configurationId, slo }: { configurationId
   const reference = balanced?.capacity.sustainableTpmPerGpu ?? null;
   const pick = (d: Deployment) => updateView((s) => { s.workload = d.workloadId; });
   const note = "Ratios divide two measured sustainable values of this configuration under the active SLO. Datasets differ in prompt and output lengths, so a ratio describes workload sensitivity, not an engine or quantization effect.";
-  // Compact strip: one heading line and one row of two-line tiles, so it never pushes the SLO evidence down.
+  // Compact strip: heading beside one row of two-line tiles at ≥1280px (above it on narrower screens), so the strip
+  // stays about one tile high and the SLO evaluation still starts in the first viewport.
   return (
-    <section className="bg-card shadow-panel min-w-0 space-y-2 rounded-lg border px-3 py-2.5 sm:px-4" aria-labelledby="profile-tiles-title" data-testid="profile-strip">
-      <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5">
+    <section className="bg-card shadow-panel min-w-0 space-y-2 rounded-lg border px-3 py-2.5 sm:px-4 xl:flex xl:items-center xl:gap-4 xl:space-y-0" aria-labelledby="profile-tiles-title" data-testid="profile-strip">
+      <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 xl:w-[168px] xl:shrink-0 xl:flex-col xl:items-start">
         <span className="inline-flex items-center gap-1">
-          <h2 id="profile-tiles-title" className="text-[13px] leading-5 font-semibold">Sustainable throughput by workload profile</h2>
+          <h2 id="profile-tiles-title" className="text-[13px] leading-5 font-semibold"><span className="xl:sr-only">Sustainable throughput </span><span className="xl:capitalize">by</span> workload profile</h2>
           <Tooltip>
             <TooltipTrigger asChild>
               <button type="button" className="text-muted-foreground hover:text-foreground inline-grid size-5 place-items-center rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-ring" aria-label="About profile ratios"><Info className="size-3.5" aria-hidden="true" /></button>
@@ -47,9 +48,9 @@ export function WorkloadProfileTiles({ configurationId, slo }: { configurationId
             <TooltipContent className="max-w-72 text-pretty">{note}</TooltipContent>
           </Tooltip>
         </span>
-        <span className="text-muted-foreground text-xs">{tiles.length} measured dataset{tiles.length === 1 ? "" : "s"} · newest run each · select to switch the dataset</span>
+        <span className="text-muted-foreground text-xs text-pretty">{tiles.length} measured dataset{tiles.length === 1 ? "" : "s"} · newest run each<span className="xl:hidden"> · select to switch the dataset</span></span>
       </div>
-      <div className="grid gap-2 sm:grid-cols-[repeat(auto-fit,minmax(260px,1fr))]" data-testid="profile-tiles">
+      <div className="grid min-w-0 gap-2 sm:grid-cols-[repeat(auto-fit,minmax(260px,1fr))] xl:flex-1" data-testid="profile-tiles">
         {tiles.map((tile) => {
           const d = tile.deployment, c = tile.capacity;
           const active = d.workloadId === state.workload;
