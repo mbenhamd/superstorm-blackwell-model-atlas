@@ -8,10 +8,11 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip
 import { hasMeasuredLevels, type SetupEntry } from "../../../domain/setups.js";
 import type { VariantRow } from "../../../domain/variants.js";
 import { appState, navigate, useAppState } from "../../state.js";
-import { configLabel, engineVersion, num } from "../../lib/display.js";
+import { configLabel, engineVersion, gpusOf, num } from "../../lib/display.js";
 import { exportRows } from "../../lib/export.js";
 import { NARROW_MD, useMediaQuery } from "../../lib/use-media.js";
 import { Panel } from "./primitives.js";
+import { LoadCurve, totalPerGpuCurve } from "./glance.js";
 import { StatusBadge } from "./status-badge.js";
 import { distinctChips, shapeKey, shapeLabel } from "./tldr-data.js";
 import { Bar, cmax, Missing, StandingCell, TIE_NOTE, tpm } from "./tldr-parts.js";
@@ -89,6 +90,7 @@ export function SetupsTable({ entries, rows, modelName, modelId, scope, publishe
               <col className="w-[180px] max-md:hidden" />
               {collapsed ? <col className="w-[132px] max-sm:w-[112px]" /> : (
                 <>
+                  <col className="w-[104px] max-lg:hidden" />
                   <col className="w-[132px] max-sm:w-[108px]" />
                   <col className="w-[104px] max-md:hidden" />
                   <col className="w-[72px] max-md:hidden" />
@@ -103,6 +105,7 @@ export function SetupsTable({ entries, rows, modelName, modelId, scope, publishe
                 <TableHead className="max-md:hidden">Engine</TableHead>
                 {collapsed ? <TableHead data-testid="metrics-not-measured">Sustainable</TableHead> : (
                   <>
+                    <TableHead className="h-auto py-1.5 leading-tight whitespace-normal max-lg:hidden" title="Total tok/s per GPU at each tested concurrency level, lowest to highest">Load curve<span className="text-muted-foreground block font-normal">tok/s/GPU by concurrency</span></TableHead>
                     <TableHead className="h-auto py-1.5 text-right leading-tight whitespace-normal">Sustainable<span className="text-muted-foreground block font-normal">tok/min/GPU</span></TableHead>
                     <TableHead className="max-md:hidden">Δ vs best</TableHead>
                     <TableHead className="text-right max-md:hidden" title="Highest concurrency level meeting the SLO">C_max</TableHead>
@@ -157,6 +160,7 @@ export function SetupsTable({ entries, rows, modelName, modelId, scope, publishe
                       <TableCell className="align-top"><StandingCell standing={entry.standing} leader={leader} leaderName={leaderName} /></TableCell>
                     ) : (
                       <>
+                        <TableCell className="align-top max-lg:hidden">{hasMeasuredLevels(row) ? <LoadCurve points={totalPerGpuCurve(row.capacity, gpusOf(d))} unit="Total tok/s per GPU" cmax={c} highlight={entry.standing.kind === "best"} /> : <Missing />}</TableCell>
                         <TableCell className="text-right align-top">
                           <span className="block text-[13px] leading-5 font-semibold tabular-nums">{value === null ? <Missing /> : num(value)}</span>
                           {hasMeasuredLevels(row) ? <Bar value={value} max={best} best={entry.standing.kind === "best"} className="mt-1 ml-auto w-full max-w-28" /> : null}

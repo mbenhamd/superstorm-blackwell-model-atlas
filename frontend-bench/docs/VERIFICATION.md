@@ -97,6 +97,12 @@ Domain, data, fixture, route-stub and test changes; no metric definition changed
 
 Not run in this pass: screenshots, `test:postgres`.
 
+## Glance components and Engine density (8 November 2026)
+
+- dashboardcn `ring-kpi-card`, `activity-rings-card`, `allocation-card` and `sparkline` adopted from the public registry JSON, imports remapped to `@/lib/format` and `@/components/ui` (locally edited `card`, `tabs`, `tooltip` and `delta-badge` not overwritten). Ring values are clamped to 0–100 % and labelled; full numbers are shown (no compaction).
+- Browser tests assert: four labelled KPI rings in the setup sheet; a load curve with ≥ 2 levels on the best TL;DR row and "—" on unmeasured rows; the "SLO budget" card names ITL p95 and TTFT p95; four Published share cards, each "Records: n of N" with n ≤ N; the Engine published section renders one GPU class at a time, B300 selected first, every class reachable through the selector; the matchup's matched-pair controls are in its info tip; no not-measured chart block offline.
+- Gates: atlas and external import checks, typecheck, 179 unit, 67 browser tests, design lint 0 errors / 0 warnings. Screenshots of the Engine page offline and with fixture runs at 1440 and 390 px: no horizontal overflow, no page errors.
+
 ## Second parity evaluator fixes (8 November 2026)
 
 The evaluator reported no missing feature and six issues (one medium, five low). All six were addressed. Client, test and doc changes only; no metric definition, catalog or atlas snapshot changed.

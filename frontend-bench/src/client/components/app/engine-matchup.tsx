@@ -15,7 +15,7 @@ import { bestPerEngine, ENGINE_TIE_BAND, ENGINES, engineVerdict, type Engine, ty
 import { EngineBuild } from "./engine-build.js";
 import { openRun } from "./overlays.js";
 import { ConfigChips, ErroredBadge, IncompleteBadge } from "./performance.js";
-import { Panel, SeriesSwatch } from "./primitives.js";
+import { Panel, SeriesSwatch, InfoTip } from "./primitives.js";
 
 /*
  * Engine matchup: the best measured configuration of each engine for one model × GPU count on the active dataset
@@ -94,9 +94,11 @@ function MatchupCard({ engine, index, deployment: d, capacity: c, measured, max,
           <span className="text-muted-foreground text-xs">sustainable tok/min/GPU</span>
           {tied ? <Badge variant="neutral" data-matchup-delta="tie">tied</Badge> : delta !== null ? <DeltaBadge delta={delta} variant="soft" data-matchup-delta={signedFraction(delta)} /> : null}
         </div>
-        <div className={cn("h-1.5 overflow-hidden rounded-full", measured ? "bg-muted" : "border border-dashed")} aria-hidden="true">
-          <div className="h-full rounded-full" style={{ width: `${width}%`, backgroundColor: `var(--chart-${index + 1})` }} />
-        </div>
+        {measured ? (
+          <div className="bg-muted h-1.5 overflow-hidden rounded-full" aria-hidden="true">
+            <div className="h-full rounded-full" style={{ width: `${width}%`, backgroundColor: `var(--chart-${index + 1})` }} />
+          </div>
+        ) : null}
         <p className="text-muted-foreground text-xs tabular-nums" data-testid="matchup-cmax">
           C_max {num(c?.highestPassingConcurrency)}{c && c.totalLevels ? ` · ${c.passingLevels} of ${c.totalLevels} levels in SLO` : measured ? "" : " · no run on this dataset"}
         </p>
@@ -132,6 +134,9 @@ export function EngineMatchup({ scope, fallback, shapeKey, modelName, details }:
       description={<span data-testid="matchup-scope">{modelName} · {shapeKey.replace(/^(\d+)x/, "$1× ")} · {state.workload} · best measured configuration per engine</span>}
       actions={<>
         {badge}
+        <InfoTip label="How the matchup is read" testId="matchup-info">
+          Each card is the engine's best measured configuration for this model and GPU count on {state.workload}. A verdict needs a matched pair: {MATCHED_CONTROLS}. |Δ| ≤ {BAND}% reads as a tie (assumed single-run noise, not a measured interval).
+        </InfoTip>
         <Button variant="outline" size="sm" onClick={() => addAllToCompare(shown.map((d) => d.id))} data-testid="matchup-add-compare"><Plus aria-hidden="true" />Add both to compare</Button>
       </>}
       bodyClassName="space-y-3"
@@ -146,9 +151,8 @@ export function EngineMatchup({ scope, fallback, shapeKey, modelName, details }:
       <p className="text-muted-foreground flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-pretty" data-testid="matchup-note">
         <span>
           {verdict.kind === "different" ? <span data-testid="matchup-differences">Different configs, no verdict. Differs in {differenceItems(verdict).join("; ")}. Read each side on its own. </span>
-            : comparable || verdict.kind === "no-passing" ? `Matched pair: ${MATCHED_CONTROLS}. Other engine-only flags may still differ (Argument differences below). `
-            : "A verdict needs both engines measured on this dataset with matched configurations. "}
-          |Δ| ≤ {BAND}% reads as a tie (assumed single-run noise).
+            : comparable || verdict.kind === "no-passing" ? "Matched pair (ⓘ lists the controls held equal). Engine-only flags may still differ: see Argument differences."
+            : `Verdict once both engines have a matched run on ${state.workload}.`}
         </span>
         <button type="button" className="text-link inline-flex items-center gap-0.5 hover:underline" onClick={() => openTldr(scope.modelId, shapeKey)} data-testid="matchup-ladder">Quantization ladder<ArrowUpRight className="size-3" aria-hidden="true" /></button>
       </p>

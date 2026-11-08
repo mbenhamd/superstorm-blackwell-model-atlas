@@ -6,12 +6,13 @@ import { PublishedCoverage, coverageColumns } from "../components/app/published-
 import { EMPTY_FILTERS, applyFilters, filterParams, isFiltered, parseFilters, type PublishedFilters } from "../components/app/published-data.js";
 import { PublishedFilterBar } from "../components/app/published-filters.js";
 import { PublishedRecords } from "../components/app/published-records.js";
+import { PublishedShares } from "../components/app/published-shares.js";
 import { externalDataset } from "../lib/external.js";
 import { appState, navigate, useAppState } from "../state.js";
 
 /**
  * Published: explorer of external published results (evidence class "external": third-party, engine-project and
- * vendor benchmarks). Filters → coverage heatmap (models × GPU, cell = ladders) → record list with in-place ladder
+ * vendor benchmarks). Filters → shares of the filtered records (allocation cards) → coverage heatmap (models × GPU, cell = ladders) → record list with in-place ladder
  * charts. Nothing here is ranked against measured runs, and no SLO, C_max or sustainable rate is computed.
  *
  * Filters live in the URL (`#/published?model=kimi-k3&hw=B300&engine=vllm&version=stable&evidence=…&flag=…&noflag=…
@@ -53,6 +54,7 @@ export function PublishedPage() {
         actions={<Button variant="outline" size="sm" onClick={() => navigate("methodology")} data-testid="published-methodology"><BookOpen aria-hidden="true" />How external data is handled</Button>}
       />
       <PublishedFilterBar records={data.records} filters={filters} onChange={change} columns={columns} />
+      <PublishedShares records={visible} />
       <PublishedCoverage
         records={coverage}
         columns={columns}

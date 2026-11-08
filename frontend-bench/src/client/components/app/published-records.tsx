@@ -6,7 +6,8 @@ import { Button } from "@/components/ui/button";
 import { DataTableCard } from "@/components/blocks/data-table-card";
 import { DataTableColumnHeader, type DataTableColumnDef } from "@/components/ui/data-table";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { displayFlags, hardwareClass, recordDate, type ExternalRecord, type ExternalSource } from "../../../domain/external.js";
+import { displayFlags, displayUnit, hardwareClass, metricName, recordDate, type ExternalRecord, type ExternalSource } from "../../../domain/external.js";
+import { LoadCurve } from "./glance.js";
 import { externalDataset } from "../../lib/external.js";
 import { NARROW_MD, useMediaQuery } from "../../lib/use-media.js";
 import { useAppState } from "../../state.js";
@@ -63,6 +64,14 @@ function HeadlineCell({ value }: { value: Headline | null }) {
   );
 }
 
+/** Published ladder of the headline metric as a sparkline (x = published concurrency levels, ascending); points have none. */
+function LadderCurve({ row }: { row: Row }) {
+  const { record, headline } = row;
+  if (record.kind !== "ladder" || !headline) return null;
+  const points = record.levels.flatMap((level) => (level.concurrency === null ? [] : [{ concurrency: level.concurrency, value: level.values[headline.metricIndex] ?? null }]));
+  return <span className="mt-1 flex justify-end"><LoadCurve points={points} unit={`Published ${metricName(headline.metric)}${displayUnit(headline.metric) ? ` (${displayUnit(headline.metric)})` : ""}`} className="h-5 w-20" /></span>;
+}
+
 function RecordName({ row }: { row: Row }) {
   const { record } = row;
   const span = concurrencySpan(record);
@@ -103,7 +112,7 @@ const columnsWide = (toggle: (id: string) => void, expanded: ReadonlySet<string>
   {
     id: "output", size: 140, accessorFn: (row) => row.headline?.value ?? undefined, sortUndefined: "last",
     header: ({ column }) => <DataTableColumnHeader column={column} title="Output tok/s/GPU" align="right" />,
-    cell: ({ row }) => <HeadlineCell value={row.original.headline} />,
+    cell: ({ row }) => <><HeadlineCell value={row.original.headline} /><LadderCurve row={row.original} /></>,
   },
   {
     id: "source", size: 150, accessorFn: (row) => row.source?.publisher ?? "",

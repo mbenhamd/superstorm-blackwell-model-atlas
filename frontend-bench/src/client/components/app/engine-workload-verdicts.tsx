@@ -10,7 +10,7 @@ import { bestPerEngine, ENGINE_TIE_BAND, ENGINES, engineVerdict, type Engine, ty
 import { differenceItems, MATCHED_CONTROLS, signedFraction, verdictText } from "./engine-matchup.js";
 import { openRun } from "./overlays.js";
 import { ErroredBadge, IncompleteBadge } from "./performance.js";
-import { Panel, SeriesSwatch } from "./primitives.js";
+import { InfoTip, Panel, SeriesSwatch } from "./primitives.js";
 import { PROFILE_HINT, workloadProfile } from "./throughput-profile.js";
 
 /*
@@ -117,12 +117,17 @@ export function EngineWorkloadVerdicts({ scope, modelName, shapeLabel }: { scope
     <Panel
       id="engine-verdicts"
       title="Per-workload verdicts"
-      description={<span data-testid="verdicts-scope">{modelName} · {shapeLabel} · best measured configuration per engine on each dataset</span>}
+      description={<span data-testid="verdicts-scope">{modelName} · {shapeLabel} · best per engine on each dataset</span>}
+      actions={
+        <InfoTip label="How verdicts are read" testId="verdicts-info">
+          Sustainable = observed total (input + output) tok/s at C_max × {num(state.slo.margin, 2)} margin × 60 ÷ GPUs. TTFT and ITL are the imported p95 at C_max; per-user speed is the p50 output tok/s per request. A verdict needs a matched pair: {MATCHED_CONTROLS}; otherwise the row reads "different configs — no verdict". |Δ| ≤ {BAND}% reads as a tie (assumed single-run noise, not a measured interval).
+        </InfoTip>
+      }
       bodyClassName="p-0"
     >
       {!anyMeasured ? (
         <div className="flex flex-col gap-3 px-4 py-4" data-testid="engine-verdicts" data-collapsed="true">
-          <p className="text-muted-foreground text-[13px] text-pretty">No engine has a run of {modelName} on {shapeLabel} yet. Once runs are imported, each dataset lists the best configuration per engine with sustainable tok/min/GPU, C_max, TTFT and ITL p95 at C_max, and a verdict when the two form a matched pair.</p>
+          <p className="text-muted-foreground text-[13px]">No run on {shapeLabel} yet. Pick a dataset:</p>
           <ul className="flex flex-wrap gap-2" aria-label="Workloads">
             {rows.map(({ workload }) => {
               const active = workload.id === state.workload;
@@ -174,9 +179,6 @@ export function EngineWorkloadVerdicts({ scope, modelName, shapeLabel }: { scope
           ) : null}
         </ul>
       )}
-      <p className="text-muted-foreground border-t px-4 py-2 text-xs text-pretty">
-        Sustainable = observed total (input + output) tok/s at C_max × {num(state.slo.margin, 2)} margin × 60 ÷ GPUs. TTFT and ITL are the imported p95 at C_max; per-user speed is the p50 output tok/s per request (the import carries no per-user p95). A verdict needs a matched pair: {MATCHED_CONTROLS}; otherwise the row reads "different configs — no verdict" and lists what differs. |Δ| ≤ {BAND}% reads as a tie (assumed single-run noise, not a measured interval).
-      </p>
     </Panel>
   );
 }

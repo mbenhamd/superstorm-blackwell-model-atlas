@@ -1,4 +1,5 @@
 import * as React from "react";
+import { LoadCurve, totalPerGpuCurve } from "../components/app/glance.js";
 import { Activity, Columns2, Copy, Download, Ellipsis, FileSearch, History, Plus, RotateCcw, SearchX, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -211,6 +212,11 @@ const columnsAll: DataTableColumnDef<RankedDeployment>[] = [
     },
   },
   {
+    id: "load curve", size: 96, enableSorting: false,
+    header: () => <span title="Total tok/s per GPU at each tested concurrency level, lowest to highest">Load curve</span>,
+    cell: ({ row }) => isMeasured(row.original.deployment) ? <LoadCurve points={totalPerGpuCurve(row.original.capacity, gpusOf(row.original.deployment))} unit="Total tok/s per GPU" cmax={row.original.capacity.highestPassingConcurrency} /> : dash,
+  },
+  {
     id: "C_max", size: 68, accessorFn: (row) => row.capacity.highestPassingConcurrency ?? undefined, sortUndefined: "last",
     header: ({ column }) => <DataTableColumnHeader column={column} title="C_max" align="right" />,
     cell: ({ row }) => <div className={right}>{row.original.capacity.highestPassingConcurrency ?? dash}</div>,
@@ -265,7 +271,7 @@ const columnsAll: DataTableColumnDef<RankedDeployment>[] = [
   },
 ];
 /** Metric columns that are "—" in every row until a run is imported; they collapse into one "Metrics" column. */
-const METRIC_IDS = ["sustainable", "C_max", "TTFT p95", "ITL p50", "SLO"];
+const METRIC_IDS = ["load curve", "sustainable", "C_max", "TTFT p95", "ITL p50", "SLO"];
 const metricsPlaceholder: DataTableColumnDef<RankedDeployment> = {
   id: "metrics", size: 96, enableSorting: false, enableHiding: false,
   header: () => <span className="text-muted-foreground font-normal" title="tok/min/GPU, C_max, TTFT p95, ITL p50 and SLO verdict appear once runs are imported">Metrics · not measured</span>,

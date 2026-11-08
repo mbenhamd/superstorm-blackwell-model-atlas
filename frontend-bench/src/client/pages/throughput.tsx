@@ -18,6 +18,7 @@ import { RecheckDetails } from "../components/app/engine-build.js";
 import { CommandBlock } from "../components/app/command-block.js";
 import { ThroughputConcurrencyChart } from "../components/app/throughput-chart.js";
 import { MeasuredResultsTable, SloEvaluationTable } from "../components/app/throughput-tables.js";
+import { SloBudgetCard } from "../components/app/glance.js";
 import { WorkloadProfileTiles } from "../components/app/throughput-profiles.js";
 import { deploymentForRun, RuntimeVersionsPanel } from "../components/app/throughput-versions.js";
 import { IdentityLine, runsOf, ThroughputActions, ThroughputSelectors } from "../components/app/throughput-selectors.js";
@@ -170,6 +171,7 @@ function Sweep({ row, base, onPickRun }: { row: RankedDeployment; base: Deployme
           id="slo-evaluation"
         >
           <SloEvaluationTable row={row} slo={state.slo} />
+          <div className="border-t p-3"><SloBudgetCard capacity={c} slo={state.slo} className="gap-3 border-0 py-1 [&_[data-slot=card-title]]:text-[13px]" size={96} /></div>
         </Panel>
       </div>
       {published.on ? <PublishedCurvesPanel state={published} deployment={d} modelName={modelName} /> : null}

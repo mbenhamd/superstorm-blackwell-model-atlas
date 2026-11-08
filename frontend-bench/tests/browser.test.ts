@@ -389,8 +389,8 @@ describe("offline console (atlas, Hugging Face and Artificial Analysis data)", (
     expect(await page.locator('[data-engine-side="vLLM"] [data-catalog-target]').innerText()).toMatch(/^Catalog: (no B300 validation record|B300 validation recorded)$/);
     expect(await page.locator("[data-measured-here]").count()).toBe(0);
     expect(await page.locator('[data-engine-side] [data-status="candidate"][data-variant="info"]').count()).toBeGreaterThan(0);
-    // Not measured: one compact block instead of two empty chart frames.
-    expect(await page.getByTestId("engine-charts-empty").count()).toBe(1);
+    // Not measured: no chart frames and no placeholder block (the matchup cards already say "Not measured").
+    expect(await page.getByTestId("engine-charts-empty").count()).toBe(0);
     expect(await page.locator('[data-empty-chart="true"]').count()).toBe(0);
     // Configured builds and rechecks sit collapsed inside Every measured version (no separate timeline panel).
     const builds = page.getByTestId("runtime-versions-disclosure");
@@ -824,6 +824,13 @@ describe("offline console (atlas, Hugging Face and Artificial Analysis data)", (
     expect(await records.locator("[data-weak]").count()).toBe(0);
     expect(await records.locator('[data-version-class="invalid"]').count()).toBe(0);
     expect(await rows.count()).toBe(Math.min(20, initial.shown));
+    // Share cards: each is a fraction of the filtered records, stated as "n of N".
+    const shares = page.getByTestId("published-shares").locator("[data-share]");
+    expect(await shares.count()).toBe(4);
+    for (const share of await shares.all()) {
+      expect(await share.innerText()).toMatch(new RegExp(`Records: [\\d,]+ of ${initial.shown.toLocaleString("en-US")}`));
+      expect(Number(await share.getAttribute("data-count"))).toBeLessThanOrEqual(initial.shown);
+    }
     // Every row carries source link, version audit badge and evidence badge on the card.
     expect(await rows.first().locator("[data-source-id]").count()).toBe(1);
     expect(await rows.first().locator("[data-version-class]").count()).toBe(1);
@@ -988,6 +995,8 @@ describe("offline console (atlas, Hugging Face and Artificial Analysis data)", (
     await go("engine?model=kimi-k3");
     const published = page.locator("#engine-published");
     await published.waitFor();
+    const otherChip = published.locator('[data-gpu-chip="other"]');
+    if (await otherChip.count()) await otherChip.click();
     const unstated = published.locator('[data-published-hardware="other"]');
     expect(await unstated.count()).toBe(1);
     expect(await unstated.locator("figcaption").innerText()).toContain("Hardware not stated");
@@ -1146,7 +1155,7 @@ describe("measured-data views (TEST fixture runs via RUNS_FILE)", () => {
     // Compact rows: nothing but rank, setup, engine, sustainable, Δ, C_max.
     const heights = await rows.evaluateAll((items) => items.map((item) => item.getBoundingClientRect().height));
     expect(Math.max(...heights)).toBeLessThanOrEqual(56);
-    expect(await page.getByTestId("setups-table").locator("thead").innerText()).toMatch(/#\s+Setup\s+Engine\s+Sustainable\s+tok\/min\/GPU\s+Δ vs best\s+C_max/);
+    expect(await page.getByTestId("setups-table").locator("thead").innerText()).toMatch(/#\s+Setup\s+Engine\s+Load curve\s+tok\/s\/GPU by concurrency\s+Sustainable\s+tok\/min\/GPU\s+Δ vs best\s+C_max/);
     // The sheet: KPIs, run quality, runs, knobs, actions.
     await best.click();
     const sheet = page.getByTestId("setup-sheet");
@@ -1154,6 +1163,14 @@ describe("measured-data views (TEST fixture runs via RUNS_FILE)", () => {
     expect(await sheet.getByTestId("setup-rank").innerText()).toBe("#1 of 7");
     expect(await sheet.getByTestId("setup-sustainable").innerText()).toContain("2,882,918");
     expect(await sheet.getByTestId("setup-kpis").innerText()).toContain("C_max");
+    // KPI rings carry bounded fractions only (share of best, levels passing, latency budget used) with a text label.
+    const rings = sheet.locator('[data-testid="setup-kpis"] [role="img"]');
+    expect(await rings.count()).toBe(4);
+    for (const label of await rings.evaluateAll((items) => items.map((item) => item.getAttribute("aria-label") ?? ""))) expect(label).not.toBe("");
+    // Load curves: measured rows draw tok/s/GPU by concurrency; unmeasured rows show "—", never a flat zero line.
+    expect(Number(await best.locator("[data-load-curve]").getAttribute("data-load-curve"))).toBeGreaterThan(1);
+    expect(await rows.last().locator("[data-load-curve]").count()).toBe(0);
+    expect(await rows.last().locator("td").nth(3).innerText()).toBe("—");
     const quality = sheet.getByTestId("run-quality-badge");
     expect(await quality.innerText()).toBe("1 inc · 3 err");
     expect(await quality.getAttribute("aria-label")).toBe("1 incomplete, 3 errored requests");
@@ -1356,6 +1373,10 @@ describe("measured-data views (TEST fixture runs via RUNS_FILE)", () => {
     const slo = page.getByTestId("slo-evaluation");
     expect(await slo.isVisible()).toBe(true);
     expect(await slo.locator("tbody tr").count()).toBe(8);
+    // SLO budget rings: ITL and TTFT p95 at C_max as a share of their ceilings, C_max in the centre.
+    const budget = page.getByTestId("slo-budget");
+    expect(await budget.innerText()).toContain("ITL p95");
+    expect(await budget.innerText()).toContain("TTFT p95");
     const cmaxRow = slo.locator('tr[data-capacity="true"]');
     expect(await cmaxRow.getAttribute("data-level")).toBe("64");
     expect(await cmaxRow.getByTestId("cmax-tag").innerText()).toBe("C_max");
@@ -1570,8 +1591,14 @@ describe("measured-data views (TEST fixture runs via RUNS_FILE)", () => {
     expect(await vllm.getByTestId("incomplete-badge").innerText()).toBe("1 incomplete");
     expect(await vllm.locator("[data-testid=config-chips]").innerText()).toContain("kv fp8");
     // Matched pair: the recorded runtime controls match after normalisation (fp8 ≈ fp8_e4m3, max_num_seqs ≈ max_running_requests).
-    expect(await page.getByTestId("matchup-note").innerText()).toContain("Matched pair: same export, revision, shape, knob");
-    expect(await page.getByTestId("matchup-note").innerText()).toContain("same KV dtype, max sequences, memory fraction");
+    // The note is one line; the controls a matched pair holds equal sit in the info tip.
+    expect(await page.getByTestId("matchup-note").innerText()).toContain("Matched pair (ⓘ lists the controls held equal)");
+    await page.getByTestId("matchup-info").hover();
+    const tip = page.locator('[data-slot="tooltip-content"]').filter({ hasText: "A verdict needs a matched pair" });
+    await tip.first().waitFor();
+    expect(await tip.first().innerText()).toContain("same export, revision, shape, knob");
+    expect(await tip.first().innerText()).toContain("same KV dtype, max sequences, memory fraction");
+    await page.mouse.move(0, 0);
     expect(await page.getByTestId("matchup-differences").count()).toBe(0);
     // The baseline pair is the matchup's detail: collapsed, full numbers (no "2.88M"), and next to the measured runs
     // it says "Measured here · n runs" while the atlas flag reads as catalog evidence, not as a statement about runs.
@@ -1770,6 +1797,7 @@ describe("measured-data views (TEST fixture runs via RUNS_FILE)", () => {
     expect(await page.locator('[data-legend="workload-differs"]').innerText()).toMatch(/workload differs[\s\S]*P\d+ ISL [\d,]+ \/ OSL [\d,]+/);
     expect(await overlayRows.first().locator("[data-workload-differs]").innerText()).toBe("workload differs");
     // Tooltip: each P-tag line carries its ISL/OSL.
+    await chart.locator(".recharts-surface").first().scrollIntoViewIfNeeded();
     const box = await chart.locator(".recharts-surface").first().boundingBox();
     for (const fraction of [0.15, 0.3, 0.5, 0.7, 0.9]) {
       await page.mouse.move(box!.x + box!.width * fraction, box!.y + box!.height / 2);
@@ -1806,11 +1834,23 @@ describe("measured-data views (TEST fixture runs via RUNS_FILE)", () => {
     await go("engine?pair=qwen3.8-27b.fp8@1");
     const published = page.getByTestId("engine-published");
     await published.waitFor();
+    // One GPU class at a time: the selector lists each class with its ladder count, B300 first and selected.
     const charts = published.locator("[data-published-hardware]");
-    expect(await charts.count()).toBeGreaterThan(0);
+    expect(await charts.count()).toBe(1);
     expect(await charts.first().getAttribute("data-published-hardware")).toBe("B300");
+    const chips = published.locator("[data-gpu-chip]");
+    expect(await chips.count()).toBeGreaterThan(1);
+    expect(await chips.first().getAttribute("data-gpu-chip")).toBe("B300");
+    expect(await chips.first().getAttribute("data-state")).toBe("on");
+    // The explanation sits behind the info tip, not as a paragraph.
+    expect(await published.innerText()).not.toContain("Values as published");
+    expect(await page.getByTestId("engine-published-info").count()).toBe(1);
     // One metric per chart; every legend entry is a vLLM or SGLang ladder of this GPU with its source and audit class.
-    for (const chart of await charts.all()) {
+    for (const gpu of await chips.evaluateAll((items) => items.map((item) => item.getAttribute("data-gpu-chip") ?? ""))) {
+      await published.locator(`[data-gpu-chip="${gpu}"]`).click();
+      const chart = published.locator(`[data-published-hardware="${gpu}"]`);
+      await chart.waitFor();
+      expect(await charts.count()).toBe(1);
       const hardware = await chart.getAttribute("data-published-hardware");
       const entries = chart.locator("[data-published-engine]");
       expect(await entries.count()).toBeGreaterThan(0);
@@ -1827,9 +1867,11 @@ describe("measured-data views (TEST fixture runs via RUNS_FILE)", () => {
     }
     // H200: vLLM and SGLang ladders ran different ISL/OSL, so the chart says "workloads differ" and lists each workload
     // with its tags; B300 (one shared workload) carries no such chip.
+    await published.locator('[data-gpu-chip="H200"]').click();
     const h200 = published.locator('[data-published-hardware="H200"]');
     expect(await h200.getByTestId("published-workloads-differ").innerText()).toBe("workloads differ");
     expect(await h200.getByTestId("published-workload-list").innerText()).toBe("V1, V2: ISL 61 / OSL 1,152 · S1, S2: ISL 1,024 / OSL 256");
+    await published.locator('[data-gpu-chip="B300"]').click();
     expect(await published.locator('[data-published-hardware="B300"]').getByTestId("published-workloads-differ").count()).toBe(0);
     // External only: no verdict, Δ or tie is derived from published ladders.
     expect(await page.locator("#engine-published").innerText()).not.toMatch(/matched pair|engines tied|[+−]\d+(\.\d)?% (vLLM|SGLang)/);

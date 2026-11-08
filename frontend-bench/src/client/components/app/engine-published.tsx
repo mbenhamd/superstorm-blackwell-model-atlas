@@ -8,11 +8,13 @@ import { routeUrl } from "../../state.js";
 import { ENGINE_FAMILIES as FAMILIES, PUBLISHED_PER_ENGINE as PER_ENGINE, publishedEngineCharts, type HardwareChart } from "./engine-published-data.js";
 import { curveWorkloads, metricTitle } from "./throughput-external-data.js";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { PublishedLadderChart, PublishedRecordLine, type LadderLine } from "./throughput-external.js";
-import { Panel } from "./primitives.js";
+import { InfoTip, Panel } from "./primitives.js";
 
 /*
- * Published vLLM vs SGLang (external evidence) for the Engine page: per GPU class, one small chart with the published
+ * Published vLLM vs SGLang (external evidence) for the Engine page: one GPU class at a time (a selector with ladder
+ * counts, B300 first when published), one chart with the published
  * concurrency ladders of the model on that GPU, vLLM in the vLLM hue (chart-1) and SGLang in the SGLang hue
  * (chart-2), dashed because they are published, not measured. One metric per chart (one y-axis): the metric family
  * both engines published most on that GPU (per-GPU throughput first). No verdict, Δ or tie is derived: workloads,
@@ -35,6 +37,13 @@ export function EnginePublished({ modelId, modelName }: { modelId: string; model
   const dataset = externalDataset();
   const [showWeak, setShowWeak] = React.useState(false);
   const charts = React.useMemo(() => publishedEngineCharts(dataset, modelId, showWeak), [dataset, modelId, showWeak]);
+  const [picked, setPicked] = React.useState("");
+  const active = charts.find((chart) => chart.hardware === picked) ?? charts[0];
+  const titleOf = (chart: HardwareChart) => {
+    // "other" collects stated non-B300 GPUs and GPU types the source does not state: never a mismatch for the latter.
+    const statuses = new Set(chart.curves.map((curve) => hardwareStatus(curve.record)));
+    return chart.hardware === "other" ? (statuses.has("other") ? (statuses.has("unstated") ? "Other GPU or not stated" : "Other GPU") : "Hardware not stated") : chart.hardware;
+  };
   const style = (curve: HardwareChart["curves"][number]) => {
     const family = FAMILIES.find((item) => item.family === curve.family)!;
     return { color: family.color, dash: DASHES[Number(curve.tag.slice(1)) - 1] ?? DASHES[0], label: family.label };
@@ -43,29 +52,43 @@ export function EnginePublished({ modelId, modelName }: { modelId: string; model
     <Panel
       id="engine-published"
       title="Published vLLM vs SGLang (external)"
-      description={<>{modelName} · published concurrency ladders per GPU class, one chart each · third-party, engine-project and vendor results, not measured here</>}
-      actions={
+      description={<>{modelName} · published ladders · not measured here</>}
+      actions={<>
         <label className="text-ink-2 inline-flex items-center gap-1.5 text-xs">
-          <Switch size="sm" checked={showWeak} onCheckedChange={(value) => setShowWeak(value === true)} aria-label="Show weak records" data-testid="engine-published-weak" />Show weak records
+          <Switch size="sm" checked={showWeak} onCheckedChange={(value) => setShowWeak(value === true)} aria-label="Show weak records" data-testid="engine-published-weak" />Weak records
         </label>
-      }
+        <InfoTip label="How published ladders are read" testId="engine-published-info">
+          Third-party, engine-project and vendor results, as published (the source's metric name and unit). Workloads, configurations, checkpoints and engine versions differ per source, so no verdict, Δ or tie is derived; the matchup and per-workload verdicts use measured runs only. Up to {PER_ENGINE} newest ladders per engine and GPU.
+        </InfoTip>
+      </>}
       bodyClassName="space-y-4"
     >
       {!charts.length ? (
         <p className="text-muted-foreground text-[13px] text-pretty" data-testid="engine-published-empty">No published vLLM or SGLang concurrency ladder of {modelName}{showWeak ? "" : " (weak records hidden)"}.</p>
       ) : (
-        <div className="grid gap-4 lg:grid-cols-2" data-testid="engine-published">
-          {charts.map((chart) => {
+        <div className="space-y-3" data-testid="engine-published">
+          {charts.length > 1 ? (
+            <ToggleGroup
+              type="single" variant="outline" size="sm" spacing={1} value={active!.hardware} aria-label="GPU class" data-testid="engine-published-gpu"
+              className="flex-wrap" onValueChange={(value: string) => { if (value) setPicked(value); }}
+            >
+              {charts.map((chart) => (
+                <ToggleGroupItem key={chart.hardware} value={chart.hardware} className="gap-1 px-2.5" data-gpu-chip={chart.hardware} aria-label={`${titleOf(chart)}, ${chart.curves.length} ladders`}>
+                  {chart.hardware === "other" ? "Other" : chart.hardware}<span className="text-muted-foreground tabular-nums">{chart.curves.length}</span>
+                </ToggleGroupItem>
+              ))}
+            </ToggleGroup>
+          ) : null}
+          {[active!].map((chart) => {
             const metric = chart.curves[0]!.metric;
             const derived = chart.curves.filter((curve) => curve.metric.derived);
-            // "other" collects stated non-B300 GPUs and GPU types the source does not state: never a mismatch for the latter.
             const statuses = new Set(chart.curves.map((curve) => hardwareStatus(curve.record)));
-            const title = chart.hardware === "other" ? (statuses.has("other") ? (statuses.has("unstated") ? "Other GPU or not stated" : "Other GPU") : "Hardware not stated") : chart.hardware;
+            const title = titleOf(chart);
             const workloads = curveWorkloads(chart.curves);
             const lines: LadderLine[] = chart.curves.map((curve) => ({ key: curve.record.id, tag: curve.tag, label: `${style(curve).label} · ${dataset.sources[curve.record.sourceId]?.publisher ?? curve.record.sourceId}`, color: style(curve).color, dash: style(curve).dash, points: curve.points }));
             return (
-              <figure key={chart.hardware} className="m-0 min-w-0 rounded-md border p-3" data-published-hardware={chart.hardware} data-published-kind={chart.kind}>
-                <figcaption className="mb-2 flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1">
+              <figure key={chart.hardware} className="m-0 grid min-w-0 gap-4 rounded-md border p-4 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]" data-published-hardware={chart.hardware} data-published-kind={chart.kind}>
+                <figcaption className="flex min-w-0 lg:col-span-2 flex-wrap items-center gap-x-2 gap-y-1">
                   <span className="text-[13px] font-semibold">{title}</span>
                   <span className="text-ink-2 text-xs" data-chart-metric={metric.kind}>{metricTitle(metric)}{derived.length ? ` · derived ÷ GPUs for ${derived.map((curve) => curve.tag).join(", ")}` : ""}</span>
                   {chart.hardware === "B300" ? null : statuses.has("other") ? <Badge variant="warning">not B300</Badge> : <Badge variant="neutral" data-hardware-status="unstated">hardware not stated</Badge>}
@@ -85,21 +108,20 @@ export function EnginePublished({ modelId, modelName }: { modelId: string; model
                   ) : null}
                 </figcaption>
                 <PublishedLadderChart title={`${modelName} on ${title}: ${metricTitle(metric)}, published`} yTitle={metric.unit ?? metric.name} lines={lines} xScale="log" />
-                <ul className="mt-2 space-y-2 border-t pt-2" data-testid="engine-published-legend">
+                <ul className="space-y-3 border-t pt-3 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-4" data-testid="engine-published-legend">
                   {chart.curves.map((curve) => (
                     <li key={curve.record.id} data-published-engine={curve.family}>
                       <PublishedRecordLine curve={curve} dataset={dataset} compact swatch={<Swatch color={style(curve).color} dash={style(curve).dash} />} />
                     </li>
                   ))}
                 </ul>
-                {chart.hidden ? <p className="text-muted-foreground mt-2 text-xs">{chart.hidden} more ladder{chart.hidden === 1 ? "" : "s"} on {chart.hardware} (older, or another metric) in the published explorer.</p> : null}
+                {chart.hidden ? <p className="text-muted-foreground text-xs lg:col-span-2">{chart.hidden} more ladder{chart.hidden === 1 ? "" : "s"} on {chart.hardware} (older, or another metric) in the published explorer.</p> : null}
               </figure>
             );
           })}
         </div>
       )}
-      <p className="text-muted-foreground flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-pretty">
-        <span>Values as published (the source's metric name and unit). Workloads, configurations, checkpoints and engine versions differ per source, so no verdict, Δ or tie is derived; the matchup and per-workload verdicts above use measured runs only. Up to {PER_ENGINE} newest ladders per engine and GPU.</span>
+      <p className="text-xs">
         <a className="text-link inline-flex items-center gap-0.5 hover:underline" href={routeUrl("published")} data-testid="engine-published-explorer">All published results<ArrowUpRight className="size-3" aria-hidden="true" /></a>
       </p>
     </Panel>

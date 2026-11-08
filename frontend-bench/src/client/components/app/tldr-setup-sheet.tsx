@@ -8,14 +8,16 @@ import type { VariantRow } from "../../../domain/variants.js";
 import type { ExternalRecord } from "../../../domain/external.js";
 import { appState, routeUrl, useAppState } from "../../state.js";
 import { restoreOpener } from "../../lib/focus-return.js";
-import { engineBuildDetail, hardwareShape, num, shape } from "../../lib/display.js";
+import { engineBuildDetail, gpusOf, hardwareShape, num, shape } from "../../lib/display.js";
 import { hfUrl, shortSha } from "../../lib/atlas.js";
 import { addToCompare, openRun } from "./overlays.js";
 import { CommandBlock } from "./command-block.js";
 import { RunQualityBadge } from "./performance.js";
 import { StatusBadge } from "./status-badge.js";
+import { RingKpiCard, type RingKpiMetric } from "@/components/blocks/ring-kpi-card";
+import { LoadCurve, totalPerGpuCurve } from "./glance.js";
 import { chipsOf, enginesOf, shapeKey, shapeLabel } from "./tldr-data.js";
-import { cmax, dateOf, Missing, StandingCell, tpm } from "./tldr-parts.js";
+import { cmax, dateOf, Missing, signedPercent, tpm } from "./tldr-parts.js";
 import { PublishedCard } from "./tldr-published.js";
 import { engineOf, setupTitle } from "./tldr-setups.js";
 
@@ -25,17 +27,6 @@ import { engineOf, setupTitle } from "./tldr-setups.js";
  * every run of the variant (engine versions) → published (external) results for this setup, outside the ranking →
  * serve command. Footer: Throughput (this variant's best run), Compare, full evidence, engine head-to-head.
  */
-
-function Kpi({ label, value, unit, children, testId }: { label: string; value: React.ReactNode; unit: string; children?: React.ReactNode; testId?: string }) {
-  return (
-    <div className="flex min-w-0 flex-col gap-0.5 px-3.5 py-3 shadow-[-1px_-1px_0_var(--border)]" data-testid={testId}>
-      <dt className="text-ink-2 text-xs font-medium">{label}</dt>
-      <dd className="text-lg font-semibold tracking-[-0.01em] tabular-nums">{value}</dd>
-      <dd className="text-muted-foreground text-xs">{unit}</dd>
-      {children}
-    </div>
-  );
-}
 
 function Section({ title, aside, children, testId }: { title: string; aside?: React.ReactNode; children: React.ReactNode; testId?: string }) {
   return (
@@ -60,6 +51,36 @@ export function SetupSheet({ entry, entries, rows, published, onClose }: {
   const chips = row ? chipsOf(row) : [];
   const engines = enginesOf(rows.filter(hasMeasuredLevels));
   const bestRun = variant?.best.run.id;
+  const best = leader ? tpm(leader) : null;
+  const value = row ? tpm(row) : null;
+  const standing = entry?.standing;
+  // Rings show bounded fractions only: share of the best setup, levels passing the SLO, latency budget used at C_max.
+  const kpis: RingKpiMetric[] = row && measured ? [
+    {
+      label: "Sustainable · tok/min/GPU", value: value ?? 0, display: value === null ? "—" : undefined, testId: "setup-sustainable",
+      progress: value !== null && best ? (value / best) * 100 : 0,
+      ringLabel: value !== null && best ? `${num((value / best) * 100)}% of the best setup` : "No sustainable value",
+      caption: standing?.kind === "best" ? `Best of ${ranked} setups` : standing?.kind === "tie" || standing?.kind === "behind" ? `${signedPercent(standing.fraction)} vs best (${num(best)})${standing.kind === "tie" ? " · tie" : ""}` : "No passing level: no value",
+    },
+    {
+      label: "C_max · concurrent", value: cmax(row) ?? 0, display: cmax(row) === null ? "—" : undefined,
+      progress: row.capacity.totalLevels ? (row.capacity.passingLevels / row.capacity.totalLevels) * 100 : 0,
+      ringLabel: `${row.capacity.passingLevels} of ${row.capacity.totalLevels} tested levels pass the SLO`,
+      caption: `${row.capacity.passingLevels} of ${row.capacity.totalLevels} levels pass`,
+    },
+    {
+      label: "ITL p95 at C_max", value: point?.itlP95Ms ?? 0, display: point?.itlP95Ms == null ? "—" : `${num(point.itlP95Ms, 1)} ms`,
+      progress: point?.itlP95Ms != null ? (point.itlP95Ms / state.slo.itlP95Ms) * 100 : 0, color: "var(--chart-1)",
+      ringLabel: point?.itlP95Ms != null ? `${num((point.itlP95Ms / state.slo.itlP95Ms) * 100)}% of the ITL p95 ceiling used` : "No ITL p95",
+      caption: `ceiling ${num(state.slo.itlP95Ms)} ms`,
+    },
+    {
+      label: "TTFT p95 at C_max", value: point?.ttftP95Ms ?? 0, display: point?.ttftP95Ms == null ? "—" : `${num(point.ttftP95Ms)} ms`,
+      progress: point?.ttftP95Ms != null && point.ttftCeilingMs ? (point.ttftP95Ms / point.ttftCeilingMs) * 100 : 0, color: "var(--chart-3)",
+      ringLabel: point?.ttftP95Ms != null && point.ttftCeilingMs ? `${num((point.ttftP95Ms / point.ttftCeilingMs) * 100)}% of the TTFT p95 ceiling used` : "No TTFT p95 or ceiling",
+      caption: point?.ttftCeilingMs ? `ceiling ${num(point.ttftCeilingMs)} ms` : "no ceiling recorded",
+    },
+  ] : [];
   return (
     <Sheet open={Boolean(entry)} onOpenChange={(next) => { if (!next) onClose(); }}>
       <SheetContent
@@ -82,12 +103,7 @@ export function SetupSheet({ entry, entries, rows, published, onClose }: {
               </div>
             </SheetHeader>
             <div className="flex-1 space-y-5 overflow-y-auto px-5 py-5">
-              {measured ? <dl className="grid grid-cols-2 overflow-hidden rounded-lg border" data-testid="setup-kpis">
-                <Kpi label="Sustainable" value={tpm(row) === null ? "—" : num(tpm(row))} unit="tok/min/GPU" testId="setup-sustainable" />
-                <Kpi label="Δ vs best" value={entry.standing.kind === "unmeasured" ? "—" : <StandingCell standing={entry.standing} leader={leader} />} unit={leader && entry.standing.kind !== "best" ? `best: ${num(tpm(leader))} tok/min/GPU` : "of this model's setups"} />
-                <Kpi label="C_max" value={cmax(row) === null ? "—" : num(cmax(row))} unit={measured ? `concurrent · ${row.capacity.passingLevels}/${row.capacity.totalLevels} levels pass` : "concurrent"} />
-                <Kpi label="TTFT / ITL p95" value={point ? `${num(point.ttftP95Ms)} / ${num(point.itlP95Ms, 1)}` : "—"} unit="ms at C_max" />
-              </dl> : <p className="bg-subtle text-ink-2 rounded-lg border px-3.5 py-3 text-[13px] text-pretty" data-testid="setup-not-measured">Not measured on {state.workload}: a planning row from the catalog, so no sustainable value, C_max or latency yet. The serve command below is the configured one.</p>}
+              {measured ? <RingKpiCard metrics={kpis} className="shadow-none" data-testid="setup-kpis" /> : <p className="bg-subtle text-ink-2 rounded-lg border px-3.5 py-3 text-[13px] text-pretty" data-testid="setup-not-measured">Not measured on {state.workload}: a planning row from the catalog, so no sustainable value, C_max or latency yet. The serve command below is the configured one.</p>}
 
               <dl className="grid grid-cols-[auto_minmax(0,1fr)] gap-x-4 gap-y-2 text-[13px]" data-testid="setup-facts">
                 <dt className="text-muted-foreground">Configured build</dt>
@@ -122,7 +138,7 @@ export function SetupSheet({ entry, entries, rows, published, onClose }: {
                 <Section title="Runs of this setup" aside={`${variant.runCount} run${variant.runCount === 1 ? "" : "s"} · ${variant.runtimeCount} engine version${variant.runtimeCount === 1 ? "" : "s"} · newest first`} testId="setup-runs">
                   <table className="w-full text-[13px] tabular-nums">
                     <thead className="text-muted-foreground text-xs">
-                      <tr className="border-b"><th className="py-1 text-left font-medium">Runtime version</th><th className="py-1 text-left font-medium">Date</th><th className="py-1 text-right font-medium">tok/min/GPU</th><th className="py-1 text-right font-medium">C_max</th></tr>
+                      <tr className="border-b"><th className="py-1 text-left font-medium">Runtime version</th><th className="py-1 text-left font-medium">Date</th><th className="py-1 text-right font-medium">tok/min/GPU</th><th className="py-1 text-right font-medium">C_max</th><th className="py-1 pl-3 text-left font-medium">Load curve</th></tr>
                     </thead>
                     <tbody>
                       {variant.runs.map((item) => {
@@ -133,6 +149,7 @@ export function SetupSheet({ entry, entries, rows, published, onClose }: {
                             <td className="py-1.5 pr-2 whitespace-nowrap">{dateOf(item.run.runDate)}</td>
                             <td className="py-1.5 text-right">{item.capacity.sustainableTpmPerGpu === null ? <Missing /> : num(item.capacity.sustainableTpmPerGpu)}</td>
                             <td className="py-1.5 text-right">{item.capacity.highestPassingConcurrency === null ? <Missing /> : num(item.capacity.highestPassingConcurrency)}</td>
+                            <td className="py-1.5 pl-3"><LoadCurve points={totalPerGpuCurve(item.capacity, item.run.identity.numGpus ?? gpusOf(d))} unit="Total tok/s per GPU" cmax={item.capacity.highestPassingConcurrency} highlight={fronts} className="w-16" /></td>
                           </tr>
                         );
                       })}

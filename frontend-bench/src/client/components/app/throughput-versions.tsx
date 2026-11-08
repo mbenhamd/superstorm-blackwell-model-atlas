@@ -3,12 +3,13 @@ import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { LoadCurve, totalPerGpuCurve } from "./glance.js";
 import { capacity, relativeDelta, tieBand } from "../../../domain/metrics.js";
 import { splitRuntime } from "../../../domain/catalog.js";
 import { configKeyOf } from "../../../domain/variants.js";
 import type { BenchmarkRun, Capacity, Deployment, SloPolicy } from "../../../domain/types.js";
 import { routeUrl, updateView, useAppState } from "../../state.js";
-import { engineBuildDetail, num, signedPct, workloadOf } from "../../lib/display.js";
+import { engineBuildDetail, gpusOf, num, signedPct, workloadOf } from "../../lib/display.js";
 import { NARROW_MD, useMediaQuery } from "../../lib/use-media.js";
 import { SweepChart } from "./charts.js";
 import { ErroredBadge, IncompleteBadge } from "./performance.js";
@@ -151,6 +152,7 @@ export function RuntimeVersionsPanel({ base, shownRunId, onPick }: { base: Deplo
                 <span className="text-xs tabular-nums"><VersionDelta row={row} card /></span>
                 <span className="text-muted-foreground flex flex-wrap items-center gap-x-3 gap-y-1 text-xs tabular-nums">
                   <span>C_max {num(row.capacity.highestPassingConcurrency)}</span>
+                  <LoadCurve points={totalPerGpuCurve(row.capacity, gpusOf(row.deployment))} unit="Total tok/s per GPU" cmax={row.capacity.highestPassingConcurrency} highlight={shown} className="h-5 w-16" />
                   <span>Run {row.run.runDate.slice(0, 10)}</span>
                   <VersionQuality row={row} />
                 </span>
@@ -167,6 +169,7 @@ export function RuntimeVersionsPanel({ base, shownRunId, onPick }: { base: Deplo
                 <TableHead className="text-right">Sustainable tok/min/GPU</TableHead>
                 <TableHead className="text-right">Δ prev</TableHead>
                 <TableHead className="text-right">C_max</TableHead>
+                <TableHead title="Total tok/s per GPU at each tested concurrency level, lowest to highest">Load curve</TableHead>
                 <TableHead>Quality</TableHead>
                 <TableHead>Latest run</TableHead>
               </TableRow>
@@ -183,6 +186,7 @@ export function RuntimeVersionsPanel({ base, shownRunId, onPick }: { base: Deplo
                     <TableCell className="text-right tabular-nums"><InlineBar value={row.capacity.sustainableTpmPerGpu} max={max}>{num(row.capacity.sustainableTpmPerGpu)}</InlineBar></TableCell>
                     <TableCell className="text-right tabular-nums"><VersionDelta row={row} /></TableCell>
                     <TableCell className="text-right tabular-nums">{num(row.capacity.highestPassingConcurrency)}</TableCell>
+                    <TableCell><LoadCurve points={totalPerGpuCurve(row.capacity, gpusOf(row.deployment))} unit="Total tok/s per GPU" cmax={row.capacity.highestPassingConcurrency} highlight={shown} /></TableCell>
                     <TableCell><VersionQuality row={row} /></TableCell>
                     <TableCell className="tabular-nums">{row.run.runDate.slice(0, 10)}</TableCell>
                   </TableRow>

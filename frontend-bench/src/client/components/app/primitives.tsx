@@ -1,5 +1,5 @@
 import * as React from "react";
-import type { LucideIcon } from "lucide-react";
+import { Info, type LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
@@ -153,6 +153,20 @@ export function Term({ name, children }: { name: keyof typeof definitions | stri
         </span>
       </TooltipTrigger>
       <TooltipContent className="max-w-72 text-pretty">{text}</TooltipContent>
+    </Tooltip>
+  );
+}
+
+/** An ⓘ button that holds explanatory text (definitions, policies) out of the page flow; hover or focus shows it. */
+export function InfoTip({ label, children, testId }: { label: string; children: React.ReactNode; testId?: string }) {
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <button type="button" className="text-muted-foreground hover:text-foreground inline-flex size-6 shrink-0 items-center justify-center rounded-md outline-none focus-visible:ring-2 focus-visible:ring-ring" aria-label={label} data-testid={testId}>
+          <Info className="size-3.5" aria-hidden="true" />
+        </button>
+      </TooltipTrigger>
+      <TooltipContent className="max-w-80 text-pretty">{children}</TooltipContent>
     </Tooltip>
   );
 }

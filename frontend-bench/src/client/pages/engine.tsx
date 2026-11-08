@@ -18,7 +18,6 @@ import { ExpandableChartPanel as ChartPanel } from "../components/app/throughput
 import { EnginePublished } from "../components/app/engine-published.js";
 import { CommandBlock } from "../components/app/command-block.js";
 import { HeadToHead } from "../components/app/head-to-head.js";
-import { NotMeasuredBlock } from "../components/app/not-measured-block.js";
 import { StatusBadge } from "../components/app/status-badge.js";
 import { EngineBuild } from "../components/app/engine-build.js";
 import { EngineIntelDisclosure } from "../components/app/engine-intel-disclosure.js";
@@ -468,7 +467,7 @@ export function EnginePage() {
     <div className="space-y-4">
       <PageHeader
         title="Engine"
-        description="vLLM vs SGLang: best measured configuration per engine, verdicts per workload, then the matched baseline pair of one export and shape."
+        description="vLLM vs SGLang for one model and GPU shape."
         actions={
           <Combobox label="Matched pair" testId="engine-model" value={pair.key} onChange={(value) => updateView((s) => { s.pair = value; s.model = "all"; })} className="w-[min(300px,calc(100vw-48px))]" align="end" searchPlaceholder="Search pairs…"
             triggerLabel={<span className="flex min-w-0 items-baseline gap-1.5"><span className="truncate font-medium">{pairLabel(pair)}</span><span className="text-muted-foreground truncate text-xs">{shape(pair.vllm)}</span></span>}
@@ -511,9 +510,7 @@ export function EnginePage() {
         <ChartPanel title="Total throughput vs concurrency" description={`Baseline pair · total (input + output) tok/s per GPU at each measured level`} chart={(expanded) => <SweepChart expanded={expanded} title="Engine throughput" deployments={[a, b]} metric="totalTpsPerGpu" markCapacity yAxisTitle="Total tok/s per GPU" unit="tok/s/GPU" />} />
         <ChartPanel title="ITL p95 vs concurrency" description="Baseline pair" chart={(expanded) => <SweepChart expanded={expanded} title="Engine ITL p95" deployments={[a, b]} metric="itlP95Ms" digits={1} threshold={state.slo.itlP95Ms} thresholdLabel={`ITL p95 ≤ ${num(state.slo.itlP95Ms)} ms`} yAxisTitle="ITL p95 (ms)" unit="ms" />} />
       </div>
-      ) : (
-        <NotMeasuredBlock testId="engine-charts-empty" planFor={pair.vllm.id} description="Sustainable throughput and ITL p95 against concurrency for both engines appear once either configuration has an imported run." />
-      )}
+      ) : null}
       <EnginePublished modelId={pair.vllm.modelId} modelName={modelName} />
       <ArgumentsDiff pair={pair} a={a} b={b} />
       <ServeCommands a={a} b={b} />

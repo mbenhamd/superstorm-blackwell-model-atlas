@@ -2,14 +2,15 @@ import type * as React from "react";
 import { Badge } from "@/components/ui/badge";
 import { DeltaBadge } from "@/components/ui/delta-badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { LoadCurve, totalPerGpuCurve } from "./glance.js";
 import { useAppState } from "../../state.js";
-import { num } from "../../lib/display.js";
+import { gpusOf, num } from "../../lib/display.js";
 import { NARROW_MD, useMediaQuery } from "../../lib/use-media.js";
 import { everyMeasuredVersion, type EngineScope, type VersionRow } from "./engine-data.js";
 import { signedFraction } from "./engine-matchup.js";
 import { openRun } from "./overlays.js";
 import { ConfigChips } from "./performance.js";
-import { InlineBar, Panel, SeriesSwatch } from "./primitives.js";
+import { InfoTip, InlineBar, Panel, SeriesSwatch } from "./primitives.js";
 
 /*
  * Every measured version: each imported run of the model × GPU count on the active dataset, newest run first, with
@@ -73,10 +74,11 @@ export function EngineVersions({ scope, modelName, shapeLabel, children }: { sco
       id="engine-versions"
       title="Every measured version"
       description={<span data-testid="versions-scope">{modelName} · {shapeLabel} · {state.workload} · {rows.length} run{rows.length === 1 ? "" : "s"}</span>}
+      actions={rows.length ? <InfoTip label="How versions are compared">{footnote}</InfoTip> : undefined}
       bodyClassName="p-0"
     >
       {!rows.length ? (
-        <p className="text-muted-foreground px-4 py-3 text-[13px] text-pretty" data-testid="engine-versions-empty">No imported run of {modelName} on {shapeLabel} for {state.workload}. Each run of either engine lists here with its runtime version, sustainable tok/min/GPU, C_max and Δ vs the previous release.</p>
+        <p className="text-muted-foreground px-4 py-3 text-[13px]" data-testid="engine-versions-empty">No run on {state.workload} yet.</p>
       ) : narrow ? (
         <ul className="divide-y" data-testid="engine-versions">
           {rows.map((row) => (
@@ -88,6 +90,7 @@ export function EngineVersions({ scope, modelName, shapeLabel, children }: { sco
               <ConfigCell row={row} />
               <span className="text-muted-foreground flex flex-wrap items-center gap-x-3 gap-y-1 text-xs tabular-nums">
                 <span>C_max {num(row.capacity.highestPassingConcurrency)}</span>
+                <LoadCurve points={totalPerGpuCurve(row.capacity, gpusOf(row.deployment))} unit="Total tok/s per GPU" cmax={row.capacity.highestPassingConcurrency} className="h-5 w-16" />
                 <span>Run {dateOf(row.run.runDate)}</span>
                 <Quality row={row} />
               </span>
@@ -103,6 +106,7 @@ export function EngineVersions({ scope, modelName, shapeLabel, children }: { sco
               <TableHead>Configuration</TableHead>
               <TableHead className="text-right">Sustainable <span className="text-muted-foreground font-normal">tok/min/GPU</span></TableHead>
               <TableHead className="text-right">C_max</TableHead>
+              <TableHead title="Total tok/s per GPU at each tested concurrency level, lowest to highest">Load curve</TableHead>
               <TableHead>Quality</TableHead>
               <TableHead>Run</TableHead>
               <TableHead>Δ prev</TableHead>
@@ -115,6 +119,7 @@ export function EngineVersions({ scope, modelName, shapeLabel, children }: { sco
                 <TableCell className="max-w-[280px] whitespace-normal"><ConfigCell row={row} /></TableCell>
                 <TableCell className="text-right tabular-nums"><InlineBar value={row.capacity.sustainableTpmPerGpu} max={max}>{num(row.capacity.sustainableTpmPerGpu)}</InlineBar></TableCell>
                 <TableCell className="text-right tabular-nums">{num(row.capacity.highestPassingConcurrency)}</TableCell>
+                <TableCell><LoadCurve points={totalPerGpuCurve(row.capacity, gpusOf(row.deployment))} unit="Total tok/s per GPU" cmax={row.capacity.highestPassingConcurrency} highlight={row.capacity.sustainableTpmPerGpu !== null && row.capacity.sustainableTpmPerGpu === max} /></TableCell>
                 <TableCell className="whitespace-normal"><Quality row={row} /></TableCell>
                 <TableCell className="text-muted-foreground tabular-nums">{dateOf(row.run.runDate)}</TableCell>
                 <TableCell><Delta row={row} /></TableCell>
@@ -123,7 +128,7 @@ export function EngineVersions({ scope, modelName, shapeLabel, children }: { sco
           </TableBody>
         </Table>
       )}
-      {rows.length ? <p className="text-muted-foreground border-t px-4 py-2 text-xs text-pretty">{footnote}</p> : null}
+
       {children}
     </Panel>
   );
