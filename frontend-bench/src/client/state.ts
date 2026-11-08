@@ -3,7 +3,6 @@ import { createCatalogSnapshot, DEFAULT_WORKLOAD } from "../domain/catalog.js";
 import { DEFAULT_SLO } from "../domain/metrics.js";
 import type { Experiment, ExperimentInput, ExperimentStatus, SloPolicy, Snapshot } from "../domain/types.js";
 import { migrateExperiment, parseExperiment, transitionExperiment } from "../domain/validation.js";
-import { SETUP_SORTS, type SetupSort } from "../domain/setups.js";
 
 export type Route = "tldr" | "intelligence" | "throughput" | "compare" | "engine" | "models" | "deployments" | "published" | "new-benchmark" | "methodology";
 export type ModelTab = "overview" | "precision";
@@ -49,10 +48,8 @@ export const appState = {
    * is selected and the run is on the active dataset; otherwise the configuration's newest run is shown.
    */
   runPick: "",
-  /** TL;DR: GPU shape key ("8xB300"; "" = all shapes) and setup sort. The model is `model` ("all" = default model). */
-  tldrShape: "", tldrSort: "sustainable" as SetupSort,
-  /** TL;DR ladder filter chips (URL `engine`, `precision`, `spec`); reset when the model or shape changes. */
-  tldrFilter: { engines: [] as string[], precisions: [] as string[], spec: "all" as "all" | "on" | "off" },
+  /** TL;DR: GPU shape key ("8xB300"; "" = all shapes). The model is `model` ("all" = default model). */
+  tldrShape: "",
   drawerId: "", commandOpen: false, workloadsOpen: false, experimentFormFor: null as string | null, navOpen: false,
   loading: false, apiError: "",
 };
@@ -80,7 +77,6 @@ export function configurationIdOf(id: string, snapshot: Snapshot = appState.snap
 export const TLDR_SHAPE = /^\d{1,3}x[A-Za-z0-9]{1,24}$/;
 /** Run ids are UUID-like strings; anything else in `rid` is ignored. */
 const RUN_ID = /^[A-Za-z0-9._:-]{1,128}$/;
-const TLDR_PRECISIONS = ["BF16", "FP8", "FP4/FP8", "MXFP4", "NVFP4"];
 export function readRoute(): void {
   const hash = location.hash.replace(/^#\/?/, "");
   const [path = "", query = ""] = hash.split("?");
@@ -108,14 +104,6 @@ export function readRoute(): void {
   appState.model = model && snapshot.models.some((item) => item.id === model) ? model : "all";
   const tldrShape = params.get("shape");
   appState.tldrShape = route === "tldr" && tldrShape && TLDR_SHAPE.test(tldrShape) ? tldrShape : "";
-  const tldrSort = params.get("sort");
-  appState.tldrSort = route === "tldr" && SETUP_SORTS.includes(tldrSort as SetupSort) ? tldrSort as SetupSort : "sustainable";
-  const spec = params.get("spec");
-  appState.tldrFilter = route === "tldr" ? {
-    engines: [...new Set(list(params.get("engine")).filter((id) => /^[A-Za-z0-9.-]{1,24}$/.test(id)))],
-    precisions: [...new Set(list(params.get("precision")).filter((id) => TLDR_PRECISIONS.includes(id)))],
-    spec: spec === "on" || spec === "off" ? spec : "all",
-  } : { engines: [], precisions: [], spec: "all" };
   const rid = params.get("rid");
   appState.runPick = route === "throughput" && rid && RUN_ID.test(rid) ? rid : "";
   const tab = params.get("tab");
@@ -156,10 +144,6 @@ export function viewParams(route: Route = appState.route): Record<string, string
   if (route === "tldr") {
     if (appState.model !== "all") params.model = appState.model;
     if (appState.tldrShape) params.shape = appState.tldrShape;
-    if (appState.tldrSort !== "sustainable") params.sort = appState.tldrSort;
-    if (appState.tldrFilter.engines.length) params.engine = appState.tldrFilter.engines.join(",");
-    if (appState.tldrFilter.precisions.length) params.precision = appState.tldrFilter.precisions.join(",");
-    if (appState.tldrFilter.spec !== "all") params.spec = appState.tldrFilter.spec;
   }
   if (route === "intelligence") { if (appState.logScale) params.scale = "log"; if (appState.frontierOnly) params.frontier = "1"; }
   return params;

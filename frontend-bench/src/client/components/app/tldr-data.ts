@@ -9,7 +9,7 @@ import { artifact } from "../../lib/atlas.js";
 
 /*
  * TL;DR data: ranked rows per dataset under the active SLO, the selected model and GPU shape, and the labels the
- * setups ladder and champions share. Ranking and Δ live in domain/setups.ts, variants in domain/variants.ts; this
+ * setups table and sheet share. Ranking and Δ live in domain/setups.ts, variants in domain/variants.ts; this
  * file only selects rows. It never reads the external published layer (tests/external.test.ts walks its imports).
  */
 
@@ -107,13 +107,3 @@ export const variantName = (row: VariantRow, rows: readonly VariantRow[]): strin
 /** Engine families on a row set, vLLM first. */
 export const enginesOf = (rows: readonly RankedDeployment[]): string[] =>
   [...new Set(rows.map((row) => row.deployment.runtime))].sort((a, b) => (a === "vLLM" ? -1 : b === "vLLM" ? 1 : a.localeCompare(b)));
-
-/** Ladder filters (chips, not a search box): engine families, precision classes and speculative decoding on/off. */
-export interface LadderFilter { engines: string[]; precisions: string[]; spec: "all" | "on" | "off" }
-export const NO_FILTER: LadderFilter = { engines: [], precisions: [], spec: "all" };
-export const isFiltered = (filter: LadderFilter): boolean => filter.engines.length > 0 || filter.precisions.length > 0 || filter.spec !== "all";
-/** True when the row passes every set facet (an empty facet passes everything). */
-export const matchesFilter = (row: RankedDeployment, filter: LadderFilter): boolean =>
-  (!filter.engines.length || filter.engines.includes(row.deployment.runtime))
-  && (!filter.precisions.length || filter.precisions.includes(precisionOf(row.deployment)))
-  && (filter.spec === "all" || specDecodeOf(row.deployment) === (filter.spec === "on"));

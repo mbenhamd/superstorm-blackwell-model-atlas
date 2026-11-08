@@ -91,13 +91,4 @@ export function StandingCell({ standing, leader, leaderName, compact = false, pl
   );
 }
 
-/** Scroll a ladder row into view and focus its evidence trigger (reduced motion: no smooth scroll). */
-export function jumpToVariant(key: string): void {
-  const row = [...document.querySelectorAll<HTMLElement>("[data-variant-key]")].find((element) => element.dataset.variantKey === key);
-  if (!row) return;
-  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  row.scrollIntoView({ block: "center", behavior: reduced ? "auto" : "smooth" });
-  row.querySelector<HTMLElement>('[data-action="open-run"]')?.focus({ preventScroll: true });
-}
-
 export type { SetupEntry };

@@ -11,7 +11,7 @@ import { setupStandings } from "../src/domain/setups.ts";
 import { variantRows } from "../src/domain/variants.ts";
 import type { Snapshot } from "../src/domain/types.ts";
 import { loadRunsFile, memoryStore } from "../src/server/repository.ts";
-import { distinctChips, knobString, matchesFilter, NO_FILTER, precisionOf, specDecodeOf, variantName } from "../src/client/components/app/tldr-data.ts";
+import { distinctChips, knobString, specDecodeOf, variantName } from "../src/client/components/app/tldr-data.ts";
 import { headline } from "../src/client/components/app/tldr-published.tsx";
 import { externalDataset } from "../src/client/lib/external.ts";
 
@@ -43,20 +43,18 @@ describe("TL;DR variant rows (TEST fixture)", () => {
     for (const row of rows.filter((item) => !item.variant)) expect(row.deployment.runConfig).toBeNull();
   });
 
-  test("filters hide rows; standings stay computed over every setup", () => {
+  test("standings rank every setup by sustainable tok/min/GPU, highest first, with Δ vs the best", () => {
     const entries = setupStandings(rows);
-    const best = entries.find((entry) => entry.standing.kind === "best")!;
-    expect(best.row.deployment.id).toBe(FP8_VLLM);
-    const sglangOnly = { ...NO_FILTER, engines: ["SGLang"] };
-    const visible = entries.filter((entry) => matchesFilter(entry.row, sglangOnly));
-    expect(visible.every((entry) => entry.row.deployment.runtime === "SGLang")).toBe(true);
-    // The visible SGLang FP8 setup still reads −3.8% vs the (hidden) vLLM best.
-    const fp8 = visible.find((entry) => entry.row.deployment.id === "qwen3.8-27b.fp8.sglang.baseline")!;
+    expect(entries[0]!.standing.kind).toBe("best");
+    expect(entries[0]!.row.deployment.id).toBe(FP8_VLLM);
+    const values = entries.filter((entry) => entry.position !== null).map((entry) => entry.row.capacity.sustainableTpmPerGpu!);
+    expect(values).toEqual([...values].sort((a, b) => b - a));
+    const fp8 = entries.find((entry) => entry.row.deployment.id === "qwen3.8-27b.fp8.sglang.baseline")!;
     expect(fp8.standing.kind).toBe("behind");
     expect(fp8.standing.kind === "behind" && fp8.standing.fraction).toBeCloseTo(-0.0385, 3);
-    const nvfp4 = entries.filter((entry) => matchesFilter(entry.row, { ...NO_FILTER, precisions: ["NVFP4"], spec: "on" }));
-    expect(nvfp4.map((entry) => entry.row.deployment.id)).toEqual(["qwen3.8-27b.nvfp4.sglang.mtp"]);
-    expect(nvfp4.every((entry) => precisionOf(entry.row.deployment) === "NVFP4")).toBe(true);
+    // Unmeasured planning rows come last.
+    const firstUnmeasured = entries.findIndex((entry) => entry.standing.kind === "unmeasured");
+    expect(entries.slice(firstUnmeasured).every((entry) => entry.standing.kind === "unmeasured")).toBe(true);
   });
 });
 

@@ -81,7 +81,7 @@ function Definitions() {
             ["Deployment-wide", "Total tok/s at C_max × margin × 60 for one replica; input and output split from the same level"],
             ["TTFT ceiling", "Measured: prompt tokens per request at that level ÷ prefill speed. Nominal: budget ÷ prefill, single-turn datasets only"],
             ["Success floor", <>≥ {num(state.slo.minSuccessRate * 100)}% of requests; errored and incomplete count against it. Console rule; the SLO presets define only prefill speed and ITL</>],
-            ["Ties", "Within ±3% of the champion reads as a tie: assumed single-run noise, not a measured interval"],
+            ["Ties", "Within ±3% of the best setup reads as a tie: assumed single-run noise, not a measured interval"],
           ]} />
         </TabsContent>
         <TabsContent value="intelligence">
@@ -187,7 +187,7 @@ function ExternalDataPanel() {
       <div data-testid="methodology-external">
         <Glossary items={[
           ["Evidence class", "External (published): ladders and points published by third parties, engine projects and vendors. Distinct from Measured (imported runs) and Catalog; never measured here"],
-          ["Excluded from", "Rankings, sustainable throughput, C_max, Δ vs best, ties, champions, frontier, Compare deltas and CSV measured columns. No SLO is applied"],
+          ["Excluded from", "Rankings, sustainable throughput, C_max, Δ vs best, ties, frontier, Compare deltas and CSV measured columns. No SLO is applied"],
           ["Metrics", "The source's names and units (output or total tok/s/GPU, per-user tok/s, TTFT, TPOT/ITL); per-GPU values computed as aggregate ÷ GPUs are labelled derived"],
           ["Engine version", <span key="classes" className="flex flex-wrap gap-1">{VERSION_CLASSES.map((value) => (
             <Tooltip key={value}>

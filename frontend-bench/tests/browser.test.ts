@@ -129,70 +129,58 @@ describe("offline console (atlas, Hugging Face and Artificial Analysis data)", (
     expect(pageErrors).toEqual([]);
   });
 
-  test("TL;DR: control row, always-expanded setups table and champions; unmeasured cells are '—', no AA", async () => {
+  test("TL;DR: one ranked setups table, details in a right sheet; unmeasured cells are '—', no AA, no extra blocks", async () => {
     await go("tldr");
-    // Default model without runs: the first catalog model. One control row: model, GPU shape, sort.
+    // Default model without runs: the first catalog model. Controls: model and GPU shape only (always ranked by sustainable).
     expect(await page.getByTestId("tldr-model").innerText()).toContain("Kimi K3");
     expect(await page.getByTestId("tldr-shape").count()).toBe(1);
-    expect((await page.locator('[data-testid="tldr-sort"] [data-sort]').allInnerTexts()).map((text) => text.replace(/\s+/g, " ").trim())).toEqual(["Sustainable tok/min/GPU", "C_max", "Name"]);
-    // The setups table is always expanded: a table at desktop width, no disclosure, every configuration listed.
+    expect(await page.getByTestId("tldr-sort").count()).toBe(0);
+    // One table and nothing else on the page: no summary blocks, champions, filters or published block.
     const table = page.getByTestId("setups-table");
-    expect(await table.getAttribute("data-layout")).toBe("table");
-    expect(await page.locator("main details").count()).toBe(0);
     expect(await table.locator("[data-setup-row]").count()).toBe(5);
     expect(await table.locator('[data-setup-row][data-standing="unmeasured"]').count()).toBe(5);
-    // Unmeasured: one "Not measured" badge per row, never a value bar or 0. With nothing measured on the dataset the
-    // metric columns collapse into one "Metrics · not measured" column (no dashed tracks repeated per column).
+    expect(await page.locator("main section").count()).toBe(1);
+    for (const id of ["tldr-overview", "winner-gaps", "export-engine-matrix", "workload-comparison", "published-results", "setup-filters"]) expect(await page.getByTestId(id).count()).toBe(0);
+    expect(await page.locator("main details, [data-published-row]").count()).toBe(0);
+    // Unmeasured: one "Not measured" badge per row, never a bar or 0; the metric columns collapse into one.
     expect(await table.getByTestId("setup-not-measured").count()).toBe(5);
-    expect(await table.locator('[data-bar="best"], [data-bar="other"]').count()).toBe(0);
+    expect(await table.locator("[data-bar]").count()).toBe(0);
     expect(await table.getAttribute("data-collapsed")).toBe("true");
     expect(await table.getByTestId("metrics-not-measured").count()).toBe(1);
-    expect(await table.locator('[data-bar="empty"]').count()).toBe(0);
     expect(await table.innerText()).not.toMatch(/(^|\s)0 tok/);
-    expect(await page.getByTestId("compare-top").isDisabled()).toBe(true);
-    // Nothing measured: the caption says so (no "bars scale to…" text without bars) and Compare top states why it is off.
+    expect(await table.innerText()).not.toContain("not recorded");
     const caption = await page.getByTestId("setups-caption").innerText();
-    expect(caption).toContain("No measured setup on single-turn-8k yet; ranking appears once runs are imported");
-    expect(caption).not.toContain("Bars scale");
-    expect(await page.locator("#compare-top-reason").textContent()).toContain("Needs ≥2 measured setups");
-    await page.getByTestId("compare-top-wrapper").hover();
-    expect(await page.getByTestId("compare-top-tooltip").first().innerText()).toContain("Needs ≥2 measured setups");
-    await page.mouse.move(0, 0);
-    // Group headers: precision chip only when the export label does not already name it; weights always shown ("— GB" if unknown).
-    const headers = page.locator("[data-group-header]");
-    for (const header of await headers.all()) {
-      expect(await header.locator("[data-group-weights]").count()).toBe(1);
-      const label = (await header.locator("span").first().innerText()).split(/[\s·]+/)[0];
-      const chip = header.locator("[data-group-precision]");
-      if (await chip.count()) expect(await chip.innerText()).not.toBe(label);
-    }
-    // One evidence trigger per row (the setup name); the row actions are compare and Throughput only.
-    expect(await table.locator('[data-action="evidence"]').count()).toBe(0);
-    expect(await table.locator('[data-setup-row] [data-action="open-run"]').count()).toBe(5);
-    // "Champions by workload" jump in the setups header moves focus to the champions panel.
-    await page.getByTestId("jump-champions").click();
-    expect(await page.evaluate(() => document.activeElement?.id)).toBe("champions-title");
+    expect(caption).toContain("No measured setup on single-turn-8k yet; the ranking appears once runs are imported");
+    expect(await page.getByTestId("compare-top").isDisabled()).toBe(true);
+    expect(await page.locator("#compare-top-note").textContent()).toContain("Needs ≥2 measured setups");
+    // Published results are only a count on the row; the records themselves are in the sheet.
+    const counts = await table.locator("[data-published-count]").evaluateAll((items) => items.map((item) => Number(item.getAttribute("data-published-count"))));
+    expect(counts.length).toBeGreaterThan(0);
+    // A row click opens the setup sheet on the right: planning note instead of empty KPIs, knobs, serve command.
+    await table.locator("[data-setup-row]").first().click();
+    const sheet = page.getByTestId("setup-sheet");
+    await sheet.waitFor();
+    expect(await sheet.getByTestId("setup-kpis").count()).toBe(0);
+    expect(await sheet.getByTestId("setup-not-measured").innerText()).toContain("Not measured on single-turn-8k");
+    expect(await sheet.getByTestId("setup-knobs").count()).toBe(1);
+    expect(await sheet.getByTestId("setup-command").innerText()).toContain("serve");
+    // Opening focuses the sheet itself, so no tooltip opens on its own.
+    expect(await page.locator('[data-slot="tooltip-content"]').count()).toBe(0);
+    const box = await sheet.boundingBox();
+    expect(box!.x + box!.width).toBeGreaterThanOrEqual(1439);
+    await page.keyboard.press("Escape");
+    await sheet.waitFor({ state: "detached" });
     // No Artificial Analysis element on the TL;DR (it lives on Intelligence and Models).
     expect(await page.locator("main").innerText()).not.toMatch(/\bAA\b|Artificial Analysis|Intelligence Index/);
-    expect(await page.locator('main [data-slot="tick-bar"], [data-glance-row]').count()).toBe(0);
-    // Champions: nothing measured, so one compact block; every dataset stays selectable, the active one marked.
-    expect(await page.getByTestId("workload-comparison").getAttribute("data-collapsed")).toBe("true");
-    expect(await page.locator("[data-workload-row]").count()).toBe(6);
-    expect(await page.locator('[data-workload-row="single-turn-8k"]').getAttribute("aria-current")).toBe("true");
     expect(await page.getByTestId("data-badge").innerText()).toContain("HF + AA");
     expect(await page.getByTestId("test-data-banner").count()).toBe(0);
-    // Selecting a workload from the champions makes it the global (top-bar) workload.
-    await page.locator('[data-workload-row="chat-8-turn"]').click();
-    await page.waitForFunction(() => location.hash.includes("workload=chat-8-turn"));
-    expect(await page.locator('[data-workload-row="chat-8-turn"]').getAttribute("aria-current")).toBe("true");
     expect(pageErrors).toEqual([]);
   });
 
-  test("TL;DR: model, shape and sort live in the URL; legacy alias keeps them", async () => {
+  test("TL;DR: model and shape live in the URL; legacy alias keeps them", async () => {
     await go("tldr?model=qwen3.8-27b");
     expect(await page.getByTestId("tldr-model").innerText()).toContain("Qwen 3.8 27B");
     expect(await page.locator("[data-setup-row]").count()).toBe(13);
-    expect(await page.locator("[data-setup-group]").count()).toBe(3);
     // Switching model: one click on the combobox, then choose (searchable, grouped by publisher).
     // Search is a contiguous substring (not cmdk's fuzzy subsequence): "gemma" highlights Gemma, never GLM 5.3.
     await openCombobox("tldr-model");
@@ -218,35 +206,37 @@ describe("offline console (atlas, Hugging Face and Artificial Analysis data)", (
     await page.reload();
     await page.waitForSelector("[data-setup-row]");
     expect(await page.locator("[data-setup-row]").count()).toBe(eight);
-    // Sort: written to and restored from the URL.
-    await page.locator('[data-testid="tldr-sort"] [data-sort="name"]').click();
-    await page.waitForFunction(() => location.hash.includes("sort=name"));
-    await go("tldr?model=qwen3.8-27b&sort=cmax");
-    expect(await page.locator('[data-testid="tldr-sort"] [data-sort="cmax"]').getAttribute("data-state")).toBe("on");
     // An unknown shape falls back to all shapes; the legacy alias canonicalizes and keeps the parameters.
     await go("tldr?model=qwen3.8-27b&shape=9xZ999");
     expect(await page.locator("[data-setup-row]").count()).toBe(13);
-    await go("overview?model=qwen3.8-27b&sort=name");
+    await go("overview?model=qwen3.8-27b");
     expect(page.url()).toMatch(/#\/tldr\?.*model=qwen3\.8-27b/);
-    expect(page.url()).toContain("sort=name");
     expect(await page.locator("[data-setup-row]").count()).toBe(13);
     expect(pageErrors).toEqual([]);
   });
 
-  test("TL;DR at 390 px: stacked setup cards, no clipped chips, no document overflow", async () => {
+  test("TL;DR at 390 px: the table fits, rows stay readable, the sheet takes the full width", async () => {
     await page.setViewportSize({ width: 390, height: 844 });
     await go("tldr?model=qwen3.8-27b");
-    expect(await page.getByTestId("setups-table").getAttribute("data-layout")).toBe("cards");
-    expect(await page.locator("li[data-setup-row]").count()).toBe(13);
+    const rows = page.locator("tr[data-setup-row]");
+    expect(await rows.count()).toBe(13);
     expect(await overflow()).toBeLessThanOrEqual(0);
-    // Every card and chip row fits its card (chips wrap or fold into "+N").
-    const clipped = await page.locator("li[data-setup-row]").evaluateAll((cards) => cards.filter((card) => card.scrollWidth > card.clientWidth + 1).length);
-    expect(clipped).toBe(0);
-    const chipsOut = await page.locator('li[data-setup-row] [data-slot="badge"]').evaluateAll((chips) => chips.filter((chip) => {
-      const box = chip.getBoundingClientRect(), card = chip.closest("li")!.getBoundingClientRect();
-      return box.right > card.right + 0.5 || chip.scrollWidth > chip.clientWidth + 1;
+    const table = page.getByTestId("setups-table");
+    expect(await table.evaluate((el) => el.scrollWidth <= el.clientWidth + 1)).toBe(true);
+    // Every badge stays inside its row.
+    const chipsOut = await page.locator('tr[data-setup-row] [data-slot="badge"]').evaluateAll((chips) => chips.filter((chip) => {
+      const box = chip.getBoundingClientRect(), row = chip.closest("tr")!.getBoundingClientRect();
+      return box.right > row.right + 0.5 || chip.scrollWidth > chip.clientWidth + 1;
     }).length);
     expect(chipsOut).toBe(0);
+    await rows.first().locator('[data-action="open-setup"]').click();
+    const sheet = page.getByTestId("setup-sheet");
+    await sheet.waitFor();
+    expect(Math.round((await sheet.boundingBox())!.width)).toBe(390);
+    // Nothing in the sheet scrolls sideways except the serve command's own code box.
+    expect(await sheet.evaluate((el) => [el, ...el.querySelectorAll("*")].filter((child) => child.tagName !== "PRE" && !child.closest("pre") && !child.classList.contains("sr-only") && child.scrollWidth > child.clientWidth + 1 && getComputedStyle(child).overflowX !== "visible").length)).toBe(0);
+    expect(await sheet.evaluate((el) => el.scrollWidth <= el.clientWidth + 1)).toBe(true);
+    await page.keyboard.press("Escape");
     await openCombobox("tldr-model");
     await page.keyboard.type("gemma");
     await page.keyboard.press("Enter");
@@ -255,45 +245,32 @@ describe("offline console (atlas, Hugging Face and Artificial Analysis data)", (
     expect(pageErrors).toEqual([]);
   });
 
-  test("TL;DR published results (external): coverage, B300 by default, sources and audit classes, weak records hidden, sub-rows outside the ranking", async () => {
+  test("TL;DR published results (external) sit in the setup sheet, outside the ranking: source, audit class, differs", async () => {
     await go("tldr");
-    // Kimi K3 (default offline model) has published B300 ladders. The block is external evidence beside the ladder.
-    const block = page.getByTestId("published-results");
-    const records = Number(await block.getAttribute("data-records"));
-    expect(records).toBeGreaterThan(0);
-    expect(await page.locator('[data-testid="published-coverage"] [data-coverage="B300"]').count()).toBe(1);
-    expect(await page.locator('[data-testid="published-hardware"] [data-hardware="B300"]').getAttribute("data-state")).toBe("on");
-    const best = page.locator("[data-published-best]");
-    expect(await best.count()).toBeGreaterThan(0);
-    expect((await best.evaluateAll((items) => items.map((item) => item.getAttribute("data-published-best") ?? ""))).every((key) => key.startsWith("B300|"))).toBe(true);
-    // Every published number: a source link, an engine-version audit class; never called "sustainable".
-    expect(await best.first().locator("[data-source-link]").getAttribute("href")).toMatch(/^https?:\/\//);
-    expect(await best.first().getByTestId("version-class").count()).toBe(1);
-    expect(await block.innerText()).not.toMatch(/sustainable/i);
-    // Records that state an exact catalog setup sit under it as a sub-row, outside the ranking columns.
-    expect(await page.locator("[data-setup-row]").count()).toBe(5);
-    expect(await page.locator("[data-published-row]").count()).toBe(3);
-    expect(await page.locator("[data-published-row] [data-delta], [data-published-row] [data-bar], [data-published-row] [data-action]").count()).toBe(0);
-    expect(await page.locator('[data-published-row="kimi-k3.native.vllm.baseline"]').innerText()).toContain("Published");
-    // Other hardware: "All" lists non-B300 bests, each marked.
-    await page.locator('[data-testid="published-hardware"] [data-hardware="all"]').click();
-    await page.waitForFunction(() => [...document.querySelectorAll("[data-published-best]")].some((row) => !row.getAttribute("data-published-best")!.startsWith("B300|")));
-    expect(await page.locator("[data-published-best] [data-hardware-mismatch]").count()).toBeGreaterThan(0);
-    // Weak records (invalid engine version, unverified extraction, superseded run) are hidden until the switch is on.
-    await page.getByTestId("published-weak").click();
-    await page.waitForFunction((n) => Number(document.querySelector('[data-testid="published-results"]')?.getAttribute("data-records")) > n, records);
-    expect(await page.getByTestId("published-explorer").getAttribute("href")).toMatch(/^#\/published\?.*model=kimi-k3/);
-    expect(await page.locator("main").innerText()).not.toMatch(/\bAA\b|Artificial Analysis|Intelligence Index/);
-    expect(pageErrors).toEqual([]);
-  });
-
-  test("TL;DR published results at 390 px: stacked cards, no document overflow", async () => {
-    await page.setViewportSize({ width: 390, height: 844 });
-    await go("tldr");
-    expect(await page.getByTestId("published-best").getAttribute("data-layout")).toBe("cards");
-    const clipped = await page.locator("li[data-published-best]").evaluateAll((cards) => cards.filter((card) => card.scrollWidth > card.clientWidth + 1).length);
-    expect(clipped).toBe(0);
-    expect(await overflow()).toBeLessThanOrEqual(0);
+    // Kimi K3 (default offline model): rows with published records carry only a count.
+    const row = page.locator('tr[data-setup-row="kimi-k3.native.vllm.baseline"]');
+    const count = Number(await row.locator("[data-published-count]").getAttribute("data-published-count"));
+    expect(count).toBeGreaterThan(0);
+    await row.click();
+    const section = page.getByTestId("setup-published");
+    await section.waitFor();
+    const records = section.locator("[data-published-record]");
+    expect(await records.count()).toBe(count);
+    // Every published number: a source link and an engine-version audit class; never "sustainable", no Δ or bar.
+    for (const record of await records.all()) {
+      expect(await record.locator("[data-source-link]").getAttribute("href")).toMatch(/^https?:\/\//);
+      expect(await record.getByTestId("version-class").count()).toBe(1);
+    }
+    expect(await section.innerText()).not.toMatch(/sustainable/i);
+    expect(await section.locator("[data-delta], [data-bar]").count()).toBe(0);
+    expect(await section.innerText()).toContain("never ranked");
+    // A linked record that states differences says "differs" and lists them; figures always have a load level.
+    expect(await section.locator("[data-no-throughput]").count()).toBe(0);
+    for (const record of await records.all()) {
+      if (await record.locator("[data-differs]").count()) expect(await record.innerText()).toContain("Differs from this setup:");
+    }
+    for (const load of await section.locator("[data-load]").all()) expect((await load.innerText()).trim().length).toBeGreaterThan(0);
+    expect(await section.getByRole("link", { name: "All published results for this model" }).getAttribute("href")).toMatch(/^#\/published\?.*model=kimi-k3/);
     expect(pageErrors).toEqual([]);
   });
 
@@ -1007,22 +984,6 @@ describe("offline console (atlas, Hugging Face and Artificial Analysis data)", (
     expect(pageErrors).toEqual([]);
   });
 
-  test("TL;DR published: an empty B300 view offers the GPU classes that publish output tok/s/GPU", async () => {
-    await go("tldr?model=deepseek-v4-flash-0731");
-    const empty = page.getByTestId("published-best-empty");
-    expect(await empty.innerText()).toContain("No published output tok/s/GPU for B300");
-    const filter = page.locator('[data-testid="published-alternatives"] [data-alternative="H200"]');
-    expect(await filter.getAttribute("data-alternative-kind")).toBe("filter");
-    expect(await filter.innerText()).toMatch(/^H200 · \d+ with output tok\/s\/GPU$/);
-    // A class without output tok/s/GPU opens the explorer on that model × GPU instead.
-    expect(await page.locator('[data-alternative="GB300"]').getAttribute("href")).toMatch(/^#\/published\?.*model=deepseek-v4-flash-0731.*hw=GB300/);
-    await filter.click();
-    await page.getByTestId("published-best").waitFor();
-    expect(await page.locator('[data-testid="published-hardware"] [data-hardware="H200"]').getAttribute("data-state")).toBe("on");
-    expect(await page.locator("[data-published-best]").first().getAttribute("data-published-best")).toMatch(/^H200\|/);
-    expect(pageErrors).toEqual([]);
-  });
-
   test("published hardware: an unstated GPU type reads 'hardware not stated', never 'not B300'; versions show inline", async () => {
     await go("engine?model=kimi-k3");
     const published = page.locator("#engine-published");
@@ -1032,34 +993,17 @@ describe("offline console (atlas, Hugging Face and Artificial Analysis data)", (
     expect(await unstated.locator("figcaption").innerText()).toContain("Hardware not stated");
     expect(await unstated.innerText()).not.toContain("not B300");
     expect(await unstated.locator('[data-hardware-status="unstated"]').count()).toBeGreaterThan(0);
-    // TL;DR published sub-rows: the resolved engine version is visible inline next to its audit badge.
+    // TL;DR setup sheet: the resolved engine version is visible inline next to its audit badge.
     await go("tldr?model=kimi-k3");
-    const line = page.locator("[data-published-row] [data-published-record]").filter({ has: page.locator("[data-engine-version]") }).first();
+    await page.locator('tr[data-setup-row="kimi-k3.native.vllm.baseline"]').click();
+    const section = page.getByTestId("setup-published");
+    await section.waitFor();
+    const line = section.locator("[data-published-record]").filter({ has: page.locator("[data-engine-version]") }).first();
     expect(await line.locator("[data-engine-version]").innerText()).not.toBe("");
     expect(await line.locator("[data-testid=version-class]").count()).toBe(1);
-    // No "engine version not stated" chip beside a "not stated" audit badge; no repeated metric names.
-    for (const item of await page.locator("[data-published-record]").all()) {
+    // No "engine version not stated" chip beside a "not stated" audit badge.
+    for (const item of await section.locator("[data-published-record]").all()) {
       if (await item.locator('[data-version-class="not-stated"]').count()) expect(await item.locator('[data-flag="engine-version-not-stated"]').count()).toBe(0);
-    }
-    for (const text of await page.locator("[data-no-throughput]").allInnerTexts()) {
-      const names = /\((.*)\)/.exec(text)![1]!.split(", ");
-      expect(new Set(names).size).toBe(names.length);
-    }
-    // Sub-rows under a setup always carry a figure, its load level is never truncated away, and a linked record
-    // that states differences says so ("differs") instead of reading as the same setup.
-    expect(await page.locator("[data-published-row] [data-no-throughput]").count()).toBe(0);
-    for (const load of await page.locator("[data-published-row] [data-load]").all()) {
-      expect(await load.evaluate((el) => el.scrollWidth <= el.clientWidth + 1 && el.textContent!.trim().length > 0)).toBe(true);
-    }
-    // Best published table at 1440: the Output annotation never overlaps the engine column.
-    const best = page.locator("[data-published-best]");
-    for (const row of await best.all()) {
-      const [engine, output] = await row.locator("td").evaluateAll((cells) => [cells[1]!, cells[2]!].map((cell) => {
-        const inner = [...cell.querySelectorAll("*")].map((el) => el.getBoundingClientRect()).filter((r) => r.width > 0);
-        return { left: Math.min(...inner.map((r) => r.left)), right: Math.max(...inner.map((r) => r.right)), cellLeft: cell.getBoundingClientRect().left, cellRight: cell.getBoundingClientRect().right };
-      }));
-      expect(engine!.right).toBeLessThanOrEqual(engine!.cellRight + 1);
-      expect(output!.left).toBeGreaterThanOrEqual(output!.cellLeft - 1);
     }
     expect(pageErrors).toEqual([]);
   });
@@ -1103,7 +1047,7 @@ describe("offline console (atlas, Hugging Face and Artificial Analysis data)", (
     expect(pageErrors).toEqual([]);
   });
 
-  test("models and TL;DR variant rows open the evidence sheet from the keyboard", async () => {
+  test("models rows open the evidence sheet and TL;DR rows the setup sheet from the keyboard; focus returns", async () => {
     await go("models?model=qwen3.8-27b&tab=overview");
     await page.locator("[data-export-toggle]").first().click();
     const opener = page.locator("[data-variant-row] [data-action=\"open-run\"]").first();
@@ -1112,11 +1056,15 @@ describe("offline console (atlas, Hugging Face and Artificial Analysis data)", (
     await page.getByRole("dialog").waitFor();
     await page.keyboard.press("Escape");
     await go("tldr");
-    // TL;DR setups are always expanded: the first setup name opens its evidence directly.
-    const variant = page.locator("[data-setup-row] [data-action=\"open-run\"]").first();
-    await variant.focus();
+    const setup = page.locator("[data-setup-row] [data-action=\"open-setup\"]").first();
+    expect(await setup.getAttribute("aria-haspopup")).toBe("dialog");
+    await setup.focus();
     await page.keyboard.press("Enter");
-    await page.getByRole("dialog").waitFor();
+    await page.getByTestId("setup-sheet").waitFor();
+    expect(await page.getByRole("dialog").count()).toBe(1);
+    await page.keyboard.press("Escape");
+    await page.getByTestId("setup-sheet").waitFor({ state: "detached" });
+    expect(await page.evaluate(() => document.activeElement?.getAttribute("data-action"))).toBe("open-setup");
     expect(pageErrors).toEqual([]);
   });
 
@@ -1171,7 +1119,7 @@ describe("offline console (atlas, Hugging Face and Artificial Analysis data)", (
 describe("measured-data views (TEST fixture runs via RUNS_FILE)", () => {
   beforeEach(async () => { origin = measured; await open(); });
 
-  test("TL;DR ranks the fixture setups: best, Δ vs best, measured before unmeasured, champions with challengers", async () => {
+  test("TL;DR ranks the fixture setups highest first: best, Δ vs best, unmeasured last; the sheet carries the detail", async () => {
     await go("tldr");
     // Default model: the first catalog model with a measured run.
     expect(await page.getByTestId("tldr-model").innerText()).toContain("Qwen 3.8 27B");
@@ -1182,72 +1130,50 @@ describe("measured-data views (TEST fixture runs via RUNS_FILE)", () => {
     expect(await best.getAttribute("data-position")).toBe("1");
     expect(await best.innerText()).toContain("2,882,918");
     expect(await best.locator('[data-delta="best"]').innerText()).toBe("Best");
-    // Incomplete and errored requests are flagged inline on the row, merged into one compact badge (full counts in its label).
-    const quality = best.getByTestId("run-quality-badge");
-    expect(await quality.innerText()).toBe("1 inc · 3 err");
-    expect(await quality.getAttribute("aria-label")).toBe("1 incomplete, 3 errored requests");
-    // Compact rows at ≥1280 px: every ladder row (measured or not) fits in 48 px; the recheck folds into an icon.
-    const heights = await rows.evaluateAll((items) => items.map((item) => item.getBoundingClientRect().height));
-    expect(Math.max(...heights)).toBeLessThanOrEqual(48);
-    expect(await best.locator("[data-recheck]").getAttribute("aria-label")).toMatch(/^Rechecked /);
     // Classic SLO: SGLang 2,771,947 vs vLLM 2,882,918 = −3.8%, outside the ±3% band.
     expect(await second.getAttribute("data-standing")).toBe("behind");
     expect(await second.locator("[data-delta]").innerText()).toMatch(/^−3\.8%/);
     expect(Number(await second.locator("[data-delta]").getAttribute("data-fraction"))).toBeCloseTo(-0.0385, 3);
-    // Fixture: 8 measured variants on single-turn-8k (7 of the 13 configurations; the FP8 vLLM baseline has two recorded
-    // runtime configs) plus 6 unmeasured configurations: best, 6 behind, 1 without a passing level, 6 unmeasured listed
-    // after the measured ones, with "—" and one badge each.
+    // One flat list (no export groups): positions ascend, values never increase, unmeasured rows come last.
+    expect(await page.locator("[data-setup-group]").count()).toBe(0);
+    const positions = (await rows.evaluateAll((items) => items.map((item) => item.getAttribute("data-position")))).filter(Boolean).map(Number);
+    expect(positions).toEqual([...positions].sort((a, b) => a - b));
     const standings = await rows.evaluateAll((items) => items.map((item) => item.getAttribute("data-standing")));
     const tally = (kind: string) => standings.filter((item) => item === kind).length;
     expect([tally("best"), tally("behind"), tally("no-passing"), tally("unmeasured")]).toEqual([1, 6, 1, 6]);
-    // Rows are grouped by weights export; inside every group measured setups precede unmeasured ones.
-    const groups = await page.locator("[data-setup-group]").evaluateAll((items) => items.map((group) => [...group.querySelectorAll("[data-setup-row]")].map((row) => row.getAttribute("data-standing"))));
-    for (const group of groups) expect(group.findIndex((kind) => kind === "unmeasured") === -1 || group.slice(group.findIndex((kind) => kind === "unmeasured")).every((kind) => kind === "unmeasured")).toBe(true);
+    expect(standings.slice(standings.indexOf("unmeasured")).every((kind) => kind === "unmeasured")).toBe(true);
     expect(await page.getByTestId("setups-table").locator('[data-bar="best"]').count()).toBe(1);
-    // Mixed table: full metric columns; each unmeasured row carries one dashed track (sustainable), not one per column.
-    expect(await page.getByTestId("setups-table").getAttribute("data-collapsed")).toBeNull();
-    expect(await page.locator('[data-setup-row][data-standing="unmeasured"] [data-bar="empty"]').count()).toBe(6);
-    // Row actions: Throughput opens this setup in one click.
-    expect(await best.locator('[data-action="throughput"]').getAttribute("href")).toContain("run=qwen3.8-27b.fp8.vllm.baseline");
-    // Evidence from a TL;DR row leads with Sustainable and C_max; the model-level AA index sits in a collapsed group.
-    await best.locator('[data-action="open-run"]').click();
+    // Compact rows: nothing but rank, setup, engine, sustainable, Δ, C_max.
+    const heights = await rows.evaluateAll((items) => items.map((item) => item.getBoundingClientRect().height));
+    expect(Math.max(...heights)).toBeLessThanOrEqual(56);
+    expect(await page.getByTestId("setups-table").locator("thead").innerText()).toMatch(/#\s+Setup\s+Engine\s+Sustainable\s+tok\/min\/GPU\s+Δ vs best\s+C_max/);
+    // The sheet: KPIs, run quality, runs, knobs, actions.
+    await best.click();
+    const sheet = page.getByTestId("setup-sheet");
+    await sheet.waitFor();
+    expect(await sheet.getByTestId("setup-rank").innerText()).toBe("#1 of 7");
+    expect(await sheet.getByTestId("setup-sustainable").innerText()).toContain("2,882,918");
+    expect(await sheet.getByTestId("setup-kpis").innerText()).toContain("C_max");
+    const quality = sheet.getByTestId("run-quality-badge");
+    expect(await quality.innerText()).toBe("1 inc · 3 err");
+    expect(await quality.getAttribute("aria-label")).toBe("1 incomplete, 3 errored requests");
+    expect(await sheet.getByTestId("setup-knobs").innerText()).toContain("seqs 256");
+    expect(await sheet.getByTestId("setup-throughput").getAttribute("href")).toContain("run=qwen3.8-27b.fp8.vllm.baseline");
+    expect(await sheet.getByTestId("setup-engine").getAttribute("href")).toMatch(/^#\/engine\?.*model=qwen3\.8-27b/);
+    // Evidence from the sheet leads with Sustainable and C_max; the model-level AA index sits in a collapsed group.
+    await sheet.getByTestId("setup-evidence").click();
     const kpis = page.getByTestId("drawer-kpis");
     await kpis.waitFor();
     expect(await kpis.getAttribute("data-order")).toBe("throughput");
     expect((await kpis.locator("dt").allInnerTexts()).slice(0, 2)).toEqual(["Sustainable", "C_max"]);
     expect(await kpis.innerText()).not.toContain("AA");
-    expect(await kpis.innerText()).toContain("2,882,918");
-    expect(await page.locator('[data-drawer-details="Model quality"]').count()).toBe(1);
     expect(await page.locator('[data-drawer-details="Model quality"]').evaluate((el) => (el as HTMLDetailsElement).open)).toBe(false);
     await page.keyboard.press("Escape");
-    await go("deployments");
-    await page.locator('[data-action="open-run"]').first().click();
-    expect(await page.getByTestId("drawer-kpis").getAttribute("data-order")).toBe("default");
-    await page.keyboard.press("Escape");
-    await go("tldr");
-    // Champions by workload: the champion and the challenger with its Δ vs champion.
-    const champion = page.locator('[data-workload-row="single-turn-8k"]');
-    expect(await champion.innerText()).toContain("2,882,918");
-    expect(await champion.locator('[data-challenger="qwen3.8-27b.fp8.sglang.baseline"]').innerText()).toContain("−3.8%");
-    expect(await page.locator('[data-workload-row="chat-8-turn"]').innerText()).toContain("629,491");
-    // Sort by name or C_max keeps measured setups first.
-    for (const sort of ["name", "cmax"]) {
-      await go(`tldr?sort=${sort}`);
-      // Per export group: setups with a value, then measured without a passing level, then unmeasured.
-      const tiers = await page.locator("[data-setup-group]").evaluateAll((items) => items.map((group) => [...group.querySelectorAll("[data-setup-row]")]
-        .map((row) => ({ best: 0, behind: 0, tie: 0, "no-passing": 1, unmeasured: 2 } as Record<string, number>)[row.getAttribute("data-standing") ?? ""] ?? 3)));
-      for (const group of tiers) expect(group).toEqual([...group].sort((x, y) => x - y));
-      expect(tiers.flat().filter((tier) => tier === 0)).toHaveLength(7);
-    }
-    // Compare top: the measured setups, then the Compare page.
+    // Compare top: the top three configurations (two variants of one configuration count once), then the Compare page.
     await go("tldr");
     await page.getByTestId("compare-top").click();
     await page.waitForFunction(() => location.hash.startsWith("#/compare"));
     expect(decodeURIComponent(new URL(page.url()).hash.match(/runs=([^&]+)/)?.[1] ?? "").split(",")).toEqual(["qwen3.8-27b.fp8.vllm.baseline", "qwen3.8-27b.fp8.sglang.baseline", "qwen3.8-27b.nvfp4.vllm.baseline"]);
-    // The button says why rank 3 is skipped: Compare holds configurations, and rank 3 is a second variant of rank 1's.
-    await go("tldr");
-    expect(await page.getByTestId("compare-top").getAttribute("data-skipped")).toBe("1");
-    expect(await page.locator("#compare-top-note").textContent()).toContain("variants of one configuration count once (1 ladder row skipped)");
     expect(pageErrors).toEqual([]);
   });
 
@@ -1262,81 +1188,53 @@ describe("measured-data views (TEST fixture runs via RUNS_FILE)", () => {
     expect(await second.getByTestId("tie-badge").innerText()).toBe("tie");
     expect(await second.locator("[data-delta]").innerText()).toContain("−0.8%");
     expect(await page.getByTestId("setups-caption").innerText()).toContain("assumed single-run noise (unverified policy)");
-    expect(await page.locator('[data-workload-row="single-turn-8k"] [data-challenger][data-delta="tie"]').count()).toBe(1);
     expect(pageErrors).toEqual([]);
   });
 
-  test("TL;DR measured at 390 px: cards keep value, bar and Δ without overflow", async () => {
+  test("TL;DR measured at 390 px: value, bar and Δ stay in each row without overflow", async () => {
     await page.setViewportSize({ width: 390, height: 844 });
     await go("tldr");
-    expect(await page.getByTestId("setups-table").getAttribute("data-layout")).toBe("cards");
-    const best = page.locator("li[data-setup-row]").first();
+    const best = page.locator("tr[data-setup-row]").first();
     expect(await best.innerText()).toContain("2,882,918");
     expect(await best.locator('[data-bar="best"]').count()).toBe(1);
-    expect(await page.locator("li[data-setup-row]").nth(1).locator("[data-delta]").innerText()).toMatch(/^−3\.8%/);
+    expect(await page.locator("tr[data-setup-row]").nth(1).locator("[data-delta]").innerText()).toMatch(/^−3\.8%/);
+    expect(await page.locator("tr[data-setup-row]").nth(1).locator("[data-delta]").count()).toBe(1);
     expect(await overflow()).toBeLessThanOrEqual(0);
     expect(pageErrors).toEqual([]);
   });
 
-  test("TL;DR variants: two runtime configs of one configuration, best of 2 runtimes, full knobs, expandable runs, filter chips", async () => {
+  test("TL;DR variants: two runtime configs of one configuration, best of 2 runtimes, every run in the sheet", async () => {
     await go("tldr");
-    // The FP8 vLLM baseline was measured with two recorded runtime configs: two ladder rows of one configuration.
+    // The FP8 vLLM baseline was measured with two recorded runtime configs: two rows of one configuration, told apart by their knobs.
     const fp8 = page.locator('tr[data-setup-row="qwen3.8-27b.fp8.vllm.baseline"]');
     expect(await fp8.count()).toBe(2);
     const best = fp8.first();
     expect(await best.getAttribute("data-standing")).toBe("best");
-    // Dense row: "best of 2" (the Runtime header reads "best of N runtimes"; the full list is in the title).
-    expect(await best.locator("[data-runtime-count]").innerText()).toContain("best of 2");
-    expect(await best.locator("[data-runtime-count]").getAttribute("title")).toContain("Best of 2 runtimes");
-    expect(await page.getByTestId("setups-table").locator("thead").innerText()).toContain("best of N runtimes");
-    // ≥1280 px: the full recorded knob string is the row's second line.
-    expect(await best.locator("[data-knob-string]").isVisible()).toBe(true);
-    expect(await best.locator("[data-knob-string]").innerText()).toBe("kv fp8 · seqs 256 · prefix cache off · fixture=TEST");
-    expect(await fp8.nth(1).locator("[data-knob-string]").innerText()).toBe("kv fp8 · seqs 512 · prefix cache on · fixture=TEST");
+    expect(await best.locator('[data-action="open-setup"]').innerText()).toBe("Baseline · seqs 256 · prefix cache off");
+    expect(await fp8.nth(1).locator('[data-action="open-setup"]').innerText()).toBe("Baseline · seqs 512 · prefix cache on");
+    expect(await best.locator("[data-runtime-count]").innerText()).toBe("best of 2 runtimes");
     expect(await fp8.nth(1).locator("[data-delta]").innerText()).toMatch(/^−14\.0%/);
-    // NVFP4 vLLM: the older v0.32.0 run is faster, so it fronts the variant; expanding lists both runs, newest first.
+    // The export label already names FP8: no repeated precision chip.
+    expect(await best.locator('[data-slot="badge"]', { hasText: /^FP8$/ }).count()).toBe(0);
+    // NVFP4 vLLM: the older v0.32.0 run is faster, so it fronts the variant; the sheet lists both runs, newest first.
     const nvfp4 = page.locator('tr[data-setup-row="qwen3.8-27b.nvfp4.vllm.baseline"]');
-    expect(await nvfp4.innerText()).toContain("ran vllm-v0.32.0");
-    await nvfp4.locator('[data-action="expand"]').click();
-    expect(await nvfp4.locator('[data-action="expand"]').getAttribute("aria-expanded")).toBe("true");
-    const detail = page.locator("[data-variant-detail]");
-    await detail.waitFor();
-    expect(await detail.locator("[data-variant-run]").count()).toBe(2);
-    expect(await detail.locator("[data-variant-run]").first().innerText()).toContain("vllm-v0.33.0");
-    expect(await detail.locator("[data-variant-run][data-fronts]").innerText()).toContain("vllm-v0.32.0");
-    expect(await detail.innerText()).toContain("Throughput opens this variant's best run");
-    // The header stays visible while scrolling a long ladder.
-    expect(await page.locator('[data-testid="setups-table"] thead th').first().evaluate((el) => getComputedStyle(el).position)).toBe("sticky");
-    // Filter chips hide rows but never re-elect the best: the SGLang FP8 setup still reads −3.8% vs the hidden vLLM best.
-    await page.locator('[data-testid="filter-engine"] [data-filter="SGLang"]').click();
-    await page.waitForFunction(() => document.querySelectorAll("tr[data-setup-row]").length === 4);
-    expect(await page.getByTestId("filter-count").innerText()).toBe("4 of 14 shown");
-    // The chips are in the URL: a reload (or a shared link) restores the filtered ladder.
-    await page.waitForFunction(() => location.hash.includes("engine=SGLang"));
-    await page.reload();
-    await page.waitForFunction(() => document.querySelectorAll("tr[data-setup-row]").length === 4);
-    expect(await page.locator('[data-testid="filter-engine"] [data-filter="SGLang"]').getAttribute("data-state")).toBe("on");
-    expect(await page.getByTestId("filter-count").innerText()).toBe("4 of 14 shown");
-    expect(await page.locator('tr[data-setup-row="qwen3.8-27b.fp8.sglang.baseline"] [data-delta]').innerText()).toMatch(/^−3\.8%/);
-    expect(await page.getByTestId("setups-table").locator('[data-delta="best"]').count()).toBe(0);
-    await page.locator('[data-testid="filter-spec"] [data-filter="spec-on"]').click();
-    await page.waitForFunction(() => document.querySelectorAll("tr[data-setup-row]").length === 1);
-    expect(page.url()).toMatch(/spec=on/);
-    expect(await page.locator("tr[data-setup-row]").getAttribute("data-setup-row")).toBe("qwen3.8-27b.nvfp4.sglang.mtp");
-    await page.getByTestId("filter-clear").click();
-    await page.waitForFunction(() => document.querySelectorAll("tr[data-setup-row]").length === 14);
-    expect(page.url()).not.toMatch(/engine=|spec=/);
-    // Two engine families measured: the caption links the engine head-to-head.
-    expect(await page.getByTestId("setups-engine-link").getAttribute("href")).toMatch(/^#\/engine\?.*model=qwen3\.8-27b/);
+    expect(await nvfp4.innerText()).toContain("vllm-v0.32.0");
+    await nvfp4.click();
+    const runs = page.getByTestId("setup-runs");
+    await runs.waitFor();
+    expect(await runs.locator("[data-variant-run]").count()).toBe(2);
+    expect(await runs.locator("[data-variant-run]").first().innerText()).toContain("vllm-v0.33.0");
+    expect(await runs.locator("[data-variant-run][data-fronts]").innerText()).toContain("vllm-v0.32.0");
+    expect(await page.getByTestId("setup-knobs").innerText()).toContain("keys");
     expect(pageErrors).toEqual([]);
   });
 
-  test("TL;DR Throughput action opens the row's variant (its best run), not the configuration's newest run", async () => {
+  test("TL;DR sheet Throughput opens the row's variant (its best run), not the configuration's newest run", async () => {
     await go("tldr");
-    const row = page.locator('tr[data-setup-row="qwen3.8-27b.fp8.vllm.baseline"]', { has: page.locator("[data-knob-string]", { hasText: "seqs 512" }) });
+    const row = page.locator('tr[data-setup-row="qwen3.8-27b.fp8.vllm.baseline"]', { has: page.locator('[data-action="open-setup"]', { hasText: "seqs 512" }) });
     expect(await row.count()).toBe(1);
-    expect(await row.locator('[data-action="compare"]').getAttribute("aria-label")).toContain("configuration");
-    await row.locator('[data-action="throughput"]').click();
+    await row.click();
+    await page.getByTestId("setup-throughput").click();
     await page.waitForFunction(() => location.hash.startsWith("#/throughput") && location.hash.includes("rid="));
     await page.waitForFunction(() => document.querySelector('[data-testid="run-picker-chips"]')?.textContent?.includes("seqs 512") === true);
     expect(await page.getByTestId("run-picker-chips").innerText()).toContain("seqs 512 · prefix cache on");
@@ -1344,50 +1242,6 @@ describe("measured-data views (TEST fixture runs via RUNS_FILE)", () => {
     // A reload keeps the variant (the run id is in the URL).
     await page.reload();
     await page.waitForFunction(() => document.querySelector('[data-testid="run-picker-chips"]')?.textContent?.includes("seqs 512") === true);
-    expect(pageErrors).toEqual([]);
-  });
-
-  test("TL;DR winner and gaps at 390 px: labels wrap and the knobs that separate variants stay visible", async () => {
-    await page.setViewportSize({ width: 390, height: 844 });
-    await go("tldr");
-    const items = page.locator('[data-testid="winner-gaps"] [data-rank-row]');
-    await items.first().waitFor();
-    const knobs = await page.locator('[data-testid="winner-gaps"] [data-rank-knobs]').allInnerTexts();
-    expect(knobs).toContain("seqs 256 · prefix cache off");
-    expect(knobs).toContain("seqs 512 · prefix cache on");
-    // Nothing in the list is clipped: every label and detail fits its own box.
-    expect(await page.locator('[data-testid="winner-gaps"] [data-rank-row] span').evaluateAll((els) => els.filter((el) => el.scrollWidth > el.clientWidth + 1 && getComputedStyle(el).overflow === "hidden").length)).toBe(0);
-    expect(await overflow()).toBeLessThanOrEqual(0);
-    expect(pageErrors).toEqual([]);
-  });
-
-  test("TL;DR winner and gaps (ranked across exports) and best by export × engine matrix", async () => {
-    await go("tldr");
-    const items = page.locator('[data-testid="winner-gaps"] [data-rank-row]');
-    // Top 5 of the 7 setups with a sustainable value (the BF16 SGLang variant has no passing level), ranked across
-    // exports; the ladder carries the full ranking ("See all 14 in the ladder").
-    expect(await items.count()).toBe(5);
-    expect(await page.getByTestId("winner-see-all").innerText()).toBe("See all 14 in the ladder");
-    expect(await items.first().getAttribute("data-standing")).toBe("best");
-    expect(await items.first().innerText()).toContain("2,882,918");
-    expect(await items.nth(1).innerText()).toContain("−3.8%");
-    expect(await items.nth(2).innerText()).toContain("seqs 512 · prefix cache on");
-    // Selecting a ranked row focuses that setup in the ladder.
-    const key = await items.nth(3).getAttribute("data-rank-row");
-    await items.nth(3).click();
-    await page.waitForFunction((k) => document.activeElement?.closest("[data-variant-key]")?.getAttribute("data-variant-key") === k, key);
-    // Matrix: 3 exports × (vLLM, SGLang, SGLang · spec); hatched cells have no sustainable value (unmeasured, no passing level, absent).
-    const matrix = page.getByTestId("export-engine-matrix");
-    expect([await matrix.getAttribute("data-rows"), await matrix.getAttribute("data-columns")]).toEqual(["3", "3"]);
-    expect(await matrix.locator('[data-slot="heatmap-chart-cell"]').count()).toBe(9);
-    expect(await matrix.locator('[data-slot="heatmap-chart-cell"][data-missing]').count()).toBe(4);
-    expect(await page.getByTestId("matrix-readout").innerText()).toContain("FP8 × vLLM: 2,882,918 tok/min/GPU (best)");
-    // Selecting a cell filters the ladder to it.
-    await matrix.locator('[data-slot="heatmap-chart-cell"][aria-label^="NVFP4"][aria-label*="SGLang · spec"]').click();
-    await page.waitForFunction(() => document.querySelectorAll("tr[data-setup-row]").length === 1);
-    expect(await page.locator("tr[data-setup-row]").getAttribute("data-setup-row")).toBe("qwen3.8-27b.nvfp4.sglang.mtp");
-    expect(await page.locator('[data-testid="filter-engine"] [data-filter="SGLang"]').getAttribute("data-state")).toBe("on");
-    expect(await page.getByTestId("filter-count").innerText()).toBe("1 of 14 shown");
     expect(pageErrors).toEqual([]);
   });
 
@@ -1734,13 +1588,14 @@ describe("measured-data views (TEST fixture runs via RUNS_FILE)", () => {
     await page.getByTestId("compare-selected").click();
     await page.waitForFunction(() => location.hash.startsWith("#/compare"));
     expect(decodeURIComponent(new URL(page.url()).hash.match(/runs=([^&]+)/)?.[1] ?? "").split(",").sort()).toEqual(["qwen3.8-27b.fp8.sglang.baseline", "qwen3.8-27b.fp8.vllm.baseline"]);
-    // Links: champions by workload opens the TL;DR for the model on the same GPU count.
+    // The quantization ladder link opens the TL;DR for the model on the same GPU count.
     await go("engine?pair=qwen3.8-27b.fp8@1");
-    await page.getByTestId("matchup-champions").click();
+    expect(await page.getByTestId("matchup-champions").count()).toBe(0);
+    await page.getByTestId("matchup-ladder").click();
     await page.waitForFunction(() => location.hash.startsWith("#/tldr"));
     expect(page.url()).toMatch(/model=qwen3\.8-27b/);
     expect(page.url()).toMatch(/shape=1xB300/);
-    await page.locator("#champions").waitFor();
+    await page.getByTestId("setups-table").waitFor();
     expect(pageErrors).toEqual([]);
   });
 
@@ -1992,21 +1847,6 @@ describe("measured-data views (TEST fixture runs via RUNS_FILE)", () => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.waitForTimeout(150);
     expect(await overflow()).toBeLessThanOrEqual(0);
-    expect(pageErrors).toEqual([]);
-  });
-
-  test("TL;DR published sub-rows: per-user units normalised, four aligned cells per record", async () => {
-    await go("tldr");
-    const lines = page.locator("tr[data-published-row] [data-published-record]");
-    await lines.first().waitFor();
-    for (const line of await lines.all()) {
-      expect(await line.locator('[data-cell]').count()).toBe(4);
-      const unit = await line.locator("[data-unit]").getAttribute("data-unit");
-      if (unit !== null) expect(unit).not.toBe("tok/s");
-    }
-    // Same grid: the source cell starts at the same x on every sub-row.
-    const xs = await lines.locator('[data-cell="source"]').evaluateAll((cells) => cells.map((cell) => Math.round(cell.getBoundingClientRect().x)));
-    expect(new Set(xs).size).toBe(1);
     expect(pageErrors).toEqual([]);
   });
 

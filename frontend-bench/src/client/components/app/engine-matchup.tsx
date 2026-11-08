@@ -62,21 +62,9 @@ export function addAllToCompare(ids: string[]): void {
   toast("Added to comparison", `${appState.selected.length} of ${MAX_COMPARE} selected.`);
 }
 
-/** TL;DR for the model on this GPU count; `champions` scrolls to Champions by workload once the page renders. */
-export function openTldr(modelId: string, shapeKey: string, champions = false): void {
+/** TL;DR (every setup ranked) for the model on this GPU count. */
+export function openTldr(modelId: string, shapeKey: string): void {
   navigate("tldr", { model: modelId, shape: shapeKey });
-  if (!champions) return;
-  let frames = 0;
-  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const tick = () => {
-    const target = document.getElementById("champions");
-    if (!target) { if (frames++ < 60) requestAnimationFrame(tick); return; }
-    target.scrollIntoView({ block: "start", behavior: reduced ? "auto" : "smooth" });
-    const heading = document.getElementById("champions-title");
-    heading?.setAttribute("tabindex", "-1");
-    heading?.focus({ preventScroll: true });
-  };
-  requestAnimationFrame(tick);
 }
 
 function MatchupCard({ engine, index, deployment: d, capacity: c, measured, max, delta, tied }: {
@@ -163,7 +151,6 @@ export function EngineMatchup({ scope, fallback, shapeKey, modelName, details }:
           |Δ| ≤ {BAND}% reads as a tie (assumed single-run noise).
         </span>
         <button type="button" className="text-link inline-flex items-center gap-0.5 hover:underline" onClick={() => openTldr(scope.modelId, shapeKey)} data-testid="matchup-ladder">Quantization ladder<ArrowUpRight className="size-3" aria-hidden="true" /></button>
-        <button type="button" className="text-link inline-flex items-center gap-0.5 hover:underline" onClick={() => openTldr(scope.modelId, shapeKey, true)} data-testid="matchup-champions">Champions by workload<ArrowUpRight className="size-3" aria-hidden="true" /></button>
       </p>
       {details}
     </Panel>
