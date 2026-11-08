@@ -22,7 +22,7 @@ import { StatusBadge } from "../components/app/status-badge.js";
 import { EngineBuild } from "../components/app/engine-build.js";
 import { EngineIntelDisclosure } from "../components/app/engine-intel-disclosure.js";
 import { EngineMatchup } from "../components/app/engine-matchup.js";
-import { bestPerEngine } from "../components/app/engine-data.js";
+import { bestMeasured, bestPerEngine } from "../components/app/engine-data.js";
 import { EngineVersions } from "../components/app/engine-versions.js";
 import { EngineWorkloadVerdicts } from "../components/app/engine-workload-verdicts.js";
 import { openRun } from "../components/app/overlays.js";
@@ -91,10 +91,13 @@ function flags(args: string[]): Map<string, string> {
 const pairLabel = (p: EnginePair) => `${modelOf(p.vllm)?.name ?? p.vllm.modelId} · ${p.vllm.exportLabel}`;
 const engineIndex = (d: Deployment) => (d.runtime === "vLLM" ? 0 : 1);
 
-/** Measured counterpart of a catalog configuration on the active dataset, else the configuration itself. */
+/**
+ * Measured counterpart of a catalog configuration on the active dataset, read from its best run under the active SLO
+ * (the rule the matchup and the TL;DR use), else the configuration itself.
+ */
 function useMeasured() {
   const state = useAppState();
-  return (d: Deployment) => state.snapshot.deployments.find((item) => item.configurationId === d.configurationId && item.workloadId === state.workload && isMeasured(item)) ?? d;
+  return (d: Deployment) => bestMeasured(state.snapshot, d.configurationId, state.workload, state.slo) ?? d;
 }
 
 /**
@@ -449,7 +452,7 @@ export function EnginePage() {
     const anchor = pairs.find((item) => item.vllm.modelId === state.model)
       ?? pairs.find((item) => isMeasured(pick(item.vllm)) || isMeasured(pick(item.sglang))) ?? pairs[0];
     if (!anchor) return undefined;
-    const best = bestPerEngine(state.snapshot.deployments, { modelId: anchor.vllm.modelId, gpus: anchor.vllm.gpus, hardwareId: anchor.vllm.hardwareId }, state.workload, state.slo);
+    const best = bestPerEngine(state.snapshot, { modelId: anchor.vllm.modelId, gpus: anchor.vllm.gpus, hardwareId: anchor.vllm.hardwareId }, state.workload, state.slo);
     const v = best.vLLM.deployment?.configurationId, g = best.SGLang.deployment?.configurationId;
     const same = pairs.filter((item) => item.vllm.modelId === anchor.vllm.modelId && item.vllm.gpus === anchor.vllm.gpus);
     return same.find((item) => item.vllm.configurationId === v && item.sglang.configurationId === g)

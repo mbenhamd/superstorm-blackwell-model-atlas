@@ -11,7 +11,7 @@ import type { BenchmarkRun, Snapshot } from "../src/domain/types.ts";
 import { controlDifferences, effectiveControls, recordedOverrides } from "../src/domain/run-config.ts";
 import { loadRunsFile, memoryStore } from "../src/server/repository.ts";
 import {
-  bestPerEngine, compareVersions, engineDifferences, engineVerdict, everyMeasuredVersion, versionKey, type EngineScope,
+  bestMeasured, bestPerEngine, compareVersions, engineDifferences, engineVerdict, everyMeasuredVersion, versionKey, type EngineScope,
 } from "../src/client/components/app/engine-data.ts";
 
 const SAMPLE_RUNS = join(import.meta.dir, "fixtures/sample-runs.json");
@@ -21,8 +21,27 @@ const scope: EngineScope = { modelId: "qwen3.8-27b", gpus: 1, hardwareId: "b300"
 const VLLM = "qwen3.8-27b.fp8.vllm.baseline", SGLANG = "qwen3.8-27b.fp8.sglang.baseline";
 
 describe("best configuration per engine", () => {
+  test("each configuration is read from its best run, not its newest (the TL;DR rule)", () => {
+    const base = runs.find((run) => run.configurationId === VLLM && run.identity.runtimeVersion === "vllm-v0.33.0" && run.identity.dataset === "single-turn-8k" && run.identity.runtimeConfig.enable_prefix_caching !== true)!;
+    // Invented newer run at half the rates: newest, but worse.
+    const worse: BenchmarkRun = {
+      ...base, id: "newer-but-worse", runDate: "2026-12-01T09:00:00Z",
+      metrics: base.metrics.map((m) => ({ ...m, inputTps: m.inputTps * 0.5, outputTps: m.outputTps * 0.5, totalTps: m.totalTps * 0.5, requestsPerSecond: m.requestsPerSecond * 0.5 })),
+    };
+    const extended = applyRuns(createCatalogSnapshot(), [...runs, worse]);
+    // The snapshot row carries the newest run; the Engine reads the best one.
+    expect(extended.deployments.find((d) => d.id === VLLM)?.runId).toBe("newer-but-worse");
+    const fromBest = bestMeasured(extended, VLLM, "single-turn-8k", DEFAULT_SLO)!;
+    expect(fromBest.runId).not.toBe("newer-but-worse");
+    expect(fromBest.id).toBe(VLLM);
+    const best = bestPerEngine(extended, scope, "single-turn-8k", DEFAULT_SLO);
+    expect(best.vLLM.deployment?.runId).toBe(fromBest.runId);
+    expect(best.vLLM.runs).toBe(bestPerEngine(snapshot, scope, "single-turn-8k", DEFAULT_SLO).vLLM.runs + 1);
+    // Same value as before the worse run was added.
+    expect(best.vLLM.capacity?.sustainableTpmPerGpu).toBe(bestPerEngine(snapshot, scope, "single-turn-8k", DEFAULT_SLO).vLLM.capacity?.sustainableTpmPerGpu ?? null);
+  });
   test("single-turn-8k: the measured fp8 baselines; unmeasured configurations never win", () => {
-    const best = bestPerEngine(snapshot.deployments, scope, "single-turn-8k", DEFAULT_SLO);
+    const best = bestPerEngine(snapshot, scope, "single-turn-8k", DEFAULT_SLO);
     expect(best.vLLM.deployment?.configurationId).toBe(VLLM);
     expect(best.SGLang.deployment?.configurationId).toBe(SGLANG);
     // Fixture: four vLLM configurations of qwen3.8-27b × 1 GPU are measured on single-turn-8k (FP8, BF16, NVFP4 baselines and FP8 FlashInfer FP8 KV).
@@ -30,7 +49,7 @@ describe("best configuration per engine", () => {
     expect(best.vLLM.capacity?.sustainableTpmPerGpu).not.toBeNull();
   });
   test("chat-8-turn: both engines measured with different max sequences, so no verdict; a dataset with no run has no best", () => {
-    const chat = bestPerEngine(snapshot.deployments, scope, "chat-8-turn", DEFAULT_SLO);
+    const chat = bestPerEngine(snapshot, scope, "chat-8-turn", DEFAULT_SLO);
     expect(chat.vLLM.deployment?.id).toBe(`${VLLM}@chat-8-turn`);
     expect(chat.SGLang.deployment?.id).toBe(`${SGLANG}@chat-8-turn`);
     const verdict = engineVerdict(chat);
@@ -39,11 +58,11 @@ describe("best configuration per engine", () => {
     // Fixture: vLLM recorded max_num_seqs 256, SGLang max_running_requests 128; every other control matches.
     expect(verdict.differences).toEqual(["Max sequences"]);
     expect(verdict.controls.map((c) => [c.key, c.a.value, c.a.source, c.b.value, c.b.source])).toEqual([["max_num_seqs", "256", "recorded", "128", "recorded"]]);
-    expect(engineVerdict(bestPerEngine(snapshot.deployments, scope, "coding-agent-48-turn", DEFAULT_SLO))).toEqual({ kind: "none" });
+    expect(engineVerdict(bestPerEngine(snapshot, scope, "coding-agent-48-turn", DEFAULT_SLO))).toEqual({ kind: "none" });
   });
   test("offline catalog: nothing measured, no verdict", () => {
     const catalog = createCatalogSnapshot();
-    const best = bestPerEngine(catalog.deployments, scope, "single-turn-8k", DEFAULT_SLO);
+    const best = bestPerEngine(catalog, scope, "single-turn-8k", DEFAULT_SLO);
     expect(best.vLLM.deployment).toBeNull();
     expect(engineVerdict(best).kind).toBe("none");
   });
@@ -51,7 +70,7 @@ describe("best configuration per engine", () => {
 
 describe("engine verdict", () => {
   test("matched fp8 pair on single-turn-8k: vLLM leads outside the ±3% band (Classic SLO)", () => {
-    const best = bestPerEngine(snapshot.deployments, scope, "single-turn-8k", DEFAULT_SLO);
+    const best = bestPerEngine(snapshot, scope, "single-turn-8k", DEFAULT_SLO);
     const va = best.vLLM.capacity!.sustainableTpmPerGpu!, vb = best.SGLang.capacity!.sustainableTpmPerGpu!;
     const verdict = engineVerdict(best);
     expect(verdict.kind).toBe("lead");
@@ -61,7 +80,7 @@ describe("engine verdict", () => {
     expect(verdict.fraction).toBeGreaterThan(0.03);
   });
   test("a band wide enough reads as a tie", () => {
-    const best = bestPerEngine(snapshot.deployments, scope, "single-turn-8k", DEFAULT_SLO);
+    const best = bestPerEngine(snapshot, scope, "single-turn-8k", DEFAULT_SLO);
     expect(engineVerdict(best, 0.1).kind).toBe("tie");
   });
   test("different knob, artifact or run GPUs: no verdict", () => {
@@ -71,7 +90,7 @@ describe("engine verdict", () => {
     expect(engineDifferences(a, { ...b, knob: "MTP" })).toContain("Configuration knob");
     expect(engineDifferences(a, { ...b, artifactId: "qwen3.8-27b.nvfp4" })).toContain("Model artifact");
     expect(engineDifferences(a, { ...b, runGpus: 2 })).toContain("GPUs in run");
-    const best = bestPerEngine(snapshot.deployments, scope, "single-turn-8k", DEFAULT_SLO);
+    const best = bestPerEngine(snapshot, scope, "single-turn-8k", DEFAULT_SLO);
     const mismatched = { ...best, SGLang: { ...best.SGLang, deployment: { ...best.SGLang.deployment!, knob: "MTP" } } };
     expect(engineVerdict(mismatched)).toEqual({ kind: "different", differences: ["Configuration knob"], controls: [] });
   });
@@ -79,7 +98,7 @@ describe("engine verdict", () => {
     const strict = { ...SLO_PRESETS["low-latency"], itlP95Ms: 9.5 };
     // The fp8 pair alone (the first five fixture runs): the later invented runs add other artifacts to the scope.
     const pair = applyRuns(createCatalogSnapshot(), runs.slice(0, 5));
-    const best = bestPerEngine(pair.deployments, scope, "single-turn-8k", strict);
+    const best = bestPerEngine(pair, scope, "single-turn-8k", strict);
     // ITL p95 ≤ 9.5 ms: SGLang passes at c=1 (9.22 ms) only; vLLM never (9.84 ms at c=1).
     expect(best.vLLM.capacity?.sustainableTpmPerGpu ?? null).toBeNull();
     expect(engineVerdict(best)).toEqual({ kind: "no-passing", passing: "SGLang" });
@@ -87,7 +106,7 @@ describe("engine verdict", () => {
 });
 
 describe("runtime controls (recorded runtime_config, else configured command)", () => {
-  const best = () => bestPerEngine(snapshot.deployments, scope, "single-turn-8k", DEFAULT_SLO);
+  const best = () => bestPerEngine(snapshot, scope, "single-turn-8k", DEFAULT_SLO);
   test("engine-equivalent keys normalise: fp8 ≈ fp8_e4m3, max_num_seqs ≈ max_running_requests, prefix cache off ≈ disable_radix_cache", () => {
     const { vLLM, SGLang } = best();
     const a = effectiveControls(vLLM.deployment!), b = effectiveControls(SGLang.deployment!);

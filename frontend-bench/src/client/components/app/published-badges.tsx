@@ -79,11 +79,34 @@ export function VersionString({ record, className }: { record: ExternalRecord; c
   );
 }
 
-/** Engine family and the identified version (canonical tag, else the published string), then the audit badge. */
-export function EngineVersion({ record, className }: { record: ExternalRecord; className?: string }) {
+/**
+ * Engine family and the identified version (canonical tag, else the published string), then the audit badge.
+ * `layout`: "wrap" (default) flows all three; "stacked" puts family and audit on one line and the version on a single
+ * truncated line below (record tables); "inline" keeps all three on one line, the version truncated (phone cards).
+ * The full version is always in the version's tooltip.
+ */
+export function EngineVersion({ record, className, layout = "wrap" }: { record: ExternalRecord; className?: string; layout?: "wrap" | "stacked" | "inline" }) {
+  const family = <span className="shrink-0 font-medium whitespace-nowrap">{engineLabel(engineKey(record))}</span>;
+  if (layout === "stacked") {
+    return (
+      <span className={cn("flex min-w-0 flex-col gap-0.5", className)} data-engine-family={engineKey(record)}>
+        <span className="flex min-w-0 items-center gap-1.5">{family}<VersionAuditBadge record={record} /></span>
+        <VersionString record={record} className="line-clamp-1" />
+      </span>
+    );
+  }
+  if (layout === "inline") {
+    return (
+      <span className={cn("flex min-w-0 items-center gap-1.5", className)} data-engine-family={engineKey(record)}>
+        {family}
+        <VersionString record={record} className="line-clamp-1 flex-1" />
+        <VersionAuditBadge record={record} />
+      </span>
+    );
+  }
   return (
     <span className={cn("flex min-w-0 flex-wrap items-center gap-x-1.5 gap-y-0.5", className)} data-engine-family={engineKey(record)}>
-      <span className="font-medium whitespace-nowrap">{engineLabel(engineKey(record))}</span>
+      {family}
       <VersionString record={record} />
       <VersionAuditBadge record={record} />
     </span>
@@ -112,25 +135,25 @@ export function HardwareMark({ record, className }: { record: ExternalRecord; cl
 }
 
 /** Caveat flags as short labels: the first `max` as chips, the rest behind "+N"; each description on hover. */
-export function FlagChips({ flags, max = 2, className }: { flags: readonly string[]; max?: number; className?: string }) {
+export function FlagChips({ flags, max = 2, className, singleLine = false }: { flags: readonly string[]; max?: number; className?: string; singleLine?: boolean }) {
   if (!flags.length) return <span className="text-muted-foreground" data-missing="true">—</span>;
   const descriptions = externalDataset().conventions.flags;
   const shown = flags.slice(0, max), rest = flags.slice(max);
   const chip = (flag: string) => (
     <Tooltip key={flag}>
       <TooltipTrigger asChild>
-        <Badge variant="neutral" tabIndex={0} className={cn("block max-w-full cursor-help truncate leading-5", focusable)} data-flag={flag}>{FLAG_LABELS[flag] ?? flag}</Badge>
+        <Badge variant="neutral" tabIndex={0} className={cn("block max-w-full cursor-help truncate leading-5", singleLine && "min-w-0 shrink", focusable)} data-flag={flag}>{FLAG_LABELS[flag] ?? flag}</Badge>
       </TooltipTrigger>
       <TooltipContent className="max-w-72 text-pretty"><span className="font-medium">{FLAG_LABELS[flag] ?? flag}</span>{descriptions[flag] ? <span className="text-background/80"> · {descriptions[flag]}</span> : null}</TooltipContent>
     </Tooltip>
   );
   return (
-    <span className={cn("flex min-w-0 flex-wrap items-center gap-1", className)} data-flag-count={flags.length}>
+    <span className={cn("flex min-w-0 items-center gap-1", singleLine ? "flex-nowrap" : "flex-wrap", className)} data-flag-count={flags.length}>
       {shown.map(chip)}
       {rest.length ? (
         <Tooltip>
           <TooltipTrigger asChild>
-            <Badge variant="neutral" tabIndex={0} className={cn("cursor-help", focusable)} aria-label={`${rest.length} more flags: ${rest.map((flag) => FLAG_LABELS[flag] ?? flag).join(", ")}`}>+{rest.length}</Badge>
+            <Badge variant="neutral" tabIndex={0} className={cn("shrink-0 cursor-help", focusable)} aria-label={`${rest.length} more flags: ${rest.map((flag) => FLAG_LABELS[flag] ?? flag).join(", ")}`}>+{rest.length}</Badge>
           </TooltipTrigger>
           <TooltipContent className="max-w-80 text-left">
             {rest.map((flag) => <span key={flag} className="block"><span className="font-medium">{FLAG_LABELS[flag] ?? flag}</span><span className="text-background/80"> · {descriptions[flag] ?? ""}</span></span>)}

@@ -182,6 +182,15 @@ describe("runs and ranking", () => {
     expect(() => parseMetricRow({ ...row(1), durationSeconds: 0 })).toThrow(ValidationError);
     expect(parseMetricRow({ ...row(1), itlMs: undefined }).itlMs.p95).toBeNull();
   });
+  test("metric rows require totalTps = inputTps + outputTps within 1 %", () => {
+    // row(1): input 8000 + output 1000 = total 9000.
+    expect(parseMetricRow(row(1)).totalTps).toBe(9000);
+    expect(parseMetricRow({ ...row(1), totalTps: 9000 * 1.009 }).totalTps).toBeCloseTo(9081);
+    expect(() => parseMetricRow({ ...row(1), totalTps: 9000 * 1.02 })).toThrow(/totalTps .* within 1 %/);
+    expect(() => parseMetricRow({ ...row(1), totalTps: 8000 })).toThrow(ValidationError);
+    // Tiny totals use the 1 tok/s floor rather than 1 %.
+    expect(parseMetricRow({ ...row(1), inputTps: 2, outputTps: 1, totalTps: 3.8 }).totalTps).toBe(3.8);
+  });
   test("an explicit configuration id wins; unknown ids stay unmatched", () => {
     const identity = run(null, []).identity;
     expect(matchConfiguration(identity, snapshot, "qwen3.8-27b.fp8.vllm.baseline")).toBe("qwen3.8-27b.fp8.vllm.baseline");

@@ -1,3 +1,4 @@
+import { measuredDeployment } from "../../../domain/catalog.js";
 import { capacity, comparability, relativeDelta, tieBand } from "../../../domain/metrics.js";
 import { controlDifferences, type ControlDifference } from "../../../domain/run-config.js";
 import { configKeyOf } from "../../../domain/variants.js";
@@ -25,9 +26,34 @@ export function scopeBases(deployments: readonly Deployment[], scope: EngineScop
   return deployments.filter((d) => d.id === d.configurationId && d.modelId === scope.modelId && d.gpus === scope.gpus && d.hardwareId === scope.hardwareId);
 }
 
-/** The measured counterpart of a configuration on a dataset, or null. */
+/** The snapshot's measured counterpart of a configuration on a dataset (its newest run), or null. */
 export function measuredOn(deployments: readonly Deployment[], configurationId: string, workloadId: string): Deployment | null {
   return deployments.find((d) => d.configurationId === configurationId && d.workloadId === workloadId && measuredLevels(d)) ?? null;
+}
+
+/**
+ * The configuration measured by its best run on a dataset, the rule the TL;DR uses: the run with the highest sustainable
+ * tok/min/GPU under the SLO, newest first among equal values and when no run passes. Every runtime version and recorded
+ * runtime_config of the configuration competes; the returned deployment carries that run's levels and recorded identity
+ * (same id as the snapshot's measured row). Without imported runs, the snapshot's measured row (newest run) is used.
+ */
+export function bestMeasured(snapshot: Pick<Snapshot, "deployments" | "runs">, configurationId: string, workloadId: string, slo: SloPolicy): Deployment | null {
+  const base = snapshot.deployments.find((d) => d.id === configurationId);
+  const runs = (snapshot.runs ?? []).filter((run) => run.configurationId === configurationId && run.identity.dataset === workloadId && run.metrics.length > 0);
+  if (!base || !runs.length) return measuredOn(snapshot.deployments, configurationId, workloadId);
+  let best: { d: Deployment; value: number; time: number } | null = null;
+  for (const run of runs) {
+    const d = measuredDeployment(base, run);
+    const value = capacity(d, slo).sustainableTpmPerGpu ?? -Infinity, time = Date.parse(run.runDate);
+    if (!best || value > best.value || (value === best.value && time > best.time)) best = { d, value, time };
+  }
+  return best!.d;
+}
+
+/** Number of imported runs of a configuration on a dataset (the "best of N runs" count); 1 when only the snapshot row exists. */
+export function runCountOn(snapshot: Pick<Snapshot, "deployments" | "runs">, configurationId: string, workloadId: string): number {
+  const n = (snapshot.runs ?? []).filter((run) => run.configurationId === configurationId && run.identity.dataset === workloadId).length;
+  return n || (measuredOn(snapshot.deployments, configurationId, workloadId) ? 1 : 0);
 }
 
 export interface EngineBest {
@@ -37,19 +63,22 @@ export interface EngineBest {
   capacity: Capacity | null;
   /** Measured configurations of this engine on the dataset. */
   measured: number;
+  /** Imported runs of this engine's configurations on the dataset (every one competed for `deployment`). */
+  runs: number;
 }
 
 /**
- * Best measured configuration per engine on one dataset: the highest sustainable tok/min/GPU; a measured
- * configuration without a passing level is used only when no configuration of that engine passes. Catalog order
- * breaks exact ties.
+ * Best measured configuration per engine on one dataset, each configuration read from its best run (bestMeasured(),
+ * the TL;DR rule): the highest sustainable tok/min/GPU; a measured configuration without a passing level is used only
+ * when no configuration of that engine passes. Catalog order breaks exact ties.
  */
-export function bestPerEngine(deployments: readonly Deployment[], scope: EngineScope, workloadId: string, slo: SloPolicy): Record<Engine, EngineBest> {
-  const bases = scopeBases(deployments, scope);
+export function bestPerEngine(snapshot: Pick<Snapshot, "deployments" | "runs">, scope: EngineScope, workloadId: string, slo: SloPolicy): Record<Engine, EngineBest> {
+  const bases = scopeBases(snapshot.deployments, scope);
   const out = {} as Record<Engine, EngineBest>;
   for (const engine of ENGINES) {
-    const rows = bases.filter((b) => b.runtime === engine)
-      .map((b) => measuredOn(deployments, b.configurationId, workloadId))
+    const own = bases.filter((b) => b.runtime === engine);
+    const rows = own
+      .map((b) => bestMeasured(snapshot, b.configurationId, workloadId, slo))
       .filter((d): d is Deployment => d !== null)
       .map((d) => ({ d, c: capacity(d, slo) }));
     let best: (typeof rows)[number] | null = null;
@@ -57,7 +86,8 @@ export function bestPerEngine(deployments: readonly Deployment[], scope: EngineS
       const value = row.c.sustainableTpmPerGpu, top = best?.c.sustainableTpmPerGpu ?? null;
       if (!best || (value !== null && (top === null || value > top))) best = row;
     }
-    out[engine] = { engine, deployment: best?.d ?? null, capacity: best?.c ?? null, measured: rows.length };
+    const runs = own.reduce((sum, b) => sum + runCountOn(snapshot, b.configurationId, workloadId), 0);
+    out[engine] = { engine, deployment: best?.d ?? null, capacity: best?.c ?? null, measured: rows.length, runs };
   }
   return out;
 }

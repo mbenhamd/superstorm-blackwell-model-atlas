@@ -98,9 +98,10 @@ function fractionFor(
 
 function fillFor(color: string, fraction: number) {
   if (fraction <= 0) return "var(--muted)"
-  // Floor the mix so the smallest non-zero values still read against the track.
-  const pct = Math.round(12 + fraction * 88)
-  return `color-mix(in oklab, ${color} ${pct}%, var(--muted))`
+  // Floor the mix so the smallest non-zero values still read against the track. Bench Console: the floor is the
+  // theme token --heatmap-floor (12% light, 30% dark, where 12% was indistinguishable from the empty track).
+  const f = Math.round(fraction * 1000) / 1000
+  return `color-mix(in oklab, ${color} calc(var(--heatmap-floor, 12%) + (100% - var(--heatmap-floor, 12%)) * ${f}), var(--muted))`
 }
 
 /**

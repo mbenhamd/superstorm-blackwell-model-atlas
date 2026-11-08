@@ -109,7 +109,7 @@ function MatchupCard({ engine, index, deployment: d, capacity: c, measured, max,
 
 export function EngineMatchup({ scope, fallback, shapeKey, modelName, details }: { scope: EngineScope; fallback: Record<Engine, Deployment>; shapeKey: string; modelName: string; details?: React.ReactNode }) {
   const state = useAppState();
-  const best = bestPerEngine(state.snapshot.deployments, scope, state.workload, state.slo);
+  const best = bestPerEngine(state.snapshot, scope, state.workload, state.slo);
   const verdict = engineVerdict(best);
   const values = ENGINES.map((engine) => best[engine].capacity?.sustainableTpmPerGpu ?? null);
   const max = Math.max(0, ...values.map((value) => value ?? 0));
@@ -131,11 +131,11 @@ export function EngineMatchup({ scope, fallback, shapeKey, modelName, details }:
     <Panel
       id="engine-matchup"
       title="Engine matchup"
-      description={<span data-testid="matchup-scope">{modelName} · {shapeKey.replace(/^(\d+)x/, "$1× ")} · {state.workload} · best measured configuration per engine, from its newest run</span>}
+      description={<span data-testid="matchup-scope">{modelName} · {shapeKey.replace(/^(\d+)x/, "$1× ")} · {state.workload} · best measured configuration per engine, from its best run (vLLM best of {best.vLLM.runs}, SGLang best of {best.SGLang.runs})</span>}
       actions={<>
         {badge}
         <InfoTip label="How the matchup is read" testId="matchup-info">
-          Each card is the engine's best measured configuration for this model and GPU count on {state.workload}. A verdict needs a matched pair: {MATCHED_CONTROLS}. |Δ| ≤ {BAND}% reads as a tie (assumed single-run noise, not a measured interval).
+          Each card is the engine's best measured configuration for this model and GPU count on {state.workload}, read from its best run under the active SLO (every runtime version and recorded runtime_config competes), as on the TL;DR. A verdict needs a matched pair: {MATCHED_CONTROLS}. |Δ| ≤ {BAND}% reads as a tie (assumed single-run noise, not a measured interval).
         </InfoTip>
         <Button variant="outline" size="sm" onClick={() => addAllToCompare(shown.map((d) => d.id))} data-testid="matchup-add-compare"><Plus aria-hidden="true" />Add both to compare</Button>
       </>}

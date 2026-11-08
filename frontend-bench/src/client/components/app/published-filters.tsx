@@ -1,4 +1,5 @@
 import { X } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
@@ -14,8 +15,10 @@ const ENGINE_ORDER = Object.keys(ENGINE_LABELS);
 /**
  * Filters of the Published explorer: model picker, GPU-class chips, faceted selects (engine, version audit, evidence
  * class, flags required / excluded), record kind and the "Show weak records" switch. Counts are per value under the
- * other active filters. No free-text search (the console has none).
+ * other active filters. No free-text search (the console has none). Below 640px the GPU chips and the facet buttons
+ * each sit on one horizontally scrolling row instead of wrapping into four or five rows above the results.
  */
+const SCROLL_ROW = "max-sm:w-full max-sm:flex-nowrap max-sm:overflow-x-auto max-sm:pb-1 max-sm:[scrollbar-width:thin] max-sm:[&>*]:shrink-0";
 export function PublishedFilterBar({ records, filters, onChange, columns }: {
   records: readonly ExternalRecord[]; filters: PublishedFilters; onChange: (next: PublishedFilters) => void; columns: readonly HardwareClass[];
 }) {
@@ -58,7 +61,7 @@ export function PublishedFilterBar({ records, filters, onChange, columns }: {
         />
         <ToggleGroup
           type="multiple" variant="outline" size="sm" spacing={1} value={filters.hardware} aria-label="GPU" data-testid="published-hardware"
-          className="flex-wrap"
+          className={cn("flex-wrap", SCROLL_ROW)}
           onValueChange={(value: string[]) => set({ hardware: value as HardwareClass[] })}
         >
           {columns.map((value) => (
@@ -77,6 +80,7 @@ export function PublishedFilterBar({ records, filters, onChange, columns }: {
         </ToggleGroup>
       </div>
       <div className="flex flex-wrap items-center gap-2">
+        <div className={cn("flex flex-wrap items-center gap-2", SCROLL_ROW)} data-testid="published-facets">
         <FacetedFilter title="Engine" selected={filters.engines} onChange={(values) => set({ engines: values })}
           options={engineValues.map((value) => ({ value, label: engineLabel(value), count: engines.get(value) ?? 0 }))} />
         <FacetedFilter title="Version audit" selected={filters.versions} onChange={(values) => set({ versions: values as VersionClass[] })}
@@ -87,6 +91,7 @@ export function PublishedFilterBar({ records, filters, onChange, columns }: {
           options={allFlags.map((value) => ({ value, label: flagText(value), count: flags.get(value) ?? 0 }))} />
         <FacetedFilter title="Exclude flag" selected={filters.without} onChange={(values) => set({ without: values })}
           options={allFlags.map((value) => ({ value, label: flagText(value), count: without.get(value) ?? 0 }))} />
+        </div>
         <span className="flex items-center gap-2 px-1">
           <Switch id="published-weak" checked={filters.weak} onCheckedChange={(checked) => set({ weak: checked })} data-testid="published-weak" />
           <Label htmlFor="published-weak" className="text-[13px] font-normal">

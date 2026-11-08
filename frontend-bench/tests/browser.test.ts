@@ -947,6 +947,51 @@ describe("offline console (atlas, Hugging Face and Artificial Analysis data)", (
     expect(pageErrors).toEqual([]);
   });
 
+  test("published: compact rows at 1440, phone cards with a sort select, filters on scrolling rows, pickers inside the viewport", async () => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await go("published");
+    const records = page.getByTestId("published-records");
+    const rows = records.locator("tbody tr[data-record-id]");
+    // One line per fact: rows stay about two text lines tall (were 71–137 px).
+    for (const height of await rows.evaluateAll((els) => els.map((el) => el.getBoundingClientRect().height))) expect(height).toBeLessThanOrEqual(56);
+    // Truncated text keeps its full value on hover.
+    const precision = rows.first().locator("[data-record-precision]");
+    const title = await precision.getAttribute("title");
+    expect(title?.length ?? 0).toBeGreaterThan(0);
+    expect(await precision.evaluate((el) => el.textContent ?? "")).toBe(title ?? "");
+    expect(await page.getByTestId("published-sort").count()).toBe(0);
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.getByTestId("published-sort").waitFor();
+    for (const height of await records.locator("tbody tr[data-record-id]").evaluateAll((els) => els.map((el) => el.getBoundingClientRect().height))) expect(height).toBeLessThanOrEqual(160);
+    // Sort on phones: newest first orders the cards by date.
+    await page.getByTestId("published-sort").click();
+    await page.getByRole("option", { name: "Published, newest first" }).click();
+    const dates = await records.locator("[data-stacked-record]").evaluateAll((els) => els.map((el) => /\d{4}-\d{2}-\d{2}/.exec(el.textContent ?? "")?.[0] ?? null));
+    const stated = dates.filter((date): date is string => date !== null);
+    expect(stated.length).toBeGreaterThan(5);
+    expect(stated).toEqual([...stated].sort().reverse());
+    // GPU chips and facet buttons scroll on one row each instead of wrapping.
+    for (const id of ["published-hardware", "published-facets"]) {
+      const box = await page.getByTestId(id).evaluate((el) => ({ height: el.getBoundingClientRect().height, scroll: el.scrollWidth, client: el.clientWidth }));
+      expect(box.height).toBeLessThanOrEqual(44);
+      expect(box.scroll).toBeGreaterThan(box.client);
+    }
+    expect(await page.getByTestId("published-filters").evaluate((el) => el.getBoundingClientRect().height)).toBeLessThanOrEqual(200);
+    // Share cards state "n of N" without clipping.
+    for (const share of await page.getByTestId("published-shares").locator("[data-share]").all()) {
+      expect(await share.evaluate((el) => el.scrollWidth <= el.clientWidth + 1)).toBe(true);
+    }
+    // The model picker keeps an 8 px gutter from the viewport edges.
+    await page.getByTestId("published-model").click();
+    const popover = await page.locator("[data-slot=popover-content]").boundingBox();
+    expect(popover!.x).toBeGreaterThanOrEqual(8);
+    expect(popover!.x + popover!.width).toBeLessThanOrEqual(390 - 8);
+    await page.keyboard.press("Escape");
+    expect(await overflow()).toBeLessThanOrEqual(0);
+    await page.setViewportSize({ width: 1440, height: 900 });
+    expect(pageErrors).toEqual([]);
+  });
+
   test("published: derivation stated once, readable source link for slug titles, tooltip kept in view at 390, points-only coverage marked", async () => {
     const id = "kimi-k3-b300x8-sglang-fixstars-deploying-kimi-k3-on-day-0-can-a-2-8t-model-run-on-a-single-node-of-nvidia-b300-x8";
     await go("published?model=kimi-k3&hw=B300&kind=ladder&engine=sglang");
@@ -1778,6 +1823,8 @@ describe("measured-data views (TEST fixture runs via RUNS_FILE)", () => {
   test("engine matchup: best configuration per engine, matched-pair verdict, Δ on both cards, add both to compare", async () => {
     await go("engine?pair=qwen3.8-27b.fp8@1");
     expect(await page.getByTestId("matchup-scope").innerText()).toContain("Qwen 3.8 27B · 1× B300 · single-turn-8k");
+    // Each configuration is read from its best run (the TL;DR rule); the scope states how many runs competed.
+    expect(await page.getByTestId("matchup-scope").innerText()).toMatch(/from its best run \(vLLM best of \d+, SGLang best of \d+\)/);
     const verdict = page.getByTestId("matchup-verdict");
     expect(await verdict.getAttribute("data-verdict-kind")).toBe("lead");
     // The verdict reads as the panel's headline sentence, not only as a chip.

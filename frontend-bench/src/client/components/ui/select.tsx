@@ -66,6 +66,8 @@ function SelectContent({
         )}
         position={position}
         align={align}
+        // Bench Console: keep 8px from the viewport edge (phones).
+        collisionPadding={8}
         {...props}
       >
         <SelectScrollUpButton />

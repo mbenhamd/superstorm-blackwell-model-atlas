@@ -149,7 +149,7 @@ function VerdictBars({ rows }: { rows: { workload: Workload; best: Record<Engine
 export function EngineWorkloadVerdicts({ scope, modelName, shapeLabel }: { scope: EngineScope; modelName: string; shapeLabel: string }) {
   const state = useAppState();
   const rows = state.snapshot.workloads.map((workload) => {
-    const best = bestPerEngine(state.snapshot.deployments, scope, workload.id, state.slo);
+    const best = bestPerEngine(state.snapshot, scope, workload.id, state.slo);
     return { workload, best, verdict: engineVerdict(best) };
   });
   const anyMeasured = rows.some((row) => row.verdict.kind !== "none");

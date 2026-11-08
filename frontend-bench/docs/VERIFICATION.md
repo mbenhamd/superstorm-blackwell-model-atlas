@@ -1,6 +1,6 @@
 # Verification record
 
-Date: 8 November 2026 (Architecture route, critic pass round 2, critic pass round 1, density pass, visual-review fix pass, the setups-first TL;DR pass, the TL;DR evaluator fixes, the Throughput and Engine parity pass, the parity evaluator fixes, the foundation pass, then the integration pass for variants at scale, the external published layer and the Published explorer, then the published-layer evaluator fixes, then the density evaluator fixes; see the sections below; the gate table records the latest pass first). Environment: macOS (Darwin 25.4, arm64), TypeScript 7.0.2, Playwright 1.56.1 Chromium. Bun: the shell `bun --version` is 1.4.0 (the pinned `packageManager` and CI version); `bun run <script>` resolves `node_modules/.bin/bun`, which is Bun 1.4.4 installed as the `bun` peer dependency of `bun-plugin-tailwind`, so the test runner reports `bun test v1.4.4`. `bun scripts/import-atlas.ts --check` ran directly under 1.4.0. No gate was run separately under a pure 1.4.0 runner. Only checks listed here were run.
+Date: 8 November 2026 (round-2 follow-up fixes, Architecture route, critic pass round 2, critic pass round 1, density pass, visual-review fix pass, the setups-first TL;DR pass, the TL;DR evaluator fixes, the Throughput and Engine parity pass, the parity evaluator fixes, the foundation pass, then the integration pass for variants at scale, the external published layer and the Published explorer, then the published-layer evaluator fixes, then the density evaluator fixes; see the sections below; the gate table records the latest pass first). Environment: macOS (Darwin 25.4, arm64), TypeScript 7.0.2, Playwright 1.56.1 Chromium. Bun: the shell `bun --version` is 1.4.0 (the pinned `packageManager` and CI version); `bun run <script>` resolves `node_modules/.bin/bun`, which is Bun 1.4.4 installed as the `bun` peer dependency of `bun-plugin-tailwind`, so the test runner reports `bun test v1.4.4`. `bun scripts/import-atlas.ts --check` ran directly under 1.4.0. No gate was run separately under a pure 1.4.0 runner. Only checks listed here were run.
 
 | Check | Command | Result |
 | --- | --- | --- |
@@ -13,6 +13,18 @@ Date: 8 November 2026 (Architecture route, critic pass round 2, critic pass roun
 | DESIGN.md | `bun run design:lint` | Architecture route: 0 errors, 0 warnings, 1 info. Critic pass round 2: 0 errors, 0 warnings. Critic pass round 1: 0 errors, 0 warnings. TL;DR simplification: see the gate run in the section below. Density evaluator fixes: 0 errors, 0 warnings, 1 info. Published-layer evaluator fixes: 0 errors, 0 warnings, 1 info. Integration pass: 0 errors, 0 warnings, 1 info. Earlier: 0 errors, 0 warnings, 1 info (token summary), after the evaluator-fix DESIGN.md edits |
 
 Manual check (Playwright against `preview.html`, not part of the suite): the Models precision ladder lists the 3 requested exports without a Hub artifact as "No artifact" rows (kimi-k3 FP8; kimi-k3.1-pro NVFP4 and FP8) and does not link them to the base repository.
+
+## Round-2 follow-up fixes (8 November 2026)
+
+The five items recorded as not fixed in critic pass round 2:
+
+- **Token-mix total.** `parseMetricRow` (`src/domain/catalog.ts`) rejects a metrics row whose `totalTps` differs from `inputTps + outputTps` by more than 1 % (floor 1 tok/s). Every import path uses it: `parseRunImport` serves both `RUNS_FILE` and `import:runs`. The In / out stack top therefore equals the numerator of the sustainable value. The TEST fixture agrees within 0.018 % (88 rows). New unit test in `tests/domain.test.ts`. Rows already in a database are not re-checked; they entered through the same parser.
+- **Engine reads the best run.** `bestMeasured()` (`engine-data.ts`) reads each configuration on a dataset from its best run under the active SLO: the highest sustainable tok/min/GPU, newest first among equal values and when none passes. Every runtime version and recorded runtime_config competes. This is the TL;DR rule. The matchup, the per-workload verdicts, the default pair and the pair charts use it, and the matchup subtitle states "vLLM best of N, SGLang best of M". Engine differences are read from the chosen run's recorded runtime_config, so a best run with different runtime controls yields "Different configs", not a verdict. New unit test: a newer but worse run does not replace the best one. `applyRuns()`/`rank()` (Throughput default, Deployments) still read the newest run.
+- **Published, 1440 px.** Each fact keeps one line, with the full text in a tooltip or `title` and in the expanded row. The kind badge moved under the model name so the name's export suffix stays visible. The sparkline sits beside the value, caveats show one chip plus "+N", and every column is sized (1,098 px minimum). Measured on the shipped data: rows 46–47 px (were 71–137 px), table 1,112 px in a 1,112 px container.
+- **Published, 390 px.** Cards are five lines, 137–139 px (were 183–288 px). A Sort select (output tok/s/GPU, newest, model A–Z) replaces the column headers that phones do not show. GPU chips and facet buttons each scroll on one row; the filter block is 188 px. Share cards read "n of N" and no longer clip. The records description reads "Default order", since the sort can change.
+- **Pickers and heatmap.** `PopoverContent` and `SelectContent` default to an 8 px collision gutter, and popovers are capped at the viewport width minus 16 px. At 390 px the Published model picker and the TL;DR model picker measure x = 16, width 358. The heatmap's lowest non-zero shade is the theme token `--heatmap-floor` (12 % light, unchanged; 30 % dark). In dark mode the lowest Published coverage cell measures L 0.40 in OKLab against the track at about 0.22. The token also applies to the Deployments and Intelligence heatmaps.
+
+Gates: import-atlas check exit 0; typecheck 0 errors; unit 204 pass across 11 files; build app.js 3242 KiB, styles.css 153 KiB, preview.html 3396 KiB; design:lint 0 errors, 0 warnings; browser 79 pass, 0 fail in two consecutive full runs after the final build (new test: Published row heights at 1440, phone card heights, sort, scrolling filter rows, share cards, picker gutter; the Engine matchup test also asserts the "best of" scope). Reviewed by eye: Published records at 1440 and 390, filters at 390, coverage in dark mode, both pickers at 390.
 
 ## Architecture route (8 November 2026)
 
@@ -60,11 +72,7 @@ Three critics (benchmark integrity, UX at 1440/390 in light and dark, documentat
   - A public-repo wording issue was removed.
 - **dashboardcn.** The upstream agent skill is vendored (`.agents/skills/dashboardcn/`, MIT, commit b1ffacb). There is a project skill, `dashboardcn-bench`, and `scripts/dashboardcn-add.ts`, which copies registry items without overwriting locally edited primitives (dry run checked on goal-chart-card, segmented-meter and bar-list; nothing written).
 
-Not fixed (recorded):
-- The token-mix stack uses input + output rather than `totalTps`, and no import check confirms that they agree.
-- Engine data reads each configuration's newest run while the TL;DR reads its best run; the matchup now states this.
-- Published at 390 px: filters, sort and counts. Published row heights at 1440 px.
-- The phone picker's collision padding, and the heatmap's dark lowest shade.
+Not fixed in this pass: the token-mix total check, Engine newest-vs-best run, Published at 390 px and its row heights at 1440 px, the phone picker's collision padding and the heatmap's dark lowest shade. All five were fixed in the round-2 follow-up (section above).
 
 ## Critic pass round 1 (8 November 2026)
 

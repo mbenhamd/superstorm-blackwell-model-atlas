@@ -26,6 +26,8 @@
   --secondary: #f3f4f5;
   --secondary-foreground: #08090a;
   --muted: #f1f2f3;
+  /* Heatmap: share of the accent in the lowest non-zero cell (fillFor in ui/heatmap-chart.tsx). */
+  --heatmap-floor: 12%;
   --muted-foreground: #62666d;    /* ink-tertiary: 5.9:1 on canvas, 5.5:1 on frame */
   --subtle: #f9f9fa;              /* level-2 lift */
   --secondary-ink: #3c4149;       /* ink-muted */
@@ -82,6 +84,7 @@
   --secondary: #191a1b;
   --secondary-foreground: #f7f8f8;
   --muted: #191a1b;               /* surface-4 */
+  --heatmap-floor: 30%;           /* 12% read as the empty track on the dark surface */
   --muted-foreground: #8a8f98;    /* ink-subtle */
   --subtle: #18191a;
   --secondary-ink: #d0d6e0;       /* ink-muted */

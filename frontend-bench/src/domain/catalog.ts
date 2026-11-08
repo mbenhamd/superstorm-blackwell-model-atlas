@@ -99,10 +99,26 @@ const stats = (value: unknown, field: string): LatencyStats => {
   return { mean: optional(v.mean, `${field}.mean`), p50: optional(v.p50, `${field}.p50`), p95: optional(v.p95, `${field}.p95`), p99: optional(v.p99, `${field}.p99`) };
 };
 
-/** Validate one metrics row exactly as stored; nothing is defaulted except absent latency statistics (null). */
+/** Largest accepted gap between totalTps and inputTps + outputTps: 1 % of the total, or 1 tok/s for tiny totals. */
+export const TOTAL_TPS_TOLERANCE = 0.01;
+
+/**
+ * Validate one metrics row exactly as stored; nothing is defaulted except absent latency statistics (null).
+ * totalTps must equal inputTps + outputTps within TOTAL_TPS_TOLERANCE: the sustainable value reads totalTps while the
+ * token-mix chart stacks input and output, so a row where they disagree would show two different totals.
+ */
 export function parseMetricRow(input: unknown, index = 0): MetricRow {
   const r = (input ?? {}) as Record<string, unknown>;
   if (!Number.isInteger(r.concurrency) || (r.concurrency as number) < 1) throw new ValidationError(`metrics[${index}].concurrency must be a positive integer`);
+  const row = parseMetricFields(r, index);
+  const sum = row.inputTps + row.outputTps;
+  if (Math.abs(row.totalTps - sum) > Math.max(1, TOTAL_TPS_TOLERANCE * row.totalTps)) {
+    throw new ValidationError(`metrics[${index}].totalTps (${row.totalTps}) must equal inputTps + outputTps (${sum}) within 1 %`);
+  }
+  return row;
+}
+
+function parseMetricFields(r: Record<string, unknown>, index: number): MetricRow {
   return {
     concurrency: r.concurrency as number,
     ttftMs: stats(r.ttftMs, `metrics[${index}].ttftMs`), itlMs: stats(r.itlMs, `metrics[${index}].itlMs`), requestLatencyMs: stats(r.requestLatencyMs, `metrics[${index}].requestLatencyMs`),

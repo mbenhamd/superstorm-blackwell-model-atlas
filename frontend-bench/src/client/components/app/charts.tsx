@@ -291,7 +291,8 @@ export function InteractivityChart({ deployments, title, className, expanded = f
  * Token mix per load level: input and output tok/s per GPU at every measured concurrency as stacked bars (input dark,
  * output light, one hue, one y-axis), so the prefill/decode share and where throughput stops growing read at a glance.
  * The dashed vertical line marks C_max; levels outside the SLO are drawn outlined and faint. Measured values only, no margin applied;
- * a level without data has no bar.
+ * a level without data has no bar. The stack top equals totalTps / GPU, the numerator of the sustainable value: the import
+ * (parseMetricRow) rejects rows where totalTps and inputTps + outputTps differ by more than 1 %.
  */
 export function TokenMixChart({ deployment, cmax, className, expanded = false }: { deployment: Deployment; cmax: number | null; className?: string; expanded?: boolean }) {
   const gpus = gpusOf(deployment);

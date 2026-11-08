@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { DataTableCard } from "@/components/blocks/data-table-card";
 import { DataTableColumnHeader, type DataTableColumnDef } from "@/components/ui/data-table";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { displayFlags, displayUnit, hardwareClass, metricName, recordDate, type ExternalRecord, type ExternalSource } from "../../../domain/external.js";
 import { LoadCurve } from "./glance.js";
@@ -20,7 +21,11 @@ import { PublishedRecordDetail } from "./published-ladder.js";
  * The record list (dashboardcn data-table-card): one row per external record with model, hardware, engine and
  * version audit, the highest published output tok/s/GPU (a source's number at one level, never a sustainable rate;
  * "derived" when the extraction divided by the GPU count), source, date and caveat flags. A row expands in place
- * into its concurrency ladder chart, levels table and facts. Below 768px each row is a stacked card.
+ * into its concurrency ladder chart, levels table and facts. Below 768px each row is a stacked card with a sort select
+ * (the column headers are not shown there).
+ *
+ * Density: every cell keeps one line per fact (model and kind, precision, engine and audit, version, value and level),
+ * truncated with the full text on hover and in the expanded detail, so a row stays about two text lines tall.
  *
  * Layout: `table-layout: fixed` with explicit column widths, so long model/precision text, image tags and load-point
  * annotations wrap inside their column and never widen the table past its card. The expanded detail is sized to the
@@ -33,7 +38,7 @@ interface Row { record: ExternalRecord; source: ExternalSource | undefined; mode
 const dash = <span className="text-muted-foreground" data-missing="true">—</span>;
 const right = "flex items-baseline justify-end";
 /** Below this width the wide table scrolls inside its card (columns keep readable widths). */
-const MIN_TABLE_WIDTH = 1060;
+const MIN_TABLE_WIDTH = 1098;
 
 function ExpandButton({ id, expanded, onToggle, label }: { id: string; expanded: boolean; onToggle: () => void; label: string }) {
   return (
@@ -44,7 +49,7 @@ function ExpandButton({ id, expanded, onToggle, label }: { id: string; expanded:
   );
 }
 
-function HeadlineCell({ value }: { value: Headline | null }) {
+function HeadlineCell({ value, inline = false }: { value: Headline | null; inline?: boolean }) {
   if (!value) {
     return (
       <Tooltip>
@@ -53,12 +58,13 @@ function HeadlineCell({ value }: { value: Headline | null }) {
       </Tooltip>
     );
   }
+  const level = value.level.concurrency !== null ? `@ c${value.level.concurrency}` : value.level.label ?? "one level";
   return (
-    <span className="flex min-w-0 flex-col items-end gap-0.5 text-right" data-headline={value.value}>
+    <span className={cn("flex min-w-0 items-end text-right", inline ? "flex-row items-baseline justify-end gap-1.5" : "flex-col gap-0.5")} data-headline={value.value}>
       <span className="font-medium whitespace-nowrap tabular-nums">{formatValue(value.value)}</span>
-      <span className="text-muted-foreground flex min-w-0 flex-wrap items-center justify-end gap-1 text-[11px] leading-snug text-pretty tabular-nums [overflow-wrap:anywhere]" data-headline-level>
-        {value.level.concurrency !== null ? `@ c${value.level.concurrency}` : value.level.label ?? "one level"}
-        {value.metric.derived ? <Badge variant="neutral" className="h-4 px-1 text-[10px]" data-derived="true">derived</Badge> : null}
+      <span className="text-muted-foreground flex max-w-full min-w-0 items-center justify-end gap-1 text-[11px] leading-snug tabular-nums" data-headline-level>
+        <span className="truncate" title={level}>{level}</span>
+        {value.metric.derived ? <Badge variant="neutral" className="h-4 shrink-0 px-1 text-[10px]" data-derived="true">derived</Badge> : null}
       </span>
     </span>
   );
@@ -69,20 +75,34 @@ function LadderCurve({ row }: { row: Row }) {
   const { record, headline } = row;
   if (record.kind !== "ladder" || !headline) return null;
   const points = record.levels.flatMap((level) => (level.concurrency === null ? [] : [{ concurrency: level.concurrency, value: level.values[headline.metricIndex] ?? null }]));
-  return <span className="mt-1 flex justify-end"><LoadCurve points={points} unit={`Published ${metricName(headline.metric)}${displayUnit(headline.metric) ? ` (${displayUnit(headline.metric)})` : ""}`} className="h-5 w-20" /></span>;
+  return <span className="flex shrink-0 justify-end"><LoadCurve points={points} unit={`Published ${metricName(headline.metric)}${displayUnit(headline.metric) ? ` (${displayUnit(headline.metric)})` : ""}`} className="h-5 w-12" /></span>;
+}
+
+/** Headline value with the ladder's sparkline beside it (not below), so the cell stays two lines tall. */
+function OutputCell({ row }: { row: Row }) {
+  return (
+    <span className="flex min-w-0 items-center justify-end gap-1.5">
+      <LadderCurve row={row} />
+      <HeadlineCell value={row.headline} />
+    </span>
+  );
 }
 
 function RecordName({ row }: { row: Row }) {
   const { record } = row;
   const span = concurrencySpan(record);
+  const detail = `${record.precision}${span ? ` · ${span}` : ""}`;
   return (
     <span className="flex min-w-0 flex-col gap-0.5">
-      <span className="flex min-w-0 flex-wrap items-center gap-1.5">
-        <span className="font-medium">{row.model}</span>
-        <Badge variant="neutral" className="shrink-0" data-kind={record.kind}>{record.kind === "ladder" ? `Ladder · ${record.levels.length}` : "Point"}</Badge>
+      {/* The kind badge sits on the second line, so the model name (whose suffix tells exports apart) keeps the width. */}
+      <span className="flex min-w-0 items-center gap-1.5">
+        <span className="truncate font-medium" title={row.model}>{row.model}</span>
         <WeakBadge record={record} />
       </span>
-      <span className="text-muted-foreground text-[11.5px] leading-snug [overflow-wrap:anywhere]">{record.precision}{span ? ` · ${span}` : ""}</span>
+      <span className="flex min-w-0 items-center gap-1.5 text-[11.5px] leading-snug">
+        <Badge variant="neutral" className="h-4 shrink-0 px-1 text-[10px]" data-kind={record.kind}>{record.kind === "ladder" ? `Ladder · ${record.levels.length}` : "Point"}</Badge>
+        <span className="text-muted-foreground truncate" title={detail} data-record-precision>{detail}</span>
+      </span>
     </span>
   );
 }
@@ -94,72 +114,88 @@ const columnsWide = (toggle: (id: string) => void, expanded: ReadonlySet<string>
     cell: ({ row }) => <ExpandButton id={row.original.record.id} expanded={expanded.has(row.original.record.id)} onToggle={() => toggle(row.original.record.id)} label={`${row.original.model} record`} />,
   },
   {
-    // No size: the model column takes the width the fixed columns leave.
-    id: "model", accessorFn: (row) => row.model, enableHiding: false,
+    // Sized explicitly: with only the other columns sized, a fixed-layout table spreads the spare width across every
+    // column and the model name truncated at ~165px. The widths sum to MIN_TABLE_WIDTH.
+    id: "model", size: 224, accessorFn: (row) => row.model, enableHiding: false,
     header: ({ column }) => <DataTableColumnHeader column={column} title="Model" />,
     cell: ({ row }) => <RecordName row={row.original} />,
   },
   {
     id: "hardware", size: 100, accessorFn: (row) => `${hardwareClass(row.record.gpuType)} ${String(row.record.gpuCount ?? 0).padStart(3, "0")}`,
     header: ({ column }) => <DataTableColumnHeader column={column} title="GPUs" />,
-    cell: ({ row }) => <HardwareMark record={row.original.record} />,
+    cell: ({ row }) => <HardwareMark record={row.original.record} className="flex-nowrap whitespace-nowrap" />,
   },
   {
-    id: "engine", size: 184, accessorFn: (row) => `${engineKey(row.record)} ${row.record.audit.canonical ?? ""}`,
+    id: "engine", size: 176, accessorFn: (row) => `${engineKey(row.record)} ${row.record.audit.canonical ?? ""}`,
     header: ({ column }) => <DataTableColumnHeader column={column} title="Engine version" />,
-    cell: ({ row }) => <EngineVersion record={row.original.record} />,
+    cell: ({ row }) => <EngineVersion record={row.original.record} layout="stacked" />,
   },
   {
-    id: "output", size: 140, accessorFn: (row) => row.headline?.value ?? undefined, sortUndefined: "last",
+    id: "output", size: 180, accessorFn: (row) => row.headline?.value ?? undefined, sortUndefined: "last",
     header: ({ column }) => <DataTableColumnHeader column={column} title="Output tok/s/GPU" align="right" />,
-    cell: ({ row }) => <><HeadlineCell value={row.original.headline} /><LadderCurve row={row.original} /></>,
+    cell: ({ row }) => <OutputCell row={row.original} />,
   },
   {
-    id: "source", size: 150, accessorFn: (row) => row.source?.publisher ?? "",
+    id: "source", size: 130, accessorFn: (row) => row.source?.publisher ?? "",
     header: ({ column }) => <DataTableColumnHeader column={column} title="Source" />,
     cell: ({ row }) => (
       <span className="flex min-w-0 flex-col gap-0.5">
         <SourceLink source={row.original.source} className="max-w-full" />
-        <span className="text-muted-foreground text-[11px] leading-snug text-pretty">{row.original.record.evidenceClass}</span>
+        <span className="text-muted-foreground truncate text-[11px] leading-snug" title={row.original.record.evidenceClass}>{row.original.record.evidenceClass}</span>
       </span>
     ),
   },
   {
     // Sort key: the date, then (same date) records that publish output tok/s/GPU before those that do not.
-    id: "date", size: 96, accessorFn: (row) => row.date ? `${row.date}~${row.headline ? 1 : 0}` : undefined, sortUndefined: "last",
+    id: "date", size: 92, accessorFn: (row) => row.date ? `${row.date}~${row.headline ? 1 : 0}` : undefined, sortUndefined: "last",
     header: ({ column }) => <DataTableColumnHeader column={column} title="Published" />,
     cell: ({ row }) => <span className="whitespace-nowrap tabular-nums">{row.original.date ?? dash}</span>,
   },
   {
-    id: "flags", size: 172, accessorFn: (row) => row.record.flags.length, enableSorting: false,
+    id: "flags", size: 156, accessorFn: (row) => row.record.flags.length, enableSorting: false,
     header: () => <span>Caveats</span>,
-    cell: ({ row }) => <FlagChips flags={displayFlags(row.original.record)} max={2} />,
+    cell: ({ row }) => <FlagChips flags={displayFlags(row.original.record)} max={1} singleLine />,
   },
 ];
 
+/** Sort orders offered on phones, where the column headers are not shown; each maps to a hidden sort column. */
+const NARROW_SORTS = [
+  { value: "output", label: "Output tok/s/GPU, highest first", sorting: [{ id: "output", desc: true }] },
+  { value: "date", label: "Published, newest first", sorting: [{ id: "date", desc: true }] },
+  { value: "model", label: "Model, A–Z", sorting: [{ id: "model", desc: false }] },
+] as const;
+type NarrowSort = (typeof NARROW_SORTS)[number]["value"];
+
+const hiddenSortColumn = (id: string, accessorFn: (row: Row) => string | number | undefined): DataTableColumnDef<Row> => ({
+  id, accessorFn, sortUndefined: "last", enableHiding: false, header: () => null, cell: () => null,
+});
+
 const columnsNarrow = (toggle: (id: string) => void, expanded: ReadonlySet<string>): DataTableColumnDef<Row>[] => [
   {
-    id: "stacked", accessorFn: (row) => row.headline?.value ?? undefined, sortUndefined: "last", enableHiding: false,
+    id: "stacked", enableSorting: false, enableHiding: false,
     header: () => <span>Record</span>,
     cell: ({ row }) => {
       const r = row.original;
       return (
-        <div className="flex min-w-0 flex-col gap-1.5 py-0.5 whitespace-normal" data-stacked-record={r.record.id}>
+        <div className="flex min-w-0 flex-col gap-1 py-0.5 whitespace-normal" data-stacked-record={r.record.id}>
           <span className="flex min-w-0 items-start justify-between gap-2">
             <RecordName row={r} />
             <ExpandButton id={r.record.id} expanded={expanded.has(r.record.id)} onToggle={() => toggle(r.record.id)} label={`${r.model} record`} />
           </span>
-          <span className="flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1 text-xs"><HardwareMark record={r.record} /><EngineVersion record={r.record} /></span>
-          <span className="flex items-baseline justify-between gap-2 text-xs">
-            <span className="text-muted-foreground">Output tok/s/GPU</span>
-            <HeadlineCell value={r.headline} />
+          <span className="flex min-w-0 items-center gap-2 text-xs"><HardwareMark record={r.record} className="shrink-0" /><EngineVersion record={r.record} layout="inline" className="flex-1" /></span>
+          <span className="flex min-w-0 items-baseline justify-between gap-2 text-xs">
+            <span className="text-muted-foreground shrink-0">Output tok/s/GPU</span>
+            <HeadlineCell value={r.headline} inline />
           </span>
-          <span className="flex min-w-0 flex-wrap items-baseline gap-x-2 text-xs"><SourceLink source={r.source} className="max-w-[60%]" /><span className="text-muted-foreground tabular-nums">{r.date ?? "date not stated"}</span></span>
-          <FlagChips flags={displayFlags(r.record)} max={3} />
+          <span className="flex min-w-0 items-baseline justify-between gap-2 text-xs"><SourceLink source={r.source} className="min-w-0" /><span className="text-muted-foreground shrink-0 tabular-nums">{r.date ?? "date not stated"}</span></span>
+          <FlagChips flags={displayFlags(r.record)} max={2} singleLine />
         </div>
       );
     },
   },
+  hiddenSortColumn("output", (row) => row.headline?.value ?? undefined),
+  hiddenSortColumn("date", (row) => row.date ? `${row.date}~${row.headline ? 1 : 0}` : undefined),
+  hiddenSortColumn("model", (row) => row.model),
 ];
 
 /**
@@ -202,6 +238,8 @@ export function PublishedRecords({ records, total, onReset, filtered }: { record
     .sort((a, b) => (b.date ?? "").localeCompare(a.date ?? "")), [records, data]);
   const columns = React.useMemo(() => (narrow ? columnsNarrow : columnsWide)(toggle, expanded), [narrow, toggle, expanded]);
   const view = useScrollViewWidth();
+  const [narrowSort, setNarrowSort] = React.useState<NarrowSort>("output");
+  const sortOrder = NARROW_SORTS.find((item) => item.value === narrowSort)!;
   return (
     <DataTableCard
       ref={view.ref}
@@ -209,14 +247,21 @@ export function PublishedRecords({ records, total, onReset, filtered }: { record
       layout="fixed"
       minTableWidth={narrow ? undefined : MIN_TABLE_WIDTH}
       title="Published records"
-      description={<>Each row is one published ladder or point as the source states it. Output tok/s/GPU is the highest published level, not a sustainable rate; no SLO is applied. Sorted by it (highest first; records without it last, newest first).</>}
+      description={<>Each row is one published ladder or point as the source states it. Output tok/s/GPU is the highest published level, not a sustainable rate; no SLO is applied. Default order: by it, highest first (records without it last, newest first).</>}
       className="gap-3 rounded-lg py-4 [&_[data-slot=card-header]]:px-4 [&_[data-slot=card-content]]:px-4 [&_[data-slot=card-footer]]:px-4"
       data-testid="published-records"
       columns={columns}
       data={rows}
       key={narrow ? "stacked" : "table"}
       getRowId={(row) => row.record.id}
-      initialSorting={[{ id: narrow ? "stacked" : "output", desc: true }]}
+      initialSorting={narrow ? undefined : [{ id: "output", desc: true }]}
+      {...(narrow ? { sorting: [...sortOrder.sorting], initialColumnVisibility: { output: false, date: false, model: false } } : {})}
+      toolbar={narrow ? (
+        <Select value={narrowSort} onValueChange={(value) => setNarrowSort(value as NarrowSort)}>
+          <SelectTrigger size="sm" className="w-full" aria-label="Sort records" data-testid="published-sort"><span className="text-muted-foreground">Sort</span><SelectValue /></SelectTrigger>
+          <SelectContent>{NARROW_SORTS.map((item) => <SelectItem key={item.value} value={item.value}>{item.label}</SelectItem>)}</SelectContent>
+        </Select>
+      ) : undefined}
       pageSize={20}
       pageSizeOptions={[20, 50, 100]}
       showViewOptions={!narrow}

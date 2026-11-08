@@ -4,7 +4,7 @@ import { num } from "../../lib/display.js";
 
 /*
  * Published › shares of the filtered records (dashboardcn allocation cards): how much of what is listed can be read
- * at face value. Each card is one share of the same total (the records under the current filters), never a trend.
+ * at face value. Each card is one share of the same total (the records under the current filters, "n of N"), never a trend.
  */
 const SHARES: { key: string; title: string; description: string; test: (record: ExternalRecord) => boolean }[] = [
   { key: "stable", title: "Stable release", description: "Records whose engine version resolves to a stable vLLM or SGLang release (not nightly, prerelease, custom image or unstated).", test: (record) => record.audit.class === "stable" },
@@ -26,7 +26,7 @@ export function PublishedShares({ records }: { records: readonly ExternalRecord[
             description={share.description}
             value={count / records.length}
             segments={32}
-            stat={{ label: "Records", value: `${num(count)} of ${num(records.length)} shown` }}
+            stat={{ label: "Records", value: `${num(count)} of ${num(records.length)}` }}
             className="shadow-panel rounded-lg gap-2.5 py-3.5 sm:gap-3 sm:py-4 [&_[data-slot=card-footer]]:text-xs [&_[data-slot=card-header]]:px-3.5 sm:[&_[data-slot=card-header]]:px-6 [&_[data-slot=card-content]]:px-3.5 sm:[&_[data-slot=card-content]]:px-6 [&_[data-slot=card-footer]]:px-3.5 sm:[&_[data-slot=card-footer]]:px-6"
             data-share={share.key}
             data-count={count}
