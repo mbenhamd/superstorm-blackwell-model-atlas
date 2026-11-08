@@ -1,13 +1,15 @@
+import { ChartNoAxesGantt } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { hasMeasuredLevels } from "../../../domain/setups.js";
-import { updateView, useAppState } from "../../state.js";
+import { routeUrl, updateView, useAppState } from "../../state.js";
 import { Combobox, type ComboOption } from "./pickers.js";
 import { publisherLabel, rowsFor, shapeKey, shapeLabel, useVariantRowsByWorkload } from "./tldr-data.js";
 
 /*
- * TL;DR control row: model (searchable, grouped by publisher) and GPU shape ("All shapes" allowed). The table is always
- * ranked by sustainable tok/min/GPU. The workload is the top bar's (one source of truth). Controls write the URL
- * (#/tldr?model=…&shape=…).
+ * TL;DR control row: model (searchable, grouped by publisher), GPU shape ("All shapes" allowed) and a link to the model's
+ * Architecture sheet. The table is always ranked by sustainable tok/min/GPU. The workload is the top bar's (one source of
+ * truth). Controls write the URL (#/tldr?model=…&shape=…).
  * Counts are setups = measured variants plus unmeasured catalog configurations on the active dataset.
  */
 
@@ -60,6 +62,11 @@ export function TldrControls({ modelId }: { modelId: string }) {
           ))}
         </SelectContent>
       </Select>
+      <Button variant="ghost" size="sm" asChild className="text-muted-foreground hover:text-foreground h-8">
+        <a href={routeUrl("architecture", { model: modelId })} data-testid="tldr-architecture" aria-label={`Architecture of ${selected?.name ?? modelId}`}>
+          <ChartNoAxesGantt aria-hidden="true" />Architecture
+        </a>
+      </Button>
     </div>
   );
 }

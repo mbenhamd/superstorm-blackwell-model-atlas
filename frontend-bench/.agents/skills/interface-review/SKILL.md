@@ -9,7 +9,7 @@ Read DESIGN.md. It takes precedence over the generic `frontend-design` skill: DE
 
 Component fit: for each card, chart or table, ask whether a dashboardcn block or primitive (live catalog at https://dashboardcn.com/explore) carries the encoding better than the current one. Follow `dashboardcn-bench` for the choice, the install with `scripts/dashboardcn-add.ts`, and the console adaptations.
 
-Use one reusable browser session. Open all ten routes at 1440×900 and 390×844, light and dark:
+Use one reusable browser session. Open all eleven routes at 1440×900 and 390×844, light and dark:
 
 - tldr
 - intelligence
@@ -17,6 +17,7 @@ Use one reusable browser session. Open all ten routes at 1440×900 and 390×844,
 - compare
 - engine
 - models: Overview and Precision tabs on a model detail, `models?model=<id>&tab=overview|precision`
+- architecture: tabs Layer map (default, no `tab` parameter), Attention & KV (`tab=attention`) and Experts & parameters (`tab=experts`); the sheet with `model=<id>`
 - deployments
 - published
 - new-benchmark
@@ -54,6 +55,7 @@ Exercise:
   - per-workload verdicts with grouped bars;
   - Every measured version;
   - Published vLLM vs SGLang GPU-class selector (B300 first, one chart at a time).
+- **Architecture:** layer-map cell tooltips and arrow keys on a row name, row click or Enter opens the sheet (`model` in the URL, focus returns on close), tabs in the URL, the TL;DR "Architecture" link; at 390 the strips fit without horizontal scroll; "—" (never 0) for unrecorded parameters and KV.
 - **Published:** filters (repeated URL keys `model`, `hw`, `engine`, `version`, `evidence`, `flag`, `noflag`, `kind`, `weak`), share cards, coverage heatmap cell selection, records paging, sort and row expansion at 1440 and 390.
 - **Shared components:**
   - Compare selection and mixed-cohort guard;

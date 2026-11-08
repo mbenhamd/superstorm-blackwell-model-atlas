@@ -13,7 +13,7 @@ Run, in order:
 2. `bun scripts/import-atlas.ts --check` (parent repository only)
 3. `bun scripts/import-external.ts --check`
 4. `bun run typecheck` (tsc for tsconfig.json and tsconfig.client.json)
-5. `bun run test:unit` (all ten unit files)
+5. `bun run test:unit` (all eleven unit files)
 6. `bun run build` (writes public/ and regenerates preview.html)
 7. `bun run browser:install` (once per machine)
 8. `bun run test:browser` (after a fresh build)

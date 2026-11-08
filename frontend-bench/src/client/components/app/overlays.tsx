@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Activity, Boxes, BookOpen, ChartScatter, Columns2, Download, ExternalLink, FlaskConical, Gauge, Globe, Info, Layers, ListOrdered, Moon, Plus, Rows3, Server, Sun } from "lucide-react";
+import { Activity, Boxes, BookOpen, ChartNoAxesGantt, ChartScatter, Columns2, Download, ExternalLink, FlaskConical, Gauge, Globe, Info, Layers, ListOrdered, Moon, Plus, Rows3, Server, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { CommandPalette, type CommandPaletteGroup } from "@/components/ui/command-palette";
@@ -207,6 +207,7 @@ export function CommandMenu() {
       { id: "engine", label: "Engine", description: "vLLM versus SGLang on the same export", icon: <Server />, keywords: ["runtime", "vllm", "sglang"], onSelect: go("engine") },
       { id: "models", label: "Models", description: "Catalog models and exports", icon: <Boxes />, keywords: ["catalog"], onSelect: go("models") },
       { id: "precision", label: "Precision", description: "Qwen 3.8 27B · publisher card tables", icon: <Layers />, keywords: ["quantization", "fp8", "nvfp4", "bf16"], onSelect: go("models", { model: "qwen3.8-27b", tab: "precision" }) },
+      { id: "architecture", label: "Architecture", description: "Token-mixing layers, attention, KV and experts per model (configuration)", icon: <ChartNoAxesGantt />, keywords: ["layers", "attention", "kv", "moe", "experts", "mixer", "linear"], onSelect: go("architecture") },
       { id: "deployments", label: "Deployments", description: "All configurations", icon: <Rows3 />, keywords: ["configurations", "table"], onSelect: go("deployments") },
       { id: "published", label: "Published", description: "External published benchmarks (not measured here)", icon: <Globe />, keywords: ["external", "sources", "third-party"], onSelect: go("published") },
       { id: "new-benchmark", label: "New benchmark", description: "Planning board", icon: <FlaskConical />, keywords: ["kanban", "experiments", "plan"], onSelect: go("new-benchmark") },

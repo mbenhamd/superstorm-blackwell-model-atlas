@@ -21,10 +21,11 @@ import { ExperimentsPage } from "./pages/experiments.js";
 import { MethodologyPage } from "./pages/methodology.js";
 import { EnginePage } from "./pages/engine.js";
 import { PublishedPage } from "./pages/published.js";
+import { ArchitecturePage } from "./pages/architecture.js";
 
 const pages: Record<Route, () => React.ReactElement> = {
   tldr: () => <OverviewPage view="tldr" />, intelligence: () => <OverviewPage view="intelligence" />,
-  throughput: ThroughputPage, compare: ComparePage, engine: EnginePage, models: ModelsPage,
+  throughput: ThroughputPage, compare: ComparePage, engine: EnginePage, models: ModelsPage, architecture: ArchitecturePage,
   deployments: DeploymentsPage, published: PublishedPage, "new-benchmark": ExperimentsPage, methodology: MethodologyPage,
 };
 

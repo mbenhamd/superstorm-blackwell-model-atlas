@@ -9,7 +9,8 @@
  * Covers: one h1 per route, no error state, no horizontal overflow at 1440 and 390 px, no page errors,
  * filters/sort/URL sync, TL;DR setups (model/shape/sort URL, Δ vs best, ±3% ties, unmeasured last), links to the
  * setups from Models / Throughput (model → quant picker) / Deployments (Precision column) / ⌘K, compare, focus return for the evidence sheet and ⌘K, ⌘K page matching, chart-point
- * keyboard focus, SLO input commit on Enter, serve-command formatting, experiments, theme and dataset dialog.
+ * keyboard focus, SLO input commit on Enter, serve-command formatting, experiments, theme and dataset dialog,
+ * Architecture (layer map, model sheet, attention & KV and experts tabs, URL state, TL;DR link).
  */
 import { afterAll, beforeAll, beforeEach, describe, expect, test } from "bun:test";
 import { chromium, type Browser, type BrowserContext, type Page } from "playwright";
@@ -22,6 +23,7 @@ const mod = process.platform === "darwin" ? "Meta" : "Control";
 const routes = [
   "tldr", "intelligence", "throughput", "throughput?run=gemma-4-31b-it.nvfp4.sglang.baseline&tab=configuration", "compare",
   "engine", "engine?pair=glm-5.3.fp8@8", "models", "models?model=deepseek-v4-flash-0731&tab=overview", "models?model=qwen3.8-27b&tab=precision",
+  "architecture", "architecture?tab=attention", "architecture?tab=experts", "architecture?model=deepseek-v4.1-flash-1017",
   "deployments", "published", "new-benchmark", "methodology",
 ];
 const aliases: [string, RegExp][] = [
@@ -31,7 +33,7 @@ const aliases: [string, RegExp][] = [
   ["quant", /#\/models\?.*model=qwen3\.8-27b.*tab=precision/], ["quantization", /#\/models\?.*tab=precision/],
   ["hardware", /#\/deployments/], ["experiments", /#\/new-benchmark/],
 ];
-const navLabels = ["TL;DR", "Intelligence", "Throughput", "Compare", "Engine", "Models", "Deployments", "Published", "New benchmark", "Methodology"];
+const navLabels = ["TL;DR", "Intelligence", "Throughput", "Compare", "Engine", "Models", "Architecture", "Deployments", "Published", "New benchmark", "Methodology"];
 
 let servers: ReturnType<typeof Bun.spawn>[] = [];
 let browser: Browser;
@@ -1124,6 +1126,166 @@ describe("offline console (atlas, Hugging Face and Artificial Analysis data)", (
     expect(slo!.x).toBeLessThan(badge!.x);
     expect(badge!.x).toBeLessThan(theme!.x);
     expect(slo!.x).toBeLessThan(900);
+  });
+});
+
+describe("architecture (publisher configuration fields; calculations, nothing measured)", () => {
+  beforeEach(async () => { origin = offline; await open(); });
+
+  const param = (name: string) => page.evaluate((key) => new URLSearchParams(location.hash.split("?")[1]).get(key), name);
+
+  test("layer map: one strip per catalog model, Qwen 3.8 27B from its interval, unrecorded parameters read '—'", async () => {
+    await go("architecture");
+    expect(await page.getByTestId("arch-row").count()).toBe(12);
+    expect(await page.getByTestId("arch-group").count()).toBe(7);
+    const qwen = page.locator('[data-testid=arch-strip][data-model-id="qwen3.8-27b"]');
+    expect(await qwen.getAttribute("data-order")).toBe("interval");
+    expect(await qwen.getAttribute("role")).toBe("img");
+    expect(await qwen.getAttribute("aria-label")).toMatch(/^Qwen 3\.8 27B: 64 layers, 16 full attention and 48 Gated DeltaNet/);
+    expect(await qwen.locator("[data-cell]").count()).toBe(64);
+    expect(await qwen.locator('[data-cell][data-kind="full"]').count()).toBe(16);
+    expect(await qwen.locator('[data-cell][data-kind="gdn"]').count()).toBe(48);
+    // Layer 1 sits at the centre line: the rightmost cell is layer 1, full attention every 4th layer.
+    const fullLayers = await qwen.locator('[data-cell][data-kind="full"]').evaluateAll((cells) => cells.map((cell) => Number(cell.getAttribute("data-layer"))));
+    expect(fullLayers.slice(0, 3)).toEqual([4, 8, 12]);
+    const edges = await qwen.locator("[data-cell]").evaluateAll((cells) => cells.map((cell) => ({ layer: Number(cell.getAttribute("data-layer")), right: cell.getBoundingClientRect().right })));
+    const rightmost = edges.reduce((a, b) => (b.right > a.right ? b : a));
+    expect(rightmost.layer).toBe(1);
+    // Every strip's cell count equals its recorded layer count.
+    for (const strip of await page.getByTestId("arch-strip").all()) {
+      expect(await strip.locator("[data-cell]").count()).toBe(Number(await strip.getAttribute("data-layers")));
+    }
+    // Parameters on one shared scale; DeepSeek records none, so the bar is replaced by "—", never 0.
+    for (const id of ["deepseek-v4-flash-0731", "deepseek-v4.1-flash-1017"]) {
+      const params = page.locator(`[data-testid=arch-params][data-model-id="${id}"]`);
+      expect(await params.innerText()).toContain("—");
+      expect(await params.innerText()).not.toMatch(/\b0\b/);
+    }
+    expect(await page.locator('[data-testid=arch-params][data-model-id="kimi-k3"]').innerText()).toContain("104B active · 2.8T total");
+    expect(await page.locator('[data-testid=arch-params][data-model-id="muse-glimmer-30b"]').innerText()).toContain("active not recorded · 29.8B total");
+    // Legend: only kinds present, grouped by family, plus the marks.
+    const legend = await page.getByTestId("arch-legend").innerText();
+    for (const label of ["Attention", "Linear mixers", "Marks", "Full attention", "Sliding window", "Sparse attention", "Compressed attention", "Kimi Delta Attention", "Gated DeltaNet", "No RoPE", "KV read from an earlier layer"]) expect(legend).toContain(label);
+    expect(pageErrors).toEqual([]);
+  });
+
+  test("layer map: hovering a cell names the layer and its kind; arrow keys step through layers", async () => {
+    await go("architecture");
+    const strip = page.locator('[data-testid=arch-strip][data-model-id="kimi-k3"]');
+    await strip.scrollIntoViewIfNeeded();
+    const cell = strip.locator('[data-cell][data-layer="13"]');
+    expect(await cell.getAttribute("data-kind")).toBe("kda");
+    const box = (await cell.boundingBox())!;
+    await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+    const tooltip = page.getByTestId("arch-tooltip");
+    await tooltip.waitFor();
+    expect(await tooltip.innerText()).toContain("Layer 13 · Kimi Delta Attention");
+    expect(await strip.locator('[data-cell][data-layer="12"]').getAttribute("data-kind")).toBe("full");
+    await page.mouse.move(2, 2);
+    await tooltip.waitFor({ state: "detached" });
+    // Keyboard: focus the row's name, step to layer 1 and beyond.
+    const name = page.locator('[data-testid=arch-row][data-model-id="kimi-k3"] [data-testid=arch-open]');
+    await name.focus();
+    await page.keyboard.press("ArrowLeft");
+    await tooltip.waitFor();
+    expect(await tooltip.innerText()).toContain("Layer 1 · Kimi Delta Attention");
+    for (let step = 0; step < 3; step++) await page.keyboard.press("ArrowLeft");
+    await page.waitForFunction(() => document.querySelector("[data-testid=arch-tooltip]")?.textContent?.includes("Layer 4 ·"));
+    expect(await tooltip.innerText()).toContain("Layer 4 · Full attention");
+    await page.keyboard.press("Escape");
+    await tooltip.waitFor({ state: "detached" });
+    expect(pageErrors).toEqual([]);
+  });
+
+  test("tabs live in the URL; attention and experts tables state calculations and dense models", async () => {
+    await go("architecture");
+    await page.getByTestId("arch-tab-attention").click();
+    await page.getByTestId("arch-attention").waitFor();
+    expect(await param("tab")).toBe("attention");
+    expect(await page.locator("[data-testid=arch-attention] tbody tr").count()).toBe(12);
+    expect(await page.locator('[data-testid=arch-kv][data-model-id="qwen3.8-27b"]').innerText()).toContain("65,536 B");
+    expect(await page.locator('[data-testid=arch-kv][data-model-id="kimi-k3"]').innerText()).toContain("—");
+    await page.getByTestId("arch-tab-experts").click();
+    await page.getByTestId("arch-experts").waitFor();
+    expect(await param("tab")).toBe("experts");
+    const qwen = await page.locator('[data-testid=arch-experts] tr[data-model-id="qwen3.8-27b"]').innerText();
+    expect(qwen).toContain("dense");
+    const deepseek = await page.locator('[data-testid=arch-experts] tr[data-model-id="deepseek-v4-flash-0731"]').innerText();
+    expect(deepseek).toContain("—");
+    expect(await page.locator('[data-testid=arch-experts] tr[data-model-id="kimi-k3"] [data-testid=arch-fraction]').innerText()).toContain("3.7%");
+    await page.reload();
+    await page.getByTestId("arch-experts").waitFor();
+    await page.getByTestId("arch-tab-layers").click();
+    await page.getByTestId("arch-map").waitFor();
+    expect(await param("tab")).toBeNull();
+    expect(pageErrors).toEqual([]);
+  });
+
+  test("a row opens the model's sheet: pinned revision, provenance, counts; Escape closes it and returns focus", async () => {
+    await go("architecture");
+    await page.locator('[data-testid=arch-row][data-model-id="qwen3.8-27b"]').click({ position: { x: 600, y: 20 } });
+    const sheet = page.getByTestId("arch-sheet");
+    await sheet.waitFor();
+    expect(await param("model")).toBe("qwen3.8-27b");
+    expect(await sheet.getByTestId("arch-sheet-provenance").innerText()).toBe("From the publisher config at revision 1d4bf0f; not measured.");
+    expect(await sheet.getByTestId("arch-sheet-weights").getAttribute("href")).toMatch(/huggingface\.co\/.+\/tree\/1d4bf0f/);
+    expect(await sheet.getByTestId("arch-sheet-order").innerText()).toContain("64 layers");
+    expect(await sheet.locator("[data-testid=arch-sheet-strip] [data-cell]").count()).toBe(64);
+    const counts = await sheet.getByTestId("arch-sheet-counts").innerText();
+    for (const line of ["full_attention_layers = 16 recorded · 16 derived", "linear_attention_layers = 48 recorded · 48 derived", "layers = 64 recorded · 64 derived"]) expect(counts).toContain(line);
+    expect(await sheet.getByTestId("arch-sheet-tldr").getAttribute("href")).toContain("#/tldr?");
+    await page.getByTestId("arch-tooltip").waitFor({ state: "detached" });
+    await page.keyboard.press("Escape");
+    await sheet.waitFor({ state: "detached" });
+    expect(await param("model")).toBeNull();
+    // Keyboard: Enter on a row name opens the sheet; closing returns focus to it.
+    const name = page.locator('[data-testid=arch-row][data-model-id="gemma-4-31b-it"] [data-testid=arch-open]');
+    await name.focus();
+    await page.keyboard.press("Enter");
+    await sheet.waitFor();
+    expect(await param("model")).toBe("gemma-4-31b-it");
+    await page.keyboard.press("Escape");
+    await sheet.waitFor({ state: "detached" });
+    expect(await page.evaluate(() => document.activeElement?.textContent)).toBe("Gemma 4 31B IT");
+    expect(pageErrors).toEqual([]);
+  });
+
+  test("TL;DR links the selected model's architecture sheet", async () => {
+    await go("tldr?model=glm-5.3");
+    const link = page.getByTestId("tldr-architecture");
+    expect(await link.getAttribute("href")).toContain("model=glm-5.3");
+    await link.click();
+    await page.getByTestId("arch-sheet").waitFor();
+    expect(page.url()).toMatch(/#\/architecture\?.*model=glm-5\.3/);
+    expect(await page.getByTestId("arch-sheet").innerText()).toContain("GLM 5.3");
+    expect(pageErrors).toEqual([]);
+  });
+
+  test("390 px: strips scale to fit, the name sits above the strip, no overflow; dark mode renders", async () => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await go("architecture");
+    await page.getByTestId("arch-row").first().waitFor();
+    expect(await overflow()).toBeLessThanOrEqual(0);
+    const layout = await page.evaluate(() => [...document.querySelectorAll("[data-testid=arch-row]")].map((row) => {
+      const name = row.querySelector("[data-testid=arch-open]")!.getBoundingClientRect();
+      const strip = row.querySelector("[data-testid=arch-strip]")!.getBoundingClientRect();
+      return { nameAbove: name.bottom <= strip.top, inside: strip.left >= row.getBoundingClientRect().left - 0.5 && strip.right <= row.getBoundingClientRect().right + 0.5 };
+    }));
+    expect(layout.every((row) => row.nameAbove && row.inside)).toBe(true);
+    await page.getByTestId("theme-toggle").click();
+    expect(await page.evaluate(() => document.documentElement.dataset.theme)).toBe("dark");
+    const fill = await page.locator('[data-testid=arch-strip][data-model-id="kimi-k3"] [data-cell][data-kind="kda"] rect').first().evaluate((rect) => getComputedStyle(rect).fill);
+    expect(fill).not.toBe("none");
+    expect(fill).not.toBe("rgb(0, 0, 0)");
+    for (const tab of ["attention", "experts"]) {
+      await go(`architecture?tab=${tab}`);
+      await page.getByTestId(`arch-${tab}`).waitFor();
+      expect(await overflow()).toBeLessThanOrEqual(0);
+    }
+    await go("architecture?model=mistral-large-4");
+    await page.getByTestId("arch-sheet").waitFor();
+    expect(await overflow()).toBeLessThanOrEqual(0);
+    expect(pageErrors).toEqual([]);
   });
 });
 

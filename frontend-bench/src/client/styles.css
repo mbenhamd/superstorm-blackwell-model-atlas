@@ -47,6 +47,11 @@
   --chart-neutral: #8a8f98;
   --chart-grid: #eceef0;
   --chart-axis: #d6d8dc;
+  /* Architecture mixer kinds (DESIGN.md · Architecture): validated on the card surface; recessive steps for the
+     sliding window, reused index selections and Gated DeltaNet. Parameter bars are neutral. */
+  --mixer-full: #5e6ad2; --mixer-sliding: #c4b345; --mixer-sparse: #cc6324; --mixer-sparse-reused: #eea06b;
+  --mixer-compressed: #be4888; --mixer-compressed-reused: #e196bb; --mixer-kda: #169b86; --mixer-gdn: #54c398;
+  --arch-total: #d3d5da; --arch-active: #62666d;
   --topbar: rgba(255, 255, 255, 0.8);
   --shadow-panel: 0 1px 1px rgba(8, 9, 10, 0.02);
   --shadow-canvas: 0 0 0 1px #e6e7e9;
@@ -98,6 +103,9 @@
   --chart-neutral: #6b6f78;
   --chart-grid: #1f2023;
   --chart-axis: #34343a;
+  --mixer-full: #7d8ae1; --mixer-sliding: #796006; --mixer-sparse: #dc7533; --mixer-sparse-reused: #965630;
+  --mixer-compressed: #ca5794; --mixer-compressed-reused: #81385e; --mixer-kda: #2da892; --mixer-gdn: #036f4f;
+  --arch-total: #2e3035; --arch-active: #9a9ea6;
   --topbar: rgba(15, 16, 17, 0.78);
   --shadow-panel: inset 0 1px 0 rgba(255, 255, 255, 0.03);
   --shadow-canvas: 0 0 0 1px #23252a;

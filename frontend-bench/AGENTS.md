@@ -2,7 +2,7 @@
 
 ## Read first
 
-Read `README.md`, `DESIGN.md`, `docs/VERIFICATION.md`, and the relevant architecture decision (ADR 0005 for the client) before editing. Keep the ten routes (tldr, intelligence, throughput, compare, engine, models, deployments, published, new-benchmark, methodology) and every legacy alias in `src/client/state.ts` functional.
+Read `README.md`, `DESIGN.md`, `docs/VERIFICATION.md`, and the relevant architecture decision (ADR 0005 for the client) before editing. Keep the eleven routes (tldr, intelligence, throughput, compare, engine, models, architecture, deployments, published, new-benchmark, methodology) and every legacy alias in `src/client/state.ts` functional.
 
 Bench Console is an original prototype with a Linear-derived visual system. Do not add third-party logos, proprietary fonts, real customer data, or approval claims. Show only traceable data: the pinned atlas snapshot, pinned Hugging Face cards, published Artificial Analysis scores and external published results (evidence class "external", never ranked) until bench results are imported. Never add mock or estimated measurements; keep provenance (catalog date, evidence class) on every view and export; do not show the source repository name or commit in the UI. Show the configured engine release, never the latest recheck release, as the build. Image captures are written outside the repository.
 
@@ -22,7 +22,7 @@ bun run build          # public/ + preview.html
 bun run browser:install  # Playwright Chromium, once per machine
 bun run test:browser   # after a fresh build
 bun run design:lint
-bun run quality        # typecheck + all ten unit files + build (the workflow's first step)
+bun run quality        # typecheck + all eleven unit files + build (the workflow's first step)
 ```
 
 Before building or reworking a card, chart, KPI row, gauge or table, follow `.agents/skills/dashboardcn-bench/SKILL.md`. Check the live catalog (https://dashboardcn.com/explore, https://dashboardcn.com/llms.txt, https://github.com/NoahGdev/dashboardcn), prefer a block, then a primitive, then custom code, and install with `bun scripts/dashboardcn-add.ts <name...>`. The script writes only new files and never overwrites the locally edited primitives that a plain `bunx shadcn@latest add @dashboardcn/<name>` would clobber. Use `bunx shadcn@latest add <name>` only for shadcn primitives that do not exist yet. Edit installed files rather than wrapping them. `bun.lock` is committed; install with `bun install --frozen-lockfile` (the workflow does).

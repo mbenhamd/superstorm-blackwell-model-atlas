@@ -25,6 +25,8 @@ const routes: [string, string][] = [
   ["models", "models"],
   ["models-overview", "models?model=deepseek-v4-flash-0731&tab=overview"],
   ["models-precision", "models?model=qwen3.8-27b&tab=precision"],
+  ["architecture", "architecture"],
+  ["architecture-attention", "architecture?tab=attention"],
   ["deployments", "deployments"],
   ["published", "published"],
   ["new-benchmark", "new-benchmark"],

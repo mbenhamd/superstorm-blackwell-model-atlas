@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Activity, BookOpen, Boxes, ChartScatter, Columns2, FlaskConical, Gauge, Globe, Menu, Server, Moon, Rows3, Sun, X, type LucideIcon } from "lucide-react";
+import { Activity, BookOpen, Boxes, ChartNoAxesGantt, ChartScatter, Columns2, FlaskConical, Gauge, Globe, Menu, Server, Moon, Rows3, Sun, X, type LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -21,6 +21,7 @@ const navGroups: { label: string; items: { route: Route; icon: LucideIcon; tag?:
     { route: "compare", icon: Columns2 },
     { route: "engine", icon: Server },
     { route: "models", icon: Boxes },
+    { route: "architecture", icon: ChartNoAxesGantt },
     { route: "deployments", icon: Rows3 },
     { route: "published", icon: Globe },
   ] },

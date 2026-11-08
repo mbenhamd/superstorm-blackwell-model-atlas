@@ -4,15 +4,17 @@ import { DEFAULT_SLO } from "../domain/metrics.js";
 import type { Experiment, ExperimentInput, ExperimentStatus, SloPolicy, Snapshot } from "../domain/types.js";
 import { migrateExperiment, parseExperiment, transitionExperiment } from "../domain/validation.js";
 
-export type Route = "tldr" | "intelligence" | "throughput" | "compare" | "engine" | "models" | "deployments" | "published" | "new-benchmark" | "methodology";
+export type Route = "tldr" | "intelligence" | "throughput" | "compare" | "engine" | "models" | "architecture" | "deployments" | "published" | "new-benchmark" | "methodology";
 export type ModelTab = "overview" | "precision";
+/** Architecture view: layer map (default, no URL parameter), `tab=attention` or `tab=experts`. */
+export type ArchTab = "layers" | "attention" | "experts";
 export type Theme = "light" | "dark";
 export type SortKey = "model" | "quality" | "capacity" | "latency" | "memory";
 
 /** Sidebar order of the canonical routes; Methodology last. */
 export const routeLabels: Record<Route, string> = {
   tldr: "TL;DR", intelligence: "Intelligence", throughput: "Throughput", compare: "Compare", engine: "Engine",
-  models: "Models", deployments: "Deployments", published: "Published", "new-benchmark": "New benchmark", methodology: "Methodology",
+  models: "Models", architecture: "Architecture", deployments: "Deployments", published: "Published", "new-benchmark": "New benchmark", methodology: "Methodology",
 };
 /** Route names from the original app and the previous redesign, resolved to a canonical route plus default parameters. */
 export const aliases: Record<string, { route: Route; params?: Record<string, string> }> = {
@@ -50,6 +52,8 @@ export const appState = {
   runPick: "",
   /** TL;DR: GPU shape key ("8xB300"; "" = all shapes). The model is `model` ("all" = default model). */
   tldrShape: "",
+  /** Architecture: the open view; the open model sheet is `model` ("all" = no sheet). */
+  archTab: "layers" as ArchTab,
   drawerId: "", commandOpen: false, workloadsOpen: false, experimentFormFor: null as string | null, navOpen: false,
   loading: false, apiError: "",
 };
@@ -109,6 +113,7 @@ export function readRoute(): void {
   const tab = params.get("tab");
   appState.modelTab = tab === "precision" ? "precision" : "overview";
   appState.runTab = route === "throughput" && tab === "configuration" ? "configuration" : "sweep";
+  appState.archTab = route === "architecture" && (tab === "attention" || tab === "experts") ? tab : "layers";
   appState.versionOverlay = route === "throughput" && params.get("overlay") === "versions";
   appState.logScale = params.get("scale") === "log";
   appState.frontierOnly = params.get("frontier") === "1";
@@ -146,6 +151,7 @@ export function viewParams(route: Route = appState.route): Record<string, string
     if (appState.tldrShape) params.shape = appState.tldrShape;
   }
   if (route === "intelligence") { if (appState.logScale) params.scale = "log"; if (appState.frontierOnly) params.frontier = "1"; }
+  if (route === "architecture") { if (appState.archTab !== "layers") params.tab = appState.archTab; if (appState.model !== "all") params.model = appState.model; }
   return params;
 }
 export function syncUrl(): void {
