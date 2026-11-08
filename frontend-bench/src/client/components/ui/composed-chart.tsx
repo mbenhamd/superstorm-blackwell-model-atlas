@@ -13,6 +13,7 @@ import {
   Area,
   Bar,
   CartesianGrid,
+  Cell,
   ComposedChart as RechartsComposedChart,
   Line,
   ReferenceDot,
@@ -410,7 +411,15 @@ function ComposedChart({
                 stroke={s.pattern === "hatched" ? color : undefined}
                 strokeWidth={s.pattern === "hatched" ? 1 : 0}
                 radius={s.stackId ? 0 : barRadius}
-              />
+              >
+                {/* passKey on bars: a failing row draws an outlined, faint bar (the same "failed looks failed" rule as hollow markers). */}
+                {s.passKey
+                  ? data.map((row, index) => {
+                      const fails = row[s.passKey!] === false
+                      return <Cell key={index} fillOpacity={fails ? 0.18 : 1} stroke={fails ? color : undefined} strokeWidth={fails ? 1 : 0} strokeDasharray={fails ? "3 2" : undefined} />
+                    })
+                  : null}
+              </Bar>
             )
           }
           if (s.type === "line") {

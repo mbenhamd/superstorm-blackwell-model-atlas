@@ -7,6 +7,8 @@ description: Audit and improve all benchmark-dashboard routes, accessibility, re
 
 Read DESIGN.md. It takes precedence over the generic `frontend-design` skill: DESIGN.md first, then AGENTS.md, then `frontend-design` only on axes DESIGN.md leaves free (for example new empty-state or error copy).
 
+Component fit: for each card, chart or table, ask whether a dashboardcn block or primitive (live catalog at https://dashboardcn.com/explore) carries the encoding better than the current one. Follow `dashboardcn-bench` for the choice, the install with `scripts/dashboardcn-add.ts`, and the console adaptations.
+
 Use one reusable browser session. Open all ten routes at 1440×900 and 390×844, light and dark:
 
 - tldr

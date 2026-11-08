@@ -57,6 +57,7 @@ function TldrPage() {
         entry={openEntry} entries={entries} rows={rows}
         published={openEntry && publishedAt.has(openEntry.row.key) ? published.get(openEntry.row.deployment.configurationId) ?? [] : []}
         onClose={() => setOpenKey(null)}
+        shapeFilter={shape}
         onPickWorkload={(workloadId, key) => { pendingKey.current = key; updateView((s) => { s.workload = workloadId; s.selected = []; }); }}
       />
     </div>

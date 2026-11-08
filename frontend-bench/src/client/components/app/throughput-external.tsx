@@ -300,7 +300,7 @@ export function ExternalCurvesToggle({ state }: { state: PublishedState }) {
   return (
     <Button variant={state.on ? "secondary" : "outline"} size="sm" aria-pressed={state.on} aria-controls={state.on ? "published-curves" : undefined} onClick={() => state.setOn(!state.on)} data-testid="external-curves-toggle"
       title="Overlay published ladders (external evidence) of this model; never part of C_max or sustainable throughput">
-      <Globe aria-hidden="true" />External curves<span className="text-muted-foreground tabular-nums">{state.counts.all}</span>
+      <Globe aria-hidden="true" />External curves<span className="text-muted-foreground tabular-nums" title={`${state.counts[state.scope]} in the current scope · ${state.counts.all} for this model`} data-testid="external-curves-count">{state.counts[state.scope]}</span>
     </Button>
   );
 }

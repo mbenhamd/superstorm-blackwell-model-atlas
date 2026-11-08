@@ -74,7 +74,7 @@ function VersionDelta({ row, card = false }: { row: VersionRow; card?: boolean }
   if (row.delta === null) return <span className="text-muted-foreground" data-delta="none" title={title}>—</span>;
   return (
     <span className="inline-flex items-center gap-1.5" data-delta={row.tie ? "tie" : row.delta.toFixed(4)} title={title}>
-      <span className={cn("font-medium", row.tie ? "text-ink-2" : row.delta > 0 ? "text-good-text" : "text-critical-text")}>{signedPct(row.delta)}{row.tie ? " · tie" : ""}</span>
+      <span className={cn("font-medium", "text-ink-2")}>{signedPct(row.delta)}{row.tie ? " · tie" : ""}</span>
       {card && row.previous ? <span className="text-muted-foreground font-mono text-[11px]">vs older version {row.previous}</span> : null}
     </span>
   );

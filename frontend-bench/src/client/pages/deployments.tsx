@@ -50,8 +50,9 @@ const right = "flex items-baseline justify-end whitespace-nowrap";
 function EngineCell({ deployment: d }: { deployment: Deployment }) {
   const recheck = d.recheck ? (/^v\d/.test(d.recheck.engineRelease) ? d.recheck.engineRelease : "") : null;
   return (
-    <span className="inline-flex items-center gap-1.5 whitespace-nowrap" data-engine-build={d.runtimeVersion} title={engineBuildDetail(d)}>
+    <span className="inline-flex max-w-[150px] flex-wrap items-center gap-x-1.5" data-engine-build={d.runtimeVersion} title={engineBuildDetail(d)}>
       <span className="font-medium">{d.runtime}</span>
+      <span className="inline-flex items-center gap-1 whitespace-nowrap">
       <span className="text-ink-2">{engineVersion(d)}</span>
       {d.recheck && recheck !== null ? (
         <Tooltip>
@@ -66,6 +67,7 @@ function EngineCell({ deployment: d }: { deployment: Deployment }) {
           </TooltipContent>
         </Tooltip>
       ) : null}
+      </span>
     </span>
   );
 }
@@ -128,7 +130,7 @@ function SloCell({ row }: { row: RankedDeployment }) {
   if (!isMeasured(row.deployment)) return dash;
   const { passingLevels, totalLevels } = row.capacity;
   return (
-    <span className="inline-flex items-center gap-1.5 whitespace-nowrap" title={`${passingLevels} of ${totalLevels} tested levels meet the SLO`}>
+    <span className="inline-flex flex-col items-start gap-0.5 whitespace-nowrap" title={`${passingLevels} of ${totalLevels} tested levels meet the SLO`}>
       {passingLevels > 0 ? <Badge variant="good" data-verdict="pass">pass</Badge> : <Badge variant="critical" data-verdict="fail">out of SLO</Badge>}
       <span className="text-muted-foreground text-xs tabular-nums">{passingLevels}/{totalLevels}</span>
     </span>
@@ -160,17 +162,17 @@ const columnsAll: DataTableColumnDef<RankedDeployment>[] = [
     ),
   },
   {
-    id: "model", size: 220, accessorFn: (row) => `${row.model.name} ${row.deployment.exportLabel}`, enableHiding: false,
+    id: "model", size: 180, accessorFn: (row) => `${row.model.name} ${row.deployment.exportLabel}`, enableHiding: false,
     header: ({ column }) => <DataTableColumnHeader column={column} title="Configuration" />,
     cell: ({ row }) => (
       <div className="flex min-w-0 flex-col gap-1 py-0.5" title={row.original.deployment.knob ? `${row.original.deployment.id} · ${row.original.deployment.knob}` : row.original.deployment.id}>
         <span className="flex min-w-0 items-center gap-1.5">
-          <button type="button" className="hover:text-link min-w-0 truncate font-medium outline-none focus-visible:underline" data-action="open-run" data-id={row.original.deployment.id} onClick={(event) => { event.stopPropagation(); openRun(row.original.deployment.id); }}>{row.original.model.name}</button>
+          <button type="button" className="hover:text-link min-w-0 truncate font-medium outline-none rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring/70" data-action="open-run" data-id={row.original.deployment.id} onClick={(event) => { event.stopPropagation(); openRun(row.original.deployment.id); }}>{row.original.model.name}</button>
         </span>
-        <span className="flex min-w-0 items-center gap-1 overflow-hidden [&_[data-slot=badge]]:h-[18px] [&_[data-slot=badge]]:text-[10.5px]">
+        <span className="flex min-w-0 flex-wrap items-center gap-1 [&_[data-slot=badge]]:h-[18px] [&_[data-slot=badge]]:text-[10.5px]">
           <StatusBadge deployment={row.original.deployment} className="shrink-0" />
-          <ConfigChips deployment={row.original.deployment} max={1} className="flex-nowrap" />
           <IncompleteBadge count={row.original.capacity.incomplete} className="shrink-0" />
+          <ConfigChips deployment={row.original.deployment} max={1} />
         </span>
       </div>
     ),
@@ -183,7 +185,7 @@ const columnsAll: DataTableColumnDef<RankedDeployment>[] = [
       const d = row.original.deployment;
       const exporter = d.exportLabel.replace(d.precision, "").replace(/^\s*·\s*/, "").trim();
       return (
-        <span className="flex max-w-[150px] min-w-0 items-center gap-1.5" data-precision-cell={d.precision} title={`${d.exportLabel}: ${d.quantMethod}`}>
+        <span className="flex max-w-[150px] min-w-0 flex-col items-start gap-0.5" data-precision-cell={d.precision} title={`${d.exportLabel}: ${d.quantMethod}`}>
           <Badge variant="neutral" className="shrink-0">{d.precision}</Badge>{exporter ? <span className="text-ink-2 truncate text-xs">{exporter}</span> : null}
         </span>
       );
@@ -206,7 +208,9 @@ const columnsAll: DataTableColumnDef<RankedDeployment>[] = [
     header: ({ column }) => <DataTableColumnHeader column={column} title="tok/min/GPU" align="right" />,
     cell: ({ row, table }) => {
       const value = sustainableOf(row.original);
-      if (value === null) return <div className={right} title={isMeasured(row.original.deployment) ? "No tested level meets the SLO" : "Not measured"}>{dash}</div>;
+      if (value === null) return isMeasured(row.original.deployment) && row.original.deployment.points.length
+        ? <div className={right}><Badge variant="critical" className="h-[18px] px-1.5 text-[10.5px]" title="Measured, but no tested level meets the SLO" data-no-passing="">No passing level</Badge></div>
+        : <div className={right} title="Not measured">{dash}</div>;
       const max = Math.max(0, ...table.getCoreRowModel().rows.map((r) => sustainableOf(r.original) ?? 0));
       return <div className={right}><InlineBar value={value} max={max}><span className="font-medium">{num(value)}</span></InlineBar></div>;
     },
@@ -290,7 +294,7 @@ const stackedColumn: DataTableColumnDef<RankedDeployment> = {
     return (
       <div className="flex min-w-0 flex-col gap-1 py-0.5 whitespace-normal">
         <span className="flex min-w-0 flex-wrap items-center gap-1.5">
-          <button type="button" className="hover:text-link min-w-0 text-left font-medium outline-none focus-visible:underline" data-action="open-run" data-id={d.id} onClick={(event) => { event.stopPropagation(); openRun(d.id); }}>{row.original.model.name}</button>
+          <button type="button" className="hover:text-link min-w-0 text-left font-medium outline-none rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring/70" data-action="open-run" data-id={d.id} onClick={(event) => { event.stopPropagation(); openRun(d.id); }}>{row.original.model.name}</button>
           <Badge variant="neutral">{d.exportLabel}</Badge>
           <StatusBadge deployment={d} />
         </span>
@@ -357,7 +361,9 @@ export function DeploymentsPage() {
         key={narrow ? "stacked" : "table"}
         initialColumnVisibility={narrow
           ? Object.fromEntries(columnsAll.slice(1).map((column) => [column.id!, false]))
-          : { shape: false, status: false, "context cap": false, weights: false, "per-user": false, "latest run": false }}
+          : { shape: false, status: false, "context cap": false, weights: false, "per-user": false, "latest run": false,
+            // Measured view fits ~1,110 px: ITL p50 and the model-level AA index stay one click away in View.
+            ...(anyMeasured ? { "ITL p50": false, "AA index": false } : {}) }}
         pinnedColumns={narrow ? undefined : { start: ["select", "model"], end: ["actions"] }}
         pageSize={0}
         showPagination={false}

@@ -33,7 +33,8 @@ export function FrontierChart({ points, frontierIds, frontierOnly, log, selected
   const rest = frontierOnly ? [] : points.filter((point) => !frontierIds.has(point.id));
   const visible = [...rest, ...edge];
   const xs = visible.map((point) => point.capacity), ys = visible.map((point) => point.quality);
-  const y = niceDomain(Math.min(...ys) - 1, Math.max(...ys) + 1, 5);
+  // One distinct quality value: a ±1 window would fake vertical resolution, so the axis starts at zero instead.
+  const y = new Set(ys).size < 2 ? niceDomain(0, Math.max(1, ...ys) * 1.25, 4) : niceDomain(Math.min(...ys) - 1, Math.max(...ys) + 1, 5);
   const xTicks = log ? logTicks(Math.min(...xs), Math.max(...xs)) : niceDomain(0, Math.max(...xs), 5).ticks;
   const xDomain: [number, number] = [xTicks[0] ?? 0, xTicks.at(-1) ?? 1];
   return (
@@ -186,8 +187,8 @@ export function SweepChart({ deployments, metric, yAxisTitle, unit, threshold, t
       />
       {legend || expanded ? <figcaption className="text-ink-2 mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs">
         {sweeps.length > 1 ? sweeps.map(({ deployment }, index) => (
-          <span key={deployment.id} className="inline-flex items-center gap-1.5" data-series-legend={index} data-series-color={styles[index]!.color} data-series-dash={styles[index]!.dash ?? "solid"}>
-            <svg width="14" height="4" viewBox="0 0 14 4" aria-hidden="true" className="shrink-0"><line x1="0" y1="2" x2="14" y2="2" stroke={styles[index]!.color} strokeWidth="2" strokeDasharray={styles[index]!.dash} /></svg>
+          <span key={deployment.id} className="inline-flex items-center gap-1.5" data-png-legend="" data-series-legend={index} data-series-color={styles[index]!.color} data-series-dash={styles[index]!.dash ?? "solid"}>
+            <svg width="14" height="4" viewBox="0 0 14 4" aria-hidden="true" className="shrink-0"><line data-png-swatch="" x1="0" y1="2" x2="14" y2="2" stroke={styles[index]!.color} strokeWidth="2" strokeDasharray={styles[index]!.dash} /></svg>
             {styles[index]!.label ?? configLabel(deployment)}
           </span>
         )) : null}
@@ -289,13 +290,16 @@ export function InteractivityChart({ deployments, title, className, expanded = f
 /**
  * Token mix per load level: input and output tok/s per GPU at every measured concurrency as stacked bars (input dark,
  * output light, one hue, one y-axis), so the prefill/decode share and where throughput stops growing read at a glance.
- * The dashed vertical line marks C_max (levels to its right fail the SLO). Measured values only, no margin applied;
+ * The dashed vertical line marks C_max; levels outside the SLO are drawn outlined and faint. Measured values only, no margin applied;
  * a level without data has no bar.
  */
 export function TokenMixChart({ deployment, cmax, className, expanded = false }: { deployment: Deployment; cmax: number | null; className?: string; expanded?: boolean }) {
   const gpus = gpusOf(deployment);
   const points = [...deployment.points].sort((a, b) => a.concurrency - b.concurrency);
-  const data = points.map((point) => ({ level: String(point.concurrency), input: point.inputTps / gpus, output: point.outputTps / gpus }));
+  // Pass/fail per level under the active SLO, so a level outside it is drawn as failed (outlined, faint), not as capacity.
+  const passByLevel = new Map(capacity(deployment, appState.slo).points.map((point) => [point.concurrency, point.passes]));
+  const data = points.map((point) => ({ level: String(point.concurrency), input: point.inputTps / gpus, output: point.outputTps / gpus, pass: passByLevel.get(point.concurrency) ?? false }));
+  const failing = data.filter((row) => !row.pass).length;
   const height = expanded ? "h-[min(62vh,560px)]" : "h-[260px]";
   const y = niceDomain(0, Math.max(1, ...data.map((row) => row.input + row.output)), 5);
   return (
@@ -305,8 +309,8 @@ export function TokenMixChart({ deployment, cmax, className, expanded = false }:
         data={data}
         xKey="level"
         series={[
-          { key: "input", label: "Input tok/s/GPU", type: "bar", stackId: "mix", color: "var(--chart-1)" },
-          { key: "output", label: "Output tok/s/GPU", type: "bar", stackId: "mix", color: "color-mix(in oklab, var(--chart-1) 40%, var(--card))" },
+          { key: "input", label: "Input tok/s/GPU", type: "bar", stackId: "mix", color: "var(--chart-1)", passKey: "pass" },
+          { key: "output", label: "Output tok/s/GPU", type: "bar", stackId: "mix", color: "color-mix(in oklab, var(--chart-1) 40%, var(--card))", passKey: "pass" },
         ]}
         referenceLines={cmax !== null ? [{ x: String(cmax), label: `C_max=${num(cmax)}`, dashed: true }] : []}
         showYAxis
@@ -319,11 +323,12 @@ export function TokenMixChart({ deployment, cmax, className, expanded = false }:
         barRadius={2}
         animate={false}
         role="img"
-        aria-label={`Input and output tok/s per GPU by concurrency for ${configLabel(deployment)}: ${data.map((row) => `${row.level}: ${num(row.input)} in, ${num(row.output)} out`).join("; ")}.${cmax !== null ? ` C_max ${num(cmax)}.` : ""}`}
+        aria-label={`Input and output tok/s per GPU by concurrency for ${configLabel(deployment)}: ${data.map((row) => `${row.level}: ${num(row.input)} in, ${num(row.output)} out${row.pass ? "" : " (outside the SLO)"}`).join("; ")}.${cmax !== null ? ` C_max ${num(cmax)}.` : ""}`}
       />
       <figcaption className="text-ink-2 mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs">
-        <span className="inline-flex items-center gap-1.5"><span className="size-2.5 rounded-[2px]" style={{ backgroundColor: "var(--chart-1)" }} aria-hidden="true" />Input</span>
-        <span className="inline-flex items-center gap-1.5"><span className="size-2.5 rounded-[2px]" style={{ backgroundColor: "color-mix(in oklab, var(--chart-1) 40%, var(--card))" }} aria-hidden="true" />Output</span>
+        <span className="inline-flex items-center gap-1.5" data-png-legend=""><span className="size-2.5 rounded-[2px]" style={{ backgroundColor: "var(--chart-1)" }} aria-hidden="true" data-png-swatch="" />Input</span>
+        <span className="inline-flex items-center gap-1.5" data-png-legend=""><span className="size-2.5 rounded-[2px]" style={{ backgroundColor: "color-mix(in oklab, var(--chart-1) 40%, var(--card))" }} aria-hidden="true" data-png-swatch="" />Output</span>
+        {failing ? <span className="inline-flex items-center gap-1.5" data-png-legend="" data-testid="token-mix-failing"><span className="size-2.5 rounded-[2px] border border-dashed" style={{ borderColor: "var(--chart-1)" }} aria-hidden="true" data-png-swatch="" />Outside the SLO ({failing} level{failing === 1 ? "" : "s"})</span> : null}
         <span className="text-muted-foreground sm:ml-auto">Observed, before the {num(appState.slo.margin, 2)} margin</span>
       </figcaption>
     </figure>

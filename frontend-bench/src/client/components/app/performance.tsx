@@ -198,7 +198,7 @@ const lines = (...items: React.ReactNode[]) => (
 
 /**
  * SLO strip. Header: SLO preset chip, workload profile, token budget, TTFT and ITL ceilings, or "Not measured"
- * (incomplete / errored request badges sit once on the identity line above); on the right the SLO expectancy switch and the threshold chips. Four cells: C_max, sustainable
+ * (incomplete / errored request badges sit once on the identity line above); on the right the SLO preset switch (the TTFT and ITL ceilings are stated once in the header text). Four cells: C_max, sustainable
  * tok/min/GPU (hero), per-user speed, deployment-wide tok/min. A missing value is a lone neutral "—": no unit and no
  * inline label next to it; the caption names what the cell holds. Rates are the report's per-level values at C_max.
  */

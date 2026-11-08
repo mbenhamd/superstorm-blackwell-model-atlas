@@ -3,6 +3,8 @@ import { Check, Copy } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { toast } from "../../lib/toast.js";
+import { recordedOverrides } from "../../../domain/run-config.js";
+import type { Deployment } from "../../../domain/types.js";
 
 /**
  * A copyable shell command: one flag per line with `\` continuations, flags and values in distinct tones.
@@ -46,5 +48,30 @@ export function CommandBlock({ command, title, caption, className, testId = "com
         })}
       </code></pre>
     </section>
+  );
+}
+
+/**
+ * Under a configured (catalog) command: the runtime controls the measured run recorded with values that differ from
+ * the command, so a copied command is never taken for a reproduction of the measured numbers. Renders nothing when
+ * the run recorded no differing control. Shared by the TL;DR sheet, Throughput and the evidence sheet.
+ */
+export function RecordedOverridesNote({ deployment, testId, action }: { deployment: Deployment; testId: string; action?: React.ReactNode }) {
+  const overrides = recordedOverrides(deployment);
+  if (!overrides.length) return null;
+  return (
+    <p className="border-warning/40 bg-warning-soft text-ink-2 flex flex-wrap items-center gap-x-2 gap-y-1 rounded-md border px-3 py-2 text-xs text-pretty" data-testid={testId}>
+      <span>
+        The measured run recorded different values:{" "}
+        {overrides.map(({ recorded, configured }, index) => (
+          <React.Fragment key={recorded.key}>
+            {index ? ", " : null}
+            <span className="text-foreground font-mono" title={`Configured ${configured.field} ${configured.raw}`} data-override={recorded.field ?? recorded.key}>{recorded.field} {recorded.raw}</span>
+          </React.Fragment>
+        ))}
+        . The configured command is not a full record of the run: controls it leaves unset fall back to engine defaults.
+      </span>
+      {action}
+    </p>
   );
 }

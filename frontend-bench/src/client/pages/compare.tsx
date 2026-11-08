@@ -216,8 +216,8 @@ export function ComparePage() {
     : <Badge variant="good">Measured · {state.workload}</Badge>;
   // Charts use fixed colours per selected configuration, so unmeasured ones keep their slot (no series drawn).
   const charts: { title: string; node: (expanded: boolean) => React.ReactNode; description?: React.ReactNode }[] = [
-    { title: "Total throughput per GPU", description: <Term name="SLO capacity">observed tok/min/GPU per level · ring: C_max</Term>,
-      node: (expanded) => <SweepChart expanded={expanded} legend={false} title="Total throughput per GPU" deployments={deployments} metric="totalTpsPerGpu" perMinute markCapacity yAxisTitle="Total tok/min per GPU" unit="tok/min/GPU" /> },
+    { title: "Total throughput per GPU", description: <Term name="SLO capacity">observed tok/s/GPU per level · ring: C_max</Term>,
+      node: (expanded) => <SweepChart expanded={expanded} legend={false} title="Total throughput per GPU" deployments={deployments} metric="totalTpsPerGpu" markCapacity yAxisTitle="Total tok/s per GPU" unit="tok/s/GPU" /> },
     { title: "ITL", description: `p95 solid · p50 dashed · ceiling ${num(state.slo.itlP95Ms)} ms`,
       node: (expanded) => <SweepChart expanded={expanded} legend={false} title="ITL" deployments={deployments} metric="itlP95Ms" secondary={{ metric: "itlP50Ms", label: "ITL p50" }} yAxisTitle="ITL, ms" unit="ms" threshold={state.slo.itlP95Ms} thresholdLabel={`ITL p95 ≤ ${num(state.slo.itlP95Ms)} ms`} digits={0} /> },
     { title: "TTFT p95", description: measured.length ? "Dashed: ceiling per level (measured prompt ÷ prefill)" : nominal !== null ? "Ceiling nominal (budget ÷ prefill)" : "Ceiling set per level from measured prompts",

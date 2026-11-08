@@ -92,7 +92,7 @@ function MatchupCard({ engine, index, deployment: d, capacity: c, measured, max,
         <div className="flex flex-wrap items-baseline gap-x-1.5 gap-y-1">
           <span className="text-[22px] leading-7 font-semibold tracking-[-0.5px] tabular-nums" data-testid="matchup-value" data-missing={value === null || undefined}>{num(value)}</span>
           <span className="text-muted-foreground text-xs">sustainable tok/min/GPU</span>
-          {tied ? <Badge variant="neutral" data-matchup-delta="tie">tied</Badge> : delta !== null ? <DeltaBadge delta={delta} variant="soft" data-matchup-delta={signedFraction(delta)} /> : null}
+          {tied ? <Badge variant="neutral" data-matchup-delta="tie">tied</Badge> : delta !== null ? <DeltaBadge delta={delta} variant="text" showIcon={false} className="text-ink-2 font-medium" data-matchup-delta={signedFraction(delta)} /> : null}
         </div>
         {measured ? (
           <div className="bg-muted h-1.5 overflow-hidden rounded-full" aria-hidden="true">
@@ -131,7 +131,7 @@ export function EngineMatchup({ scope, fallback, shapeKey, modelName, details }:
     <Panel
       id="engine-matchup"
       title="Engine matchup"
-      description={<span data-testid="matchup-scope">{modelName} · {shapeKey.replace(/^(\d+)x/, "$1× ")} · {state.workload} · best measured configuration per engine</span>}
+      description={<span data-testid="matchup-scope">{modelName} · {shapeKey.replace(/^(\d+)x/, "$1× ")} · {state.workload} · best measured configuration per engine, from its newest run</span>}
       actions={<>
         {badge}
         <InfoTip label="How the matchup is read" testId="matchup-info">

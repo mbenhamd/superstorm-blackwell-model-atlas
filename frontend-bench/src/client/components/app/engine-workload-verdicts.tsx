@@ -90,7 +90,7 @@ function EngineCell({ engine, index, entry, other, verdict }: { engine: Engine; 
             {engine} · {d.exportLabel} · {d.knob ?? "Baseline"}
           </button>
         </span>
-        {verdict.kind === "tie" ? <Badge variant="neutral" data-cell-delta="tie">tied</Badge> : delta !== null ? <DeltaBadge delta={delta} variant="soft" data-cell-delta={signedFraction(delta)} /> : null}
+        {verdict.kind === "tie" ? <Badge variant="neutral" data-cell-delta="tie">tied</Badge> : delta !== null ? <DeltaBadge delta={delta} variant="text" showIcon={false} className="text-ink-2 font-medium" data-cell-delta={signedFraction(delta)} /> : null}
       </div>
       {d.runtimeTag ? <span className="text-muted-foreground truncate font-mono text-[11px]">{d.runtimeTag}</span> : null}
       <div className="flex flex-wrap items-baseline gap-x-1.5">
@@ -109,13 +109,14 @@ function EngineCell({ engine, index, entry, other, verdict }: { engine: Engine; 
 }
 
 /**
- * Grouped bars, one group per dataset with a measured engine: each engine's best sustainable tok/min/GPU there (engine
- * hue fixed). One y-axis, one unit. Bars compare the two engines inside a dataset only; datasets carry different token
- * budgets, so the height across groups is not a ranking of datasets. A missing bar is "not measured" ("—" in the
- * tooltip), never zero. Rendered when at least two datasets have a run, so the chart adds what the rows cannot show.
+ * Grouped bars, one group per dataset where the two engines form a matched pair with a verdict (lead or tie): each
+ * engine's best sustainable tok/min/GPU there (engine hue fixed). One y-axis, one unit. "Different configs" and
+ * one-sided datasets are left out, so a bar pair is never read as a verdict the rows withhold; datasets carry
+ * different token budgets, so the height across groups is not a ranking of datasets. Rendered when at least two
+ * datasets have a matched pair, so the chart adds what the rows cannot show.
  */
 function VerdictBars({ rows }: { rows: { workload: Workload; best: Record<Engine, EngineBest>; verdict: EngineVerdict }[] }) {
-  const measured = rows.filter((row) => row.verdict.kind !== "none");
+  const measured = rows.filter((row) => row.verdict.kind === "lead" || row.verdict.kind === "tie");
   if (measured.length < 2) return null;
   const data = measured.map(({ workload, best }) => ({ workload: workload.name, ...Object.fromEntries(ENGINES.map((engine) => [engine, best[engine].capacity?.sustainableTpmPerGpu ?? null])) }));
   const y = niceDomain(0, Math.max(1, ...measured.flatMap(({ best }) => ENGINES.map((engine) => best[engine].capacity?.sustainableTpmPerGpu ?? 0))), 4);
@@ -135,11 +136,11 @@ function VerdictBars({ rows }: { rows: { workload: Workload; best: Record<Engine
         barRadius={3}
         animate={false}
         role="img"
-        aria-label={`Best sustainable tok/min/GPU per engine on each dataset: ${measured.map(({ workload, best }) => `${workload.name}: ${ENGINES.map((engine) => `${engine} ${num(best[engine].capacity?.sustainableTpmPerGpu ?? null)}`).join(", ")}`).join("; ")}.`}
+        aria-label={`Best sustainable tok/min/GPU per engine on each dataset with a matched pair: ${measured.map(({ workload, best }) => `${workload.name}: ${ENGINES.map((engine) => `${engine} ${num(best[engine].capacity?.sustainableTpmPerGpu ?? null)}`).join(", ")}`).join("; ")}.`}
       />
       <figcaption className="text-ink-2 mt-1 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs">
         {ENGINES.map((engine, index) => <span key={engine} className="inline-flex items-center gap-1.5"><SeriesSwatch index={index} />{engine}</span>)}
-        <span className="text-muted-foreground sm:ml-auto">Compare bars within a dataset; budgets differ between datasets.</span>
+        <span className="text-muted-foreground sm:ml-auto">Matched pairs only; compare bars within a dataset, budgets differ between datasets.</span>
       </figcaption>
     </figure>
   );

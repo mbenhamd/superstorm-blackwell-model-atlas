@@ -708,8 +708,9 @@ describe("offline console (atlas, Hugging Face and Artificial Analysis data)", (
     expect(await strip.locator('[data-profile="Balanced"]').count()).toBe(1);
     expect(await strip.getByTestId("strip-budget").innerText()).toContain("8,000 in / 500 out");
     expect(await strip.getByTestId("strip-budget").innerText()).toContain("ITL p95 ≤ 26 ms");
-    // The thresholds are stated once, in the strip header (the top bar owns the full SLO popover).
-    expect(await strip.getByTestId("strip-budget").innerText()).toContain("ITL p95 ≤ 26 ms");
+    // The thresholds are stated once, in the strip header (the top bar owns the full SLO popover); the preset badge
+    // carries the prefill threshold in its title.
+    expect(await strip.getByTestId("strip-slo").getAttribute("title")).toMatch(/^Prefill ≥ [\d,]+ tok\/s · ITL p95 ≤ 26 ms/);
     expect(await strip.locator('[data-strip-preset="classic"]').getAttribute("data-state")).toBe("on");
     await strip.locator('[data-strip-preset="low-latency"]').click();
     expect(await page.getByTestId("strip-ttft-ceiling").innerText()).toContain("3,077 ms");
@@ -1183,8 +1184,14 @@ describe("measured-data views (TEST fixture runs via RUNS_FILE)", () => {
     expect(await across.locator('[data-across-workload="single-turn-8k"]').getAttribute("data-standing")).toBe("best");
     expect(await across.locator("[data-across-workload]").count()).toBe(6);
     for (const text of await across.locator('[data-standing="none"]').allInnerTexts()) expect(text).toContain("not run");
+    // chat-8-turn ran only with another runtime config (prefix cache on): no rank, value or standing is attributed to
+    // this setup there; the row links to the variant that ran.
+    expect(await across.locator('[data-across-workload="chat-8-turn"]').getAttribute("data-standing")).toBe("sibling");
     const chat = across.locator('[data-across-workload="chat-8-turn"] button');
-    expect(await chat.innerText()).toMatch(/#\d+ of \d+/);
+    expect(await chat.innerText()).toContain("not run with this runtime config");
+    expect(await chat.innerText()).not.toMatch(/#\d+ of \d+/);
+    expect(await chat.locator("[data-missing]").count()).toBe(1);
+    expect(await across.innerText()).toContain("all GPU shapes");
     await chat.click();
     await page.waitForFunction(() => location.hash.includes("workload=chat-8-turn"));
     await sheet.getByTestId("setup-across").locator('[data-across-workload="chat-8-turn"][data-active="true"]').waitFor();
@@ -1533,7 +1540,7 @@ describe("measured-data views (TEST fixture runs via RUNS_FILE)", () => {
     expect(await serve.innerText()).toContain("Configured command (catalog)");
     expect(await serve.locator("code").innerText()).toContain("--max-num-seqs 32");
     const overrides = page.getByTestId("serve-run-overrides");
-    expect(await overrides.innerText()).toContain("Run recorded different values: kv_cache_dtype fp8, max_num_seqs 256");
+    expect(await overrides.innerText()).toContain("The measured run recorded different values: kv_cache_dtype fp8, max_num_seqs 256");
     await page.getByTestId("serve-open-configuration").click();
     await page.waitForFunction(() => location.hash.includes("tab=configuration"));
     expect(await page.getByTestId("recorded-runtime-config").innerText()).toContain("max_num_seqs");
@@ -1681,10 +1688,9 @@ describe("measured-data views (TEST fixture runs via RUNS_FILE)", () => {
     expect(await row("chat-8-turn").locator('[data-workload-engine="SGLang"]').getAttribute("data-measured")).toBe("true");
     expect(await row("chat-8-turn").locator("[data-cell-delta]").count()).toBe(0);
     expect(await row("chat-8-turn").locator("[data-profile]").innerText()).toBe("Decode-intensive");
-    // Grouped bars: one group per dataset with a run (single-turn-8k, chat-8-turn), one bar per engine, one y-axis.
-    const bars = page.getByTestId("verdict-bars");
-    expect(await bars.getAttribute("data-groups")).toBe("2");
-    expect(await bars.locator("[role=img]").first().getAttribute("aria-label")).toContain("single-turn-8k: vLLM 2,882,918, SGLang 2,771,947");
+    // Grouped bars only for datasets with a matched pair (lead or tie); chat-8-turn is "different configs", so the
+    // fixture has one matched dataset and no chart (a bar pair must never read as a verdict the rows withhold).
+    expect(await page.getByTestId("verdict-bars").count()).toBe(0);
     expect(await row("coding-agent-48-turn").getAttribute("data-verdict-kind")).toBe("none");
     // Datasets neither engine ran collapse into one chip row instead of full empty rows.
     expect(await row("coding-agent-48-turn").locator("xpath=ancestor::*[@data-testid='verdicts-unmeasured']").innerText()).toContain("No engine pair on these 4 workloads");
@@ -1989,6 +1995,36 @@ describe("measured-data views (TEST fixture runs via RUNS_FILE)", () => {
     const interactivity = page.locator('[data-chart-panel="throughput-vs-interactivity"] [role="img"]');
     expect(await interactivity.getAttribute("aria-label")).toContain("ring marks C_max");
     expect(await page.locator('[data-chart-panel="throughput-vs-interactivity"] .recharts-scatter-line').count()).toBeGreaterThan(0);
+    expect(pageErrors).toEqual([]);
+  });
+  test("layout regressions: TL;DR setup column at 390 px, full rings at 100 %, failing levels in In / out, Deployments fits at 1440", async () => {
+    // TL;DR at 390: the unmeasured toggle sits outside the table, so no phantom columns squeeze the setup column.
+    await page.setViewportSize({ width: 390, height: 844 });
+    await go("tldr");
+    const table = page.getByTestId("setups-table").locator("table");
+    const setupHeader = table.locator("thead th").nth(1);
+    expect((await setupHeader.boundingBox())!.width).toBeGreaterThanOrEqual(150);
+    expect(await table.locator("tbody [data-testid=setups-unmeasured-toggle]").count()).toBe(0);
+    // Below lg the load-curve cell is hidden and its chart is not mounted.
+    expect(await table.locator("[data-load-curve]").count()).toBe(0);
+    await page.setViewportSize({ width: 1440, height: 900 });
+    // The best setup's sustainable ring is 100 % of the best: a drawn arc, not a zero-length path.
+    await page.locator('[data-setup-row][data-standing="best"]').first().click();
+    const ring = page.getByTestId("setup-sheet").getByTestId("setup-sustainable").locator("svg path");
+    const lengths = await ring.evaluateAll((paths) => paths.map((path) => (path as SVGPathElement).getTotalLength()));
+    expect(Math.min(...lengths)).toBeGreaterThan(50);
+    await page.keyboard.press("Escape");
+    // In / out: the level outside the SLO (128) is listed as such and drawn outlined.
+    await go("throughput?run=qwen3.8-27b.fp8.vllm.baseline");
+    await page.getByTestId("throughput-view-mix").click();
+    expect(await page.getByTestId("token-mix-failing").innerText()).toBe("Outside the SLO (1 level)");
+    expect(await page.getByTestId("token-mix-chart").locator("[role=img]").first().getAttribute("aria-label")).toContain("128: ");
+    expect(await page.getByTestId("token-mix-chart").locator("[role=img]").first().getAttribute("aria-label")).toContain("(outside the SLO)");
+    // Deployments: the default measured column set fits the card at 1440 (no hidden SLO column off to the right).
+    await go("deployments");
+    const fits = await page.locator("table").first().evaluate((table) => table.parentElement!.scrollWidth <= table.parentElement!.clientWidth + 1);
+    expect(fits).toBe(true);
+    expect(await page.locator('[data-row-id] [data-verdict]').count()).toBeGreaterThan(0);
     expect(pageErrors).toEqual([]);
   });
 });

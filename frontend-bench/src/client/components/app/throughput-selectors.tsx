@@ -4,7 +4,6 @@ import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { configChips } from "../../../domain/config-chips.js";
-import { recordedOverrides } from "../../../domain/run-config.js";
 import { groupVariants, variantKey, variantsOfConfiguration, type Variant } from "../../../domain/variants.js";
 import type { BenchmarkRun, Deployment, RankedDeployment } from "../../../domain/types.js";
 import { appState, routeUrl, updateView, useAppState } from "../../state.js";
@@ -12,7 +11,7 @@ import {
   engineBuildDetail, engineVersion, gpuDivisorUnconfirmed, gpuTotals, gpusOf, hardwareShape, isMeasured, modelOf, num, precisionIndex, shape, topology, workloadOf,
 } from "../../lib/display.js";
 import { shortSha } from "../../lib/atlas.js";
-import { CommandBlock } from "./command-block.js";
+import { CommandBlock, RecordedOverridesNote } from "./command-block.js";
 import { addToCompare } from "./overlays.js";
 import { Combobox, type ComboOption } from "./pickers.js";
 import { ErroredBadge, IncompleteBadge } from "./performance.js";
@@ -204,7 +203,6 @@ export function IdentityLine({ row, latestRunDate }: { row: RankedDeployment; la
   const [open, setOpen] = React.useState(false);
   const legacy = workloadOf(d.workloadId)?.tags.includes("legacy") ?? false;
   const latest = latestRunDate?.slice(0, 10) ?? null;
-  const overrides = measured ? recordedOverrides(d) : [];
   return (
     <section className="space-y-2" aria-label="Configuration identity">
       <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5 text-xs" data-testid="throughput-identity">
@@ -236,22 +234,12 @@ export function IdentityLine({ row, latestRunDate }: { row: RankedDeployment; la
       {open ? (
         <div id="throughput-serve" className="space-y-2">
           <CommandBlock className="shadow-panel" testId="throughput-serve-command" title={`Configured command (catalog) · ${engineBuildDetail(d)}`} caption={<><span className="font-mono">{d.exportHfId}@{shortSha(d.artifactRevision)}</span> · KServe container command · what the catalog configures, not a record of the run</>} command={d.command} />
-          {measured && overrides.length ? (
-            <p className="border-warning/40 bg-warning-soft text-ink-2 flex flex-wrap items-center gap-x-2 gap-y-1 rounded-md border px-3 py-2 text-xs" data-testid="serve-run-overrides">
-              <span>
-                Run recorded different values:{" "}
-                {overrides.map(({ recorded, configured }, index) => (
-                  <React.Fragment key={recorded.key}>
-                    {index ? ", " : null}
-                    <span className="text-foreground font-mono" title={`Configured ${configured.field} ${configured.raw}`} data-override={recorded.field ?? recorded.key}>{recorded.field} {recorded.raw}</span>
-                  </React.Fragment>
-                ))}
-                {" "}(the measured numbers come from these).
-              </span>
+          {measured ? (
+            <RecordedOverridesNote deployment={d} testId="serve-run-overrides" action={
               <button type="button" className="text-link inline-flex items-center gap-0.5 font-medium hover:underline" onClick={() => updateView((s) => { s.runTab = "configuration"; })} data-testid="serve-open-configuration">
                 Recorded runtime_config<ArrowUpRight className="size-3" aria-hidden="true" />
               </button>
-            </p>
+            } />
           ) : null}
         </div>
       ) : null}

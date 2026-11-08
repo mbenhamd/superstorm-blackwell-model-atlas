@@ -154,7 +154,8 @@ function RadialGauge({
             />
             {fraction > 0 ? (
               <path
-                d={arcPath(cx, cy, r, start, start + sweep * fraction)}
+                // A full 360° arc has coincident end points, which SVG drops; stop just short like the track does.
+                d={arcPath(cx, cy, r, start, start + Math.min(sweep * fraction, sweep >= 360 ? 359.99 : sweep))}
                 fill="none"
                 stroke={color}
                 strokeWidth={thickness}

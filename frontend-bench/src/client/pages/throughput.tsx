@@ -16,7 +16,7 @@ import { EmptyState, LevelsBadge, PageHeader, Panel, Term } from "../components/
 import { NotMeasuredBlock } from "../components/app/not-measured-block.js";
 import { ConfigChips, PerformanceStrip } from "../components/app/performance.js";
 import { RecheckDetails } from "../components/app/engine-build.js";
-import { CommandBlock } from "../components/app/command-block.js";
+import { CommandBlock, RecordedOverridesNote } from "../components/app/command-block.js";
 import { ThroughputConcurrencyChart } from "../components/app/throughput-chart.js";
 import { MeasuredResultsTable, SloEvaluationTable } from "../components/app/throughput-tables.js";
 import { SloBudgetCard } from "../components/app/glance.js";
@@ -270,10 +270,11 @@ function RunConfiguration({ deployment: d, dataset }: { deployment: Deployment; 
         <div className="min-w-0 space-y-4">
           <CommandBlock
             className="shadow-panel"
-            title={`Serve command · ${engineBuildDetail(d)}`}
-            caption={<><span className="font-mono">{d.exportHfId}@{shortSha(d.artifactRevision)}</span> · KServe container command<RunIdentityCaption deployment={d} dataset={dataset} measured={measured} /></>}
+            title={`Configured command (catalog) · ${engineBuildDetail(d)}`}
+            caption={<><span className="font-mono">{d.exportHfId}@{shortSha(d.artifactRevision)}</span> · KServe container command · what the catalog configures, not a record of the run<RunIdentityCaption deployment={d} dataset={dataset} measured={measured} /></>}
             command={d.command}
           />
+          {measured ? <RecordedOverridesNote deployment={d} testId="config-run-overrides" /> : null}
           {d.runConfig ? (
             <Panel title="Recorded runtime_config" actions={<Badge variant="good">From run {d.measuredAt?.slice(0, 10)}</Badge>} bodyClassName="p-0">
               <dl className="grid gap-px bg-border sm:grid-cols-2" data-testid="recorded-runtime-config">

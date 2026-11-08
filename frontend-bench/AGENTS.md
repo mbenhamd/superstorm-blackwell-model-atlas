@@ -22,10 +22,10 @@ bun run build          # public/ + preview.html
 bun run browser:install  # Playwright Chromium, once per machine
 bun run test:browser   # after a fresh build
 bun run design:lint
-bun run quality        # typecheck + all ten unit files + build (what CI runs)
+bun run quality        # typecheck + all ten unit files + build (the workflow's first step)
 ```
 
-Add shadcn or dashboardcn components with `bunx shadcn@latest add <name>` / `@dashboardcn/<name>` and edit the installed files rather than wrapping them. `bun.lock` is committed; install with `bun install --frozen-lockfile` (the workflow does).
+Before building or reworking a card, chart, KPI row, gauge or table, follow `.agents/skills/dashboardcn-bench/SKILL.md`. Check the live catalog (https://dashboardcn.com/explore, https://dashboardcn.com/llms.txt, https://github.com/NoahGdev/dashboardcn), prefer a block, then a primitive, then custom code, and install with `bun scripts/dashboardcn-add.ts <name...>`. The script writes only new files and never overwrites the locally edited primitives that a plain `bunx shadcn@latest add @dashboardcn/<name>` would clobber. Use `bunx shadcn@latest add <name>` only for shadcn primitives that do not exist yet. Edit installed files rather than wrapping them. `bun.lock` is committed; install with `bun install --frozen-lockfile` (the workflow does).
 
 ## Data flow
 

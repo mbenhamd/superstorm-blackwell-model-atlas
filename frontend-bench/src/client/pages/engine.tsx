@@ -22,6 +22,7 @@ import { StatusBadge } from "../components/app/status-badge.js";
 import { EngineBuild } from "../components/app/engine-build.js";
 import { EngineIntelDisclosure } from "../components/app/engine-intel-disclosure.js";
 import { EngineMatchup } from "../components/app/engine-matchup.js";
+import { bestPerEngine } from "../components/app/engine-data.js";
 import { EngineVersions } from "../components/app/engine-versions.js";
 import { EngineWorkloadVerdicts } from "../components/app/engine-workload-verdicts.js";
 import { openRun } from "../components/app/overlays.js";
@@ -440,9 +441,21 @@ export function EnginePage() {
   const state = useAppState();
   const pick = useMeasured();
   const pairs = enginePairs(state.snapshot.deployments);
-  // No pair or model in the URL: open on the first pair with a run on the active dataset, else the first pair.
-  const pair = pairs.find((item) => item.key === state.pair) ?? pairs.find((item) => item.vllm.modelId === state.model)
-    ?? pairs.find((item) => isMeasured(pick(item.vllm)) || isMeasured(pick(item.sglang))) ?? pairs[0];
+  // No pair in the URL: among the model's pairs (the URL model, else the first model with a run on the active dataset),
+  // open on the pair the matchup above describes, i.e. the configurations that are each engine's best there, so the
+  // pair charts and the headline tell one story; else the first measured pair, else the first pair.
+  const pair = pairs.find((item) => item.key === state.pair) ?? defaultPair();
+  function defaultPair() {
+    const anchor = pairs.find((item) => item.vllm.modelId === state.model)
+      ?? pairs.find((item) => isMeasured(pick(item.vllm)) || isMeasured(pick(item.sglang))) ?? pairs[0];
+    if (!anchor) return undefined;
+    const best = bestPerEngine(state.snapshot.deployments, { modelId: anchor.vllm.modelId, gpus: anchor.vllm.gpus, hardwareId: anchor.vllm.hardwareId }, state.workload, state.slo);
+    const v = best.vLLM.deployment?.configurationId, g = best.SGLang.deployment?.configurationId;
+    const same = pairs.filter((item) => item.vllm.modelId === anchor.vllm.modelId && item.vllm.gpus === anchor.vllm.gpus);
+    return same.find((item) => item.vllm.configurationId === v && item.sglang.configurationId === g)
+      ?? same.find((item) => item.vllm.configurationId === v || item.sglang.configurationId === g)
+      ?? anchor;
+  }
   if (!pair) return <EmptyState icon={Server} title="No matched engine pair" description="No export has both a vLLM and an SGLang baseline at the same shape." />;
   const a = pick(pair.vllm), b = pick(pair.sglang);
   const ca = capacity(a, state.slo), cb = capacity(b, state.slo);
@@ -465,6 +478,7 @@ export function EnginePage() {
   const scope = { modelId: pair.vllm.modelId, gpus: pair.vllm.gpus, hardwareId: pair.vllm.hardwareId };
   const shapeKey = `${pair.vllm.gpus}x${pair.vllm.gpuType}`, shapeLabel = `${pair.vllm.gpus}× ${pair.vllm.gpuType}`;
   const modelName = model?.name ?? pair.vllm.modelId;
+  const pairDetail = `${pair.vllm.exportLabel} · ${shape(pair.vllm)}`;
   return (
     <div className="space-y-4">
       <PageHeader
@@ -509,8 +523,8 @@ export function EnginePage() {
       <VersionChart pair={pair} />
       {isMeasured(a) || isMeasured(b) ? (
       <div className="grid gap-4 xl:grid-cols-2">
-        <ChartPanel title="Total throughput vs concurrency" description={`Baseline pair · total (input + output) tok/s per GPU at each measured level`} chart={(expanded) => <SweepChart expanded={expanded} title="Engine throughput" deployments={[a, b]} metric="totalTpsPerGpu" markCapacity yAxisTitle="Total tok/s per GPU" unit="tok/s/GPU" />} />
-        <ChartPanel title="ITL p95 vs concurrency" description="Baseline pair" chart={(expanded) => <SweepChart expanded={expanded} title="Engine ITL p95" deployments={[a, b]} metric="itlP95Ms" digits={1} threshold={state.slo.itlP95Ms} thresholdLabel={`ITL p95 ≤ ${num(state.slo.itlP95Ms)} ms`} yAxisTitle="ITL p95 (ms)" unit="ms" />} />
+        <ChartPanel title="Total throughput vs concurrency" description={`Baseline pair · ${pairDetail} · total (input + output) tok/s per GPU at each measured level`} chart={(expanded) => <SweepChart expanded={expanded} title="Engine throughput" deployments={[a, b]} metric="totalTpsPerGpu" markCapacity yAxisTitle="Total tok/s per GPU" unit="tok/s/GPU" />} />
+        <ChartPanel title="ITL p95 vs concurrency" description={`Baseline pair · ${pairDetail}`} chart={(expanded) => <SweepChart expanded={expanded} title="Engine ITL p95" deployments={[a, b]} metric="itlP95Ms" digits={1} threshold={state.slo.itlP95Ms} thresholdLabel={`ITL p95 ≤ ${num(state.slo.itlP95Ms)} ms`} yAxisTitle="ITL p95 (ms)" unit="ms" />} />
       </div>
       ) : null}
       <EnginePublished modelId={pair.vllm.modelId} modelName={modelName} />

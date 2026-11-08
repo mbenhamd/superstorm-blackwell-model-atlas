@@ -30,7 +30,19 @@ export async function chartToPng(container: HTMLElement, title: string, scale = 
     const image = new Image();
     image.decoding = "async";
     await new Promise<void>((resolve, reject) => { image.onload = () => resolve(); image.onerror = () => reject(new Error("Chart image failed to render")); image.src = url; });
-    const pad = 24, header = 40, footer = 28;
+    // Legend items marked in the HTML figcaption ([data-png-legend] with a [data-png-swatch] child) are redrawn in
+    // the image, so an exported chart keeps its key; the swatch colour is read from its computed style.
+    const legend = [...container.querySelectorAll<HTMLElement>("[data-png-legend]")].map((item) => {
+      const swatch = item.querySelector<Element>("[data-png-swatch]");
+      const computed = swatch ? getComputedStyle(swatch) : null;
+      const visible = (value: string | undefined) => value && value !== "none" && value !== "rgba(0, 0, 0, 0)" && value !== "transparent" ? value : null;
+      const color = visible(computed?.backgroundColor) ?? visible(computed?.stroke) ?? visible(computed?.borderTopColor) ?? "#62666d";
+      return { label: item.textContent?.trim() ?? "", color };
+    }).filter((item) => item.label);
+    const testData = Boolean(appState.snapshot.testData);
+    const line = 16;
+    const pad = 24, header = 40;
+    const footer = 12 + (legend.length ? line : 0) + line + (testData ? line : 0);
     const canvas = document.createElement("canvas");
     canvas.width = Math.ceil((width + pad * 2) * scale);
     canvas.height = Math.ceil((height + pad * 2 + header + footer) * scale);
@@ -45,15 +57,29 @@ export async function chartToPng(container: HTMLElement, title: string, scale = 
     context.font = `600 15px ${body.fontFamily}`;
     context.fillText(title, pad, pad + 16);
     context.drawImage(image, pad, pad + header, width, height);
-    context.fillStyle = root.getPropertyValue("--muted-foreground").trim() || "#62666d";
+    const muted = root.getPropertyValue("--muted-foreground").trim() || "#62666d";
     context.font = `400 11px ${body.fontFamily}`;
-    context.textAlign = "right";
-    // Provenance: capture date and catalog date; fixture runs are labelled TEST DATA on the left.
-    context.fillText(`Bench Console · captured ${new Date().toISOString().slice(0, 10)} · catalog ${atlasMeta.asOf}`, width + pad, height + pad + header + footer);
-    if (appState.snapshot.testData) {
-      context.textAlign = "left";
+    let y = pad + header + height + 12;
+    if (legend.length) {
+      y += line - 4;
+      let x = pad;
+      for (const item of legend) {
+        context.fillStyle = item.color;
+        context.fillRect(x, y - 8, 10, 8);
+        context.fillStyle = muted;
+        context.fillText(item.label, x + 14, y);
+        x += 14 + context.measureText(item.label).width + 16;
+      }
+      y += 4;
+    }
+    // Provenance on its own line (capture date, catalog date, dataset); fixture runs add a TEST DATA line below it.
+    y += line;
+    context.fillStyle = muted;
+    context.fillText(`Bench Console · captured ${new Date().toISOString().slice(0, 10)} · catalog ${atlasMeta.asOf} · dataset ${appState.workload}`, pad, y);
+    if (testData) {
+      y += line;
       context.fillStyle = root.getPropertyValue("--warning-text").trim() || "#8a5a00";
-      context.fillText("TEST DATA: invented fixture values, not a measurement", pad, height + pad + header + footer);
+      context.fillText("TEST DATA: invented fixture values, not a measurement", pad, y);
     }
     return await new Promise<Blob>((resolve, reject) => canvas.toBlob((blob) => (blob ? resolve(blob) : reject(new Error("PNG encoding failed"))), "image/png"));
   }

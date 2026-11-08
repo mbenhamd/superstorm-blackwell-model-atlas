@@ -33,12 +33,17 @@ export const setupTitle = (row: VariantRow, rows: readonly VariantRow[]): string
 export const versionOf = (row: VariantRow): string => (row.variant && row.deployment.runtimeTag ? row.deployment.runtimeTag : engineVersion(row.deployment));
 /**
  * Short version for the table: the release that ran ("v0.33.0" from the run tag "vllm-v0.33.0"; the engine name sits
- * beside it), else the configured build marked as configured.
+ * beside it; kept whole when the tag names another engine), else the configured build marked as configured.
  */
 export function shortVersionOf(row: VariantRow): { text: string; ran: boolean } {
   if (row.variant && row.deployment.runtimeTag) {
-    const match = /v\d[\w.]*(?:-[\w.]+)?$/.exec(row.deployment.runtimeTag);
-    return { text: match ? match[0] : row.deployment.runtimeTag, ran: true };
+    const tag = row.deployment.runtimeTag;
+    // Strip the engine prefix only when it names this row's engine; a tag of another engine stays whole, so a run
+    // imported against the wrong configuration is visible ("vLLM sglang-v0.5.23"), not disguised.
+    const prefix = /^([a-z]+)-v\d/i.exec(tag)?.[1]?.toLowerCase();
+    const match = /v\d[\w.]*(?:-[\w.]+)?$/.exec(tag);
+    const sameEngine = prefix === undefined || prefix === row.deployment.runtime.toLowerCase();
+    return { text: match && sameEngine ? match[0] : tag, ran: true };
   }
   return { text: engineVersion(row.deployment), ran: false };
 }
@@ -65,10 +70,11 @@ export function SetupsTable({ entries, rows, modelName, modelId, scope, publishe
   // With something measured, setups never run on this dataset fold into one row (shown on demand), so the table
   // leads with what was measured. Nothing measured: every row is a planning row and all stay visible.
   const [showUnmeasured, setShowUnmeasured] = React.useState(false);
+  // The load-curve column shows from lg; below it the cell is hidden, so the chart is not mounted (no 0×0 Recharts).
+  const wide = useMediaQuery("(min-width: 1024px)");
   const unmeasured = entries.filter((entry) => entry.standing.kind === "unmeasured");
   const folded = !collapsed && unmeasured.length > 0 && !showUnmeasured;
   const visible = folded ? entries.filter((entry) => entry.standing.kind !== "unmeasured") : entries;
-  const columns = collapsed ? 5 : 8;
   // Compare holds configurations: the top three distinct configurations (two variants of one configuration count once).
   const topIds = [...new Set(ranked.map((entry) => entry.row.deployment.id))].slice(0, 3);
   const compareTop = () => {
@@ -147,7 +153,7 @@ export function SetupsTable({ entries, rows, modelName, modelId, scope, publishe
                 return (
                   <TableRow
                     key={row.key}
-                    className="cursor-pointer [&>td]:py-2"
+                    className="has-[:focus-visible]:bg-subtle cursor-pointer [&>td]:py-2"
                     onClick={open}
                     data-setup-row={d.configurationId} data-variant-key={row.key} data-standing={entry.standing.kind} data-position={entry.position ?? undefined}
                   >
@@ -156,7 +162,7 @@ export function SetupsTable({ entries, rows, modelName, modelId, scope, publishe
                       <span className="flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1">
                         <button
                           type="button"
-                          className="hover:text-link min-w-0 text-left text-[13px] leading-5 font-medium outline-none hover:underline focus-visible:underline"
+                          className="hover:text-link min-w-0 text-left text-[13px] leading-5 font-medium outline-none hover:underline rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring/70"
                           aria-haspopup="dialog"
                           aria-label={`Open setup details: ${configLabel(d)}${title !== (d.knob ?? "Baseline") ? ` (${title})` : ""}`}
                           data-action="open-setup"
@@ -181,7 +187,7 @@ export function SetupsTable({ entries, rows, modelName, modelId, scope, publishe
                       <TableCell className="align-top"><StandingCell standing={entry.standing} leader={leader} leaderName={leaderName} /></TableCell>
                     ) : (
                       <>
-                        <TableCell className="align-top max-lg:hidden">{hasMeasuredLevels(row) ? <LoadCurve points={totalPerGpuCurve(row.capacity, gpusOf(d))} unit="Total tok/s per GPU" cmax={c} highlight={entry.standing.kind === "best"} /> : <Missing />}</TableCell>
+                        <TableCell className="align-top max-lg:hidden">{!wide ? null : hasMeasuredLevels(row) ? <LoadCurve points={totalPerGpuCurve(row.capacity, gpusOf(d))} unit="Total tok/s per GPU" cmax={c} highlight={entry.standing.kind === "best"} /> : <Missing />}</TableCell>
                         <TableCell className="text-right align-top">
                           <span className="block text-[13px] leading-5 font-semibold tabular-nums">{value === null ? <Missing /> : num(value)}</span>
                           {hasMeasuredLevels(row) ? <Bar value={value} max={best} best={entry.standing.kind === "best"} className="mt-1 ml-auto w-full max-w-28" /> : null}
@@ -195,24 +201,22 @@ export function SetupsTable({ entries, rows, modelName, modelId, scope, publishe
                   </TableRow>
                 );
               })}
-              {!collapsed && unmeasured.length ? (
-                <TableRow className="hover:bg-transparent">
-                  <TableCell colSpan={columns} className="p-0">
-                    <button
-                      type="button"
-                      className="text-muted-foreground hover:text-foreground hover:bg-subtle flex w-full items-center gap-2 px-4 py-2 text-left text-xs outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                      aria-expanded={!folded}
-                      onClick={() => setShowUnmeasured((value) => !value)}
-                      data-testid="setups-unmeasured-toggle" data-count={unmeasured.length}
-                    >
-                      <ChevronDown className={cn("size-3.5 transition-transform", folded && "-rotate-90")} aria-hidden="true" />
-                      {folded ? `${unmeasured.length} setup${unmeasured.length === 1 ? "" : "s"} not measured on ${state.workload}` : `Hide ${unmeasured.length} not measured`}
-                    </button>
-                  </TableCell>
-                </TableRow>
-              ) : null}
             </TableBody>
           </table>
+          {!collapsed && unmeasured.length ? (
+            // Outside the table: a full-width colSpan row in a table-fixed layout with columns hidden below lg creates
+            // phantom auto-width columns that squeeze the Setup column on phones and tablets.
+            <button
+              type="button"
+              className="text-muted-foreground hover:text-foreground hover:bg-subtle flex w-full items-center gap-2 border-t px-4 py-2 text-left text-xs outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              aria-expanded={!folded}
+              onClick={() => setShowUnmeasured((value) => !value)}
+              data-testid="setups-unmeasured-toggle" data-count={unmeasured.length}
+            >
+              <ChevronDown className={cn("size-3.5 transition-transform", folded && "-rotate-90")} aria-hidden="true" />
+              {folded ? `${unmeasured.length} setup${unmeasured.length === 1 ? "" : "s"} not measured on ${state.workload}` : `Hide ${unmeasured.length} not measured`}
+            </button>
+          ) : null}
         </div>
       )}
       <p className={cn("text-muted-foreground border-t px-4 py-2 text-xs text-pretty")} data-testid="setups-caption" data-measured={measured}>

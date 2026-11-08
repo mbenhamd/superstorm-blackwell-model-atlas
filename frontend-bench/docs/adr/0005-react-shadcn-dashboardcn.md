@@ -22,3 +22,7 @@ Rebuild `src/client` in React 19 + TypeScript with Tailwind CSS 4.3.5, shadcn/ui
 ## Alternatives considered
 
 Keeping the vanilla client (smaller, but every interaction pattern hand-built and the requested component set unavailable); Next.js (adds a server framework and conflicts with the Bun-only toolchain and the offline preview).
+
+## Amendment (8 November 2026)
+
+Registry items are now copied with `scripts/dashboardcn-add.ts`. It fetches `https://dashboardcn.com/r/<name>.json`, remaps `@/registry/dashboardcn/*` imports and writes only files that do not exist, reporting identical and locally edited files instead of overwriting them. The selection and adaptation rules are in `.agents/skills/dashboardcn-bench/SKILL.md`; the upstream agent skill is vendored unmodified in `.agents/skills/dashboardcn/`.

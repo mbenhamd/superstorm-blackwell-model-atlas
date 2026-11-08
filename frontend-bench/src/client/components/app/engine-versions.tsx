@@ -39,7 +39,7 @@ function Delta({ row }: { row: VersionRow }) {
   }
   return (
     <span className="inline-flex items-center gap-1.5" data-delta={signedFraction(row.delta)}>
-      <DeltaBadge delta={row.delta} variant="soft" />
+      <DeltaBadge delta={row.delta} variant="text" showIcon={false} className="text-ink-2 font-medium" />
       <span className="text-muted-foreground font-mono text-[11px]">vs {row.previous?.run.identity.runtimeVersion}</span>
     </span>
   );

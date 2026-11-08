@@ -21,7 +21,7 @@ import { rememberOpener, restoreOpener } from "../../lib/focus-return.js";
 import { exportRun } from "../../lib/export.js";
 import { toast } from "../../lib/toast.js";
 import { Combobox, configOptions } from "./pickers.js";
-import { CommandBlock } from "./command-block.js";
+import { CommandBlock, RecordedOverridesNote } from "./command-block.js";
 import { RecheckDetails } from "./engine-build.js";
 import { LevelsBadge, Term } from "./primitives.js";
 import { ConfigChips, IncompleteBadge, SloVerdictBadge } from "./performance.js";
@@ -142,7 +142,8 @@ export function EvidenceSheet() {
                 {measured ? <><dt className="text-muted-foreground">Run</dt><dd className="flex flex-wrap items-center gap-1.5">{workloadLabel(deployment.workloadId)} · {deployment.measuredAt?.slice(0, 10)} <SloVerdictBadge point={c.selectedPoint} /><LevelsBadge capacity={c} /><IncompleteBadge count={c.incomplete} /></dd></> : null}
               </dl>
               <p className="text-ink-2 line-clamp-2 text-[13px] text-pretty" title={deployment.reason}>{deployment.reason}</p>
-              <CommandBlock title={`Serve command · ${engineBuildDetail(deployment)}`} command={deployment.command} />
+              <CommandBlock title={`Configured command (catalog) · ${engineBuildDetail(deployment)}`} caption="What the catalog configures, not a record of the run" command={deployment.command} />
+              {measured ? <RecordedOverridesNote deployment={deployment} testId="drawer-run-overrides" /> : null}
               <div className="divide-y rounded-lg border text-[13px]">
                 {deployment.recheck ? (
                   <Details title={`Release recheck notes${deployment.recheck.reconciliation.length ? ` (${deployment.recheck.reconciliation.length})` : ""}`}><RecheckDetails deployment={deployment} /></Details>
