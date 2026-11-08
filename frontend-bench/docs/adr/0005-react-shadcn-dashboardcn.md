@@ -4,7 +4,7 @@ Status: Accepted, 7 November 2026. Supersedes ADR 0001.
 
 ## Decision
 
-Rebuild `src/client` in React 19 + TypeScript with Tailwind CSS 4.3.5, shadcn/ui (Radix) primitives and dashboardcn registry components installed through the shadcn CLI and edited in place (not wrapped). Keep the Bun build (`Bun.build` + `bun-plugin-tailwind`), hash routing with alias canonicalisation, URL-synced filters, local storage and API modes, and exports. Visual tokens follow DESIGN.md (Linear-derived).
+Rebuild `src/client` in React 19 + TypeScript with Tailwind CSS 4.3.5, shadcn/ui (Radix) primitives and dashboardcn registry components installed through the shadcn CLI and edited in place (not wrapped); later blocks whose CLI install would overwrite locally edited primitives (card, tabs, tooltip, delta-badge) are copied from the registry JSON with imports remapped. Keep the Bun build (`Bun.build` + `bun-plugin-tailwind`), hash routing with alias canonicalisation, URL-synced filters, local storage and API modes, and exports. Visual tokens follow DESIGN.md (Linear-derived).
 
 ## Reasons
 

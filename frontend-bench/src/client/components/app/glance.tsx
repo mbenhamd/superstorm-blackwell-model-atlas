@@ -31,7 +31,7 @@ export function LoadCurve({ points, unit, cmax, highlight = false, className, te
   const label = `${unit} by tested concurrency: ${curve.map((point) => `${num(point.concurrency)} → ${num(point.value)}`).join(", ")}${cmax ? `; C_max ${num(cmax)}` : ""}`;
   return (
     <span role="img" aria-label={label} title={label} className={cn("inline-block h-6 w-20 align-middle", className)} data-load-curve={curve.length} data-testid={testId}>
-      <Sparkline data={curve.map((point) => point.value)} variant="line" curve="monotone" strokeWidth={1.5} animate={false} color={highlight ? "var(--brand)" : "var(--chart-neutral)"} className="h-full w-full" />
+      <Sparkline data={curve.map((point) => point.value)} variant="line" curve="monotone" strokeWidth={1.5} animate={false} color={highlight ? "var(--brand)" : "var(--muted-foreground)"} className="h-full w-full" />
     </span>
   );
 }
@@ -58,8 +58,8 @@ export function SloBudgetCard({ capacity, slo, className, layout = "side", size 
       metrics={metrics}
       layout={layout}
       size={size}
-      thickness={12}
-      center={<span className="flex flex-col leading-tight"><span className="text-muted-foreground text-[11px]">C_max</span><span className="text-base font-semibold tabular-nums">{num(capacity.highestPassingConcurrency)}</span></span>}
+      thickness={10}
+      // No centre label: the caption states C_max; at the Throughput size the inner circle is too small for text.
       className={cn("shadow-none", className)}
       data-testid="slo-budget"
     />

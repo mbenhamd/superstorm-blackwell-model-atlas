@@ -225,7 +225,7 @@ export function PerformanceStrip({ row, workload, slo, action, className }: Perf
       label: "Per-user speed", value: text(point?.outputTpsPerUser, 1), unit: "tok/s/user median",
       // The imported report carries the per-user median only: the p95 is named as missing, never replaced by another metric.
       detail: has ? lines(
-        <span data-missing-metric="per-user-p95" title="The imported GuideLLM report records the per-user output rate as a median only">per-user p95 not in run data</span>,
+        <span data-missing-metric="per-user-p95" title="The imported GuideLLM report records the per-user output rate as a median only">per-user p95 —</span>,
         point?.itlP50Ms != null ? <span title="ITL p50: median inter-token latency at C_max">median token every {num(point.itlP50Ms, 1)} ms</span> : null,
         point?.itlP95Ms != null ? `ITL p95 ${num(point.itlP95Ms, 1)} ms${point.itlP50Ms != null ? ` · p50 ${num(point.itlP50Ms, 1)} ms` : ""}` : null,
       ) : "Output tok/s per request at C_max",
@@ -237,7 +237,7 @@ export function PerformanceStrip({ row, workload, slo, action, className }: Perf
         `observed ${num(point!.totalTps)} tok/s · ${hardwareShape(d)}`,
         `${compactNum(c.deploymentInputTpm)} in / ${compactNum(c.deploymentOutputTpm)} out tok/min`,
         `${num(point!.requestsPerSecond, 2)} req/s at C_max`,
-        <span data-missing-metric="request-rate-percentiles" title="The imported report records one request rate per level; p50 / p95 request rates are not recorded">request rate p50 / p95 not in run data</span>,
+        <span data-missing-metric="request-rate-percentiles" title="The imported report records one request rate per level; p50 / p95 request rates are not recorded">req/s p50 / p95 —</span>,
       ) : `Per replica × ${slo.margin} · ${hardwareShape(d)}`,
       attrs: { "data-kpi": "deployment" },
     },
@@ -257,7 +257,7 @@ export function PerformanceStrip({ row, workload, slo, action, className }: Perf
   return (
     <KpiRowCard
       title={header}
-      headerAction={<span className="flex flex-col items-start gap-1.5 sm:items-end"><PresetSwitch slo={slo} /><SloChips slo={slo} className="sm:justify-end" /></span>}
+      headerAction={<PresetSwitch slo={slo} />}
       metrics={metrics}
       data-testid="performance-strip"
       data-measured={measured || undefined}

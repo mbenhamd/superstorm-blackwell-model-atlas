@@ -39,6 +39,8 @@ export interface RingKpiMetric {
 
 export interface RingKpiCardProps extends React.ComponentProps<typeof Card> {
   metrics: RingKpiMetric[]
+  /** Tile sizing override, e.g. a wider basis so a narrow container lays the tiles out 2 × 2. */
+  tileClassName?: string
 }
 
 function RingKpiValue({
@@ -65,7 +67,7 @@ function RingKpiValue({
 }
 
 /** A card with a row of KPI tiles, each with a segmented ring next to the value and a comparison to the previous value. */
-function RingKpiCard({ metrics, className, ...props }: RingKpiCardProps) {
+function RingKpiCard({ metrics, className, tileClassName, ...props }: RingKpiCardProps) {
   return (
     <Card
       data-slot="ring-kpi-card"
@@ -95,7 +97,7 @@ function RingKpiCard({ metrics, className, ...props }: RingKpiCardProps) {
                 key={metric.label}
                 data-slot="ring-kpi-metric"
                 data-testid={metric.testId}
-                className="bg-card flex min-w-0 flex-[1_1_13rem] flex-col gap-3 p-4"
+                className={cn("bg-card flex min-w-0 flex-[1_1_9.5rem] flex-col gap-3 p-4", tileClassName)}
               >
                 <div className="flex items-center justify-between gap-2">
                   <span className="text-ink-2 truncate text-xs font-medium">{metric.label}</span>
@@ -109,8 +111,6 @@ function RingKpiCard({ metrics, className, ...props }: RingKpiCardProps) {
                     sweep={360}
                     size={40}
                     thickness={4}
-                    segments={14}
-                    gap={7}
                     color={color}
                   />
                   {metric.display !== undefined ? (

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ChevronRight, Columns2, Download } from "lucide-react";
+import { ChevronDown, ChevronRight, Columns2, Download } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -31,6 +31,17 @@ export const setupTitle = (row: VariantRow, rows: readonly VariantRow[]): string
 
 /** Engine family and version of the row: the run that fronts it when measured, else the configured build. */
 export const versionOf = (row: VariantRow): string => (row.variant && row.deployment.runtimeTag ? row.deployment.runtimeTag : engineVersion(row.deployment));
+/**
+ * Short version for the table: the release that ran ("v0.33.0" from the run tag "vllm-v0.33.0"; the engine name sits
+ * beside it), else the configured build marked as configured.
+ */
+export function shortVersionOf(row: VariantRow): { text: string; ran: boolean } {
+  if (row.variant && row.deployment.runtimeTag) {
+    const match = /v\d[\w.]*(?:-[\w.]+)?$/.exec(row.deployment.runtimeTag);
+    return { text: match ? match[0] : row.deployment.runtimeTag, ran: true };
+  }
+  return { text: engineVersion(row.deployment), ran: false };
+}
 export const engineOf = (row: VariantRow): string => `${row.deployment.runtime} ${versionOf(row)}`;
 /** The precision chip is dropped when the export label already starts with it ("FP8", "NVFP4 · NVIDIA"). */
 const labelHasPrecision = (row: VariantRow): boolean => row.deployment.exportLabel.split(/[\s·]+/)[0]?.toLowerCase() === row.deployment.precision.toLowerCase();
@@ -51,6 +62,13 @@ export function SetupsTable({ entries, rows, modelName, modelId, scope, publishe
   const showShape = shapes.size > 1;
   // Nothing measured on this dataset: the metric columns would be "—" in every row, so they collapse into one column.
   const collapsed = measured === 0;
+  // With something measured, setups never run on this dataset fold into one row (shown on demand), so the table
+  // leads with what was measured. Nothing measured: every row is a planning row and all stay visible.
+  const [showUnmeasured, setShowUnmeasured] = React.useState(false);
+  const unmeasured = entries.filter((entry) => entry.standing.kind === "unmeasured");
+  const folded = !collapsed && unmeasured.length > 0 && !showUnmeasured;
+  const visible = folded ? entries.filter((entry) => entry.standing.kind !== "unmeasured") : entries;
+  const columns = collapsed ? 5 : 8;
   // Compare holds configurations: the top three distinct configurations (two variants of one configuration count once).
   const topIds = [...new Set(ranked.map((entry) => entry.row.deployment.id))].slice(0, 3);
   const compareTop = () => {
@@ -66,7 +84,7 @@ export function SetupsTable({ entries, rows, modelName, modelId, scope, publishe
     <Panel
       id="setups"
       title={<>Setups <span className="text-muted-foreground font-normal">by sustainable tok/min/GPU, highest first</span></>}
-      description={<span className="tabular-nums" data-testid="setups-scope">{scope} · {entries.length} setups · {measured} measured</span>}
+      description={<span className="tabular-nums" data-testid="setups-scope">{scope} · {entries.length} setups · {measured} measured{ranked.length !== measured && measured ? ` (${ranked.length} inside the SLO)` : ""}</span>}
       actions={
         <>
           <Tooltip>
@@ -115,7 +133,7 @@ export function SetupsTable({ entries, rows, modelName, modelId, scope, publishe
               </TableRow>
             </TableHeader>
             <TableBody>
-              {entries.map((entry) => {
+              {visible.map((entry) => {
                 const { row } = entry, d = row.deployment;
                 const value = tpm(row), c = cmax(row);
                 const title = setupTitle(row, rows);
@@ -153,7 +171,10 @@ export function SetupsTable({ entries, rows, modelName, modelId, scope, publishe
                       </span>
                     </TableCell>
                     <TableCell className="align-top text-[13px] leading-5 whitespace-normal max-md:hidden">
-                      <span className="block truncate" title={engineOf(row)}><span className="font-medium">{d.runtime}</span> <span className="text-ink-2 font-mono text-[12px]">{versionOf(row)}</span></span>
+                      <span className="block truncate" title={shortVersionOf(row).ran ? `Ran ${versionOf(row)}` : `Configured build ${versionOf(row)}; not run on ${state.workload}`} data-engine-version={shortVersionOf(row).ran ? "ran" : "configured"}>
+                        <span className="font-medium">{d.runtime}</span>{" "}
+                        <span className={cn("font-mono text-[12px]", shortVersionOf(row).ran ? "text-ink-2" : "text-muted-foreground")}>{shortVersionOf(row).text}</span>
+                      </span>
                       {row.variant && row.variant.runtimeCount > 1 ? <span className="text-muted-foreground block text-xs leading-4" data-runtime-count={row.variant.runtimeCount}>best of {row.variant.runtimeCount} runtimes</span> : null}
                     </TableCell>
                     {collapsed ? (
@@ -174,6 +195,22 @@ export function SetupsTable({ entries, rows, modelName, modelId, scope, publishe
                   </TableRow>
                 );
               })}
+              {!collapsed && unmeasured.length ? (
+                <TableRow className="hover:bg-transparent">
+                  <TableCell colSpan={columns} className="p-0">
+                    <button
+                      type="button"
+                      className="text-muted-foreground hover:text-foreground hover:bg-subtle flex w-full items-center gap-2 px-4 py-2 text-left text-xs outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                      aria-expanded={!folded}
+                      onClick={() => setShowUnmeasured((value) => !value)}
+                      data-testid="setups-unmeasured-toggle" data-count={unmeasured.length}
+                    >
+                      <ChevronDown className={cn("size-3.5 transition-transform", folded && "-rotate-90")} aria-hidden="true" />
+                      {folded ? `${unmeasured.length} setup${unmeasured.length === 1 ? "" : "s"} not measured on ${state.workload}` : `Hide ${unmeasured.length} not measured`}
+                    </button>
+                  </TableCell>
+                </TableRow>
+              ) : null}
             </TableBody>
           </table>
         </div>

@@ -7,7 +7,8 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { capacity, nominalTtftCeilingMs } from "../../domain/metrics.js";
 import type { BenchmarkRun, Deployment, RankedDeployment, SloPolicy } from "../../domain/types.js";
-import { InteractivityChart, SweepChart } from "../components/app/charts.js";
+import { InteractivityChart, SweepChart, TokenMixChart } from "../components/app/charts.js";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { ExpandableChartPanel as ChartPanel } from "../components/app/throughput-chart-panel.js";
 import { ExternalCurvesToggle, PublishedCurvesPanel, usePublishedCurves } from "../components/app/throughput-external.js";
 import { openExperimentForm, openRun } from "../components/app/overlays.js";
@@ -133,6 +134,7 @@ function Sweep({ row, base, onPickRun }: { row: RankedDeployment; base: Deployme
   const ttft = point?.ttftCeilingMs ?? nominal;
   const ttftLabel = ttft === null ? undefined : point?.ttftCeilingMs != null ? `Ceiling ${num(ttft)} ms at C_max` : `Ceiling ${num(ttft)} ms (nominal)`;
   const published = usePublishedCurves(d);
+  const [mix, setMix] = React.useState(false);
   const modelName = modelOf(d)?.name ?? d.modelId;
   if (!measured) {
     return (
@@ -156,10 +158,18 @@ function Sweep({ row, base, onPickRun }: { row: RankedDeployment; base: Deployme
     <>
       <div className="grid items-start gap-4 xl:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]">
         <ChartPanel
-          title="Total throughput vs concurrency"
-          description={`Total (input + output) tok/s per GPU at each measured level · ${hardwareShape(d)}`}
-          actions={<ExternalCurvesToggle state={published} />}
-          chart={(expanded) => <ThroughputConcurrencyChart deployment={d} capacity={c} margin={state.slo.margin} expanded={expanded} external={published.overlay} />}
+          title={mix ? "Input and output vs concurrency" : "Total throughput vs concurrency"}
+          description={mix ? `Input and output tok/s per GPU at each measured level · ${hardwareShape(d)}` : `Total (input + output) tok/s per GPU at each measured level · ${hardwareShape(d)}`}
+          actions={<>
+            <ToggleGroup type="single" variant="outline" size="sm" value={mix ? "mix" : "total"} aria-label="Throughput view" data-testid="throughput-view" onValueChange={(value: string) => { if (value) setMix(value === "mix"); }}>
+              <ToggleGroupItem value="total" className="px-2.5" data-testid="throughput-view-total">Total</ToggleGroupItem>
+              <ToggleGroupItem value="mix" className="px-2.5" data-testid="throughput-view-mix">In / out</ToggleGroupItem>
+            </ToggleGroup>
+            {mix ? null : <ExternalCurvesToggle state={published} />}
+          </>}
+          chart={(expanded) => mix
+            ? <TokenMixChart deployment={d} cmax={c.highestPassingConcurrency} expanded={expanded} />
+            : <ThroughputConcurrencyChart deployment={d} capacity={c} margin={state.slo.margin} expanded={expanded} external={published.overlay} />}
         />
         <Panel
           title="SLO evaluation"

@@ -4,7 +4,7 @@ This repository is an unauthenticated proof of concept with two deployables that
 
 ## Static build (may be published)
 
-`public/` (`index.html`, `assets/`, `_headers`) and the single-file `preview.html` run in offline mode: no API, no database, no credentials, no server-side writes. They contain only the committed catalog snapshot (`src/data/atlas.json`: model/export identities, engine arguments, published Hugging Face card tables and Artificial Analysis scores). Planning cards and the theme stay in the viewer's own browser storage. This build may be hosted publicly on a static host. `public/_headers` sets the same CSP, `X-Frame-Options: DENY`, `nosniff` and `Referrer-Policy` as the API server; a host that ignores `_headers` serves the page without them.
+`public/` (`index.html`, `assets/`, `_headers`) and the single-file `preview.html` run in offline mode: no API, no database, no credentials, no server-side writes. They contain only the committed catalog snapshot (`src/data/atlas.json`: model/export identities, engine arguments, published Hugging Face card tables and Artificial Analysis scores) and the external published-results dataset (`data/external-benchmarks.json`: public third-party figures with source URLs). Planning cards and the theme stay in the viewer's own browser storage. This build may be hosted publicly on a static host. `public/_headers` sets the same CSP, `X-Frame-Options: DENY`, `nosniff` and `Referrer-Policy` as the API server; a host that ignores `_headers` serves the page without them.
 
 ## Bun API server (loopback only)
 
@@ -22,4 +22,4 @@ Authenticated OIDC/SSO, server-side RBAC and resource ownership, tenant isolatio
 
 Require authorization before launching workloads or retrieving logs. Never expose cluster credentials in the browser. Keep model-download credentials and dataset secrets in approved server-side stores. Do not execute exported commands from submitted benchmark metadata.
 
-Review third-party package licenses and the organization's policies before use. The bundled atlas snapshot and test fixtures contain no credentials or customer records.
+Review third-party package licenses and the organization's policies before use. The bundled atlas snapshot, external published-results dataset and test fixtures contain no credentials or customer records.

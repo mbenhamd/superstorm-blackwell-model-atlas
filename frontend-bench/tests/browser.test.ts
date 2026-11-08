@@ -708,7 +708,8 @@ describe("offline console (atlas, Hugging Face and Artificial Analysis data)", (
     expect(await strip.locator('[data-profile="Balanced"]').count()).toBe(1);
     expect(await strip.getByTestId("strip-budget").innerText()).toContain("8,000 in / 500 out");
     expect(await strip.getByTestId("strip-budget").innerText()).toContain("ITL p95 ≤ 26 ms");
-    expect(await strip.getByTestId("slo-chips").innerText()).toContain("Prefill ≥ 1,300 tok/s");
+    // The thresholds are stated once, in the strip header (the top bar owns the full SLO popover).
+    expect(await strip.getByTestId("strip-budget").innerText()).toContain("ITL p95 ≤ 26 ms");
     expect(await strip.locator('[data-strip-preset="classic"]').getAttribute("data-state")).toBe("on");
     await strip.locator('[data-strip-preset="low-latency"]').click();
     expect(await page.getByTestId("strip-ttft-ceiling").innerText()).toContain("3,077 ms");
@@ -1133,6 +1134,11 @@ describe("measured-data views (TEST fixture runs via RUNS_FILE)", () => {
     // Default model: the first catalog model with a measured run.
     expect(await page.getByTestId("tldr-model").innerText()).toContain("Qwen 3.8 27B");
     const rows = page.locator("[data-setup-row]");
+    // Setups never run on this dataset fold into one row; expanding lists them last.
+    expect(await rows.count()).toBe(8);
+    const toggle = page.getByTestId("setups-unmeasured-toggle");
+    expect(await toggle.innerText()).toBe("6 setups not measured on single-turn-8k");
+    await toggle.click();
     expect(await rows.count()).toBe(14);
     const best = rows.nth(0), second = rows.nth(1);
     expect(await best.getAttribute("data-standing")).toBe("best");
@@ -1171,6 +1177,24 @@ describe("measured-data views (TEST fixture runs via RUNS_FILE)", () => {
     expect(Number(await best.locator("[data-load-curve]").getAttribute("data-load-curve"))).toBeGreaterThan(1);
     expect(await rows.last().locator("[data-load-curve]").count()).toBe(0);
     expect(await rows.last().locator("td").nth(3).innerText()).toBe("—");
+    // Across workloads: the same setup's rank on every dataset; the active one is marked, another reopens the sheet there.
+    const across = sheet.getByTestId("setup-across");
+    expect(await across.locator('[data-across-workload="single-turn-8k"]').getAttribute("data-active")).toBe("true");
+    expect(await across.locator('[data-across-workload="single-turn-8k"]').getAttribute("data-standing")).toBe("best");
+    expect(await across.locator("[data-across-workload]").count()).toBe(6);
+    for (const text of await across.locator('[data-standing="none"]').allInnerTexts()) expect(text).toContain("not run");
+    const chat = across.locator('[data-across-workload="chat-8-turn"] button');
+    expect(await chat.innerText()).toMatch(/#\d+ of \d+/);
+    await chat.click();
+    await page.waitForFunction(() => location.hash.includes("workload=chat-8-turn"));
+    await sheet.getByTestId("setup-across").locator('[data-across-workload="chat-8-turn"][data-active="true"]').waitFor();
+    expect(await sheet.getByTestId("setup-rank").innerText()).toMatch(/^#\d+ of \d+$/);
+    await page.keyboard.press("Escape");
+    await sheet.waitFor({ state: "detached" });
+    await go("tldr?workload=single-turn-8k");
+    await page.getByTestId("setups-unmeasured-toggle").click();
+    await best.click();
+    await sheet.waitFor();
     const quality = sheet.getByTestId("run-quality-badge");
     expect(await quality.innerText()).toBe("1 inc · 3 err");
     expect(await quality.getAttribute("aria-label")).toBe("1 incomplete, 3 errored requests");
@@ -1235,7 +1259,8 @@ describe("measured-data views (TEST fixture runs via RUNS_FILE)", () => {
     expect(await best.locator('[data-slot="badge"]', { hasText: /^FP8$/ }).count()).toBe(0);
     // NVFP4 vLLM: the older v0.32.0 run is faster, so it fronts the variant; the sheet lists both runs, newest first.
     const nvfp4 = page.locator('tr[data-setup-row="qwen3.8-27b.nvfp4.vllm.baseline"]');
-    expect(await nvfp4.innerText()).toContain("vllm-v0.32.0");
+    // The Engine column states the release that ran (from the run tag), not the tag itself.
+    expect(await nvfp4.innerText()).toContain("vLLM v0.32.0");
     await nvfp4.click();
     const runs = page.getByTestId("setup-runs");
     await runs.waitFor();
@@ -1351,11 +1376,11 @@ describe("measured-data views (TEST fixture runs via RUNS_FILE)", () => {
     expect(perUser).toContain("ITL p95 22.5 ms");
     expect(perUser).toContain("median token every 16.7 ms");
     // The run data has no per-user p95 and no request-rate percentiles: named as missing, not replaced by another metric.
-    expect(await strip.locator('[data-kpi="per-user"] [data-missing-metric="per-user-p95"]').innerText()).toBe("per-user p95 not in run data");
+    expect(await strip.locator('[data-kpi="per-user"] [data-missing-metric="per-user-p95"]').innerText()).toBe("per-user p95 —");
     const wide = await strip.locator('[data-kpi="deployment"]').innerText();
     expect(wide).toContain("observed 60,061 tok/s");
     expect(wide).toContain("7.07 req/s at C_max");
-    expect(await strip.locator('[data-kpi="deployment"] [data-missing-metric="request-rate-percentiles"]').innerText()).toBe("request rate p50 / p95 not in run data");
+    expect(await strip.locator('[data-kpi="deployment"] [data-missing-metric="request-rate-percentiles"]').innerText()).toBe("req/s p50 / p95 —");
     expect(await strip.locator('[data-profile="Balanced"]').count()).toBe(1);
     expect(await strip.getByTestId("strip-budget").innerText()).toContain("8,000 in / 500 out");
     expect(await page.getByTestId("strip-ttft-ceiling").innerText()).toBe("TTFT p95 ≤ 6,154 ms (computed from measured prompt length)");
@@ -1373,6 +1398,14 @@ describe("measured-data views (TEST fixture runs via RUNS_FILE)", () => {
     const slo = page.getByTestId("slo-evaluation");
     expect(await slo.isVisible()).toBe(true);
     expect(await slo.locator("tbody tr").count()).toBe(8);
+    // Token mix: the throughput chart switches to stacked input/output bars per level (one axis), and back.
+    await page.getByTestId("throughput-view-mix").click();
+    const mix = page.getByTestId("token-mix-chart");
+    expect(await mix.getAttribute("data-levels")).toBe("8");
+    expect(await mix.locator("[role=img]").first().getAttribute("aria-label")).toContain("C_max 64.");
+    expect(await page.getByTestId("external-curves-toggle").count()).toBe(0);
+    await page.getByTestId("throughput-view-total").click();
+    await page.getByTestId("throughput-chart").waitFor();
     // SLO budget rings: ITL and TTFT p95 at C_max as a share of their ceilings, C_max in the centre.
     const budget = page.getByTestId("slo-budget");
     expect(await budget.innerText()).toContain("ITL p95");
@@ -1578,6 +1611,8 @@ describe("measured-data views (TEST fixture runs via RUNS_FILE)", () => {
     expect(await page.getByTestId("matchup-scope").innerText()).toContain("Qwen 3.8 27B · 1× B300 · single-turn-8k");
     const verdict = page.getByTestId("matchup-verdict");
     expect(await verdict.getAttribute("data-verdict-kind")).toBe("lead");
+    // The verdict reads as the panel's headline sentence, not only as a chip.
+    expect(await page.getByTestId("matchup-headline").innerText()).toBe("vLLM sustains 4.0% more than SGLang on single-turn-8k · matched pair");
     expect(await verdict.innerText()).toBe("+4.0% vLLM · matched pair");
     const vllm = page.locator('[data-matchup-engine="vLLM"]'), sglang = page.locator('[data-matchup-engine="SGLang"]');
     expect(await vllm.getAttribute("data-measured")).toBe("true");
@@ -1646,6 +1681,10 @@ describe("measured-data views (TEST fixture runs via RUNS_FILE)", () => {
     expect(await row("chat-8-turn").locator('[data-workload-engine="SGLang"]').getAttribute("data-measured")).toBe("true");
     expect(await row("chat-8-turn").locator("[data-cell-delta]").count()).toBe(0);
     expect(await row("chat-8-turn").locator("[data-profile]").innerText()).toBe("Decode-intensive");
+    // Grouped bars: one group per dataset with a run (single-turn-8k, chat-8-turn), one bar per engine, one y-axis.
+    const bars = page.getByTestId("verdict-bars");
+    expect(await bars.getAttribute("data-groups")).toBe("2");
+    expect(await bars.locator("[role=img]").first().getAttribute("aria-label")).toContain("single-turn-8k: vLLM 2,882,918, SGLang 2,771,947");
     expect(await row("coding-agent-48-turn").getAttribute("data-verdict-kind")).toBe("none");
     // Datasets neither engine ran collapse into one chip row instead of full empty rows.
     expect(await row("coding-agent-48-turn").locator("xpath=ancestor::*[@data-testid='verdicts-unmeasured']").innerText()).toContain("No engine pair on these 4 workloads");

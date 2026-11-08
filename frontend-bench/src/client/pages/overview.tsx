@@ -2,7 +2,7 @@ import * as React from "react";
 import { Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PageHeader, Term } from "../components/app/primitives.js";
-import { useAppState } from "../state.js";
+import { updateView, useAppState } from "../state.js";
 import { rankedRows } from "../lib/display.js";
 import { TldrControls, useTldrShape } from "../components/app/tldr-controls.js";
 import { SetupsTable } from "../components/app/tldr-setups.js";
@@ -27,7 +27,9 @@ function TldrPage() {
   const published = usePublishedByConfiguration(modelId, false);
   const [openKey, setOpenKey] = React.useState<string | null>(null);
   const scopeKey = `${modelId}|${shape}|${state.workload}`;
-  React.useEffect(() => { setOpenKey(null); }, [scopeKey]);
+  // A scope change closes the sheet, except "Across workloads", which reopens the same setup on the picked dataset.
+  const pendingKey = React.useRef<string | null>(null);
+  React.useEffect(() => { setOpenKey(pendingKey.current); pendingKey.current = null; }, [scopeKey]);
   const model = state.snapshot.models.find((item) => item.id === modelId);
   const shapes = [...new Set(entries.map((entry) => shapeKey(entry.row.deployment)))];
   const scope = [model?.name ?? modelId, shape ? shapeLabel(shape) : shapes.length === 1 ? shapeLabel(shapes[0]!) : "all GPU shapes", state.workload].join(" · ");
@@ -55,6 +57,7 @@ function TldrPage() {
         entry={openEntry} entries={entries} rows={rows}
         published={openEntry && publishedAt.has(openEntry.row.key) ? published.get(openEntry.row.deployment.configurationId) ?? [] : []}
         onClose={() => setOpenKey(null)}
+        onPickWorkload={(workloadId, key) => { pendingKey.current = key; updateView((s) => { s.workload = workloadId; s.selected = []; }); }}
       />
     </div>
   );

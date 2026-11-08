@@ -3,6 +3,7 @@
  * theme colours and fonts survive serialisation; the image keeps a provenance footer.
  */
 import { appState } from "../state.js";
+import { atlasMeta } from "./atlas.js";
 const STYLE_PROPS = [
   "fill", "fill-opacity", "stroke", "stroke-width", "stroke-opacity", "stroke-dasharray", "stroke-linejoin", "stroke-linecap",
   "opacity", "font-size", "font-family", "font-weight", "text-anchor", "dominant-baseline", "paint-order", "visibility", "display",
@@ -47,7 +48,13 @@ export async function chartToPng(container: HTMLElement, title: string, scale = 
     context.fillStyle = root.getPropertyValue("--muted-foreground").trim() || "#62666d";
     context.font = `400 11px ${body.fontFamily}`;
     context.textAlign = "right";
-    context.fillText(`Bench Console · ${new Date().toISOString().slice(0, 10)}`, width + pad, height + pad + header + footer);
+    // Provenance: capture date and catalog date; fixture runs are labelled TEST DATA on the left.
+    context.fillText(`Bench Console · captured ${new Date().toISOString().slice(0, 10)} · catalog ${atlasMeta.asOf}`, width + pad, height + pad + header + footer);
+    if (appState.snapshot.testData) {
+      context.textAlign = "left";
+      context.fillStyle = root.getPropertyValue("--warning-text").trim() || "#8a5a00";
+      context.fillText("TEST DATA: invented fixture values, not a measurement", pad, height + pad + header + footer);
+    }
     return await new Promise<Blob>((resolve, reject) => canvas.toBlob((blob) => (blob ? resolve(blob) : reject(new Error("PNG encoding failed"))), "image/png"));
   }
 }

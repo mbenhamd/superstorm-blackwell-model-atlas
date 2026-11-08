@@ -4,7 +4,7 @@
 
 Read `README.md`, `DESIGN.md`, `docs/VERIFICATION.md`, and the relevant architecture decision (ADR 0005 for the client) before editing. Keep the ten routes (tldr, intelligence, throughput, compare, engine, models, deployments, published, new-benchmark, methodology) and every legacy alias in `src/client/state.ts` functional.
 
-Bench Console is an original prototype with a Linear-derived visual system. Do not add third-party logos, proprietary fonts, real customer data, or approval claims. Show only traceable data: the pinned atlas snapshot, pinned Hugging Face cards and published Artificial Analysis scores until bench results are imported. Never add mock or estimated measurements; keep provenance (catalog date, evidence class) on every view and export; do not show the source repository name or commit in the UI. Show the configured engine release, never the latest recheck release, as the build. Image captures are written outside the repository.
+Bench Console is an original prototype with a Linear-derived visual system. Do not add third-party logos, proprietary fonts, real customer data, or approval claims. Show only traceable data: the pinned atlas snapshot, pinned Hugging Face cards, published Artificial Analysis scores and external published results (evidence class "external", never ranked) until bench results are imported. Never add mock or estimated measurements; keep provenance (catalog date, evidence class) on every view and export; do not show the source repository name or commit in the UI. Show the configured engine release, never the latest recheck release, as the build. Image captures are written outside the repository.
 
 ## Toolchain is Bun only
 
@@ -22,7 +22,7 @@ bun run build          # public/ + preview.html
 bun run browser:install  # Playwright Chromium, once per machine
 bun run test:browser   # after a fresh build
 bun run design:lint
-bun run quality        # typecheck + unit + build
+bun run quality        # typecheck + all ten unit files + build (what CI runs)
 ```
 
 Add shadcn or dashboardcn components with `bunx shadcn@latest add <name>` / `@dashboardcn/<name>` and edit the installed files rather than wrapping them. `bun.lock` is committed; install with `bun install --frozen-lockfile` (the workflow does).
@@ -30,7 +30,7 @@ Add shadcn or dashboardcn components with `bunx shadcn@latest add <name>` / `@da
 ## Data flow
 
 - `bun run import:atlas` reads `../catalog/*.json` and `../evidence/sources.json`, so it works only inside the parent atlas repository; it writes the committed `src/data/atlas.json`. Builds, tests and static deploys use the committed snapshot and never run it.
-- `bun run import:external <research-export.json>` (or `EXTERNAL_SOURCE=<file>`) transforms an external published-results export (concurrency ladders and points with engine-version audits) into the committed `data/external-benchmarks.json` and regenerates the external source table in `docs/SOURCES.md`; `--check [<file>]` validates the committed file (schema, unique ids, sources, catalog model/configuration ids, labelled flags, no local paths), its canonical form and the docs table, and with a source also that a fresh import changes nothing. The client bundles the file (`src/client/lib/external.ts`); its evidence class is "external", distinct from "measured" and "reference", and it never enters `rank()`, `capacity()`, standings, variants, champions, frontier, Compare deltas or CSV measured columns (`tests/external.test.ts` checks the import graph).
+- `bun run import:external <research-export.json>` (or `EXTERNAL_SOURCE=<file>`) transforms an external published-results export (concurrency ladders and points with engine-version audits) into the committed `data/external-benchmarks.json` and regenerates the external source table in `docs/SOURCES.md`; `--check [<file>]` validates the committed file (schema, unique ids, sources, catalog model/configuration ids, labelled flags, no local paths), its canonical form and the docs table, and with a source also that a fresh import changes nothing. The client bundles the file (`src/client/lib/external.ts`); its evidence class is "external", distinct from "measured" and "reference", and it never enters `rank()`, `capacity()`, standings, variants, frontier, Compare deltas or CSV measured columns (`tests/external.test.ts` checks the import graph).
 - `bun run import:runs <file.json> [--dry-run] [--replace-older] [--dataset-map=<map.json>]` validates bench run exports and writes them to PostgreSQL; it refuses files with `"_test"` entries (`--dry-run` still validates them).
 - `RUNS_FILE=<file.json>` loads a validated runs file into the memory store of the API server only; the static build never carries runs.
 

@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { hasMeasuredLevels, type SetupEntry } from "../../../domain/setups.js";
+import { recordedOverrides } from "../../../domain/run-config.js";
 import type { VariantRow } from "../../../domain/variants.js";
 import type { ExternalRecord } from "../../../domain/external.js";
 import { appState, routeUrl, useAppState } from "../../state.js";
@@ -19,6 +20,7 @@ import { LoadCurve, totalPerGpuCurve } from "./glance.js";
 import { chipsOf, enginesOf, shapeKey, shapeLabel } from "./tldr-data.js";
 import { cmax, dateOf, Missing, signedPercent, tpm } from "./tldr-parts.js";
 import { PublishedCard } from "./tldr-published.js";
+import { AcrossWorkloads } from "./tldr-across.js";
 import { engineOf, setupTitle } from "./tldr-setups.js";
 
 /*
@@ -37,8 +39,10 @@ function Section({ title, aside, children, testId }: { title: string; aside?: Re
   );
 }
 
-export function SetupSheet({ entry, entries, rows, published, onClose }: {
+export function SetupSheet({ entry, entries, rows, published, onClose, onPickWorkload }: {
   entry: SetupEntry<VariantRow> | null; entries: SetupEntry<VariantRow>[]; rows: VariantRow[]; published: ExternalRecord[]; onClose: () => void;
+  /** Switch the active dataset and keep this setup's sheet open there. */
+  onPickWorkload: (workloadId: string, key: string) => void;
 }) {
   const state = useAppState();
   const row = entry?.row ?? null;
@@ -51,6 +55,7 @@ export function SetupSheet({ entry, entries, rows, published, onClose }: {
   const chips = row ? chipsOf(row) : [];
   const engines = enginesOf(rows.filter(hasMeasuredLevels));
   const bestRun = variant?.best.run.id;
+  const overrides = row && variant ? recordedOverrides(d!) : [];
   const best = leader ? tpm(leader) : null;
   const value = row ? tpm(row) : null;
   const standing = entry?.standing;
@@ -103,7 +108,7 @@ export function SetupSheet({ entry, entries, rows, published, onClose }: {
               </div>
             </SheetHeader>
             <div className="flex-1 space-y-5 overflow-y-auto px-5 py-5">
-              {measured ? <RingKpiCard metrics={kpis} className="shadow-none" data-testid="setup-kpis" /> : <p className="bg-subtle text-ink-2 rounded-lg border px-3.5 py-3 text-[13px] text-pretty" data-testid="setup-not-measured">Not measured on {state.workload}: a planning row from the catalog, so no sustainable value, C_max or latency yet. The serve command below is the configured one.</p>}
+              {measured ? <RingKpiCard metrics={kpis} className="rounded-lg shadow-none" tileClassName="flex-[1_1_calc(50%-1px)]" data-testid="setup-kpis" /> : <p className="bg-subtle text-ink-2 rounded-lg border px-3.5 py-3 text-[13px] text-pretty" data-testid="setup-not-measured">Not measured on {state.workload}: a planning row from the catalog, so no sustainable value, C_max or latency yet. The serve command below is the configured one.</p>}
 
               <dl className="grid grid-cols-[auto_minmax(0,1fr)] gap-x-4 gap-y-2 text-[13px]" data-testid="setup-facts">
                 <dt className="text-muted-foreground">Configured build</dt>
@@ -127,6 +132,8 @@ export function SetupSheet({ entry, entries, rows, published, onClose }: {
                   </>
                 ) : null}
               </dl>
+
+              <AcrossWorkloads row={row} onPick={onPickWorkload} />
 
               <Section title={variant ? "Recorded runtime config" : "Configured engine arguments"} aside={chips.length ? `${chips.length} keys` : undefined} testId="setup-knobs">
                 {chips.length
@@ -165,7 +172,25 @@ export function SetupSheet({ entry, entries, rows, published, onClose }: {
                 </Section>
               ) : null}
 
-              <CommandBlock title={`Serve command · ${engineBuildDetail(d)}`} command={d.command} testId="setup-command" />
+              <section className="space-y-2">
+                <CommandBlock
+                  title={`Configured command (catalog) · ${engineBuildDetail(d)}`}
+                  caption={variant ? "What the catalog configures, not a record of the run; the run's recorded values are listed above." : "What the catalog configures; no run yet."}
+                  command={d.command} testId="setup-command"
+                />
+                {overrides.length ? (
+                  <p className="border-warning/40 bg-warning-soft text-ink-2 rounded-md border px-3 py-2 text-xs text-pretty" data-testid="setup-command-overrides">
+                    The measured run recorded different values:{" "}
+                    {overrides.map(({ recorded, configured }, index) => (
+                      <React.Fragment key={recorded.key}>
+                        {index ? ", " : null}
+                        <span className="text-foreground font-mono" title={`Configured ${configured.field} ${configured.raw}`} data-override={recorded.field ?? recorded.key}>{recorded.field} {recorded.raw}</span>
+                      </React.Fragment>
+                    ))}
+                    . Deploy with these to reproduce the numbers above.
+                  </p>
+                ) : null}
+              </section>
             </div>
             <SheetFooter className="flex-row flex-wrap justify-end gap-2 border-t px-5 py-3">
               {engines.length > 1 ? <Button variant="ghost" asChild><a href={routeUrl("engine", { model: d.modelId })} data-testid="setup-engine" title="Engine head-to-head for this model"><Swords aria-hidden="true" />Engine</a></Button> : null}

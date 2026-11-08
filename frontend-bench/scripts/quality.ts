@@ -3,7 +3,8 @@ export {};
 const commands: string[][] = [
   [process.execPath, "x", "tsc", "-p", "tsconfig.json", "--noEmit"],
   [process.execPath, "x", "tsc", "-p", "tsconfig.client.json", "--noEmit"],
-  [process.execPath, "test", "tests/domain.test.ts", "tests/repository.test.ts", "tests/runs.test.ts", "tests/scale.test.ts"],
+  // Every unit file (the package.json test:unit list), so CI and local "quality" never skip a metric invariant.
+  [process.execPath, "run", "test:unit"],
   [process.execPath, "run", "build"],
 ];
 for (const command of commands) {

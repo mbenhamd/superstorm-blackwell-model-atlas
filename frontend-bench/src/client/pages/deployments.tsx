@@ -336,7 +336,7 @@ export function DeploymentsPage() {
     <div className="space-y-4">
       <PageHeader
         title="Deployments"
-        description={<span data-testid="deployment-meta" className="tabular-nums">{all.length} configs · {candidates} candidate · {all.length - candidates} probe · {measured} measured</span>}
+        description={<span data-testid="deployment-meta" className="tabular-nums">{all.length} configs · {candidates} candidate · {all.length - candidates} probe · {measured} measured{measured ? <span className="text-muted-foreground" title="One row per catalog configuration, valued by its newest run. The TL;DR ranks each recorded runtime config (variant) by its best run, so a value there can differ."> · values from each config's newest run</span> : null}</span>}
       />
       <DataTableCard
         title={anyMeasured ? <>Ranked by <Term name="Sustainable throughput">sustainable tok/min/GPU</Term></> : "Leaderboard"}

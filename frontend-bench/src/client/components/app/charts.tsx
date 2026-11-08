@@ -170,7 +170,7 @@ export function SweepChart({ deployments, metric, yAxisTitle, unit, threshold, t
         xScale="log"
         xTicks={tickTarget}
         xFormatter={(value) => String(value)}
-        tooltipLabelFormatter={(value) => `${value} concurrent requests`}
+        tooltipLabelFormatter={(value) => `${value} concurrent request${String(value) === "1" ? "" : "s"}`}
         xAxisTitle="Concurrent requests (log scale)"
         yAxisTitle={yAxisTitle}
         showYAxis
@@ -282,6 +282,50 @@ export function InteractivityChart({ deployments, title, className, expanded = f
         {sweeps.map((s) => <span key={s.key} className="inline-flex items-center gap-1.5"><span className="h-0.5 w-3 rounded-full" style={{ backgroundColor: s.color }} aria-hidden="true" />{configLabel(s.deployment)}</span>)}
         <SweepKey className="sm:ml-auto" />
       </figcaption> : null}
+    </figure>
+  );
+}
+
+/**
+ * Token mix per load level: input and output tok/s per GPU at every measured concurrency as stacked bars (input dark,
+ * output light, one hue, one y-axis), so the prefill/decode share and where throughput stops growing read at a glance.
+ * The dashed vertical line marks C_max (levels to its right fail the SLO). Measured values only, no margin applied;
+ * a level without data has no bar.
+ */
+export function TokenMixChart({ deployment, cmax, className, expanded = false }: { deployment: Deployment; cmax: number | null; className?: string; expanded?: boolean }) {
+  const gpus = gpusOf(deployment);
+  const points = [...deployment.points].sort((a, b) => a.concurrency - b.concurrency);
+  const data = points.map((point) => ({ level: String(point.concurrency), input: point.inputTps / gpus, output: point.outputTps / gpus }));
+  const height = expanded ? "h-[min(62vh,560px)]" : "h-[260px]";
+  const y = niceDomain(0, Math.max(1, ...data.map((row) => row.input + row.output)), 5);
+  return (
+    <figure className={cn("m-0", className)} data-testid="token-mix-chart" data-levels={data.length}>
+      <ComposedChart
+        className={height}
+        data={data}
+        xKey="level"
+        series={[
+          { key: "input", label: "Input tok/s/GPU", type: "bar", stackId: "mix", color: "var(--chart-1)" },
+          { key: "output", label: "Output tok/s/GPU", type: "bar", stackId: "mix", color: "color-mix(in oklab, var(--chart-1) 40%, var(--card))" },
+        ]}
+        referenceLines={cmax !== null ? [{ x: String(cmax), label: `C_max=${num(cmax)}`, dashed: true }] : []}
+        showYAxis
+        yDomain={[y.min, y.max]}
+        yTicks={y.ticks}
+        yFormatter={(value) => num(value)}
+        xAxisTitle="Concurrent requests"
+        yAxisTitle="tok/s per GPU"
+        tooltipLabelFormatter={(value) => `${value} concurrent request${String(value) === "1" ? "" : "s"}`}
+        barRadius={2}
+        animate={false}
+        role="img"
+        aria-label={`Input and output tok/s per GPU by concurrency for ${configLabel(deployment)}: ${data.map((row) => `${row.level}: ${num(row.input)} in, ${num(row.output)} out`).join("; ")}.${cmax !== null ? ` C_max ${num(cmax)}.` : ""}`}
+      />
+      <figcaption className="text-ink-2 mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs">
+        <span className="inline-flex items-center gap-1.5"><span className="size-2.5 rounded-[2px]" style={{ backgroundColor: "var(--chart-1)" }} aria-hidden="true" />Input</span>
+        <span className="inline-flex items-center gap-1.5"><span className="size-2.5 rounded-[2px]" style={{ backgroundColor: "color-mix(in oklab, var(--chart-1) 40%, var(--card))" }} aria-hidden="true" />Output</span>
+        <span className="text-muted-foreground sm:ml-auto">Observed, before the {num(appState.slo.margin, 2)} margin</span>
+      </figcaption>
     </figure>
   );
 }

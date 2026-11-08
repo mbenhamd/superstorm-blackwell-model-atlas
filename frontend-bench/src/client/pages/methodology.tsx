@@ -220,7 +220,7 @@ export function MethodologyPage() {
         <KpiCard className="shadow-panel gap-2 rounded-lg py-4 [&_[data-slot=card-content]]:px-4 [&_[data-slot=card-header]]:px-4" icon={<ChartScatter />} label="AA releases" value={aa.releases.length}>
           {aa.version} · {aa.asOf} · model level
         </KpiCard>
-        <KpiCard className="shadow-panel gap-2 rounded-lg py-4 [&_[data-slot=card-content]]:px-4 [&_[data-slot=card-header]]:px-4" icon={<DatabaseZap />} label="Measured configurations" value={runs}>
+        <KpiCard className="shadow-panel gap-2 rounded-lg py-4 [&_[data-slot=card-content]]:px-4 [&_[data-slot=card-header]]:px-4" icon={<DatabaseZap />} label="Imported runs" value={state.snapshot.runs?.length ?? runs}>
           {runs ? "Imported GuideLLM runs" : <Badge variant="neutral" className="max-w-full shrink truncate">Not connected</Badge>}
         </KpiCard>
       </section>

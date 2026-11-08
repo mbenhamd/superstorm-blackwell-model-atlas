@@ -1,6 +1,6 @@
 # ADR 0003 — Optional PostgreSQL behind Effect services
 
-Status: Accepted for POC; native integration validation pending in the delivery environment.
+Status: Accepted for POC; native integration validation pending in the delivery environment. Amended (November 2026): the store now serves snapshot, atlas status, create and move experiment; the catalog comes from the committed snapshot (ADR 0006); runs are relational `experiments` rows plus per-level `metrics` rows (migration 002) with JSONB runtime_config, latency statistics and raw results. The paragraphs below record the original decision.
 
 One Effect 4 service exposes snapshot, create experiment, and move experiment. A memory implementation allows an API demo without a database. A pg implementation persists records in PostgreSQL with parameterized statements, explicit single-client transactions, version checks, and audit rows.
 

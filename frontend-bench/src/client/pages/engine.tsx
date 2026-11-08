@@ -440,7 +440,9 @@ export function EnginePage() {
   const state = useAppState();
   const pick = useMeasured();
   const pairs = enginePairs(state.snapshot.deployments);
-  const pair = pairs.find((item) => item.key === state.pair) ?? pairs.find((item) => item.vllm.modelId === state.model) ?? pairs[0];
+  // No pair or model in the URL: open on the first pair with a run on the active dataset, else the first pair.
+  const pair = pairs.find((item) => item.key === state.pair) ?? pairs.find((item) => item.vllm.modelId === state.model)
+    ?? pairs.find((item) => isMeasured(pick(item.vllm)) || isMeasured(pick(item.sglang))) ?? pairs[0];
   if (!pair) return <EmptyState icon={Server} title="No matched engine pair" description="No export has both a vLLM and an SGLang baseline at the same shape." />;
   const a = pick(pair.vllm), b = pick(pair.sglang);
   const ca = capacity(a, state.slo), cb = capacity(b, state.slo);

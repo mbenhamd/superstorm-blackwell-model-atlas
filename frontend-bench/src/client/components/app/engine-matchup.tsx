@@ -141,6 +141,14 @@ export function EngineMatchup({ scope, fallback, shapeKey, modelName, details }:
       </>}
       bodyClassName="space-y-3"
     >
+      {verdict.kind === "lead" || verdict.kind === "tie" ? (
+        <p className="text-[15px] leading-6 font-semibold tracking-tight text-pretty" data-testid="matchup-headline">
+          {verdict.kind === "lead"
+            ? <>{verdict.engine} sustains {num(Math.abs(verdict.fraction) * 100, 1)}% more than {verdict.engine === "vLLM" ? "SGLang" : "vLLM"} on {state.workload}</>
+            : <>vLLM and SGLang are tied on {state.workload} (within ±{BAND}%)</>}
+          <span className="text-muted-foreground font-normal"> · matched pair</span>
+        </p>
+      ) : null}
       <div className="grid gap-3 md:grid-cols-2" data-testid="engine-matchup">
         {ENGINES.map((engine, index) => {
           const entry = best[engine], other = best[ENGINES[1 - index]!];

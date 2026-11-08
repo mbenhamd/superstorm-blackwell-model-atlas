@@ -2,6 +2,8 @@ import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { DeltaBadge } from "@/components/ui/delta-badge";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { ComposedChart } from "@/components/ui/composed-chart";
+import { niceDomain } from "@/scale";
 import { relativeDelta } from "../../../domain/metrics.js";
 import type { Workload } from "../../../domain/types.js";
 import { updateView, useAppState } from "../../state.js";
@@ -91,16 +93,55 @@ function EngineCell({ engine, index, entry, other, verdict }: { engine: Engine; 
         {verdict.kind === "tie" ? <Badge variant="neutral" data-cell-delta="tie">tied</Badge> : delta !== null ? <DeltaBadge delta={delta} variant="soft" data-cell-delta={signedFraction(delta)} /> : null}
       </div>
       {d.runtimeTag ? <span className="text-muted-foreground truncate font-mono text-[11px]">{d.runtimeTag}</span> : null}
-      <dl className="grid grid-cols-2 gap-x-3 gap-y-1.5 xl:grid-cols-3">
-        <Stat label="Sustainable" value={num(c.sustainableTpmPerGpu)} unit="tok/min/GPU" />
+      <div className="flex flex-wrap items-baseline gap-x-1.5">
+        <span className="text-lg leading-6 font-semibold tracking-tight tabular-nums" data-missing={c.sustainableTpmPerGpu === null || undefined}>{num(c.sustainableTpmPerGpu)}</span>
+        <span className="text-muted-foreground text-xs">tok/min/GPU</span>
+      </div>
+      <dl className="grid grid-cols-3 gap-x-3 gap-y-1">
         <Stat label="C_max" value={num(c.highestPassingConcurrency)} />
-        <Stat label="TTFT p95" value={num(p?.ttftP95Ms)} unit="ms" />
         <Stat label="ITL p95" value={num(p?.itlP95Ms, 1)} unit="ms" />
-        <Stat label="Per-user p50" value={num(p?.outputTpsPerUser, 1)} unit="tok/s" />
-        <Stat label="Levels in SLO" value={`${c.passingLevels}/${c.totalLevels}`} />
+        <Stat label="TTFT p95" value={num(p?.ttftP95Ms)} unit="ms" />
       </dl>
+      <p className="text-muted-foreground text-[11.5px] tabular-nums">{c.passingLevels} of {c.totalLevels} levels in SLO · per-user p50 {num(p?.outputTpsPerUser, 1)}{p?.outputTpsPerUser != null ? " tok/s" : ""}</p>
       {c.incomplete || c.errored ? <span className="flex flex-wrap gap-1"><IncompleteBadge count={c.incomplete} /><ErroredBadge count={c.errored} /></span> : null}
     </div>
+  );
+}
+
+/**
+ * Grouped bars, one group per dataset with a measured engine: each engine's best sustainable tok/min/GPU there (engine
+ * hue fixed). One y-axis, one unit. Bars compare the two engines inside a dataset only; datasets carry different token
+ * budgets, so the height across groups is not a ranking of datasets. A missing bar is "not measured" ("—" in the
+ * tooltip), never zero. Rendered when at least two datasets have a run, so the chart adds what the rows cannot show.
+ */
+function VerdictBars({ rows }: { rows: { workload: Workload; best: Record<Engine, EngineBest>; verdict: EngineVerdict }[] }) {
+  const measured = rows.filter((row) => row.verdict.kind !== "none");
+  if (measured.length < 2) return null;
+  const data = measured.map(({ workload, best }) => ({ workload: workload.name, ...Object.fromEntries(ENGINES.map((engine) => [engine, best[engine].capacity?.sustainableTpmPerGpu ?? null])) }));
+  const y = niceDomain(0, Math.max(1, ...measured.flatMap(({ best }) => ENGINES.map((engine) => best[engine].capacity?.sustainableTpmPerGpu ?? 0))), 4);
+  return (
+    <figure className="m-0 border-b px-4 pt-3 pb-2" data-testid="verdict-bars" data-groups={measured.length}>
+      <ComposedChart
+        className="h-[180px]"
+        data={data}
+        xKey="workload"
+        series={ENGINES.map((engine, index) => ({ key: engine, label: engine, type: "bar" as const, color: `var(--chart-${index + 1})` }))}
+        showYAxis
+        yDomain={[y.min, y.max]}
+        yTicks={y.ticks}
+        yFormatter={(value) => num(value)}
+        yAxisTitle="Sustainable tok/min/GPU"
+        tooltipLabelFormatter={(value) => String(value)}
+        barRadius={3}
+        animate={false}
+        role="img"
+        aria-label={`Best sustainable tok/min/GPU per engine on each dataset: ${measured.map(({ workload, best }) => `${workload.name}: ${ENGINES.map((engine) => `${engine} ${num(best[engine].capacity?.sustainableTpmPerGpu ?? null)}`).join(", ")}`).join("; ")}.`}
+      />
+      <figcaption className="text-ink-2 mt-1 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs">
+        {ENGINES.map((engine, index) => <span key={engine} className="inline-flex items-center gap-1.5"><SeriesSwatch index={index} />{engine}</span>)}
+        <span className="text-muted-foreground sm:ml-auto">Compare bars within a dataset; budgets differ between datasets.</span>
+      </figcaption>
+    </figure>
   );
 }
 
@@ -140,6 +181,8 @@ export function EngineWorkloadVerdicts({ scope, modelName, shapeLabel }: { scope
           </ul>
         </div>
       ) : (
+        <>
+        <VerdictBars rows={rows} />
         <ul className="divide-y" data-testid="engine-verdicts">
           {rows.filter((row) => row.verdict.kind !== "none" || row.workload.id === state.workload).map(({ workload, best, verdict }) => {
             const active = workload.id === state.workload;
@@ -178,6 +221,7 @@ export function EngineWorkloadVerdicts({ scope, modelName, shapeLabel }: { scope
             </li>
           ) : null}
         </ul>
+        </>
       )}
     </Panel>
   );
