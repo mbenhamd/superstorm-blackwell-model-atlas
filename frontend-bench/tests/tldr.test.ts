@@ -21,9 +21,9 @@ const rows = variantRows(snapshot, "single-turn-8k", DEFAULT_SLO, { modelId: "qw
 const FP8_VLLM = "qwen3.8-27b.fp8.vllm.baseline";
 
 describe("TL;DR variant rows (TEST fixture)", () => {
-  test("8 measured variants and 6 planning rows; two variants of the FP8 vLLM baseline are told apart by their knobs", () => {
+  test("8 measured variants and 7 planning rows; two variants of the FP8 vLLM baseline are told apart by their knobs", () => {
     expect(rows.filter((row) => row.variant)).toHaveLength(8);
-    expect(rows.filter((row) => !row.variant)).toHaveLength(6);
+    expect(rows.filter((row) => !row.variant)).toHaveLength(7);
     const fp8 = rows.filter((row) => row.deployment.id === FP8_VLLM);
     expect(fp8).toHaveLength(2);
     const prefix = fp8.find((row) => row.variant!.runtimeConfig.enable_prefix_caching === true)!;

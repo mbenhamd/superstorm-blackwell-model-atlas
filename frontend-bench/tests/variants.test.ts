@@ -82,12 +82,12 @@ describe("variant grouping (TEST fixture)", () => {
 
 describe("variant rows: measured variants plus planning rows", () => {
   const rows = variantRows(snapshot, DATASET, DEFAULT_SLO, { modelId: MODEL });
-  test("8 measured variants, then the 6 catalog configurations without a run as planning rows", () => {
-    expect(rows).toHaveLength(14);
+  test("8 measured variants, then the 7 catalog configurations without a run as planning rows", () => {
+    expect(rows).toHaveLength(15);
     expect(new Set(rows.map((row) => row.key)).size).toBe(rows.length);
     const planning = rows.filter((row) => row.variant === null);
     expect(planning.map((row) => row.deployment.configurationId).sort()).toEqual([
-      "qwen3.8-27b.bf16.vllm.v031.fi-bf16-kv", "qwen3.8-27b.fp8.vllm.v031.fi-bf16-kv", "qwen3.8-27b.nvfp4.sglang.baseline",
+      "qwen3.8-27b.bf16.vllm.v031.fi-bf16-kv", "qwen3.8-27b.fp8.vllm.v031.fi-bf16-kv", "qwen3.8-27b.nvfp4-qad.sglang.v0523.tp1", "qwen3.8-27b.nvfp4.sglang.baseline",
       "qwen3.8-27b.nvfp4.vllm.v031.fa4-bf16-kv", "qwen3.8-27b.nvfp4.vllm.v031.fi-bf16-kv", "qwen3.8-27b.nvfp4.vllm.v031.fi-fp8-kv",
     ]);
     expect(planning.every((row) => row.deployment.evidence === "reference" && row.deployment.points.length === 0 && row.capacity.sustainableTpmPerGpu === null)).toBe(true);
@@ -105,13 +105,13 @@ describe("variant rows: measured variants plus planning rows", () => {
     const entries = setupStandings(rows);
     expect(entries[0]!.standing).toEqual({ kind: "best" });
     expect(entries[0]!.row.variant!.runtimeCount).toBe(2);
-    expect(entries.map((entry) => entry.standing.kind)).toEqual(["best", "behind", "behind", "behind", "behind", "behind", "behind", "no-passing", ...Array(6).fill("unmeasured")]);
+    expect(entries.map((entry) => entry.standing.kind)).toEqual(["best", "behind", "behind", "behind", "behind", "behind", "behind", "no-passing", ...Array(7).fill("unmeasured")]);
     const prefix = entries.find((entry) => entry.row.variant?.runtimeConfig.enable_prefix_caching === true)!;
     expect(prefix.standing.kind === "behind" && prefix.standing.fraction).toBeCloseTo(2479310 / 2882918 - 1, 5);
   });
   test("applyRuns and rank keep one row per configuration from the newest run", () => {
     const ranked = rank(snapshot, DATASET).filter((row) => row.model.id === MODEL);
-    expect(ranked).toHaveLength(13);
+    expect(ranked).toHaveLength(14);
     expect(ranked.find((row) => row.deployment.configurationId === FP8_VLLM)!.deployment.measuredAt).toBe("2026-11-01T09:00:00.000Z");
     // NVFP4: rank fronts the newest run (v0.33.0); the variant view fronts the best (v0.32.0).
     expect(ranked.find((row) => row.deployment.configurationId === NVFP4_VLLM)!.deployment.runtimeTag).toBe("vllm-v0.33.0");
@@ -119,7 +119,7 @@ describe("variant rows: measured variants plus planning rows", () => {
   });
   test("no runs: every catalog configuration of the model is a planning row", () => {
     const plain = variantRows(createCatalogSnapshot(), DATASET, DEFAULT_SLO, { modelId: MODEL });
-    expect(plain).toHaveLength(13);
+    expect(plain).toHaveLength(14);
     expect(plain.every((row) => row.variant === null)).toBe(true);
   });
 });

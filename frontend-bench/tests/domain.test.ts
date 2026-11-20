@@ -5,6 +5,7 @@ import { configChips } from "../src/domain/config-chips.js";
 import { deltaVsBest, groupSetups, setupStandings, sortSetups } from "../src/domain/setups.js";
 import { ConflictError, migrateExperiment, parseExperiment, transitionExperiment, ValidationError } from "../src/domain/validation.js";
 import type { BenchmarkRun, Deployment, MetricRow, SloPolicy } from "../src/domain/types.js";
+import { publisherQuality } from "../src/client/lib/display.js";
 import { configurationIdOf } from "../src/client/state.js";
 
 /*
@@ -33,11 +34,11 @@ describe("catalog snapshot", () => {
     const d = snapshot.deployments.find((item) => item.id === "qwen3.8-27b.fp8.vllm.v031.fi-fp8-kv")!;
     expect(d.runtimeVersion).toBe("v0.31.0");
     expect(d.reviewedOn).toBe("2026-10-17");
-    expect(d.recheck?.engineRelease).toBe("v0.33.0");
+    expect(d.recheck?.engineRelease).toBe("v0.34.0");
     expect(d.recheck?.testedOnTarget).toBe(false);
     expect(d.recheck?.argumentStatus).toContain("not full CLI or runtime validation");
     expect(d.recheck?.reconciliation.length).toBeGreaterThan(0);
-    expect(d.priorRechecks.map((item) => item.engineRelease)).toEqual(["v0.32.0"]);
+    expect(d.priorRechecks.map((item) => item.engineRelease)).toEqual(["v0.32.0", "v0.33.0"]);
     // A configuration with only a source snapshot keeps "not recorded"; the recheck release is never substituted.
     const snapshotOnly = snapshot.deployments.find((item) => item.id === "kimi-k3.native.sglang.baseline")!;
     expect(snapshotOnly.runtimeVersion).toBe("not recorded");
@@ -45,6 +46,12 @@ describe("catalog snapshot", () => {
     expect(snapshot.deployments.every((item) => item.runtimeVersion === (ATLAS.configurations.find((c) => c.id === item.id)?.engineRelease ?? "not recorded"))).toBe(true);
   });
 
+  test("AA endpoint quality requires the linked weights repository, including for first-party exports", () => {
+    expect(publisherQuality(base("qwen3.8-27b.bf16.vllm.baseline"))).toBe(20.107);
+    expect(publisherQuality(base("qwen3.8-27b.fp8.vllm.baseline"))).toBeNull();
+    expect(publisherQuality(base("mistral-large-4.nvfp4.vllm.tp8"))).toBeNull();
+    expect(publisherQuality({ ...base(), artifactId: "unknown" })).toBeNull();
+  });
   test("is pinned from the atlas with no measurements", () => {
     expect(snapshot.atlasCommit).toBe(ATLAS.atlas.commit);
     expect(snapshot.models.length).toBe(ATLAS.models.length);
@@ -61,6 +68,12 @@ describe("catalog snapshot", () => {
   });
   test("missing parameter counts stay null rather than borrowed", () => {
     expect(snapshot.models.find((m) => m.id === "deepseek-v4-flash-0731")?.parametersB).toBeNull();
+  });
+  test("an SGLang recipe retains its environment and explicit model path exactly once", () => {
+    const command = launchCommand("SGLang", "example/base", ["--model-path", "example/export", "--port", "30000"], ["NCCL_CUMEM_ENABLE=1"]);
+    expect(command).toStartWith("env NCCL_CUMEM_ENABLE=1 python -m sglang.launch_server");
+    expect(command.match(/--model-path/g)).toHaveLength(1);
+    expect(command).toContain("--model-path example/export");
   });
   test("serve command keeps every engine argument, one flag per line", () => {
     const d = base("glm-5.3.fp8.vllm.mtp");

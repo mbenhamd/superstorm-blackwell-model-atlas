@@ -1,5 +1,20 @@
 # Verification record
 
+## November 20, 2026 catalog and AA refresh
+
+The console pins atlas commit `d03c703`. Its import covers 12 families, 50 concrete exports, 59 configuration references, 67 Hugging Face cards and 24 AA releases. The AA and throughput chart now requires the weights URL published by AA to match the configured repository. The regression tests cover a separate first-party FP8 export, first-party NVFP4, an unknown artifact and a workload with measured derivative runs only. The SGLang recipe test checks environment forwarding and a single explicit model path.
+
+| Check | Result |
+| --- | --- |
+| Bun and dependency installation | Shell and test runner both reported 1.4.4 (`38afee6c8`). Frozen installation completed. |
+| Atlas and external publication imports | Snapshot byte comparison passed. External-file validation passed for 596 records and 177 sources. |
+| TypeScript, unit tests and build | Both TypeScript projects passed. 206 unit tests passed. Build regenerated the app and the standalone preview. |
+| Browser and design checks | All 80 browser tests passed, including the AA and throughput chart, model-specific export lists and recipe views. Design lint reported zero errors and zero warnings. |
+
+The checks used the offline catalog and explicitly labelled test fixtures. Published HF and AA evidence stays separate from local measurements. PostgreSQL integration and B300 serving were outside this refresh.
+
+## November 8, 2026 verification
+
 Date: 8 November 2026 (round-2 follow-up fixes, Architecture route, critic pass round 2, critic pass round 1, density pass, visual-review fix pass, the setups-first TL;DR pass, the TL;DR evaluator fixes, the Throughput and Engine parity pass, the parity evaluator fixes, the foundation pass, then the integration pass for variants at scale, the external published layer and the Published explorer, then the published-layer evaluator fixes, then the density evaluator fixes; see the sections below; the gate table records the latest pass first). Environment: macOS (Darwin 25.4, arm64), TypeScript 7.0.2, Playwright 1.56.1 Chromium. Bun: the shell `bun --version` is 1.4.0 (the pinned `packageManager` and CI version); `bun run <script>` resolves `node_modules/.bin/bun`, which is Bun 1.4.4 installed as the `bun` peer dependency of `bun-plugin-tailwind`, so the test runner reports `bun test v1.4.4`. `bun scripts/import-atlas.ts --check` ran directly under 1.4.0. No gate was run separately under a pure 1.4.0 runner. Only checks listed here were run.
 
 | Check | Command | Result |

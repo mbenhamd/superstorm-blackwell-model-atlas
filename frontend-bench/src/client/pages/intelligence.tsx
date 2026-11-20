@@ -99,7 +99,7 @@ function FrontierShortlist({ edge, measured, total, workload }: { edge: RankedDe
 
 /**
  * Empty serving frontier: no 2D plot with an empty throughput axis. One compact block says what unlocks the frontier,
- * and every model with a published AA composite is listed once in a "Not benched" strip, ranked by its AA index (model)
+ * and every model with a published AA composite is listed once in a separate list, ranked by its AA index (model)
  * and each one labelled. Nothing is placed on a throughput axis until a configuration is measured.
  */
 function EmptyFrontier({ workload, measured, total }: { workload: string; measured: number; total: number }) {
@@ -110,24 +110,24 @@ function EmptyFrontier({ workload, measured, total }: { workload: string; measur
   return (
     <div className="space-y-3" data-testid="frontier-empty">
       <div data-testid="frontier-shortlist" data-empty="" className="flex flex-wrap items-center gap-x-3 gap-y-1.5 text-xs">
-        <Badge variant="neutral" data-testid="not-measured-badge" className="border-dashed">Not measured</Badge>
-        <span className="text-muted-foreground">Measure to unlock the frontier: it needs sustainable throughput · <span className="text-foreground font-medium tabular-nums">{measured}</span> of {total} configurations measured on <span className="font-mono">{workload}</span>.</span>
+        <Badge variant="neutral" data-testid="not-measured-badge" className="border-dashed">{measured ? "No matching results" : "Not measured"}</Badge>
+        <span className="text-muted-foreground">Each point needs passing throughput for the weights repository linked by AA. <span className="text-foreground font-medium tabular-nums">{measured}</span> of {total} configurations measured on <span className="font-mono">{workload}</span>.</span>
       </div>
       <div>
-        <h3 className="text-muted-foreground mb-1.5 text-xs font-medium">Not benched · AA index (model), ranked</h3>
-        <ol className="flex flex-wrap gap-1.5" aria-label="Not benched: models ranked by their published AA index">
+        <h3 className="text-muted-foreground mb-1.5 text-xs font-medium">Published AA scores by model</h3>
+        <ol className="flex flex-wrap gap-1.5" aria-label="Models ranked by published AA index">
           {models.map(({ model, aa }) => (
             <li key={model.id}>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <a href={routeUrl("models", { model: model.id, tab: "overview" })} data-lane-model={model.id} aria-label={`${model.name}: AA ${num(aa.index, 1)} (model), not benched`}
+                  <a href={routeUrl("models", { model: model.id, tab: "overview" })} data-lane-model={model.id} aria-label={`${model.name}: AA ${num(aa.index, 1)} (model)`}
                     className="bg-subtle hover:bg-muted inline-flex h-6 items-center gap-1.5 rounded-full border px-2 text-xs outline-none focus-visible:ring-2 focus-visible:ring-ring">
                     <span className="border-chart-1 bg-card size-2 shrink-0 rounded-full border-[1.5px]" aria-hidden="true" />
                     <span className="text-ink-2">{model.name}</span>
                     <span className="font-medium tabular-nums">{num(aa.index, 1)}</span>
                   </a>
                 </TooltipTrigger>
-                <TooltipContent>{model.name} · AA {num(aa.index, 1)} (model) · {effortLabel(aa.variant)} · not benched</TooltipContent>
+                <TooltipContent>{model.name} · AA {num(aa.index, 1)} (model) · {effortLabel(aa.variant)}</TooltipContent>
               </Tooltip>
             </li>
           ))}
@@ -301,7 +301,7 @@ export function IntelligenceView() {
   const edge = safeFrontier(rows);
   const frontierIds = new Set(edge.map((row) => row.deployment.id));
   const selectedId = rows.some((row) => row.deployment.id === state.focusId) ? state.focusId : "";
-  const measured = rows.filter((row) => row.capacity.sustainableTpmPerGpu !== null).length;
+  const measured = rows.filter((row) => row.deployment.evidence === "measured").length;
   const workload = workloadOf(state.workload)?.name ?? state.workload;
   return (
     <div className="space-y-4">

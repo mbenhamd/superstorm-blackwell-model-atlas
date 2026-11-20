@@ -136,7 +136,7 @@ const artifacts = (catalog.models as Json[]).flatMap((m) => { let baseSlugTaken 
     precision,
     precisionDetail: String(v.precision ?? ""),
     // Naming rule: "Native <format>" for the publisher's own quantized release, otherwise the format, plus the export publisher when it is a third party.
-    label: `${v.key === "native" ? `Native ${precision}` : precision}${publisher ? ` · ${orgLabel[publisher] ?? publisher}` : ""}`,
+    label: `${v.key === "native" ? `Native ${precision}` : precision}${v.key.endsWith("-qad") ? " QAD" : ""}${publisher ? ` · ${orgLabel[publisher] ?? publisher}` : ""}`,
     publisher,
     status: (v.status ?? null) as string | null,
     weightBytes: (v.listed_weight_file_bytes ?? null) as number | null,
@@ -167,6 +167,8 @@ const configs = configurations.map((c) => {
     artifactId,
     engine: c.engine === "vllm" ? "vLLM" : "SGLang",
     engineArgs: c.engine_args as string[],
+    engineEnv: Object.entries(c.engine_env ?? {}).map(([name, value]) => `${name}=${value}`),
+    engineImage: (c.engine_image ?? null) as string | null,
     gpus: c.gpu_count as number,
     tensorParallel: c.tensor_parallel_size as number,
     dataParallel: c.data_parallel_size as number,
@@ -208,6 +210,7 @@ const releases = (aa.releases as Json[]).map((r) => ({
   creator: r.creator as string,
   releaseDate: r.aa_release_date as string,
   openWeights: Boolean(r.open_weights),
+  weightsUrl: (r.aa_weights_url ?? null) as string | null,
   deprecatedTo: (r.aa_deprecated_to ?? null) as string | null,
   highest: r.highest_published_variant?.v5_0_1 ? { slug: r.highest_published_variant.v5_0_1.aa_slug as string, index: r.highest_published_variant.v5_0_1.index as number } : null,
   variants: (r.variants as Json[]).map((v) => ({

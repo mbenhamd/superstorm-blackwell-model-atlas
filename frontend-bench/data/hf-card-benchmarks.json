@@ -1,5 +1,5 @@
 {
-  "extracted_on": "2026-11-07",
+  "extracted_on": "2026-11-20",
   "method": "Each pinned card was scanned for Markdown pipe tables and HTML <table> blocks, every benchmark/evaluation/throughput/acceptance table was transcribed from the card text (configuration, hardware-compatibility and governance tables were skipped), Markdown/HTML formatting was stripped to rendered text, blank cells are null, plain numbers were kept with their printed decimals (a trailing % removed), all other cells were kept as verbatim strings, precision-by-row tables were transposed so that rows are benchmarks, and comparison tables were reduced to the card's own model/export column plus any named baseline.",
   "cards": [
     {
@@ -1203,7 +1203,7 @@
     {
       "card_path": "companies/deepseek/deepseek-v4-flash-0731/huggingface/additional/nvidia--DeepSeek-V4-Flash-0731-NVFP4/README.md",
       "catalog_key": "deepseek-v4-flash-0731",
-      "variant_key": null,
+      "variant_key": "nvfp4-nvidia",
       "role": "quantized-export",
       "hf_id": "nvidia/DeepSeek-V4-Flash-0731-NVFP4",
       "revision": "f1caa71142bd0be02f728c79f75042ac1e461579",
@@ -5630,7 +5630,7 @@
     {
       "card_path": "companies/z-ai/glm-5.3/huggingface/additional/nvidia--GLM-5.3-NVFP4/README.md",
       "catalog_key": "glm-5.3",
-      "variant_key": null,
+      "variant_key": "nvfp4-nvidia",
       "role": "quantized-export",
       "hf_id": "nvidia/GLM-5.3-NVFP4",
       "revision": "e3b8f9f2fad29727dfa95e766c5cac18ea1414bf",
@@ -6022,6 +6022,3574 @@
         }
       ],
       "notes": "Quantized column precedes the baseline column in the card. Values and Recovery printed with % (dropped). Performance-evaluation section is an image only."
+    },
+    {
+      "card_path": "companies/alibaba-qwen/qwen3.8-27b/huggingface/inferact-nvfp4/README.md",
+      "catalog_key": "qwen3.8-27b",
+      "variant_key": "inferact-nvfp4",
+      "role": "quantized-export",
+      "hf_id": "Inferact/Qwen3.8-27B-NVFP4",
+      "revision": "6128240ebaf4eaa7bad2b3d1c72c37d677c5f462",
+      "source_id": "N20-Q27-IN-CARD",
+      "precision": "ModelOpt NVFP4 W4A4 group 16 on eligible linear layers. The ignore list includes the output head, embeddings and sensitive linear-attention components.",
+      "tables": [],
+      "notes": "No benchmark table. The card points to the base model."
+    },
+    {
+      "card_path": "companies/alibaba-qwen/qwen3.8-27b/huggingface/nvfp4-qad/README.md",
+      "catalog_key": "qwen3.8-27b",
+      "variant_key": "nvfp4-qad",
+      "role": "quantized-export",
+      "hf_id": "nvidia/Qwen3.8-27B-NVFP4-QAD",
+      "revision": "cd46ab575a5a687f0bc3e54251016fc2cc1a6aef",
+      "source_id": "N20-Q27-QAD-CARD",
+      "precision": "ModelOpt mixed precision after quantization-aware distillation. The 401 per-module assignments contain 307 NVFP4 and 94 FP8 entries. The lm_head uses NVFP4. Config includes an 8-bit static KV scheme.",
+      "tables": [
+        {
+          "heading": "Evaluation",
+          "line_start": 128,
+          "line_end": 164,
+          "settings": "Baseline: Qwen/Qwen3.8-27B (BF16).",
+          "columns": [
+            "BF16",
+            "NVFP4 QAD"
+          ],
+          "baseline_column": "BF16",
+          "rows": [
+            {
+              "benchmark": "GPQA Diamond",
+              "values": {
+                "BF16": 88.19,
+                "NVFP4 QAD": 87.94
+              }
+            },
+            {
+              "benchmark": "IFBench",
+              "values": {
+                "BF16": 79.25,
+                "NVFP4 QAD": 79.04
+              }
+            },
+            {
+              "benchmark": "MMMU Pro",
+              "values": {
+                "BF16": 75.78,
+                "NVFP4 QAD": 75.61
+              }
+            },
+            {
+              "benchmark": "SciCode",
+              "values": {
+                "BF16": 48.34,
+                "NVFP4 QAD": 48.82
+              }
+            },
+            {
+              "benchmark": "Terminal-Bench 2.1",
+              "values": {
+                "BF16": 77.25,
+                "NVFP4 QAD": 76.69
+              }
+            },
+            {
+              "benchmark": "AA-LCR",
+              "values": {
+                "BF16": 78.63,
+                "NVFP4 QAD": 79.13
+              }
+            }
+          ]
+        }
+      ],
+      "notes": "The BF16 column is the source baseline. Governance tables are excluded."
+    },
+    {
+      "card_path": "companies/alibaba-qwen/qwen3.8-27b/huggingface/redhat-nvfp4/README.md",
+      "catalog_key": "qwen3.8-27b",
+      "variant_key": "redhat-nvfp4",
+      "role": "quantized-export",
+      "hf_id": "RedHatAI/Qwen3.8-27B-NVFP4",
+      "revision": "5dd2bd1fffbfced02b863d69542514509c312b10",
+      "source_id": "N20-Q27-RH-CARD",
+      "precision": "compressed-tensors mixed precision with W4A4 group-16 MLPs, FP8 attention and selected final MLPs, a full-precision lm_head and a static FP8 KV scheme.",
+      "tables": [
+        {
+          "heading": "Accuracy — Recovery vs. BF16 baseline",
+          "line_start": 154,
+          "line_end": 205,
+          "settings": "Inference via vLLM with zero-shot lm-evaluation-harness and lighteval on one B200, plus Inspect AI for SWE Bench. Mean of three seeded runs for GSM8K Platinum, MATH-500, GPQA Diamond and IFEval, and eight for AIME 2025. Sampled at temperature 1.0, top_p 0.95 and top_k 20, with 32,000 generation tokens for lm-eval and 65,536 for lighteval. The card gives no seed count for SWE Bench.",
+          "columns": [
+            "Qwen/Qwen3.8-27B",
+            "RedHatAI/Qwen3.8-27B-NVFP4",
+            "Recovery"
+          ],
+          "baseline_column": "Qwen/Qwen3.8-27B",
+          "rows": [
+            {
+              "benchmark": "GSM8K Platinum",
+              "section": "Reasoning",
+              "values": {
+                "Qwen/Qwen3.8-27B": 96.25,
+                "RedHatAI/Qwen3.8-27B-NVFP4": 96.72,
+                "Recovery": 100.49
+              }
+            },
+            {
+              "benchmark": "MATH-500",
+              "section": "Reasoning",
+              "values": {
+                "Qwen/Qwen3.8-27B": 83.67,
+                "RedHatAI/Qwen3.8-27B-NVFP4": 84.27,
+                "Recovery": 100.72
+              }
+            },
+            {
+              "benchmark": "AIME 2025",
+              "section": "Reasoning",
+              "values": {
+                "Qwen/Qwen3.8-27B": 96.67,
+                "RedHatAI/Qwen3.8-27B-NVFP4": 95.00,
+                "Recovery": 98.27
+              }
+            },
+            {
+              "benchmark": "GPQA Diamond",
+              "section": "Reasoning",
+              "values": {
+                "Qwen/Qwen3.8-27B": 89.56,
+                "RedHatAI/Qwen3.8-27B-NVFP4": 89.22,
+                "Recovery": 99.62
+              }
+            },
+            {
+              "benchmark": "IFEval",
+              "section": "Instruction Following",
+              "values": {
+                "Qwen/Qwen3.8-27B": 91.19,
+                "RedHatAI/Qwen3.8-27B-NVFP4": 91.99,
+                "Recovery": 100.88
+              }
+            },
+            {
+              "benchmark": "SWE Bench",
+              "section": "Agentic - Coding",
+              "values": {
+                "Qwen/Qwen3.8-27B": 78.8,
+                "RedHatAI/Qwen3.8-27B-NVFP4": 78.0,
+                "Recovery": 98.98
+              }
+            }
+          ]
+        },
+        {
+          "heading": "Accuracy — NVFP4 build comparison",
+          "line_start": 207,
+          "line_end": 251,
+          "settings": "Inference via vLLM with zero-shot lm-evaluation-harness and lighteval on one B200, plus Inspect AI for SWE Bench. Mean of three seeded runs for GSM8K Platinum, MATH-500, GPQA Diamond and IFEval, and eight for AIME 2025. Sampled at temperature 1.0, top_p 0.95 and top_k 20, with 32,000 generation tokens for lm-eval and 65,536 for lighteval. The card gives no seed count for SWE Bench.",
+          "columns": [
+            "RedHatAI/Qwen3.8-27B-NVFP4"
+          ],
+          "baseline_column": null,
+          "rows": [
+            {
+              "benchmark": "GSM8K Platinum",
+              "section": "Reasoning",
+              "values": {
+                "RedHatAI/Qwen3.8-27B-NVFP4": 96.72
+              }
+            },
+            {
+              "benchmark": "MATH-500",
+              "section": "Reasoning",
+              "values": {
+                "RedHatAI/Qwen3.8-27B-NVFP4": 84.27
+              }
+            },
+            {
+              "benchmark": "AIME 2025",
+              "section": "Reasoning",
+              "values": {
+                "RedHatAI/Qwen3.8-27B-NVFP4": 95.00
+              }
+            },
+            {
+              "benchmark": "GPQA Diamond",
+              "section": "Reasoning",
+              "values": {
+                "RedHatAI/Qwen3.8-27B-NVFP4": 89.22
+              }
+            },
+            {
+              "benchmark": "IFEval",
+              "section": "Instruction Following",
+              "values": {
+                "RedHatAI/Qwen3.8-27B-NVFP4": 91.99
+              }
+            }
+          ]
+        }
+      ],
+      "notes": "The NVFP4 build comparison retains the RedHatAI column. The other exporter columns are outside this card's own checkpoint and baseline selection. The performance sweeps appear as an image."
+    },
+    {
+      "card_path": "companies/alibaba-qwen/qwen3.8-flash-next/huggingface/inferact-nvfp4/README.md",
+      "catalog_key": "qwen3.8-flash-next",
+      "variant_key": "inferact-nvfp4",
+      "role": "quantized-export",
+      "hf_id": "Inferact/Qwen3.8-Flash-Next-NVFP4",
+      "revision": "103a7608316173ca6edd49929544244de7ffda70",
+      "source_id": "N20-QFN-IN-CARD",
+      "precision": "ModelOpt NVFP4, group 16. A pinned PLE table shard stores BF16 values although the vLLM recipe describes NVFP4 PLE. Indexed MTP tensors have their own scales.",
+      "tables": [
+        {
+          "heading": "Language",
+          "line_start": 93,
+          "line_end": 221,
+          "settings": "Publisher-model results reproduced on the exporter card. 1. DeepSWE 1.1: evaluated with the Claude Code and mini-SWE-agent harnesses, temp=1.0, top_p=0.95, 256K context window. We report the highest score across the two harnesses; notably, Qwen3.8-Flash-Next performs best on mini-SWE-agent. 2. SWE-bench Pro: except for Claude-Opus-4.6 (Max), for which we report the officially published score, all models are evaluated with the Claude Code harness, temp=1.0, top_p=0.95, 256K context window. Problematic tasks were corrected and all baseline models were re-evaluated on the refined benchmark. 3. SWE-bench Multilingual: evaluated with the mini-SWE-agent harness, temp=1.0, top_p=0.95, 256K context window. 4. NL2Repo-Bench: evaluated with the Claude Code harness. To prevent reward hacking, we disable Bash commands that attempt to access the specific repository, such as pip download, pip install and git clone. 5. CoWorkBench: an in-house cowork benchmark for evaluating long-horizon office and productivity agent tasks across computer science, finance, law, medical and other productivity domains. 6. HLE: judged by GPT-4o. 7. The best result in each row is shown in bold. 8. Empty cells (--): scores are not yet available or are not applicable.",
+          "columns": [
+            "Qwen3.8-Flash-Next"
+          ],
+          "baseline_column": null,
+          "rows": [
+            {
+              "benchmark": "# Params",
+              "values": {
+                "Qwen3.8-Flash-Next": "125B"
+              }
+            },
+            {
+              "benchmark": "# Activated params",
+              "values": {
+                "Qwen3.8-Flash-Next": "6B"
+              }
+            },
+            {
+              "benchmark": "# N-gram embedding params",
+              "values": {
+                "Qwen3.8-Flash-Next": "51B"
+              }
+            },
+            {
+              "benchmark": "DeepSWE 1.1",
+              "section": "Coding",
+              "values": {
+                "Qwen3.8-Flash-Next": 58.7
+              }
+            },
+            {
+              "benchmark": "SWE-bench Pro",
+              "section": "Coding",
+              "values": {
+                "Qwen3.8-Flash-Next": 62.5
+              }
+            },
+            {
+              "benchmark": "SWE-bench Multilingual",
+              "section": "Coding",
+              "values": {
+                "Qwen3.8-Flash-Next": 81
+              }
+            },
+            {
+              "benchmark": "NL2Repo-Bench",
+              "section": "Coding",
+              "values": {
+                "Qwen3.8-Flash-Next": 48.1
+              }
+            },
+            {
+              "benchmark": "CoWorkBench",
+              "section": "Agent",
+              "values": {
+                "Qwen3.8-Flash-Next": 73.9
+              }
+            },
+            {
+              "benchmark": "JobBench",
+              "section": "Agent",
+              "values": {
+                "Qwen3.8-Flash-Next": 55.7
+              }
+            },
+            {
+              "benchmark": "Agents' Last Exam",
+              "section": "Agent",
+              "values": {
+                "Qwen3.8-Flash-Next": "Pass@1 24.3; Score 51.2"
+              }
+            },
+            {
+              "benchmark": "Toolathlon Verified (Pass@1)",
+              "section": "Agent",
+              "values": {
+                "Qwen3.8-Flash-Next": 73.5
+              }
+            },
+            {
+              "benchmark": "IFBench",
+              "section": "General",
+              "values": {
+                "Qwen3.8-Flash-Next": 81.3
+              }
+            },
+            {
+              "benchmark": "GPQA Diamond",
+              "section": "General",
+              "values": {
+                "Qwen3.8-Flash-Next": 91.7
+              }
+            },
+            {
+              "benchmark": "HLE",
+              "section": "General",
+              "values": {
+                "Qwen3.8-Flash-Next": 35.9
+              }
+            },
+            {
+              "benchmark": "LiveCodeBench v6",
+              "section": "General",
+              "values": {
+                "Qwen3.8-Flash-Next": 91.9
+              }
+            }
+          ]
+        },
+        {
+          "heading": "Vision Language",
+          "line_start": 228,
+          "line_end": 305,
+          "settings": "Publisher-model results reproduced on the exporter card. 1. ClawEval-MM: scores are reported as \"pass@3 / average score\". Pass@3 measures the percentage passed in at least one of three trials, and the average score is the mean score across the three trials. 2. RecreationBench: an in-house long-horizon application-recreation benchmark for evaluating hybrid-agent abilities spanning five platforms — desktop (Ubuntu, macOS, Windows), mobile (Android) and web. 3. OSWorld 2.0: scores are reported as \"binary / partial\". The binary score is the percentage of tasks that receive the full task reward, while the partial score aggregates the partial rewards obtained across all tasks. 4. Vision2Web: scores are reported as the average over the frontend, webpage and website categories, using the Claude Code harness and judged by gpt-5.4-2026-03-05. 5. MathVision, CharXiv (RQ): scores are reported as \"without CI / with CI\". A small number of incorrect ground-truth annotations in MathVision were corrected after manual verification. Our model's score is evaluated using a fixed prompt, e.g. \"Please reason step by step, and put your final answer within \\boxed{}.\" For other models, we report the higher score between runs with and without the \\boxed{} formatting. 6. The best result in each row is shown in bold. 7. Empty cells (--) indicate scores not yet available or not applicable.",
+          "columns": [
+            "Qwen3.8-Flash-Next"
+          ],
+          "baseline_column": null,
+          "rows": [
+            {
+              "benchmark": "ClawEval-MM",
+              "section": "Agentic Multimodal Intelligence",
+              "values": {
+                "Qwen3.8-Flash-Next": "Pass@3 64.4; Average 60.4"
+              }
+            },
+            {
+              "benchmark": "RecreationBench",
+              "section": "Agentic Multimodal Intelligence",
+              "values": {
+                "Qwen3.8-Flash-Next": 49.9
+              }
+            },
+            {
+              "benchmark": "AndroidWorld",
+              "section": "Agentic Multimodal Intelligence",
+              "values": {
+                "Qwen3.8-Flash-Next": 84.5
+              }
+            },
+            {
+              "benchmark": "OSWorld 2.0",
+              "section": "Agentic Multimodal Intelligence",
+              "values": {
+                "Qwen3.8-Flash-Next": "Binary 19.4; Partial 52.3"
+              }
+            },
+            {
+              "benchmark": "Vision2Web",
+              "section": "Agentic Multimodal Intelligence",
+              "values": {
+                "Qwen3.8-Flash-Next": 64
+              }
+            },
+            {
+              "benchmark": "ERQA",
+              "section": "General Multimodal Intelligence",
+              "values": {
+                "Qwen3.8-Flash-Next": 72.3
+              }
+            },
+            {
+              "benchmark": "LVBench",
+              "section": "General Multimodal Intelligence",
+              "values": {
+                "Qwen3.8-Flash-Next": 76.6
+              }
+            },
+            {
+              "benchmark": "RealWorldQA",
+              "section": "General Multimodal Intelligence",
+              "values": {
+                "Qwen3.8-Flash-Next": 88.5
+              }
+            },
+            {
+              "benchmark": "MathVision",
+              "section": "General Multimodal Intelligence",
+              "values": {
+                "Qwen3.8-Flash-Next": "Without CI 90.6; With CI 95.7"
+              }
+            },
+            {
+              "benchmark": "CharXiv (RQ)",
+              "section": "General Multimodal Intelligence",
+              "values": {
+                "Qwen3.8-Flash-Next": "Without CI 84.6; With CI 90.6"
+              }
+            }
+          ]
+        }
+      ],
+      "notes": "Both tables and their evaluation footnotes match the Qwen/Qwen3.8-Flash-Next publisher card verbatim. The rows describe the publisher model. The card supplies no separate result for the Inferact NVFP4 export."
+    },
+    {
+      "card_path": "companies/alibaba-qwen/qwen3.8-flash-next/huggingface/radixark-nvfp4/README.md",
+      "catalog_key": "qwen3.8-flash-next",
+      "variant_key": "radixark-nvfp4",
+      "role": "quantized-export",
+      "hf_id": "RadixArk/Qwen3.8-Flash-Next-NVFP4",
+      "revision": "7b719225242aacd3dbd3f9407468c2ee9a9d2594",
+      "source_id": "N20-QFN-RAD-CARD",
+      "precision": "ModelOpt NVFP4 group-16 W4A4 routed experts. PLE tables stored in FP8 E4M3, MTP excluded from quantization, no KV scale scheme in the config.",
+      "tables": [
+        {
+          "heading": "Evaluation",
+          "line_start": 118,
+          "line_end": 121,
+          "settings": "¹ BF16 reference runs were recorded on an earlier checkpoint revision of the same model line; the two revisions' weight deltas are not established, so treat comparisons as indicative, not exact. ² Range across three independent BF16 runs on the earlier revision. ³ Measured on the previous revision of this checkpoint, whose weights differ from the current revision only in the PLE embedding tables.",
+          "columns": [
+            "Protocol",
+            "BF16 reference¹",
+            "NVFP4 (this checkpoint)"
+          ],
+          "baseline_column": "BF16 reference¹",
+          "rows": [
+            {
+              "benchmark": "GSM8K",
+              "values": {
+                "Protocol": "full 1319, t0.6 / top-p 0.95 / max 8192",
+                "BF16 reference¹": "97.12–97.50²",
+                "NVFP4 (this checkpoint)": "97.27 (stop 98.86, err 0)"
+              }
+            },
+            {
+              "benchmark": "AIME26",
+              "values": {
+                "Protocol": "30 problems x 8, t1.0 / max 130k",
+                "BF16 reference¹": "100 (240/240)",
+                "NVFP4 (this checkpoint)": "98.75 pass@1 (majority@8 100, stop 99.17) ³"
+              }
+            }
+          ]
+        }
+      ],
+      "notes": "The earlier BF16 reference and the prior NVFP4 revision used for AIME26 are identified in the card footnotes."
+    },
+    {
+      "card_path": "companies/alibaba-qwen/qwen3.8-flash-next/huggingface/redhat-nvfp4/README.md",
+      "catalog_key": "qwen3.8-flash-next",
+      "variant_key": "redhat-nvfp4",
+      "role": "quantized-export",
+      "hf_id": "RedHatAI/Qwen3.8-Flash-Next-NVFP4",
+      "revision": "96de4d48e43282a6430707f9eaf902bff2398507",
+      "source_id": "N20-QFN-RH-CARD",
+      "precision": "compressed-tensors NVFP4 W4A4 group 16 on routed expert gate/up/down. PLE table shard 0 is BF16. No serialized KV quantization scheme.",
+      "tables": [
+        {
+          "heading": "Accuracy",
+          "line_start": 68,
+          "line_end": 141,
+          "settings": "All of the evals were collected through Inspect with vLLM server and single seed evaluations.",
+          "columns": [
+            "Qwen/Qwen3.8-Flash-Next (baseline)",
+            "RedHatAI/Qwen3.8-Flash-Next-NVFP4 (this model)"
+          ],
+          "baseline_column": "Qwen/Qwen3.8-Flash-Next (baseline)",
+          "rows": [
+            {
+              "benchmark": "GPQA Diamond",
+              "section": "Reasoning",
+              "values": {
+                "Qwen/Qwen3.8-Flash-Next (baseline)": 90.4,
+                "RedHatAI/Qwen3.8-Flash-Next-NVFP4 (this model)": 92.9
+              }
+            },
+            {
+              "benchmark": "MMLU-Pro",
+              "section": "Knowledge",
+              "values": {
+                "Qwen/Qwen3.8-Flash-Next (baseline)": 88.5,
+                "RedHatAI/Qwen3.8-Flash-Next-NVFP4 (this model)": 88.2
+              }
+            },
+            {
+              "benchmark": "AIME 2026",
+              "section": "Math",
+              "values": {
+                "Qwen/Qwen3.8-Flash-Next (baseline)": 96.7,
+                "RedHatAI/Qwen3.8-Flash-Next-NVFP4 (this model)": 100
+              }
+            },
+            {
+              "benchmark": "LiveCodeBench",
+              "section": "Coding & Agents",
+              "values": {
+                "Qwen/Qwen3.8-Flash-Next (baseline)": 95.0,
+                "RedHatAI/Qwen3.8-Flash-Next-NVFP4 (this model)": 95.0
+              }
+            },
+            {
+              "benchmark": "Terminal-Bench 2.1",
+              "section": "Coding & Agents",
+              "values": {
+                "Qwen/Qwen3.8-Flash-Next (baseline)": 85.5,
+                "RedHatAI/Qwen3.8-Flash-Next-NVFP4 (this model)": 86.1
+              }
+            },
+            {
+              "benchmark": "SWE-bench Verified",
+              "section": "Coding & Agents",
+              "values": {
+                "Qwen/Qwen3.8-Flash-Next (baseline)": 80.6,
+                "RedHatAI/Qwen3.8-Flash-Next-NVFP4 (this model)": 79.4
+              }
+            },
+            {
+              "benchmark": "SWE-bench Pro",
+              "section": "Coding & Agents",
+              "values": {
+                "Qwen/Qwen3.8-Flash-Next (baseline)": 62.9,
+                "RedHatAI/Qwen3.8-Flash-Next-NVFP4 (this model)": 63.6
+              }
+            },
+            {
+              "benchmark": "DeepSWE 1.1",
+              "section": "Coding & Agents",
+              "values": {
+                "Qwen/Qwen3.8-Flash-Next (baseline)": 66.0,
+                "RedHatAI/Qwen3.8-Flash-Next-NVFP4 (this model)": 62.3
+              }
+            }
+          ]
+        },
+        {
+          "heading": "Recovery",
+          "line_start": 147,
+          "line_end": 217,
+          "settings": "All of the evals were collected through Inspect with vLLM server and single seed evaluations. Recovery is the quantized model's score as a percentage of the unquantized Qwen/Qwen3.8-Flash-Next score, capped at 100%: min(score / unquantized score × 100, 100).",
+          "columns": [
+            "RedHatAI/Qwen3.8-Flash-Next-NVFP4 (this model)"
+          ],
+          "baseline_column": null,
+          "rows": [
+            {
+              "benchmark": "GPQA Diamond",
+              "section": "Reasoning",
+              "values": {
+                "RedHatAI/Qwen3.8-Flash-Next-NVFP4 (this model)": 100
+              }
+            },
+            {
+              "benchmark": "MMLU-Pro",
+              "section": "Knowledge",
+              "values": {
+                "RedHatAI/Qwen3.8-Flash-Next-NVFP4 (this model)": 99.6
+              }
+            },
+            {
+              "benchmark": "AIME 2026",
+              "section": "Math",
+              "values": {
+                "RedHatAI/Qwen3.8-Flash-Next-NVFP4 (this model)": 100
+              }
+            },
+            {
+              "benchmark": "LiveCodeBench",
+              "section": "Coding & Agents",
+              "values": {
+                "RedHatAI/Qwen3.8-Flash-Next-NVFP4 (this model)": 100
+              }
+            },
+            {
+              "benchmark": "Terminal-Bench 2.1",
+              "section": "Coding & Agents",
+              "values": {
+                "RedHatAI/Qwen3.8-Flash-Next-NVFP4 (this model)": 100
+              }
+            },
+            {
+              "benchmark": "SWE-bench Verified",
+              "section": "Coding & Agents",
+              "values": {
+                "RedHatAI/Qwen3.8-Flash-Next-NVFP4 (this model)": 98.5
+              }
+            },
+            {
+              "benchmark": "SWE-bench Pro",
+              "section": "Coding & Agents",
+              "values": {
+                "RedHatAI/Qwen3.8-Flash-Next-NVFP4 (this model)": 100
+              }
+            },
+            {
+              "benchmark": "DeepSWE 1.1",
+              "section": "Coding & Agents",
+              "values": {
+                "RedHatAI/Qwen3.8-Flash-Next-NVFP4 (this model)": 94.3
+              }
+            },
+            {
+              "benchmark": "Average",
+              "values": {
+                "RedHatAI/Qwen3.8-Flash-Next-NVFP4 (this model)": 99.1
+              }
+            }
+          ]
+        }
+      ],
+      "notes": "The accuracy and capped-recovery tables retain the RedHatAI column and the named source column where present. The two other exporter columns are excluded."
+    },
+    {
+      "card_path": "companies/deepseek/deepseek-v4-flash-0731/huggingface/nvfp4-redhat/README.md",
+      "catalog_key": "deepseek-v4-flash-0731",
+      "variant_key": "nvfp4-redhat",
+      "role": "quantized-export",
+      "hf_id": "RedHatAI/DeepSeek-V4-Flash-0731-NVFP4",
+      "revision": "94ade0e65a074c992844ec55dbcba5dca9d1cdfc",
+      "source_id": "N20-REDHATAI-DEEPSEEK-V4-FLASH-0731-NVFP4-HEAD-CARD",
+      "precision": "Compressed-tensors format combines group-16 NVFP4 routed experts and FP8 block-128 selected attention/shared-expert linears. The index totals 164,602,731,950 bytes and lists target layers 0–42 plus embeddings, output and normalization. It has no mtp.*, dspark.* or draft tensor group, and the tree lists no additional draft shard. The config still carries dspark_* fields. Use the exporter’s TP8 target-only profile.",
+      "tables": [
+        {
+          "heading": "General Knowledge",
+          "line_start": 80,
+          "line_end": 82,
+          "settings": "The card gives the base and RedHatAI export figures and percent recovery. Evaluation settings are unspecified.",
+          "columns": [
+            "deepseek-ai/DeepSeek-V4-Flash-0731 (Base)",
+            "RedHatAI/DeepSeek-V4-Flash-0731-NVFP4",
+            "Recovery"
+          ],
+          "baseline_column": "deepseek-ai/DeepSeek-V4-Flash-0731 (Base)",
+          "rows": [
+            {
+              "benchmark": "GPQA Platinum",
+              "values": {
+                "deepseek-ai/DeepSeek-V4-Flash-0731 (Base)": 84.34,
+                "RedHatAI/DeepSeek-V4-Flash-0731-NVFP4": 86.15,
+                "Recovery": 102.15
+              }
+            }
+          ]
+        },
+        {
+          "heading": "Agentic Coding",
+          "line_start": 86,
+          "line_end": 91,
+          "settings": "The source and export columns use fractions. Recovery is printed as a percentage. Evaluation settings are unspecified.",
+          "columns": [
+            "deepseek-ai/DeepSeek-V4-Flash-0731 (Base)",
+            "RedHatAI/DeepSeek-V4-Flash-0731-NVFP4",
+            "Recovery"
+          ],
+          "baseline_column": "deepseek-ai/DeepSeek-V4-Flash-0731 (Base)",
+          "rows": [
+            {
+              "benchmark": "Terminal-Bench 2.1",
+              "values": {
+                "deepseek-ai/DeepSeek-V4-Flash-0731 (Base)": 0.798,
+                "RedHatAI/DeepSeek-V4-Flash-0731-NVFP4": 0.764,
+                "Recovery": 95.74
+              }
+            },
+            {
+              "benchmark": "DeepSWE 1.1",
+              "values": {
+                "deepseek-ai/DeepSeek-V4-Flash-0731 (Base)": 0.469,
+                "RedHatAI/DeepSeek-V4-Flash-0731-NVFP4": 0.513,
+                "Recovery": 109.38
+              }
+            },
+            {
+              "benchmark": "SWE-bench Verified",
+              "values": {
+                "deepseek-ai/DeepSeek-V4-Flash-0731 (Base)": 0.738,
+                "RedHatAI/DeepSeek-V4-Flash-0731-NVFP4": 0.716,
+                "Recovery": 97.02
+              }
+            },
+            {
+              "benchmark": "Average",
+              "values": {
+                "deepseek-ai/DeepSeek-V4-Flash-0731 (Base)": 0.6683,
+                "RedHatAI/DeepSeek-V4-Flash-0731-NVFP4": 0.6643,
+                "Recovery": 99.40
+              }
+            }
+          ]
+        }
+      ],
+      "notes": "GPQA Platinum uses percentages. The agentic coding table reports fractions for the base and quantized checkpoints."
+    },
+    {
+      "card_path": "companies/meta/muse-glimmer-30b/huggingface/redhat-nvfp4/README.md",
+      "catalog_key": "muse-glimmer-30b",
+      "variant_key": "redhat-nvfp4",
+      "role": "quantized-export",
+      "hf_id": "RedHatAI/Muse-Glimmer-30B-NVFP4",
+      "revision": "403f780a4d35194b7230bc2d809effa3c147f407",
+      "source_id": "N20-MGL-RH-CARD",
+      "precision": "compressed-tensors NVFP4 W4A4 group 16. Vision, embeddings and output head excluded. Config does not request KV quantization.",
+      "tables": [
+        {
+          "heading": "Evaluation",
+          "line_start": 51,
+          "line_end": 55,
+          "settings": "This NVFP4 (W4A4) checkpoint was evaluated against its BF16 base meta-models/Muse-Glimmer-30B with an identical protocol: both served with vLLM following the official vLLM recipe (one B200 per replica: TP=1 for the knowledge benchmarks, TP=2 for SWE-bench Verified), the published sampling settings (temperature 1.0, top_p 0.95, top_k 64), reasoning_strength: xhigh (the template's highest effort), pass@1 scoring with inspect_evals task definitions (GPQA-Diamond is the mean of 3 passes).",
+          "columns": [
+            "Base (BF16)",
+            "This checkpoint (NVFP4)"
+          ],
+          "baseline_column": "Base (BF16)",
+          "rows": [
+            {
+              "benchmark": "GPQA-Diamond (198 questions, 3 passes)",
+              "values": {
+                "Base (BF16)": "0.781 ± 0.024",
+                "This checkpoint (NVFP4)": "0.798 ± 0.026"
+              }
+            },
+            {
+              "benchmark": "MMLU-Pro (12,032 questions)",
+              "values": {
+                "Base (BF16)": "0.807 ± 0.004",
+                "This checkpoint (NVFP4)": "0.783 ± 0.004"
+              }
+            },
+            {
+              "benchmark": "SWE-bench Verified (500 instances)",
+              "values": {
+                "Base (BF16)": "0.684 ± 0.021",
+                "This checkpoint (NVFP4)": "0.670 ± 0.021"
+              }
+            }
+          ]
+        }
+      ],
+      "notes": "Scores and their printed uncertainty terms are retained together."
+    },
+    {
+      "card_path": "companies/moonshot-ai/kimi-k3/huggingface/additional/RedHatAI--Kimi-K3-speculator.dspark/README.md",
+      "catalog_key": "kimi-k3",
+      "variant_key": null,
+      "role": "draft-or-assistant",
+      "hf_id": "RedHatAI/Kimi-K3-speculator.dspark",
+      "revision": "38a88101e0d46bb22134b9da340f381b954d40d4",
+      "source_id": "N20-REDHATAI-KIMI-K3-SPECULATORDSPARK-HEAD-CARD",
+      "precision": null,
+      "tables": [
+        {
+          "heading": "Acceptance Rates",
+          "line_start": 175,
+          "line_end": 185,
+          "settings": "Per-position token acceptance rates across datasets, at 8 draft tokens per step:",
+          "columns": [
+            "Pos 0",
+            "Pos 1",
+            "Pos 2",
+            "Pos 3",
+            "Pos 4",
+            "Pos 5",
+            "Pos 6",
+            "Pos 7",
+            "Acceptance Length"
+          ],
+          "baseline_column": null,
+          "rows": [
+            {
+              "benchmark": "HumanEval",
+              "values": {
+                "Pos 0": 81.3,
+                "Pos 1": 67.3,
+                "Pos 2": 56.9,
+                "Pos 3": 48.6,
+                "Pos 4": 42.2,
+                "Pos 5": 37.3,
+                "Pos 6": 33.0,
+                "Pos 7": 29.4,
+                "Acceptance Length": 4.96
+              }
+            },
+            {
+              "benchmark": "math_reasoning",
+              "values": {
+                "Pos 0": 92.3,
+                "Pos 1": 84.3,
+                "Pos 2": 76.7,
+                "Pos 3": 69.8,
+                "Pos 4": 63.4,
+                "Pos 5": 57.2,
+                "Pos 6": 51.6,
+                "Pos 7": 47.0,
+                "Acceptance Length": 6.42
+              }
+            },
+            {
+              "benchmark": "qa",
+              "values": {
+                "Pos 0": 72.9,
+                "Pos 1": 51.2,
+                "Pos 2": 35.2,
+                "Pos 3": 24.3,
+                "Pos 4": 17.0,
+                "Pos 5": 12.0,
+                "Pos 6": 8.6,
+                "Pos 7": 6.2,
+                "Acceptance Length": 3.28
+              }
+            },
+            {
+              "benchmark": "question",
+              "values": {
+                "Pos 0": 70.6,
+                "Pos 1": 48.4,
+                "Pos 2": 33.1,
+                "Pos 3": 23.2,
+                "Pos 4": 16.6,
+                "Pos 5": 12.3,
+                "Pos 6": 9.3,
+                "Pos 7": 7.2,
+                "Acceptance Length": 3.21
+              }
+            },
+            {
+              "benchmark": "rag",
+              "values": {
+                "Pos 0": 77.9,
+                "Pos 1": 58.9,
+                "Pos 2": 44.1,
+                "Pos 3": 33.4,
+                "Pos 4": 25.4,
+                "Pos 5": 19.6,
+                "Pos 6": 15.2,
+                "Pos 7": 11.8,
+                "Acceptance Length": 3.86
+              }
+            },
+            {
+              "benchmark": "summarization",
+              "values": {
+                "Pos 0": 82.5,
+                "Pos 1": 64.8,
+                "Pos 2": 49.9,
+                "Pos 3": 38.4,
+                "Pos 4": 28.5,
+                "Pos 5": 20.3,
+                "Pos 6": 14.9,
+                "Pos 7": 10.7,
+                "Acceptance Length": 4.10
+              }
+            },
+            {
+              "benchmark": "tool_call",
+              "values": {
+                "Pos 0": 71.5,
+                "Pos 1": 50.2,
+                "Pos 2": 35.6,
+                "Pos 3": 25.4,
+                "Pos 4": 18.6,
+                "Pos 5": 13.8,
+                "Pos 6": 10.4,
+                "Pos 7": 7.9,
+                "Acceptance Length": 3.33
+              }
+            },
+            {
+              "benchmark": "translation",
+              "values": {
+                "Pos 0": 82.7,
+                "Pos 1": 67.2,
+                "Pos 2": 54.6,
+                "Pos 3": 45.7,
+                "Pos 4": 38.2,
+                "Pos 5": 31.3,
+                "Pos 6": 25.3,
+                "Pos 7": 20.0,
+                "Acceptance Length": 4.65
+              }
+            },
+            {
+              "benchmark": "writing",
+              "values": {
+                "Pos 0": 69.4,
+                "Pos 1": 46.8,
+                "Pos 2": 32.1,
+                "Pos 3": 22.3,
+                "Pos 4": 16.0,
+                "Pos 5": 11.8,
+                "Pos 6": 8.9,
+                "Pos 7": 7.0,
+                "Acceptance Length": 3.14
+              }
+            }
+          ]
+        },
+        {
+          "heading": "Long-context acceptance",
+          "line_start": 192,
+          "line_end": 294,
+          "settings": "Per-position token acceptance rates across datasets, at 8 draft tokens per step: Acceptance rates on LongBench dataset by sub-domain and input context length, from 2K to 20K tokens.",
+          "columns": [
+            "Context",
+            "Pos 0",
+            "Pos 1",
+            "Pos 2",
+            "Pos 3",
+            "Pos 4",
+            "Pos 5",
+            "Pos 6",
+            "Pos 7",
+            "Acceptance Length"
+          ],
+          "baseline_column": null,
+          "rows": [
+            {
+              "benchmark": "Academic",
+              "values": {
+                "Context": "2,000",
+                "Pos 0": 73.9,
+                "Pos 1": 47.5,
+                "Pos 2": 33.8,
+                "Pos 3": 22.9,
+                "Pos 4": 13.4,
+                "Pos 5": 7.7,
+                "Pos 6": 5.5,
+                "Pos 7": 4.0,
+                "Acceptance Length": 3.09
+              }
+            },
+            {
+              "benchmark": "Academic",
+              "values": {
+                "Context": "4,000",
+                "Pos 0": 70.8,
+                "Pos 1": 49.7,
+                "Pos 2": 29.9,
+                "Pos 3": 17.8,
+                "Pos 4": 9.7,
+                "Pos 5": 5.6,
+                "Pos 6": 3.6,
+                "Pos 7": 1.6,
+                "Acceptance Length": 2.89
+              }
+            },
+            {
+              "benchmark": "Academic",
+              "values": {
+                "Context": "6,000",
+                "Pos 0": 73.6,
+                "Pos 1": 48.6,
+                "Pos 2": 28.8,
+                "Pos 3": 17.1,
+                "Pos 4": 9.7,
+                "Pos 5": 5.6,
+                "Pos 6": 3.6,
+                "Pos 7": 2.5,
+                "Acceptance Length": 2.90
+              }
+            },
+            {
+              "benchmark": "Academic",
+              "values": {
+                "Context": "8,000",
+                "Pos 0": 77.6,
+                "Pos 1": 54.8,
+                "Pos 2": 33.6,
+                "Pos 3": 16.5,
+                "Pos 4": 10.6,
+                "Pos 5": 4.9,
+                "Pos 6": 2.6,
+                "Pos 7": 1.4,
+                "Acceptance Length": 3.02
+              }
+            },
+            {
+              "benchmark": "Academic",
+              "values": {
+                "Context": "10,000",
+                "Pos 0": 77.3,
+                "Pos 1": 52.3,
+                "Pos 2": 31.0,
+                "Pos 3": 17.6,
+                "Pos 4": 11.3,
+                "Pos 5": 5.1,
+                "Pos 6": 3.0,
+                "Pos 7": 1.9,
+                "Acceptance Length": 3.00
+              }
+            },
+            {
+              "benchmark": "Academic",
+              "values": {
+                "Context": "12,000",
+                "Pos 0": 79.2,
+                "Pos 1": 59.6,
+                "Pos 2": 35.2,
+                "Pos 3": 22.1,
+                "Pos 4": 11.4,
+                "Pos 5": 6.5,
+                "Pos 6": 4.5,
+                "Pos 7": 1.7,
+                "Acceptance Length": 3.20
+              }
+            },
+            {
+              "benchmark": "Academic",
+              "values": {
+                "Context": "14,000",
+                "Pos 0": 71.6,
+                "Pos 1": 47.6,
+                "Pos 2": 25.2,
+                "Pos 3": 13.8,
+                "Pos 4": 8.6,
+                "Pos 5": 3.9,
+                "Pos 6": 1.9,
+                "Pos 7": 0.6,
+                "Acceptance Length": 2.73
+              }
+            },
+            {
+              "benchmark": "Academic",
+              "values": {
+                "Context": "16,000",
+                "Pos 0": 72.3,
+                "Pos 1": 51.7,
+                "Pos 2": 30.2,
+                "Pos 3": 16.0,
+                "Pos 4": 8.0,
+                "Pos 5": 4.0,
+                "Pos 6": 2.0,
+                "Pos 7": 1.1,
+                "Acceptance Length": 2.85
+              }
+            },
+            {
+              "benchmark": "Academic",
+              "values": {
+                "Context": "18,000",
+                "Pos 0": 74.4,
+                "Pos 1": 47.9,
+                "Pos 2": 28.6,
+                "Pos 3": 16.6,
+                "Pos 4": 8.8,
+                "Pos 5": 3.5,
+                "Pos 6": 2.8,
+                "Pos 7": 1.8,
+                "Acceptance Length": 2.84
+              }
+            },
+            {
+              "benchmark": "Academic",
+              "values": {
+                "Context": "20,000",
+                "Pos 0": 78.1,
+                "Pos 1": 52.4,
+                "Pos 2": 29.4,
+                "Pos 3": 15.9,
+                "Pos 4": 8.9,
+                "Pos 5": 3.9,
+                "Pos 6": 2.5,
+                "Pos 7": 1.4,
+                "Acceptance Length": 2.92
+              }
+            },
+            {
+              "benchmark": "Agent history QA",
+              "values": {
+                "Context": "2,000",
+                "Pos 0": 76.4,
+                "Pos 1": 59.2,
+                "Pos 2": 46.0,
+                "Pos 3": 31.9,
+                "Pos 4": 21.0,
+                "Pos 5": 14.1,
+                "Pos 6": 11.2,
+                "Pos 7": 7.2,
+                "Acceptance Length": 3.67
+              }
+            },
+            {
+              "benchmark": "Agent history QA",
+              "values": {
+                "Context": "4,000",
+                "Pos 0": 80.7,
+                "Pos 1": 68.8,
+                "Pos 2": 55.3,
+                "Pos 3": 35.4,
+                "Pos 4": 26.0,
+                "Pos 5": 16.1,
+                "Pos 6": 11.3,
+                "Pos 7": 6.1,
+                "Acceptance Length": 4.00
+              }
+            },
+            {
+              "benchmark": "Agent history QA",
+              "values": {
+                "Context": "6,000",
+                "Pos 0": 80.0,
+                "Pos 1": 69.3,
+                "Pos 2": 54.8,
+                "Pos 3": 38.3,
+                "Pos 4": 32.4,
+                "Pos 5": 24.5,
+                "Pos 6": 19.3,
+                "Pos 7": 11.7,
+                "Acceptance Length": 4.30
+              }
+            },
+            {
+              "benchmark": "Agent history QA",
+              "values": {
+                "Context": "8,000",
+                "Pos 0": 82.3,
+                "Pos 1": 67.1,
+                "Pos 2": 50.6,
+                "Pos 3": 31.7,
+                "Pos 4": 19.5,
+                "Pos 5": 14.4,
+                "Pos 6": 8.4,
+                "Pos 7": 5.7,
+                "Acceptance Length": 3.80
+              }
+            },
+            {
+              "benchmark": "Agent history QA",
+              "values": {
+                "Context": "10,000",
+                "Pos 0": 79.7,
+                "Pos 1": 64.9,
+                "Pos 2": 48.7,
+                "Pos 3": 33.5,
+                "Pos 4": 24.1,
+                "Pos 5": 15.8,
+                "Pos 6": 13.0,
+                "Pos 7": 8.2,
+                "Acceptance Length": 3.88
+              }
+            },
+            {
+              "benchmark": "Agent history QA",
+              "values": {
+                "Context": "12,000",
+                "Pos 0": 81.4,
+                "Pos 1": 62.8,
+                "Pos 2": 46.0,
+                "Pos 3": 31.7,
+                "Pos 4": 20.4,
+                "Pos 5": 12.5,
+                "Pos 6": 8.5,
+                "Pos 7": 4.0,
+                "Acceptance Length": 3.67
+              }
+            },
+            {
+              "benchmark": "Agent history QA",
+              "values": {
+                "Context": "12,000",
+                "Pos 0": 77.1,
+                "Pos 1": 60.0,
+                "Pos 2": 42.7,
+                "Pos 3": 26.7,
+                "Pos 4": 17.3,
+                "Pos 5": 9.9,
+                "Pos 6": 7.2,
+                "Pos 7": 4.5,
+                "Acceptance Length": 3.45
+              }
+            },
+            {
+              "benchmark": "Agent history QA",
+              "values": {
+                "Context": "14,000",
+                "Pos 0": 76.9,
+                "Pos 1": 53.2,
+                "Pos 2": 38.2,
+                "Pos 3": 26.5,
+                "Pos 4": 16.9,
+                "Pos 5": 10.4,
+                "Pos 6": 6.5,
+                "Pos 7": 4.2,
+                "Acceptance Length": 3.33
+              }
+            },
+            {
+              "benchmark": "Agent history QA",
+              "values": {
+                "Context": "16,000",
+                "Pos 0": 74.5,
+                "Pos 1": 54.0,
+                "Pos 2": 34.3,
+                "Pos 3": 20.2,
+                "Pos 4": 12.9,
+                "Pos 5": 7.5,
+                "Pos 6": 4.6,
+                "Pos 7": 2.7,
+                "Acceptance Length": 3.11
+              }
+            },
+            {
+              "benchmark": "Agent history QA",
+              "values": {
+                "Context": "18,000",
+                "Pos 0": 78.6,
+                "Pos 1": 55.5,
+                "Pos 2": 34.9,
+                "Pos 3": 22.6,
+                "Pos 4": 14.3,
+                "Pos 5": 7.8,
+                "Pos 6": 5.0,
+                "Pos 7": 2.5,
+                "Acceptance Length": 3.21
+              }
+            },
+            {
+              "benchmark": "Agent history QA",
+              "values": {
+                "Context": "20,000",
+                "Pos 0": 75.9,
+                "Pos 1": 57.4,
+                "Pos 2": 36.0,
+                "Pos 3": 23.6,
+                "Pos 4": 14.7,
+                "Pos 5": 9.6,
+                "Pos 6": 6.3,
+                "Pos 7": 3.8,
+                "Acceptance Length": 3.27
+              }
+            },
+            {
+              "benchmark": "Code repo QA",
+              "values": {
+                "Context": "2,000",
+                "Pos 0": 71.3,
+                "Pos 1": 43.3,
+                "Pos 2": 25.8,
+                "Pos 3": 16.9,
+                "Pos 4": 10.4,
+                "Pos 5": 5.6,
+                "Pos 6": 3.6,
+                "Pos 7": 1.8,
+                "Acceptance Length": 2.79
+              }
+            },
+            {
+              "benchmark": "Code repo QA",
+              "values": {
+                "Context": "4,000",
+                "Pos 0": 74.8,
+                "Pos 1": 43.4,
+                "Pos 2": 25.4,
+                "Pos 3": 15.8,
+                "Pos 4": 9.1,
+                "Pos 5": 3.0,
+                "Pos 6": 1.5,
+                "Pos 7": 0.9,
+                "Acceptance Length": 2.74
+              }
+            },
+            {
+              "benchmark": "Code repo QA",
+              "values": {
+                "Context": "6,000",
+                "Pos 0": 77.8,
+                "Pos 1": 47.1,
+                "Pos 2": 26.2,
+                "Pos 3": 13.0,
+                "Pos 4": 7.5,
+                "Pos 5": 1.5,
+                "Pos 6": 0.9,
+                "Pos 7": 0.7,
+                "Acceptance Length": 2.75
+              }
+            },
+            {
+              "benchmark": "Code repo QA",
+              "values": {
+                "Context": "8,000",
+                "Pos 0": 74.5,
+                "Pos 1": 45.6,
+                "Pos 2": 26.9,
+                "Pos 3": 15.3,
+                "Pos 4": 7.9,
+                "Pos 5": 3.6,
+                "Pos 6": 2.0,
+                "Pos 7": 1.1,
+                "Acceptance Length": 2.77
+              }
+            },
+            {
+              "benchmark": "Code repo QA",
+              "values": {
+                "Context": "10,000",
+                "Pos 0": 73.5,
+                "Pos 1": 48.2,
+                "Pos 2": 26.0,
+                "Pos 3": 13.5,
+                "Pos 4": 6.5,
+                "Pos 5": 1.9,
+                "Pos 6": 1.5,
+                "Pos 7": 0.4,
+                "Acceptance Length": 2.72
+              }
+            },
+            {
+              "benchmark": "Code repo QA",
+              "values": {
+                "Context": "12,000",
+                "Pos 0": 79.5,
+                "Pos 1": 51.0,
+                "Pos 2": 31.0,
+                "Pos 3": 16.9,
+                "Pos 4": 9.0,
+                "Pos 5": 4.6,
+                "Pos 6": 1.3,
+                "Pos 7": 0.3,
+                "Acceptance Length": 2.94
+              }
+            },
+            {
+              "benchmark": "Code repo QA",
+              "values": {
+                "Context": "14,000",
+                "Pos 0": 73.0,
+                "Pos 1": 45.7,
+                "Pos 2": 26.1,
+                "Pos 3": 15.6,
+                "Pos 4": 7.2,
+                "Pos 5": 3.3,
+                "Pos 6": 0.9,
+                "Pos 7": 0.2,
+                "Acceptance Length": 2.72
+              }
+            },
+            {
+              "benchmark": "Code repo QA",
+              "values": {
+                "Context": "16,000",
+                "Pos 0": 73.5,
+                "Pos 1": 45.6,
+                "Pos 2": 26.1,
+                "Pos 3": 17.1,
+                "Pos 4": 8.6,
+                "Pos 5": 4.6,
+                "Pos 6": 2.0,
+                "Pos 7": 0.4,
+                "Acceptance Length": 2.78
+              }
+            },
+            {
+              "benchmark": "Code repo QA",
+              "values": {
+                "Context": "18,000",
+                "Pos 0": 76.9,
+                "Pos 1": 50.6,
+                "Pos 2": 29.9,
+                "Pos 3": 16.4,
+                "Pos 4": 8.9,
+                "Pos 5": 3.6,
+                "Pos 6": 1.9,
+                "Pos 7": 0.7,
+                "Acceptance Length": 2.89
+              }
+            },
+            {
+              "benchmark": "Code repo QA",
+              "values": {
+                "Context": "20,000",
+                "Pos 0": 76.1,
+                "Pos 1": 45.2,
+                "Pos 2": 24.4,
+                "Pos 3": 12.7,
+                "Pos 4": 6.5,
+                "Pos 5": 2.9,
+                "Pos 6": 0.7,
+                "Pos 7": 0.2,
+                "Acceptance Length": 2.69
+              }
+            },
+            {
+              "benchmark": "Detective",
+              "values": {
+                "Context": "2,000",
+                "Pos 0": 74.5,
+                "Pos 1": 51.4,
+                "Pos 2": 31.5,
+                "Pos 3": 21.4,
+                "Pos 4": 13.2,
+                "Pos 5": 6.7,
+                "Pos 6": 3.6,
+                "Pos 7": 1.4,
+                "Acceptance Length": 3.04
+              }
+            },
+            {
+              "benchmark": "Detective",
+              "values": {
+                "Context": "4,000",
+                "Pos 0": 79.7,
+                "Pos 1": 57.7,
+                "Pos 2": 38.0,
+                "Pos 3": 23.0,
+                "Pos 4": 14.4,
+                "Pos 5": 7.8,
+                "Pos 6": 3.0,
+                "Pos 7": 1.0,
+                "Acceptance Length": 3.25
+              }
+            },
+            {
+              "benchmark": "Detective",
+              "values": {
+                "Context": "6,000",
+                "Pos 0": 80.1,
+                "Pos 1": 57.0,
+                "Pos 2": 37.6,
+                "Pos 3": 21.6,
+                "Pos 4": 12.4,
+                "Pos 5": 5.7,
+                "Pos 6": 2.2,
+                "Pos 7": 1.2,
+                "Acceptance Length": 3.18
+              }
+            },
+            {
+              "benchmark": "Detective",
+              "values": {
+                "Context": "8,000",
+                "Pos 0": 80.5,
+                "Pos 1": 56.0,
+                "Pos 2": 35.6,
+                "Pos 3": 19.0,
+                "Pos 4": 9.1,
+                "Pos 5": 5.0,
+                "Pos 6": 1.7,
+                "Pos 7": 1.0,
+                "Acceptance Length": 3.08
+              }
+            },
+            {
+              "benchmark": "Detective",
+              "values": {
+                "Context": "10,000",
+                "Pos 0": 74.7,
+                "Pos 1": 51.0,
+                "Pos 2": 31.8,
+                "Pos 3": 18.3,
+                "Pos 4": 11.1,
+                "Pos 5": 5.8,
+                "Pos 6": 3.5,
+                "Pos 7": 2.6,
+                "Acceptance Length": 2.99
+              }
+            },
+            {
+              "benchmark": "Detective",
+              "values": {
+                "Context": "12,000",
+                "Pos 0": 77.8,
+                "Pos 1": 52.9,
+                "Pos 2": 30.7,
+                "Pos 3": 16.0,
+                "Pos 4": 8.0,
+                "Pos 5": 3.4,
+                "Pos 6": 1.6,
+                "Pos 7": 1.1,
+                "Acceptance Length": 2.92
+              }
+            },
+            {
+              "benchmark": "Detective",
+              "values": {
+                "Context": "14,000",
+                "Pos 0": 76.3,
+                "Pos 1": 53.2,
+                "Pos 2": 32.8,
+                "Pos 3": 17.3,
+                "Pos 4": 9.6,
+                "Pos 5": 4.4,
+                "Pos 6": 3.0,
+                "Pos 7": 1.2,
+                "Acceptance Length": 2.98
+              }
+            },
+            {
+              "benchmark": "Detective",
+              "values": {
+                "Context": "16,000",
+                "Pos 0": 73.9,
+                "Pos 1": 52.2,
+                "Pos 2": 30.8,
+                "Pos 3": 14.7,
+                "Pos 4": 6.2,
+                "Pos 5": 4.5,
+                "Pos 6": 2.7,
+                "Pos 7": 1.1,
+                "Acceptance Length": 2.86
+              }
+            },
+            {
+              "benchmark": "Detective",
+              "values": {
+                "Context": "18,000",
+                "Pos 0": 76.2,
+                "Pos 1": 48.2,
+                "Pos 2": 28.1,
+                "Pos 3": 18.1,
+                "Pos 4": 11.1,
+                "Pos 5": 4.5,
+                "Pos 6": 3.2,
+                "Pos 7": 0.5,
+                "Acceptance Length": 2.90
+              }
+            },
+            {
+              "benchmark": "Detective",
+              "values": {
+                "Context": "20,000",
+                "Pos 0": 77.4,
+                "Pos 1": 54.8,
+                "Pos 2": 30.8,
+                "Pos 3": 15.6,
+                "Pos 4": 9.3,
+                "Pos 5": 6.1,
+                "Pos 6": 3.0,
+                "Pos 7": 2.6,
+                "Acceptance Length": 3.00
+              }
+            },
+            {
+              "benchmark": "Event ordering",
+              "values": {
+                "Context": "2,000",
+                "Pos 0": 75.6,
+                "Pos 1": 48.8,
+                "Pos 2": 32.8,
+                "Pos 3": 20.9,
+                "Pos 4": 13.3,
+                "Pos 5": 7.4,
+                "Pos 6": 3.4,
+                "Pos 7": 1.5,
+                "Acceptance Length": 3.04
+              }
+            },
+            {
+              "benchmark": "Event ordering",
+              "values": {
+                "Context": "4,000",
+                "Pos 0": 76.2,
+                "Pos 1": 53.1,
+                "Pos 2": 34.8,
+                "Pos 3": 21.4,
+                "Pos 4": 10.0,
+                "Pos 5": 5.0,
+                "Pos 6": 2.9,
+                "Pos 7": 1.4,
+                "Acceptance Length": 3.05
+              }
+            },
+            {
+              "benchmark": "Event ordering",
+              "values": {
+                "Context": "6,000",
+                "Pos 0": 77.4,
+                "Pos 1": 48.6,
+                "Pos 2": 28.6,
+                "Pos 3": 14.3,
+                "Pos 4": 7.0,
+                "Pos 5": 3.7,
+                "Pos 6": 0.7,
+                "Pos 7": 0.2,
+                "Acceptance Length": 2.80
+              }
+            },
+            {
+              "benchmark": "Event ordering",
+              "values": {
+                "Context": "8,000",
+                "Pos 0": 78.9,
+                "Pos 1": 54.6,
+                "Pos 2": 33.3,
+                "Pos 3": 20.4,
+                "Pos 4": 10.0,
+                "Pos 5": 5.6,
+                "Pos 6": 2.7,
+                "Pos 7": 1.5,
+                "Acceptance Length": 3.07
+              }
+            },
+            {
+              "benchmark": "Event ordering",
+              "values": {
+                "Context": "10,000",
+                "Pos 0": 76.5,
+                "Pos 1": 51.4,
+                "Pos 2": 30.4,
+                "Pos 3": 18.0,
+                "Pos 4": 9.0,
+                "Pos 5": 4.6,
+                "Pos 6": 3.0,
+                "Pos 7": 0.9,
+                "Acceptance Length": 2.94
+              }
+            },
+            {
+              "benchmark": "Event ordering",
+              "values": {
+                "Context": "12,000",
+                "Pos 0": 77.9,
+                "Pos 1": 56.5,
+                "Pos 2": 36.3,
+                "Pos 3": 20.6,
+                "Pos 4": 12.4,
+                "Pos 5": 6.0,
+                "Pos 6": 3.0,
+                "Pos 7": 1.2,
+                "Acceptance Length": 3.14
+              }
+            },
+            {
+              "benchmark": "Event ordering",
+              "values": {
+                "Context": "14,000",
+                "Pos 0": 73.6,
+                "Pos 1": 52.1,
+                "Pos 2": 31.9,
+                "Pos 3": 18.5,
+                "Pos 4": 9.0,
+                "Pos 5": 4.4,
+                "Pos 6": 2.1,
+                "Pos 7": 0.9,
+                "Acceptance Length": 2.93
+              }
+            },
+            {
+              "benchmark": "Event ordering",
+              "values": {
+                "Context": "16,000",
+                "Pos 0": 72.3,
+                "Pos 1": 51.8,
+                "Pos 2": 31.8,
+                "Pos 3": 17.3,
+                "Pos 4": 7.9,
+                "Pos 5": 4.1,
+                "Pos 6": 2.0,
+                "Pos 7": 1.4,
+                "Acceptance Length": 2.89
+              }
+            },
+            {
+              "benchmark": "Event ordering",
+              "values": {
+                "Context": "18,000",
+                "Pos 0": 75.8,
+                "Pos 1": 55.7,
+                "Pos 2": 34.4,
+                "Pos 3": 16.8,
+                "Pos 4": 10.7,
+                "Pos 5": 5.7,
+                "Pos 6": 2.1,
+                "Pos 7": 1.2,
+                "Acceptance Length": 3.02
+              }
+            },
+            {
+              "benchmark": "Event ordering",
+              "values": {
+                "Context": "20,000",
+                "Pos 0": 74.9,
+                "Pos 1": 50.2,
+                "Pos 2": 32.9,
+                "Pos 3": 16.7,
+                "Pos 4": 8.4,
+                "Pos 5": 4.1,
+                "Pos 6": 2.5,
+                "Pos 7": 1.4,
+                "Acceptance Length": 2.91
+              }
+            },
+            {
+              "benchmark": "Financial",
+              "values": {
+                "Context": "2,000",
+                "Pos 0": 82.1,
+                "Pos 1": 62.4,
+                "Pos 2": 39.6,
+                "Pos 3": 27.7,
+                "Pos 4": 18.4,
+                "Pos 5": 11.3,
+                "Pos 6": 6.9,
+                "Pos 7": 4.1,
+                "Acceptance Length": 3.52
+              }
+            },
+            {
+              "benchmark": "Financial",
+              "values": {
+                "Context": "4,000",
+                "Pos 0": 80.3,
+                "Pos 1": 59.1,
+                "Pos 2": 40.9,
+                "Pos 3": 26.0,
+                "Pos 4": 14.4,
+                "Pos 5": 8.4,
+                "Pos 6": 5.2,
+                "Pos 7": 3.1,
+                "Acceptance Length": 3.38
+              }
+            },
+            {
+              "benchmark": "Financial",
+              "values": {
+                "Context": "6,000",
+                "Pos 0": 81.1,
+                "Pos 1": 60.0,
+                "Pos 2": 36.0,
+                "Pos 3": 22.1,
+                "Pos 4": 12.9,
+                "Pos 5": 6.7,
+                "Pos 6": 2.2,
+                "Pos 7": 2.0,
+                "Acceptance Length": 3.23
+              }
+            },
+            {
+              "benchmark": "Financial",
+              "values": {
+                "Context": "8,000",
+                "Pos 0": 80.5,
+                "Pos 1": 59.7,
+                "Pos 2": 40.5,
+                "Pos 3": 26.3,
+                "Pos 4": 15.3,
+                "Pos 5": 9.3,
+                "Pos 6": 6.0,
+                "Pos 7": 3.0,
+                "Acceptance Length": 3.41
+              }
+            },
+            {
+              "benchmark": "Financial",
+              "values": {
+                "Context": "10,000",
+                "Pos 0": 82.7,
+                "Pos 1": 58.8,
+                "Pos 2": 36.7,
+                "Pos 3": 22.9,
+                "Pos 4": 13.3,
+                "Pos 5": 7.2,
+                "Pos 6": 3.7,
+                "Pos 7": 1.6,
+                "Acceptance Length": 3.27
+              }
+            },
+            {
+              "benchmark": "Financial",
+              "values": {
+                "Context": "12,000",
+                "Pos 0": 78.1,
+                "Pos 1": 51.4,
+                "Pos 2": 30.7,
+                "Pos 3": 20.1,
+                "Pos 4": 11.8,
+                "Pos 5": 6.4,
+                "Pos 6": 2.7,
+                "Pos 7": 2.2,
+                "Acceptance Length": 3.03
+              }
+            },
+            {
+              "benchmark": "Financial",
+              "values": {
+                "Context": "14,000",
+                "Pos 0": 82.0,
+                "Pos 1": 60.8,
+                "Pos 2": 40.3,
+                "Pos 3": 26.7,
+                "Pos 4": 17.7,
+                "Pos 5": 12.0,
+                "Pos 6": 7.4,
+                "Pos 7": 3.5,
+                "Acceptance Length": 3.50
+              }
+            },
+            {
+              "benchmark": "Financial",
+              "values": {
+                "Context": "16,000",
+                "Pos 0": 79.3,
+                "Pos 1": 56.6,
+                "Pos 2": 40.1,
+                "Pos 3": 24.0,
+                "Pos 4": 14.2,
+                "Pos 5": 9.0,
+                "Pos 6": 5.4,
+                "Pos 7": 3.1,
+                "Acceptance Length": 3.32
+              }
+            },
+            {
+              "benchmark": "Financial",
+              "values": {
+                "Context": "18,000",
+                "Pos 0": 84.7,
+                "Pos 1": 60.4,
+                "Pos 2": 37.7,
+                "Pos 3": 23.5,
+                "Pos 4": 14.5,
+                "Pos 5": 8.4,
+                "Pos 6": 5.8,
+                "Pos 7": 2.6,
+                "Acceptance Length": 3.38
+              }
+            },
+            {
+              "benchmark": "Financial",
+              "values": {
+                "Context": "20,000",
+                "Pos 0": 79.6,
+                "Pos 1": 55.4,
+                "Pos 2": 36.0,
+                "Pos 3": 22.4,
+                "Pos 4": 12.6,
+                "Pos 5": 6.3,
+                "Pos 6": 3.8,
+                "Pos 7": 1.5,
+                "Acceptance Length": 3.18
+              }
+            },
+            {
+              "benchmark": "Governmental",
+              "values": {
+                "Context": "2,000",
+                "Pos 0": 78.2,
+                "Pos 1": 59.1,
+                "Pos 2": 45.0,
+                "Pos 3": 28.2,
+                "Pos 4": 21.2,
+                "Pos 5": 14.1,
+                "Pos 6": 8.8,
+                "Pos 7": 6.8,
+                "Acceptance Length": 3.61
+              }
+            },
+            {
+              "benchmark": "Governmental",
+              "values": {
+                "Context": "4,000",
+                "Pos 0": 79.4,
+                "Pos 1": 57.2,
+                "Pos 2": 38.6,
+                "Pos 3": 23.0,
+                "Pos 4": 15.1,
+                "Pos 5": 10.7,
+                "Pos 6": 6.8,
+                "Pos 7": 4.2,
+                "Acceptance Length": 3.35
+              }
+            },
+            {
+              "benchmark": "Governmental",
+              "values": {
+                "Context": "6,000",
+                "Pos 0": 80.5,
+                "Pos 1": 62.1,
+                "Pos 2": 39.5,
+                "Pos 3": 24.5,
+                "Pos 4": 16.3,
+                "Pos 5": 9.6,
+                "Pos 6": 5.1,
+                "Pos 7": 3.2,
+                "Acceptance Length": 3.41
+              }
+            },
+            {
+              "benchmark": "Governmental",
+              "values": {
+                "Context": "8,000",
+                "Pos 0": 82.4,
+                "Pos 1": 59.9,
+                "Pos 2": 36.3,
+                "Pos 3": 21.9,
+                "Pos 4": 10.6,
+                "Pos 5": 6.5,
+                "Pos 6": 3.3,
+                "Pos 7": 2.0,
+                "Acceptance Length": 3.23
+              }
+            },
+            {
+              "benchmark": "Governmental",
+              "values": {
+                "Context": "10,000",
+                "Pos 0": 81.5,
+                "Pos 1": 57.9,
+                "Pos 2": 39.9,
+                "Pos 3": 26.2,
+                "Pos 4": 15.9,
+                "Pos 5": 10.1,
+                "Pos 6": 5.8,
+                "Pos 7": 2.1,
+                "Acceptance Length": 3.39
+              }
+            },
+            {
+              "benchmark": "Governmental",
+              "values": {
+                "Context": "12,000",
+                "Pos 0": 82.0,
+                "Pos 1": 57.6,
+                "Pos 2": 32.4,
+                "Pos 3": 21.4,
+                "Pos 4": 11.5,
+                "Pos 5": 7.5,
+                "Pos 6": 5.2,
+                "Pos 7": 2.7,
+                "Acceptance Length": 3.20
+              }
+            },
+            {
+              "benchmark": "Governmental",
+              "values": {
+                "Context": "14,000",
+                "Pos 0": 81.6,
+                "Pos 1": 53.7,
+                "Pos 2": 30.5,
+                "Pos 3": 18.9,
+                "Pos 4": 11.2,
+                "Pos 5": 6.4,
+                "Pos 6": 2.6,
+                "Pos 7": 1.4,
+                "Acceptance Length": 3.06
+              }
+            },
+            {
+              "benchmark": "Governmental",
+              "values": {
+                "Context": "16,000",
+                "Pos 0": 83.2,
+                "Pos 1": 57.1,
+                "Pos 2": 37.0,
+                "Pos 3": 22.4,
+                "Pos 4": 11.7,
+                "Pos 5": 6.9,
+                "Pos 6": 4.8,
+                "Pos 7": 3.3,
+                "Acceptance Length": 3.27
+              }
+            },
+            {
+              "benchmark": "Governmental",
+              "values": {
+                "Context": "18,000",
+                "Pos 0": 83.0,
+                "Pos 1": 59.7,
+                "Pos 2": 35.9,
+                "Pos 3": 22.8,
+                "Pos 4": 12.4,
+                "Pos 5": 7.3,
+                "Pos 6": 3.0,
+                "Pos 7": 1.3,
+                "Acceptance Length": 3.26
+              }
+            },
+            {
+              "benchmark": "Governmental",
+              "values": {
+                "Context": "20,000",
+                "Pos 0": 80.6,
+                "Pos 1": 55.1,
+                "Pos 2": 34.3,
+                "Pos 3": 21.6,
+                "Pos 4": 10.3,
+                "Pos 5": 6.1,
+                "Pos 6": 3.2,
+                "Pos 7": 1.5,
+                "Acceptance Length": 3.13
+              }
+            },
+            {
+              "benchmark": "Legal",
+              "values": {
+                "Context": "2,000",
+                "Pos 0": 81.8,
+                "Pos 1": 59.9,
+                "Pos 2": 44.3,
+                "Pos 3": 31.9,
+                "Pos 4": 21.3,
+                "Pos 5": 12.9,
+                "Pos 6": 8.1,
+                "Pos 7": 4.5,
+                "Acceptance Length": 3.65
+              }
+            },
+            {
+              "benchmark": "Legal",
+              "values": {
+                "Context": "4,000",
+                "Pos 0": 77.1,
+                "Pos 1": 55.0,
+                "Pos 2": 36.8,
+                "Pos 3": 23.7,
+                "Pos 4": 15.5,
+                "Pos 5": 10.0,
+                "Pos 6": 6.3,
+                "Pos 7": 4.2,
+                "Acceptance Length": 3.29
+              }
+            },
+            {
+              "benchmark": "Legal",
+              "values": {
+                "Context": "6,000",
+                "Pos 0": 79.7,
+                "Pos 1": 57.1,
+                "Pos 2": 38.2,
+                "Pos 3": 23.4,
+                "Pos 4": 13.2,
+                "Pos 5": 9.5,
+                "Pos 6": 3.9,
+                "Pos 7": 2.1,
+                "Acceptance Length": 3.27
+              }
+            },
+            {
+              "benchmark": "Legal",
+              "values": {
+                "Context": "8,000",
+                "Pos 0": 83.9,
+                "Pos 1": 56.8,
+                "Pos 2": 36.2,
+                "Pos 3": 23.2,
+                "Pos 4": 16.1,
+                "Pos 5": 8.9,
+                "Pos 6": 4.4,
+                "Pos 7": 2.9,
+                "Acceptance Length": 3.32
+              }
+            },
+            {
+              "benchmark": "Legal",
+              "values": {
+                "Context": "10,000",
+                "Pos 0": 80.1,
+                "Pos 1": 54.1,
+                "Pos 2": 35.1,
+                "Pos 3": 19.7,
+                "Pos 4": 11.5,
+                "Pos 5": 6.6,
+                "Pos 6": 3.7,
+                "Pos 7": 2.0,
+                "Acceptance Length": 3.13
+              }
+            },
+            {
+              "benchmark": "Legal",
+              "values": {
+                "Context": "12,000",
+                "Pos 0": 79.1,
+                "Pos 1": 55.5,
+                "Pos 2": 37.4,
+                "Pos 3": 22.6,
+                "Pos 4": 11.8,
+                "Pos 5": 6.0,
+                "Pos 6": 3.5,
+                "Pos 7": 2.0,
+                "Acceptance Length": 3.18
+              }
+            },
+            {
+              "benchmark": "Legal",
+              "values": {
+                "Context": "14,000",
+                "Pos 0": 79.2,
+                "Pos 1": 56.2,
+                "Pos 2": 34.7,
+                "Pos 3": 19.3,
+                "Pos 4": 11.1,
+                "Pos 5": 6.7,
+                "Pos 6": 2.5,
+                "Pos 7": 1.2,
+                "Acceptance Length": 3.11
+              }
+            },
+            {
+              "benchmark": "Legal",
+              "values": {
+                "Context": "16,000",
+                "Pos 0": 81.3,
+                "Pos 1": 55.1,
+                "Pos 2": 33.9,
+                "Pos 3": 21.7,
+                "Pos 4": 12.2,
+                "Pos 5": 7.7,
+                "Pos 6": 3.7,
+                "Pos 7": 2.5,
+                "Acceptance Length": 3.18
+              }
+            },
+            {
+              "benchmark": "Legal",
+              "values": {
+                "Context": "18,000",
+                "Pos 0": 81.3,
+                "Pos 1": 57.7,
+                "Pos 2": 37.4,
+                "Pos 3": 22.3,
+                "Pos 4": 12.6,
+                "Pos 5": 7.4,
+                "Pos 6": 4.9,
+                "Pos 7": 3.6,
+                "Acceptance Length": 3.27
+              }
+            },
+            {
+              "benchmark": "Legal",
+              "values": {
+                "Context": "20,000",
+                "Pos 0": 84.2,
+                "Pos 1": 56.3,
+                "Pos 2": 35.4,
+                "Pos 3": 21.9,
+                "Pos 4": 13.1,
+                "Pos 5": 6.3,
+                "Pos 6": 3.3,
+                "Pos 7": 1.8,
+                "Acceptance Length": 3.22
+              }
+            },
+            {
+              "benchmark": "Literary",
+              "values": {
+                "Context": "2,000",
+                "Pos 0": 81.1,
+                "Pos 1": 54.0,
+                "Pos 2": 37.0,
+                "Pos 3": 24.4,
+                "Pos 4": 16.7,
+                "Pos 5": 11.2,
+                "Pos 6": 6.6,
+                "Pos 7": 4.4,
+                "Acceptance Length": 3.35
+              }
+            },
+            {
+              "benchmark": "Literary",
+              "values": {
+                "Context": "4,000",
+                "Pos 0": 78.8,
+                "Pos 1": 49.1,
+                "Pos 2": 31.9,
+                "Pos 3": 18.3,
+                "Pos 4": 9.6,
+                "Pos 5": 5.2,
+                "Pos 6": 2.0,
+                "Pos 7": 1.2,
+                "Acceptance Length": 2.96
+              }
+            },
+            {
+              "benchmark": "Literary",
+              "values": {
+                "Context": "6,000",
+                "Pos 0": 77.4,
+                "Pos 1": 53.8,
+                "Pos 2": 32.4,
+                "Pos 3": 19.7,
+                "Pos 4": 11.1,
+                "Pos 5": 5.7,
+                "Pos 6": 2.7,
+                "Pos 7": 0.7,
+                "Acceptance Length": 3.03
+              }
+            },
+            {
+              "benchmark": "Literary",
+              "values": {
+                "Context": "8,000",
+                "Pos 0": 78.9,
+                "Pos 1": 53.6,
+                "Pos 2": 32.5,
+                "Pos 3": 17.5,
+                "Pos 4": 9.9,
+                "Pos 5": 6.9,
+                "Pos 6": 3.6,
+                "Pos 7": 1.5,
+                "Acceptance Length": 3.04
+              }
+            },
+            {
+              "benchmark": "Literary",
+              "values": {
+                "Context": "10,000",
+                "Pos 0": 79.7,
+                "Pos 1": 52.4,
+                "Pos 2": 30.4,
+                "Pos 3": 17.9,
+                "Pos 4": 9.2,
+                "Pos 5": 5.7,
+                "Pos 6": 3.5,
+                "Pos 7": 1.2,
+                "Acceptance Length": 3.00
+              }
+            },
+            {
+              "benchmark": "Literary",
+              "values": {
+                "Context": "12,000",
+                "Pos 0": 78.3,
+                "Pos 1": 51.8,
+                "Pos 2": 29.7,
+                "Pos 3": 17.3,
+                "Pos 4": 9.7,
+                "Pos 5": 4.6,
+                "Pos 6": 2.8,
+                "Pos 7": 0.9,
+                "Acceptance Length": 2.95
+              }
+            },
+            {
+              "benchmark": "Literary",
+              "values": {
+                "Context": "14,000",
+                "Pos 0": 78.2,
+                "Pos 1": 51.2,
+                "Pos 2": 31.8,
+                "Pos 3": 17.2,
+                "Pos 4": 10.2,
+                "Pos 5": 5.0,
+                "Pos 6": 2.0,
+                "Pos 7": 1.0,
+                "Acceptance Length": 2.97
+              }
+            },
+            {
+              "benchmark": "Literary",
+              "values": {
+                "Context": "16,000",
+                "Pos 0": 80.2,
+                "Pos 1": 53.5,
+                "Pos 2": 35.7,
+                "Pos 3": 17.8,
+                "Pos 4": 9.0,
+                "Pos 5": 5.6,
+                "Pos 6": 2.9,
+                "Pos 7": 1.2,
+                "Acceptance Length": 3.06
+              }
+            },
+            {
+              "benchmark": "Literary",
+              "values": {
+                "Context": "18,000",
+                "Pos 0": 81.4,
+                "Pos 1": 56.4,
+                "Pos 2": 35.9,
+                "Pos 3": 20.0,
+                "Pos 4": 11.6,
+                "Pos 5": 5.4,
+                "Pos 6": 2.2,
+                "Pos 7": 1.2,
+                "Acceptance Length": 3.14
+              }
+            },
+            {
+              "benchmark": "Literary",
+              "values": {
+                "Context": "20,000",
+                "Pos 0": 75.8,
+                "Pos 1": 54.8,
+                "Pos 2": 34.4,
+                "Pos 3": 17.3,
+                "Pos 4": 9.2,
+                "Pos 5": 4.3,
+                "Pos 6": 2.3,
+                "Pos 7": 1.0,
+                "Acceptance Length": 2.99
+              }
+            },
+            {
+              "benchmark": "Multi-news",
+              "values": {
+                "Context": "2,000",
+                "Pos 0": 85.1,
+                "Pos 1": 64.4,
+                "Pos 2": 45.8,
+                "Pos 3": 34.4,
+                "Pos 4": 25.1,
+                "Pos 5": 15.5,
+                "Pos 6": 11.8,
+                "Pos 7": 9.3,
+                "Acceptance Length": 3.91
+              }
+            },
+            {
+              "benchmark": "Multi-news",
+              "values": {
+                "Context": "4,000",
+                "Pos 0": 80.3,
+                "Pos 1": 58.1,
+                "Pos 2": 40.0,
+                "Pos 3": 25.3,
+                "Pos 4": 16.8,
+                "Pos 5": 10.1,
+                "Pos 6": 6.1,
+                "Pos 7": 2.9,
+                "Acceptance Length": 3.40
+              }
+            },
+            {
+              "benchmark": "Multi-news",
+              "values": {
+                "Context": "6,000",
+                "Pos 0": 80.7,
+                "Pos 1": 62.2,
+                "Pos 2": 42.9,
+                "Pos 3": 25.2,
+                "Pos 4": 15.0,
+                "Pos 5": 7.2,
+                "Pos 6": 5.6,
+                "Pos 7": 3.8,
+                "Acceptance Length": 3.43
+              }
+            },
+            {
+              "benchmark": "Multi-news",
+              "values": {
+                "Context": "8,000",
+                "Pos 0": 79.3,
+                "Pos 1": 58.2,
+                "Pos 2": 40.4,
+                "Pos 3": 27.7,
+                "Pos 4": 16.2,
+                "Pos 5": 9.6,
+                "Pos 6": 6.6,
+                "Pos 7": 4.5,
+                "Acceptance Length": 3.43
+              }
+            },
+            {
+              "benchmark": "Multi-news",
+              "values": {
+                "Context": "10,000",
+                "Pos 0": 83.7,
+                "Pos 1": 56.1,
+                "Pos 2": 39.8,
+                "Pos 3": 24.3,
+                "Pos 4": 15.0,
+                "Pos 5": 10.1,
+                "Pos 6": 4.4,
+                "Pos 7": 2.6,
+                "Acceptance Length": 3.36
+              }
+            },
+            {
+              "benchmark": "Multi-news",
+              "values": {
+                "Context": "12,000",
+                "Pos 0": 78.0,
+                "Pos 1": 56.1,
+                "Pos 2": 34.6,
+                "Pos 3": 21.2,
+                "Pos 4": 12.0,
+                "Pos 5": 7.1,
+                "Pos 6": 3.4,
+                "Pos 7": 2.0,
+                "Acceptance Length": 3.14
+              }
+            },
+            {
+              "benchmark": "Multi-news",
+              "values": {
+                "Context": "14,000",
+                "Pos 0": 80.2,
+                "Pos 1": 60.6,
+                "Pos 2": 41.3,
+                "Pos 3": 26.3,
+                "Pos 4": 14.7,
+                "Pos 5": 9.7,
+                "Pos 6": 5.6,
+                "Pos 7": 2.9,
+                "Acceptance Length": 3.41
+              }
+            },
+            {
+              "benchmark": "Multi-news",
+              "values": {
+                "Context": "16,000",
+                "Pos 0": 80.4,
+                "Pos 1": 60.7,
+                "Pos 2": 40.3,
+                "Pos 3": 25.9,
+                "Pos 4": 13.1,
+                "Pos 5": 8.6,
+                "Pos 6": 5.2,
+                "Pos 7": 2.6,
+                "Acceptance Length": 3.37
+              }
+            },
+            {
+              "benchmark": "Multi-news",
+              "values": {
+                "Context": "18,000",
+                "Pos 0": 78.8,
+                "Pos 1": 56.3,
+                "Pos 2": 37.1,
+                "Pos 3": 21.5,
+                "Pos 4": 12.5,
+                "Pos 5": 6.6,
+                "Pos 6": 3.6,
+                "Pos 7": 2.0,
+                "Acceptance Length": 3.18
+              }
+            },
+            {
+              "benchmark": "Multi-news",
+              "values": {
+                "Context": "20,000",
+                "Pos 0": 82.4,
+                "Pos 1": 55.6,
+                "Pos 2": 35.7,
+                "Pos 3": 24.8,
+                "Pos 4": 12.4,
+                "Pos 5": 5.9,
+                "Pos 6": 3.6,
+                "Pos 7": 2.3,
+                "Acceptance Length": 3.23
+              }
+            }
+          ]
+        }
+      ],
+      "notes": "Acceptance by draft position and input length. Both Agent history QA rows labelled 12,000 tokens are retained as printed at lines 209–210. Throughput appears in a figure. The model specifications table is excluded."
+    },
+    {
+      "card_path": "companies/moonshot-ai/kimi-k3/huggingface/fp8-block/README.md",
+      "catalog_key": "kimi-k3",
+      "variant_key": "fp8-block",
+      "role": "quantized-export",
+      "hf_id": "RedHatAI/Kimi-K3-FP8-BLOCK",
+      "revision": "6409c37cf440abeb76f0b44ab4fb7db8c8bccb4b",
+      "source_id": "N20-REDHATAI-KIMI-K3-FP8-BLOCK-HEAD-CARD",
+      "precision": "Compressed-tensors FP8_BLOCK uses 128×128 weight blocks and dynamic group-128 activations on selected linears. The index contains scale tensors for routed experts, shared experts, the dense first MLP and latent expert projections. The config excludes self-attention, router gate, residual projections, embeddings, output head, vision and its projector. The index totals 2,819,870,867,584 bytes, exceeding 8 × 288 decimal GB by 515,870,867,584 bytes before state or buffers. The card uses TP16.",
+      "tables": [],
+      "notes": "No benchmark table. The card describes quantization and deployment."
+    },
+    {
+      "card_path": "companies/moonshot-ai/kimi-k3/huggingface/nvfp4-redhat/README.md",
+      "catalog_key": "kimi-k3",
+      "variant_key": "nvfp4-redhat",
+      "role": "quantized-export",
+      "hf_id": "RedHatAI/Kimi-K3-NVFP4",
+      "revision": "13fd4e58db6abe84bd75aecd055b7e18057cf607",
+      "source_id": "N20-REDHATAI-KIMI-K3-NVFP4-HEAD-CARD",
+      "precision": "Compressed-tensors group-16 NVFP4 routed experts. Shared experts, attention, router, routed latent projections, vision and dense prefix sit outside that conversion. The vLLM recipe names this exact export. Its index totals 1,645,927,413,888 bytes. NVIDIA’s K3 export also changes selected attention projections to FP8_PB_WO and needs a different loader.",
+      "tables": [
+        {
+          "heading": "Accuracy",
+          "line_start": 64,
+          "line_end": 83,
+          "settings": "This model was evaluated on GPQA Diamond, served with vLLM (OpenAI-compatible API). Recovery is computed against the unquantized model.",
+          "columns": [
+            "moonshotai/Kimi-K3",
+            "RedHatAI/Kimi-K3-NVFP4",
+            "Recovery"
+          ],
+          "baseline_column": "moonshotai/Kimi-K3",
+          "rows": [
+            {
+              "benchmark": "GPQA Diamond",
+              "section": "Reasoning",
+              "values": {
+                "moonshotai/Kimi-K3": 93.5,
+                "RedHatAI/Kimi-K3-NVFP4": 91.0,
+                "Recovery": 97.33
+              }
+            }
+          ]
+        }
+      ],
+      "notes": "The card gives one GPQA Diamond comparison against the source checkpoint."
+    },
+    {
+      "card_path": "companies/moonshot-ai/kimi-k3.1-pro/huggingface/additional/Inferact--Kimi-K3.1-Pro-DSpark/README.md",
+      "catalog_key": "kimi-k3.1-pro",
+      "variant_key": null,
+      "role": "draft-or-assistant",
+      "hf_id": "Inferact/Kimi-K3.1-Pro-DSpark",
+      "revision": "50f5a10c9385fb9a225c534dda8f7a1f5ae87110",
+      "source_id": "N20-INFERACT-KIMI-K31-PRO-DSPARK-HEAD-CARD",
+      "precision": null,
+      "tables": [
+        {
+          "heading": "Per-position draft acceptance",
+          "line_start": 64,
+          "line_end": 75,
+          "settings": "The card's evaluation server names Inferact/Kimi-K3.1-Pro-DSpark with seven proposed tokens, probabilistic draft sampling and block rejection. Chat completions use temperature 1.0, top_p 0.95 and the full test set. Acceptance length is 1 + accepted draft tokens / drafts, including the bonus token. Positions 1–7 refer to the proposed draft tokens. Rates are percentages of verification steps.",
+          "columns": [
+            "Prompts",
+            "Max tokens",
+            "Acceptance length",
+            "Position 1",
+            "Position 2",
+            "Position 3",
+            "Position 4",
+            "Position 5",
+            "Position 6",
+            "Position 7"
+          ],
+          "baseline_column": null,
+          "rows": [
+            {
+              "benchmark": "GSM8K",
+              "values": {
+                "Prompts": "1,319",
+                "Max tokens": "1,024",
+                "Acceptance length": 5.566,
+                "Position 1": 91,
+                "Position 2": 82,
+                "Position 3": 72,
+                "Position 4": 64,
+                "Position 5": 56,
+                "Position 6": 49,
+                "Position 7": 43
+              }
+            },
+            {
+              "benchmark": "HumanEval",
+              "values": {
+                "Prompts": 164,
+                "Max tokens": "1,024",
+                "Acceptance length": 4.660,
+                "Position 1": 86,
+                "Position 2": 71,
+                "Position 3": 59,
+                "Position 4": 49,
+                "Position 5": 40,
+                "Position 6": 34,
+                "Position 7": 28
+              }
+            },
+            {
+              "benchmark": "MBPP",
+              "values": {
+                "Prompts": 974,
+                "Max tokens": "1,024",
+                "Acceptance length": 4.376,
+                "Position 1": 84,
+                "Position 2": 68,
+                "Position 3": 55,
+                "Position 4": 44,
+                "Position 5": 35,
+                "Position 6": 28,
+                "Position 7": 23
+              }
+            },
+            {
+              "benchmark": "MATH-500",
+              "values": {
+                "Prompts": 500,
+                "Max tokens": "2,048",
+                "Acceptance length": 4.445,
+                "Position 1": 84,
+                "Position 2": 69,
+                "Position 3": 56,
+                "Position 4": 45,
+                "Position 5": 37,
+                "Position 6": 30,
+                "Position 7": 24
+              }
+            },
+            {
+              "benchmark": "SPEED-Bench low entropy",
+              "values": {
+                "Prompts": 302,
+                "Max tokens": "1,536",
+                "Acceptance length": 3.619,
+                "Position 1": 78,
+                "Position 2": 58,
+                "Position 3": 42,
+                "Position 4": 31,
+                "Position 5": 23,
+                "Position 6": 17,
+                "Position 7": 13
+              }
+            },
+            {
+              "benchmark": "SPEED-Bench coding",
+              "values": {
+                "Prompts": 80,
+                "Max tokens": "4,096",
+                "Acceptance length": 4.159,
+                "Position 1": 81,
+                "Position 2": 64,
+                "Position 3": 50,
+                "Position 4": 40,
+                "Position 5": 32,
+                "Position 6": 27,
+                "Position 7": 22
+              }
+            },
+            {
+              "benchmark": "MT-Bench",
+              "values": {
+                "Prompts": 80,
+                "Max tokens": "1,024",
+                "Acceptance length": 3.393,
+                "Position 1": 76,
+                "Position 2": 54,
+                "Position 3": 38,
+                "Position 4": 27,
+                "Position 5": 20,
+                "Position 6": 14,
+                "Position 7": 11
+              }
+            },
+            {
+              "benchmark": "SWE-bench Pro",
+              "values": {
+                "Prompts": 642,
+                "Max tokens": "2,048",
+                "Acceptance length": 3.302,
+                "Position 1": 75,
+                "Position 2": 53,
+                "Position 3": 37,
+                "Position 4": 26,
+                "Position 5": 18,
+                "Position 6": 13,
+                "Position 7": 9
+              }
+            },
+            {
+              "benchmark": "AIME 2026",
+              "values": {
+                "Prompts": 30,
+                "Max tokens": "4,096",
+                "Acceptance length": 3.429,
+                "Position 1": 77,
+                "Position 2": 56,
+                "Position 3": 40,
+                "Position 4": 28,
+                "Position 5": 20,
+                "Position 6": 14,
+                "Position 7": 10
+              }
+            },
+            {
+              "benchmark": "Pooled",
+              "values": {
+                "Prompts": "—",
+                "Max tokens": "—",
+                "Acceptance length": 3.864,
+                "Position 1": 79,
+                "Position 2": 61,
+                "Position 3": 46,
+                "Position 4": 35,
+                "Position 5": 27,
+                "Position 6": 21,
+                "Position 7": 17
+              }
+            }
+          ]
+        },
+        {
+          "heading": "SpeedBench acceptance",
+          "line_start": 79,
+          "line_end": 92,
+          "settings": "The card's evaluation server names Inferact/Kimi-K3.1-Pro-DSpark with seven proposed tokens, probabilistic draft sampling and block rejection. Chat completions use temperature 1.0, top_p 0.95 and the full test set. Acceptance length is 1 + accepted draft tokens / drafts, including the bonus token.",
+          "columns": [
+            "Conversations",
+            "Model calls",
+            "Max tokens",
+            "Acceptance length",
+            "Draft acceptance"
+          ],
+          "baseline_column": null,
+          "rows": [
+            {
+              "benchmark": "Coding",
+              "values": {
+                "Conversations": 80,
+                "Model calls": 89,
+                "Max tokens": "4,096",
+                "Acceptance length": 4.0957,
+                "Draft acceptance": 44.22
+              }
+            },
+            {
+              "benchmark": "Humanities",
+              "values": {
+                "Conversations": 80,
+                "Model calls": 88,
+                "Max tokens": "4,096",
+                "Acceptance length": 3.0354,
+                "Draft acceptance": 29.08
+              }
+            },
+            {
+              "benchmark": "Math",
+              "values": {
+                "Conversations": 80,
+                "Model calls": 98,
+                "Max tokens": "4,096",
+                "Acceptance length": 3.2025,
+                "Draft acceptance": 31.46
+              }
+            },
+            {
+              "benchmark": "QA",
+              "values": {
+                "Conversations": 80,
+                "Model calls": 80,
+                "Max tokens": "4,096",
+                "Acceptance length": 3.4800,
+                "Draft acceptance": 35.43
+              }
+            },
+            {
+              "benchmark": "RAG",
+              "values": {
+                "Conversations": 80,
+                "Model calls": 105,
+                "Max tokens": "4,096",
+                "Acceptance length": 4.2890,
+                "Draft acceptance": 46.99
+              }
+            },
+            {
+              "benchmark": "Reasoning",
+              "values": {
+                "Conversations": 80,
+                "Model calls": 190,
+                "Max tokens": "4,096",
+                "Acceptance length": 3.5954,
+                "Draft acceptance": 37.08
+              }
+            },
+            {
+              "benchmark": "STEM",
+              "values": {
+                "Conversations": 80,
+                "Model calls": 86,
+                "Max tokens": "4,096",
+                "Acceptance length": 3.1874,
+                "Draft acceptance": 31.25
+              }
+            },
+            {
+              "benchmark": "Writing",
+              "values": {
+                "Conversations": 80,
+                "Model calls": 84,
+                "Max tokens": "4,096",
+                "Acceptance length": 2.8243,
+                "Draft acceptance": 26.06
+              }
+            },
+            {
+              "benchmark": "Multilingual",
+              "values": {
+                "Conversations": 80,
+                "Model calls": 80,
+                "Max tokens": "4,096",
+                "Acceptance length": 4.0903,
+                "Draft acceptance": 44.15
+              }
+            },
+            {
+              "benchmark": "Summarization",
+              "values": {
+                "Conversations": 80,
+                "Model calls": 80,
+                "Max tokens": "4,096",
+                "Acceptance length": 4.1758,
+                "Draft acceptance": 45.37
+              }
+            },
+            {
+              "benchmark": "Roleplay",
+              "values": {
+                "Conversations": 80,
+                "Model calls": 158,
+                "Max tokens": "4,096",
+                "Acceptance length": 3.0310,
+                "Draft acceptance": 29.01
+              }
+            },
+            {
+              "benchmark": "Pooled",
+              "values": {
+                "Conversations": 880,
+                "Model calls": "1,138",
+                "Max tokens": "4,096",
+                "Acceptance length": 3.2690,
+                "Draft acceptance": 32.41
+              }
+            }
+          ]
+        },
+        {
+          "heading": "Long context acceptance",
+          "line_start": 96,
+          "line_end": 100,
+          "settings": "The card's evaluation server names Inferact/Kimi-K3.1-Pro-DSpark with seven proposed tokens, probabilistic draft sampling and block rejection. Chat completions use temperature 1.0, top_p 0.95 and the full test set. Acceptance length is 1 + accepted draft tokens / drafts, including the bonus token.",
+          "columns": [
+            "Prompts",
+            "Prompt tokens",
+            "Max tokens",
+            "Acceptance length",
+            "Position 1",
+            "Position 2",
+            "Position 3",
+            "Position 4",
+            "Position 5",
+            "Position 6",
+            "Position 7"
+          ],
+          "baseline_column": null,
+          "rows": [
+            {
+              "benchmark": "AA-LCR",
+              "values": {
+                "Prompts": 100,
+                "Prompt tokens": "95K mean",
+                "Max tokens": "1,024",
+                "Acceptance length": 3.935,
+                "Position 1": 81,
+                "Position 2": 64,
+                "Position 3": 49,
+                "Position 4": 37,
+                "Position 5": 27,
+                "Position 6": 21,
+                "Position 7": 15
+              }
+            },
+            {
+              "benchmark": "BEAM 128K",
+              "values": {
+                "Prompts": 400,
+                "Prompt tokens": "97K–125K",
+                "Max tokens": "2,048",
+                "Acceptance length": 3.516,
+                "Position 1": 78,
+                "Position 2": 58,
+                "Position 3": 41,
+                "Position 4": 29,
+                "Position 5": 20,
+                "Position 6": 14,
+                "Position 7": 10
+              }
+            },
+            {
+              "benchmark": "BEAM 1M",
+              "values": {
+                "Prompts": 700,
+                "Prompt tokens": "826K–1.04M",
+                "Max tokens": "2,048",
+                "Acceptance length": 3.421,
+                "Position 1": 77,
+                "Position 2": 56,
+                "Position 3": 40,
+                "Position 4": 28,
+                "Position 5": 19,
+                "Position 6": 13,
+                "Position 7": 9
+              }
+            }
+          ]
+        }
+      ],
+      "notes": "The three tables describe speculative draft acceptance. Throughput and interactivity appear in a figure."
+    },
+    {
+      "card_path": "companies/moonshot-ai/kimi-k3.1-pro/huggingface/additional/RedHatAI--Kimi-K3.1-Pro-DSpark/README.md",
+      "catalog_key": "kimi-k3.1-pro",
+      "variant_key": null,
+      "role": "draft-or-assistant",
+      "hf_id": "RedHatAI/Kimi-K3.1-Pro-DSpark",
+      "revision": "fdb8bdea778a5260a9d9fbc7811044de46433959",
+      "source_id": "N20-REDHATAI-KIMI-K31-PRO-DSPARK-HEAD-CARD",
+      "precision": null,
+      "tables": [
+        {
+          "heading": "Per-position draft acceptance",
+          "line_start": 61,
+          "line_end": 72,
+          "settings": "This RedHatAI card repeats the Inferact evaluation. The card's evaluation server names Inferact/Kimi-K3.1-Pro-DSpark with seven proposed tokens, probabilistic draft sampling and block rejection. Chat completions use temperature 1.0, top_p 0.95 and the full test set. Acceptance length is 1 + accepted draft tokens / drafts, including the bonus token. Positions 1–7 refer to the proposed draft tokens. Rates are percentages of verification steps.",
+          "columns": [
+            "Prompts",
+            "Max tokens",
+            "Acceptance length",
+            "Position 1",
+            "Position 2",
+            "Position 3",
+            "Position 4",
+            "Position 5",
+            "Position 6",
+            "Position 7"
+          ],
+          "baseline_column": null,
+          "rows": [
+            {
+              "benchmark": "GSM8K",
+              "values": {
+                "Prompts": "1,319",
+                "Max tokens": "1,024",
+                "Acceptance length": 5.566,
+                "Position 1": 91,
+                "Position 2": 82,
+                "Position 3": 72,
+                "Position 4": 64,
+                "Position 5": 56,
+                "Position 6": 49,
+                "Position 7": 43
+              }
+            },
+            {
+              "benchmark": "HumanEval",
+              "values": {
+                "Prompts": 164,
+                "Max tokens": "1,024",
+                "Acceptance length": 4.660,
+                "Position 1": 86,
+                "Position 2": 71,
+                "Position 3": 59,
+                "Position 4": 49,
+                "Position 5": 40,
+                "Position 6": 34,
+                "Position 7": 28
+              }
+            },
+            {
+              "benchmark": "MBPP",
+              "values": {
+                "Prompts": 974,
+                "Max tokens": "1,024",
+                "Acceptance length": 4.376,
+                "Position 1": 84,
+                "Position 2": 68,
+                "Position 3": 55,
+                "Position 4": 44,
+                "Position 5": 35,
+                "Position 6": 28,
+                "Position 7": 23
+              }
+            },
+            {
+              "benchmark": "MATH-500",
+              "values": {
+                "Prompts": 500,
+                "Max tokens": "2,048",
+                "Acceptance length": 4.445,
+                "Position 1": 84,
+                "Position 2": 69,
+                "Position 3": 56,
+                "Position 4": 45,
+                "Position 5": 37,
+                "Position 6": 30,
+                "Position 7": 24
+              }
+            },
+            {
+              "benchmark": "SPEED-Bench low entropy",
+              "values": {
+                "Prompts": 302,
+                "Max tokens": "1,536",
+                "Acceptance length": 3.619,
+                "Position 1": 78,
+                "Position 2": 58,
+                "Position 3": 42,
+                "Position 4": 31,
+                "Position 5": 23,
+                "Position 6": 17,
+                "Position 7": 13
+              }
+            },
+            {
+              "benchmark": "SPEED-Bench coding",
+              "values": {
+                "Prompts": 80,
+                "Max tokens": "4,096",
+                "Acceptance length": 4.159,
+                "Position 1": 81,
+                "Position 2": 64,
+                "Position 3": 50,
+                "Position 4": 40,
+                "Position 5": 32,
+                "Position 6": 27,
+                "Position 7": 22
+              }
+            },
+            {
+              "benchmark": "MT-Bench",
+              "values": {
+                "Prompts": 80,
+                "Max tokens": "1,024",
+                "Acceptance length": 3.393,
+                "Position 1": 76,
+                "Position 2": 54,
+                "Position 3": 38,
+                "Position 4": 27,
+                "Position 5": 20,
+                "Position 6": 14,
+                "Position 7": 11
+              }
+            },
+            {
+              "benchmark": "SWE-bench Pro",
+              "values": {
+                "Prompts": 642,
+                "Max tokens": "2,048",
+                "Acceptance length": 3.302,
+                "Position 1": 75,
+                "Position 2": 53,
+                "Position 3": 37,
+                "Position 4": 26,
+                "Position 5": 18,
+                "Position 6": 13,
+                "Position 7": 9
+              }
+            },
+            {
+              "benchmark": "AIME 2026",
+              "values": {
+                "Prompts": 30,
+                "Max tokens": "4,096",
+                "Acceptance length": 3.429,
+                "Position 1": 77,
+                "Position 2": 56,
+                "Position 3": 40,
+                "Position 4": 28,
+                "Position 5": 20,
+                "Position 6": 14,
+                "Position 7": 10
+              }
+            },
+            {
+              "benchmark": "Pooled",
+              "values": {
+                "Prompts": "—",
+                "Max tokens": "—",
+                "Acceptance length": 3.864,
+                "Position 1": 79,
+                "Position 2": 61,
+                "Position 3": 46,
+                "Position 4": 35,
+                "Position 5": 27,
+                "Position 6": 21,
+                "Position 7": 17
+              }
+            }
+          ]
+        },
+        {
+          "heading": "SpeedBench acceptance",
+          "line_start": 76,
+          "line_end": 89,
+          "settings": "This RedHatAI card repeats the Inferact evaluation. The card's evaluation server names Inferact/Kimi-K3.1-Pro-DSpark with seven proposed tokens, probabilistic draft sampling and block rejection. Chat completions use temperature 1.0, top_p 0.95 and the full test set. Acceptance length is 1 + accepted draft tokens / drafts, including the bonus token.",
+          "columns": [
+            "Conversations",
+            "Model calls",
+            "Max tokens",
+            "Acceptance length",
+            "Draft acceptance"
+          ],
+          "baseline_column": null,
+          "rows": [
+            {
+              "benchmark": "Coding",
+              "values": {
+                "Conversations": 80,
+                "Model calls": 89,
+                "Max tokens": "4,096",
+                "Acceptance length": 4.0957,
+                "Draft acceptance": 44.22
+              }
+            },
+            {
+              "benchmark": "Humanities",
+              "values": {
+                "Conversations": 80,
+                "Model calls": 88,
+                "Max tokens": "4,096",
+                "Acceptance length": 3.0354,
+                "Draft acceptance": 29.08
+              }
+            },
+            {
+              "benchmark": "Math",
+              "values": {
+                "Conversations": 80,
+                "Model calls": 98,
+                "Max tokens": "4,096",
+                "Acceptance length": 3.2025,
+                "Draft acceptance": 31.46
+              }
+            },
+            {
+              "benchmark": "QA",
+              "values": {
+                "Conversations": 80,
+                "Model calls": 80,
+                "Max tokens": "4,096",
+                "Acceptance length": 3.4800,
+                "Draft acceptance": 35.43
+              }
+            },
+            {
+              "benchmark": "RAG",
+              "values": {
+                "Conversations": 80,
+                "Model calls": 105,
+                "Max tokens": "4,096",
+                "Acceptance length": 4.2890,
+                "Draft acceptance": 46.99
+              }
+            },
+            {
+              "benchmark": "Reasoning",
+              "values": {
+                "Conversations": 80,
+                "Model calls": 190,
+                "Max tokens": "4,096",
+                "Acceptance length": 3.5954,
+                "Draft acceptance": 37.08
+              }
+            },
+            {
+              "benchmark": "STEM",
+              "values": {
+                "Conversations": 80,
+                "Model calls": 86,
+                "Max tokens": "4,096",
+                "Acceptance length": 3.1874,
+                "Draft acceptance": 31.25
+              }
+            },
+            {
+              "benchmark": "Writing",
+              "values": {
+                "Conversations": 80,
+                "Model calls": 84,
+                "Max tokens": "4,096",
+                "Acceptance length": 2.8243,
+                "Draft acceptance": 26.06
+              }
+            },
+            {
+              "benchmark": "Multilingual",
+              "values": {
+                "Conversations": 80,
+                "Model calls": 80,
+                "Max tokens": "4,096",
+                "Acceptance length": 4.0903,
+                "Draft acceptance": 44.15
+              }
+            },
+            {
+              "benchmark": "Summarization",
+              "values": {
+                "Conversations": 80,
+                "Model calls": 80,
+                "Max tokens": "4,096",
+                "Acceptance length": 4.1758,
+                "Draft acceptance": 45.37
+              }
+            },
+            {
+              "benchmark": "Roleplay",
+              "values": {
+                "Conversations": 80,
+                "Model calls": 158,
+                "Max tokens": "4,096",
+                "Acceptance length": 3.0310,
+                "Draft acceptance": 29.01
+              }
+            },
+            {
+              "benchmark": "Pooled",
+              "values": {
+                "Conversations": 880,
+                "Model calls": "1,138",
+                "Max tokens": "4,096",
+                "Acceptance length": 3.2690,
+                "Draft acceptance": 32.41
+              }
+            }
+          ]
+        },
+        {
+          "heading": "Long context acceptance",
+          "line_start": 93,
+          "line_end": 97,
+          "settings": "This RedHatAI card repeats the Inferact evaluation. The card's evaluation server names Inferact/Kimi-K3.1-Pro-DSpark with seven proposed tokens, probabilistic draft sampling and block rejection. Chat completions use temperature 1.0, top_p 0.95 and the full test set. Acceptance length is 1 + accepted draft tokens / drafts, including the bonus token.",
+          "columns": [
+            "Prompts",
+            "Prompt tokens",
+            "Max tokens",
+            "Acceptance length",
+            "Position 1",
+            "Position 2",
+            "Position 3",
+            "Position 4",
+            "Position 5",
+            "Position 6",
+            "Position 7"
+          ],
+          "baseline_column": null,
+          "rows": [
+            {
+              "benchmark": "AA-LCR",
+              "values": {
+                "Prompts": 100,
+                "Prompt tokens": "95K mean",
+                "Max tokens": "1,024",
+                "Acceptance length": 3.935,
+                "Position 1": 81,
+                "Position 2": 64,
+                "Position 3": 49,
+                "Position 4": 37,
+                "Position 5": 27,
+                "Position 6": 21,
+                "Position 7": 15
+              }
+            },
+            {
+              "benchmark": "BEAM 128K",
+              "values": {
+                "Prompts": 400,
+                "Prompt tokens": "97K–125K",
+                "Max tokens": "2,048",
+                "Acceptance length": 3.516,
+                "Position 1": 78,
+                "Position 2": 58,
+                "Position 3": 41,
+                "Position 4": 29,
+                "Position 5": 20,
+                "Position 6": 14,
+                "Position 7": 10
+              }
+            },
+            {
+              "benchmark": "BEAM 1M",
+              "values": {
+                "Prompts": 700,
+                "Prompt tokens": "826K–1.04M",
+                "Max tokens": "2,048",
+                "Acceptance length": 3.421,
+                "Position 1": 77,
+                "Position 2": 56,
+                "Position 3": 40,
+                "Position 4": 28,
+                "Position 5": 19,
+                "Position 6": 13,
+                "Position 7": 9
+              }
+            }
+          ]
+        }
+      ],
+      "notes": "The three acceptance tables repeat Inferact's published results. The card's evaluation settings name the Inferact draft. It supplies no separate measurement identifying the RedHatAI artifact."
+    },
+    {
+      "card_path": "companies/moonshot-ai/kimi-k3.1-pro/huggingface/nvfp4/README.md",
+      "catalog_key": "kimi-k3.1-pro",
+      "variant_key": "nvfp4",
+      "role": "quantized-export",
+      "hf_id": "nvidia/Kimi-K3.1-Pro-NVFP4",
+      "revision": "3af0462972c9cc07e5ba6e0867b44f961ce95e9b",
+      "source_id": "N20-NVIDIA-KIMI-K31-PRO-NVFP4-HEAD-CARD",
+      "precision": "ModelOpt mixed. Routed expert weights are converted from MXFP4 to group-16 NVFP4 with input scale 1. Selected KDA projections and shared experts use MXFP8. MLA remains BF16. The conversion report confirms the selected groups. Its index totals 1,604,984,317,952 bytes, 43,766,940,672 more than native. NVIDIA compared outputs on GB300 with FP8 main/indexer cache and FP32 SSM state.",
+      "tables": [
+        {
+          "heading": "Evaluation",
+          "line_start": 124,
+          "line_end": 152,
+          "settings": "Baseline: Kimi-K3.1-Pro, evaluated with Temperature 1.0, top-p 0.95 Both the accuracy benchmarks and the KVV evaluations use the main KV/ indexer cache in fp8, and the SSM state is in fp32.",
+          "columns": [
+            "MXFP4",
+            "NVFP4"
+          ],
+          "baseline_column": "MXFP4",
+          "rows": [
+            {
+              "benchmark": "GPQA Diamond",
+              "values": {
+                "MXFP4": 93.97,
+                "NVFP4": 93.84
+              }
+            },
+            {
+              "benchmark": "AA-LCR",
+              "values": {
+                "MXFP4": 81.69,
+                "NVFP4": 82.06
+              }
+            },
+            {
+              "benchmark": "IFBench",
+              "values": {
+                "MXFP4": 73.40,
+                "NVFP4": 73.40
+              }
+            },
+            {
+              "benchmark": "MMMU Pro",
+              "values": {
+                "MXFP4": 81.68,
+                "NVFP4": 81.79
+              }
+            },
+            {
+              "benchmark": "SciCode",
+              "values": {
+                "MXFP4": 59.52,
+                "NVFP4": 59.47
+              }
+            },
+            {
+              "benchmark": "TB2.1",
+              "values": {
+                "MXFP4": 88.20,
+                "NVFP4": 87.78
+              }
+            }
+          ]
+        },
+        {
+          "heading": "KVV Evaluation",
+          "line_start": 158,
+          "line_end": 183,
+          "settings": "We also evaluate our NVFP4 checkpoint on the Kimi Vendor Verifier (KVV) which verifies whether a vendor deployment meets Kimi model accuracy and API feature requirements. We use the same settings as provided in the repository by KVV for the thinking mode, repeats, temperature, harness, etc. Both the accuracy benchmarks and the KVV evaluations use the main KV/ indexer cache in fp8, and the SSM state is in fp32.",
+          "columns": [
+            "Moonshot",
+            "Nvidia NVFP4"
+          ],
+          "baseline_column": "Moonshot",
+          "rows": [
+            {
+              "benchmark": "OCRBench",
+              "values": {
+                "Moonshot": 87.20,
+                "Nvidia NVFP4": 86.70
+              }
+            },
+            {
+              "benchmark": "MMMU-Pro",
+              "values": {
+                "Moonshot": 84.10,
+                "Nvidia NVFP4": 84.10
+              }
+            },
+            {
+              "benchmark": "ToolCall",
+              "values": {
+                "Moonshot": 97.20,
+                "Nvidia NVFP4": 97.40
+              }
+            },
+            {
+              "benchmark": "BEAM (1M)",
+              "values": {
+                "Moonshot": 39.20,
+                "Nvidia NVFP4": 38.70
+              }
+            },
+            {
+              "benchmark": "DeepSWE",
+              "values": {
+                "Moonshot": 75.50,
+                "Nvidia NVFP4": 77.40
+              }
+            }
+          ]
+        }
+      ],
+      "notes": "The two tables are transposed from precision and provider rows. The Moonshot KVV row provides the reference for the Nvidia NVFP4 row."
+    },
+    {
+      "card_path": "companies/z-ai/glm-5.3/huggingface/nvfp4-radixark/README.md",
+      "catalog_key": "glm-5.3",
+      "variant_key": "nvfp4-radixark",
+      "role": "quantized-export",
+      "hf_id": "RadixArk/GLM-5.3-NVFP4",
+      "revision": "6e389189d564d9d3e4ea7fa284fe91f136d8ae2a",
+      "source_id": "N20-RADIXARK-GLM-53-NVFP4-HEAD-CARD",
+      "precision": "ModelOpt group-16 NVFP4 covers routed expert gate/up/down linears in 75 MoE layers. Sparse attention, shared experts, first three dense MLPs and the MTP layer retain source precision per exporter. The index totals 464,795,267,072 bytes. This is the SGLang cookbook’s experimental NVFP4 selection. vLLM’s named Inferact export has separate calibration and weights.",
+      "tables": [
+        {
+          "heading": "Evaluation",
+          "line_start": 123,
+          "line_end": 128,
+          "settings": "The benchmark results below were produced with this NVFP4 checkpoint on NVIDIA Blackwell GPUs using SGLang. GSM8K and AIME 2026 were run with max_tokens=131072 and GLM-5.3's default Reasoning Effort: Max; measured against the BF16 source under the identical protocol and build, GSM8K is an exact match and AIME 2026 pass@1 is within run-to-run noise. All reported evaluations were text-only.",
+          "columns": [
+            "Evaluation protocol",
+            "Score"
+          ],
+          "baseline_column": null,
+          "rows": [
+            {
+              "benchmark": "GSM8K",
+              "values": {
+                "Evaluation protocol": "Full 1,319-example split, single-shot, sgl-eval, temperature=1.0, top_p=0.95",
+                "Score": "97.42% (1,285/1,319)"
+              }
+            },
+            {
+              "benchmark": "Terminal-Bench 2.1",
+              "values": {
+                "Evaluation protocol": "terminus-2 harness, temperature=1.0, top_p=0.95",
+                "Score": "86.5% (77/89)"
+              }
+            },
+            {
+              "benchmark": "DeepSWE",
+              "values": {
+                "Evaluation protocol": "mini-swe-agent harness, temperature=0.95, top_p=1.0",
+                "Score": "68.1% (77/113)"
+              }
+            },
+            {
+              "benchmark": "AIME 2026",
+              "values": {
+                "Evaluation protocol": "30 problems x 16 rollouts, pass@1, sgl-eval, temperature=1.0, top_p=0.95",
+                "Score": "94.17% (majority@16 100%)"
+              }
+            }
+          ]
+        }
+      ],
+      "notes": "The numerical BF16 comparison is described in prose. The table reports scores for the RadixArk export."
+    },
+    {
+      "card_path": "companies/z-ai/glm-5.3-flash/huggingface/nvfp4-nvidia/README.md",
+      "catalog_key": "glm-5.3-flash",
+      "variant_key": "nvfp4-nvidia",
+      "role": "quantized-export",
+      "hf_id": "nvidia/GLM-5.3-Flash-NVFP4",
+      "revision": "1d00738646cbb0c6d0a9eb403dac5f366f1473a7",
+      "source_id": "N20-NVIDIA-GLM-53-FLASH-NVFP4-HEAD-CARD",
+      "precision": "ModelOpt NVFP4 declares a Linear target with explicit exceptions. The card prose mentions shared experts, but the config excludes all 42 shared-expert groups and the index has scale entries for main routed/dense projections and none for those shared linears. Layer 45 retains 889 MTP tensor entries. This export carries an FP8 KV scheme. Its index totals 204,419,115,456 bytes. The exporter lists GB200 test hardware.",
+      "tables": [
+        {
+          "heading": "Evaluation",
+          "line_start": 153,
+          "line_end": 202,
+          "settings": "Baseline: GLM-5.3-Flash-BF16. Benchmarked with temperature=1.0, top_p=0.95. GPQA Diamond, SciCode, MMMU-Pro, AA-LCR and IFBench used max_new_tokens=327,680; Terminal Bench 2.1 used max_new_tokens uncapped.",
+          "columns": [
+            "BF16",
+            "NVFP4"
+          ],
+          "baseline_column": "BF16",
+          "rows": [
+            {
+              "benchmark": "GPQA Diamond",
+              "values": {
+                "BF16": 0.9217,
+                "NVFP4": 0.9189
+              }
+            },
+            {
+              "benchmark": "SciCode",
+              "values": {
+                "BF16": 0.5344,
+                "NVFP4": 0.5374
+              }
+            },
+            {
+              "benchmark": "MMMU Pro",
+              "values": {
+                "BF16": 0.7688,
+                "NVFP4": 0.7751
+              }
+            },
+            {
+              "benchmark": "AA-LCR",
+              "values": {
+                "BF16": 0.7669,
+                "NVFP4": 0.7831
+              }
+            },
+            {
+              "benchmark": "IFBench",
+              "values": {
+                "BF16": 0.644,
+                "NVFP4": 0.6547
+              }
+            },
+            {
+              "benchmark": "Terminal Bench 2.1",
+              "values": {
+                "BF16": 0.8258,
+                "NVFP4": 0.8202
+              }
+            }
+          ]
+        }
+      ],
+      "notes": "The card has precision rows. The original BF16 and NVFP4 labels are retained as columns."
+    },
+    {
+      "card_path": "companies/z-ai/glm-5.3-flash/huggingface/nvfp4-radixark/README.md",
+      "catalog_key": "glm-5.3-flash",
+      "variant_key": "nvfp4-radixark",
+      "role": "quantized-export",
+      "hf_id": "RadixArk/GLM-5.3-Flash-NVFP4",
+      "revision": "f46cf340d35a22d0d83d0c1dac8957cf2b1bcd35",
+      "source_id": "N20-RADIXARK-GLM-53-FLASH-NVFP4-HEAD-CARD",
+      "precision": "ModelOpt group-16 W4A4 covers routed and shared experts plus the three dense MLPs. The exporter specifies abs-max scaling, a 256 normalization and 1,024 calibration samples of length 512. The index totals 202,893,045,168 bytes, including 889 MTP tensor entries. Its precision contract differs from NVIDIA, which excludes the main shared experts, and from RedHat’s compressed-tensors export.",
+      "tables": [
+        {
+          "heading": "Evaluation",
+          "line_start": 140,
+          "line_end": 144,
+          "settings": "For AIME 2026, generated-token percentiles (total output tokens; this harness does not split reasoning from answer tokens) were p50 8,696 and p90 53,342. The reported evaluations were text-only. Terminal-Bench 2.1 was run on the terminal-bench-2-1 dataset (revision 7d7bdc1c) with concurrency 32 and task deadlines disabled (capability-first). Two tasks (qemu-alpine-ssh, qemu-startup) could not run because they require KVM, which was unavailable on the evaluation runner. Two trials (extract-moves-from-video, regex-chess) did not finish within the evaluation window, so the reported numerator can only rise. The Terminal-Bench 2.1 run was served with SGLang on 4x GB300 (TP4) using FP8 (fp8_e4m3) KV cache with TRT-LLM DSA attention backends, flashinfer_cutlass MoE, and NEXTN speculative decoding.",
+          "columns": [
+            "Evaluation protocol",
+            "Score",
+            "Per-seed range",
+            "Stop rate"
+          ],
+          "baseline_column": null,
+          "rows": [
+            {
+              "benchmark": "GSM8K",
+              "values": {
+                "Evaluation protocol": "Full 1,319-example split x 4 seeds; temperature=1.0, top_p=0.95, max_tokens=32768",
+                "Score": 97.14,
+                "Per-seed range": "96.89%-97.42%",
+                "Stop rate": "99.85%-100%"
+              }
+            },
+            {
+              "benchmark": "AIME 2026",
+              "values": {
+                "Evaluation protocol": "30 problems x 16 repeats x 4 seeds (1,920 generations); temperature=1.0, top_p=0.95, max_tokens=131072",
+                "Score": 92.45,
+                "Per-seed range": "91.67%-93.54%",
+                "Stop rate": "94.58%-96.04%"
+              }
+            },
+            {
+              "benchmark": "Terminal-Bench 2.1",
+              "values": {
+                "Evaluation protocol": "89 tasks, terminus-2 agent, effort max, pass@1; temperature=1.0, top_p=0.95, max_tokens=32768",
+                "Score": "83.1% (74/89)",
+                "Per-seed range": "-",
+                "Stop rate": "-"
+              }
+            }
+          ]
+        }
+      ],
+      "notes": "A dash in the per-seed range or stop-rate cell reproduces the card's placeholder. Terminal-Bench used a different generation limit from AIME."
     }
   ]
 }

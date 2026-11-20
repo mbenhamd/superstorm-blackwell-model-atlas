@@ -26,8 +26,12 @@ function shellArg(arg: string): string {
  * Values are shell-quoted only when needed (JSON configs). Nothing is added to or removed from the arguments.
  * KServe runs this as the InferenceService container command.
  */
-export function launchCommand(engine: "vLLM" | "SGLang", hfId: string, args: string[]): string {
-  const lines: string[][] = engine === "vLLM" ? [["vllm", "serve", hfId]] : [["python", "-m", "sglang.launch_server"], ["--model-path", hfId]];
+export function launchCommand(engine: "vLLM" | "SGLang", hfId: string, args: string[], environment: string[] = []): string {
+  const entrypoint = engine === "vLLM" ? ["vllm", "serve", hfId] : ["python", "-m", "sglang.launch_server"];
+  const lines = [environment.length ? ["env", ...environment, ...entrypoint] : entrypoint];
+  if (engine === "SGLang" && !args.some((arg) => arg === "--model-path" || arg.startsWith("--model-path="))) {
+    lines.push(["--model-path", hfId]);
+  }
   for (const arg of args) {
     if (arg.startsWith("-") || !lines.at(-1)?.[0]?.startsWith("-")) lines.push([arg]);
     else lines.at(-1)!.push(arg);
@@ -63,8 +67,8 @@ export const deployments: Deployment[] = atlas.configurations.map((config) => {
     knob: config.knob, status: config.status as ConfigurationStatus, reason: config.reason, contextCap: config.contextCap,
     speculativeDecoding: Boolean(config.draftHfId) || /mtp|dspark|dflash|eagle/i.test(config.id) || config.engineArgs.some((arg) => arg.startsWith("--speculative")),
     draftHfId: config.draftHfId, testedOnTarget: config.testedOnTarget,
-    engineArgs: config.engineArgs, command: launchCommand(config.engine as Deployment["runtime"], artifact.hfId, config.engineArgs),
-    notes: config.notes, sourceIds: config.sourceIds,
+    engineArgs: config.engineArgs, command: launchCommand(config.engine as Deployment["runtime"], artifact.hfId, config.engineArgs, config.engineEnv),
+    notes: config.engineImage ? `${config.notes} Recipe image: ${config.engineImage}.` : config.notes, sourceIds: config.sourceIds,
     reviewedOn: config.reviewedOn, referenceScope: config.referenceScope, recheck: config.recheck, priorRechecks: config.priorRechecks,
     workloadId: DEFAULT_WORKLOAD, evaluation: null, points: [], peakMemoryGb: null, evidence: "reference", measuredAt: null, runId: null,
     runtimeTag: null, gpuType: GPU_TYPE, replicas: null, runConfig: null, runGpus: null, topologyMismatch: false,

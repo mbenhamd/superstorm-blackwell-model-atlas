@@ -119,12 +119,13 @@ export const workloadLabel = (id: string): string => {
   return workload ? `${workload.name} · ${workloadBudget(workload)}` : id;
 };
 
-/**
- * Published AA index of the base model, only where the configuration serves the publisher's own release.
- * Third-party quantized exports get null: the AA composite does not transfer to them (atlas rule).
- */
-export const publisherQuality = (deployment: Deployment): number | null =>
-  artifact(deployment.artifactId)?.publisher ? null : aaHeadline(deployment.modelId)?.index ?? null;
+/** Pair throughput with AA's model-level index only for the weights repository linked by AA. */
+export function publisherQuality(deployment: Deployment): number | null {
+  const weights = artifact(deployment.artifactId);
+  const headline = aaHeadline(deployment.modelId);
+  if (!weights || !headline || headline.release.weightsUrl !== `https://huggingface.co/${weights.hfId}`) return null;
+  return headline.index;
+}
 /** Model-level AA index for display beside any configuration, always labelled as model-level. */
 export const modelQuality = (modelId: string): number | null => aaHeadline(modelId)?.index ?? null;
 /** Ranked rows for the active workload and SLO: one per catalog configuration. */

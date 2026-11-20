@@ -15,8 +15,11 @@
 import { afterAll, beforeAll, beforeEach, describe, expect, test } from "bun:test";
 import { chromium, type Browser, type BrowserContext, type Page } from "playwright";
 import { join } from "node:path";
+import { ATLAS } from "../src/domain/catalog.js";
 
 const root = join(import.meta.dir, "..");
+const configCount = ATLAS.configurations.length;
+const allConfigsLabel = `${configCount} of ${configCount}`;
 const offline = "http://127.0.0.1:4173";
 const measured = "http://127.0.0.1:4175";
 const mod = process.platform === "darwin" ? "Meta" : "Control";
@@ -182,7 +185,7 @@ describe("offline console (atlas, Hugging Face and Artificial Analysis data)", (
   test("TL;DR: model and shape live in the URL; legacy alias keeps them", async () => {
     await go("tldr?model=qwen3.8-27b");
     expect(await page.getByTestId("tldr-model").innerText()).toContain("Qwen 3.8 27B");
-    expect(await page.locator("[data-setup-row]").count()).toBe(13);
+    expect(await page.locator("[data-setup-row]").count()).toBe(ATLAS.configurations.filter((c) => c.modelId === "qwen3.8-27b").length);
     // Switching model: one click on the combobox, then choose (searchable, grouped by publisher).
     // Search is a contiguous substring (not cmdk's fuzzy subsequence): "gemma" highlights Gemma, never GLM 5.3.
     await openCombobox("tldr-model");
@@ -210,10 +213,10 @@ describe("offline console (atlas, Hugging Face and Artificial Analysis data)", (
     expect(await page.locator("[data-setup-row]").count()).toBe(eight);
     // An unknown shape falls back to all shapes; the legacy alias canonicalizes and keeps the parameters.
     await go("tldr?model=qwen3.8-27b&shape=9xZ999");
-    expect(await page.locator("[data-setup-row]").count()).toBe(13);
+    expect(await page.locator("[data-setup-row]").count()).toBe(ATLAS.configurations.filter((c) => c.modelId === "qwen3.8-27b").length);
     await go("overview?model=qwen3.8-27b");
     expect(page.url()).toMatch(/#\/tldr\?.*model=qwen3\.8-27b/);
-    expect(await page.locator("[data-setup-row]").count()).toBe(13);
+    expect(await page.locator("[data-setup-row]").count()).toBe(ATLAS.configurations.filter((c) => c.modelId === "qwen3.8-27b").length);
     expect(pageErrors).toEqual([]);
   });
 
@@ -221,7 +224,7 @@ describe("offline console (atlas, Hugging Face and Artificial Analysis data)", (
     await page.setViewportSize({ width: 390, height: 844 });
     await go("tldr?model=qwen3.8-27b");
     const rows = page.locator("tr[data-setup-row]");
-    expect(await rows.count()).toBe(13);
+    expect(await rows.count()).toBe(14);
     expect(await overflow()).toBeLessThanOrEqual(0);
     const table = page.getByTestId("setups-table");
     expect(await table.evaluate((el) => el.scrollWidth <= el.clientWidth + 1)).toBe(true);
@@ -313,12 +316,12 @@ describe("offline console (atlas, Hugging Face and Artificial Analysis data)", (
     await allSetups.click();
     await page.waitForFunction(() => location.hash.startsWith("#/tldr") && location.hash.includes("model=qwen3.8-27b"));
     await page.locator("[data-setup-row]").first().waitFor();
-    expect(await page.locator("[data-setup-row]").count()).toBe(13);
+    expect(await page.locator("[data-setup-row]").count()).toBe(ATLAS.configurations.filter((c) => c.modelId === "qwen3.8-27b").length);
     // Deployments: the Precision column is visible by default and sorts by bit width.
     await go("deployments");
     expect(await page.locator("th", { hasText: /^Precision$/ }).count()).toBe(1);
     const cells = page.locator("tbody tr[data-row-id] [data-precision-cell]");
-    expect(await cells.count()).toBe(54);
+    expect(await cells.count()).toBe(configCount);
     const precisionHeader = page.locator("th", { hasText: /^Precision$/ });
     await precisionHeader.getByRole("button").click();
     await precisionHeader.locator('button[data-sorted="true"]').waitFor();
@@ -355,10 +358,10 @@ describe("offline console (atlas, Hugging Face and Artificial Analysis data)", (
     // Coverage tiles: published composites, top index (one decimal, not rounded) and published component cells.
     const kpis = await page.getByTestId("intelligence-kpis").innerText();
     expect(kpis).toContain("46.5");
-    expect(kpis).toMatch(/10\s*of 12 models/);
-    // Unmeasured serving frontier keeps its frame: no padded shortlist, models only in the "Not benched" lane.
+    expect(kpis).toMatch(/11\s*of 12 models/);
+    // Unmeasured serving frontier keeps its frame: no padded shortlist, model scores stay in their own list.
     expect(await page.getByTestId("frontier-shortlist").getAttribute("data-empty")).toBe("");
-    expect(await page.locator('[data-testid="frontier-empty"] [data-lane-model]').count()).toBe(10);
+    expect(await page.locator('[data-testid="frontier-empty"] [data-lane-model]').count()).toBe(11);
     expect(await page.locator('[data-chart-panel="aa-index-versus-sustainable-throughput"] [data-point-id]').count()).toBe(0);
     expect(pageErrors).toEqual([]);
   });
@@ -400,9 +403,9 @@ describe("offline console (atlas, Hugging Face and Artificial Analysis data)", (
     expect(await builds.evaluate((el) => el.closest("#engine-versions") !== null)).toBe(true);
     await builds.locator("summary").click();
     const versions = await page.getByTestId("runtime-versions").innerText();
-    // GLM 5.3 configurations record a source snapshot, not a release; the v0.33.0 recheck is shown separately.
+    // GLM 5.3 configurations record a source snapshot, not a release; the v0.34.0 recheck is shown separately.
     expect(versions).toContain("vllm (source snapshot, no release tag)");
-    expect(versions).toContain("Rechecked v0.33.0 · arguments not revalidated");
+    expect(versions).toContain("Rechecked v0.34.0 · arguments not revalidated");
     expect(pageErrors).toEqual([]);
   });
 
@@ -435,10 +438,12 @@ describe("offline console (atlas, Hugging Face and Artificial Analysis data)", (
   test("deployments: search, facets, sort and URL stay in sync", async () => {
     await go("deployments");
     const count = page.getByTestId("result-count");
-    expect(await count.innerText()).toBe("54 of 54");
+    expect(await count.innerText()).toBe(allConfigsLabel);
     expect(await page.getByTestId("load-heatmap").count()).toBe(0);
     expect(await page.getByTestId("load-heatmap-empty").count()).toBe(1);
-    expect(await page.getByTestId("deployment-meta").innerText()).toBe("54 configs · 36 candidate · 18 probe · 0 measured");
+    const candidates = ATLAS.configurations.filter((c) => c.status === "candidate").length;
+    const probes = ATLAS.configurations.filter((c) => c.status === "compatibility-probe").length;
+    expect(await page.getByTestId("deployment-meta").innerText()).toBe(`${configCount} configs · ${candidates} candidate · ${probes} probe · 0 measured`);
     expect(await page.getByTestId("leaderboard-caption").innerText()).toContain("Not measured");
     // Five all-dash metric columns collapse into one "Metrics · not measured" column; no nested scroll area.
     expect(await page.locator("th", { hasText: "Metrics · not measured" }).count()).toBe(1);
@@ -459,7 +464,7 @@ describe("offline console (atlas, Hugging Face and Artificial Analysis data)", (
     expect(await engineFacet.getAttribute("data-filter-state")).toBe("active");
     expect(Number((await count.innerText()).split(" ")[0])).toBeLessThan(qwen);
     await page.getByTestId("reset-filters").click();
-    expect(await count.innerText()).toBe("54 of 54");
+    expect(await count.innerText()).toBe(allConfigsLabel);
     await go("deployments?precision=NVFP4");
     expect(Number((await count.innerText()).split(" ")[0])).toBeGreaterThan(0);
     const firstRow = () => page.locator("tbody tr[data-row-id]").first().getAttribute("data-row-id");
@@ -580,8 +585,8 @@ describe("offline console (atlas, Hugging Face and Artificial Analysis data)", (
     // One view of configurations: the shared variant ladder (one collapsed block per export while unmeasured), no
     // separate configurations list or exports panel on Overview; missing sustainable values render "—" (never 0).
     const configRows = page.locator('[data-testid="variant-ladder"] [data-variant-row]');
-    expect(await configRows.count()).toBe(13);
-    expect(await page.locator('[data-testid="variant-ladder"] [data-export-group]').count()).toBe(3);
+    expect(await configRows.count()).toBe(14);
+    expect(await page.locator('[data-testid="variant-ladder"] [data-export-group]').count()).toBe(4);
     expect(await page.locator("#export-ladder").count()).toBe(0);
     await page.locator('[data-testid="variant-ladder"] [data-export-toggle]').first().click();
     expect(await configRows.first().locator('[data-missing="true"]').innerText()).toBe("—");
@@ -595,7 +600,7 @@ describe("offline console (atlas, Hugging Face and Artificial Analysis data)", (
     await page.locator("[data-review-content]").waitFor();
     await page.keyboard.press("Escape");
     await go("models?model=qwen3.8-27b&tab=precision");
-    expect(await page.locator("[data-precision-row]").count()).toBe(3);
+    expect(await page.locator("[data-precision-row]").count()).toBe(ATLAS.artifacts.filter((a) => a.modelId === "qwen3.8-27b").length);
     expect(await page.locator('[data-precision-row] [data-card-delta="−0.44"]').count()).toBe(1);
     const nvidia = page.locator('[data-card="nvidia/Qwen3.8-27B-NVFP4"]');
     expect(await nvidia.locator("table").count()).toBe(0);
@@ -608,7 +613,7 @@ describe("offline console (atlas, Hugging Face and Artificial Analysis data)", (
     expect(await base.locator("table").count()).toBe(0);
     expect(await page.locator("main").innerText()).not.toContain("Cells with two scores");
     await go("models?model=kimi-k3.1-pro&tab=precision");
-    expect(await page.locator("[data-unavailable-export]").count()).toBe(2);
+    expect(await page.locator("[data-unavailable-export]").count()).toBe(1);
     expect(await page.locator("[data-unavailable-export] a").count()).toBe(0);
     expect(pageErrors).toEqual([]);
   });
@@ -733,13 +738,13 @@ describe("offline console (atlas, Hugging Face and Artificial Analysis data)", (
     await go("throughput?run=qwen3.8-27b.fp8.vllm.v031.fi-fp8-kv&tab=configuration");
     expect(await page.getByTestId("run-identity").innerText()).toContain("vllm-v0.31.0");
     const recheck = await page.getByTestId("recheck-details").innerText();
-    expect(recheck).toContain("v0.33.0");
+    expect(recheck).toContain("v0.34.0");
     expect(recheck).toContain("Catalog: no B300 validation record");
     expect(recheck).toContain("Required reconciliation");
     expect(await page.getByTestId("command-block").first().innerText()).toContain("vLLM v0.31.0");
     await go("deployments");
     const cell = page.locator('[data-engine-build="v0.31.0"]').first();
-    expect(await cell.innerText()).toContain("Rechecked v0.33.0");
+    expect(await cell.innerText()).toContain("Rechecked v0.34.0");
     expect(await page.getByTestId("data-badge").innerText()).not.toMatch(/atlas|f626319/i);
     expect(pageErrors).toEqual([]);
   });
@@ -1136,7 +1141,7 @@ describe("offline console (atlas, Hugging Face and Artificial Analysis data)", (
     await page.keyboard.press("Escape");
     await page.waitForFunction(() => location.hash.includes("shape="));
     const filtered = await count.innerText();
-    expect(filtered).not.toBe("54 of 54");
+    expect(filtered).not.toBe(allConfigsLabel);
     await page.reload();
     await page.waitForSelector("main h1");
     expect(await count.innerText()).toBe(filtered);
@@ -1345,9 +1350,9 @@ describe("measured-data views (TEST fixture runs via RUNS_FILE)", () => {
     // Setups never run on this dataset fold into one row; expanding lists them last.
     expect(await rows.count()).toBe(8);
     const toggle = page.getByTestId("setups-unmeasured-toggle");
-    expect(await toggle.innerText()).toBe("6 setups not measured on single-turn-8k");
+    expect(await toggle.innerText()).toBe("7 setups not measured on single-turn-8k");
     await toggle.click();
-    expect(await rows.count()).toBe(14);
+    expect(await rows.count()).toBe(15);
     const best = rows.nth(0), second = rows.nth(1);
     expect(await best.getAttribute("data-standing")).toBe("best");
     expect(await best.getAttribute("data-position")).toBe("1");
@@ -1363,7 +1368,7 @@ describe("measured-data views (TEST fixture runs via RUNS_FILE)", () => {
     expect(positions).toEqual([...positions].sort((a, b) => a - b));
     const standings = await rows.evaluateAll((items) => items.map((item) => item.getAttribute("data-standing")));
     const tally = (kind: string) => standings.filter((item) => item === kind).length;
-    expect([tally("best"), tally("behind"), tally("no-passing"), tally("unmeasured")]).toEqual([1, 6, 1, 6]);
+    expect([tally("best"), tally("behind"), tally("no-passing"), tally("unmeasured")]).toEqual([1, 6, 1, 7]);
     expect(standings.slice(standings.indexOf("unmeasured")).every((kind) => kind === "unmeasured")).toBe(true);
     expect(await page.getByTestId("setups-table").locator('[data-bar="best"]').count()).toBe(1);
     // Compact rows: nothing but rank, setup, engine, sustainable, Δ, C_max.
@@ -1519,7 +1524,7 @@ describe("measured-data views (TEST fixture runs via RUNS_FILE)", () => {
     // Runtime picker: switching to SGLang keeps the export (FP8) when that setup exists.
     await go("throughput?run=qwen3.8-27b.fp8.vllm.baseline");
     await page.getByTestId("throughput-runtime").click();
-    await page.locator(`[cmdk-item][data-value^="sglang|" i]`).click();
+    await page.locator(`[cmdk-item][data-value="SGLang|not recorded"]`).click();
     await page.waitForFunction(() => location.hash.includes("run=qwen3.8-27b.fp8.sglang.baseline"));
     expect(await page.getByTestId("performance-strip").innerText()).toContain("2,771,947");
     // Reopening: the current setup is the highlighted item; the model list scrolls it into the middle.
@@ -1803,8 +1808,22 @@ describe("measured-data views (TEST fixture runs via RUNS_FILE)", () => {
     expect(pageErrors).toEqual([]);
   });
 
+  test("intelligence keeps measured derivative runs out of the AA model frontier", async () => {
+    await go("intelligence?workload=chat-8-turn");
+    const empty = page.getByTestId("frontier-empty");
+    expect(await empty.getByTestId("not-measured-badge").innerText()).toBe("No matching results");
+    expect(await empty.innerText()).toMatch(/2 of \d+ configurations measured/);
+    expect(await empty.innerText()).toContain("Published AA scores by model");
+  });
+
   test("intelligence frontier: Tab moves between points, Enter selects, focus survives re-render", async () => {
     await go("intelligence");
+    // The two base-repository fixtures both pass a 65 ms ceiling. The SGLang fixture misses Classic at 60 ms.
+    await page.getByTestId("slo-trigger").click();
+    const itl = page.locator('[data-slo="itl"]');
+    await itl.fill("65");
+    await itl.press("Enter");
+    await page.keyboard.press("Escape");
     const points = page.locator('[data-chart-panel="aa-index-versus-sustainable-throughput"] [data-point-id]');
     await points.first().waitFor();
     expect(await points.count()).toBeGreaterThanOrEqual(2);

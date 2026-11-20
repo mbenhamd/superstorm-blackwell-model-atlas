@@ -87,7 +87,7 @@ function Definitions() {
         <TabsContent value="intelligence">
           <Glossary items={[
             ["AA index (model)", "Highest published effort of the base model's AA endpoint"],
-            ["Quantized exports", "AA composite does not transfer; excluded from the frontier"],
+            ["AA and the serving frontier", "Uses the AA endpoint score only for the weights repository linked by AA. The evaluated revision and precision are unknown."],
             ["Frontier", "Publisher exports not beaten on AA index and throughput"],
             ["Card tables", "Publisher or exporter claims; Δ only with a named baseline"],
             ["Display name", <>{mono("Model · Export · Engine · TPn · Knob")}</>],
