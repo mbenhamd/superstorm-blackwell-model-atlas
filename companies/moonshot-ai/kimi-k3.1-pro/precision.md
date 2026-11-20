@@ -1,11 +1,15 @@
 # Kimi K3.1 Pro: precision and provenance
 
+## November 20 export contracts
+
+**nvidia/Kimi-K3.1-Pro-NVFP4** (`3af0462972c9`). ModelOpt mixed. Routed expert weights are converted from MXFP4 to group-16 NVFP4 with input scale 1. Selected KDA projections and shared experts use MXFP8. MLA remains BF16. The conversion report confirms the selected groups. Its index totals 1,604,984,317,952 bytes, 43,766,940,672 more than native. NVIDIA compared outputs on GB300 with FP8 main/indexer cache and FP32 SSM state. [configuration](https://huggingface.co/nvidia/Kimi-K3.1-Pro-NVFP4/raw/3af0462972c9cc07e5ba6e0867b44f961ce95e9b/config.json) [tensor index](https://huggingface.co/nvidia/Kimi-K3.1-Pro-NVFP4/resolve/3af0462972c9cc07e5ba6e0867b44f961ce95e9b/model.safetensors.index.json) [exporter card](https://huggingface.co/nvidia/Kimi-K3.1-Pro-NVFP4/raw/3af0462972c9cc07e5ba6e0867b44f961ce95e9b/README.md) [conversion report](https://huggingface.co/nvidia/Kimi-K3.1-Pro-NVFP4/resolve/3af0462972c9cc07e5ba6e0867b44f961ce95e9b/conversion_report.json)
+
 Reviewed 2026-11-06 (UTC) against immutable publisher files. No checkpoint was loaded locally; only the index JSON and one shard header were retrieved.
 
 | Variant | Exact artifact and revision | Precision evidence | Local status |
 | --- | --- | --- | --- |
 | native | `moonshotai/Kimi-K3.1-Pro` at `d9e99b0792a5e93b78ea9bea62a68167e36ddd9e` | compressed-tensors `mxfp4-pack-quantized`, group 32, `uint8` scales (`scale_dtype torch.uint8`), routed experts only. Attention, DSA indexer, router, latent projections, shared experts, dense MLP, head and vision tower are BF16 | Publisher metadata, index and shard-4 header verified |
-| nvfp4 | none | No NVIDIA (or other) NVFP4 export of K3.1 Pro exists on the Hub as of 2026-11-06 | Not available |
+| nvfp4 | `nvidia/Kimi-K3.1-Pro-NVFP4` at `3af0462972c9cc07e5ba6e0867b44f961ce95e9b` | Routed NVFP4, selected KDA/shared MXFP8, MLA BF16 | Development-image probe. See the [export contract](#november-20-export-contracts). |
 | fp8 | none | Hypothetical all-FP8 target ≈ 2.8 TB from the rounded headline | Exceeds the 2.304 TB aggregate of eight 288 GB GPUs |
 
 ## Format versus Kimi K3
@@ -25,7 +29,7 @@ The card states "MXFP4 weights / MXFP8 activations (quantization-aware training)
 | Even 8-way split of serialized bytes | ≈ 195.2 GB/GPU of 288 GB, ≈ 92.8 GB/GPU remainder | Derived; assumes uniform sharding, which TP8 does not guarantee for replicated norms, router and vision tower |
 | Hypothetical BF16 (2.8T × 2 B) / FP8 (2.8T × 1 B) | ≈ 5.6 TB / ≈ 2.8 TB | Derived; neither fits 2.304 TB |
 
-**Conclusion:** at its native precision the checkpoint fits on one node with TP8. The pinned vLLM recipe and SGLang cookbook both use TP8 as the single-node baseline. No higher-precision variant fits, and no lower-precision NVFP4/FP8 export usable by vLLM or SGLang has been published (community MLX/EXL3/GGUF low-bit quantizations are out of scope). Actual per-rank weights, CUDA graphs, MegaMoE symmetric workspace, KDA state and KV must be measured after load. vLLM reports ~2.6M FP8 KV tokens at TP8 on 8×B300; this is a recipe-author figure, not reproduced. [kimi-k3.1-pro-INDEX](https://huggingface.co/moonshotai/Kimi-K3.1-Pro/resolve/d9e99b0792a5e93b78ea9bea62a68167e36ddd9e/model.safetensors.index.json) [kimi-k3.1-pro-VR](https://recipes.vllm.ai/moonshotai/Kimi-K3.1-Pro)
+The native and mixed NVIDIA indexes leave room within the 2.304 TB nominal aggregate for a TP8 probe. Effective capacity depends on maximum per-rank weights, CUDA graphs, communication workspaces, KDA state and KV. The native recipe’s approximately 2.6M FP8 KV tokens at TP8 on 8×B300 are upstream figures. The NVIDIA weight conversion adds 43.77 GB of serialized tensors relative to native. [Native index](https://huggingface.co/moonshotai/Kimi-K3.1-Pro/resolve/d9e99b0792a5e93b78ea9bea62a68167e36ddd9e/model.safetensors.index.json) [NVIDIA index](https://huggingface.co/nvidia/Kimi-K3.1-Pro-NVFP4/resolve/3af0462972c9cc07e5ba6e0867b44f961ce95e9b/model.safetensors.index.json) [vLLM recipe](https://recipes.vllm.ai/moonshotai/Kimi-K3.1-Pro)
 
 The Hub API's safetensors tally (2,780,110,363,392 "parameters", including 2,722,740,830,208 U8) counts packed storage elements. It is not a parameter census and does not corroborate the 2.8T headline. [kimi-k3.1-pro-API](https://huggingface.co/api/models/moonshotai/Kimi-K3.1-Pro)
 
@@ -45,5 +49,7 @@ Any KV change alters the stored history that the indexer and sparse MLA read. Qu
 Pin the target revision, tokenizer/processor files, engine image digest and draft revision together. The two published K3.1 images are mutable tags; digests observed on 2026-11-06 are recorded in [serving](serving.md#november-6-engine-support-status). Do not substitute a K3 artifact, K3 draft or K3 NVIDIA export: the architecture class, attention kernels and draft feature layers differ.
 
 ## License provenance
+
+NVIDIA’s export card names the NVIDIA Open Model Agreement as the download terms and identifies the Kimi K3.1-Pro base license. The export repository’s pinned LICENSE contains Moonshot’s Kimi K3.1-Pro text. Preserve both identities with this export. [NVIDIA card](https://huggingface.co/nvidia/Kimi-K3.1-Pro-NVFP4/blob/3af0462972c9cc07e5ba6e0867b44f961ce95e9b/README.md) [Export LICENSE](https://huggingface.co/nvidia/Kimi-K3.1-Pro-NVFP4/blob/3af0462972c9cc07e5ba6e0867b44f961ce95e9b/LICENSE)
 
 The pinned LICENSE is the "Kimi K3.1-Pro License". Its text is identical to the Kimi K3 License except for the title and the product name required in section 3. Section 2 covers Model-as-a-Service operators whose combined revenue exceeds US$20M over any consecutive 12 months; they must sign a separate agreement with Moonshot AI before commercial use. Section 3 covers products with more than 100M MAU or more than US$20M monthly revenue; they must display "Kimi K3.1-Pro". Section 4 exempts internal use and access through Moonshot or certified partners. Artificial Analysis labels this "Open Weights (Commercial Use Restricted)", a third-party classification. The LithosAI draft carries the K3.1-Pro License. The RadixArk draft declares Apache-2.0 for its own weights. The Inferact draft card declares no license metadata, although its repository contains a LICENSE file that was not reviewed. [kimi-k3.1-pro-LICENSE](https://huggingface.co/moonshotai/Kimi-K3.1-Pro/blob/d9e99b0792a5e93b78ea9bea62a68167e36ddd9e/LICENSE) [kimi-k3-LICENSE](https://huggingface.co/moonshotai/Kimi-K3/blob/f831ab66814297da540d832a5235f8e904f29d06/LICENSE) [AA-MODEL-KIMI-K3-1-PRO](https://artificialanalysis.ai/models/kimi-k3-1-pro)

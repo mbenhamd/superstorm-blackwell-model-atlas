@@ -1,5 +1,9 @@
 # Gemma 4 31B IT: sources
 
+## November 20 source review
+
+[Tagged 31B recipe](https://raw.githubusercontent.com/vllm-project/vllm/62d4bc3c7e33b1b6c906e233e6af2d3506c482ca/recipes/models/Google/gemma-4-31B-it.yaml) [Gemma vision class](https://raw.githubusercontent.com/vllm-project/vllm/62d4bc3c7e33b1b6c906e233e6af2d3506c482ca/vllm/model_executor/models/gemma4_mm.py) [Release model registry](https://raw.githubusercontent.com/vllm-project/vllm/62d4bc3c7e33b1b6c906e233e6af2d3506c482ca/vllm/model_executor/models/registry.py) [NVFP4 KV integration](https://github.com/vllm-project/vllm/pull/62117) [FlashInfer prefill](https://github.com/flashinfer-ai/flashinfer/pull/5720) [FlashInfer decode](https://github.com/flashinfer-ai/flashinfer/pull/6445) [B300 cookbook generator](https://raw.githubusercontent.com/sgl-project/sglang/297e54fd105e974cdf401e5b4d20253a22c16f90/docs/src/snippets/autoregressive/gemma4-deployment.jsx) The [serving review](serving.md#november-20-release-and-benchmark-controls) gives the applicability of each source.
+
 **October 26 scoped refresh:** current Hub identities, immutable README/configuration files and selected latest-stable engine restrictions were rechecked. [Local README snapshots](README.md#hugging-face-readme-snapshots) link every concrete catalog variant and recorded additional artifact. Retrieval metadata remains in the single [source registry](../../../evidence/sources.json); the historical source descriptions below retain their original scope.
 
 Refreshed on **2026-10-16**. The refresh below re-fetched current Hub identities before immutable cards, configurations and file listings. Earlier entries retain their own retrieval dates. Live documentation is identified separately. No model-weight payloads were downloaded and no inference engine was run.

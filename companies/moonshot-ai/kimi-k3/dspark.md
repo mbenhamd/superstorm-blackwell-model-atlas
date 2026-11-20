@@ -1,5 +1,7 @@
 # Kimi K3: DSpark integration and B300 state budget
 
+**November 20 draft identity.** The v0.34 recipe’s generic optional draft is `RedHatAI/Kimi-K3-speculator.dspark` at `38a88101e0d46bb22134b9da340f381b954d40d4`. Its five layers use serialized feature IDs [24, 48, 72, 88, 92] and block eight. The recipe selects eight probabilistic proposals with block rejection. Retain the earlier Inferact and RadixArk records as separate draft identities. [Tagged vLLM recipe](https://raw.githubusercontent.com/vllm-project/vllm/62d4bc3c7e33b1b6c906e233e6af2d3506c482ca/recipes/models/moonshotai/Kimi-K3.yaml) [RedHat config](https://huggingface.co/RedHatAI/Kimi-K3-speculator.dspark/raw/38a88101e0d46bb22134b9da340f381b954d40d4/config.json)
+
 ## What the draft model actually does
 
 The inspected vLLM `K3DSparkModel` uses a dense MLA draft path rather than the target's full latent MoE. Its context projection consumes selected target-layer features, while the target embedding can be aliased after draft loading. The implementation imports separate confidence and Markov heads. Draft-layer attention uses non-causal multi-token decoding; selected row-parallel output reductions are fused with subsequent RMS normalization. These observations concern the inspected implementation, not an assertion that every DSpark checkpoint has the same dimensions.

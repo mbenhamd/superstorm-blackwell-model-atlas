@@ -1,6 +1,12 @@
 # SGLang: source review and upgrade candidates
 
-## November 6: v0.5.23 is the current stable release
+## November 20 stable and development review
+
+**v0.5.23 remains the latest stable SGLang release.** Main at `9fc0e2a6` contains the remaining Kimi K3.1 day-zero implementation and the Mistral Medium processor lifecycle fix. Mistral Large 4 still uses a dedicated image. The CUDA 13.0 nightly wheel carries source label `08f10090c7`, and the dated CUDA 13 development image carries `03fde9cc`. The [November 20 review](../../reports/sglang-2026-11-20.md) identifies the release, image digests, selected source changes and their consequences for each of the twelve families under KServe.
+
+For NVIDIA Qwen3.8 Flash Next NVFP4, the November 18 AgentX cookbook records a TP1 worker on an older digest-pinned development image. Its c12 selection sets FP8 target and draft KV and keeps PLE in pinned host memory. Its long recurrent-state tracking interval assumes replay traffic that never re-sends generated outputs. The ordinary stable cookbook still labels its two B300 NVIDIA cells unverified. [Exact recipe and evidence](../../reports/sglang-2026-11-20.md#qwen-flash-next-on-one-b300-worker)
+
+## November 6 release comparison
 
 **November 6, 2026 (UTC).** SGLang **v0.5.23** is the latest stable release: published 2026-11-02T22:14:10Z, `prerelease=false`; annotated tag object `7df5dd09bc2f0e7e1509a1f7c2a40dff00ad8a01` resolves to commit `297e54fd105e974cdf401e5b4d20253a22c16f90`. `lmsysorg/sglang:v0.5.23` is index `sha256:f832b5c39559c9caa900b22ad37c76fcce66470676855c42052102c537812f1f`, and `:latest` resolved to the same digest on November 6 (registry metadata only). The [v0.5.23 B300 upgrade review](../../reports/sglang-v0523-upgrade.md) compares it with v0.5.22 for the twelve catalog families. No image, engine or B300 workload was executed. The v0.5.22 and older sections below are historical. [S0523-RELEASE](https://api.github.com/repos/sgl-project/sglang/releases/tags/v0.5.23), [S0523-TAG](https://api.github.com/repos/sgl-project/sglang/git/tags/7df5dd09bc2f0e7e1509a1f7c2a40dff00ad8a01), [S0523-IMAGE](https://hub.docker.com/v2/repositories/lmsysorg/sglang/tags/v0.5.23).
 

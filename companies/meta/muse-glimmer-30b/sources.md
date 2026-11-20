@@ -1,5 +1,9 @@
 # Muse Glimmer 30B: sources
 
+## November 20 source review
+
+[Tagged Glimmer recipe](https://raw.githubusercontent.com/vllm-project/vllm/62d4bc3c7e33b1b6c906e233e6af2d3506c482ca/recipes/models/meta-models/Muse-Glimmer-30B.yaml) [Release registry](https://raw.githubusercontent.com/vllm-project/vllm/62d4bc3c7e33b1b6c906e233e6af2d3506c482ca/vllm/model_executor/models/registry.py) [W4A16 selector](https://raw.githubusercontent.com/vllm-project/vllm/62d4bc3c7e33b1b6c906e233e6af2d3506c482ca/vllm/model_executor/kernels/linear/__init__.py) [DFlash fix](https://api.github.com/repos/vllm-project/vllm/pulls/64059) [SGLang model](https://raw.githubusercontent.com/sgl-project/sglang/297e54fd105e974cdf401e5b4d20253a22c16f90/python/sglang/srt/models/muse_glimmer.py) [SGLang cookbook](https://raw.githubusercontent.com/sgl-project/sglang/297e54fd105e974cdf401e5b4d20253a22c16f90/docs/src/snippets/configs/meta-models/muse-glimmer.jsx) [Red Hat card](https://huggingface.co/RedHatAI/Muse-Glimmer-30B-NVFP4/raw/403f780a4d35194b7230bc2d809effa3c147f407/README.md) The [serving review](serving.md#november-20-release-and-benchmark-controls) gives the applicability of each source.
+
 **November 6 initial review:**
 
 - Current Hub identities were resolved, then immutable cards, configurations, file listings and selected safetensors headers were retrieved.

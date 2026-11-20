@@ -1,12 +1,12 @@
 # Kimi K3
 
-**Latest scoped recheck: November 6, 2026 (UTC).** Latest stable releases are **vLLM v0.33.0** and **SGLang v0.5.23**, under required KServe (upstream v0.21.0 unchanged; installed version unknown). November 6 Hub head recheck: 2 of 2 concrete variants (native `moonshotai/Kimi-K3`, NVIDIA `nvidia/Kimi-K3-NVFP4`) equal retained pins; the catalog `fp8` entry is a placeholder with no Hub artifact and was not checked (README/configuration not re-downloaded). Release notes, selected source and publisher recipes were reviewed at the release commits; no B300 execution was performed. See the [November 6 release update](serving.md#november-6-stable-releases-vllm-v0330-and-sglang-v0523), the retained [October 26 recheck](serving.md#october-26-stable-release-recheck) and [Hugging Face README snapshots](#hugging-face-readme-snapshots).
+**November 20, 2026.** The native checkpoint’s head now adds a README link to K3.1. The weight objects and configuration match the retained K3 pin. Current engine references are vLLM v0.34.0 and SGLang v0.5.23 under required KServe. [November 20 serving review](serving.md#november-20-engine-and-benchmark-review)
 
-**Reverified 2026-10-16 (UTC).** Publisher reports 2.8T total / 104B active; hybrid KDA + gated MLA; latent MoE. The current publisher and NVIDIA repository heads still match the retained immutable revisions. [Publisher identity](https://huggingface.co/api/models/moonshotai/Kimi-K3), [NVIDIA identity](https://huggingface.co/api/models/nvidia/Kimi-K3-NVFP4).
+**Reverified 2026-10-16 (UTC).** Publisher reports 2.8T total / 104B active; hybrid KDA + gated MLA; latent MoE. The publisher and NVIDIA heads matched their pins on that date. [Publisher identity](https://huggingface.co/api/models/moonshotai/Kimi-K3), [NVIDIA identity](https://huggingface.co/api/models/nvidia/Kimi-K3-NVFP4).
 
 Treat K3 as a large hybrid system, not as a conventional trillion-parameter Transformer with a smaller file format. The ordinary release is already a low-precision, quantization-aware-trained artifact. The NVIDIA NVFP4 release is a different mixed-format artifact with a different loading and kernel contract. [kimi-k3-CARD](https://huggingface.co/moonshotai/Kimi-K3/blob/f831ab66814297da540d832a5235f8e904f29d06/README.md) [kimi-k3-CFG](https://huggingface.co/moonshotai/Kimi-K3/raw/f831ab66814297da540d832a5235f8e904f29d06/config.json)
 
-**First serving candidate:** SGLang initial candidate for NVIDIA mixed NVFP4; compare vLLM and SGLang for native MXFP4. This is an unbenchmarked candidate for the target B300 node; relative performance remains workload-dependent.
+**First serving comparison.** Use native MXFP4 TP8 target-only as the KServe control. Compare the vLLM RedHat compressed-tensors NVFP4 recipe and the SGLang NVIDIA ModelOpt NVFP4 recipe with the same inputs, caches and request limits. The concrete RedHat FP8-BLOCK weights exceed this node’s advertised HBM. [Precision evidence](precision.md)
 
 Native MXFP4 already makes single-node weight storage plausible; NVIDIA NVFP4 is a separate option. The [precision report](precision.md) separates checkpoint bytes from residency, and the [serving report](serving.md) explains why the published AgentX throughput figures do not measure fresh output-token capacity or this NVIDIA export.
 
@@ -33,7 +33,7 @@ The positional limit is not a promise of that many usable tokens under arbitrary
 
 ## The most important unresolved checks
 
-Exact B300 SXM6-AC OEM topology; all-FP8 artifact availability; exact installed-image ancestry of mixed-format fixes; maximum safe long-context concurrency; native-versus-NVFP4 quality for the target tool/language distribution; actual DSpark acceptance for the target workload.
+Exact B300 SXM6-AC OEM topology; per-rank residency of the two NVFP4 exports; exact installed-image ancestry of mixed-format fixes; maximum safe long-context concurrency; native-versus-NVFP4 quality for the target tool/language distribution; actual DSpark acceptance for the target workload.
 
 [Return to repository index](../../../README.md)
 
@@ -41,7 +41,9 @@ For the speculative integration and current development-image caveats, see [DSpa
 
 ## Hugging Face README snapshots
 
-These are unmodified README bytes fetched from immutable Hugging Face revisions on October 26. The publisher target, catalog exports and additional drafts/candidates remain distinct. Original relative links and images are preserved; use the pinned upstream view to resolve assets. Publisher benchmarks and launch examples retain their original scope, including older or development images. Apply the atlas serving assessment for KServe/B300. Upstream terms apply; copying a card does not qualify its model or configuration.
+The additional November 20 rows link the newly inspected, revision-pinned publisher files.
+
+These are unmodified README bytes fetched from immutable Hugging Face revisions on October 26 and November 20. The publisher target, catalog exports and additional drafts/candidates remain distinct. Original relative links and images are preserved; use the pinned upstream view to resolve assets. Publisher benchmarks and launch examples retain their original scope, including older or development images. Apply the atlas serving assessment for KServe/B300. Upstream terms apply; copying a card does not qualify its model or configuration.
 
 | Artifact | Local README | Pinned upstream README |
 | --- | --- | --- |
@@ -50,5 +52,8 @@ These are unmodified README bytes fetched from immutable Hugging Face revisions 
 | Additional artifact (separate compatibility scope): `Inferact/Kimi-K3-DSpark` | [README](huggingface/additional/Inferact--Kimi-K3-DSpark/README.md) | [cf6b8244620e](https://huggingface.co/Inferact/Kimi-K3-DSpark/blob/cf6b8244620e7ea4b0651d214f28e89eac75bed6/README.md) |
 | Additional artifact (separate compatibility scope): `RadixArk/Kimi-K3-DSpark` | [README](huggingface/additional/RadixArk--Kimi-K3-DSpark/README.md) | [3c5bac301d9c](https://huggingface.co/RadixArk/Kimi-K3-DSpark/blob/3c5bac301d9cf392706189d82ed947feca6c2f0f/README.md) |
 | Additional artifact (separate compatibility scope): `modal-labs/Kimi-K3-DFlash` | [README](huggingface/additional/modal-labs--Kimi-K3-DFlash/README.md) | [c192d15a4340](https://huggingface.co/modal-labs/Kimi-K3-DFlash/blob/c192d15a43407bf758b5ae0880d5c72052fef1de/README.md) |
+| Target export `RedHatAI/Kimi-K3-NVFP4` | [README](huggingface/nvfp4-redhat/README.md) | [13fd4e58db6a](https://huggingface.co/RedHatAI/Kimi-K3-NVFP4/blob/13fd4e58db6abe84bd75aecd055b7e18057cf607/README.md) |
+| Target export `RedHatAI/Kimi-K3-FP8-BLOCK` | [README](huggingface/fp8-block/README.md) | [6409c37cf440](https://huggingface.co/RedHatAI/Kimi-K3-FP8-BLOCK/blob/6409c37cf440abeb76f0b44ab4fb7db8c8bccb4b/README.md) |
+| Additional DSpark publication `RedHatAI/Kimi-K3-speculator.dspark` | [README](huggingface/additional/RedHatAI--Kimi-K3-speculator.dspark/README.md) | [38a88101e0d4](https://huggingface.co/RedHatAI/Kimi-K3-speculator.dspark/blob/38a88101e0d46bb22134b9da340f381b954d40d4/README.md) |
 
 Revision, retrieval time and SHA-256 are recorded through each card’s source ID in [sources.json](../../../evidence/sources.json) and the [model catalog](../../../catalog/models.json). The hypothetical all-FP8 Kimi entry has no verified repository or README.

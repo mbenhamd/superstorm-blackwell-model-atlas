@@ -1,12 +1,12 @@
 # Qwen 3.8 27B
 
-**Latest scoped recheck: November 6, 2026 (UTC).** Latest stable releases are **vLLM v0.33.0** and **SGLang v0.5.23**, under required KServe (upstream v0.21.0 unchanged; installed version unknown). November 6 Hub head recheck: 2 of 3 concrete variants equal retained pins (README/configuration not re-downloaded). Qwen/Qwen3.8-27B head moved to 8c0b3d30 (2026-11-05, model-card table colours); only README.md changed. Weights, configuration and tokenizer unchanged: the retained pin and its README snapshot remain the serving identity. Release notes, selected source and publisher recipes were reviewed at the release commits; no B300 execution was performed. See the [November 6 release update](serving.md#november-6-stable-releases-vllm-v0330-and-sglang-v0523), the retained [October 26 recheck](serving.md#october-26-stable-release-recheck) and [Hugging Face README snapshots](#hugging-face-readme-snapshots).
+**November 20, 2026 review.** The BF16 and official FP8 repositories added assistant-generation boundaries to chat_template.jinja and response_template to tokenizer_config.json. The Hub tree comparison found unchanged weight object IDs and model configurations. Retain the earlier revisions for release comparisons, and compare the new tokenizer/template revisions separately with multi-turn reasoning and tool-call fixtures. [Current engine and benchmark analysis](serving.md#november-20-release-and-benchmark-controls).
 
 **Qwen/vLLM v0.31 review: 2026-10-17.** Dense 27B language model; Gated DeltaNet + gated full attention; multimodal.
 
 This is the small dense baseline in the requested set. Its architecture class still says Qwen3_5; the public model version and the loader class need not have the same spelling. [qwen3.8-27b-CARD](https://huggingface.co/Qwen/Qwen3.8-27B/raw/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/README.md) [qwen3.8-27b-CFG](https://huggingface.co/Qwen/Qwen3.8-27B/raw/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/config.json)
 
-**Serving candidates:** under KServe, compare TP1 BF16, official FP8 and NVIDIA mixed NVFP4 with FlashInfer/BF16 KV first. Then assess FlashInfer/FP8 KV, FA4/BF16 KV and native MTP separately. v0.31.0 rejects forced FlashAttention with this model's hd256/FP8-KV combination. No production winner was measured; [the release-specific guidance](serving.md) records the source constraints and matched controls.
+**Serving candidates.** Compare TP1 BF16 and official FP8 with the original NVIDIA PTQ, the NVIDIA QAD student, Red Hat and Inferact exports under KServe. Keep the prompt and effective KV precision fixed, then vary KV and native MTP separately. [Release-specific controls](serving.md#november-20-release-and-benchmark-controls).
 
 [Architecture](architecture.md) · [Precision and variants](precision.md) · [Serving decisions](serving.md) · [Sources](sources.md) · [Model catalog](../../../catalog/models.json)
 
@@ -37,7 +37,7 @@ Actual TP1 NVFP4 kernel efficiency on this B300 firmware/container combination; 
 
 ## Hugging Face README snapshots
 
-These are unmodified README bytes fetched from immutable Hugging Face revisions on October 26. The publisher target, catalog exports and additional drafts/candidates remain distinct. Original relative links and images are preserved; use the pinned upstream view to resolve assets. Publisher benchmarks and launch examples retain their original scope, including older or development images. Apply the atlas serving assessment for KServe/B300. Upstream terms apply; copying a card does not qualify its model or configuration.
+The original snapshots were fetched on October 26. The table also identifies the November 20 additions. The publisher target, catalog exports and additional drafts/candidates remain distinct. Original relative links and images are preserved; use the pinned upstream view to resolve assets. Publisher benchmarks and launch examples retain their original scope, including older or development images. Apply the atlas serving assessment for KServe/B300. Upstream terms apply; copying a card does not qualify its model or configuration.
 
 | Artifact | Local README | Pinned upstream README |
 | --- | --- | --- |
@@ -46,5 +46,8 @@ These are unmodified README bytes fetched from immutable Hugging Face revisions 
 | Catalog export: nvfp4: `nvidia/Qwen3.8-27B-NVFP4` | [README](huggingface/nvfp4/README.md) | [482ca0f38322](https://huggingface.co/nvidia/Qwen3.8-27B-NVFP4/blob/482ca0f3832238542f8f5295dde86b5f22711d80/README.md) |
 | Additional artifact (separate compatibility scope): `RadixArk/Qwen3.8-27B-NVFP4` | [README](huggingface/additional/RadixArk--Qwen3.8-27B-NVFP4/README.md) | [319f741cce68](https://huggingface.co/RadixArk/Qwen3.8-27B-NVFP4/blob/319f741cce68d7914884900c138a1fbb70a42f30/README.md) |
 | Additional artifact (separate compatibility scope): `RadixArk/Qwen3.8-27B-NVFP4-BF16-LMHead` | [README](huggingface/additional/RadixArk--Qwen3.8-27B-NVFP4-BF16-LMHead/README.md) | [009632fef96d](https://huggingface.co/RadixArk/Qwen3.8-27B-NVFP4-BF16-LMHead/blob/009632fef96dd349150baa780c984e62e70e91fe/README.md) |
+| November 20 nvfp4-qad · `nvidia/Qwen3.8-27B-NVFP4-QAD` | [README](huggingface/nvfp4-qad/README.md) | [cd46ab575a5a](https://huggingface.co/nvidia/Qwen3.8-27B-NVFP4-QAD/blob/cd46ab575a5a687f0bc3e54251016fc2cc1a6aef/README.md) |
+| November 20 redhat-nvfp4 · `RedHatAI/Qwen3.8-27B-NVFP4` | [README](huggingface/redhat-nvfp4/README.md) | [5dd2bd1fffbf](https://huggingface.co/RedHatAI/Qwen3.8-27B-NVFP4/blob/5dd2bd1fffbfced02b863d69542514509c312b10/README.md) |
+| November 20 inferact-nvfp4 · `Inferact/Qwen3.8-27B-NVFP4` | [README](huggingface/inferact-nvfp4/README.md) | [6128240ebaf4](https://huggingface.co/Inferact/Qwen3.8-27B-NVFP4/blob/6128240ebaf4eaa7bad2b3d1c72c37d677c5f462/README.md) |
 
 Revision, retrieval time and SHA-256 are recorded through each card’s source ID in [sources.json](../../../evidence/sources.json) and the [model catalog](../../../catalog/models.json).

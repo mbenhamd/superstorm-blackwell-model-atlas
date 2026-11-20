@@ -1,5 +1,7 @@
 # DeepSeek V4.1 Flash 1017: sources
 
+The November 20 [published Jinja template](https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash-1017/raw/08c8657f02291e11b6f6b63e0e16014f8e748518/chat_template.jinja) is recorded as `N20-DEEPSEEK-AI-DEEPSEEK-V41-FLASH-1017-TEMPLATE`. The historical rows below refer to the retained `1bae0e10` pin.
+
 **November 6 initial review:** Hub identities, immutable publisher files, all 48 safetensors headers, the NVIDIA export, the superseded V4.1 Flash predecessor and selected vLLM/SGLang V4.1 sources were retrieved on 2026-11-06 (UTC). [Local README snapshots](README.md#hugging-face-readme-snapshots) link every recorded card. Retrieval metadata and SHA-256 values are in the single [source registry](../../../evidence/sources.json). Recipes, cookbooks and PR states are dated observations and can change.
 
 | Source ID | Primary artifact | Evidence boundary |

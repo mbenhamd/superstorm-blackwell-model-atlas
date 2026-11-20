@@ -1,5 +1,11 @@
 # GLM 5.3 Flash: precision and provenance
 
+## November 20 export contracts
+
+**nvidia/GLM-5.3-Flash-NVFP4** (`1d00738646cb`). ModelOpt NVFP4 declares a Linear target with explicit exceptions. The card prose mentions shared experts, but the config excludes all 42 shared-expert groups and the index has scale entries for main routed/dense projections and none for those shared linears. Layer 45 retains 889 MTP tensor entries. This export carries an FP8 KV scheme. Its index totals 204,419,115,456 bytes. The exporter lists GB200 test hardware. [configuration](https://huggingface.co/nvidia/GLM-5.3-Flash-NVFP4/raw/1d00738646cbb0c6d0a9eb403dac5f366f1473a7/config.json) [tensor index](https://huggingface.co/nvidia/GLM-5.3-Flash-NVFP4/resolve/1d00738646cbb0c6d0a9eb403dac5f366f1473a7/model.safetensors.index.json) [exporter card](https://huggingface.co/nvidia/GLM-5.3-Flash-NVFP4/raw/1d00738646cbb0c6d0a9eb403dac5f366f1473a7/README.md)
+
+**RadixArk/GLM-5.3-Flash-NVFP4** (`f46cf340d35a`). ModelOpt group-16 W4A4 covers routed and shared experts plus the three dense MLPs. The exporter specifies abs-max scaling, a 256 normalization and 1,024 calibration samples of length 512. The index totals 202,893,045,168 bytes, including 889 MTP tensor entries. Its precision contract differs from NVIDIA, which excludes the main shared experts, and from RedHat’s compressed-tensors export. [configuration](https://huggingface.co/RadixArk/GLM-5.3-Flash-NVFP4/raw/f46cf340d35a22d0d83d0c1dac8957cf2b1bcd35/config.json) [tensor index](https://huggingface.co/RadixArk/GLM-5.3-Flash-NVFP4/resolve/f46cf340d35a22d0d83d0c1dac8957cf2b1bcd35/model.safetensors.index.json) [exporter card](https://huggingface.co/RadixArk/GLM-5.3-Flash-NVFP4/raw/f46cf340d35a22d0d83d0c1dac8957cf2b1bcd35/README.md)
+
 The official FP8 and BF16 variants and the exact RedHat derivative were rechecked at immutable revisions on 2026-10-16; the repository heads still resolve to the retained pins.
 
 | Variant | Pinned artifact | Precision contract from configuration | Index tensor bytes |
@@ -18,7 +24,7 @@ The NVFP4 group targets the routed-expert projection weights and activations in 
 
 An exclusion records where the exporter did not apply those groups; it does not establish one dtype for every remaining tensor. In particular, retain separate evidence for vision, KDA, router, sparse attention, mHC and MTP. The Hub's parameter total for a packed derivative is not a replacement for the official checkpoint count, and the mixed NVFP4 target must not be treated as a uniformly four-bit recurrent model.
 
-RedHat publishes selected reasoning benchmark scores but no paired FP8 table in this pinned card. Those scores do not establish lossless conversion, multimodal quality or B300 performance. NVIDIA and RadixArk exports named by the SGLang cookbook require their own config and calibration checks. [glm-5.3-flash-NV](https://huggingface.co/RedHatAI/GLM-5.3-Flash-NVFP4/raw/18d55bfd5a2194887738da73753975c9d3842f46/README.md)
+RedHat publishes selected reasoning benchmark scores but no paired FP8 table in this pinned card. Those scores do not establish lossless conversion, multimodal quality or B300 performance. The November 20 export contracts above give the NVIDIA and RadixArk configurations used for separate quality comparisons. [glm-5.3-flash-NV](https://huggingface.co/RedHatAI/GLM-5.3-Flash-NVFP4/raw/18d55bfd5a2194887738da73753975c9d3842f46/README.md)
 
 ## KV and deployment contract
 
@@ -31,5 +37,7 @@ Pin the model, tokenizer/processor, config and engine/container revisions togeth
 The official FP8 and BF16 artifacts contain the MIT license; the RedHat card also declares MIT. These observations apply to the inspected revisions. Check any additional exporter or bundled-code terms before redistribution. No model tensor payloads are bundled here. [glm-5.3-flash-LICENSE](https://huggingface.co/zai-org/GLM-5.3-Flash/raw/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/LICENSE)
 
 ## External DFlash2 artifact terms
+
+At head `6cc6c481eee930a5139619ed919f78726371adbc` the README changes its license declaration to Apache-2.0 and removes the earlier commercial-use wording. The Hub file tree shows identical configuration and weight objects across these two revisions. Retain the applicable card and revision with any draft evaluation. [Current immutable card](https://huggingface.co/incoai/GLM-5.3-Flash-DFlash2/blob/6cc6c481eee930a5139619ed919f78726371adbc/README.md)
 
 The pinned `incoai/GLM-5.3-Flash-DFlash2` card declares **CC-BY-NC-ND-4.0**, describes research/evaluation use and points to separate commercial licensing. The target's MIT license does not apply automatically to this draft. This provenance was missing from the initial upgrade review and is now recorded in the catalog and lock. [S0522-S-DFLASH-CARD](https://huggingface.co/incoai/GLM-5.3-Flash-DFlash2/raw/bf582e4eacc1810f76656d1811693ff6c6737d2a/README.md)

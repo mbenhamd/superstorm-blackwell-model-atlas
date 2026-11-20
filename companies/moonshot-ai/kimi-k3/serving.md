@@ -1,5 +1,13 @@
 # Kimi K3: serving and optimization on B300
 
+## November 20 engine and benchmark review
+
+**vLLM v0.34.0.** The v0.34 recipe selects RedHatAI/Kimi-K3-NVFP4 for NVFP4 and RedHatAI/Kimi-K3-speculator.dspark for the default optional draft (eight proposals, probabilistic drafting, block rejection). The opt-in KIMI_K3_KV_BALANCED_MLA backend splits each request’s MLA history by length. Its gates include BF16 input, FP8 KV and SM10.x. The PR’s decode attention comparison used GB300, with end-to-end AgentX results on different parallel layouts. [release recipe](https://raw.githubusercontent.com/vllm-project/vllm/62d4bc3c7e33b1b6c906e233e6af2d3506c482ca/recipes/models/moonshotai/Kimi-K3.yaml) [KV-balanced MLA PR](https://github.com/vllm-project/vllm/pull/63638)
+
+**SGLang v0.5.23 and development source.** v0.5.23 and main select the NVIDIA ModelOpt mixed export for the NVFP4 option with flashinfer_trtllm and an export-specific development image. The native route uses different expert handling. Preserve SiTU and exporter-specific scale finalization when testing NVIDIA, and pin the image and kernel dependencies. [release cookbook](https://raw.githubusercontent.com/sgl-project/sglang/297e54fd105e974cdf401e5b4d20253a22c16f90/docs/src/snippets/configs/moonshotai/kimi-k3.jsx) [main cookbook](https://raw.githubusercontent.com/sgl-project/sglang/9fc0e2a6ba197f19f00165327adbb7c48cdf8281/docs/src/snippets/configs/moonshotai/kimi-k3.jsx)
+
+**B300 comparison under KServe.** At the same native TP8, KV dtype, block size and input/output token totals, compare standard MLA with KV-balanced MLA on mixed-length concurrent agent sessions and on length-bucketed requests. Collect p95 inter-token latency, per-rank attention time, output goodput and real draft acceptance. Check tool-call streaming and long-history retrieval before attributing a gain to load balancing. The installed KServe integration and the serving image digest are inputs to this comparison. No run on the reference node was performed.
+
 ## November 6 stable releases: vLLM v0.33.0 and SGLang v0.5.23
 
 The latest stable releases are vLLM v0.33.0 (commit `4ba787ec9959e566d3b587a796dff07673324da5`; the GitHub release object carries tag name `v0.33.0rc3`) and SGLang v0.5.23 (commit `297e54fd105e974cdf401e5b4d20253a22c16f90`). KServe upstream v0.21.0 is unchanged; the installed version remains unknown. This review covers release notes, selected source and publisher recipes at the release commits. No image or B300 workload was executed, and every performance figure quoted is an upstream claim. Full reviews: [vLLM v0.33.0](../../../reports/vllm-v033-upgrade.md), [SGLang v0.5.23](../../../reports/sglang-v0523-upgrade.md).

@@ -1,6 +1,6 @@
 # Gemma 4 31B IT
 
-**Latest scoped recheck: November 6, 2026 (UTC).** Latest stable releases are **vLLM v0.33.0** and **SGLang v0.5.23**, under required KServe (upstream v0.21.0 unchanged; installed version unknown). November 6 Hub head recheck: 6 of 6 concrete variants equal retained pins (README/configuration not re-downloaded). Release notes, selected source and publisher recipes were reviewed at the release commits; no B300 execution was performed. See the [November 6 release update](serving.md#november-6-stable-releases-vllm-v0330-and-sglang-v0523), the retained [October 26 recheck](serving.md#october-26-stable-release-recheck) and [Hugging Face README snapshots](#hugging-face-readme-snapshots).
+**November 20, 2026 review.** The six target/export heads and separate Google assistant head match the retained revisions. Their immutable README snapshots and model configs were fetched again. [Current engine and benchmark analysis](serving.md#november-20-release-and-benchmark-controls).
 
 **As of 2026-10-16.** Dense multimodal 31B; 5 sliding layers per global-attention layer.
 
@@ -8,7 +8,7 @@ The 31B instruction-tuned variant is dense. Its configuration explicitly disable
 
 The publisher's rounded component counts are 30.7B for the text model, about 550M for vision and about 500M for a separate drafter. Dense describes the text layers' computation; it does not mean every stored parameter, including vision, is used for every generated token. [TOPM-GEMMA-PAPER](https://arxiv.org/html/2607.02770v2#S1.T1)
 
-**First serving candidate:** vLLM TP1 BF16/FP8/NVFP4 comparison; SGLang challenger with export-level probe. This is an unbenchmarked candidate for the target B300 node; relative performance remains workload-dependent.
+**Serving candidate.** KServe TP1 target-only BF16 and separate FP8/NVFP4 export comparisons. Preserve local/global and image attention. Probe TP2 multimodal encoder data parallelism and the pinned Google assistant independently.
 
 The existing Red Hat exports remain the comparison references. [Precision](precision.md) now also distinguishes NVIDIA's ModelOpt export, Unsloth's mixed FP8/NVFP4 export and LilaRest's text-only Turbo export. Turbo's 18.5 GiB and throughput figures describe its publisher's RTX PRO 6000 experiment; they do not establish B300 memory or performance. [Serving](serving.md) explains why the matching assistant, quantization format and attention backend must be qualified together.
 

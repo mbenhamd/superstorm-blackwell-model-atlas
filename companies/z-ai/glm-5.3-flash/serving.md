@@ -1,5 +1,15 @@
 # GLM 5.3 Flash: serving and optimization on B300
 
+## November 20 engine and benchmark review
+
+**vLLM v0.34.0.** The v0.34 FP8 MegaMoE path fuses routed/shared experts and expert dispatch/combine for official block-FP8 with TP1, DP and EP. The reported 1.6× compares four B200 GPUs at concurrency 96 against generic DEP4 with MTP acceptance fixed at 3.61. The NVFP4 variant selected in the recipe is RedHat’s distinct compressed-tensors export. [release recipe](https://raw.githubusercontent.com/vllm-project/vllm/62d4bc3c7e33b1b6c906e233e6af2d3506c482ca/recipes/models/zai-org/GLM-5.3-Flash.yaml) [FP8 MegaMoE measurements](https://github.com/vllm-project/vllm/pull/60895)
+
+**SGLang v0.5.23 and development source.** Both the v0.5.23 and main cookbooks map separate B300 NVFP4 options to NVIDIA and RadixArk, using TP8, FP8 E4M3 KV, TRT-LLM DSA and flashinfer_trtllm MoE. The low-latency cell adds native MTP through EAGLE (five steps, top-k one, six draft tokens). Upstream marks the quoted cells verified only for the selected graph/cache/transport combination. RedHat uses a different representation. [release cookbook](https://raw.githubusercontent.com/sgl-project/sglang/297e54fd105e974cdf401e5b4d20253a22c16f90/docs/src/snippets/configs/zai-org/glm-5.3-flash.jsx) [main cookbook](https://raw.githubusercontent.com/sgl-project/sglang/9fc0e2a6ba197f19f00165327adbb7c48cdf8281/docs/src/snippets/configs/zai-org/glm-5.3-flash.jsx)
+
+The tagged vLLM recipe selects the native `glm5_next` tokenizer mode with the Rust frontend. Record the matched Rust binary, compare rendered prompt IDs against the model template and check reasoning and tool-call extraction before interpreting the endpoint measurements. [Tagged recipe](https://raw.githubusercontent.com/vllm-project/vllm/62d4bc3c7e33b1b6c906e233e6af2d3506c482ca/recipes/models/zai-org/GLM-5.3-Flash.yaml)
+
+**B300 comparison under KServe.** First compare generic DEP4 with FP8 MegaMoE DEP4 for official FP8 at fixed offered load and KServe group count. Keep speculation off, then repeat with natural MTP acceptance. At TP8 compare each NVFP4 export to official FP8 at fixed KV/recurrent dtypes and image patch counts. Record routed and shared-expert dispatch, peak state, output goodput at p95 TTFT/ITL limits and multimodal/tool accuracy. The installed KServe integration and the serving image digest are inputs to this comparison. No run on the reference node was performed.
+
 ## November 6 stable releases: vLLM v0.33.0 and SGLang v0.5.23
 
 The latest stable releases are vLLM v0.33.0 (commit `4ba787ec9959e566d3b587a796dff07673324da5`; the GitHub release object carries tag name `v0.33.0rc3`) and SGLang v0.5.23 (commit `297e54fd105e974cdf401e5b4d20253a22c16f90`). KServe upstream v0.21.0 is unchanged; the installed version remains unknown. This review covers release notes, selected source and publisher recipes at the release commits. No image or B300 workload was executed, and every performance figure quoted is an upstream claim. Full reviews: [vLLM v0.33.0](../../../reports/vllm-v033-upgrade.md), [SGLang v0.5.23](../../../reports/sglang-v0523-upgrade.md).

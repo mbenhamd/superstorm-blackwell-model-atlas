@@ -1,5 +1,13 @@
 # Muse Glimmer 30B: precision and provenance
 
+## Additional NVFP4 exports reviewed November 20
+
+| Immutable checkpoint | Precision contract | Listed safetensors bytes | Evidence |
+| --- | --- | ---: | --- |
+| `RedHatAI/Muse-Glimmer-30B-NVFP4` @ `403f780a4d` | compressed-tensors NVFP4 W4A4 group 16. Vision, embeddings and output head excluded. Config does not request KV quantization. | 23,380,741,568 | [Card](https://huggingface.co/RedHatAI/Muse-Glimmer-30B-NVFP4/raw/403f780a4d35194b7230bc2d809effa3c147f407/README.md) [Config](https://huggingface.co/RedHatAI/Muse-Glimmer-30B-NVFP4/raw/403f780a4d35194b7230bc2d809effa3c147f407/config.json) [Shard sizes](https://huggingface.co/api/models/RedHatAI/Muse-Glimmer-30B-NVFP4/tree/403f780a4d35194b7230bc2d809effa3c147f407?recursive=true) |
+
+Red Hat reports MMLU-Pro of 0.783 against BF16 at 0.807 and SWE-bench Verified of 0.670 against 0.684 on its B200/vLLM setup. Its card attributes 3-pass mean GPQA-Diamond gains of 0.017 to a difference within one paired standard error. It lists TP1 for knowledge tasks and TP2 for SWE-bench alongside a one-B200-per-replica description, leaving the latter topology ambiguous. The export bundles the older 114f55eb template and greedy generation settings. Pin the common BF16 template and pass sampling explicitly when comparing formats. vLLM v0.34 prefers CuTe-DSL for eligible dense W4A16 operations on SM103 and can fall back to Marlin. NVIDIA’s mixed export therefore needs a fresh dispatch observation on this release. [Red Hat card](https://huggingface.co/RedHatAI/Muse-Glimmer-30B-NVFP4/raw/403f780a4d35194b7230bc2d809effa3c147f407/README.md) [Export template](https://huggingface.co/RedHatAI/Muse-Glimmer-30B-NVFP4/raw/403f780a4d35194b7230bc2d809effa3c147f407/chat_template.jinja) [Export generation settings](https://huggingface.co/RedHatAI/Muse-Glimmer-30B-NVFP4/raw/403f780a4d35194b7230bc2d809effa3c147f407/generation_config.json) [v0.34 selector](https://raw.githubusercontent.com/vllm-project/vllm/62d4bc3c7e33b1b6c906e233e6af2d3506c482ca/vllm/model_executor/kernels/linear/__init__.py)
+
 All revisions below were resolved from the Hub API on 2026-11-06 and pinned. Weight payloads were not downloaded. Formats come from each artifact's `config.json` (and `hf_quant_config.json` where present). Selected safetensors headers were range-read.
 
 | Variant key | Exact artifact @ revision | Precision contract (from config / headers) | Listed weight-file bytes | Vision weights | Engine reference |
@@ -47,14 +55,14 @@ NVIDIA's BF16 baselines also differ from Meta's card. Terminal-Bench 2.1 is 45.2
 
 ## Protocol assets bundled by each export
 
-The pinned base revision carries the current chat template (9,992 bytes, SHA-256 `cfc67e5f…`, introduced by "Fixing duplicate reasoning effort" on 2026-08-11) and a `generation_config.json` with the publisher's recommended `temperature 1.0 / top_p 0.95 / top_k 64`. The template at the original weights commit `46ac57a4` is 7,167 bytes, SHA-256 `114f55eb…`. Each export's files were retrieved at its pinned revision and hashed on 2026-11-06:
+The retained base revision carries the November 6 chat template (9,992 bytes, SHA-256 `cfc67e5f…`, introduced by "Fixing duplicate reasoning effort" on 2026-08-11) and a `generation_config.json` with the publisher's recommended `temperature 1.0 / top_p 0.95 / top_k 64`. The template at the original weights commit `46ac57a4` is 7,167 bytes, SHA-256 `114f55eb…`. Each export's files were retrieved at its pinned revision and hashed on 2026-11-06:
 
 | Export @ revision | `chat_template.jinja` | `generation_config.json` |
 | --- | --- | --- |
 | NVIDIA @ `47818374` | 7,167 bytes, `114f55eb…`: superseded (`46ac57a4`) template | `do_sample: false`; no temperature/top_p/top_k |
 | Red Hat FP8-block @ `1deb4641` | 7,167 bytes, `114f55eb…`: superseded (`46ac57a4`) template | `do_sample: false`; no temperature/top_p/top_k |
 | Inferact NVFP4 W4A4 @ `d35cb790` | 7,167 bytes, `114f55eb…`: superseded (`46ac57a4`) template | `do_sample: false`; no temperature/top_p/top_k |
-| RadixArk NVFP4/MXFP8 @ `14166299` | 9,992 bytes, `cfc67e5f…`: current base template | `do_sample: false`; no temperature/top_p/top_k |
+| RadixArk NVFP4/MXFP8 @ `14166299` | 9,992 bytes, `cfc67e5f…`: November 6 base template | `do_sample: false`; no temperature/top_p/top_k |
 
 The Red Hat, Inferact and RadixArk generation configs are byte-identical to one another (148 bytes, SHA-256 `b0e427c9…`): BOS 200000, EOS [200001, 200008], pad 200018, `max_length` 131072, `do_sample: false`. Two consequences follow from file contents alone; neither was executed:
 

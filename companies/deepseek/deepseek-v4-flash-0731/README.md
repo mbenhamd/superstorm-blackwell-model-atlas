@@ -1,12 +1,12 @@
 # DeepSeek V4 Flash 0731
 
-**Latest scoped recheck: November 6, 2026 (UTC).** Latest stable releases are **vLLM v0.33.0** and **SGLang v0.5.23**, under required KServe (upstream v0.21.0 unchanged; installed version unknown). November 6 Hub head recheck: 1 of 1 concrete variants equal retained pins (README/configuration not re-downloaded). Release notes, selected source and publisher recipes were reviewed at the release commits; no B300 execution was performed. See the [November 6 release update](serving.md#november-6-stable-releases-vllm-v0330-and-sglang-v0523), the retained [October 26 recheck](serving.md#october-26-stable-release-recheck) and [Hugging Face README snapshots](#hugging-face-readme-snapshots).
+**November 20, 2026.** The native 0731 and NVIDIA 0731 Hub heads match their retained pins. The RedHat 0731 compressed-tensors checkpoint has a distinct target-only tensor inventory. Current engine references are vLLM v0.34.0 and SGLang v0.5.23 under required KServe. [November 20 serving review](serving.md#november-20-engine-and-benchmark-review)
 
 **Reverified 2026-10-15 (UTC).** V4 Flash family; compressed/sparse attention, mHC, built-in DSpark.
 
 The July 31 checkpoint is the target of this report. Do not silently substitute the preview, the unsuffixed repository, or another release when resolving a launch command. [deepseek-v4-flash-0731-CARD](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/blob/7872f01b1d1fe23eabc4c98b48bffcef5a386062/README.md) [deepseek-v4-flash-0731-CFG](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/raw/7872f01b1d1fe23eabc4c98b48bffcef5a386062/config.json)
 
-**First serving candidate:** vLLM TP1/DP4+EP baseline and SGLang documented TP4 comparator; qualify eight-GPU adaptations. This is an unbenchmarked candidate for the target B300 node; relative performance remains workload-dependent.
+**First serving comparison.** Compare native 0731 target-only on vLLM TP1/DP4+EP and SGLang TP4, using two groups of four for matched node throughput. Evaluate NVIDIA and RedHat 0731 NVFP4 as separate target-only export probes. [Precision evidence](precision.md)
 
 [Architecture](architecture.md) · [Precision and variants](precision.md) · [Serving decisions](serving.md) · [Sources](sources.md) · [Model catalog](../../../catalog/models.json)
 
@@ -37,11 +37,14 @@ Exact main-plus-draft parameter accounting; selected image and kernel provenance
 
 ## Hugging Face README snapshots
 
-These are unmodified README bytes fetched from immutable Hugging Face revisions on October 26. The publisher target, catalog exports and additional drafts/candidates remain distinct. Original relative links and images are preserved; use the pinned upstream view to resolve assets. Publisher benchmarks and launch examples retain their original scope, including older or development images. Apply the atlas serving assessment for KServe/B300. Upstream terms apply; copying a card does not qualify its model or configuration.
+The additional November 20 rows link the newly inspected, revision-pinned publisher files.
+
+These are unmodified README bytes fetched from immutable Hugging Face revisions on October 26 and November 20. The publisher target, catalog exports and additional drafts/candidates remain distinct. Original relative links and images are preserved; use the pinned upstream view to resolve assets. Publisher benchmarks and launch examples retain their original scope, including older or development images. Apply the atlas serving assessment for KServe/B300. Upstream terms apply; copying a card does not qualify its model or configuration.
 
 | Artifact | Local README | Pinned upstream README |
 | --- | --- | --- |
 | Publisher target: `deepseek-ai/DeepSeek-V4-Flash-0731` | [README](huggingface/README.md) | [7872f01b1d1f](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/blob/7872f01b1d1fe23eabc4c98b48bffcef5a386062/README.md) |
-| Additional artifact (separate compatibility scope): `nvidia/DeepSeek-V4-Flash-0731-NVFP4` | [README](huggingface/additional/nvidia--DeepSeek-V4-Flash-0731-NVFP4/README.md) | [f1caa71142bd](https://huggingface.co/nvidia/DeepSeek-V4-Flash-0731-NVFP4/blob/f1caa71142bd0be02f728c79f75042ac1e461579/README.md) |
+| Target export (`nvfp4-nvidia`): `nvidia/DeepSeek-V4-Flash-0731-NVFP4` | [README](huggingface/additional/nvidia--DeepSeek-V4-Flash-0731-NVFP4/README.md) | [f1caa71142bd](https://huggingface.co/nvidia/DeepSeek-V4-Flash-0731-NVFP4/blob/f1caa71142bd0be02f728c79f75042ac1e461579/README.md) |
+| Target export `RedHatAI/DeepSeek-V4-Flash-0731-NVFP4` | [README](huggingface/nvfp4-redhat/README.md) | [94ade0e65a07](https://huggingface.co/RedHatAI/DeepSeek-V4-Flash-0731-NVFP4/blob/94ade0e65a074c992844ec55dbcba5dca9d1cdfc/README.md) |
 
 Revision, retrieval time and SHA-256 are recorded through each card’s source ID in [sources.json](../../../evidence/sources.json) and the [model catalog](../../../catalog/models.json).

@@ -1,10 +1,10 @@
 # Kimi K3.1 Pro
 
-**Latest scoped recheck: November 6, 2026 (UTC).** First atlas review of this family. The publisher repository head is pinned at `d9e99b0792a5e93b78ea9bea62a68167e36ddd9e`. Its card, configuration, license, full safetensors index and one shard header were retrieved and compared field by field with the retained [Kimi K3](../kimi-k3/README.md) pin. **Neither the latest stable releases (vLLM v0.33.0, SGLang v0.5.23) nor the earlier baselines (v0.32.0, v0.5.22) contain K3.1 support.** vLLM support exists only in open PRs and a `kimi-k31` image. SGLang basic support merged to main on 2026-11-04 (`61a3c7f2`) and plain decode context parallelism on 2026-11-06 (`188cf7da`), both after the v0.5.23 tag; PD and DFLASH remain on the `kimi-k3.1-day-0` branch. KServe remains the required deployment layer; its installed version is unknown. No B300 execution was performed. See [serving](serving.md#november-6-engine-support-status) and [Hugging Face README snapshots](#hugging-face-readme-snapshots).
+**November 20, 2026.** The native revision remains d9e99b07. NVIDIA now publishes a separate mixed NVFP4 checkpoint. Inferact’s non-preview DSpark is also available. Current engine references are vLLM v0.34.0 and SGLang v0.5.23 under required KServe. [November 20 serving review](serving.md#november-20-engine-and-benchmark-review)
 
 Moonshot describes K3.1 Pro as a post-trained Kimi K3. The serialized checkpoint keeps every K3 dimension except one: the 24 gated full-attention layers gain a DeepSeek-Sparse-Attention (DSA) lightning indexer that selects 2,048 history tokens per query. The card renames these layers from "Gated MLA" to "Gated DSA". The change affects attention kernels, KV-cache layout and engine support. Weight storage and precision format are unaffected. [kimi-k3.1-pro-CARD](https://huggingface.co/moonshotai/Kimi-K3.1-Pro/blob/d9e99b0792a5e93b78ea9bea62a68167e36ddd9e/README.md) [kimi-k3.1-pro-CFG](https://huggingface.co/moonshotai/Kimi-K3.1-Pro/raw/d9e99b0792a5e93b78ea9bea62a68167e36ddd9e/config.json)
 
-**First serving candidate (unbenchmarked):** native MXFP4 target, TP8 on one eight-GPU B300 KServe group, target-only. Use the vLLM project `kimi-k31` image or the LMSYS SGLang day-0 image/main build, pinned by digest. Add DCP8 only for KV-capacity-bound workloads. Qualify each engine-specific draft separately. No NVIDIA or other NVFP4/FP8 export exists.
+**First serving comparison.** Qualify native MXFP4 TP8 target-only on a K3.1-capable development build under KServe. Neither stable engine serves K3.1. Compare the NVIDIA mixed NVFP4 target separately on its exporter-documented development images. [Precision evidence](precision.md)
 
 [Architecture](architecture.md) · [Precision and variants](precision.md) · [Serving decisions](serving.md) · [Sources](sources.md) · [Model catalog](../../../catalog/models.json)
 
@@ -44,7 +44,7 @@ Artificial Analysis lists release date 2026-10-23, 2.8T total / 104B active and 
 
 ## The most important unresolved checks
 
-- Engine release inclusion: no stable vLLM or SGLang release contains K3.1, and the atlas baselines cannot load it.
+- vLLM v0.34.0 contains partial K3.1 code. Both stable engines lack a complete serving path.
 - Image-digest ancestry of the `kimi-k31` builds.
 - DSA indexer and sparse-MLA kernel dispatch on SM103.
 - Actual per-rank residency and KV/state capacity after load.
@@ -56,7 +56,7 @@ Artificial Analysis lists release date 2026-10-23, 2.8T total / 104B active and 
 
 ## Hugging Face README snapshots
 
-These are unmodified README bytes fetched from immutable Hugging Face revisions on November 6, 2026. The publisher target and the additional drafts remain distinct. As of 2026-11-06 no NVIDIA or other NVFP4/FP8 export of K3.1 Pro usable by vLLM or SGLang exists on the Hub; community low-bit quantizations in MLX, EXL3 and GGUF formats (for example `inferencerlabs/Kimi-K3.1-Pro-MLXse`, `local-inference-lab/Kimi-K3.1-Pro-EXL3-2bit`) are out of scope and were not reviewed. [kimi-k3.1-pro-HUB-SEARCH](https://huggingface.co/api/models?search=Kimi-K3.1&limit=200) Original relative links and images are preserved; use the pinned upstream view to resolve assets. Publisher and author benchmarks retain their original scope. Upstream terms apply; copying a card does not qualify its model or configuration.
+The first snapshots were retrieved November 6. November 20 adds the NVIDIA mixed export and the non-preview co-published DSpark cards. Original relative links and images are preserved; use the pinned upstream view to resolve assets. Publisher and author benchmarks retain their original scope. Upstream terms apply; copying a card does not qualify its model or configuration.
 
 | Artifact | Local README | Pinned upstream README |
 | --- | --- | --- |
@@ -64,5 +64,8 @@ These are unmodified README bytes fetched from immutable Hugging Face revisions 
 | Additional artifact (vLLM recipe draft, preview): `Inferact/Kimi-K3.1-Pro-DSpark-preview` | [README](huggingface/additional/Inferact--Kimi-K3.1-Pro-DSpark-preview/README.md) | [6a2ef20a05ef](https://huggingface.co/Inferact/Kimi-K3.1-Pro-DSpark-preview/blob/6a2ef20a05efe88aabbf9ecaa12d020c3b0edf94/README.md) |
 | Additional artifact (SGLang cookbook draft, preview): `RadixArk/Kimi-K3.1-Dflash2-Preview` | [README](huggingface/additional/RadixArk--Kimi-K3.1-Dflash2-Preview/README.md) | [ea257b38a8ee](https://huggingface.co/RadixArk/Kimi-K3.1-Dflash2-Preview/blob/ea257b38a8ee755b65287bb8ccd0938b519ce26b/README.md) |
 | Additional artifact (third-party draft): `LithosAI/Kimi-K3.1-Pro-DSpark` | [README](huggingface/additional/LithosAI--Kimi-K3.1-Pro-DSpark/README.md) | [d791d217d1cc](https://huggingface.co/LithosAI/Kimi-K3.1-Pro-DSpark/blob/d791d217d1cc679e07877721761bfcc09d70d514/README.md) |
+| Target export `nvidia/Kimi-K3.1-Pro-NVFP4` | [README](huggingface/nvfp4/README.md) | [3af0462972c9](https://huggingface.co/nvidia/Kimi-K3.1-Pro-NVFP4/blob/3af0462972c9cc07e5ba6e0867b44f961ce95e9b/README.md) |
+| Additional DSpark publication `Inferact/Kimi-K3.1-Pro-DSpark` | [README](huggingface/additional/Inferact--Kimi-K3.1-Pro-DSpark/README.md) | [50f5a10c9385](https://huggingface.co/Inferact/Kimi-K3.1-Pro-DSpark/blob/50f5a10c9385fb9a225c534dda8f7a1f5ae87110/README.md) |
+| Additional DSpark publication `RedHatAI/Kimi-K3.1-Pro-DSpark` | [README](huggingface/additional/RedHatAI--Kimi-K3.1-Pro-DSpark/README.md) | [fdb8bdea778a](https://huggingface.co/RedHatAI/Kimi-K3.1-Pro-DSpark/blob/fdb8bdea778a5260a9d9fbc7811044de46433959/README.md) |
 
 Revision, retrieval time and SHA-256 are recorded through each card's source ID in [sources.json](../../../evidence/sources.json) and the [model catalog](../../../catalog/models.json).

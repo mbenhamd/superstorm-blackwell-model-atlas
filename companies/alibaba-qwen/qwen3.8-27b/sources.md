@@ -1,5 +1,9 @@
 # Qwen 3.8 27B: sources
 
+## November 20 source review
+
+[Tagged 27B recipe](https://raw.githubusercontent.com/vllm-project/vllm/62d4bc3c7e33b1b6c906e233e6af2d3506c482ca/recipes/models/Qwen/Qwen3.8-27B.yaml) [GDN implementation](https://raw.githubusercontent.com/vllm-project/vllm/62d4bc3c7e33b1b6c906e233e6af2d3506c482ca/vllm/model_executor/layers/mamba/gdn/qwen_gdn_linear_attn.py) [PR measurement setup](https://api.github.com/repos/vllm-project/vllm/pulls/66064) [NVIDIA QAD card](https://huggingface.co/nvidia/Qwen3.8-27B-NVFP4-QAD/raw/cd46ab575a5a687f0bc3e54251016fc2cc1a6aef/README.md) [SGLang release cookbook](https://raw.githubusercontent.com/sgl-project/sglang/297e54fd105e974cdf401e5b4d20253a22c16f90/docs/src/snippets/configs/Qwen/qwen3.8-27b.jsx) [QAD configuration](https://huggingface.co/nvidia/Qwen3.8-27B-NVFP4-QAD/raw/cd46ab575a5a687f0bc3e54251016fc2cc1a6aef/config.json) [Red Hat configuration](https://huggingface.co/RedHatAI/Qwen3.8-27B-NVFP4/raw/5dd2bd1fffbfced02b863d69542514509c312b10/config.json) The [serving review](serving.md#november-20-release-and-benchmark-controls) gives the applicability of each source.
+
 **October 26 scoped refresh:** current Hub identities, immutable README/configuration files and selected latest-stable engine restrictions were rechecked. [Local README snapshots](README.md#hugging-face-readme-snapshots) link every concrete catalog variant and recorded additional artifact. Retrieval metadata remains in the single [source registry](../../../evidence/sources.json); the historical source descriptions below retain their original scope.
 
 Checkpoint identity and selected vLLM v0.31 source rechecked 2026-10-17 UTC; the earlier retrieval entries below remain dated to their original captures. Publisher metadata was retrieved at the immutable revisions below. No model weights were downloaded or tensor payloads audited. Engine recipe statements remain upstream evidence.

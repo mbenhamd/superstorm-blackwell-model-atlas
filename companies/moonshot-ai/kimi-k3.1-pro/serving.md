@@ -1,5 +1,24 @@
 # Kimi K3.1 Pro: serving and optimization on B300
 
+## November 20 engine and benchmark review
+
+**vLLM v0.34.0.** v0.34.0 cannot serve K3.1. Registration and renderer landed, but the TP8 cache/attention work in #66037 is absent from the release and present on main. Main’s native recipe names minimum 0.35.0 and the non-preview Inferact DSpark. The B300 AgentX cells were measured on a pinned development image with the preview draft and synthetic acceptance. The NVIDIA export’s card names a separate kimi-k31-cu134 image. [release recipe](https://raw.githubusercontent.com/vllm-project/vllm/62d4bc3c7e33b1b6c906e233e6af2d3506c482ca/recipes/models/moonshotai/Kimi-K3.1-Pro.yaml) [v0.34.0 release note](https://github.com/vllm-project/vllm/releases/tag/v0.34.0) [main recipe](https://raw.githubusercontent.com/vllm-project/vllm/0aa2bb19496d9252c0dd7f8d1c0d073fc634d471/recipes/models/moonshotai/Kimi-K3.1-Pro.yaml)
+
+**SGLang v0.5.23 and development source.** v0.5.23 predates K3.1. Remaining day-0 integration #48414 merged to main on November 17. The main override allows DSPARK or DFLASH with DCP and enforces static ragged verification for DSPARK, a matching DFLASH draft-attention backend and fused DSA top-k. The native cookbook’s B300 unified cells remain unverified upstream. NVIDIA names dev-cu13 for its mixed export. [main cookbook](https://raw.githubusercontent.com/sgl-project/sglang/9fc0e2a6ba197f19f00165327adbb7c48cdf8281/docs/src/snippets/configs/moonshotai/kimi-k3.1-pro.jsx) [main argument guards](https://raw.githubusercontent.com/sgl-project/sglang/9fc0e2a6ba197f19f00165327adbb7c48cdf8281/python/sglang/srt/arg_groups/model_overrides/kimi_k3.py) [day-0 integration](https://github.com/sgl-project/sglang/pull/48414)
+
+**B300 comparison under KServe.** First compare native and NVIDIA targets at TP8 with identical FP8 MLA/indexer caches, FP32 KDA state, target-only and fixed context. Record max-rank weights, free KV blocks, KDA slots, long-context retrieval, tool JSON and image-grounded answers. Then change DCP1 to DCP8 on the native build. Compare five and seven real proposals for the released Inferact draft with fixed rejection policy, and measure acceptance by position plus tail latency. The installed KServe integration and the serving image digest are inputs to this comparison. No run on the reference node was performed.
+
+The released Inferact draft uses five sliding-attention layers and block seven. Its card tests seven proposals with block rejection. The current recipe’s default uses five. Its B300 replay reports preview-draft measurements under synthetic acceptance, even where the displayed command now names the released checkpoint. Test real acceptance on the released draft with the exact K3.1 target pin. [Inferact card](https://huggingface.co/Inferact/Kimi-K3.1-Pro-DSpark/raw/50f5a10c9385fb9a225c534dda8f7a1f5ae87110/README.md) [current recipe](https://raw.githubusercontent.com/vllm-project/vllm/0aa2bb19496d9252c0dd7f8d1c0d073fc634d471/recipes/models/moonshotai/Kimi-K3.1-Pro.yaml)
+
+The NVIDIA card names these development builds for its mixed weight export. The registry observations identify current artifacts. NVIDIA’s validation used GB300, and the image digests used for its quality table are undisclosed. [NVIDIA export card](https://huggingface.co/nvidia/Kimi-K3.1-Pro-NVFP4/blob/3af0462972c9cc07e5ba6e0867b44f961ce95e9b/README.md)
+
+| Image | November 20 index digest | Linux amd64 manifest |
+| --- | --- | --- |
+| [vllm/vllm-openai:kimi-k31-cu134](https://hub.docker.com/v2/repositories/vllm/vllm-openai/tags/kimi-k31-cu134) | `sha256:5c22aa1cd946b511dfd1bd871ee531c5ee893379fa1d3bfbbab6b8a8de250a89` | `sha256:7024298dc165f996c9c9f62c07a72eb71310baba32931c2427a4e847dbdb8b14` |
+| [lmsysorg/sglang:dev-cu13](https://hub.docker.com/v2/repositories/lmsysorg/sglang/tags/dev-cu13) | `sha256:d6f6d9720febe26aad1e40649a401cddd8504feb1d70de6b7ea374ff71785931` | `sha256:d7976d3a5963ea29eb34a3d94dd2304b3b9a8245da78add7ada9cb15bf77a641` |
+
+SGLang main’s K3-family automatic SiTU override selects `flashinfer_mxfp4` on SM103 only when the checkpoint is MXFP4-packed. NVIDIA K3.1 uses `modelopt_mixed`. Capture its separately resolved expert backend and the MXFP8 KDA/shared paths during qualification. [SGLang main overrides](https://raw.githubusercontent.com/sgl-project/sglang/9fc0e2a6ba197f19f00165327adbb7c48cdf8281/python/sglang/srt/arg_groups/model_overrides/kimi_k3.py)
+
 ## November 6 engine support status
 
 | Engine | Where K3.1 support exists | In atlas stable baseline? | Evidence |
@@ -16,6 +35,8 @@ The images are mutable tags published by the engine projects (Docker Hub namespa
 DSA adds an indexer forward pass, top-2048 selection and sparse MLA kernels. The engine also needs a packed cache that holds the MLA latent, the indexer keys and the KDA state slots in one block row. vLLM PR 66037 states that a DSA layer on a dense backend now raises instead of silently running full attention. An engine that loads the weights without DSA support would therefore have produced numerically different attention. [kimi-k3.1-pro-VPR66037](https://api.github.com/repos/vllm-project/vllm/pulls/66037) [kimi-k3.1-pro-CFG](https://huggingface.co/moonshotai/Kimi-K3.1-Pro/raw/d9e99b0792a5e93b78ea9bea62a68167e36ddd9e/config.json)
 
 ## vLLM elements to use on 8×B300
+
+The table records the November 6 development recipes. The [November 20 review](#november-20-engine-and-benchmark-review) updates release eligibility, main integration and the default vLLM draft.
 
 All rows require the K3.1 development build; none is in v0.32.0 or v0.33.0. Commands come from the vLLM project recipe (source `recipes/models/moonshotai/Kimi-K3.1-Pro.yaml` in vllm-project/vllm at `e740bad`; Moonshot's card links it) rendered for `hardware=b300` (page updated 2026-11-05).
 
@@ -35,6 +56,8 @@ All rows require the K3.1 development build; none is in v0.32.0 or v0.33.0. Comm
 The recipe's MI355X AgentX preset uses `rejection_sample_method: synthetic` with acceptance length 3.62. The recipe itself says it must never be used to serve users or evaluate accuracy. It is not B300 evidence.
 
 ## SGLang elements to use on 8×B300
+
+The table records the November 6 development recipes. The [November 20 review](#november-20-engine-and-benchmark-review) updates release eligibility, main integration and the default vLLM draft.
 
 The cookbook generator marks both B300 Unified cells "Final Verification In Progress". Only the B300 Decode cells used in PD disaggregation are "Verified". Basic TP8 needs main at or after `61a3c7f2`. Plain DCP (no speculative decoding, PD or HiCache) needs main at or after `188cf7da`. DFLASH and PD, with or without DCP, need the day-0 branch or image. None of these commits is in v0.5.23.
 
@@ -70,7 +93,7 @@ Excluded: `vllm-project/Kimi-K3.1-Pro-pruned75` is a 75%-expert-pruned smoke-tes
 
 1. **Target-only TP8 control** on each engine's pinned K3.1 image through KServe. Record the effective DSA kernel, MoE runner, KV dtype and per-rank memory after load.
 2. **KV-capacity axis.** Compare TP8 against TP8+DCP8 at fixed context and offered load: decode step, TTFT, maximum concurrent sessions. Keep KDA state slots fixed; DCP does not shard them.
-3. **Draft axis**, after (1). vLLM with Inferact preview at 5 proposals; SGLang with RadixArk DFlash2 at block 6/8. Use natural acceptance on agentic coding traces and record running-request caps.
+3. **Draft axis**, after (1). Compare the released Inferact DSpark at five and seven proposals on vLLM. Keep the preview as a historical control. Use the RadixArk DFlash2 preview on SGLang at block 6/8. Use natural acceptance on agentic coding traces and record running-request caps.
 4. **KV precision.** FP8 against NVFP4 (vLLM) or FlashMLA against TRT-LLM DSA (SGLang), gated on long-context retrieval, not GSM8K.
 5. **K3 vs K3.1** at equal topology. Confirm whether DSA reduces long-history decode cost on B300; the card claim is not quantified.
 
@@ -78,7 +101,7 @@ Reject a configuration when dispatch falls back from the declared DSA/MoE backen
 
 ## Remaining uncertainty
 
-- No released engine contains K3.1, and the image source commits are unverified.
+- Neither vLLM v0.34.0 nor SGLang v0.5.23 provides complete K3.1 serving. Qualification still needs an exact development image and observed dispatch.
 - SGLang DCP on main (`188cf7da`) merged with GPU validation still owed by its author (TP8/DCP8 GSM8K and a DCP1-vs-DCP8 logprob comparison on B300).
 - DSA kernel behavior on SM103 and long-context quality under top-2048 selection are unmeasured.
 - Actual B300 KV/state capacity is unmeasured.

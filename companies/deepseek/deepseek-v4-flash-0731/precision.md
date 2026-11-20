@@ -1,5 +1,9 @@
 # DeepSeek V4 Flash 0731: precision and provenance
 
+## November 20 export contracts
+
+**RedHatAI/DeepSeek-V4-Flash-0731-NVFP4** (`94ade0e65a07`). Compressed-tensors format combines group-16 NVFP4 routed experts and FP8 block-128 selected attention/shared-expert linears. The index totals 164,602,731,950 bytes and lists target layers 0–42 plus embeddings, output and normalization. It has no mtp.*, dspark.* or draft tensor group, and the tree lists no additional draft shard. The config still carries dspark_* fields. Use the exporter’s TP8 target-only profile. [configuration](https://huggingface.co/RedHatAI/DeepSeek-V4-Flash-0731-NVFP4/raw/94ade0e65a074c992844ec55dbcba5dca9d1cdfc/config.json) [tensor index](https://huggingface.co/RedHatAI/DeepSeek-V4-Flash-0731-NVFP4/resolve/94ade0e65a074c992844ec55dbcba5dca9d1cdfc/model.safetensors.index.json) [exporter card](https://huggingface.co/RedHatAI/DeepSeek-V4-Flash-0731-NVFP4/raw/94ade0e65a074c992844ec55dbcba5dca9d1cdfc/README.md)
+
 Reverified 2026-10-16 (UTC). The native pin remains `7872f01b1d1fe23eabc4c98b48bffcef5a386062`; the separate NVIDIA export below was also inspected. No checkpoint was loaded locally.
 
 | Variant | Exact artifact | Precision evidence |

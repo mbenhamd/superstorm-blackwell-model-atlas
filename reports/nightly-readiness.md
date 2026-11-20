@@ -1,6 +1,16 @@
 # Stable, main and nightly: what the differences mean
 
-**Latest scoped refresh: November 6, 2026 UTC; earlier comparisons below retain their dated scope.** These identify released source, selected development source and advertised artifacts. No wheel or container was downloaded or run. Exact identities and retrieval dates are retained in the [upstream lock](../evidence/upstreams.lock.json).
+## November 20 release and channel observation
+
+| Project | Upstream stable release and source | Development branch observed November 20 UTC | Published development artifact |
+| --- | --- | --- | --- |
+| vLLM | [v0.34.0](https://github.com/vllm-project/vllm/releases/tag/v0.34.0), November 16, `62d4bc3c` | [`0aa2bb19`](https://github.com/vllm-project/vllm/commit/0aa2bb19496d9252c0dd7f8d1c0d073fc634d471) | [Default wheel index](https://wheels.vllm.ai/nightly/vllm/) advertises `0.34.0rc1.dev1079+g664dfcd4f`. The [cu130 index](https://wheels.vllm.ai/nightly/cu130/vllm/) advertises `0.34.0rc1.dev156+g4e3463c87` from an older commit. The [release review](vllm-v034-upgrade.md) records the stable and nightly image identities. |
+| SGLang | [v0.5.23](https://github.com/sgl-project/sglang/releases/tag/v0.5.23), November 2, `297e54fd` | [`9fc0e2a6`](https://github.com/sgl-project/sglang/commit/9fc0e2a6ba197f19f00165327adbb7c48cdf8281) | CUDA 13.0 wheel `0.5.24.dev20261120+g08f10090c7`. The [channel review](sglang-2026-11-20.md) identifies the dated development container independently. |
+| KServe | [v0.21.0](https://github.com/kserve/kserve/releases/tag/v0.21.0), September 25, `d1482554` | [`30da28a7`](https://github.com/kserve/kserve/commit/30da28a7b26041f396736276f4e66d7a97009c60) on master | The `kserve/llmisvc-controller:latest` tag advertised index `sha256:27a036ea5646166b76c3639a26c6ae68cf3819dc9f2888b035cfc4b61d23e52c`. Build-to-commit mapping and a separate nightly controller tag remain unverified. [Registry metadata](https://hub.docker.com/v2/repositories/kserve/llmisvc-controller/tags/latest). |
+
+The [upstream lock](../evidence/upstreams.lock.json) records observed identities and retrieval times. A main commit, wheel version and container digest can each identify a different build. For example, vLLM v0.34.0 explicitly excludes Kimi K3.1 Pro even though it contains some of the architecture code. For Mistral Large 4, the release includes FP8 and NVFP4 support. Historical publisher-image measurements retain their original model and image identities. [vLLM release notes](https://github.com/vllm-project/vllm/releases/tag/v0.34.0).
+
+Of the 50 checkpoint and draft repositories already pinned on November 6, 38 Hub heads still equal the retained revision and 12 have moved. Changes include chat serialization in the four Qwen publisher repositories and the Muse base model. DeepSeek 1017 gained a chat template. Keep the served revision and rendered input IDs alongside benchmark results. A comparison using one pinned model and a moving tokenizer can change the workload before the engine sees it. [Model artifact identities](../evidence/upstreams.lock.json).
 
 ## November 6: release and channel observation
 

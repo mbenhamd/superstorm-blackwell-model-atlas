@@ -1,5 +1,7 @@
 # DeepSeek V4 Flash 0731: sources
 
+The [November 20 precision review](precision.md#november-20-export-contracts) links each newly scoped export’s immutable card, configuration and tensor index. The [serving review](serving.md#november-20-engine-and-benchmark-review) links the inspected recipe sources. Full hashes and retrieval times are recorded in the [source registry](../../../evidence/sources.json).
+
 **October 26 scoped refresh:** current Hub identities, immutable README/configuration files and selected latest-stable engine restrictions were rechecked. [Local README snapshots](README.md#hugging-face-readme-snapshots) link every concrete catalog variant and recorded additional artifact. Retrieval metadata remains in the single [source registry](../../../evidence/sources.json); the historical source descriptions below retain their original scope.
 
 Re-retrieved on 2026-10-15 (UTC). Model cards, configurations and licenses below are linked to immutable repository revisions. Engine recipes and PR state are dated observations; they can change.

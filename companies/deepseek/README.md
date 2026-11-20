@@ -14,4 +14,4 @@ October 17 weight update of DeepSeek V4.1 Flash (`DeepseekV41ForCausalLM`): 40-l
 
 Canonical repository: `deepseek-ai/DeepSeek-V4.1-Flash-1017`, pinned at `1bae0e1088993b9b82de08f59de5be5a34e42170` on 2026-11-06.
 
-vLLM v0.33.0 and SGLang v0.5.23 contain V4.1 code paths, but publisher B300 measurements were taken on the earlier 0909 weights and the SGLang 1017 cells are unverified. The NVIDIA NVFP4 export needs engine changes not in either release. See the [serving report](deepseek-v4.1-flash-1017/serving.md).
+vLLM v0.34.0 and SGLang v0.5.23 contain native V4.1 paths. The vLLM B300 recipe reports 0909 measurements, and the SGLang 1017 B300 cells remain unverified upstream. The NVIDIA 1017 NVFP4 export requires packed Engram changes present on both main branches after their respective stable release commits. See the [serving review](deepseek-v4.1-flash-1017/serving.md#november-20-engine-and-benchmark-review).

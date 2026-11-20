@@ -1,5 +1,7 @@
 # SGLang v0.5.23: B300 upgrade and experiment priorities
 
+The [November 20 follow-up](sglang-2026-11-20.md) rechecks v0.5.23 against current main, nightly artifacts and updated model recipes. The release comparison below retains its November 6 scope.
+
 **Source review: November 6, 2026 (UTC).** SGLang v0.5.23 is the latest stable release: published 2026-11-02T22:14:10Z, `prerelease=false`. Tag object `7df5dd09bc2f0e7e1509a1f7c2a40dff00ad8a01` resolves to commit **`297e54fd105e974cdf401e5b4d20253a22c16f90`** (commit date 2026-10-29T05:22:02Z). The tag is on `release/v0.5.23`, not on main. [S0523-RELEASE](https://api.github.com/repos/sgl-project/sglang/releases/tags/v0.5.23), [S0523-TAG](https://api.github.com/repos/sgl-project/sglang/git/tags/7df5dd09bc2f0e7e1509a1f7c2a40dff00ad8a01).
 
 The comparison baseline is v0.5.22 (`baa9befa381511cd4d56f83980951e5a45fffc6d`); see the [v0.5.22 review](sglang-v0522-upgrade.md). KServe remains the required deployment layer; its installed version and runtime integration are unknown. No engine, image, model payload or B300 workload was executed. Performance figures are upstream claims, mostly measured on GB300 or H200.

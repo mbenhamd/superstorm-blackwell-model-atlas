@@ -1,12 +1,12 @@
 # Mistral Medium 3.5
 
-**Latest scoped recheck: November 6, 2026 (UTC).** Latest stable releases are **vLLM v0.33.0** and **SGLang v0.5.23**, under required KServe (upstream v0.21.0 unchanged; installed version unknown). November 6: target and EAGLE heads equal retained pins; README, config, params, LICENSE and EAGLE card/params byte-identical. The NVIDIA NVFP4 export is promoted to catalog variant `nvfp4`: [NVFP4 dossier](nvfp4.md) (support at both stable releases, SM103 kernels, memory, launch commands, KServe settings, qualification plan; local card byte-identical to the pinned README at 12:45:27Z). Release notes, selected source and publisher recipes were reviewed at the release commits; no B300 execution was performed. See the [November 6 release update](serving.md#november-6-stable-releases-vllm-v0330-and-sglang-v0523), the retained [October 26 recheck](serving.md#october-26-stable-release-recheck) and [Hugging Face README snapshots](#hugging-face-readme-snapshots).
+**November 20, 2026 review.** Publisher FP8, NVIDIA mixed NVFP4 and the publisher EAGLE draft still match their pins. The NVIDIA repository uses a different HF serialization and chat template from the publisher’s native Mistral format. [Current engine and benchmark analysis](serving.md#november-20-release-and-benchmark-controls).
 
 **As of 2026-10-15.** Dense 128B; 88 language layers, GQA, Pixtral vision; static FP8 export.
 
 Mistral Medium 3.5 is a large dense multimodal model with a comparatively conventional GQA memory model. Its alternative checkpoint serializations require explicit download and storage accounting. [mistral-medium-3.5-CARD](https://huggingface.co/mistralai/Mistral-Medium-3.5-128B/blob/22b2b868a15677cfa6061277ed2f653d1349a9ab/README.md) [mistral-medium-3.5-CFG](https://huggingface.co/mistralai/Mistral-Medium-3.5-128B/raw/22b2b868a15677cfa6061277ed2f653d1349a9ab/config.json)
 
-**First serving candidate:** vLLM publisher TP8 baseline; compare TP2/4 and publisher-documented SGLang at equal workload. NVFP4 capacity candidate: KServe + vLLM v0.33.0 (digest-pinned), NVIDIA NVFP4 export, TP4 ×2 replicas, target-only first (`mistral-medium-3.5.nvfp4.vllm.tp4`; TP2 ×4 alternative `.nvfp4.vllm.tp2`); SGLang v0.5.23 is not expected to load the NVFP4 export (`.nvfp4.sglang.tp4` is a probe pending an upstream fix). These are unbenchmarked candidates for the target B300 node; relative performance remains workload-dependent.
+**Serving candidate.** KServe native FP8 target-only control. vLLM v0.34.0 NVIDIA mixed NVFP4 at TP4, then TP2, is a source-supported candidate. SGLang v0.5.23 mixed NVFP4 remains blocked by fused-projection lookup.
 
 [Architecture](architecture.md) · [Precision and variants](precision.md) · [Serving decisions](serving.md) · [NVFP4 dossier](nvfp4.md) · [Sources](sources.md) · [Model catalog](../../../catalog/models.json)
 

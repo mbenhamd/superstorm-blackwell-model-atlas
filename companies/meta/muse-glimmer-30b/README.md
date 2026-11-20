@@ -1,12 +1,12 @@
 # Muse Glimmer 30B
 
-**Latest scoped recheck: November 6, 2026 (UTC).** This is the atlas's first review of this family. The publisher repository head is pinned at `cec94fcfd6512f2cfe708138c32533b346ea4f69`. Its card, configuration, generation and processor configs, license, chat template, index and both shard headers were retrieved. **Both stable engine baselines contain model support:** vLLM v0.33.0 (support since v0.28.0) and SGLang v0.5.23 (since v0.5.18; NVIDIA-export loader fix since v0.5.20). Neither engine's recipe lists B300 as verified hardware. KServe remains the required deployment layer; its installed version is unknown. No B300 execution was performed. See [serving](serving.md#november-6-engine-support-status) and [Hugging Face README snapshots](#hugging-face-readme-snapshots).
+**November 20, 2026 review.** Meta head 1297fd7d changes chat_template.jinja to inject the requested JSON schema into the prompt. Red Hat FP8 head 024ba7df changes only README metadata. Keep the pinned base template for the original comparison and test the new template independently with the same constrained-decoding settings. [Current engine and benchmark analysis](serving.md#november-20-release-and-benchmark-controls).
 
 **As of 2026-11-06.** Dense multimodal model with 29.78B serialized parameters: 52 text layers in a [3 sliding (2,048) + 1 global NoPE] pattern, GQA with 32 query and 2 KV heads, and a 1.85B ViT perception encoder.
 
 Meta Superintelligence Lab's card describes a 30B dense causal transformer with a perception encoder. The card says it was distilled from Muse Spark for local agentic use and released under Apache 2.0 in August 2026. The card lists text and image input and text output. The processor also defines a video path, which the card describes as frame-by-frame and not optimized. The separate `-assistant` repository is a DFlash block-diffusion **speculative-decoding drafter** (block size 16), not a chat model. [muse-glimmer-30b-CARD](https://huggingface.co/meta-models/Muse-Glimmer-30B/blob/cec94fcfd6512f2cfe708138c32533b346ea4f69/README.md) [muse-glimmer-30b-CFG](https://huggingface.co/meta-models/Muse-Glimmer-30B/raw/cec94fcfd6512f2cfe708138c32533b346ea4f69/config.json) [muse-glimmer-30b-DRAFT-CFG](https://huggingface.co/meta-models/Muse-Glimmer-30B-assistant/raw/c676cce91658f9568aaf264a416211e2782735b7/config.json)
 
-**First serving candidate (unbenchmarked):** vLLM v0.33.0 TP1 BF16 target-only, one replica per B300 behind KServe, with an SGLang v0.5.23 TP1 challenger. Then compare these as separate experiments: the DFlash assistant, Red Hat FP8-block, and NVIDIA's mixed W4A16-NVFP4/FP8 export. Only TP1 and TP2 shard the two KV heads without replication, and SGLang refuses quantized checkpoints above TP2.
+**Serving candidate.** KServe vLLM v0.34.0 TP1 BF16 and SGLang v0.5.23 TP1 as controls. Compare target-only Red Hat W4A4, Inferact W4A4, NVIDIA mixed W4A16/FP8 and block FP8 independently of DFlash and JSON-schema template changes.
 
 [Architecture](architecture.md) · [Precision and variants](precision.md) · [Serving decisions](serving.md) · [Sources](sources.md) · [Model catalog](../../../catalog/models.json)
 
@@ -64,7 +64,7 @@ Against the publisher:
 
 - the DFlash target-layer index convention in vLLM v0.33.0, which has silently broken acceptance before in SGLang;
 - the effective SM103 attention backend and sliding-window eviction;
-- the protocol assets each export bundles: the NVIDIA, Red Hat and Inferact exports carry the superseded `114f55eb…` chat template, and all four exports (including RadixArk, whose template is current) ship greedy generation configs without the publisher's 1.0/0.95/64 sampling; supply the base template and explicit sampling, then test tool and reasoning output ([details](precision.md#protocol-assets-bundled-by-each-export));
+- the protocol assets each export bundles: the NVIDIA, Red Hat FP8/NVFP4 and Inferact exports carry the superseded `114f55eb…` chat template, and all five cataloged exports (including RadixArk, whose template matches the retained BF16 revision) ship greedy generation configs without the publisher's 1.0/0.95/64 sampling; supply the base template and explicit sampling, then test tool and reasoning output ([details](precision.md#protocol-assets-bundled-by-each-export));
 - the 29.6B versus 29.78B parameter-count gap;
 - local B300 quality, latency and throughput.
 
@@ -72,7 +72,7 @@ Against the publisher:
 
 ## Hugging Face README snapshots
 
-These are unmodified README bytes fetched from immutable Hugging Face revisions on November 6. The publisher target, catalog exports and the drafter remain distinct artifacts. Original relative links are preserved; use the pinned upstream view to resolve assets. Publisher benchmarks and launch examples keep their original scope, including consumer GPUs, B200 and model-specific images. Copying a card does not qualify its model or configuration.
+The original snapshots were fetched on November 6. The table also identifies the November 20 additions. The publisher target, catalog exports and the drafter remain distinct artifacts. Original relative links are preserved; use the pinned upstream view to resolve assets. Publisher benchmarks and launch examples keep their original scope, including consumer GPUs, B200 and model-specific images. Copying a card does not qualify its model or configuration.
 
 | Artifact | Local README | Pinned upstream README |
 | --- | --- | --- |
@@ -82,5 +82,6 @@ These are unmodified README bytes fetched from immutable Hugging Face revisions 
 | Catalog export: fp8: `RedHatAI/Muse-Glimmer-30B-FP8-block` | [README](huggingface/additional/RedHatAI--Muse-Glimmer-30B-FP8-block/README.md) | [1deb4641ff84](https://huggingface.co/RedHatAI/Muse-Glimmer-30B-FP8-block/blob/1deb4641ff84f9a728dd11b27cac1f6a02a9ed14/README.md) |
 | Catalog export: nvfp4-inferact: `Inferact/Muse-Glimmer-30B-NVFP4-W4A4` | [README](huggingface/additional/Inferact--Muse-Glimmer-30B-NVFP4-W4A4/README.md) | [d35cb79050f4](https://huggingface.co/Inferact/Muse-Glimmer-30B-NVFP4-W4A4/blob/d35cb79050f419c457611b1cee5c5d15b176f285/README.md) |
 | Catalog export: radixark-nvfp4: `RadixArk/Muse-Glimmer-NVFP4` | [README](huggingface/additional/RadixArk--Muse-Glimmer-NVFP4/README.md) | [1416629950af](https://huggingface.co/RadixArk/Muse-Glimmer-NVFP4/blob/1416629950afdfb276618fd4810103681dd10f4a/README.md) |
+| November 20 redhat-nvfp4 · `RedHatAI/Muse-Glimmer-30B-NVFP4` | [README](huggingface/redhat-nvfp4/README.md) | [403f780a4d35](https://huggingface.co/RedHatAI/Muse-Glimmer-30B-NVFP4/blob/403f780a4d35194b7230bc2d809effa3c147f407/README.md) |
 
 `meta-models/Muse-Glimmer-30B-GGUF` and `-ExecuTorch-PTE` are consumer-device formats (llama.cpp and ExecuTorch). They were identified and pinned in metadata only; their cards are not snapshotted. Revision, retrieval time and SHA-256 are recorded through each card's source ID in [sources.json](../../../evidence/sources.json) and the [model catalog](../../../catalog/models.json).

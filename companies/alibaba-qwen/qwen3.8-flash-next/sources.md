@@ -1,5 +1,9 @@
 # Qwen 3.8 Flash Next: sources
 
+## November 20 source review
+
+[Tagged Flash Next recipe](https://raw.githubusercontent.com/vllm-project/vllm/62d4bc3c7e33b1b6c906e233e6af2d3506c482ca/recipes/models/Qwen/Qwen3.8-Flash-Next.yaml) [Release changes](https://github.com/vllm-project/vllm/releases/tag/v0.34.0) [Inferact PLE header](https://huggingface.co/Inferact/Qwen3.8-Flash-Next-NVFP4/resolve/103a7608316173ca6edd49929544244de7ffda70/model-00001-of-00004.safetensors) [Standard release cookbook](https://raw.githubusercontent.com/sgl-project/sglang/297e54fd105e974cdf401e5b4d20253a22c16f90/docs/src/snippets/configs/Qwen/qwen3.8-flash-next.jsx) [Release AgentX cells](https://raw.githubusercontent.com/sgl-project/sglang/297e54fd105e974cdf401e5b4d20253a22c16f90/docs/src/snippets/agentx/Qwen/qwen3.8-flash-next.jsx) [Main AgentX cells](https://raw.githubusercontent.com/sgl-project/sglang/9fc0e2a6ba197f19f00165327adbb7c48cdf8281/docs/src/snippets/agentx/Qwen/qwen3.8-flash-next.jsx) The [serving review](serving.md#november-20-release-and-benchmark-controls) gives the applicability of each source.
+
 **October 26 scoped refresh:** current Hub identities, immutable README/configuration files and selected latest-stable engine restrictions were rechecked. [Local README snapshots](README.md#hugging-face-readme-snapshots) link every concrete catalog variant and recorded additional artifact. Retrieval metadata remains in the single [source registry](../../../evidence/sources.json); the historical source descriptions below retain their original scope.
 
 Rechecked 2026-10-16 UTC; the earlier retrieval entries below remain dated to their original captures. Publisher metadata was retrieved at the immutable revisions below. No model weights were downloaded or tensor payloads audited. Engine recipe statements remain upstream evidence.

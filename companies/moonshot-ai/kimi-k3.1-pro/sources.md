@@ -1,5 +1,7 @@
 # Kimi K3.1 Pro: sources
 
+The [November 20 precision review](precision.md#november-20-export-contracts) links each newly scoped export’s immutable card, configuration and tensor index. The [serving review](serving.md#november-20-engine-and-benchmark-review) links the inspected recipe sources. Full hashes and retrieval times are recorded in the [source registry](../../../evidence/sources.json).
+
 **November 6, 2026 initial review.** All model artifacts are pinned to immutable Hugging Face revisions. Mutable recipe, cookbook, blog, PR and registry observations carry retrieval timestamps and response hashes in the single [source registry](../../../evidence/sources.json). [Local README snapshots](README.md#hugging-face-readme-snapshots) are byte-identical to the pinned upstream cards.
 
 ## Publisher artifacts
@@ -9,7 +11,7 @@
 | `kimi-k3.1-pro-API` | [Hub identity](https://huggingface.co/api/models/moonshotai/Kimi-K3.1-Pro) | Head `d9e99b07…` at 08:21 and 08:28 UTC; repository created 2026-11-02. API parameter tally counts packed storage, not parameters. |
 | `kimi-k3.1-pro-COMMITS` | [Commit history](https://huggingface.co/api/models/moonshotai/Kimi-K3.1-Pro/commits/main) | Two public commits; `d9e99b07` message "remove invalid medium thinking effort". RadixArk's `535833b1` base revision is absent. |
 | `kimi-k3.1-pro-ENCODING-6D0A0202` | [Initial-commit encoding_k3.py](https://huggingface.co/moonshotai/Kimi-K3.1-Pro/raw/6d0a0202956796543364d666ab19c6ad1a494ee1/encoding_k3.py) | Superseded encoder; diffed against the pin: only `_VALID_THINKING_EFFORTS` lost `medium`. |
-| `kimi-k3.1-pro-HUB-SEARCH` | [Hub search "Kimi-K3.1"](https://huggingface.co/api/models?search=Kimi-K3.1&limit=200) | Mutable listing; no NVFP4/FP8 export; community MLX/EXL3/GGUF quantizations listed, not reviewed. |
+| `kimi-k3.1-pro-HUB-SEARCH` | [Hub search "Kimi-K3.1"](https://huggingface.co/api/models?search=Kimi-K3.1&limit=200) | November 6 listing, before NVIDIA published the K3.1 NVFP4 export; community MLX/EXL3/GGUF quantizations listed, not reviewed. |
 | `kimi-k3.1-pro-CARD` | [Publisher card](https://huggingface.co/moonshotai/Kimi-K3.1-Pro/blob/d9e99b0792a5e93b78ea9bea62a68167e36ddd9e/README.md) | Summary table, Gated DSA footnote, deployment and usage sections read. Benchmarks not reproduced. |
 | `kimi-k3.1-pro-CFG` | [Configuration](https://huggingface.co/moonshotai/Kimi-K3.1-Pro/raw/d9e99b0792a5e93b78ea9bea62a68167e36ddd9e/config.json) | Parsed and diffed field by field against `kimi-k3-CFG`. |
 | `kimi-k3.1-pro-GENCFG` | [Generation config](https://huggingface.co/moonshotai/Kimi-K3.1-Pro/raw/d9e99b0792a5e93b78ea9bea62a68167e36ddd9e/generation_config.json) | Byte-identical to K3. |

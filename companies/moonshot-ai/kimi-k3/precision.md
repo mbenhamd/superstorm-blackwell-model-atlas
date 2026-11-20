@@ -1,12 +1,20 @@
 # Kimi K3: precision and provenance
 
+## November 20 export contracts
+
+RedHat names vLLM #50500 as its compressed-tensors loader prerequisite. The merge commit is an ancestor of v0.34.0. A source-qualified probe must still resolve SiTU execution and observe successful loading on the pinned build. [Required PR](https://github.com/vllm-project/vllm/pull/50500) [Release ancestry](https://api.github.com/repos/vllm-project/vllm/compare/d87d2ca74791fe23ca2a0ba68c997de1618b33b6...62d4bc3c7e33b1b6c906e233e6af2d3506c482ca)
+
+**RedHatAI/Kimi-K3-NVFP4** (`13fd4e58db6a`). Compressed-tensors group-16 NVFP4 routed experts. Shared experts, attention, router, routed latent projections, vision and dense prefix sit outside that conversion. The vLLM recipe names this exact export. Its index totals 1,645,927,413,888 bytes. NVIDIA’s K3 export also changes selected attention projections to FP8_PB_WO and needs a different loader. [configuration](https://huggingface.co/RedHatAI/Kimi-K3-NVFP4/raw/13fd4e58db6abe84bd75aecd055b7e18057cf607/config.json) [tensor index](https://huggingface.co/RedHatAI/Kimi-K3-NVFP4/resolve/13fd4e58db6abe84bd75aecd055b7e18057cf607/model.safetensors.index.json) [exporter card](https://huggingface.co/RedHatAI/Kimi-K3-NVFP4/raw/13fd4e58db6abe84bd75aecd055b7e18057cf607/README.md)
+
+**RedHatAI/Kimi-K3-FP8-BLOCK** (`6409c37cf440`). Compressed-tensors FP8_BLOCK uses 128×128 weight blocks and dynamic group-128 activations on selected linears. The index contains scale tensors for routed experts, shared experts, the dense first MLP and latent expert projections. The config excludes self-attention, router gate, residual projections, embeddings, output head, vision and its projector. The index totals 2,819,870,867,584 bytes, exceeding 8 × 288 decimal GB by 515,870,867,584 bytes before state or buffers. The card uses TP16. [configuration](https://huggingface.co/RedHatAI/Kimi-K3-FP8-BLOCK/raw/6409c37cf440abeb76f0b44ab4fb7db8c8bccb4b/config.json) [tensor index](https://huggingface.co/RedHatAI/Kimi-K3-FP8-BLOCK/resolve/6409c37cf440abeb76f0b44ab4fb7db8c8bccb4b/model.safetensors.index.json) [exporter card](https://huggingface.co/RedHatAI/Kimi-K3-FP8-BLOCK/raw/6409c37cf440abeb76f0b44ab4fb7db8c8bccb4b/README.md)
+
 Reverified 2026-10-16 (UTC) against immutable publisher files and official release/PR metadata. No checkpoint was loaded locally.
 
 | Variant | Exact artifact and revision | Precision evidence | Local status |
 | --- | --- | --- | --- |
 | native | `moonshotai/Kimi-K3` at `f831ab66814297da540d832a5235f8e904f29d06` | Routed experts use MXFP4; the config excludes attention, shared experts, the dense prefix and other modules from that quantization | Publisher metadata verified |
 | nvfp4 | `nvidia/Kimi-K3-NVFP4` at `b2428a0b83a8b712ff2e1a8448a103d4175341f1` | NVFP4 routed experts plus selected `FP8_PB_WO` attention projections; other tensors retain their original precision | Publisher metadata verified; runtime needs qualification |
-| fp8 | No exact artifact selected | Hypothetical all-FP8 target; approximately 2.8 TB of idealized weights from the rounded 2.8T headline | Availability unverified; exceeds the advertised 2.304 TB aggregate of eight 288 GB GPUs |
+| all-FP8 placeholder | No uniformly FP8 target selected. The concrete RedHat FP8-BLOCK export above retains excluded modules | Hypothetical all-FP8 target; approximately 2.8 TB of idealized weights from the rounded 2.8T headline | Availability unverified; exceeds the advertised 2.304 TB aggregate of eight 288 GB GPUs |
 
 ## Interpretation
 
