@@ -2,9 +2,17 @@
 
 ## November 20 engine and benchmark review
 
-**vLLM v0.34.0.** v0.34 includes the sparse-prefill FULL-graph exclusion from a V4.1 incident. Its B300 failure trigger has not been established for 0731. The release recipe selects v0.28.0 for the native 0731 variant and seven DSpark proposals on NVIDIA. The native 0731 config specifies block five. Start from that trained width and test seven separately. Its unsuffixed NVFP4 entries belong to the preview checkpoint. Preserve the native 0731 parser and compare speculation against target-only for the exact bundled draft. [release recipe](https://raw.githubusercontent.com/vllm-project/vllm/62d4bc3c7e33b1b6c906e233e6af2d3506c482ca/recipes/models/deepseek-ai/DeepSeek-V4-Flash.yaml) [sparse graph gate](https://github.com/vllm-project/vllm/pull/59986)
+**vLLM v0.34.0.** v0.34 includes the sparse-prefill FULL-graph exclusion from a V4.1 incident. Its B300 failure trigger has not been established for 0731. The release recipe selects v0.28.0 for the native 0731 variant and seven DSpark proposals on NVIDIA. The native config and reference inference loop use five proposals. Compare that width with the recipe’s seven under the same sampling settings. Its unsuffixed NVFP4 entries belong to the preview checkpoint. Preserve the native 0731 parser and compare speculation against target-only for the exact bundled draft. [release recipe](https://raw.githubusercontent.com/vllm-project/vllm/62d4bc3c7e33b1b6c906e233e6af2d3506c482ca/recipes/models/deepseek-ai/DeepSeek-V4-Flash.yaml) [sparse graph gate](https://github.com/vllm-project/vllm/pull/59986)
 
-**SGLang v0.5.23 and development source.** The cookbook maps flash-official plus NVFP4 to nvidia/DeepSeek-V4-Flash-0731-NVFP4 and selects a dev image for B300. The exporter retained the DSpark tensors but exercised target-only on B200. The RedHat export’s tensor index has no named DSpark or MTP tensors. Neither native TP4 nor an unsuffixed NVFP4 cell qualifies these derivatives. [release cookbook](https://raw.githubusercontent.com/sgl-project/sglang/297e54fd105e974cdf401e5b4d20253a22c16f90/docs/src/snippets/configs/deepseek-ai/deepseek-v4.jsx) [main cookbook](https://raw.githubusercontent.com/sgl-project/sglang/9fc0e2a6ba197f19f00165327adbb7c48cdf8281/docs/src/snippets/configs/deepseek-ai/deepseek-v4.jsx)
+**SGLang v0.5.23 and development source.** The release and November 20 main cookbook give different B300 statuses for three similarly named artifacts.
+
+| Selected checkpoint | B300 low-latency recipe | Upstream evidence |
+| --- | --- | --- |
+| Native `deepseek-ai/DeepSeek-V4-Flash-0731` | `:latest`, TP4, `flashinfer_mxfp4`, bundled DSpark | Cookbook marks this cell verified. Its target-only balanced and high-throughput cells remain unverified. |
+| NVIDIA `DeepSeek-V4-Flash-0731-NVFP4` | `:dev`, TP4, `flashinfer_trtllm_routed`, bundled DSpark | Cookbook marks this cell in progress. NVIDIA reports target-only validation on B200 at TP8. |
+| NVIDIA `DeepSeek-V4-Flash-NVFP4` | `:dev`, TP4, `flashinfer_trtllm_routed`, EAGLE/MTP | Cookbook marks this cell verified for the preview weights. |
+
+The Red Hat 0731 export contains only target tensors. The mutable image labels above identify the cookbook selections. Serving through KServe requires the deployed image digest, correct draft and parser, and measured application behavior. [Release cookbook](https://raw.githubusercontent.com/sgl-project/sglang/297e54fd105e974cdf401e5b4d20253a22c16f90/docs/src/snippets/configs/deepseek-ai/deepseek-v4.jsx) [November main cookbook](https://raw.githubusercontent.com/sgl-project/sglang/9fc0e2a6ba197f19f00165327adbb7c48cdf8281/docs/src/snippets/configs/deepseek-ai/deepseek-v4.jsx) [Exporter validation](https://huggingface.co/nvidia/DeepSeek-V4-Flash-0731-NVFP4/raw/f1caa71142bd0be02f728c79f75042ac1e461579/README.md)
 
 **B300 comparison under KServe.** Compare target-only 0731 runs with fixed FP8 compressed KV, indexer dtype and identical DeepSeek prompt IDs. Match total GPUs, batch caps and return lengths. On native only, add DSpark and record proposed, accepted and emitted tokens separately on a coding trace. Compare both NVFP4 targets at TP8, recording per-rank memory, selected MoE path, tool success and TTFT/ITL. Reject a draft arm without loader evidence for its tensor names. The installed KServe integration and the serving image digest are inputs to this comparison. No run on the reference node was performed.
 
@@ -99,4 +107,4 @@ For any external experiment, record the actual GPU memory, topology, target/expo
 
 ## Remaining uncertainty
 
-Exact main-plus-draft parameter accounting; selected image and kernel provenance; local B300 capacity, throughput and application correctness; qualification of the local eight-GPU adaptations.
+The exact publisher convention for active parameters, kernel selection in the serving image and per-rank runtime memory remain open. Capacity, application quality and throughput through KServe require measurements on the B300 node.

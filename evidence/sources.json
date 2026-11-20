@@ -2129,7 +2129,27 @@
           "response_sha256": "3e8fc81472e00344b9a6d88a71ecea432807d40b4f0ac2321b4befe36ac27054",
           "scope": "Fresh retrieval of the same existing cited metadata/source URL; no serving execution or weight payload retrieval."
         }
-      ]
+      ],
+      "mtp_header_review": {
+        "retrieved_at": "2026-11-20T19:28:17+00:00",
+        "scope": "Every index entry in model.layers.78. HTTP 206 reads of 8-byte header length and JSON header. No tensor payload read.",
+        "tensor_count_by_dtype": {
+          "F32": 1,
+          "BF16": 790
+        },
+        "elements_by_dtype": {
+          "F32": 256,
+          "BF16": 9952920320
+        },
+        "tensor_bytes": 19905841664,
+        "shards": [
+          {
+            "url": "https://huggingface.co/RedHatAI/GLM-5.3-NVFP4/resolve/c8917e4258572c405575855ff53effe58c17a38e/model-00023-of-00023.safetensors",
+            "header_bytes": 100160,
+            "header_sha256": "11f2adf6b9dd276e7c440a42da37e1e053d495ea6417ba1a76c3fac876b02b7e"
+          }
+        ]
+      }
     },
     "glm-5.3-INFERACT-CARD": {
       "url": "https://huggingface.co/Inferact/GLM-5.3-NVFP4/raw/ce67b36f3669192b5bb233819f0fda6c8a9837f8/README.md",
@@ -2239,7 +2259,47 @@
           "claim": "metadata.total_size=464822832448 serialized bytes; 232385 mapped tensor names; not measured HBM",
           "scope": "metadata or documentation only; no weights or runtime execution"
         }
-      ]
+      ],
+      "mtp_header_review": {
+        "retrieved_at": "2026-11-20T19:28:17+00:00",
+        "scope": "Every index entry in model.layers.78. HTTP 206 reads of 8-byte header length and JSON header. No tensor payload read.",
+        "tensor_count_by_dtype": {
+          "BF16": 790,
+          "F32": 1
+        },
+        "elements_by_dtype": {
+          "BF16": 9952920320,
+          "F32": 256
+        },
+        "tensor_bytes": 19905841664,
+        "shards": [
+          {
+            "url": "https://huggingface.co/Inferact/GLM-5.3-NVFP4/resolve/ce67b36f3669192b5bb233819f0fda6c8a9837f8/mtp_bf16-00001-of-00005.safetensors",
+            "header_bytes": 22080,
+            "header_sha256": "d205ee1dadc8929ae5bd40df568e5fab10cfe62e55e2d0f5b5eb80ca8af3d548"
+          },
+          {
+            "url": "https://huggingface.co/Inferact/GLM-5.3-NVFP4/resolve/ce67b36f3669192b5bb233819f0fda6c8a9837f8/mtp_bf16-00002-of-00005.safetensors",
+            "header_bytes": 22408,
+            "header_sha256": "a7edbd249a81ab78164d491ff7de4eb621b4750e827261ea07425c1829b9bec9"
+          },
+          {
+            "url": "https://huggingface.co/Inferact/GLM-5.3-NVFP4/resolve/ce67b36f3669192b5bb233819f0fda6c8a9837f8/mtp_bf16-00003-of-00005.safetensors",
+            "header_bytes": 22408,
+            "header_sha256": "7add9cba57c5ebd934888906f1baab5fc68da2e768e2ec0447de28278bf46571"
+          },
+          {
+            "url": "https://huggingface.co/Inferact/GLM-5.3-NVFP4/resolve/ce67b36f3669192b5bb233819f0fda6c8a9837f8/mtp_bf16-00004-of-00005.safetensors",
+            "header_bytes": 22232,
+            "header_sha256": "629229c45ccfbba59b7d77a7cf0cb62fce929bc04b57e1d1e00e3ebd93b00f15"
+          },
+          {
+            "url": "https://huggingface.co/Inferact/GLM-5.3-NVFP4/resolve/ce67b36f3669192b5bb233819f0fda6c8a9837f8/mtp_bf16-00005-of-00005.safetensors",
+            "header_bytes": 10008,
+            "header_sha256": "6ef3e027bdf58c5aae47b34cccf184d7e2963dba7bea2d37a44bbce159bc08f9"
+          }
+        ]
+      }
     },
     "glm-5.3-META": {
       "url": "https://huggingface.co/api/models/zai-org/GLM-5.3/revision/ba32f8c19c8738e2c57c71798c601d477a7bf844",
@@ -2531,7 +2591,29 @@
           "response_sha256": "015faae91e8189c7553f1d48ec3d0694b8c02b282d7f58af2d7b4064a81ce4c0",
           "scope": "Fresh retrieval of the same existing cited metadata/source URL; no serving execution or weight payload retrieval."
         }
-      ]
+      ],
+      "mtp_header_review": {
+        "retrieved_at": "2026-11-20T19:28:18+00:00",
+        "scope": "Every index entry in model.language_model.layers.45. HTTP 206 reads of 8-byte header length and JSON header. No tensor payload read.",
+        "tensor_count_by_dtype": {
+          "F32": 1,
+          "BF16": 888,
+          "F8_E4M3": 864
+        },
+        "elements_by_dtype": {
+          "F32": 288,
+          "BF16": 185277184,
+          "F8_E4M3": 7247757312
+        },
+        "tensor_bytes": 7618312832,
+        "shards": [
+          {
+            "url": "https://huggingface.co/RedHatAI/GLM-5.3-Flash-NVFP4/resolve/18d55bfd5a2194887738da73753975c9d3842f46/model_mtp.safetensors",
+            "header_bytes": 247584,
+            "header_sha256": "ed62bd5f91203d9caa3d177168ed8cea5fe31e373e30cbdeac6de82672c78be9"
+          }
+        ]
+      }
     },
     "glm-5.3-flash-META": {
       "url": "https://huggingface.co/api/models/zai-org/GLM-5.3-Flash/revision/46a050bec13002ad29ee795c16e61cf4fa3c4a9c",
@@ -5416,6 +5498,36 @@
         "response_sha256": "157752617100cefaf25a468812e14abefca24c356e6e2f7ae55bce8c3b511863",
         "response_bytes": 21266332,
         "scope": "Full immutable index JSON parsed. Tensor names and serialized metadata only."
+      },
+      "mtp_header_review": {
+        "retrieved_at": "2026-11-20T19:28:17+00:00",
+        "scope": "Every index entry in model.layers.78. HTTP 206 reads of 8-byte header length and JSON header. No tensor payload read.",
+        "tensor_count_by_dtype": {
+          "BF16": 790,
+          "F32": 1
+        },
+        "elements_by_dtype": {
+          "BF16": 9952920320,
+          "F32": 256
+        },
+        "tensor_bytes": 19905841664,
+        "shards": [
+          {
+            "url": "https://huggingface.co/nvidia/GLM-5.3-NVFP4/resolve/e3b8f9f2fad29727dfa95e766c5cac18ea1414bf/model-00003-of-00050.safetensors",
+            "header_bytes": 292576,
+            "header_sha256": "1e3642e826cd8fcaab019cf0db952d7ff965c874e1a49d13dcc3bc65db309b8b"
+          },
+          {
+            "url": "https://huggingface.co/nvidia/GLM-5.3-NVFP4/resolve/e3b8f9f2fad29727dfa95e766c5cac18ea1414bf/model-00004-of-00050.safetensors",
+            "header_bytes": 50040,
+            "header_sha256": "529d503fdfc2300dadeeed0babd8384dee708af7242ad3119ab4ddbfe3d0909c"
+          },
+          {
+            "url": "https://huggingface.co/nvidia/GLM-5.3-NVFP4/resolve/e3b8f9f2fad29727dfa95e766c5cac18ea1414bf/model-00005-of-00050.safetensors",
+            "header_bytes": 19120,
+            "header_sha256": "b127b50239226283fe49d96c965acba3614f70265a5c355efeb6e71670e93df4"
+          }
+        ]
       }
     },
     "RR-QWEN-27-API": {
@@ -13783,6 +13895,13 @@
         "response_sha256": "5d2ad3076e04081d6c0728cb4b004dc832850ec5ae732f3adb06cf87c4b437a5",
         "response_bytes": 11437403,
         "scope": "Full immutable index JSON parsed. Tensor names and serialized metadata only."
+      },
+      "header_comparison": {
+        "source_id": "deepseek-v4-flash-0731-NV-HEADERS",
+        "checked_on": "2026-11-20",
+        "declared_total_bytes": 166878536440,
+        "observed_tensor_bytes": 175535844088,
+        "scope": "The index total repeats the native checkpoint value. Tensor spans from the 48 export headers establish the observed payload."
       }
     },
     "SP32-SRC-vllm-platforms-cuda-py": {
@@ -16427,7 +16546,19 @@
       "draft": false,
       "head_commit": "6b4758109451ece0e7b58a7af3824fa31c1c0f3d",
       "base_commit": "612e928016e2cfe28da95fc03ed894aceaf18299",
-      "merge_commit": null
+      "merge_commit": null,
+      "last_recheck": {
+        "retrieved_at": "2026-11-20T19:38:24.569833+00:00",
+        "response_sha256": "33c0e0767ddae191978592c4fdb8cc910d74896d80aab227142fc35155938fc1",
+        "method": "GH API response, trailing CLI newline removed before hashing",
+        "head_commit": "bfb1abb204e9b19526ee499da198913bb399dadf",
+        "base_commit": "a92ab5b196430ec62e761f0d751a8c96abc43a6e",
+        "merged_at": "2026-11-11T01:58:43Z",
+        "merge_commit": "80ac42b811ffea9dd8f2d2b1ea67beab5e20f7cf",
+        "state": "closed",
+        "draft": false,
+        "merged": true
+      }
     },
     "O26-DSV4-TBO": {
       "url": "https://api.github.com/repos/sgl-project/sglang/pulls/33250",
@@ -16861,6 +16992,19 @@
         "scope": "Primary metadata and selected source inspection. No model export, image, inference or B300 workload executed."
       }
     },
+    "BI-G-DISTRIBUTIONS": {
+      "url": "https://raw.githubusercontent.com/vllm-project/guidellm/597bc014ef78daeb11312374022430939b611f11/src/guidellm/schemas/base/statistics.py",
+      "title": "GuideLLM v0.8.1 weighted distributions and percentile calculation",
+      "kind": "immutable upstream implementation",
+      "revision": "597bc014ef78daeb11312374022430939b611f11",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:38:52+00:00",
+      "http_status": 200,
+      "response_bytes": 48089,
+      "response_sha256": "676e86fda5c1b94e223e6c0342e0440227eabd3f0874d868b0ed2f8322fd86c8",
+      "claim": "Lines 463–495 sum observation weights by value and normalize positive weights. Lines 114–120 find each percentile from their cumulative probability. BI-G-METRICS-SOURCE supplies N−1 and N weights for ITL and TPOT respectively.",
+      "scope": "GuideLLM distribution construction from the pinned source. No engine, client or B300 service executed."
+    },
     "BI-G-METRICS": {
       "url": "https://raw.githubusercontent.com/vllm-project/guidellm/597bc014ef78daeb11312374022430939b611f11/docs/en/guides/metrics.md",
       "title": "GuideLLM v0.8.1 metrics, windowing and uncertainty guide",
@@ -16869,7 +17013,13 @@
       "retrieved_at": "2026-10-26T18:00:49.277Z",
       "content_sha256": "288569c117be8b79ecf292d0b8ebc829a7423b243801b66aec041448420bb3d9",
       "method": "GitHub connector UTF-8 response",
-      "scope": "Benchmark-insights reference: selected definitions, units, measurement populations and metadata only; no serving, quality or GPU benchmark and no binary/deployment qualification."
+      "scope": "Benchmark-insights reference: selected definitions, units, measurement populations and metadata only; no serving, quality or GPU benchmark and no binary/deployment qualification.",
+      "november_20_content_recheck": {
+        "checked_on": "2026-11-20",
+        "response_bytes": 17855,
+        "response_sha256": "288569c117be8b79ecf292d0b8ebc829a7423b243801b66aec041448420bb3d9",
+        "scope": "Immutable GuideLLM v0.8.1 source or documentation."
+      }
     },
     "BI-G-REQUEST-STATS": {
       "url": "https://raw.githubusercontent.com/vllm-project/guidellm/597bc014ef78daeb11312374022430939b611f11/src/guidellm/schemas/base/request_stats.py",
@@ -16879,7 +17029,13 @@
       "retrieved_at": "2026-10-26T18:00:49.357Z",
       "content_sha256": "38ed524360de631b9a585f8961fd958d01c24c71a58174f0ec732e48dbe12782",
       "method": "GitHub connector UTF-8 response",
-      "scope": "Benchmark-insights reference: selected definitions, units, measurement populations and metadata only; no serving, quality or GPU benchmark and no binary/deployment qualification."
+      "scope": "Benchmark-insights reference: selected definitions, units, measurement populations and metadata only; no serving, quality or GPU benchmark and no binary/deployment qualification.",
+      "november_20_content_recheck": {
+        "checked_on": "2026-11-20",
+        "response_bytes": 19154,
+        "response_sha256": "38ed524360de631b9a585f8961fd958d01c24c71a58174f0ec732e48dbe12782",
+        "scope": "Immutable GuideLLM v0.8.1 source or documentation."
+      }
     },
     "BI-G-METRICS-SOURCE": {
       "url": "https://raw.githubusercontent.com/vllm-project/guidellm/597bc014ef78daeb11312374022430939b611f11/src/guidellm/benchmark/schemas/metrics.py",
@@ -16896,6 +17052,12 @@
         "response_bytes": 62885,
         "claim": "Rechecked current v0.8.1 source for native request-level SLO evaluation. Timing-only semantics and native populations differ from the proposed task grader.",
         "scope": "Primary metadata and selected source inspection. No model export, image, inference or B300 workload executed."
+      },
+      "november_20_content_recheck": {
+        "checked_on": "2026-11-20",
+        "response_bytes": 62885,
+        "response_sha256": "6c6401bdd4bc1bb38789a84b9a9eb8cc3f599de05ba0d8506d044e3877040b4d",
+        "scope": "Immutable GuideLLM v0.8.1 source or documentation."
       }
     },
     "BI-G-OUTPUTS": {
@@ -16916,7 +17078,13 @@
       "retrieved_at": "2026-10-26T18:00:49.349Z",
       "content_sha256": "2d29832998c3b745e725a5925111f269640f36e25dbe03c18df96bf68eed8c27",
       "method": "GitHub connector UTF-8 response",
-      "scope": "Benchmark-insights reference: selected definitions, units, measurement populations and metadata only; no serving, quality or GPU benchmark and no binary/deployment qualification."
+      "scope": "Benchmark-insights reference: selected definitions, units, measurement populations and metadata only; no serving, quality or GPU benchmark and no binary/deployment qualification.",
+      "november_20_content_recheck": {
+        "checked_on": "2026-11-20",
+        "response_bytes": 11783,
+        "response_sha256": "2d29832998c3b745e725a5925111f269640f36e25dbe03c18df96bf68eed8c27",
+        "scope": "Immutable GuideLLM v0.8.1 source or documentation."
+      }
     },
     "BI-G-GOODPUT": {
       "url": "https://raw.githubusercontent.com/vllm-project/guidellm/597bc014ef78daeb11312374022430939b611f11/src/guidellm/benchmark/profiles/goodput.py",
@@ -16933,6 +17101,12 @@
         "response_bytes": 14827,
         "claim": "Confirmed v0.8.1 goodput profile searches concurrent streams. Derived quality-accepted scheduled-arrival task goodput requires separate task outcomes and deadlines.",
         "scope": "Primary metadata and selected source inspection. No model export, image, inference or B300 workload executed."
+      },
+      "november_20_content_recheck": {
+        "checked_on": "2026-11-20",
+        "response_bytes": 14827,
+        "response_sha256": "40b0fd854b981f09789e2f82350c5df2e4101df1cb008f43b56a5facf7ba6e93",
+        "scope": "Immutable GuideLLM v0.8.1 source or documentation."
       }
     },
     "BI-V-STATS": {
@@ -18470,7 +18644,20 @@
       "immutable_url": "https://huggingface.co/moonshotai/Kimi-K3.1-Pro/resolve/d9e99b0792a5e93b78ea9bea62a68167e36ddd9e/model.safetensors.index.json",
       "verification": "Complete index JSON (59,776,878 bytes) retrieved and parsed; tensor-name families compared with the full K3 index.",
       "claim": "metadata.total_size = 1,561,217,377,280 bytes (1,454.00 GiB); 497,340 tensor entries versus 497,220 in K3. The only new tensor families are self_attn.indexer.{wq_b,wk,weights_proj,k_norm.weight,k_norm.bias} on 24 layers.",
-      "scope": "No weights downloaded beyond index/header metadata; no engine run, GPU load or benchmark."
+      "scope": "No weights downloaded beyond index/header metadata; no engine run, GPU load or benchmark.",
+      "tensor_header_review": {
+        "retrieved_at": "2026-11-20T19:32:56+00:00",
+        "scope": "All 96 indexed shards; HTTP 206 for length prefix and complete JSON header only. Compared every index key, dtype and shape against the other native Kimi pin. Weight payloads were not read.",
+        "tensors": 497340,
+        "dtype_counts": {
+          "U8": 494592,
+          "BF16": 2242,
+          "F32": 506
+        },
+        "header_manifest_sha256": "c0a9363be92d009fe184a47ec63fe0d905c84a22dfb4048c11467fd2e9d25f51",
+        "header_manifest_format": "Rows sorted by shard filename; each row contains SHA-256 of JSON header bytes (excluding length prefix), two ASCII spaces, shard filename and LF.",
+        "comparison": "497,220 common names, zero shape or dtype differences. K3.1 adds 120 BF16 indexer tensors in 24 layers, 357,052,416 bytes. Each pin has 506 FP32 tensors: six KDA parameter/weight types in 69 layers and 92 router correction biases."
+      }
     },
     "kimi-k3.1-pro-HDR-00004": {
       "url": "https://huggingface.co/moonshotai/Kimi-K3.1-Pro/resolve/d9e99b0792a5e93b78ea9bea62a68167e36ddd9e/model-00004-of-000096.safetensors",
@@ -18497,7 +18684,20 @@
       "immutable_url": "https://huggingface.co/moonshotai/Kimi-K3/resolve/f831ab66814297da540d832a5235f8e904f29d06/model.safetensors.index.json",
       "verification": "Complete K3 index retrieved for tensor-family comparison; total_size matches TOPK-BASE-INDEX-RANGE.",
       "claim": "metadata.total_size = 1,560,860,324,864 bytes; 497,220 tensor entries; no indexer tensors.",
-      "scope": "No weights downloaded beyond index/header metadata; no engine run, GPU load or benchmark."
+      "scope": "No weights downloaded beyond index/header metadata; no engine run, GPU load or benchmark.",
+      "tensor_header_review": {
+        "retrieved_at": "2026-11-20T19:32:49+00:00",
+        "scope": "All 96 indexed shards; HTTP 206 for length prefix and complete JSON header only. Compared every index key, dtype and shape against the other native Kimi pin. Weight payloads were not read.",
+        "tensors": 497220,
+        "dtype_counts": {
+          "U8": 494592,
+          "BF16": 2122,
+          "F32": 506
+        },
+        "header_manifest_sha256": "a0913e8f24b33ee27cd3dea8738a0088ef9216b919e24f77b328af4193584b3b",
+        "header_manifest_format": "Rows sorted by shard filename; each row contains SHA-256 of JSON header bytes (excluding length prefix), two ASCII spaces, shard filename and LF.",
+        "comparison": "497,220 common names, zero shape or dtype differences. K3.1 adds 120 BF16 indexer tensors in 24 layers, 357,052,416 bytes. Each pin has 506 FP32 tensors: six KDA parameter/weight types in 69 layers and 92 router correction biases."
+      }
     },
     "kimi-k3.1-pro-K3-HDR-00004": {
       "url": "https://huggingface.co/moonshotai/Kimi-K3/resolve/f831ab66814297da540d832a5235f8e904f29d06/model-00004-of-000096.safetensors",
@@ -21512,7 +21712,15 @@
       "response_bytes": 576948,
       "claim": "Capture labelled Intelligence Index v5.0; embedded comparison data used for the v5.0 archive consistency check. Shows the Mistral Large 4 Preview record (25.286) on the mistral-large-4 slug; glm-5-3-flash, kimi-k3-low, qwen3-8-27b-low and qwen3-8-27b-medium records are null.",
       "scope": "Third-party benchmark page; embedded page data extracted. No evaluation reproduced; no model weights, engine or B300 workload executed.",
-      "capture": "response_sha256 covers the gzip-encoded body returned by the id_ raw endpoint"
+      "capture": "response_sha256 covers the gzip-encoded body returned by the id_ raw endpoint",
+      "last_recheck": {
+        "retrieved_at": "2026-11-20T19:40:08.933884+00:00",
+        "resolved_url": "https://web.archive.org/web/20261029075948id_/https://artificialanalysis.ai/models/gemini-4-carbon",
+        "resolved_source_id": "AA-WB-MODEL-GEMINI-4-CARBON-20261029075948",
+        "response_sha256": "2b229dd8f2100f5f2795a8e80d3aa8ea0c32306df893577d997b3cc25fd355f6",
+        "response_bytes": 577385,
+        "scope": "The archive redirected this request to a different capture timestamp. Original retrieval metadata above is retained."
+      }
     },
     "AA-WB-MODEL-GEMINI-4-CARBON-20261029075948": {
       "url": "https://web.archive.org/web/20261029075948id_/https://artificialanalysis.ai/models/gemini-4-carbon",
@@ -21548,7 +21756,15 @@
       "response_bytes": 584320,
       "claim": "Capture labelled Intelligence Index v5.0; embedded comparison data used for the v5.0 archive consistency check. First capture in which glm-5-3-flash (27.754), kimi-k3-low (17.419), qwen3-8-27b-low (15.685) and qwen3-8-27b-medium (17.483) carry v5.0 values.",
       "scope": "Third-party benchmark page; embedded page data extracted. No evaluation reproduced; no model weights, engine or B300 workload executed.",
-      "capture": "response_sha256 covers the gzip-encoded body returned by the id_ raw endpoint"
+      "capture": "response_sha256 covers the gzip-encoded body returned by the id_ raw endpoint",
+      "last_recheck": {
+        "retrieved_at": "2026-11-20T19:40:08.933884+00:00",
+        "resolved_url": "https://web.archive.org/web/20261029225211id_/https://artificialanalysis.ai/models/gemini-4-carbon",
+        "resolved_source_id": "AA-WB-MODEL-GEMINI-4-CARBON-20261029225211",
+        "response_sha256": "7f694aaf5fb833f2ab4b44753053747153b7db67c2c8737db75ae0da91fbf7e2",
+        "response_bytes": 584872,
+        "scope": "The archive redirected this request to a different capture timestamp. Original retrieval metadata above is retained."
+      }
     },
     "AA-WB-MODEL-GEMINI-4-CARBON-20261101": {
       "url": "https://web.archive.org/web/20261101180313id_/https://artificialanalysis.ai/models/gemini-4-carbon",
@@ -25266,7 +25482,7 @@
       "http_status": 200,
       "response_sha256": "af23bf547a57ee58bc74b1868f912e3baf5863e1fbb83e4d6d81549b5bf38b7c",
       "response_bytes": 16847,
-      "claim": "KV-balanced decode implementation and reference fallback.",
+      "claim": "KV-balanced MLA decode implementation. The release rejects unsupported decode steps. Prefill dispatch follows a separate path.",
       "scope": "vLLM November 20 release and channel review. Source and metadata only.",
       "revision": "62d4bc3c7e33b1b6c906e233e6af2d3506c482ca",
       "immutable_url": "https://raw.githubusercontent.com/vllm-project/vllm/62d4bc3c7e33b1b6c906e233e6af2d3506c482ca/vllm/models/kimi_k3/nvidia/kv_balanced_mla/core.py"
@@ -26191,7 +26407,13 @@
       "response_sha256": "9b275a17ac20cd9d27f3bb89f1fa211ff50d1fceff450d6e325522d98626e837",
       "response_bytes": 589,
       "claim": "Index of the default nightly wheel channel, observed separately from cu130.",
-      "scope": "vLLM November 20 release and channel review. Source and metadata only."
+      "scope": "vLLM November 20 release and channel review. Source and metadata only.",
+      "later_index_observation": {
+        "retrieved_at": "2026-11-20T19:36:49.199651+00:00",
+        "response_sha256": "11e01b482a1563df9d0ce805d58dadae6b6c05e1041886869aa0bd882474d061",
+        "response_bytes": 589,
+        "advertised_version": "0.34.0rc1.dev1080+gc78f57f74"
+      }
     },
     "V034-PYPI": {
       "url": "https://pypi.org/pypi/vllm/0.34.0/json",
@@ -27434,7 +27656,37 @@
       "claim": "Exact versioned safetensors index for nvidia/GLM-5.3-Flash-NVFP4. Supports the precision, tensor-map or object-identity comparison in the family report.",
       "kind": "publisher artifact",
       "revision": "1d00738646cbb0c6d0a9eb403dac5f366f1473a7",
-      "immutable_url": "https://huggingface.co/nvidia/GLM-5.3-Flash-NVFP4/resolve/1d00738646cbb0c6d0a9eb403dac5f366f1473a7/model.safetensors.index.json"
+      "immutable_url": "https://huggingface.co/nvidia/GLM-5.3-Flash-NVFP4/resolve/1d00738646cbb0c6d0a9eb403dac5f366f1473a7/model.safetensors.index.json",
+      "mtp_header_review": {
+        "retrieved_at": "2026-11-20T19:28:18+00:00",
+        "scope": "Every index entry in model.language_model.layers.45. HTTP 206 reads of 8-byte header length and JSON header. No tensor payload read.",
+        "tensor_count_by_dtype": {
+          "BF16": 888,
+          "F32": 1
+        },
+        "elements_by_dtype": {
+          "BF16": 7432592128,
+          "F32": 288
+        },
+        "tensor_bytes": 14865185408,
+        "shards": [
+          {
+            "url": "https://huggingface.co/nvidia/GLM-5.3-Flash-NVFP4/resolve/1d00738646cbb0c6d0a9eb403dac5f366f1473a7/model-00001-of-00033.safetensors",
+            "header_bytes": 508008,
+            "header_sha256": "c8d8f46a95c45c6db04aef95c2e26c4dea826c61c6e0ae3162f8b1d34caa4824"
+          },
+          {
+            "url": "https://huggingface.co/nvidia/GLM-5.3-Flash-NVFP4/resolve/1d00738646cbb0c6d0a9eb403dac5f366f1473a7/model-00002-of-00033.safetensors",
+            "header_bytes": 258120,
+            "header_sha256": "b426c0f6816a2c91b069aee2d0934155e7575ebd60493cd208d41b210705618c"
+          },
+          {
+            "url": "https://huggingface.co/nvidia/GLM-5.3-Flash-NVFP4/resolve/1d00738646cbb0c6d0a9eb403dac5f366f1473a7/model-00003-of-00033.safetensors",
+            "header_bytes": 568168,
+            "header_sha256": "5e474865e0924e5d217e1f7eadbc0753e32c4d6d7c7076d52221e705effd76b4"
+          }
+        ]
+      }
     },
     "N20-NVIDIA-GLM-53-FLASH-NVFP4-HFQ-RESOLVED": {
       "url": "https://huggingface.co/nvidia/GLM-5.3-Flash-NVFP4/resolve/1d00738646cbb0c6d0a9eb403dac5f366f1473a7/hf_quant_config.json",
@@ -27578,7 +27830,37 @@
       "claim": "Exact versioned safetensors index for RadixArk/GLM-5.3-NVFP4. Supports the precision, tensor-map or object-identity comparison in the family report.",
       "kind": "publisher artifact",
       "revision": "6e389189d564d9d3e4ea7fa284fe91f136d8ae2a",
-      "immutable_url": "https://huggingface.co/RadixArk/GLM-5.3-NVFP4/resolve/6e389189d564d9d3e4ea7fa284fe91f136d8ae2a/model.safetensors.index.json"
+      "immutable_url": "https://huggingface.co/RadixArk/GLM-5.3-NVFP4/resolve/6e389189d564d9d3e4ea7fa284fe91f136d8ae2a/model.safetensors.index.json",
+      "mtp_header_review": {
+        "retrieved_at": "2026-11-20T19:28:17+00:00",
+        "scope": "Every index entry in model.layers.78. HTTP 206 reads of 8-byte header length and JSON header. No tensor payload read.",
+        "tensor_count_by_dtype": {
+          "BF16": 790,
+          "F32": 1
+        },
+        "elements_by_dtype": {
+          "BF16": 9952920320,
+          "F32": 256
+        },
+        "tensor_bytes": 19905841664,
+        "shards": [
+          {
+            "url": "https://huggingface.co/RadixArk/GLM-5.3-NVFP4/resolve/6e389189d564d9d3e4ea7fa284fe91f136d8ae2a/model-00045-of-00047.safetensors",
+            "header_bytes": 240904,
+            "header_sha256": "88d5041bbebc91e2ce395eed41e634a508147ccddc10d32647f365b9a2e69970"
+          },
+          {
+            "url": "https://huggingface.co/RadixArk/GLM-5.3-NVFP4/resolve/6e389189d564d9d3e4ea7fa284fe91f136d8ae2a/model-00046-of-00047.safetensors",
+            "header_bytes": 50000,
+            "header_sha256": "3e040cc32b4f0df99af08c7e50a5625e8b20331a80463e3288539ba2b2eaadb9"
+          },
+          {
+            "url": "https://huggingface.co/RadixArk/GLM-5.3-NVFP4/resolve/6e389189d564d9d3e4ea7fa284fe91f136d8ae2a/model-00047-of-00047.safetensors",
+            "header_bytes": 25544,
+            "header_sha256": "1e68ed3428082f4f1ced5cb7b67bf070f181e2513f03bcfb57c48271ad372134"
+          }
+        ]
+      }
     },
     "N20-RADIXARK-GLM-53-NVFP4-HFQ-RESOLVED": {
       "url": "https://huggingface.co/RadixArk/GLM-5.3-NVFP4/resolve/6e389189d564d9d3e4ea7fa284fe91f136d8ae2a/hf_quant_config.json",
@@ -27650,7 +27932,42 @@
       "claim": "Exact versioned safetensors index for RadixArk/GLM-5.3-Flash-NVFP4. Supports the precision, tensor-map or object-identity comparison in the family report.",
       "kind": "publisher artifact",
       "revision": "f46cf340d35a22d0d83d0c1dac8957cf2b1bcd35",
-      "immutable_url": "https://huggingface.co/RadixArk/GLM-5.3-Flash-NVFP4/resolve/f46cf340d35a22d0d83d0c1dac8957cf2b1bcd35/model.safetensors.index.json"
+      "immutable_url": "https://huggingface.co/RadixArk/GLM-5.3-Flash-NVFP4/resolve/f46cf340d35a22d0d83d0c1dac8957cf2b1bcd35/model.safetensors.index.json",
+      "mtp_header_review": {
+        "retrieved_at": "2026-11-20T19:28:18+00:00",
+        "scope": "Every index entry in model.language_model.layers.45. HTTP 206 reads of 8-byte header length and JSON header. No tensor payload read.",
+        "tensor_count_by_dtype": {
+          "BF16": 888,
+          "F32": 1
+        },
+        "elements_by_dtype": {
+          "BF16": 7432592128,
+          "F32": 288
+        },
+        "tensor_bytes": 14865185408,
+        "shards": [
+          {
+            "url": "https://huggingface.co/RadixArk/GLM-5.3-Flash-NVFP4/resolve/f46cf340d35a22d0d83d0c1dac8957cf2b1bcd35/model-00035.safetensors",
+            "header_bytes": 52928,
+            "header_sha256": "ada5f241a434d58d0895ce20e7cd098c62057110b3e021511d413f42e73d4a6c"
+          },
+          {
+            "url": "https://huggingface.co/RadixArk/GLM-5.3-Flash-NVFP4/resolve/f46cf340d35a22d0d83d0c1dac8957cf2b1bcd35/model-00036.safetensors",
+            "header_bytes": 45088,
+            "header_sha256": "7b43389bef034aac5688d16d352b098c31aa4c0f547f49aa9684ab58f124fef8"
+          },
+          {
+            "url": "https://huggingface.co/RadixArk/GLM-5.3-Flash-NVFP4/resolve/f46cf340d35a22d0d83d0c1dac8957cf2b1bcd35/model-00037.safetensors",
+            "header_bytes": 44960,
+            "header_sha256": "e314d0848cb3090ff071232ccbebda587e6f80cd29577fb82305af3bfd2089f1"
+          },
+          {
+            "url": "https://huggingface.co/RadixArk/GLM-5.3-Flash-NVFP4/resolve/f46cf340d35a22d0d83d0c1dac8957cf2b1bcd35/model-00038.safetensors",
+            "header_bytes": 71872,
+            "header_sha256": "41d969203ae28276c1ce31ab5adcf2d022a01b58138d7b87bbba60d8ae885a8c"
+          }
+        ]
+      }
     },
     "N20-RADIXARK-GLM-53-FLASH-NVFP4-HFQ-RESOLVED": {
       "url": "https://huggingface.co/RadixArk/GLM-5.3-Flash-NVFP4/resolve/f46cf340d35a22d0d83d0c1dac8957cf2b1bcd35/hf_quant_config.json",
@@ -29686,7 +30003,7 @@
       "retrieved_at": "2026-11-20T19:04:14.529859+00:00",
       "response_sha256": "ab98871c2ab0e26ec124131bbe3f004e2b3248f9e4712c59da942dccbca6d096",
       "response_bytes": 12646,
-      "claim": "Exporter description, evaluation scope and documented deployment where supplied.",
+      "claim": "Exporter description, evaluation scope and documented deployment where supplied. The card reports ModelOpt v0.48.0.",
       "scope": "Metadata/source inspection. No weight payload, engine or B300 execution.",
       "revision": "cd46ab575a5a687f0bc3e54251016fc2cc1a6aef",
       "local_snapshot": {
@@ -29705,7 +30022,7 @@
       "retrieved_at": "2026-11-20T19:04:14.682187+00:00",
       "response_sha256": "c278c65559459f9f1beaf18f4fe8fd03ff8385986d77fb884be8eccf57d72fb6",
       "response_bytes": 101574,
-      "claim": "ModelOpt mixed precision after quantization-aware distillation. The 401 per-module assignments contain 307 NVFP4 and 94 FP8 entries. The lm_head uses NVFP4. Config includes an 8-bit static KV scheme.",
+      "claim": "ModelOpt mixed precision after quantization-aware distillation. The 401 per-module assignments contain 307 NVFP4 and 94 FP8 entries. The lm_head uses NVFP4. Config includes an 8-bit static KV scheme. The producer metadata records ModelOpt 0.46.0rc1.",
       "scope": "Metadata/source inspection. No weight payload, engine or B300 execution.",
       "revision": "cd46ab575a5a687f0bc3e54251016fc2cc1a6aef"
     },
@@ -29741,7 +30058,7 @@
       "retrieved_at": "2026-11-20T19:04:14.834058+00:00",
       "response_sha256": "ab3d512a1b841e4d05ad961c92b9a488e7cff9564993fee984414e7e047fdd71",
       "response_bytes": 67758,
-      "claim": "Exporter metadata and recorded weight/activation scheme.",
+      "claim": "Exporter metadata and recorded weight/activation scheme. The producer metadata records ModelOpt 0.46.0rc1.",
       "scope": "Metadata/source inspection. No weight payload, engine or B300 execution.",
       "revision": "cd46ab575a5a687f0bc3e54251016fc2cc1a6aef"
     },
@@ -29968,7 +30285,15 @@
       "response_bytes": 20760,
       "claim": "model.language_model.layers.1.ple.ple_embedding.ngram_embedding.shard_0.weight is BF16, shape [2500012, 160], offsets [0, 800003840].",
       "scope": "SHA-256 covers the JSON header after the eight-byte length prefix. One shard sampled. No weight data read.",
-      "revision": "96de4d48e43282a6430707f9eaf902bff2398507"
+      "revision": "96de4d48e43282a6430707f9eaf902bff2398507",
+      "complete_ple_header_review": {
+        "retrieved_at": "2026-11-20T19:36:48.680466+00:00",
+        "scope": "The single physical safetensors header contains all 128 named n-gram tables, shard_0 through shard_127. No tensor payload read.",
+        "count": 128,
+        "tensor_bytes": 102400491520,
+        "dtype": "BF16",
+        "header_sha256": "8c8ebcca765d8886cf1e4ca9e6591247928dedcc3bf0d0eb806f65c264e22105"
+      }
     },
     "N20-QFN-IN-API": {
       "url": "https://huggingface.co/api/models/Inferact/Qwen3.8-Flash-Next-NVFP4/revision/main",
@@ -30047,7 +30372,15 @@
       "response_bytes": 20760,
       "claim": "model.language_model.layers.1.ple.ple_embedding.ngram_embedding.shard_0.weight is BF16, shape [2500012, 160], offsets [0, 800003840].",
       "scope": "SHA-256 covers the JSON header after the eight-byte length prefix. One shard sampled. No weight data read.",
-      "revision": "103a7608316173ca6edd49929544244de7ffda70"
+      "revision": "103a7608316173ca6edd49929544244de7ffda70",
+      "complete_ple_header_review": {
+        "retrieved_at": "2026-11-20T19:36:48.694439+00:00",
+        "scope": "The single physical safetensors header contains all 128 named n-gram tables, shard_0 through shard_127. No tensor payload read.",
+        "count": 128,
+        "tensor_bytes": 102400491520,
+        "dtype": "BF16",
+        "header_sha256": "8c8ebcca765d8886cf1e4ca9e6591247928dedcc3bf0d0eb806f65c264e22105"
+      }
     },
     "N20-QFN-RAD-API": {
       "url": "https://huggingface.co/api/models/RadixArk/Qwen3.8-Flash-Next-NVFP4/revision/main",
@@ -30778,6 +31111,1475 @@
       "capture": "The SHA-256 identifies the gzip-encoded raw Wayback response.",
       "claim": "Page labelled v5.0 embeds 723 full variant records, including DeepSeek V4.1 Flash 1017 High at 28.5437391540402 and CritPt v2 Hard at 0.265.",
       "scope": "Third-party AA endpoint evaluation, retained by the Internet Archive."
+    },
+    "deepseek-v4-flash-0731-INDEX": {
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/resolve/7872f01b1d1fe23eabc4c98b48bffcef5a386062/model.safetensors.index.json",
+      "title": "Native DeepSeek V4 Flash 0731 tensor index",
+      "kind": "publisher checkpoint index",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:26:19Z",
+      "revision": "7872f01b1d1fe23eabc4c98b48bffcef5a386062",
+      "immutable_url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/resolve/7872f01b1d1fe23eabc4c98b48bffcef5a386062/model.safetensors.index.json",
+      "capture": "JSON metadata.",
+      "claim": "Maps 72,317 unique tensor names to 48 shards. The index payload of 166,878,536,440 bytes equals the sum of safetensors tensor spans.",
+      "scope": "JSON metadata.",
+      "response_sha256": "98efab455cf08dfbbbaaba6f570e1bf10bf927d2b4c3c453a59c2f6f0e3be92b"
+    },
+    "deepseek-v4-flash-0731-HEADERS": {
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/resolve/7872f01b1d1fe23eabc4c98b48bffcef5a386062/model-00001-of-00048.safetensors",
+      "title": "Native DeepSeek V4 Flash 0731 safetensors headers across all 48 shards",
+      "kind": "publisher checkpoint metadata (headers only)",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:27:47Z",
+      "revision": "7872f01b1d1fe23eabc4c98b48bffcef5a386062",
+      "immutable_url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/resolve/7872f01b1d1fe23eabc4c98b48bffcef5a386062/model-00001-of-00048.safetensors",
+      "capture": "Two HTTP 206 byte ranges per shard fetched the eight-byte length and exactly the JSON header. SHA-256 covers the concatenated header JSON bodies in shard order 1–48.",
+      "claim": "Logical weights excluding E8M0 scales and I64 routing IDs are 284,332,240,471 in the target and 19,845,850,983 in three DSpark stages. Serialized target bytes including scales and IDs are 156,015,698,140; DSpark bytes including scales are 10,862,838,300. All 72,317 header names matched the publisher index.",
+      "scope": "Two HTTP 206 byte ranges per shard fetched the eight-byte length and exactly the JSON header. SHA-256 covers the concatenated header JSON bodies in shard order 1–48.",
+      "headers_aggregate_sha256": "cb2be7c6756fab4b2770a930f97a5a874a83815bce41d60aed0e135219e00819",
+      "headers_aggregate_method": "SHA-256 of the concatenated JSON headers in shard number order; excludes eight-byte length prefixes.",
+      "retrieval_window": "2026-11-20T19:27:32Z/2026-11-20T19:27:47Z",
+      "headers_count": 48,
+      "header_json_bytes": 7998512
+    },
+    "deepseek-v4-flash-0731-META": {
+      "url": "https://huggingface.co/api/models/deepseek-ai/DeepSeek-V4-Flash-0731/revision/7872f01b1d1fe23eabc4c98b48bffcef5a386062",
+      "title": "Native DeepSeek V4 Flash 0731 Hub model metadata at the serving pin",
+      "kind": "publisher repository metadata",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:26:18Z",
+      "revision": "7872f01b1d1fe23eabc4c98b48bffcef5a386062",
+      "immutable_url": "https://huggingface.co/api/models/deepseek-ai/DeepSeek-V4-Flash-0731/revision/7872f01b1d1fe23eabc4c98b48bffcef5a386062",
+      "capture": "Revision identity and Hub-generated dtype counts.",
+      "claim": "Hub logical aggregate is 304,180,418,494, including 2,327,040 I64 token-to-expert routing IDs. Subtract those entries to match the header-derived 304,178,091,454 target-plus-draft logical weights.",
+      "scope": "Revision identity and Hub-generated dtype counts.",
+      "response_sha256": "a74b8fef2537b3381cace27e07e0549f598d8d8ab507e81c09da6f6772d74bea"
+    },
+    "N20-V-OCI-STABLE": {
+      "url": "https://registry-1.docker.io/v2/vllm/vllm-openai/blobs/sha256:0372147e2b3daa1baa5c6aa9b90ae5de2f926e25742650f91fa24dbca9cc645a",
+      "title": "vLLM v0.34.0 amd64 OCI build configuration",
+      "kind": "immutable OCI image configuration",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:33:01Z",
+      "http_status": 200,
+      "response_sha256": "0372147e2b3daa1baa5c6aa9b90ae5de2f926e25742650f91fa24dbca9cc645a",
+      "response_bytes": 46307,
+      "claim": "Linux amd64 configuration reached through the published index and platform manifest. OCI source-revision label 62d4bc3c7e33b1b6c906e233e6af2d3506c482ca. CUDA_VERSION 13.0.2.",
+      "index_digest": "sha256:20fdb089454afbb324efa4110a2c025ff7b27cc1a086e07aa580b18df8ad1ce1",
+      "platform": "linux/amd64",
+      "platform_manifest_digest": "sha256:cf5b2fdd087eb4f6d261736967cc5cde974bd22ff4df50365f8fa419b6b4c484",
+      "configuration_digest": "sha256:0372147e2b3daa1baa5c6aa9b90ae5de2f926e25742650f91fa24dbca9cc645a",
+      "source_revision_label": "62d4bc3c7e33b1b6c906e233e6af2d3506c482ca",
+      "cuda_version_env": "13.0.2",
+      "image_config_build_url": "https://buildkite.com/vllm/release-v2/builds/10853"
+    },
+    "N20-V-OCI-NIGHTLY": {
+      "url": "https://registry-1.docker.io/v2/vllm/vllm-openai/blobs/sha256:735a8774607d1263e41a0cc09fbcbfaf73719f751b5677fc3efd92a01b8b0c3a",
+      "title": "vLLM November 20 nightly amd64 OCI build configuration",
+      "kind": "immutable OCI image configuration",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:33:01Z",
+      "http_status": 200,
+      "response_sha256": "735a8774607d1263e41a0cc09fbcbfaf73719f751b5677fc3efd92a01b8b0c3a",
+      "response_bytes": 46624,
+      "claim": "Linux amd64 configuration reached through the published index and platform manifest. OCI source-revision label 8586ccbcf58e69ecb69e370dd2fa69fb739f9b0c. CUDA_VERSION 13.2.1.",
+      "index_digest": "sha256:c17e9d88fd35e9e0aebad2c09aaa3df5d469378744855db24f3210d8a6db5441",
+      "platform": "linux/amd64",
+      "platform_manifest_digest": "sha256:94d67eec70147ee7119cda46c2754bc6cfa58f8f95526aa91780cdcaa5d5329a",
+      "configuration_digest": "sha256:735a8774607d1263e41a0cc09fbcbfaf73719f751b5677fc3efd92a01b8b0c3a",
+      "source_revision_label": "8586ccbcf58e69ecb69e370dd2fa69fb739f9b0c",
+      "cuda_version_env": "13.2.1",
+      "image_config_build_url": "https://buildkite.com/vllm/release-v2/builds/11312"
+    },
+    "N20-S-OCI-STABLE": {
+      "url": "https://registry-1.docker.io/v2/lmsysorg/sglang/blobs/sha256:f3a303d4028dc4597e312c96ada28fa19509f46559601a94e89dc630ac1ef152",
+      "title": "SGLang v0.5.23-cu130 amd64 OCI build configuration",
+      "kind": "immutable OCI image configuration",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:33:01Z",
+      "http_status": 200,
+      "response_sha256": "f3a303d4028dc4597e312c96ada28fa19509f46559601a94e89dc630ac1ef152",
+      "response_bytes": 63849,
+      "claim": "Linux amd64 configuration reached through the published index and platform manifest. OCI source-revision label 297e54fd105e974cdf401e5b4d20253a22c16f90. CUDA_VERSION 13.0.3.",
+      "index_digest": "sha256:f832b5c39559c9caa900b22ad37c76fcce66470676855c42052102c537812f1f",
+      "platform": "linux/amd64",
+      "platform_manifest_digest": "sha256:f7876bef696ccf9cf75a2bf7ccb82970f5fac577f082fb8ca95c9a59d2160eb5",
+      "configuration_digest": "sha256:f3a303d4028dc4597e312c96ada28fa19509f46559601a94e89dc630ac1ef152",
+      "source_revision_label": "297e54fd105e974cdf401e5b4d20253a22c16f90",
+      "cuda_version_env": "13.0.3",
+      "image_config_build_url": "https://github.com/sgl-project/sglang/actions/runs/40978390987"
+    },
+    "N20-S-OCI-DEV": {
+      "url": "https://registry-1.docker.io/v2/lmsysorg/sglang/blobs/sha256:6ff8c93289694a6c8b3a6be6487a9216dda86eff5d2e61c18cf1770ad5ccc57b",
+      "title": "SGLang November 20 CUDA 13.0 development amd64 OCI build configuration",
+      "kind": "immutable OCI image configuration",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:33:01Z",
+      "http_status": 200,
+      "response_sha256": "6ff8c93289694a6c8b3a6be6487a9216dda86eff5d2e61c18cf1770ad5ccc57b",
+      "response_bytes": 63581,
+      "claim": "Linux amd64 configuration reached through the published index and platform manifest. OCI source-revision label 03fde9cc392a5f84a54a365635ffed0061cdf1b8. CUDA_VERSION 13.0.3.",
+      "index_digest": "sha256:d6f6d9720febe26aad1e40649a401cddd8504feb1d70de6b7ea374ff71785931",
+      "platform": "linux/amd64",
+      "platform_manifest_digest": "sha256:d7976d3a5963ea29eb34a3d94dd2304b3b9a8245da78add7ada9cb15bf77a641",
+      "configuration_digest": "sha256:6ff8c93289694a6c8b3a6be6487a9216dda86eff5d2e61c18cf1770ad5ccc57b",
+      "source_revision_label": "03fde9cc392a5f84a54a365635ffed0061cdf1b8",
+      "cuda_version_env": "13.0.3",
+      "image_config_build_url": "https://github.com/sgl-project/sglang/actions/runs/44644189360"
+    },
+    "N20-S-OCI-CU134": {
+      "url": "https://registry-1.docker.io/v2/lmsysorg/sglang/blobs/sha256:ac1f32c3bfe8763763116b03557ad22da61c9fc220d23acb88299dee0d0ef793",
+      "title": "SGLang November 20 CUDA 13.4 development amd64 OCI build configuration",
+      "kind": "immutable OCI image configuration",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:33:01Z",
+      "http_status": 200,
+      "response_sha256": "ac1f32c3bfe8763763116b03557ad22da61c9fc220d23acb88299dee0d0ef793",
+      "response_bytes": 77757,
+      "claim": "Linux amd64 configuration reached through the published index and platform manifest. OCI source-revision label unknown. CUDA_VERSION 13.4.1. The tag names f5cc485 and the linked successful workflow has that head; the config revision is literally unknown.",
+      "index_digest": "sha256:bf0a63c9d848f7225009621eae0fd1f053555147cde46d13f78c86e2ddc91d25",
+      "platform": "linux/amd64",
+      "platform_manifest_digest": "sha256:f354cbcac577a7681a0af2ee14e1d24ae2eaea00fed1707bc3c2ad6e8c90f8bf",
+      "configuration_digest": "sha256:ac1f32c3bfe8763763116b03557ad22da61c9fc220d23acb88299dee0d0ef793",
+      "source_revision_label": "unknown",
+      "cuda_version_env": "13.4.1",
+      "image_config_build_url": "https://github.com/sgl-project/sglang/actions/runs/44716644521"
+    },
+    "N20-S-OCI-AGENTX": {
+      "url": "https://registry-1.docker.io/v2/lmsysorg/sglang/blobs/sha256:0574d31af7269a9e517c45375fcd698e1b89d0fcc5bea333ea72217bc10a80b2",
+      "title": "SGLang October 28 AgentX amd64 OCI build configuration",
+      "kind": "immutable OCI image configuration",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:33:01Z",
+      "http_status": 200,
+      "response_sha256": "0574d31af7269a9e517c45375fcd698e1b89d0fcc5bea333ea72217bc10a80b2",
+      "response_bytes": 63847,
+      "claim": "Linux amd64 configuration reached through the published index and platform manifest. OCI source-revision label 586355a83bdf609579b3309d4125620351156bb7. CUDA_VERSION 13.0.3.",
+      "index_digest": "sha256:b4f09a2ccbcfcc262d49600c3cd7f8581a793ea7d104947257b6a95500953b90",
+      "platform": "linux/amd64",
+      "platform_manifest_digest": "sha256:32c36844a21ee93dd6643d09ab9b6e5f5e08c69f21b72f9f686e5392d5d28f61",
+      "configuration_digest": "sha256:0574d31af7269a9e517c45375fcd698e1b89d0fcc5bea333ea72217bc10a80b2",
+      "source_revision_label": "586355a83bdf609579b3309d4125620351156bb7",
+      "cuda_version_env": "13.0.3",
+      "image_config_build_url": "https://github.com/sgl-project/sglang/actions/runs/40607843580"
+    },
+    "N20-S-OCI-ML4": {
+      "url": "https://registry-1.docker.io/v2/lmsysorg/sglang/blobs/sha256:fe286e6bc7a86a200a08cbfe7966189066b9774794db82304784540a2aa2a844",
+      "title": "SGLang Mistral Large 4 amd64 base build and patch history",
+      "kind": "immutable OCI image configuration",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:33:03Z",
+      "http_status": 200,
+      "response_sha256": "fe286e6bc7a86a200a08cbfe7966189066b9774794db82304784540a2aa2a844",
+      "response_bytes": 64546,
+      "claim": "Linux amd64 configuration reached through the published index and platform manifest. OCI source-revision label c10e0e17735f7981c7cc46891eed6908b7701e58. CUDA_VERSION 13.0.3. History copies merged.patch, applies it and compiles the patched sources after the base labels were set. The revision labels identify the base.",
+      "index_digest": "sha256:6c9e19a08f30ef8472f3c2ae2d01de99b452cf1fed77f720cd3b6fec61625770",
+      "platform": "linux/amd64",
+      "platform_manifest_digest": "sha256:bff7ea4d5feb5ef8f07e32e67d58d295a36bdcd65541f4c830bb18c66c3d249b",
+      "configuration_digest": "sha256:fe286e6bc7a86a200a08cbfe7966189066b9774794db82304784540a2aa2a844",
+      "source_revision_label": "c10e0e17735f7981c7cc46891eed6908b7701e58",
+      "cuda_version_env": "13.0.3",
+      "image_config_build_url": "https://github.com/sgl-project/sglang/actions/runs/40793125062"
+    },
+    "N20-S-ML4-PR-MODEL": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/74345a96be74daf1f3d4a9eed957f5d354ec3a2d/python/sglang/srt/models/mistral_large_4.py",
+      "title": "Mistral Large 4 model at open SGLang PR 47271 head",
+      "kind": "immutable upstream source",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:33:03Z",
+      "http_status": 200,
+      "response_sha256": "312e5a0a325e802f26f15ad09a2757f6ecd8de7c176301d978c822b2bf86eca6",
+      "response_bytes": 20384,
+      "claim": "Source is 20,384 bytes. The target model file introduced by the dedicated October 29 amd64 image patch has different bytes."
+    },
+    "N20-V-COMMON": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/62d4bc3c7e33b1b6c906e233e6af2d3506c482ca/requirements/common.txt",
+      "title": "vLLM v0.34.0 common requirements",
+      "kind": "immutable upstream source",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:33:03Z",
+      "http_status": 200,
+      "response_sha256": "e48bf5ea97fca6aa19fd2b0f6daef73ba10534c3dbd22c028612e3f9301da0be",
+      "response_bytes": 3331,
+      "claim": "Release dependencies require mistral_common[image] >= 1.13.0, as does the Mistral Large 4 recipe."
+    },
+    "N20-K-MASTER-RUNTIME": {
+      "url": "https://raw.githubusercontent.com/kserve/kserve/30da28a7b26041f396736276f4e66d7a97009c60/config/runtimes/kserve-llm-sglang.yaml",
+      "title": "KServe November 20 SGLang ClusterServingRuntime image",
+      "kind": "immutable upstream source",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:33:03Z",
+      "http_status": 200,
+      "response_sha256": "44e0320f0dd45a2e1f5fbedd31e00b4767d4ebdb1e3974dd9d1ac3cdaafd065b",
+      "response_bytes": 264,
+      "claim": "Master runtime kserve-llm-sglang specifies lmsysorg/sglang:v0.5.14. A dedicated deployment must supply its intended digest."
+    },
+    "N20-S-QAD-TAG": {
+      "url": "https://hub.docker.com/v2/repositories/lmsysorg/sglang/tags/v0.5.23-cu130",
+      "title": "Publisher-named SGLang QAD release image tag",
+      "kind": "primary upstream metadata",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:33:03Z",
+      "http_status": 200,
+      "response_sha256": "7829d3afadcab036177525c35f29119636dee9beb23f80871475e9f624a95164",
+      "response_bytes": 1141,
+      "claim": "v0.5.23-cu130 resolves to the same f832b5c3 OCI index as v0.5.23 at this check."
+    },
+    "N20-K-CONTROLLER-PUSH": {
+      "url": "https://api.github.com/repos/kserve/kserve/actions/runs/44712346263",
+      "title": "KServe November 20 LLM controller publication workflow",
+      "kind": "primary upstream metadata",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:33:04Z",
+      "http_status": 200,
+      "response_sha256": "cf473c4e63e0f5ade517c18ed983ea1fc2bb3f9eccf4aafb45630f3d7e8ab18c",
+      "response_bytes": 12607,
+      "claim": "Successful push workflow from master commit 30da28a7b26041f396736276f4e66d7a97009c60."
+    },
+    "N20-K-CONTROLLER-LOG": {
+      "url": "https://api.github.com/repos/kserve/kserve/actions/jobs/136209669074/logs",
+      "title": "KServe publisher push log for the November 20 controller OCI index",
+      "kind": "publisher build log",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:33:05Z",
+      "http_status": 200,
+      "response_sha256": "931aa0a091da5deafb45f25adfdf753902b4ce7344b63efdc249ed76d540d7d1",
+      "response_bytes": 303762,
+      "claim": "The job logs a successful push of kserve/llmisvc-controller:latest at 11:38:46 UTC with index sha256:27a036ea5646166b76c3639a26c6ae68cf3819dc9f2888b035cfc4b61d23e52c.",
+      "human_url": "https://github.com/kserve/kserve/actions/runs/44712346263/job/136209669074"
+    },
+    "N20-S-CU134-BUILD": {
+      "url": "https://api.github.com/repos/sgl-project/sglang/actions/runs/44716644521",
+      "title": "SGLang November 20 CUDA 13.4 nightly image build run",
+      "kind": "primary upstream metadata",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:33:05Z",
+      "http_status": 200,
+      "response_sha256": "e93c5d78f5cee4437e29099543f6a45693d91c07b4567bdd046444b1562c45d6",
+      "response_bytes": 14006,
+      "claim": "Successful workflow at f5cc4856acd653d5ba3a1aec60c1ad47cdea6765, linked from the immutable image build config."
+    },
+    "N20-S-AGENTX-BUILD": {
+      "url": "https://api.github.com/repos/sgl-project/sglang/actions/runs/40607843580",
+      "title": "SGLang October 28 development image build run",
+      "kind": "primary upstream metadata",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:33:06Z",
+      "http_status": 200,
+      "response_sha256": "68523873e164e467e0b9fc0312d43956281cfb7f7b7f711bb30168c99ca96a9b",
+      "response_bytes": 14512,
+      "claim": "Successful development image workflow at 586355a83bdf609579b3309d4125620351156bb7, linked from the immutable image build config used in the Qwen AgentX recipe."
+    },
+    "N20-V-MAIN-LATER": {
+      "url": "https://api.github.com/repos/vllm-project/vllm/commits/b492a09c10118f43bfaf5ff75f17fa10fe86e0a6",
+      "title": "vLLM main at the 19:26 UTC November 20 observation",
+      "kind": "primary upstream metadata",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:33:06Z",
+      "http_status": 200,
+      "response_sha256": "4ae1326aca94bcf481f3f894dafc2867e1bdb8ed9e085d8d39a4c8401a12bb67",
+      "response_bytes": 9371,
+      "claim": "git ls-remote returned this main HEAD. Commit time 19:20:48 UTC. The earlier 0aa2bb19 source inspection retains its own scope."
+    },
+    "N20-V-DEFAULT-WHEEL-LATER": {
+      "url": "https://api.github.com/repos/vllm-project/vllm/commits/c78f57f74599cb3dc0a0bc2848d9b8b0dea3be6e",
+      "title": "vLLM default nightly wheel source observed at 19:26 UTC",
+      "kind": "primary upstream metadata",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:33:07Z",
+      "http_status": 200,
+      "response_sha256": "7ddaa20dc23c9c47c4169289d1ed6ba9db2cda74d537f0bbac2925926d114da9",
+      "response_bytes": 60422,
+      "claim": "Default nightly index advertised 0.34.0rc1.dev1080+gc78f57f74. The index linked this commit, dated November 20 at 18:33:35 UTC."
+    },
+    "N20-S-ML4-OVERLAY": {
+      "url": "https://registry-1.docker.io/v2/lmsysorg/sglang/blobs/sha256:d03c4c7a6d5fd5441e73f7c4775221d429eb9aa7600ce47cc6f6338963c4f2c0",
+      "title": "Source patch shipped in the dedicated Mistral Large 4 amd64 image",
+      "kind": "immutable source-only OCI patch layer",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:33:07Z",
+      "http_status": 200,
+      "response_sha256": "d03c4c7a6d5fd5441e73f7c4775221d429eb9aa7600ce47cc6f6338963c4f2c0",
+      "response_bytes": 355167,
+      "claim": "The source-only COPY layer contains a patch with 352 file diffs. It adds python/sglang/srt/models/mistral_large_4.py, whose 20,370 bytes differ from the open PR head model file.",
+      "embedded_path": "tmp/merged.patch",
+      "embedded_patch_bytes": 1793314,
+      "embedded_patch_sha256": "0aaba3b65840799f8732cb0375cc1115ae2a6bd330350c4777c63c41d9258b37",
+      "target_path": "python/sglang/srt/models/mistral_large_4.py",
+      "target_model_bytes": 20370,
+      "target_model_sha256": "5a4abf59a4f984625790a6bcd083d629a0239c37114e03afe3b807c8aa118c65",
+      "decoded_or_executed_weights": false
+    },
+    "V034-K3-KVB-DECODE": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/62d4bc3c7e33b1b6c906e233e6af2d3506c482ca/vllm/models/kimi_k3/nvidia/kv_balanced_mla/decode.py",
+      "title": "vLLM v0.34.0 vllm/models/kimi_k3/nvidia/kv_balanced_mla/decode.py",
+      "kind": "source inspected",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:28:56+00:00",
+      "http_status": 200,
+      "response_bytes": 9624,
+      "response_sha256": "9d3b4c83f9b894b98c5f83744d049b2bbfb00caa1c6f728ed37bcd55470fc5db",
+      "revision": "62d4bc3c7e33b1b6c906e233e6af2d3506c482ca",
+      "immutable_url": "https://raw.githubusercontent.com/vllm-project/vllm/62d4bc3c7e33b1b6c906e233e6af2d3506c482ca/vllm/models/kimi_k3/nvidia/kv_balanced_mla/decode.py",
+      "claim": "Decode wrapper checks packed FP8 queries and shape/request limits, raises on unsupported steps and logs the workspace sized for the request bound.",
+      "scope": "Selected release-source code paths only."
+    },
+    "V034-GLM-SHARDQ": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/62d4bc3c7e33b1b6c906e233e6af2d3506c482ca/vllm/v1/attention/ops/shardq.py",
+      "title": "vLLM v0.34.0 vllm/v1/attention/ops/shardq.py",
+      "kind": "source inspected",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:29:51+00:00",
+      "http_status": 200,
+      "response_bytes": 13985,
+      "response_sha256": "3d770714a94475962f405f37a4856785f94b75e0457f71d7cab2231a598563af",
+      "revision": "62d4bc3c7e33b1b6c906e233e6af2d3506c482ca",
+      "immutable_url": "https://raw.githubusercontent.com/vllm-project/vllm/62d4bc3c7e33b1b6c906e233e6af2d3506c482ca/vllm/v1/attention/ops/shardq.py",
+      "claim": "The per-step split requires sufficient prefill tokens after decodes, a prefill sequence longer than index_topk, matching prefill token counts and at least one token per TP rank.",
+      "scope": "Selected release-source code paths only."
+    },
+    "V034-GLM-INDEXER": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/62d4bc3c7e33b1b6c906e233e6af2d3506c482ca/vllm/model_executor/layers/sparse_attn_indexer.py",
+      "title": "vLLM v0.34.0 vllm/model_executor/layers/sparse_attn_indexer.py",
+      "kind": "source inspected",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:31:46+00:00",
+      "http_status": 200,
+      "response_bytes": 68774,
+      "response_sha256": "b92e51c5c73aa1f926b7db72c82b2137d69b5435a0dfac4d7d74fd866a867477",
+      "revision": "62d4bc3c7e33b1b6c906e233e6af2d3506c482ca",
+      "immutable_url": "https://raw.githubusercontent.com/vllm-project/vllm/62d4bc3c7e33b1b6c906e233e6af2d3506c482ca/vllm/model_executor/layers/sparse_attn_indexer.py",
+      "claim": "Standard sparse attention indexer resolves dense MQA logits with a float32 default; explicit configuration can select bfloat16. The separate sparse MQA logits operation has its own precision path.",
+      "scope": "Selected release-source code paths only."
+    },
+    "V034-PR-64580": {
+      "url": "https://api.github.com/repos/vllm-project/vllm/pulls/64580",
+      "title": "[Kernel][DSA] Restore FP32 indexer MQA logits for non-DeepSeek models and add `indexer_logits_dtype`",
+      "kind": "upstream pull request",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:31:31+00:00",
+      "merge_commit": "ab4e04d2dc15480acc4c6eb4cb88f94e01ebec2f",
+      "claim": "The author restores configurable FP32/BF16 dense MQA logits and states the separate sparse MQA path stays BF16. Its GLM-5.3 evaluation used GB200.",
+      "scope": "Author validation and dated PR state."
+    },
+    "N20-Q27-V-MTP": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/62d4bc3c7e33b1b6c906e233e6af2d3506c482ca/vllm/models/qwen3_5/nvidia/mtp.py",
+      "title": "vLLM v0.34.0 NVIDIA Qwen3.5 MTP forward and weight remapping",
+      "kind": "engine release source",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:29:16.958764+00:00",
+      "http_status": 200,
+      "response_sha256": "01019860db10d86eee26ec4760bbc3f50b96eafd7ae771511338ca81b5370e43",
+      "response_bytes": 11333,
+      "revision": "62d4bc3c7e33b1b6c906e233e6af2d3506c482ca",
+      "claim": "The native draft applies the two pre-FC RMSNorm weights, the fc projection and the final norm. Its loader maps the mtp. namespace to model.",
+      "scope": "Release source checked against the QAD index. No inference executed.",
+      "inspected_fields_or_lines": [
+        "80,112–116,138–145,169–175,285–302"
+      ]
+    },
+    "N20-Q27-S-MTP": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/297e54fd105e974cdf401e5b4d20253a22c16f90/python/sglang/srt/models/qwen3_5_mtp.py",
+      "title": "SGLang v0.5.23 Qwen3.5 MTP",
+      "kind": "engine release source",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:29:17.005598+00:00",
+      "http_status": 200,
+      "response_sha256": "13c9feb1674e28083cd7b3364040a2f1d9f0e8b10d1d6dc06156abe54a695c36",
+      "response_bytes": 20124,
+      "revision": "297e54fd105e974cdf401e5b4d20253a22c16f90",
+      "claim": "The Qwen3.5 NEXTN model defines the draft projection and its input/hidden norms and uses them in forward.",
+      "scope": "Release source; the conditioned failure mode is inferred from the missing parameters, not a reproduced run.",
+      "inspected_fields_or_lines": [
+        "129–143,223–250,261–283"
+      ]
+    },
+    "N20-Q27-V-KVSCALE": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/62d4bc3c7e33b1b6c906e233e6af2d3506c482ca/vllm/model_executor/layers/quantization/kv_cache.py",
+      "title": "vLLM v0.34.0 checkpoint KV scale loading",
+      "kind": "engine release source",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:29:16.947020+00:00",
+      "http_status": 200,
+      "response_sha256": "22cd686dc769456be86c5498a6d8d763077f640499c9c869a1cdf87f2d1e714a",
+      "response_bytes": 8469,
+      "revision": "62d4bc3c7e33b1b6c906e233e6af2d3506c482ca",
+      "claim": "On the inspected fixed per-tensor path with no K or V cache scale loaded, process_weights_after_loading assigns 1.0.",
+      "scope": "Selected vLLM path only. Runtime dispatch and scale values on the deployed B300 engine are unknown.",
+      "inspected_fields_or_lines": [
+        "106–128,157–164"
+      ]
+    },
+    "N20-Q27-QAD-LAST-HDR": {
+      "url": "https://huggingface.co/nvidia/Qwen3.8-27B-NVFP4-QAD/resolve/cd46ab575a5a687f0bc3e54251016fc2cc1a6aef/model-00064-of-00064.safetensors",
+      "retrieved_at": "2026-11-20T19:32:49.304613+00:00",
+      "response_bytes": 5040,
+      "response_sha256": "ecd5c227e711954fd59876e183f027021258d1c72e07eed64454c27ac3c0a0eb",
+      "title": "NVIDIA Qwen 27B QAD final safetensors shard header",
+      "kind": "safetensors header range",
+      "accessed_on": "2026-11-20",
+      "http_status": 206,
+      "revision": "cd46ab575a5a687f0bc3e54251016fc2cc1a6aef",
+      "claim": "The final shard header contains the 11 mtp.layers.0.* weights listed in the index. The source index assigns every named MTP tensor to this shard.",
+      "scope": "SHA-256 and byte length cover the safetensors JSON header, excluding the eight-byte little-endian prefix. Tensor values were not inspected.",
+      "all_shards_recheck": {
+        "checked_on": "2026-11-20",
+        "tree_source_id": "N20-Q27-QAD-TREE",
+        "index_source_id": "N20-Q27-QAD-INDEX",
+        "scope": "All 64 immutable safetensors shard JSON headers. Their names match the published index on each shard, and together give 2,304 tensor names. The MTP namespace has eleven weights; no K/V cache-scale tensor is stored. Each hash/length below excludes the eight-byte prefix; no numeric payload read. Relative names resolve against the same revision and directory as the primary URL.",
+        "headers": {
+          "model-00001-of-00064.safetensors": {
+            "sha256": "4d233b9f812204b19a9db11057255ee9a040780e651528b1b897a93eebb11d3f",
+            "bytes": 41504,
+            "retrieved_at": "2026-11-20T19:39:00.000220+00:00"
+          },
+          "model-00002-of-00064.safetensors": {
+            "sha256": "b65904e63f5610449507a9dfa70c9ebfad10f12123eae97c2b00a27a83adaa99",
+            "bytes": 3536,
+            "retrieved_at": "2026-11-20T19:39:00.000524+00:00"
+          },
+          "model-00003-of-00064.safetensors": {
+            "sha256": "978ff613e092d6623363ca92c86642f97d610d86633c3e110b44b614bf73aafc",
+            "bytes": 3536,
+            "retrieved_at": "2026-11-20T19:39:00.000613+00:00"
+          },
+          "model-00004-of-00064.safetensors": {
+            "sha256": "559fa52ff4b58c6f563f4120cfa77814a39a3225aac81c7e8bf37b92381cb5c2",
+            "bytes": 3344,
+            "retrieved_at": "2026-11-20T19:39:00.000666+00:00"
+          },
+          "model-00005-of-00064.safetensors": {
+            "sha256": "e2114fa9eaf89a7e6419c8bcd520efe6ea085fcda9072445a5cce409889e2f35",
+            "bytes": 3536,
+            "retrieved_at": "2026-11-20T19:39:00.000713+00:00"
+          },
+          "model-00006-of-00064.safetensors": {
+            "sha256": "56ef81ee80de582b1a009d106840f2965a83912d29b9b0d245abebe900d25975",
+            "bytes": 3536,
+            "retrieved_at": "2026-11-20T19:39:00.000754+00:00"
+          },
+          "model-00007-of-00064.safetensors": {
+            "sha256": "07f9febd8a5ada4c6fba45045fa7ba941aacfcdf9b276d7c7e6a4dbd8f2e896c",
+            "bytes": 3936,
+            "retrieved_at": "2026-11-20T19:39:00.000797+00:00"
+          },
+          "model-00008-of-00064.safetensors": {
+            "sha256": "9bb39674943a0f1d159fdc710e0df393ea92ae91a5f1518bc12258c9f5683507",
+            "bytes": 3344,
+            "retrieved_at": "2026-11-20T19:39:00.000842+00:00"
+          },
+          "model-00009-of-00064.safetensors": {
+            "sha256": "4842c94b5214ba284ed26d238f24f1ec1efe3ee93fcd3f3375b97801e0fdcfbc",
+            "bytes": 3936,
+            "retrieved_at": "2026-11-20T19:39:00.000882+00:00"
+          },
+          "model-00010-of-00064.safetensors": {
+            "sha256": "6dc590d088c07c6d809813e2c189b5a9588ae7bb916ece59f245e64d7933cc5e",
+            "bytes": 3936,
+            "retrieved_at": "2026-11-20T19:39:00.000916+00:00"
+          },
+          "model-00011-of-00064.safetensors": {
+            "sha256": "61195c40a8115e8ca59e62038056043bd899f3c2ff18daa7454a0ec94e19fdb7",
+            "bytes": 3968,
+            "retrieved_at": "2026-11-20T19:39:00.000948+00:00"
+          },
+          "model-00012-of-00064.safetensors": {
+            "sha256": "f98b4f4011864a48317fcccf2118eb31c7b7b7462314f85f609238caf2ed97ce",
+            "bytes": 3376,
+            "retrieved_at": "2026-11-20T19:39:00.000982+00:00"
+          },
+          "model-00013-of-00064.safetensors": {
+            "sha256": "3f1ec2845a1065a6ea04f35da17e97fdfdb9e3a900a991d84114c4fe16d4497f",
+            "bytes": 3968,
+            "retrieved_at": "2026-11-20T19:39:00.559247+00:00"
+          },
+          "model-00014-of-00064.safetensors": {
+            "sha256": "81b9aac15699af804f9edfd890388b6b75483585aa34302b1e2eb5589b3947a1",
+            "bytes": 3968,
+            "retrieved_at": "2026-11-20T19:39:00.565313+00:00"
+          },
+          "model-00015-of-00064.safetensors": {
+            "sha256": "9dec143a7b9c876743cc0e1d9e7c9091d35128676b1d2a53127a83fc64d0914b",
+            "bytes": 3968,
+            "retrieved_at": "2026-11-20T19:39:00.567736+00:00"
+          },
+          "model-00016-of-00064.safetensors": {
+            "sha256": "8b7ab3dbf5d1d4ead2e030811f4bdfce7537d41ece3533e9124dcc2cbbc28326",
+            "bytes": 3376,
+            "retrieved_at": "2026-11-20T19:39:00.601063+00:00"
+          },
+          "model-00017-of-00064.safetensors": {
+            "sha256": "fcba518e170cd86ebecb2048c46e95cb4f0ef66e1380b9a448395879d4b9e3dd",
+            "bytes": 3968,
+            "retrieved_at": "2026-11-20T19:39:00.607033+00:00"
+          },
+          "model-00018-of-00064.safetensors": {
+            "sha256": "5a28404b7feff68d7b493bc86cb60172e781ce4bbc8847a95105d9300b13e9f5",
+            "bytes": 3968,
+            "retrieved_at": "2026-11-20T19:39:00.617526+00:00"
+          },
+          "model-00019-of-00064.safetensors": {
+            "sha256": "a3b69f5c0d11cd9210238b445f8cb7cb13b447fa919882fb2b6a792793c1c84d",
+            "bytes": 3968,
+            "retrieved_at": "2026-11-20T19:39:00.633526+00:00"
+          },
+          "model-00020-of-00064.safetensors": {
+            "sha256": "e9f7b00b13d0c63e25e3d005e4300bbd5178a0a8fe570984de1920e030e2269c",
+            "bytes": 3376,
+            "retrieved_at": "2026-11-20T19:39:00.640244+00:00"
+          },
+          "model-00021-of-00064.safetensors": {
+            "sha256": "ef6dabb8eafe5dba250663b06d108c6dd35b42be6cb08749afbef79424a6550a",
+            "bytes": 3968,
+            "retrieved_at": "2026-11-20T19:39:00.695062+00:00"
+          },
+          "model-00022-of-00064.safetensors": {
+            "sha256": "39525ae99c9d86d29e8c3605f62a2c9a9596cdefc903e18286be28aa9bd096f1",
+            "bytes": 3968,
+            "retrieved_at": "2026-11-20T19:39:00.781098+00:00"
+          },
+          "model-00023-of-00064.safetensors": {
+            "sha256": "b56d7bf0a16740a3087a2a93b0fd044b9faa491eb92f8b313f77fe88047f983b",
+            "bytes": 3968,
+            "retrieved_at": "2026-11-20T19:39:00.799248+00:00"
+          },
+          "model-00024-of-00064.safetensors": {
+            "sha256": "bbbb34d995e88ce9d6c4601c3484c3c1a4efd1138ee2e841c29c1f5f24c16d61",
+            "bytes": 3376,
+            "retrieved_at": "2026-11-20T19:39:00.970045+00:00"
+          },
+          "model-00025-of-00064.safetensors": {
+            "sha256": "db7e42f1dee6f0f6f6b400b0437f3e6e58b31c3f65d87490431f90267b689c16",
+            "bytes": 3968,
+            "retrieved_at": "2026-11-20T19:39:01.114502+00:00"
+          },
+          "model-00026-of-00064.safetensors": {
+            "sha256": "87e206ae309c9e276cf207f9808116101cf824080e1a93e0ca053bd197b58ad5",
+            "bytes": 3968,
+            "retrieved_at": "2026-11-20T19:39:01.148892+00:00"
+          },
+          "model-00027-of-00064.safetensors": {
+            "sha256": "ad0ccc5a9036978002667d503a7e385097360e7a9e176beaf6811c91a556f81e",
+            "bytes": 3968,
+            "retrieved_at": "2026-11-20T19:39:01.165809+00:00"
+          },
+          "model-00028-of-00064.safetensors": {
+            "sha256": "a92a39b4142cb7f353b99a88bc70f92e786903535efe72c01c599efea01142c1",
+            "bytes": 3376,
+            "retrieved_at": "2026-11-20T19:39:01.171532+00:00"
+          },
+          "model-00029-of-00064.safetensors": {
+            "sha256": "e113b1fd8d35dbb97221ca30ffc0233c41373551d69d65831c497b756ff20f37",
+            "bytes": 3968,
+            "retrieved_at": "2026-11-20T19:39:01.171762+00:00"
+          },
+          "model-00030-of-00064.safetensors": {
+            "sha256": "c8be7996f87b5fba727edb3cdf04554e9840cf4a51cb8b0d6ffaca138758c60c",
+            "bytes": 3968,
+            "retrieved_at": "2026-11-20T19:39:01.201633+00:00"
+          },
+          "model-00031-of-00064.safetensors": {
+            "sha256": "84c1abf3b1cdfe65db2d8084154eae55d798b932a3015253d6a6ec9ee7c34157",
+            "bytes": 3968,
+            "retrieved_at": "2026-11-20T19:39:01.253953+00:00"
+          },
+          "model-00032-of-00064.safetensors": {
+            "sha256": "7308a03860d14e826192693545070cc60616d99b9998794fab925a4ff21c4e72",
+            "bytes": 3376,
+            "retrieved_at": "2026-11-20T19:39:01.263615+00:00"
+          },
+          "model-00033-of-00064.safetensors": {
+            "sha256": "a244a1a3080a820da960aca76a3fe491c8cf7db778b7bdd7abd7eb704451240a",
+            "bytes": 3968,
+            "retrieved_at": "2026-11-20T19:39:01.361829+00:00"
+          },
+          "model-00034-of-00064.safetensors": {
+            "sha256": "b6efb7f20faae20a7c1f653bc45d00443f94966084a4650851777e583a36a6c7",
+            "bytes": 3968,
+            "retrieved_at": "2026-11-20T19:39:01.413772+00:00"
+          },
+          "model-00035-of-00064.safetensors": {
+            "sha256": "0ed7f264643bc894630ceba45f58a0d19c75fd367a9a68c5eac50122bcdf7732",
+            "bytes": 3968,
+            "retrieved_at": "2026-11-20T19:39:01.417801+00:00"
+          },
+          "model-00036-of-00064.safetensors": {
+            "sha256": "2fac309bb14145fb58d1b0fe6f6364b2a9c71b4ad6112f5c0941dbdbb34ae470",
+            "bytes": 3376,
+            "retrieved_at": "2026-11-20T19:39:01.512502+00:00"
+          },
+          "model-00037-of-00064.safetensors": {
+            "sha256": "96508966be159bb02852259669c51f2a3902033043246b6d4fc40b6337b2f77b",
+            "bytes": 3968,
+            "retrieved_at": "2026-11-20T19:39:01.687995+00:00"
+          },
+          "model-00038-of-00064.safetensors": {
+            "sha256": "68997c9b319b4b6b7afa984981661919fcdd3cbfc61da3432165df1654c91892",
+            "bytes": 3968,
+            "retrieved_at": "2026-11-20T19:39:01.732238+00:00"
+          },
+          "model-00039-of-00064.safetensors": {
+            "sha256": "d387a6dc4c79574e74c4efc3f7c4e90f4875faf177e7f7651a66c64996663735",
+            "bytes": 3968,
+            "retrieved_at": "2026-11-20T19:39:01.736932+00:00"
+          },
+          "model-00040-of-00064.safetensors": {
+            "sha256": "7cbff3a6021c9a8f35f4cc575e7e0925f267175e1a2234ad7fe524ae10c81f75",
+            "bytes": 3376,
+            "retrieved_at": "2026-11-20T19:39:01.742253+00:00"
+          },
+          "model-00041-of-00064.safetensors": {
+            "sha256": "c719ee1bb73be332527a4abd3b0820d32c3bd7822c97233c0a45879c84966214",
+            "bytes": 3968,
+            "retrieved_at": "2026-11-20T19:39:01.784725+00:00"
+          },
+          "model-00042-of-00064.safetensors": {
+            "sha256": "c41d44c65c89e64714662b90a7e6f01295b69d9250b38dfb288d07a7bad3c762",
+            "bytes": 3968,
+            "retrieved_at": "2026-11-20T19:39:01.808238+00:00"
+          },
+          "model-00043-of-00064.safetensors": {
+            "sha256": "f3950884e1a77d4c252390bb738526e42f3d3981ef048f59892b14b5d573a238",
+            "bytes": 3968,
+            "retrieved_at": "2026-11-20T19:39:01.824320+00:00"
+          },
+          "model-00044-of-00064.safetensors": {
+            "sha256": "c9594b2556941b6474779a23fcad04d753e84650bef246feb4e1d874c4db6f5e",
+            "bytes": 3376,
+            "retrieved_at": "2026-11-20T19:39:01.830185+00:00"
+          },
+          "model-00045-of-00064.safetensors": {
+            "sha256": "3c35cfe322a0598bdccccfe351147d447acb6bc7505dcbcf852019a8b485ae87",
+            "bytes": 3968,
+            "retrieved_at": "2026-11-20T19:39:01.955108+00:00"
+          },
+          "model-00046-of-00064.safetensors": {
+            "sha256": "51dfa95d1ac75dac62c0695b83148aad1d433ea966d526679ceea7636eea2bd9",
+            "bytes": 3968,
+            "retrieved_at": "2026-11-20T19:39:01.984251+00:00"
+          },
+          "model-00047-of-00064.safetensors": {
+            "sha256": "8064a36ebf651b629b7b17be8c4b801c6bd60230b57bfd7c5d6cee485c741291",
+            "bytes": 3968,
+            "retrieved_at": "2026-11-20T19:39:02.046463+00:00"
+          },
+          "model-00048-of-00064.safetensors": {
+            "sha256": "b17e8ee352cb4c10f06205785c10c7eb5ececdb07a8740222be2662e53e979fe",
+            "bytes": 3376,
+            "retrieved_at": "2026-11-20T19:39:02.276665+00:00"
+          },
+          "model-00049-of-00064.safetensors": {
+            "sha256": "99162a23776c1a539bb16634b662d073e24536ec256f22b14a193b9e3e9f2fa5",
+            "bytes": 3968,
+            "retrieved_at": "2026-11-20T19:39:02.298693+00:00"
+          },
+          "model-00050-of-00064.safetensors": {
+            "sha256": "26e631b8cc7ec5f575f04865bdfe2e0b8817763133533c988a9b656b6c9784fd",
+            "bytes": 3968,
+            "retrieved_at": "2026-11-20T19:39:02.308312+00:00"
+          },
+          "model-00051-of-00064.safetensors": {
+            "sha256": "b7f2ba9ea91d68a65480a59f794195b0f4e33d17a1b5c1299f8c0f4066a28eea",
+            "bytes": 3968,
+            "retrieved_at": "2026-11-20T19:39:02.342668+00:00"
+          },
+          "model-00052-of-00064.safetensors": {
+            "sha256": "eaad83952b86b0c2b94e21d74594707e8295b93e0f7834c9963d15de484a2d61",
+            "bytes": 3376,
+            "retrieved_at": "2026-11-20T19:39:02.380528+00:00"
+          },
+          "model-00053-of-00064.safetensors": {
+            "sha256": "718779656f9c5be33195b7938dc1e4f9eb7c3d28e90c8668cf451b5d7d17f900",
+            "bytes": 3968,
+            "retrieved_at": "2026-11-20T19:39:02.382767+00:00"
+          },
+          "model-00054-of-00064.safetensors": {
+            "sha256": "9066c13f8635b970ce0d28bc26bea1b05212c1c2378a44dd6af798b86adfd20c",
+            "bytes": 3968,
+            "retrieved_at": "2026-11-20T19:39:02.446790+00:00"
+          },
+          "model-00055-of-00064.safetensors": {
+            "sha256": "96a0997cfa2f1a8744a36a032556b2b4073a3f06b9244b6181c67ed29f7fb14c",
+            "bytes": 3968,
+            "retrieved_at": "2026-11-20T19:39:02.537057+00:00"
+          },
+          "model-00056-of-00064.safetensors": {
+            "sha256": "eb17b94f1e1a63670f04ae3b1855c00fc0de59a647a1c6cea10835d141560d57",
+            "bytes": 3376,
+            "retrieved_at": "2026-11-20T19:39:02.567937+00:00"
+          },
+          "model-00057-of-00064.safetensors": {
+            "sha256": "0e880d95294da73f1b1a3c7442c5a19086a8c6d7dd37c9cbab214e34cc997a67",
+            "bytes": 3968,
+            "retrieved_at": "2026-11-20T19:39:02.636932+00:00"
+          },
+          "model-00058-of-00064.safetensors": {
+            "sha256": "5875dcc30cf7e385b0d24209efb969b55671492e57095b26c2d9697de0e4f3f4",
+            "bytes": 3568,
+            "retrieved_at": "2026-11-20T19:39:02.773187+00:00"
+          },
+          "model-00059-of-00064.safetensors": {
+            "sha256": "7362f81afdc876c26467f8b4b2dc2143d3313e4661a779a6960b488bee45e28f",
+            "bytes": 3568,
+            "retrieved_at": "2026-11-20T19:39:02.778315+00:00"
+          },
+          "model-00060-of-00064.safetensors": {
+            "sha256": "3cd0492be15f33951f3be64f477d4ffa4c03094a5f90385b082f715f726f6147",
+            "bytes": 3376,
+            "retrieved_at": "2026-11-20T19:39:02.845203+00:00"
+          },
+          "model-00061-of-00064.safetensors": {
+            "sha256": "a69845dbb6b4448b15c54130ed4006907e2e45270397c966a088d6f4a684c376",
+            "bytes": 3568,
+            "retrieved_at": "2026-11-20T19:39:02.865028+00:00"
+          },
+          "model-00062-of-00064.safetensors": {
+            "sha256": "46749ecf5bcd0ba4f602a870b1cfe82efe0bb10b05185dce929bf85b596dd0de",
+            "bytes": 3568,
+            "retrieved_at": "2026-11-20T19:39:02.877414+00:00"
+          },
+          "model-00063-of-00064.safetensors": {
+            "sha256": "a0e0b6268e8f8449f84a4e2457dea9411334be31a4093ac7a0aa02299805358a",
+            "bytes": 3568,
+            "retrieved_at": "2026-11-20T19:39:02.894639+00:00"
+          },
+          "model-00064-of-00064.safetensors": {
+            "sha256": "ecd5c227e711954fd59876e183f027021258d1c72e07eed64454c27ac3c0a0eb",
+            "bytes": 5040,
+            "retrieved_at": "2026-11-20T19:32:49.304613+00:00"
+          }
+        }
+      }
+    },
+    "N20-G31-QAT-CARD": {
+      "url": "https://huggingface.co/google/gemma-4-31B-it-qat-q4_0-unquantized/raw/1e4d8beecacb8b7590c1d8bedd7335f687bf311f/README.md",
+      "title": "Google Gemma 4 31B unquantized QAT model card",
+      "kind": "model card",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:29:16.842057+00:00",
+      "http_status": 200,
+      "response_sha256": "340965eb32c3eabc7bf7ec4a4849ccd063bcf6b5387f7019426ccd24135d9c4c",
+      "response_bytes": 29359,
+      "revision": "1e4d8beecacb8b7590c1d8bedd7335f687bf311f",
+      "claim": "Google defines unquantized QAT releases as half-precision weights and requires a matching QAT assistant at the same precision.",
+      "scope": "Publisher specification for the QAT recipe pairing. B300 execution unmeasured.",
+      "inspected_fields_or_lines": [
+        "26–32"
+      ]
+    },
+    "N20-G31-QAT-CFG": {
+      "url": "https://huggingface.co/google/gemma-4-31B-it-qat-q4_0-unquantized/raw/1e4d8beecacb8b7590c1d8bedd7335f687bf311f/config.json",
+      "title": "Google Gemma 4 31B unquantized QAT target configuration",
+      "kind": "pinned model configuration",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:29:16.832902+00:00",
+      "http_status": 200,
+      "response_sha256": "95b105ad23b315067985415e721ab9c19cfcf90918b34ea0fa479a08489d86b7",
+      "response_bytes": 4613,
+      "revision": "1e4d8beecacb8b7590c1d8bedd7335f687bf311f",
+      "claim": "The target declares bfloat16 and Gemma4ForConditionalGeneration with no quantization_config.",
+      "scope": "Serving reference only; distinct from the six cataloged target/export variants."
+    },
+    "N20-G31-QAT-DRAFT-CFG": {
+      "url": "https://huggingface.co/google/gemma-4-31B-it-qat-q4_0-unquantized-assistant/raw/96d4c8ca3cb38c107a8478587878124895d1e844/config.json",
+      "title": "Google Gemma 4 QAT assistant configuration",
+      "kind": "pinned draft model configuration",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:29:16.971344+00:00",
+      "http_status": 200,
+      "response_sha256": "ed05a080c2284a5c50847289ac7d280b98c695257be890bae7561b7ed440c654",
+      "response_bytes": 2357,
+      "revision": "96d4c8ca3cb38c107a8478587878124895d1e844",
+      "claim": "The QAT assistant declares Gemma4AssistantForCausalLM, bfloat16 and backbone_hidden_size=5376.",
+      "scope": "Reference for the SGLang target-specific assistant path."
+    },
+    "N20-G31-QAT-CT-CFG": {
+      "url": "https://huggingface.co/google/gemma-4-31B-it-qat-w4a16-ct/raw/52f3f65bc7a02d555763bc923bd1d9094898219d/config.json",
+      "title": "Google Gemma 4 31B packed INT4 QAT configuration",
+      "kind": "pinned model configuration",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:29:17.043520+00:00",
+      "http_status": 200,
+      "response_sha256": "b100d85e571c25b688e82919d819253063a1defb0e6cee3b9b1c1fbad99bd0c2",
+      "response_bytes": 18711,
+      "revision": "52f3f65bc7a02d555763bc923bd1d9094898219d",
+      "claim": "group_0 specifies pack-quantized symmetric four-bit integer weights with group size 32 and no input activation quantizer.",
+      "scope": "Publisher artifact format. The SGLang recipe selects the separately named unquantized QAT target.",
+      "inspected_fields_or_lines": [
+        "quantization_config.config_groups.group_0"
+      ]
+    },
+    "N20-QFN-RAD-GSM": {
+      "url": "https://huggingface.co/RadixArk/Qwen3.8-Flash-Next-NVFP4/raw/7b719225242aacd3dbd3f9407468c2ee9a9d2594/gsm8k_metrics.json",
+      "retrieved_at": "2026-11-20T19:32:50.508110+00:00",
+      "response_bytes": 869,
+      "response_sha256": "88766f7e1da1f8a7a8adb98ba3df94c4db6982af1176e35af12e223a81952a20",
+      "title": "RadixArk Qwen Flash Next gsm8k_metrics.json",
+      "kind": "publisher benchmark summary",
+      "accessed_on": "2026-11-20",
+      "http_status": 200,
+      "revision": "7b719225242aacd3dbd3f9407468c2ee9a9d2594",
+      "claim": "FP8-PLE alias, 1,319 examples, 1 repeat, 16 threads, score 0.9727065959059894.",
+      "scope": "Publisher result or qualification notes, interpreted together with the immutable model card. No local reproduction."
+    },
+    "N20-QFN-RAD-AIME": {
+      "url": "https://huggingface.co/RadixArk/Qwen3.8-Flash-Next-NVFP4/raw/7b719225242aacd3dbd3f9407468c2ee9a9d2594/aime26_metrics.json",
+      "retrieved_at": "2026-11-20T19:32:50.370398+00:00",
+      "response_bytes": 1062,
+      "response_sha256": "eb4acd8c64618dc36db5c909b05ead73d172f5fdc90c42b44685c77468032ae9",
+      "title": "RadixArk Qwen Flash Next aime26_metrics.json",
+      "kind": "publisher benchmark summary",
+      "accessed_on": "2026-11-20",
+      "http_status": 200,
+      "revision": "7b719225242aacd3dbd3f9407468c2ee9a9d2594",
+      "claim": "Alias without plefp8, 30 examples, 8 repeats, pass@1 0.9875. The card attributes this run to the preceding BF16-PLE artifact.",
+      "scope": "Publisher result or qualification notes, interpreted together with the immutable model card. No local reproduction."
+    },
+    "N20-QFN-RAD-NOTES": {
+      "url": "https://huggingface.co/RadixArk/Qwen3.8-Flash-Next-NVFP4/raw/7b719225242aacd3dbd3f9407468c2ee9a9d2594/qualification-notes.md",
+      "retrieved_at": "2026-11-20T19:32:50.230500+00:00",
+      "response_bytes": 3253,
+      "response_sha256": "8466e1895096cf524f51bd5e971ca89e08034ac5a5a78f5259d79172c2c1b7ab",
+      "title": "RadixArk Qwen Flash Next qualification-notes.md",
+      "kind": "publisher qualification note",
+      "accessed_on": "2026-11-20",
+      "http_status": 200,
+      "revision": "7b719225242aacd3dbd3f9407468c2ee9a9d2594",
+      "claim": "Explains revision boundary, loader requirement to apply PLE scale, and earlier BF16 baseline; text reports 32 GSM8K threads while raw JSON records 16.",
+      "scope": "Publisher result or qualification notes, interpreted together with the immutable model card. No local reproduction."
+    },
+    "N20-QFN-RAD-PLE-HEADERS": {
+      "url": "https://huggingface.co/api/models/RadixArk/Qwen3.8-Flash-Next-NVFP4/tree/7b719225242aacd3dbd3f9407468c2ee9a9d2594?recursive=true",
+      "retrieved_at": "2026-11-20T19:32:50.686465+00:00",
+      "response_bytes": 94619,
+      "response_sha256": "9a9a8b275c5bb2631f8726d3bc0f735fc5f3143e33959bd08f35e23931587ca9",
+      "title": "RadixArk Qwen Flash Next complete n-gram table header set",
+      "kind": "immutable Hub tree and safetensors header ranges",
+      "accessed_on": "2026-11-20",
+      "http_status": 200,
+      "revision": "7b719225242aacd3dbd3f9407468c2ee9a9d2594",
+      "claim": "Ten physical PLE shards contain all 128 numbered n-gram weights as F8_E4M3, each [2500012,160], with 51,200,245,760 weight payload bytes in total; separate BF16 scalar weight_scale shape [1].",
+      "scope": "Top-level hash/byte count identify the immutable Hub tree JSON. The individual hashes/lengths cover only the corresponding JSON headers after the eight-byte length prefix. No tensor values were downloaded.",
+      "header_files": [
+        {
+          "url": "https://huggingface.co/RadixArk/Qwen3.8-Flash-Next-NVFP4/resolve/7b719225242aacd3dbd3f9407468c2ee9a9d2594/model-plefp8-00000.safetensors",
+          "retrieved_at": "2026-11-20T19:32:49.304960+00:00",
+          "response_bytes": 2231,
+          "response_sha256": "f7a9c23ef7801202a21a27504b5c7b1c2e41fdfd6b9de8b3ad5649e675ff4587"
+        },
+        {
+          "url": "https://huggingface.co/RadixArk/Qwen3.8-Flash-Next-NVFP4/resolve/7b719225242aacd3dbd3f9407468c2ee9a9d2594/model-plefp8-00001.safetensors",
+          "retrieved_at": "2026-11-20T19:32:49.305050+00:00",
+          "response_bytes": 2234,
+          "response_sha256": "2ee6f589ff1f106293439aaa8505abb5c908400443b50b9b2f4ae02523050d5d"
+        },
+        {
+          "url": "https://huggingface.co/RadixArk/Qwen3.8-Flash-Next-NVFP4/resolve/7b719225242aacd3dbd3f9407468c2ee9a9d2594/model-plefp8-00002.safetensors",
+          "retrieved_at": "2026-11-20T19:32:49.305110+00:00",
+          "response_bytes": 2230,
+          "response_sha256": "cb8625bb7050650bcf679a5bd8a8d3bdd1444d5dc3d32f318fb8f80a63754dac"
+        },
+        {
+          "url": "https://huggingface.co/RadixArk/Qwen3.8-Flash-Next-NVFP4/resolve/7b719225242aacd3dbd3f9407468c2ee9a9d2594/model-plefp8-00003.safetensors",
+          "retrieved_at": "2026-11-20T19:32:49.305157+00:00",
+          "response_bytes": 2221,
+          "response_sha256": "840e83616e82ad05f4b82451f2c67c21e030ff02362f298b82711301f2268787"
+        },
+        {
+          "url": "https://huggingface.co/RadixArk/Qwen3.8-Flash-Next-NVFP4/resolve/7b719225242aacd3dbd3f9407468c2ee9a9d2594/model-plefp8-00004.safetensors",
+          "retrieved_at": "2026-11-20T19:32:49.305196+00:00",
+          "response_bytes": 2222,
+          "response_sha256": "9fd53ae738f9d247e55e332eb3ce8700a780f76034b042897ac032197fdbc6f0"
+        },
+        {
+          "url": "https://huggingface.co/RadixArk/Qwen3.8-Flash-Next-NVFP4/resolve/7b719225242aacd3dbd3f9407468c2ee9a9d2594/model-plefp8-00005.safetensors",
+          "retrieved_at": "2026-11-20T19:32:49.305229+00:00",
+          "response_bytes": 2222,
+          "response_sha256": "0e31233d36c6242b50879dc98732ae4f5ba8686d89399dfbaff214c2df3f9cef"
+        },
+        {
+          "url": "https://huggingface.co/RadixArk/Qwen3.8-Flash-Next-NVFP4/resolve/7b719225242aacd3dbd3f9407468c2ee9a9d2594/model-plefp8-00006.safetensors",
+          "retrieved_at": "2026-11-20T19:32:49.305271+00:00",
+          "response_bytes": 2222,
+          "response_sha256": "d1d66c9d1dd3d8e6c0b4705d15699167a02539d0e85fbde209c6f9c9fce3fb5e"
+        },
+        {
+          "url": "https://huggingface.co/RadixArk/Qwen3.8-Flash-Next-NVFP4/resolve/7b719225242aacd3dbd3f9407468c2ee9a9d2594/model-plefp8-00007.safetensors",
+          "retrieved_at": "2026-11-20T19:32:49.680615+00:00",
+          "response_bytes": 2222,
+          "response_sha256": "9afb413b2606c63ebd419e92fd36b40922397856ae437a9df63e6c1bfa545d9b"
+        },
+        {
+          "url": "https://huggingface.co/RadixArk/Qwen3.8-Flash-Next-NVFP4/resolve/7b719225242aacd3dbd3f9407468c2ee9a9d2594/model-plefp8-00008.safetensors",
+          "retrieved_at": "2026-11-20T19:32:49.680712+00:00",
+          "response_bytes": 2222,
+          "response_sha256": "939d0f5043f1459b79b1d3774c15778d18f86ce0bcb42111df00f6c6dadc74ea"
+        },
+        {
+          "url": "https://huggingface.co/RadixArk/Qwen3.8-Flash-Next-NVFP4/resolve/7b719225242aacd3dbd3f9407468c2ee9a9d2594/model-plefp8-00009.safetensors",
+          "retrieved_at": "2026-11-20T19:32:49.696253+00:00",
+          "response_bytes": 2033,
+          "response_sha256": "e0df50b7e0d82ccad1270d0bcb99a862f4b4591942ccea156054a8420ac001cc"
+        }
+      ]
+    },
+    "N20-IX-QFN-C12": {
+      "url": "https://github.com/SemiAnalysisAI/InferenceX/actions/runs/41117066222/artifacts/13022180371",
+      "title": "InferenceX AgentX B300 TP1 concurrency-12 result",
+      "kind": "upstream GitHub Actions artifact",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:29:17.366997+00:00",
+      "http_status": 200,
+      "response_sha256": "bf71b2ca3fa778509bb4d79928e234a28489710e8e28bf48777ed7ccdcc38d4c",
+      "response_bytes": 2500,
+      "scope": "Single synthetic-acceptance trajectory replay, cc-traces-weka-062126-256k. No matched no-draft or KServe control. Top-level hash and byte length identify the downloaded ZIP and match the GitHub digest. Member hashes identify the named uncompressed files.",
+      "claim": "2,422 profiled requests, 131 warm-up exclusions and zero errors. Mean output throughput 611.80198 tokens/s, p95 TTFT 0.83357 seconds and server GPU cache-hit fraction 0.95629.",
+      "revision": "d06564bc533cc54584ef6a35837336a2b4b84421",
+      "artifact_id": 13022180371,
+      "run_id": 41117066222,
+      "run_attempt": 1,
+      "metadata_url": "https://api.github.com/repos/SemiAnalysisAI/InferenceX/actions/artifacts/13022180371",
+      "download_url": "https://api.github.com/repos/SemiAnalysisAI/InferenceX/actions/artifacts/13022180371/zip",
+      "expires_at": "2027-01-28T19:39:47Z",
+      "inspected_archive_members": [
+        {
+          "name": "qwen3.8next_tp1_conc12_kvnone_spec-mtp_fp4_sglang_tp1-pp1-dcp1-pcp1-ep1-dpafalse_disagg-false_spec--f5cbf97d42f6daf25a6b.json",
+          "sha256": "e303ad00a1db319b195890c1450a994f4b92edb58500dbe7e585e9e288bc1910",
+          "bytes": 6539
+        }
+      ]
+    },
+    "N20-IX-QFN-EVAL": {
+      "url": "https://github.com/SemiAnalysisAI/InferenceX/actions/runs/41117066222/artifacts/13020857417",
+      "title": "InferenceX Qwen Flash Next GSM8K result collection",
+      "kind": "upstream GitHub Actions artifact",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:29:17.371054+00:00",
+      "http_status": 200,
+      "response_sha256": "630923d4aaef37fb2403f56d83db89669b226a8a71860b3ba792b065129d3d2b",
+      "response_bytes": 785,
+      "scope": "GSM8K on other concurrency/cache settings. The archive contains no c12 tool-quality result. Top-level hash and byte length identify the downloaded ZIP and match the GitHub digest. Member hashes identify the named uncompressed files.",
+      "claim": "Two TP1 GSM8K quality records (concurrency 2 GPU-only and 80 HiCache), each n=1,319, strict exact match 0.9772554965883244.",
+      "revision": "d06564bc533cc54584ef6a35837336a2b4b84421",
+      "artifact_id": 13020857417,
+      "run_id": 41117066222,
+      "run_attempt": 1,
+      "metadata_url": "https://api.github.com/repos/SemiAnalysisAI/InferenceX/actions/artifacts/13020857417",
+      "download_url": "https://api.github.com/repos/SemiAnalysisAI/InferenceX/actions/artifacts/13020857417/zip",
+      "expires_at": "2027-01-28T19:39:47Z",
+      "inspected_archive_members": [
+        {
+          "name": "agg_eval_all.json",
+          "sha256": "85f0a35bb0f6893fc0637c686193df97695c797f0e199bcd93137902fb0f6387",
+          "bytes": 2688
+        }
+      ]
+    },
+    "N20-IX-QFN-SUBMISSION": {
+      "url": "https://github.com/SemiAnalysisAI/InferenceX/actions/runs/41117066222/artifacts/13022100608",
+      "title": "InferenceX AgentX B300 c12 submission, worker fingerprint and benchmark log",
+      "kind": "upstream GitHub Actions artifact",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:29:19.706711+00:00",
+      "http_status": 200,
+      "response_sha256": "5fec88ad8ce06a32317088df270ba998b27862e8c79bb12d93cf57fe4e40d8ad",
+      "response_bytes": 14325669,
+      "scope": "Selected upstream archive members. An observed package version identifies the serving build reported by this worker, without attesting the entire container source or image layers. Top-level hash and byte length identify the downloaded ZIP and match the GitHub digest. Member hashes identify the named uncompressed files.",
+      "claim": "The Slurm submission injects SGLANG_SIMULATE_ACC_LEN=2.32, SGLANG_SIMULATE_ACC_METHOD=match-expected and SGLANG_SIMULATE_ACC_TOKEN_MODE=real-draft-token. Worker fingerprint reports one B300 SXM6 AC, 275040 MiB, driver 580.159.03, CUDA compiler 13.0.88 and installed sglang 0.0.0.dev1+g586355a83. AIPerf log names dataset revision 8fecd2fc56694469f758f0afbbb6335ad3043740. Server log confirms the fc694b54fb0174e0913e6adf86691ef85a4ead47 local model snapshot, FP8 E4M3 target and draft KV pools, BF16 QSA compressed-indexer pools and FlashInfer GDN prefill/decode with Triton verify. The AIPerf client command targets a benchmark frontend on port 8000.",
+      "revision": "d06564bc533cc54584ef6a35837336a2b4b84421",
+      "artifact_id": 13022100608,
+      "run_id": 41117066222,
+      "run_attempt": 1,
+      "metadata_url": "https://api.github.com/repos/SemiAnalysisAI/InferenceX/actions/artifacts/13022100608",
+      "download_url": "https://api.github.com/repos/SemiAnalysisAI/InferenceX/actions/artifacts/13022100608/zip",
+      "expires_at": "2027-01-28T19:39:47Z",
+      "inspected_archive_members": [
+        {
+          "name": "srt-single-node-submission.json",
+          "sha256": "5b9dfdce282be68c9d2b94955bec8020ebdac1d475620d773fea8d71fcd291e7",
+          "bytes": 2165
+        },
+        {
+          "name": "results/benchmark.log",
+          "sha256": "a2589f8d2bd9c9344016f057c3e7a0ed5c7613d2e3c226eab922ba7bfbb1f937",
+          "bytes": 386819
+        },
+        {
+          "name": "srt-single-node-logs.tar.gz",
+          "sha256": "822a8c8703885171aee65ab9371b0a846048f4e11fac7d4d32ed40287830f475",
+          "bytes": 17957404,
+          "inspected_members": [
+            {
+              "name": "./logs/fingerprint_agg_w0.json",
+              "sha256": "dfcc3af654b3a9720945169900a6ab2c7c558a6747ad83d0a3433401f2e65a32",
+              "bytes": 38693
+            },
+            {
+              "name": "./logs/dsxe-sa-b300-prd0-gpu-04_agg_w0.out",
+              "bytes": 9300655,
+              "sha256": "d4050fd8769e92d954de7b1492cbe3d55ca954594297b74ee5654e4ba3d6de2a"
+            }
+          ]
+        }
+      ]
+    },
+    "N20-S-KV-DTYPE": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/297e54fd105e974cdf401e5b4d20253a22c16f90/python/sglang/srt/mem_cache/kv_cache_dtype.py",
+      "title": "SGLang v0.5.23 automatic KV dtype resolution",
+      "kind": "immutable engine source",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:37:57Z",
+      "http_status": 200,
+      "response_sha256": "1b4d5b1f6adf6f39bf364439c3a7c9ba4ebbb5b4d6e4b795a5a0ba39d2c561bb",
+      "response_bytes": 4255,
+      "claim": "On CUDA, auto uses torch.float8_e4m3fn when the loaded quantization configuration reports FP8, otherwise the model dtype."
+    },
+    "N20-S-KV-COMPRESSED": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/297e54fd105e974cdf401e5b4d20253a22c16f90/python/sglang/srt/layers/quantization/compressed_tensors/compressed_tensors.py",
+      "title": "SGLang v0.5.23 compressed-tensors FP8 KV eligibility",
+      "kind": "immutable engine source",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:37:57Z",
+      "http_status": 200,
+      "response_sha256": "f424d46508aa0505b0759ccac00fdeef9d47f47db391836004588a768c9454b5",
+      "response_bytes": 59419,
+      "claim": "The loader exposes FP8 for static symmetric per-tensor eight-bit float KV in the export. The Qwen 27B Red Hat variant declares this scheme."
+    },
+    "N20-S-Q35-WRAPPER": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/297e54fd105e974cdf401e5b4d20253a22c16f90/python/sglang/srt/models/qwen3_5.py",
+      "title": "SGLang v0.5.23 Qwen3_5ForConditionalGeneration parent initialization",
+      "kind": "immutable engine source",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:37:57Z",
+      "http_status": 200,
+      "response_sha256": "4286f5c06863de826d67f9519611a4803f4ea621c2fc2d13bfdac0a5cc674b19",
+      "response_bytes": 122727,
+      "claim": "The Qwen 3.8 27B export architecture passes the target quantization config to Qwen3VLForConditionalGeneration."
+    },
+    "N20-S-QVL-WRAPPER": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/297e54fd105e974cdf401e5b4d20253a22c16f90/python/sglang/srt/models/qwen3_vl.py",
+      "title": "SGLang v0.5.23 Qwen3VLForConditionalGeneration quantization argument",
+      "kind": "immutable engine source",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:37:57Z",
+      "http_status": 200,
+      "response_sha256": "b104ff75c794011e45679493abbbf6b00b8cb3cf972184ff0f17daa582ad7e8d",
+      "response_bytes": 70882,
+      "claim": "The parent retains the quant_config attribute consulted by the KV resolver."
+    },
+    "N20-S-KV-FIELD": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/297e54fd105e974cdf401e5b4d20253a22c16f90/python/sglang/srt/arg_groups/fields/model.py",
+      "title": "SGLang v0.5.23 KV storage flag and default",
+      "kind": "immutable engine source",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:37:57Z",
+      "http_status": 200,
+      "response_sha256": "1dc3666aa23ad1da15e7417e397025348bdfa6d517898b2ebcd9fee1ebb84e44",
+      "response_bytes": 16638,
+      "claim": "kv_cache_dtype defaults to auto. Explicit bfloat16 and fp8_e4m3 are accepted values."
+    },
+    "N20-FI072-FMHA-ARTIFACT": {
+      "url": "https://raw.githubusercontent.com/flashinfer-ai/flashinfer/d84335d8c54e0c8f9f7e22faa15c7e34a58abf94/flashinfer/artifacts.py",
+      "revision": "d84335d8c54e0c8f9f7e22faa15c7e34a58abf94",
+      "retrieved_at": "2026-11-20T19:36:41+00:00",
+      "http_status": 200,
+      "response_sha256": "48e1f6b5e73d01f0ae7482224195eab33b5eda408eece5e3f7a407dc39c51d7a",
+      "response_bytes": 20063,
+      "immutable_url": "https://raw.githubusercontent.com/flashinfer-ai/flashinfer/d84335d8c54e0c8f9f7e22faa15c7e34a58abf94/flashinfer/artifacts.py",
+      "accessed_on": "2026-11-20",
+      "title": "FlashInfer v0.7.2 flashinfer/artifacts.py",
+      "kind": "tagged source inspection",
+      "claim": "FlashInfer 0.7.2 and 0.7.0.post1 name the same TRTLLM_GEN_FMHA directory, 2d6a5a029eefcc388ec0ceb87efb55d8bcce5c3c/fmha/trtllm-gen/, and expected checksums.txt hash d79b5c51fc8597fac57dae0da4afa114fb2014575e4ec3df099ad856d97cabc3.",
+      "compared_with": {
+        "release": "v0.7.0.post1",
+        "url": "https://raw.githubusercontent.com/flashinfer-ai/flashinfer/946200de1ae94fc93fdd0926f0a13afd1fa7f0f1/flashinfer/artifacts.py",
+        "revision": "946200de1ae94fc93fdd0926f0a13afd1fa7f0f1",
+        "retrieved_at": "2026-11-20T19:36:41+00:00",
+        "http_status": 200,
+        "response_sha256": "51e7949fb6d98d5548e76143e422dbe3092f0112835c4736e28b250ccaa84fab",
+        "response_bytes": 13978
+      }
+    },
+    "N20-FI072-SPARSE-SELECTOR": {
+      "url": "https://raw.githubusercontent.com/flashinfer-ai/flashinfer/d84335d8c54e0c8f9f7e22faa15c7e34a58abf94/include/flashinfer/trtllm/fmha/fmhaKernels.cuh",
+      "revision": "d84335d8c54e0c8f9f7e22faa15c7e34a58abf94",
+      "retrieved_at": "2026-11-20T19:36:42+00:00",
+      "http_status": 200,
+      "response_sha256": "7f2ea5116d4929cfb5350614671c7524da29df49db969f668d2e672bc5c0369c",
+      "response_bytes": 75955,
+      "immutable_url": "https://raw.githubusercontent.com/flashinfer-ai/flashinfer/d84335d8c54e0c8f9f7e22faa15c7e34a58abf94/include/flashinfer/trtllm/fmha/fmhaKernels.cuh",
+      "accessed_on": "2026-11-20",
+      "title": "FlashInfer v0.7.2 include/flashinfer/trtllm/fmha/fmhaKernels.cuh",
+      "kind": "tagged source inspection",
+      "claim": "selectSparseMlaGenerationKernel selects KeepsMmaAb with tileSizeQ 64 for 64 query heads per KV head; the special two-CTA branch requires 128 heads. The 64-head branch matches 0.7.0.post1. This is dispatch evidence, not a runtime corruption reproduction.",
+      "compared_with": {
+        "release": "v0.7.0.post1",
+        "url": "https://raw.githubusercontent.com/flashinfer-ai/flashinfer/946200de1ae94fc93fdd0926f0a13afd1fa7f0f1/include/flashinfer/trtllm/fmha/fmhaKernels.cuh",
+        "revision": "946200de1ae94fc93fdd0926f0a13afd1fa7f0f1",
+        "retrieved_at": "2026-11-20T19:36:42+00:00",
+        "http_status": 200,
+        "response_sha256": "569ef1734e1db60050f5d4a9f029cd1f5a40cdd71677135bd408b52fdf30c3c7",
+        "response_bytes": 74667
+      }
+    },
+    "AA-WB-MODEL-GEMINI-4-CARBON-20261029225211": {
+      "url": "https://web.archive.org/web/20261029225211id_/https://artificialanalysis.ai/models/gemini-4-carbon",
+      "title": "Internet Archive capture of the AA Gemini 4 Carbon model page (2026-10-29T22:52:11Z)",
+      "kind": "archived third-party benchmark page",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:40:08.933884+00:00",
+      "http_status": 200,
+      "response_sha256": "7f694aaf5fb833f2ab4b44753053747153b7db67c2c8737db75ae0da91fbf7e2",
+      "response_bytes": 584872,
+      "capture": "SHA-256 covers the gzip-encoded body of the raw id_ response.",
+      "claim": "AA v5.0 records composites for GLM 5.3 Flash, Kimi K3 Low, and Qwen 3.8 27B Low and Medium by 22:52:11 UTC on October 29."
+    },
+    "N20-S-K31-CAPACITY": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/9fc0e2a6ba197f19f00165327adbb7c48cdf8281/docs/src/snippets/_kimi_k31_mamba_ratio_calculator.jsx",
+      "immutable_url": "https://raw.githubusercontent.com/sgl-project/sglang/9fc0e2a6ba197f19f00165327adbb7c48cdf8281/docs/src/snippets/_kimi_k31_mamba_ratio_calculator.jsx",
+      "title": "SGLang Kimi K3.1 Pro cache and KDA capacity calculator",
+      "kind": "source inspected",
+      "revision": "9fc0e2a6ba197f19f00165327adbb7c48cdf8281",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:38:41+00:00",
+      "http_status": 200,
+      "response_sha256": "a85f0eee5c3068d26f76d8e45fe784bc9ab922f3440a811e30413cd8e8e5ff4b",
+      "response_bytes": 15576,
+      "claim": "With speculation off, the calculator uses 24*(mlaBytes+132)/dcp bytes per token per rank; mlaBytes is 656 for flashmla_kv, otherwise 576."
+    },
+    "N20-S-K31-AGENTX": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/9fc0e2a6ba197f19f00165327adbb7c48cdf8281/docs/src/snippets/agentx/moonshotai/kimi-k3.1-pro.jsx",
+      "immutable_url": "https://raw.githubusercontent.com/sgl-project/sglang/9fc0e2a6ba197f19f00165327adbb7c48cdf8281/docs/src/snippets/agentx/moonshotai/kimi-k3.1-pro.jsx",
+      "title": "SGLang Kimi K3.1 Pro AgentX cookbook data",
+      "kind": "source inspected",
+      "revision": "9fc0e2a6ba197f19f00165327adbb7c48cdf8281",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:38:41+00:00",
+      "http_status": 200,
+      "response_sha256": "d5bcb1f185872eb3eeb3785b85b0862e31ce6c8f0e29c495a742285982a1608d",
+      "response_bytes": 146893,
+      "claim": "The native aggregated B300 submission names a digest-pinned development image, the RadixArk DFlash2 preview and synthetic acceptance length 3.68–3.25 across concurrency points."
+    },
+    "N20-IX-K31-B300": {
+      "url": "https://raw.githubusercontent.com/SemiAnalysisAI/InferenceX/a56a78bfde268ce3773dedd1dc450caf4c5392e2/inferencex-e2e/benchmarks/single_node/srt-slurm-recipes/kimik3.1/sglang/b300-fp4-mtp/agentic.yaml",
+      "immutable_url": "https://raw.githubusercontent.com/SemiAnalysisAI/InferenceX/a56a78bfde268ce3773dedd1dc450caf4c5392e2/inferencex-e2e/benchmarks/single_node/srt-slurm-recipes/kimik3.1/sglang/b300-fp4-mtp/agentic.yaml",
+      "title": "InferenceX B300 Kimi K3.1 Pro SGLang AgentX recipe",
+      "kind": "source inspected",
+      "revision": "a56a78bfde268ce3773dedd1dc450caf4c5392e2",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:39:32+00:00",
+      "http_status": 200,
+      "response_sha256": "5f0ecee9273c9fa9116ad06d2b8177c9a777d36447481544c28c577547566674",
+      "response_bytes": 6160,
+      "claim": "Native TP8 with RadixArk DFlash2, host HiCache, explicit DCP8/EP2 from concurrency 24. The benchmark overrides width and admission with concurrency; no target/draft Hub revision given.",
+      "workflow_attempt": {
+        "url": "https://api.github.com/repos/SemiAnalysisAI/InferenceX/actions/runs/41932307764/attempts/1",
+        "html_url": "https://github.com/SemiAnalysisAI/InferenceX/actions/runs/41932307764",
+        "head_sha": "a56a78bfde268ce3773dedd1dc450caf4c5392e2",
+        "conclusion": "success",
+        "updated_at": "2026-11-05T03:14:30Z"
+      }
+    },
+    "N20-K-MASTER-DEPS": {
+      "url": "https://raw.githubusercontent.com/kserve/kserve/30da28a7b26041f396736276f4e66d7a97009c60/kserve-deps.env",
+      "title": "KServe November 20 master installer dependency pins",
+      "kind": "immutable upstream controller configuration",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:39:30Z",
+      "http_status": 200,
+      "response_sha256": "0e2c396d4c5331f829880937342db9dac84a3b56fec1afe3ee04226f0e0368b9",
+      "response_bytes": 1346,
+      "claim": "LWS 1.0.0, Gateway API and inference extension 1.6.2, llm-d router 1.0.0, KEDA 2.20.2."
+    },
+    "N20-K-MASTER-VLLM-TEMPLATE": {
+      "url": "https://raw.githubusercontent.com/kserve/kserve/30da28a7b26041f396736276f4e66d7a97009c60/config/llmisvcconfig/config-llm-template.yaml",
+      "title": "KServe November 20 master base vLLM template",
+      "kind": "immutable upstream controller configuration",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:39:30Z",
+      "http_status": 200,
+      "response_sha256": "322139a829f5977bf549d0831b26c560040484ae5543a1c5755c562404a481f8",
+      "response_bytes": 15370,
+      "claim": "This branch template still names ghcr.io/llm-d/llm-d-cuda:v0.9.0 and calls vllm serve in its main container command."
+    },
+    "V034-MISTRAL-CONFIG-TRANSLATION": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/62d4bc3c7e33b1b6c906e233e6af2d3506c482ca/vllm/transformers_utils/configs/mistral.py",
+      "title": "V034 MISTRAL CONFIG TRANSLATION",
+      "kind": "upstream engine implementation",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:30:57Z",
+      "revision": "62d4bc3c7e33b1b6c906e233e6af2d3506c482ca",
+      "immutable_url": "https://raw.githubusercontent.com/vllm-project/vllm/62d4bc3c7e33b1b6c906e233e6af2d3506c482ca/vllm/transformers_utils/configs/mistral.py",
+      "capture": "upstream engine implementation.",
+      "claim": "Native Mistral schema maps DSA with MLA and MoE to the Large4 text class. Its Pixtral wrapper nests the text configuration when vision parameters are present.",
+      "scope": "Native Mistral schema maps DSA with MLA and MoE to the Large4 text class. Its Pixtral wrapper nests the text configuration when vision parameters are present.",
+      "response_sha256": "26f9ee2c3c572386a744a58f1e9ff1fc5a2807a3c1a7827d6f6ee3d623e7e1ea"
+    },
+    "V034-PIXTRAL-DELEGATION": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/62d4bc3c7e33b1b6c906e233e6af2d3506c482ca/vllm/model_executor/models/pixtral.py",
+      "title": "V034 PIXTRAL DELEGATION",
+      "kind": "upstream engine implementation",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:30:57Z",
+      "revision": "62d4bc3c7e33b1b6c906e233e6af2d3506c482ca",
+      "immutable_url": "https://raw.githubusercontent.com/vllm-project/vllm/62d4bc3c7e33b1b6c906e233e6af2d3506c482ca/vllm/model_executor/models/pixtral.py",
+      "capture": "upstream engine implementation.",
+      "claim": "Pixtral constructs the registered language model from text_config and delegates language-model weights. This is the release loader path for multimodal native Mistral Large 4.",
+      "scope": "Pixtral constructs the registered language model from text_config and delegates language-model weights. This is the release loader path for multimodal native Mistral Large 4.",
+      "response_sha256": "9da621ee16017db4fc6f1b0aeff08c042ae799c9de730f2afebd3349f2e12c46"
+    },
+    "V034-ML4-ATTENTION-CACHE": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/62d4bc3c7e33b1b6c906e233e6af2d3506c482ca/vllm/models/mistral/nvidia/attention.py",
+      "title": "V034 ML4 ATTENTION CACHE",
+      "kind": "upstream engine implementation",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:30:57Z",
+      "revision": "62d4bc3c7e33b1b6c906e233e6af2d3506c482ca",
+      "immutable_url": "https://raw.githubusercontent.com/vllm-project/vllm/62d4bc3c7e33b1b6c906e233e6af2d3506c482ca/vllm/models/mistral/nvidia/attention.py",
+      "capture": "upstream engine implementation.",
+      "claim": "NoPE owner layers zero-pad the rotary component in memory, readers skip cache ownership. With 512 latent+64 rotary this gives 63 equal-width rows in this checkpoint.",
+      "scope": "NoPE owner layers zero-pad the rotary component in memory, readers skip cache ownership. With 512 latent+64 rotary this gives 63 equal-width rows in this checkpoint.",
+      "response_sha256": "61eee46d7adb76ef565ddd0296c7df3c356d671c374a82022981e9953f2a8be1"
+    },
+    "V034-ML4-INDEXER-CACHE": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/62d4bc3c7e33b1b6c906e233e6af2d3506c482ca/vllm/models/mistral/nvidia/indexer.py",
+      "title": "V034 ML4 INDEXER CACHE",
+      "kind": "upstream engine implementation",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:30:57Z",
+      "revision": "62d4bc3c7e33b1b6c906e233e6af2d3506c482ca",
+      "immutable_url": "https://raw.githubusercontent.com/vllm-project/vllm/62d4bc3c7e33b1b6c906e233e6af2d3506c482ca/vllm/models/mistral/nvidia/indexer.py",
+      "capture": "upstream engine implementation.",
+      "claim": "FP8 indexer keys have 128 data bytes and one 4-byte scale per cached token. The index cache has max_tp_shards=1.",
+      "scope": "FP8 indexer keys have 128 data bytes and one 4-byte scale per cached token. The index cache has max_tp_shards=1.",
+      "response_sha256": "5faa9d2222a694f8786831f06a49c3859cf27e4c80f255347fe3976332dc447a"
+    },
+    "V034-FLASHMLA-CACHE-ROW": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/62d4bc3c7e33b1b6c906e233e6af2d3506c482ca/vllm/v1/attention/backend.py",
+      "title": "V034 FLASHMLA CACHE ROW",
+      "kind": "upstream engine implementation",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:33:03Z",
+      "revision": "62d4bc3c7e33b1b6c906e233e6af2d3506c482ca",
+      "immutable_url": "https://raw.githubusercontent.com/vllm-project/vllm/62d4bc3c7e33b1b6c906e233e6af2d3506c482ca/vllm/v1/attention/backend.py",
+      "capture": "upstream engine implementation.",
+      "claim": "FlashMLA cache head dimension is 656 bytes for fp8_ds_mla, or c_kv_cache shape for other dtypes.",
+      "scope": "FlashMLA cache head dimension is 656 bytes for fp8_ds_mla, or c_kv_cache shape for other dtypes.",
+      "response_sha256": "cb68440245b012fa6121d19033d75935121033d22697799ae9577dde9002be7d"
+    },
+    "V034-SPARSE-FLASHMLA-LAYOUT": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/62d4bc3c7e33b1b6c906e233e6af2d3506c482ca/vllm/v1/attention/backends/mla/flashmla_sparse.py",
+      "title": "V034 SPARSE FLASHMLA LAYOUT",
+      "kind": "upstream engine implementation",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:31:32Z",
+      "revision": "62d4bc3c7e33b1b6c906e233e6af2d3506c482ca",
+      "immutable_url": "https://raw.githubusercontent.com/vllm-project/vllm/62d4bc3c7e33b1b6c906e233e6af2d3506c482ca/vllm/v1/attention/backends/mla/flashmla_sparse.py",
+      "capture": "upstream engine implementation.",
+      "claim": "Sparse FlashMLA uses a 656-byte FP8 row with four FP32 scales and 64 BF16 rotary values; distinguishes FP8 layout and dtype requirements.",
+      "scope": "Sparse FlashMLA uses a 656-byte FP8 row with four FP32 scales and 64 BF16 rotary values; distinguishes FP8 layout and dtype requirements.",
+      "response_sha256": "f1abcd22130b8685b9251bb5129971e1b8e6541dd2abb4bf3d316d3d0d150220"
+    },
+    "V034-ML4-SSMAX": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/62d4bc3c7e33b1b6c906e233e6af2d3506c482ca/vllm/models/mistral/nvidia/ssmax.py",
+      "title": "V034 ML4 SSMAX",
+      "kind": "upstream engine implementation",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:31:33Z",
+      "revision": "62d4bc3c7e33b1b6c906e233e6af2d3506c482ca",
+      "immutable_url": "https://raw.githubusercontent.com/vllm-project/vllm/62d4bc3c7e33b1b6c906e233e6af2d3506c482ca/vllm/models/mistral/nvidia/ssmax.py",
+      "capture": "upstream engine implementation.",
+      "claim": "Per-head query scaling uses q times (s times log(position+1) plus b).",
+      "scope": "Per-head query scaling uses q times (s times log(position+1) plus b).",
+      "response_sha256": "9cc387c4d9643f851db3ca4790bcb15f0d3303de80d2947f06db46da74964083"
+    },
+    "V034-ML4-LEROPE": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/62d4bc3c7e33b1b6c906e233e6af2d3506c482ca/vllm/models/mistral/common/rope.py",
+      "title": "V034 ML4 LEROPE",
+      "kind": "upstream engine implementation",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:31:33Z",
+      "revision": "62d4bc3c7e33b1b6c906e233e6af2d3506c482ca",
+      "immutable_url": "https://raw.githubusercontent.com/vllm-project/vllm/62d4bc3c7e33b1b6c906e233e6af2d3506c482ca/vllm/models/mistral/common/rope.py",
+      "capture": "upstream engine implementation.",
+      "claim": "YaRN interpolated and extrapolated inverse frequencies receive shared exp(alpha) scaling. The ramp remains defined using unscaled frequencies.",
+      "scope": "YaRN interpolated and extrapolated inverse frequencies receive shared exp(alpha) scaling. The ramp remains defined using unscaled frequencies.",
+      "response_sha256": "839dc7c38c663efe34b41080ff7be7b04e180440e9501ed255eb6f4c39c5a931"
+    },
+    "V034-HF-CONFIG-RESOLUTION": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/62d4bc3c7e33b1b6c906e233e6af2d3506c482ca/vllm/transformers_utils/config.py",
+      "title": "V034 HF CONFIG RESOLUTION",
+      "kind": "upstream engine implementation",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:26:18Z",
+      "revision": "62d4bc3c7e33b1b6c906e233e6af2d3506c482ca",
+      "immutable_url": "https://raw.githubusercontent.com/vllm-project/vllm/62d4bc3c7e33b1b6c906e233e6af2d3506c482ca/vllm/transformers_utils/config.py",
+      "capture": "upstream engine implementation.",
+      "claim": "Auto config uses native Mistral only for a Mistral weight layout, selecting HF config for an export without consolidated shards.",
+      "scope": "Auto config uses native Mistral only for a Mistral weight layout, selecting HF config for an export without consolidated shards.",
+      "response_sha256": "11c4262a91308fe6c6cd2442297f60b51bb726fbd6db71bce9157f228b5e362c"
+    },
+    "V034-MISTRAL-LAYOUT": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/62d4bc3c7e33b1b6c906e233e6af2d3506c482ca/vllm/transformers_utils/repo_utils.py",
+      "title": "V034 MISTRAL LAYOUT",
+      "kind": "upstream engine implementation",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:30:57Z",
+      "revision": "62d4bc3c7e33b1b6c906e233e6af2d3506c482ca",
+      "immutable_url": "https://raw.githubusercontent.com/vllm-project/vllm/62d4bc3c7e33b1b6c906e233e6af2d3506c482ca/vllm/transformers_utils/repo_utils.py",
+      "capture": "upstream engine implementation.",
+      "claim": "Mistral-native layout detection requires consolidated*.safetensors. An HF-only export retains params.json but fails this layout predicate.",
+      "scope": "Mistral-native layout detection requires consolidated*.safetensors. An HF-only export retains params.json but fails this layout predicate.",
+      "response_sha256": "2a2b866c84922dd8b7db4653e0e18a266b1fe876faabcc8704e44ebe46cf3a20"
+    },
+    "V034-MISTRAL-TOKENIZER": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/62d4bc3c7e33b1b6c906e233e6af2d3506c482ca/vllm/tokenizers/registry.py",
+      "title": "V034 MISTRAL TOKENIZER",
+      "kind": "upstream engine implementation",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:30:57Z",
+      "revision": "62d4bc3c7e33b1b6c906e233e6af2d3506c482ca",
+      "immutable_url": "https://raw.githubusercontent.com/vllm-project/vllm/62d4bc3c7e33b1b6c906e233e6af2d3506c482ca/vllm/tokenizers/registry.py",
+      "capture": "upstream engine implementation.",
+      "claim": "Tokenizer backend mode resolves in registry, allowing explicit hf for the mixed export and mistral for native artifacts.",
+      "scope": "Tokenizer backend mode resolves in registry, allowing explicit hf for the mixed export and mistral for native artifacts.",
+      "response_sha256": "61ee47bc6aa90e7890006bb3b33518f6c81de30015cb1a15e7cd37e7787efbd0"
+    },
+    "V034-ADAPTIVE-TP": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/62d4bc3c7e33b1b6c906e233e6af2d3506c482ca/vllm/v1/worker/gpu/spec_decode/adaptive_verification.py",
+      "title": "V034 ADAPTIVE TP",
+      "kind": "upstream engine implementation",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:33:03Z",
+      "revision": "62d4bc3c7e33b1b6c906e233e6af2d3506c482ca",
+      "immutable_url": "https://raw.githubusercontent.com/vllm-project/vllm/62d4bc3c7e33b1b6c906e233e6af2d3506c482ca/vllm/v1/worker/gpu/spec_decode/adaptive_verification.py",
+      "capture": "upstream engine implementation.",
+      "claim": "Calibration curves are synchronized, but per-step token budgets and per-request capacities are computed per rank without a rank-zero broadcast in v0.34.0.",
+      "scope": "Calibration curves are synchronized, but per-step token budgets and per-request capacities are computed per rank without a rank-zero broadcast in v0.34.0.",
+      "response_sha256": "f907b646cc23a7810238bd93eb623029b57b3515112aac285688d84e2c86a05a"
+    },
+    "N20-V-MAIN-ADAPTIVE-TP": {
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/0aa2bb19496d9252c0dd7f8d1c0d073fc634d471/vllm/v1/worker/gpu/spec_decode/adaptive_verification.py",
+      "title": "N20 V MAIN ADAPTIVE TP",
+      "kind": "upstream engine implementation",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:33:03Z",
+      "revision": "0aa2bb19496d9252c0dd7f8d1c0d073fc634d471",
+      "immutable_url": "https://raw.githubusercontent.com/vllm-project/vllm/0aa2bb19496d9252c0dd7f8d1c0d073fc634d471/vllm/v1/worker/gpu/spec_decode/adaptive_verification.py",
+      "capture": "upstream engine implementation.",
+      "claim": "TP rank zero broadcasts adaptive verification per-step token budgets and per-request draft capacities after #62769.",
+      "scope": "TP rank zero broadcasts adaptive verification per-step token budgets and per-request draft capacities after #62769.",
+      "response_sha256": "2fd8fac1801dd8dca8cc55d488bb8ed6a21dbf4cdb999b5b95fbdf0e26eb6e0f"
+    },
+    "V034-ML4-BACKPORT": {
+      "url": "https://api.github.com/repos/vllm-project/vllm/commits/fa87f894e96e41e126ebea8d36f39c2a41a52c54",
+      "title": "vLLM release-branch cherry-pick for Mistral Large 4",
+      "kind": "immutable upstream engine commit",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:39:39Z",
+      "revision": "fa87f894e96e41e126ebea8d36f39c2a41a52c54",
+      "immutable_url": "https://api.github.com/repos/vllm-project/vllm/commits/fa87f894e96e41e126ebea8d36f39c2a41a52c54",
+      "capture": "immutable upstream engine commit.",
+      "claim": "Cherry-pick #67568 installed the Large 4 implementation into releases/v0.34.0 on November 13. The original main merge #64534 has a separate SHA.",
+      "scope": "Cherry-pick #67568 installed the Large 4 implementation into releases/v0.34.0 on November 13. The original main merge #64534 has a separate SHA.",
+      "response_sha256": "c89c60e66d8b974ae49004e86ec32114ac7e70a1d83dc47ea7643f698a10d964"
+    },
+    "V034-COMPARE-ADAPTIVE-TP": {
+      "url": "https://api.github.com/repos/vllm-project/vllm/compare/80ac42b811ffea9dd8f2d2b1ea67beab5e20f7cf...62d4bc3c7e33b1b6c906e233e6af2d3506c482ca?per_page=1",
+      "title": "vLLM ancestry of adaptive TP consensus relative to 62d4bc3c",
+      "kind": "immutable upstream engine comparison",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:39:39Z",
+      "revision": "62d4bc3c7e33b1b6c906e233e6af2d3506c482ca",
+      "immutable_url": "https://api.github.com/repos/vllm-project/vllm/compare/80ac42b811ffea9dd8f2d2b1ea67beab5e20f7cf...62d4bc3c7e33b1b6c906e233e6af2d3506c482ca?per_page=1",
+      "capture": "immutable upstream engine comparison.",
+      "claim": "GitHub compare from the #62769 merge commit to 62d4bc3c was diverged, 25 ahead and 196 behind.",
+      "scope": "GitHub compare from the #62769 merge commit to 62d4bc3c was diverged, 25 ahead and 196 behind."
+    },
+    "N20-V-MAIN-COMPARE-ADAPTIVE-TP": {
+      "url": "https://api.github.com/repos/vllm-project/vllm/compare/80ac42b811ffea9dd8f2d2b1ea67beab5e20f7cf...0aa2bb19496d9252c0dd7f8d1c0d073fc634d471?per_page=1",
+      "title": "vLLM ancestry of adaptive TP consensus relative to 0aa2bb19",
+      "kind": "immutable upstream engine comparison",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:39:39Z",
+      "revision": "0aa2bb19496d9252c0dd7f8d1c0d073fc634d471",
+      "immutable_url": "https://api.github.com/repos/vllm-project/vllm/compare/80ac42b811ffea9dd8f2d2b1ea67beab5e20f7cf...0aa2bb19496d9252c0dd7f8d1c0d073fc634d471?per_page=1",
+      "capture": "immutable upstream engine comparison.",
+      "claim": "GitHub compare from the #62769 merge commit to 0aa2bb19 was ahead, 885 ahead and zero behind.",
+      "scope": "GitHub compare from the #62769 merge commit to 0aa2bb19 was ahead, 885 ahead and zero behind."
+    },
+    "deepseek-v4-flash-0731-NV-HEADERS": {
+      "url": "https://huggingface.co/nvidia/DeepSeek-V4-Flash-0731-NVFP4/resolve/f1caa71142bd0be02f728c79f75042ac1e461579/model-00001-of-00048.safetensors",
+      "title": "NVIDIA V4 Flash 0731 NVFP4 complete safetensors header census",
+      "kind": "publisher checkpoint metadata (headers only)",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:34:35Z",
+      "revision": "f1caa71142bd0be02f728c79f75042ac1e461579",
+      "immutable_url": "https://huggingface.co/nvidia/DeepSeek-V4-Flash-0731-NVFP4/resolve/f1caa71142bd0be02f728c79f75042ac1e461579/model-00001-of-00048.safetensors",
+      "capture": "Two HTTP 206 byte ranges per shard, eight-byte length prefix and exactly the padded JSON header. No weight bytes fetched. Verified every tensor-to-shard assignment in the index and every complete file size in the pinned Hub tree.",
+      "claim": "Target spans 164,673,005,788 bytes; draft 10,862,838,300. All 4,705 mtp names occupy three whole shards (46 through 48) with identical native and export LFS object IDs. The index total_size repeats the native value and undercounts by 8,657,307,648 bytes.",
+      "scope": "Two HTTP 206 byte ranges per shard, eight-byte length prefix and exactly the padded JSON header. No weight bytes fetched. Verified every tensor-to-shard assignment in the index and every complete file size in the pinned Hub tree.",
+      "headers_count": 48,
+      "tensors_count": 138365,
+      "shard_bytes": 175550788904,
+      "header_json_bytes": 14944432,
+      "headers_aggregate_sha256": "78a8d683e9513580a6a55e01842428e5fa709f84bb733b7662ccccd78387d0f4",
+      "headers_aggregate_method": "SHA-256 of the concatenated JSON headers in shard number order. Excludes eight-byte length prefixes.",
+      "retrieval_window": "2026-11-20T19:34:32Z/2026-11-20T19:34:35Z",
+      "tensor_payload_bytes": 175535844088
+    },
+    "deepseek-v4-flash-0731-RH-HEADERS": {
+      "url": "https://huggingface.co/RedHatAI/DeepSeek-V4-Flash-0731-NVFP4/resolve/94ade0e65a074c992844ec55dbcba5dca9d1cdfc/model-00001-of-00009.safetensors",
+      "title": "Red Hat V4 Flash 0731 NVFP4 complete safetensors header census",
+      "kind": "publisher checkpoint metadata (headers only)",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:34:36Z",
+      "revision": "94ade0e65a074c992844ec55dbcba5dca9d1cdfc",
+      "immutable_url": "https://huggingface.co/RedHatAI/DeepSeek-V4-Flash-0731-NVFP4/resolve/94ade0e65a074c992844ec55dbcba5dca9d1cdfc/model-00001-of-00009.safetensors",
+      "capture": "Two HTTP 206 byte ranges per shard, eight-byte length prefix and exactly the padded JSON header. No weight bytes fetched. Verified every tensor-to-shard assignment in the index and every complete file size in the pinned Hub tree.",
+      "claim": "All covered tensors belong to the target. No mtp or other separately named draft tensors. Per-shard spans reproduce the declared index total_size.",
+      "scope": "Two HTTP 206 byte ranges per shard, eight-byte length prefix and exactly the padded JSON header. No weight bytes fetched. Verified every tensor-to-shard assignment in the index and every complete file size in the pinned Hub tree.",
+      "headers_count": 9,
+      "tensors_count": 133660,
+      "shard_bytes": 164617890813,
+      "header_json_bytes": 15158791,
+      "headers_aggregate_sha256": "cf59378b826eb1c032a7f43280bdbee9b577572db3d22209b0d73c38fdc2b0f1",
+      "headers_aggregate_method": "SHA-256 of the concatenated JSON headers in shard number order. Excludes eight-byte length prefixes.",
+      "retrieval_window": "2026-11-20T19:34:35Z/2026-11-20T19:34:36Z",
+      "tensor_payload_bytes": 164602731950
+    },
+    "deepseek-v4.1-flash-1017-NV-HEADERS": {
+      "url": "https://huggingface.co/nvidia/DeepSeek-V4.1-Flash-1017-NVFP4/resolve/3ae9c0d3fbbea5370bd06e679d22044db15883f1/model-00001-of-00048.safetensors",
+      "title": "NVIDIA V4.1 Flash 1017 NVFP4 complete safetensors header census",
+      "kind": "publisher checkpoint metadata (headers only)",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:37:59Z",
+      "revision": "3ae9c0d3fbbea5370bd06e679d22044db15883f1",
+      "immutable_url": "https://huggingface.co/nvidia/DeepSeek-V4.1-Flash-1017-NVFP4/resolve/3ae9c0d3fbbea5370bd06e679d22044db15883f1/model-00001-of-00048.safetensors",
+      "capture": "Two HTTP 206 byte ranges per shard, eight-byte length prefix and exactly the padded JSON header. No weight bytes fetched. Verified every tensor-to-shard assignment in the index and every complete file size in the pinned Hub tree.",
+      "claim": "Target spans 421,033,523,408 bytes; draft 7,932,874,632. All 2,401 mtp names occupy three whole shards (44 through 46) with identical native 1017 and export LFS IDs. The index total_size repeats the native value.",
+      "scope": "Two HTTP 206 byte ranges per shard, eight-byte length prefix and exactly the padded JSON header. No weight bytes fetched. Verified every tensor-to-shard assignment in the index and every complete file size in the pinned Hub tree.",
+      "headers_count": 48,
+      "tensors_count": 188245,
+      "shard_bytes": 428986460424,
+      "header_json_bytes": 20062000,
+      "headers_aggregate_sha256": "21a258d0d8c2d6c1bed917f0e590f34855eb852cddf8dcb7780e77d38586de15",
+      "headers_aggregate_method": "SHA-256 of the concatenated JSON headers in shard number order. Excludes eight-byte length prefixes.",
+      "retrieval_window": "2026-11-20T19:37:56Z/2026-11-20T19:37:59Z",
+      "tensor_payload_bytes": 428966398040
+    },
+    "N20-Q27-S-KVSCALE": {
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/297e54fd105e974cdf401e5b4d20253a22c16f90/python/sglang/srt/layers/quantization/kv_cache.py",
+      "title": "SGLang v0.5.23 fixed KV scale fallback",
+      "kind": "engine release source",
+      "accessed_on": "2026-11-20",
+      "retrieved_at": "2026-11-20T19:40:24.232058+00:00",
+      "http_status": 200,
+      "response_sha256": "4180c5559d5bf6005a6fb5459e31aa7700b9827a9f92d043aa21951def716df7",
+      "response_bytes": 3361,
+      "revision": "297e54fd105e974cdf401e5b4d20253a22c16f90",
+      "claim": "BaseKVCacheMethod initializes both scales to a negative sentinel and sets both to 1.0 when no checkpoint scales are loaded.",
+      "scope": "Selected release source, lines 34–67, in conjunction with ModelOpt mixed quant parsing and KV dtype resolution. No serving process was run."
     }
   }
 }

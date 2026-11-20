@@ -82,6 +82,6 @@ The numeric examples are calculations from stated dimensions and assumptions, no
 
 ## What this report does not establish
 
-B300 load, quality and performance for the documented SGLang NVIDIA TP1 recipe; n-gram placement costs; full checkpoint tensor-byte census; production throughput under realistic prefix reuse.
+The general SGLang NVIDIA TP1 cell still needs validation. The separate B300 AgentX nightly demonstrates a load and throughput point under synthetic acceptance. Natural MTP acceptance, live tool-use quality, warm/cold PLE placement costs and eight-worker KServe capacity remain open. [Upstream run and conditions](serving.md#november-20-release-and-benchmark-controls)
 
 The public artifacts do not disclose every training-data, optimization or implementation detail. This report does not fill missing details with assumptions or present a complete formal reconstruction of private training.

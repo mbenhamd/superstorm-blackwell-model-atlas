@@ -1,5 +1,9 @@
 # DeepSeek V4.1 Flash 1017: sources
 
+## November 20 artifact and engine checks
+
+The source registry records all 48 pinned NVIDIA shard headers as `deepseek-v4.1-flash-1017-NV-HEADERS`. The header byte count, tensor count, aggregate checksum and retrieval interval support the [export storage calculation](precision.md#the-nvidia-export-is-a-separate-qualification). The source comparisons from the #62769 merge commit to the release and inspected main use `V034-COMPARE-ADAPTIVE-TP` and `N20-V-MAIN-COMPARE-ADAPTIVE-TP`. The two source files show the different rank synchronization behavior. [Tagged adaptive verification](https://raw.githubusercontent.com/vllm-project/vllm/62d4bc3c7e33b1b6c906e233e6af2d3506c482ca/vllm/v1/worker/gpu/spec_decode/adaptive_verification.py) [Main adaptive verification](https://raw.githubusercontent.com/vllm-project/vllm/0aa2bb19496d9252c0dd7f8d1c0d073fc634d471/vllm/v1/worker/gpu/spec_decode/adaptive_verification.py) [Source registry](../../../evidence/sources.json)
+
 The November 20 [published Jinja template](https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash-1017/raw/08c8657f02291e11b6f6b63e0e16014f8e748518/chat_template.jinja) is recorded as `N20-DEEPSEEK-AI-DEEPSEEK-V41-FLASH-1017-TEMPLATE`. The historical rows below refer to the retained `1bae0e10` pin.
 
 **November 6 initial review:** Hub identities, immutable publisher files, all 48 safetensors headers, the NVIDIA export, the superseded V4.1 Flash predecessor and selected vLLM/SGLang V4.1 sources were retrieved on 2026-11-06 (UTC). [Local README snapshots](README.md#hugging-face-readme-snapshots) link every recorded card. Retrieval metadata and SHA-256 values are in the single [source registry](../../../evidence/sources.json). Recipes, cookbooks and PR states are dated observations and can change.

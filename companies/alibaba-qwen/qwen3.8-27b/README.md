@@ -6,7 +6,7 @@
 
 This is the small dense baseline in the requested set. Its architecture class still says Qwen3_5; the public model version and the loader class need not have the same spelling. [qwen3.8-27b-CARD](https://huggingface.co/Qwen/Qwen3.8-27B/raw/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/README.md) [qwen3.8-27b-CFG](https://huggingface.co/Qwen/Qwen3.8-27B/raw/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/config.json)
 
-**Serving candidates.** Compare TP1 BF16 and official FP8 with the original NVIDIA PTQ, the NVIDIA QAD student, Red Hat and Inferact exports under KServe. Keep the prompt and effective KV precision fixed, then vary KV and native MTP separately. [Release-specific controls](serving.md#november-20-release-and-benchmark-controls).
+**Serving candidates.** Compare TP1 BF16 and official FP8 with NVIDIA PTQ, NVIDIA QAD, Red Hat and Inferact under KServe using common prompts and effective KV precision. QAD has an incomplete indexed native draft and lacks indexed K/V cache-scale tensors. Keep its initial comparison target-only with BF16 KV. [Release-specific controls](serving.md#november-20-release-and-benchmark-controls) [QAD tensor comparison](precision.md#additional-nvfp4-exports-reviewed-november-20)
 
 [Architecture](architecture.md) · [Precision and variants](precision.md) · [Serving decisions](serving.md) · [Sources](sources.md) · [Model catalog](../../../catalog/models.json)
 

@@ -11,7 +11,7 @@ For `P` parameters represented uniformly at `b` bits, the ideal payload is `P ×
 | Kimi K3 | Rounded 2800B headline | 5,600.0 | 2,800.0 | 1,400.0 |
 | GLM 5.3 | 753.32994048B checkpoint, including serialized MTP | 1,506.7 | 753.3 | 376.7 |
 | GLM 5.3 Flash | 321.32303139B Hub metadata count | 642.6 | 321.3 | 160.7 |
-| DeepSeek V4 Flash 0731 | Exact target-plus-draft count unresolved | — | — | — |
+| DeepSeek V4 Flash 0731 | 304.178091454B logical weights including the bundled DSpark | 608.4 | 304.2 | 152.1 |
 | Qwen 3.8 27B | Rounded 27B language-model headline | 54.0 | 27.0 | 13.5 |
 | Qwen 3.8 Flash Next | Rounded 180B main/n-gram/MTP subtotal | 360.0 | 180.0 | 90.0 |
 | Gemma 4 31B IT | Rounded 31B headline | 62.0 | 31.0 | 15.5 |
@@ -22,7 +22,9 @@ The [catalog](../catalog/models.json) distinguishes these scopes. GLM 5.3’s 75
 
 For GLM BF16, the full-count illustration is **1,506,659,880,960 bytes**; the pinned weight index reports **1,506,659,919,872 bytes** because the checkpoint is not literally uniform BF16. Both are about 1.507 decimal TB. Four advertised 288 GB GPUs provide only 1.152 TB, so this BF16 payload rules out TP4 with full GPU residency before caches. TP8 is the conventional capacity candidate among TP1/2/4/8; this arithmetic does not prove that TP8 is the only possible sharding arrangement or that an engine can load it. Serialized bytes, modules loaded, temporary repacking and final per-rank residency remain separate quantities. The main model without the separately counted MTP is still about 1.487 TB under uniform BF16. [glm-5.3-BF16-INDEX](https://huggingface.co/zai-org/GLM-5.3-BF16/resolve/abf42e6c0e53bc29a875511301e7b7fcd220315b/model.safetensors.index.json) [GLM parameter accounting](../companies/z-ai/glm-5.3/architecture.md)
 
-Qwen Flash Next’s 125B + 51B + 4B subtotal covers the publisher’s main/n-gram/MTP quantities; it does not separately count vision. DeepSeek’s vLLM recipe uses a 284B family headline while SGLang’s 0731 cookbook says 304B. The different scopes have not been reconciled into an exact tensor census, so the table leaves that row unset. The hypothetical precision columns do not assert that those artifact variants exist. [Qwen accounting](../companies/alibaba-qwen/qwen3.8-flash-next/architecture.md) [DeepSeek accounting](../companies/deepseek/deepseek-v4-flash-0731/architecture.md)
+Qwen Flash Next’s 125B + 51B + 4B subtotal covers the publisher’s main/n-gram/MTP quantities; it does not separately count vision. For DeepSeek 0731, the native checkpoint headers account for 284.332B target weights and 19.846B bundled DSpark weights. The combined 304.178B count excludes quantization scales and integer routing IDs. Its observed tensor payload occupies 166.879 GB, including those auxiliary entries. The hypothetical precision columns do not assert that those artifact variants exist. [Qwen accounting](../companies/alibaba-qwen/qwen3.8-flash-next/architecture.md) [DeepSeek accounting](../companies/deepseek/deepseek-v4-flash-0731/architecture.md)
+
+Two NVIDIA DeepSeek NVFP4 index files repeat their native checkpoint totals. On 0731 the export’s tensor spans sum to **175,535,844,088 bytes**, 8,657,307,648 above the declared value. On 1017 they sum to **428,966,398,040 bytes**, 81,319,624,960 below it. Each export preserves three complete native draft shards. Use the export-specific header totals for storage estimates, then measure per-rank residency with the intended loader. [0731 export accounting](../companies/deepseek/deepseek-v4-flash-0731/precision.md) · [1017 export accounting](../companies/deepseek/deepseek-v4.1-flash-1017/precision.md).
 
 ### FP8 capacity examples do not specify a deployment
 

@@ -44,7 +44,7 @@ Artificial Analysis lineage and labels are third-party metadata; see [intelligen
 
 ## The most important unresolved checks
 
-The selected vLLM v0.34.0 and SGLang v0.5.23 images still need exact 1017 validation on SM103. The vLLM graph fix #59986 reached v0.34.0 with CPU tests. Its B300 mixed-batch reproducer, Engram host memory per replica, resolved KV precision, DSpark acceptance, template/renderer parity and KServe endpoint goodput remain open. [Graph fix and validation](https://github.com/vllm-project/vllm/pull/59986)
+The selected vLLM v0.34.0 and SGLang v0.5.23 images still need exact 1017 validation on SM103. The vLLM graph fix #59986 reached v0.34.0 with CPU tests. Multi-rank adaptive DSpark also needs the post-tag rank-consensus fix #62769. Use fixed-width speculation for the release comparator. Its B300 mixed-batch reproducer, Engram host memory per replica, resolved KV precision, DSpark acceptance, template/renderer parity and KServe endpoint goodput remain open. [Graph fix and validation](https://github.com/vllm-project/vllm/pull/59986)
 
 [Return to repository index](../../../README.md)
 

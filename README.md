@@ -8,6 +8,8 @@ The [retrieval map](START_HERE.md) connects each model to its configurations, so
 
 Read the [vLLM v0.34.0 upgrade review](reports/vllm-v034-upgrade.md) and the [SGLang stable and development comparison](reports/sglang-2026-11-20.md) for model-specific changes. The [precision review](reports/precision-and-kernels.md#nvfp4-export-recipes-and-engine-dispatch) covers export recipes. The [benchmark guide](reports/benchmark-insights.md#measuring-the-effect-of-an-nvfp4-recipe) identifies the controls needed to attribute a change to the recipe, engine or workload. The atlas contains no measured B300 engine ranking.
 
+The November 20 claim review reconciles the 284B and 304B DeepSeek 0731 headlines and corrects two NVIDIA NVFP4 index sizes using complete shard headers. It also checks all 74 AA effort variants. The remaining deployment questions concern the installed KServe command and probes, per-rank HBM, natural draft acceptance and quality at the intended load. [Memory accounting](reports/memory-math.md) · [AA coverage](reports/intelligence-index.md) · [Open measurements](LIMITATIONS.md).
+
 ## Hardware → model → precision → engine
 
 Choose the [workload and quality comparison](reports/optimization.md#nvfp4-comparisons-on-eight-b300-gpus) before choosing a topology. Each family’s serving page and catalog review identify candidate configurations, engine constraints and remaining measurements. Earlier [memory](reports/memory-math.md) and [attention/FA4](reports/attention-and-fa4.md) analyses retain their original eight-family scope. The [cross-model comparison](reports/comparison.md) covers all twelve.

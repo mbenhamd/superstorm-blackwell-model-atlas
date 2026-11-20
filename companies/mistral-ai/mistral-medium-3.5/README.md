@@ -21,7 +21,7 @@ The dense language backbone uses GQA with full token-history KV in the inspected
 | Exact base repository | mistralai/Mistral-Medium-3.5-128B |
 | NVFP4 variant (exporter) | nvidia/Mistral-Medium-3.5-128B-NVFP4 at `b8c66d2098edd8c9c26bde2b2ff41b5967e111ae`; 95,224,812,960 serialized bytes (0.713× FP8) |
 | Native positional limit | 262,144 tokens |
-| Initial TP candidate | 8 for the publisher baseline; 2 and 4 are comparison probes; NVFP4: 4 (×2 replicas), alternative 2 (×4) |
+| Initial TP candidate | Publisher FP8 example TP8. SGLang’s released cookbook selects TP2 for B300. NVIDIA mixed export on vLLM is a TP4 ×2 or TP2 ×4 qualification candidate |
 | Base revision pin | `22b2b868a15677cfa6061277ed2f653d1349a9ab` |
 | License scope | Modified MIT; revenue restriction in the publisher LICENSE file. NVFP4 export: card metadata `nvidia-open-model-license` vs body "governed by Mistral's Modified MIT"; no LICENSE file in the export (unresolved) |
 | Verification level | Pinned cards, configs and index metadata rechecked; no model load or B300 benchmark |
@@ -32,7 +32,7 @@ The positional limit is not a promise of that many usable tokens under arbitrary
 
 ## The most important unresolved checks
 
-Installed-image and B300 compatibility at the pinned corrected revision; runtime memory beyond the reported weight payload; maximum safe concurrency and best TP width; the NVIDIA NVFP4 variant is source-reviewed only (vLLM v0.33.0 loads it by source reading; SGLang v0.5.23 fused-projection resolution fails by source reading; EAGLE acceptance with it unknown; exporter validation vLLM v0.21.0/B200). SGLang support for the FP8 publisher artifact is documented upstream, but has not been run locally.
+The NVIDIA export’s only published validation uses vLLM v0.21.0 on B200. vLLM v0.34.0 source handles fused projections in the mixed export. SGLang v0.5.23 source predicts a failure to resolve fused projections. Both findings require confirmation in the actual KServe image. Runtime memory, sustainable concurrency, the TP2/TP4 tradeoff and EAGLE acceptance on the mixed target still need B300 measurements. [Serving evidence](serving.md#november-20-release-and-benchmark-controls)
 
 [Return to repository index](../../../README.md)
 

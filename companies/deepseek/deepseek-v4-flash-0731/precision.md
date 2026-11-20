@@ -4,6 +4,16 @@
 
 **RedHatAI/DeepSeek-V4-Flash-0731-NVFP4** (`94ade0e65a07`). Compressed-tensors format combines group-16 NVFP4 routed experts and FP8 block-128 selected attention/shared-expert linears. The index totals 164,602,731,950 bytes and lists target layers 0–42 plus embeddings, output and normalization. It has no mtp.*, dspark.* or draft tensor group, and the tree lists no additional draft shard. The config still carries dspark_* fields. Use the exporter’s TP8 target-only profile. [configuration](https://huggingface.co/RedHatAI/DeepSeek-V4-Flash-0731-NVFP4/raw/94ade0e65a074c992844ec55dbcba5dca9d1cdfc/config.json) [tensor index](https://huggingface.co/RedHatAI/DeepSeek-V4-Flash-0731-NVFP4/resolve/94ade0e65a074c992844ec55dbcba5dca9d1cdfc/model.safetensors.index.json) [exporter card](https://huggingface.co/RedHatAI/DeepSeek-V4-Flash-0731-NVFP4/raw/94ade0e65a074c992844ec55dbcba5dca9d1cdfc/README.md)
 
+A complete census of the publisher-hosted safetensors headers reconciles each export with its own pinned file tree. The tensor byte counts include scales and fixed routing tensors. The complete-file column also counts the JSON header and eight-byte length prefix of each shard.
+
+| Exact 0731 artifact | Tensor count / shards | Target tensor bytes | Draft tensor bytes | Total tensor bytes | Complete shard bytes |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Native DeepSeek | 72,317 / 48 | 156,015,698,140 | 10,862,838,300 | 166,878,536,440 | 166,886,535,336 |
+| NVIDIA NVFP4 | 138,365 / 48 | 164,673,005,788 | 10,862,838,300 | 175,535,844,088 | 175,550,788,904 |
+| Red Hat NVFP4 | 133,660 / 9 | 164,602,731,950 | 0 | 164,602,731,950 | 164,617,890,813 |
+
+The NVIDIA index declares **166,878,536,440 B**, the native index value. The NVIDIA header spans exceed that declaration by **8,657,307,648 B**. All 4,705 native and NVIDIA `mtp.*` tensor names occupy exactly shards 46–48, and the corresponding LFS SHA-256 IDs match on all three files. Their draft bytes are identical. Red Hat’s header spans agree with its declared total. These serialized sizes establish storage costs. Resident HBM additionally depends on loading, replication, repacking, cache and runtime allocations. [Native file tree](https://huggingface.co/api/models/deepseek-ai/DeepSeek-V4-Flash-0731/tree/7872f01b1d1fe23eabc4c98b48bffcef5a386062?recursive=true&limit=1000) [NVIDIA file tree](https://huggingface.co/api/models/nvidia/DeepSeek-V4-Flash-0731-NVFP4/tree/f1caa71142bd0be02f728c79f75042ac1e461579?recursive=true&limit=1000) [Red Hat file tree](https://huggingface.co/api/models/RedHatAI/DeepSeek-V4-Flash-0731-NVFP4/tree/94ade0e65a074c992844ec55dbcba5dca9d1cdfc?recursive=true&limit=1000) [Header census identities](sources.md)
+
 Reverified 2026-10-16 (UTC). The native pin remains `7872f01b1d1fe23eabc4c98b48bffcef5a386062`; the separate NVIDIA export below was also inspected. No checkpoint was loaded locally.
 
 | Variant | Exact artifact | Precision evidence |

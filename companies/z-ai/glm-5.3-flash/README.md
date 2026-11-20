@@ -33,7 +33,7 @@ The publisher's pinned benchmark graphic reports **84.3 on Terminal Bench 2.1** 
 
 ## The most important unresolved checks
 
-The RedHat quantization configuration is now inspected at an immutable revision: main routed experts use NVFP4 and MTP routed experts use FP8. Other exporters require their own configuration audit. Quality, loader memory, the best KDA/KV split and the disaggregation crossover still need local measurements.
+The November 20 review distinguishes all three NVFP4 exports by their main-model and MTP storage. Loader peaks, draft acceptance, multimodal quality and the KDA/KV allocation that best serves the workload remain unmeasured. [Export comparison and tensor headers](precision.md#november-20-export-contracts)
 
 [Return to repository index](../../../README.md)
 

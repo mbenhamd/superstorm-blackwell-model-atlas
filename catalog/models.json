@@ -86,8 +86,7 @@
           },
           "latest_identity_recheck": {
             "checked_on": "2026-11-20",
-            "revision": "1f5d44f794ef598de7b6f529ef7923729b7e5408",
-            "retained_revision": "f831ab66814297da540d832a5235f8e904f29d06",
+            "revision": "f831ab66814297da540d832a5235f8e904f29d06",
             "matches_retained_pin": false,
             "source_ids": [
               "N20-MOE-HUB"
@@ -95,7 +94,8 @@
             "scope": "Compared complete Hub file trees by Git/LFS identity and retrieved both revisions of README/configuration. Changed paths are relative to the retained serving pin.",
             "changed_paths": [
               "README.md"
-            ]
+            ],
+            "current_head": "1f5d44f794ef598de7b6f529ef7923729b7e5408"
           },
           "prior_identity_rechecks": [
             {
@@ -131,12 +131,12 @@
           "latest_identity_recheck": {
             "checked_on": "2026-11-20",
             "revision": "b2428a0b83a8b712ff2e1a8448a103d4175341f1",
-            "retained_revision": "b2428a0b83a8b712ff2e1a8448a103d4175341f1",
             "matches_retained_pin": true,
             "source_ids": [
               "N20-MOE-HUB"
             ],
-            "scope": "Live head and immutable README/configuration retrieval. Weight payloads were not inspected."
+            "scope": "Live head and immutable README/configuration retrieval. Weight payloads were not inspected.",
+            "current_head": "b2428a0b83a8b712ff2e1a8448a103d4175341f1"
           },
           "prior_identity_rechecks": [
             {
@@ -187,12 +187,12 @@
           "latest_identity_recheck": {
             "checked_on": "2026-11-20",
             "revision": "13fd4e58db6abe84bd75aecd055b7e18057cf607",
-            "retained_revision": "13fd4e58db6abe84bd75aecd055b7e18057cf607",
             "matches_retained_pin": true,
             "source_ids": [
               "N20-MOE-HUB"
             ],
-            "scope": "Live head and immutable README/configuration retrieval. Weight payloads were not inspected."
+            "scope": "Live head and immutable README/configuration retrieval. Weight payloads were not inspected.",
+            "current_head": "13fd4e58db6abe84bd75aecd055b7e18057cf607"
           }
         },
         {
@@ -221,12 +221,12 @@
           "latest_identity_recheck": {
             "checked_on": "2026-11-20",
             "revision": "6409c37cf440abeb76f0b44ab4fb7db8c8bccb4b",
-            "retained_revision": "6409c37cf440abeb76f0b44ab4fb7db8c8bccb4b",
             "matches_retained_pin": true,
             "source_ids": [
               "N20-MOE-HUB"
             ],
-            "scope": "Live head and immutable README/configuration retrieval. Weight payloads were not inspected."
+            "scope": "Live head and immutable README/configuration retrieval. Weight payloads were not inspected.",
+            "current_head": "6409c37cf440abeb76f0b44ab4fb7db8c8bccb4b"
           }
         }
       ],
@@ -283,7 +283,9 @@
         "N20-S-STABLE-K3",
         "N20-S-MAIN-K3",
         "N20-V-PR-50500",
-        "N20-V-IN-50500"
+        "N20-V-IN-50500",
+        "V034-K3-KVB-DECODE",
+        "kimi-k3.1-pro-K3-INDEX"
       ],
       "revision": "f831ab66814297da540d832a5235f8e904f29d06",
       "evidence_status": "Publisher cards, configurations and license files retrieved at immutable revisions on 2026-10-15; not loaded or benchmarked on hardware",
@@ -526,11 +528,12 @@
             "engine_release": "v0.34.0",
             "source_commit": "62d4bc3c7e33b1b6c906e233e6af2d3506c482ca",
             "detailed_review": "reports/vllm-v034-upgrade.md",
-            "assessment": "The v0.34 recipe selects RedHatAI/Kimi-K3-NVFP4 for NVFP4 and RedHatAI/Kimi-K3-speculator.dspark for the default optional draft (eight proposals, probabilistic drafting, block rejection). The opt-in KIMI_K3_KV_BALANCED_MLA backend splits each request’s MLA history by length. Its gates include BF16 input, FP8 KV and SM10.x. The PR’s decode attention comparison used GB300, with end-to-end AgentX results on different parallel layouts.",
+            "assessment": "The v0.34 recipe selects RedHatAI/Kimi-K3-NVFP4 for NVFP4 and RedHatAI/Kimi-K3-speculator.dspark for the default optional draft (eight proposals, probabilistic drafting, block rejection). The opt-in KIMI_K3_KV_BALANCED_MLA backend splits each request’s MLA history by length. Its gates include BF16 input, FP8 KV and SM10.x. The PR’s decode attention comparison used GB300, with end-to-end AgentX results on different parallel layouts. Decode requires packed FP8 cache and uniform query lengths. Check the additional workspace and TTFT tails under mixed load.",
             "source_ids": [
               "V034-RELEASE",
               "V034-R-K3",
-              "V034-PR-63638"
+              "V034-PR-63638",
+              "V034-K3-KVB-DECODE"
             ]
           },
           "sglang": {
@@ -618,7 +621,7 @@
           "effort": "low",
           "basis": "Highest published v5.0.1 variant, computed from the variant records in catalog/aa-intelligence-index.json; not an AA-published release figure.",
           "status": "published",
-          "note": "Highest published variant is Kimi K3 (Low); Kimi K3 (Max) has no composite (FrontierCode 2.0 and AA-Omniscience v1.1 unpublished). No captured AA page embeds a Kimi K3 release-level index.",
+          "note": "Highest published variant is Kimi K3 (Low); Kimi K3 (Max) has no composite (FrontierCode-AA 2.0 and AA-Omniscience v1.1 unpublished). No captured AA page embeds a Kimi K3 release-level index.",
           "source_ids": [
             "AA-MODEL-KIMI-K3-LOW"
           ],
@@ -906,7 +909,10 @@
         "N20-S-K31-TEST",
         "N20-K31-NV-VLLM-IMAGE",
         "N20-K31-NV-SGL-IMAGE",
-        "N20-NVIDIA-KIMI-K31-PRO-NVFP4-LICENSE"
+        "N20-NVIDIA-KIMI-K31-PRO-NVFP4-LICENSE",
+        "N20-S-K31-CAPACITY",
+        "N20-S-K31-AGENTX",
+        "N20-IX-K31-B300"
       ],
       "revision": "d9e99b0792a5e93b78ea9bea62a68167e36ddd9e",
       "evidence_status": "Publisher card, configuration, license, full safetensors index and one shard header retrieved at an immutable revision on 2026-11-06; not loaded or benchmarked on hardware",
@@ -918,7 +924,7 @@
         {
           "key": "native",
           "hf_id": "moonshotai/Kimi-K3.1-Pro",
-          "precision": "MXFP4 routed-expert weights (group 32); BF16 attention, DSA indexer, router, latent projections, shared/dense MLP, head and vision; publisher MXFP8-activation QAT claim does not fix runtime activation dtype",
+          "precision": "MXFP4 routed experts (group 32), BF16 DSA indexer and selected attention, router, shared/dense, head and vision tensors. In both native snapshots, 506 FP32 tensors include router correction biases and KDA state, convolution and output-normalization parameters. Publisher MXFP8 activation QAT does not fix runtime activation dtype.",
           "status": "verified immutable publisher card/config/index/header; no GPU test",
           "revision": "d9e99b0792a5e93b78ea9bea62a68167e36ddd9e",
           "index_tensor_bytes": 1561217377280,
@@ -934,12 +940,12 @@
           "latest_identity_recheck": {
             "checked_on": "2026-11-20",
             "revision": "d9e99b0792a5e93b78ea9bea62a68167e36ddd9e",
-            "retained_revision": "d9e99b0792a5e93b78ea9bea62a68167e36ddd9e",
             "matches_retained_pin": true,
             "source_ids": [
               "N20-MOE-HUB"
             ],
-            "scope": "Live head and immutable README/configuration retrieval. Weight payloads were not inspected."
+            "scope": "Live head and immutable README/configuration retrieval. Weight payloads were not inspected.",
+            "current_head": "d9e99b0792a5e93b78ea9bea62a68167e36ddd9e"
           },
           "prior_identity_rechecks": [
             {
@@ -953,6 +959,9 @@
               ],
               "scope": "Current head and immutable README/configuration/index; no weight-payload identity or runtime qualification."
             }
+          ],
+          "source_ids": [
+            "kimi-k3.1-pro-INDEX"
           ]
         },
         {
@@ -984,12 +993,12 @@
           "latest_identity_recheck": {
             "checked_on": "2026-11-20",
             "revision": "3af0462972c9cc07e5ba6e0867b44f961ce95e9b",
-            "retained_revision": "3af0462972c9cc07e5ba6e0867b44f961ce95e9b",
             "matches_retained_pin": true,
             "source_ids": [
               "N20-MOE-HUB"
             ],
-            "scope": "Live head and immutable README/configuration retrieval. Weight payloads were not inspected."
+            "scope": "Live head and immutable README/configuration retrieval. Weight payloads were not inspected.",
+            "current_head": "3af0462972c9cc07e5ba6e0867b44f961ce95e9b"
           }
         },
         {
@@ -1074,13 +1083,16 @@
             "engine_release": "v0.5.23",
             "source_commit": "297e54fd105e974cdf401e5b4d20253a22c16f90",
             "detailed_review": "reports/sglang-2026-11-20.md",
-            "assessment": "v0.5.23 predates K3.1. Remaining day-0 integration #48414 merged to main on November 17. The main override allows DSPARK or DFLASH with DCP and enforces static ragged verification for DSPARK, a matching DFLASH draft-attention backend and fused DSA top-k. The native cookbook’s B300 unified cells remain unverified upstream. NVIDIA names dev-cu13 for its mixed export.",
+            "assessment": "v0.5.23 predates K3.1. Remaining day-0 integration #48414 merged to main on November 17. The main override allows DSPARK or DFLASH with DCP and enforces static ragged verification for DSPARK, a matching DFLASH draft-attention backend and fused DSA top-k. The native cookbook’s B300 unified cells remain unverified upstream. NVIDIA names dev-cu13 for its mixed export. The separate native AgentX run on eight B300s used a development image, RadixArk preview, HiCache and fixed acceptance. The exact Hub revisions and installed KServe path were unreported.",
             "source_ids": [
               "S0523-RELEASE",
               "N20-S-COOK-K31",
               "N20-S-MAIN-K31-OV",
               "kimi-k3.1-pro-SPR48414",
-              "N20-S-K31-TEST"
+              "N20-S-K31-TEST",
+              "N20-S-K31-CAPACITY",
+              "N20-S-K31-AGENTX",
+              "N20-IX-K31-B300"
             ]
           }
         },
@@ -1098,8 +1110,9 @@
         "insights": [
           {
             "id": "kimi-k3.1-pro-1",
-            "mechanism": "DSA changes the cache, not the weights: +357 MB BF16 indexer, but MLA+indexer KV is ~18.9 KB/token in SGLang FlashMLA format versus ~13.8 KB for K3 FP8 MLA (derived, ~37% more). Re-measure KV capacity rather than reusing K3 numbers.",
-            "evidence_limit": "Source-supported hypothesis from publisher/engine artifacts at pinned revisions; not measured on the B300 node."
+            "mechanism": "At the same 576-byte MLA latent layout the DSA indexer adds 3,168 B/token, from 13,824 to 16,992 (+22.9%). A 656-byte latent layout plus the indexer yields 18,912 B/token (+36.8% against 13,824), combining both effects. Budget separately for KDA states, workspaces and drafts.",
+            "evidence_limit": "Source-supported hypothesis from publisher/engine artifacts at pinned revisions; not measured on the B300 node.",
+            "reviewed_on": "2026-11-20"
           },
           {
             "id": "kimi-k3.1-pro-2",
@@ -1347,12 +1360,12 @@
           "latest_identity_recheck": {
             "checked_on": "2026-11-20",
             "revision": "ba32f8c19c8738e2c57c71798c601d477a7bf844",
-            "retained_revision": "ba32f8c19c8738e2c57c71798c601d477a7bf844",
             "matches_retained_pin": true,
             "source_ids": [
               "N20-MOE-HUB"
             ],
-            "scope": "Live head and immutable README/configuration retrieval. Weight payloads were not inspected."
+            "scope": "Live head and immutable README/configuration retrieval. Weight payloads were not inspected.",
+            "current_head": "ba32f8c19c8738e2c57c71798c601d477a7bf844"
           },
           "prior_identity_rechecks": [
             {
@@ -1386,12 +1399,12 @@
           "latest_identity_recheck": {
             "checked_on": "2026-11-20",
             "revision": "abf42e6c0e53bc29a875511301e7b7fcd220315b",
-            "retained_revision": "abf42e6c0e53bc29a875511301e7b7fcd220315b",
             "matches_retained_pin": true,
             "source_ids": [
               "N20-MOE-HUB"
             ],
-            "scope": "Live head and immutable README/configuration retrieval. Weight payloads were not inspected."
+            "scope": "Live head and immutable README/configuration retrieval. Weight payloads were not inspected.",
+            "current_head": "abf42e6c0e53bc29a875511301e7b7fcd220315b"
           },
           "prior_identity_rechecks": [
             {
@@ -1424,8 +1437,7 @@
           },
           "latest_identity_recheck": {
             "checked_on": "2026-11-20",
-            "revision": "9b1a6f7729651313d6ca1178200f7a32d7d6f641",
-            "retained_revision": "c8917e4258572c405575855ff53effe58c17a38e",
+            "revision": "c8917e4258572c405575855ff53effe58c17a38e",
             "matches_retained_pin": false,
             "source_ids": [
               "N20-MOE-HUB"
@@ -1433,7 +1445,8 @@
             "scope": "Compared complete Hub file trees by Git/LFS identity and retrieved both revisions of README/configuration. Changed paths are relative to the retained serving pin.",
             "changed_paths": [
               "README.md"
-            ]
+            ],
+            "current_head": "9b1a6f7729651313d6ca1178200f7a32d7d6f641"
           },
           "prior_identity_rechecks": [
             {
@@ -1447,7 +1460,19 @@
               ],
               "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
             }
-          ]
+          ],
+          "source_ids": [
+            "glm-5.3-NV-INDEX"
+          ],
+          "mtp_tensor_storage": {
+            "source_id": "glm-5.3-NV-INDEX",
+            "tensor_count_by_dtype": {
+              "F32": 1,
+              "BF16": 790
+            },
+            "bytes": 19905841664,
+            "scope": "Serialized MTP tensors in this export. Engine load and execution precision require separate evidence."
+          }
         },
         {
           "key": "nvfp4-inferact",
@@ -1467,12 +1492,12 @@
           "latest_identity_recheck": {
             "checked_on": "2026-11-20",
             "revision": "ce67b36f3669192b5bb233819f0fda6c8a9837f8",
-            "retained_revision": "ce67b36f3669192b5bb233819f0fda6c8a9837f8",
             "matches_retained_pin": true,
             "source_ids": [
               "N20-MOE-HUB"
             ],
-            "scope": "Live head and immutable README/configuration retrieval. Weight payloads were not inspected."
+            "scope": "Live head and immutable README/configuration retrieval. Weight payloads were not inspected.",
+            "current_head": "ce67b36f3669192b5bb233819f0fda6c8a9837f8"
           },
           "prior_identity_rechecks": [
             {
@@ -1486,7 +1511,19 @@
               ],
               "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
             }
-          ]
+          ],
+          "source_ids": [
+            "glm-5.3-INFERACT-INDEX"
+          ],
+          "mtp_tensor_storage": {
+            "source_id": "glm-5.3-INFERACT-INDEX",
+            "tensor_count_by_dtype": {
+              "BF16": 790,
+              "F32": 1
+            },
+            "bytes": 19905841664,
+            "scope": "Serialized MTP tensors in this export. Engine load and execution precision require separate evidence."
+          }
         },
         {
           "key": "nvfp4-radixark",
@@ -1515,12 +1552,21 @@
           "latest_identity_recheck": {
             "checked_on": "2026-11-20",
             "revision": "6e389189d564d9d3e4ea7fa284fe91f136d8ae2a",
-            "retained_revision": "6e389189d564d9d3e4ea7fa284fe91f136d8ae2a",
             "matches_retained_pin": true,
             "source_ids": [
               "N20-MOE-HUB"
             ],
-            "scope": "Live head and immutable README/configuration retrieval. Weight payloads were not inspected."
+            "scope": "Live head and immutable README/configuration retrieval. Weight payloads were not inspected.",
+            "current_head": "6e389189d564d9d3e4ea7fa284fe91f136d8ae2a"
+          },
+          "mtp_tensor_storage": {
+            "source_id": "N20-RADIXARK-GLM-53-NVFP4-INDEX-RESOLVED",
+            "tensor_count_by_dtype": {
+              "BF16": 790,
+              "F32": 1
+            },
+            "bytes": 19905841664,
+            "scope": "Serialized MTP tensors in this export. Engine load and execution precision require separate evidence."
           }
         },
         {
@@ -1549,12 +1595,21 @@
           "latest_identity_recheck": {
             "checked_on": "2026-11-20",
             "revision": "e3b8f9f2fad29727dfa95e766c5cac18ea1414bf",
-            "retained_revision": "e3b8f9f2fad29727dfa95e766c5cac18ea1414bf",
             "matches_retained_pin": true,
             "source_ids": [
               "N20-MOE-HUB"
             ],
-            "scope": "Live head and immutable README/configuration retrieval. Weight payloads were not inspected."
+            "scope": "Live head and immutable README/configuration retrieval. Weight payloads were not inspected.",
+            "current_head": "e3b8f9f2fad29727dfa95e766c5cac18ea1414bf"
+          },
+          "mtp_tensor_storage": {
+            "source_id": "RR-GLM-NVIDIA-INDEX",
+            "tensor_count_by_dtype": {
+              "BF16": 790,
+              "F32": 1
+            },
+            "bytes": 19905841664,
+            "scope": "Serialized MTP tensors in this export. Engine load and execution precision require separate evidence."
           }
         }
       ],
@@ -1608,7 +1663,10 @@
         "RR-GLM-NVIDIA-CARD",
         "RR-GLM-NVIDIA-CFG",
         "RR-GLM-NVIDIA-HFQUANT",
-        "RR-GLM-NVIDIA-INDEX"
+        "RR-GLM-NVIDIA-INDEX",
+        "V034-GLM-SHARDQ",
+        "V034-GLM-INDEXER",
+        "V034-PR-64580"
       ],
       "revision": "ba32f8c19c8738e2c57c71798c601d477a7bf844",
       "evidence_status": "Pinned publisher cards, configurations and checkpoint metadata rechecked 2026-10-15; no model tensor payloads downloaded or GPU execution measured",
@@ -1738,25 +1796,30 @@
             "engine_release": "v0.34.0",
             "source_commit": "62d4bc3c7e33b1b6c906e233e6af2d3506c482ca",
             "detailed_review": "reports/vllm-v034-upgrade.md",
-            "assessment": "The v0.34 sparse-MLA prefill path can shard query tokens under TP for eligible large prefill batches (default threshold 1,024 tokens). DCP, PCP and HiSparse exclude this path. FP32 logits are restored on the dense MQA indexer path. Sparse indexer logits remain BF16. The recipe’s NVFP4 entry is Inferact, whose expert-only ModelOpt metadata differs from the RedHat compressed-tensors and NVIDIA mixed exports.",
+            "assessment": "The v0.34 sparse-MLA prefill path can shard query tokens under TP for eligible large prefill batches (default threshold 1,024 tokens). The default gate also needs a prefill sequence longer than the 2,048-token indexer top-k. DCP, PCP, HiSparse and FULL mixed graphs exclude this path. FP32 logits are restored on the dense MQA indexer path. Sparse indexer logits remain BF16. The recipe’s NVFP4 entry is Inferact, whose expert-only ModelOpt metadata differs from the RedHat compressed-tensors and NVIDIA mixed exports.",
             "source_ids": [
               "V034-RELEASE",
               "V034-R-GLM",
               "V034-GLM-PREFILL",
               "V034-ATTN",
-              "V034-GLM-RENDERER"
+              "V034-GLM-RENDERER",
+              "V034-GLM-SHARDQ",
+              "V034-GLM-INDEXER",
+              "V034-PR-64580"
             ]
           },
           "sglang": {
             "engine_release": "v0.5.23",
             "source_commit": "297e54fd105e974cdf401e5b4d20253a22c16f90",
             "detailed_review": "reports/sglang-2026-11-20.md",
-            "assessment": "The v0.5.23 cookbook selects RadixArk’s ModelOpt expert-only NVFP4. Its B300 TP8 low-latency cell couples five EAGLE steps/six draft tokens to a cap of 16 requests. The throughput cell couples attention DP8 to two steps/three draft tokens and a cap of 256. Keep TP8 DCP1 as the control. FlashInfer #6389 remains open for FP8 64-head sparse MLA, so keep FP8/DCP8 excluded on this stack.",
+            "assessment": "The v0.5.23 cookbook selects RadixArk’s ModelOpt expert-only NVFP4. Its B300 TP8 low-latency cell couples five EAGLE steps/six draft tokens to a cap of 16 requests. The throughput cell couples attention DP8 to two steps/three draft tokens and a cap of 256. Keep TP8 DCP1 as the control. FlashInfer #6389 remains open for FP8 64-head sparse MLA, so keep FP8/DCP8 excluded on this stack. The reported B300 corruption was reproduced on FlashInfer 0.7.0.post1 with FP8 queries and cache at 64 gathered heads. SGLang pins 0.7.2, which retains the same FMHA artifact and selector. The matched source warrants excluding this combination until a correctness check passes on the pinned build.",
             "source_ids": [
               "S0523-RELEASE",
               "N20-S-STABLE-GLM",
               "N20-S-MAIN-GLM",
-              "S0523-FLASHINFER-6389"
+              "S0523-FLASHINFER-6389",
+              "N20-FI072-FMHA-ARTIFACT",
+              "N20-FI072-SPARSE-SELECTOR"
             ]
           }
         },
@@ -2050,12 +2113,12 @@
           "latest_identity_recheck": {
             "checked_on": "2026-11-20",
             "revision": "46a050bec13002ad29ee795c16e61cf4fa3c4a9c",
-            "retained_revision": "46a050bec13002ad29ee795c16e61cf4fa3c4a9c",
             "matches_retained_pin": true,
             "source_ids": [
               "N20-MOE-HUB"
             ],
-            "scope": "Live head and immutable README/configuration retrieval. Weight payloads were not inspected."
+            "scope": "Live head and immutable README/configuration retrieval. Weight payloads were not inspected.",
+            "current_head": "46a050bec13002ad29ee795c16e61cf4fa3c4a9c"
           },
           "prior_identity_rechecks": [
             {
@@ -2089,12 +2152,12 @@
           "latest_identity_recheck": {
             "checked_on": "2026-11-20",
             "revision": "f9fed3bbc82291073373d67452e9f25317ef7577",
-            "retained_revision": "f9fed3bbc82291073373d67452e9f25317ef7577",
             "matches_retained_pin": true,
             "source_ids": [
               "N20-MOE-HUB"
             ],
-            "scope": "Live head and immutable README/configuration retrieval. Weight payloads were not inspected."
+            "scope": "Live head and immutable README/configuration retrieval. Weight payloads were not inspected.",
+            "current_head": "f9fed3bbc82291073373d67452e9f25317ef7577"
           },
           "prior_identity_rechecks": [
             {
@@ -2127,8 +2190,7 @@
           },
           "latest_identity_recheck": {
             "checked_on": "2026-11-20",
-            "revision": "4756632d3fdf88095feaa87974d41354b2afdca4",
-            "retained_revision": "18d55bfd5a2194887738da73753975c9d3842f46",
+            "revision": "18d55bfd5a2194887738da73753975c9d3842f46",
             "matches_retained_pin": false,
             "source_ids": [
               "N20-MOE-HUB"
@@ -2137,7 +2199,8 @@
             "changed_paths": [
               "LICENSE",
               "README.md"
-            ]
+            ],
+            "current_head": "4756632d3fdf88095feaa87974d41354b2afdca4"
           },
           "prior_identity_rechecks": [
             {
@@ -2167,7 +2230,20 @@
               ],
               "scope": "Head moved to fbad79c0 (2026-10-27, \"Create LICENSE\"); only LICENSE was added (MIT, Z.AI text). Weights, configuration and README unchanged: the retained pin still identifies the serving artifact."
             }
-          ]
+          ],
+          "source_ids": [
+            "glm-5.3-flash-NV-INDEX"
+          ],
+          "mtp_tensor_storage": {
+            "source_id": "glm-5.3-flash-NV-INDEX",
+            "tensor_count_by_dtype": {
+              "F32": 1,
+              "BF16": 888,
+              "F8_E4M3": 864
+            },
+            "bytes": 7618312832,
+            "scope": "Serialized MTP tensors in this export. Engine load and execution precision require separate evidence."
+          }
         },
         {
           "key": "nvfp4-nvidia",
@@ -2196,12 +2272,21 @@
           "latest_identity_recheck": {
             "checked_on": "2026-11-20",
             "revision": "1d00738646cbb0c6d0a9eb403dac5f366f1473a7",
-            "retained_revision": "1d00738646cbb0c6d0a9eb403dac5f366f1473a7",
             "matches_retained_pin": true,
             "source_ids": [
               "N20-MOE-HUB"
             ],
-            "scope": "Live head and immutable README/configuration retrieval. Weight payloads were not inspected."
+            "scope": "Live head and immutable README/configuration retrieval. Weight payloads were not inspected.",
+            "current_head": "1d00738646cbb0c6d0a9eb403dac5f366f1473a7"
+          },
+          "mtp_tensor_storage": {
+            "source_id": "N20-NVIDIA-GLM-53-FLASH-NVFP4-INDEX-RESOLVED",
+            "tensor_count_by_dtype": {
+              "BF16": 888,
+              "F32": 1
+            },
+            "bytes": 14865185408,
+            "scope": "Serialized MTP tensors in this export. Engine load and execution precision require separate evidence."
           }
         },
         {
@@ -2231,12 +2316,21 @@
           "latest_identity_recheck": {
             "checked_on": "2026-11-20",
             "revision": "f46cf340d35a22d0d83d0c1dac8957cf2b1bcd35",
-            "retained_revision": "f46cf340d35a22d0d83d0c1dac8957cf2b1bcd35",
             "matches_retained_pin": true,
             "source_ids": [
               "N20-MOE-HUB"
             ],
-            "scope": "Live head and immutable README/configuration retrieval. Weight payloads were not inspected."
+            "scope": "Live head and immutable README/configuration retrieval. Weight payloads were not inspected.",
+            "current_head": "f46cf340d35a22d0d83d0c1dac8957cf2b1bcd35"
+          },
+          "mtp_tensor_storage": {
+            "source_id": "N20-RADIXARK-GLM-53-FLASH-NVFP4-INDEX-RESOLVED",
+            "tensor_count_by_dtype": {
+              "BF16": 888,
+              "F32": 1
+            },
+            "bytes": 14865185408,
+            "scope": "Serialized MTP tensors in this export. Engine load and execution precision require separate evidence."
           }
         }
       ],
@@ -2730,7 +2824,7 @@
         ],
         "dspark_stages_reference_inference": 3
       },
-      "total_b": null,
+      "total_b": 304.178091454,
       "active_b": null,
       "context": 1048576,
       "layout": "compressed-mhc-moe",
@@ -2755,12 +2849,12 @@
           "latest_identity_recheck": {
             "checked_on": "2026-11-20",
             "revision": "7872f01b1d1fe23eabc4c98b48bffcef5a386062",
-            "retained_revision": "7872f01b1d1fe23eabc4c98b48bffcef5a386062",
             "matches_retained_pin": true,
             "source_ids": [
               "N20-MOE-HUB"
             ],
-            "scope": "Live head and immutable README/configuration retrieval. Weight payloads were not inspected."
+            "scope": "Live head and immutable README/configuration retrieval. Weight payloads were not inspected.",
+            "current_head": "7872f01b1d1fe23eabc4c98b48bffcef5a386062"
           },
           "prior_identity_rechecks": [
             {
@@ -2774,7 +2868,9 @@
               ],
               "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
             }
-          ]
+          ],
+          "listed_weight_file_bytes": 166886535336,
+          "weight_file_bytes_source_id": "deepseek-v4-flash-0731-HEADERS"
         },
         {
           "key": "nvfp4-redhat",
@@ -2790,7 +2886,8 @@
             "N20-REDHATAI-DEEPSEEK-V4-FLASH-0731-NVFP4-HEAD-CFG",
             "N20-REDHATAI-DEEPSEEK-V4-FLASH-0731-NVFP4-INDEX-RESOLVED",
             "N20-REDHATAI-DEEPSEEK-V4-FLASH-0731-NVFP4-PREP-RESOLVED",
-            "N20-REDHATAI-DEEPSEEK-V4-FLASH-0731-NVFP4-TREE"
+            "N20-REDHATAI-DEEPSEEK-V4-FLASH-0731-NVFP4-TREE",
+            "deepseek-v4-flash-0731-RH-HEADERS"
           ],
           "huggingface_readme": {
             "hf_id": "RedHatAI/DeepSeek-V4-Flash-0731-NVFP4",
@@ -2803,13 +2900,17 @@
           "latest_identity_recheck": {
             "checked_on": "2026-11-20",
             "revision": "94ade0e65a074c992844ec55dbcba5dca9d1cdfc",
-            "retained_revision": "94ade0e65a074c992844ec55dbcba5dca9d1cdfc",
             "matches_retained_pin": true,
             "source_ids": [
               "N20-MOE-HUB"
             ],
-            "scope": "Live head and immutable README/configuration retrieval. Weight payloads were not inspected."
-          }
+            "scope": "Live head and immutable README/configuration retrieval. Weight payloads were not inspected.",
+            "current_head": "94ade0e65a074c992844ec55dbcba5dca9d1cdfc"
+          },
+          "header_tensor_bytes": 164602731950,
+          "header_tensor_bytes_source_id": "deepseek-v4-flash-0731-RH-HEADERS",
+          "listed_weight_file_bytes": 164617890813,
+          "weight_file_bytes_source_id": "deepseek-v4-flash-0731-RH-HEADERS"
         },
         {
           "key": "nvfp4-nvidia",
@@ -2831,18 +2932,25 @@
             "deepseek-v4-flash-0731-NV-CARD",
             "deepseek-v4-flash-0731-NV-CFG",
             "SP32-DS0731NV-INDEX",
-            "N20-MOE-HUB"
+            "N20-MOE-HUB",
+            "deepseek-v4-flash-0731-NV-HEADERS"
           ],
           "latest_identity_recheck": {
             "checked_on": "2026-11-20",
             "revision": "f1caa71142bd0be02f728c79f75042ac1e461579",
-            "retained_revision": "f1caa71142bd0be02f728c79f75042ac1e461579",
             "matches_retained_pin": true,
             "source_ids": [
               "N20-MOE-HUB"
             ],
-            "scope": "Live head and immutable README/configuration retrieval. Weight payloads were not inspected."
-          }
+            "scope": "Live head and immutable README/configuration retrieval. Weight payloads were not inspected.",
+            "current_head": "f1caa71142bd0be02f728c79f75042ac1e461579"
+          },
+          "header_tensor_bytes": 175535844088,
+          "header_tensor_bytes_source_id": "deepseek-v4-flash-0731-NV-HEADERS",
+          "listed_weight_file_bytes": 175550788904,
+          "weight_file_bytes_source_id": "deepseek-v4-flash-0731-NV-HEADERS",
+          "draft_tensor_bytes": 10862838300,
+          "index_tensor_bytes_note": "The NVIDIA index repeats the native checkpoint’s total_size. All tensor spans in the export sum to 175,535,844,088 bytes, including 10,862,838,300 bytes in three draft-only shards with the same LFS identities as the corresponding native draft. The safetensors files total 175,550,788,904 bytes with headers."
         }
       ],
       "path": "companies/deepseek/deepseek-v4-flash-0731",
@@ -2881,14 +2989,19 @@
         "V034-PR-59986",
         "N20-S-MAIN-DS4",
         "deepseek-v4-flash-0731-NV-CFG",
-        "SP32-DS0731NV-INDEX"
+        "SP32-DS0731NV-INDEX",
+        "deepseek-v4-flash-0731-INDEX",
+        "deepseek-v4-flash-0731-HEADERS",
+        "deepseek-v4-flash-0731-META",
+        "deepseek-v4-flash-0731-NV-HEADERS",
+        "deepseek-v4-flash-0731-RH-HEADERS"
       ],
       "revision": "7872f01b1d1fe23eabc4c98b48bffcef5a386062",
       "evidence_status": "Exact publisher card, configuration, reference inference files and license retrieved at immutable revision on 2026-10-15; both engines have documented 0731 paths; no local GPU test",
       "source_projection_is_complete_original_config": false,
       "family_total_b": 284,
       "family_active_b": 13,
-      "parameter_count_note": "284B/13B is the vLLM recipe preview-family headline; the SGLang cookbook lists 304B/13B for 0731. Exact 0731 main+draft logical-parameter census is not performed, so total_b and active_b remain null; serialized tensor-element counts are not substituted.",
+      "parameter_count_note": "The pinned native checkpoint contains 284,332,240,471 target weights and 19,845,850,983 bundled DSpark weights across three stages. total_b includes both. Two logical FP4 expert weights occupy each packed I8 element. The count excludes 9,261,408,000 E8M0 scales and 2,327,040 I64 routing IDs. The Hub total of 304,180,418,494 includes those IDs. Active parameters per token remain unresolved.",
       "config_projection_source_note": "Root config num_nextn_predict_layers is 1 (retained as nextn_layers metadata); pinned inference/config.json independently sets n_mtp_layers=3 and inference/model.py constructs three DSparkBlock stages. dspark_target_layer_ids are zero-based in that implementation.",
       "vllm_v031_b300_review": {
         "reviewed_on": "2026-10-17",
@@ -3012,7 +3125,7 @@
             "engine_release": "v0.5.23",
             "source_commit": "297e54fd105e974cdf401e5b4d20253a22c16f90",
             "detailed_review": "reports/sglang-2026-11-20.md",
-            "assessment": "The cookbook maps flash-official plus NVFP4 to nvidia/DeepSeek-V4-Flash-0731-NVFP4 and selects a dev image for B300. The exporter retained the DSpark tensors but exercised target-only on B200. The RedHat export’s tensor index has no named DSpark or MTP tensors. Neither native TP4 nor an unsuffixed NVFP4 cell qualifies these derivatives.",
+            "assessment": "The tagged cookbook marks the native 0731 low-latency B300 TP4 cell with flashinfer_mxfp4 and DSpark verified by the publisher. Its balanced and high-throughput native TP4 cells are unverified. The NVIDIA 0731 NVFP4 TP4 development-image cell uses flashinfer_trtllm_routed and DSpark and is marked in progress. The verified preview NVFP4 cell uses a different target. Red Hat’s 0731 export has no named DSpark or MTP tensors in its index.",
             "source_ids": [
               "S0523-RELEASE",
               "S0523-COOKBOOK-DSV4",
@@ -3093,7 +3206,7 @@
           "effort": null,
           "basis": "Highest published v5.0.1 variant, computed from the variant records in catalog/aa-intelligence-index.json; not an AA-published release figure.",
           "status": "not_published_by_artificial_analysis",
-          "note": "No variant has a composite; missing components: deepseek-v4-flash: FrontierCode 2.0, Terminal-Bench-Science 0.1, CritPt v2 (Hard Subset), AA-Omniscience v1.1 accuracy, AA-Omniscience v1.1 non-hallucination, HLE-Diamond.",
+          "note": "No variant has a composite; missing components: deepseek-v4-flash: FrontierCode-AA 2.0, Terminal-Bench-Science 0.1, CritPt v2 (Hard Subset), AA-Omniscience v1.1 accuracy, AA-Omniscience v1.1 non-hallucination, HLE-Diamond.",
           "source_ids": [
             "AA-MODEL-DEEPSEEK-V4-FLASH"
           ],
@@ -3203,7 +3316,8 @@
           },
           "tested_on_target": false
         }
-      ]
+      ],
+      "weight_file_bytes_note": "Across all 48 native shard headers, tensor spans sum to 156,015,698,140 target bytes and 10,862,838,300 DSpark bytes, including auxiliary entries. The 48 safetensors files total 166,886,535,336 bytes with headers. Runtime residency depends on which components are loaded and how they are represented."
     },
     {
       "key": "deepseek-v4.1-flash-1017",
@@ -3453,7 +3567,12 @@
         "V034-MAIN-IN-61530",
         "N20-S-COOK-V41",
         "N20-MOE-HUB",
-        "N20-DEEPSEEK-AI-DEEPSEEK-V41-FLASH-1017-TEMPLATE"
+        "N20-DEEPSEEK-AI-DEEPSEEK-V41-FLASH-1017-TEMPLATE",
+        "deepseek-v4.1-flash-1017-NV-HEADERS",
+        "V034-ADAPTIVE-TP",
+        "N20-V-MAIN-ADAPTIVE-TP",
+        "V034-COMPARE-ADAPTIVE-TP",
+        "N20-V-MAIN-COMPARE-ADAPTIVE-TP"
       ],
       "revision": "1bae0e1088993b9b82de08f59de5be5a34e42170",
       "evidence_status": "Exact publisher card, configuration, license, reference inference/encoding files, safetensors index and all 48 safetensors headers retrieved at immutable revision on 2026-11-06; vLLM v0.32.0 and SGLang v0.5.22 V4.1 sources inspected; upstream 1017 recipes are unvalidated or transferred from launch weights; no local GPU test",
@@ -3489,8 +3608,7 @@
           },
           "latest_identity_recheck": {
             "checked_on": "2026-11-20",
-            "revision": "08c8657f02291e11b6f6b63e0e16014f8e748518",
-            "retained_revision": "1bae0e1088993b9b82de08f59de5be5a34e42170",
+            "revision": "1bae0e1088993b9b82de08f59de5be5a34e42170",
             "matches_retained_pin": false,
             "source_ids": [
               "N20-MOE-HUB"
@@ -3498,7 +3616,8 @@
             "scope": "Compared complete Hub file trees by Git/LFS identity and retrieved both revisions of README/configuration. Changed paths are relative to the retained serving pin.",
             "changed_paths": [
               "chat_template.jinja"
-            ]
+            ],
+            "current_head": "08c8657f02291e11b6f6b63e0e16014f8e748518"
           },
           "prior_identity_rechecks": [
             {
@@ -3521,7 +3640,7 @@
           "status": "Packed MXFP4 Engram support is present on vLLM and SGLang main. It is absent from both vLLM v0.34.0 and SGLang v0.5.23. No B300 execution.",
           "revision": "3ae9c0d3fbbea5370bd06e679d22044db15883f1",
           "license": "MIT stated in card",
-          "index_tensor_bytes_note": "Index total_size 510,286,023,000 is stale; LFS shard sum 428,986,460,424 bytes",
+          "index_tensor_bytes_note": "The NVIDIA index repeats the native checkpoint’s total_size. All tensor spans in the export sum to 428,966,398,040 bytes, including 7,932,874,632 bytes in three draft-only shards with the same LFS identities as the corresponding native draft. The safetensors files total 428,986,460,424 bytes with headers.",
           "huggingface_readme": {
             "hf_id": "nvidia/DeepSeek-V4.1-Flash-1017-NVFP4",
             "revision": "3ae9c0d3fbbea5370bd06e679d22044db15883f1",
@@ -3533,12 +3652,12 @@
           "latest_identity_recheck": {
             "checked_on": "2026-11-20",
             "revision": "3ae9c0d3fbbea5370bd06e679d22044db15883f1",
-            "retained_revision": "3ae9c0d3fbbea5370bd06e679d22044db15883f1",
             "matches_retained_pin": true,
             "source_ids": [
               "N20-MOE-HUB"
             ],
-            "scope": "Live head and immutable README/configuration retrieval. Weight payloads were not inspected."
+            "scope": "Live head and immutable README/configuration retrieval. Weight payloads were not inspected.",
+            "current_head": "3ae9c0d3fbbea5370bd06e679d22044db15883f1"
           },
           "prior_identity_rechecks": [
             {
@@ -3553,7 +3672,15 @@
               ],
               "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
             }
-          ]
+          ],
+          "source_ids": [
+            "deepseek-v4.1-flash-1017-NV-HEADERS"
+          ],
+          "header_tensor_bytes": 428966398040,
+          "header_tensor_bytes_source_id": "deepseek-v4.1-flash-1017-NV-HEADERS",
+          "listed_weight_file_bytes": 428986460424,
+          "weight_file_bytes_source_id": "deepseek-v4.1-flash-1017-NV-HEADERS",
+          "draft_tensor_bytes": 7932874632
         }
       ],
       "huggingface_readme": {
@@ -3593,14 +3720,19 @@
             "engine_release": "v0.34.0",
             "source_commit": "62d4bc3c7e33b1b6c906e233e6af2d3506c482ca",
             "detailed_review": "reports/vllm-v034-upgrade.md",
-            "assessment": "Native 1017 is a release-source candidate. The v0.34 sparse-prefill graph gate (#59986) keeps prefill and mixed batches outside FULL capture while preserving uniform decode graphs. The author ran CPU checks, leaving the B300 end-to-end reproducer open for requalification. Packed MXFP4 Engram support #61530 is on main and absent from v0.34, so NVIDIA 1017 remains a development-build probe. The B300 recipe figures use 0909 weights.",
+            "assessment": "Native 1017 is a release-source candidate. The v0.34 sparse-prefill graph gate (#59986) keeps prefill and mixed batches outside FULL capture while preserving uniform decode graphs. The author ran CPU checks, leaving the B300 end-to-end reproducer open for requalification. Packed MXFP4 Engram support #61530 is on main and absent from v0.34, so NVIDIA 1017 remains a development-build probe. The B300 recipe figures use 0909 weights. Use target-only or fixed-width DSpark at TP2/TP4 on v0.34.0. The separate rank-consensus fix #62769 broadcasts adaptive draft decisions across TP ranks on main. Its published end-to-end check used Qwen on MI355X.",
             "source_ids": [
               "V034-RELEASE",
               "V034-R-DS41",
               "V034-PR-59986",
               "V034-PR-61530",
               "V034-IN-61530",
-              "V034-MAIN-IN-61530"
+              "V034-MAIN-IN-61530",
+              "O26-DSPARK-CONSENSUS",
+              "V034-ADAPTIVE-TP",
+              "N20-V-MAIN-ADAPTIVE-TP",
+              "V034-COMPARE-ADAPTIVE-TP",
+              "N20-V-MAIN-COMPARE-ADAPTIVE-TP"
             ]
           },
           "sglang": {
@@ -3645,8 +3777,9 @@
           },
           {
             "id": "deepseek-v4.1-flash-1017-4",
-            "mechanism": "DSpark: probe enable_adaptive_verification false versus true at TP>1. On v0.32.0/v0.33.0 the true arm needs cudagraph_mode FULL_DECODE_ONLY or a build containing vLLM PR 59986, because issue 59970 reports an illegal memory access (4/4 runs, 2xB300 TP2, v0.31.0) with true + FULL_AND_PIECEWISE; run it with hang detection because the TP-consistency fix (vLLM PR 62769) is open. Measure natural acceptance on agentic traffic, where SGLang documents lower acceptance and recommends no speculation at large batch.",
-            "evidence_limit": "Source-supported hypothesis from publisher/engine artifacts at pinned revisions; not measured on the B300 node."
+            "mechanism": "Use target-only or fixed-width DSpark at TP2/TP4 on v0.34.0. The separate rank-consensus fix #62769 broadcasts adaptive draft decisions across TP ranks on main. Its published end-to-end check used Qwen on MI355X. The sparse-prefill graph fix #59986 addresses a distinct failure mode. Measure natural acceptance, hangs and task quality on the target B300 build.",
+            "evidence_limit": "Source-supported hypothesis from publisher/engine artifacts at pinned revisions; not measured on the B300 node.",
+            "reviewed_on": "2026-11-20"
           },
           {
             "id": "deepseek-v4.1-flash-1017-5",
@@ -3898,7 +4031,7 @@
       "context": 262144,
       "layout": "hybrid-dense",
       "license": "Apache-2.0 on base; also review derivative terms",
-      "recommended": "KServe TP1 target-only with identical KV and protocol settings. Compare BF16, official FP8, NVIDIA PTQ/QAD, Red Hat and Inferact independently, then native MTP on the selected target.",
+      "recommended": "KServe TP1 target-only with identical KV and protocol settings. Compare BF16, official FP8, NVIDIA PTQ/QAD, Red Hat and Inferact independently, then native MTP on targets with a complete compatible draft. Keep QAD target-only until a compatible draft is identified.",
       "baseline_tp": 1,
       "variants": [
         {
@@ -3916,19 +4049,27 @@
             "retrieved_at": "2026-10-26T11:24:08.808029+00:00"
           },
           "latest_identity_recheck": {
-            "checked_on": "2026-11-06",
+            "checked_on": "2026-11-20",
             "revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
             "matches_retained_pin": false,
-            "current_head": "8c0b3d30f3ae96f5c7f774de704bf0ada83e422a",
-            "changed_files_since_pin": [
-              "README.md"
-            ],
-            "retained_pin_still_valid_for_serving": true,
+            "current_head": "37561816e66b5b9153b1b64c10968c18c1e6f4a0",
             "source_ids": [
-              "O06-HF-HEADS",
-              "O06-HEAD-TREE-DIFF"
+              "N20-HF-QWEN-QWEN3-8-27B",
+              "qwen3.8-27b-CARD",
+              "qwen3.8-27b-CFG",
+              "N20-TREE-QWEN-QWEN3-8-27B-PIN",
+              "N20-TREE-QWEN-QWEN3-8-27B-HEAD",
+              "N20-QWEN-QWEN3-8-27B-HEAD-CARD",
+              "N20-QWEN-QWEN3-8-27B-HEAD-CHAT",
+              "N20-QWEN-QWEN3-8-27B-HEAD-TOKCFG"
             ],
-            "scope": "Head moved to 8c0b3d30 (2026-11-05, model-card table colours); only README.md changed. Weights, configuration and tokenizer unchanged: the retained pin and its README snapshot remain the serving identity."
+            "scope": "Hub head plus immutable README and model configuration checked. Snapshot SHA-256 matches. No weight payload or inference run. Listed weight object IDs are unchanged. Retain the original protocol assets for baseline comparisons.",
+            "changed_files_since_pin": [
+              "README.md",
+              "chat_template.jinja",
+              "tokenizer_config.json"
+            ],
+            "retained_pin_still_valid_for_serving": true
           },
           "prior_identity_rechecks": [
             {
@@ -3941,6 +4082,21 @@
                 "qwen3.8-27b-CFG"
               ],
               "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+            },
+            {
+              "checked_on": "2026-11-06",
+              "revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
+              "matches_retained_pin": false,
+              "current_head": "8c0b3d30f3ae96f5c7f774de704bf0ada83e422a",
+              "changed_files_since_pin": [
+                "README.md"
+              ],
+              "retained_pin_still_valid_for_serving": true,
+              "source_ids": [
+                "O06-HF-HEADS",
+                "O06-HEAD-TREE-DIFF"
+              ],
+              "scope": "Head moved to 8c0b3d30 (2026-11-05, model-card table colours); only README.md changed. Weights, configuration and tokenizer unchanged: the retained pin and its README snapshot remain the serving identity."
             }
           ]
         },
@@ -3961,16 +4117,39 @@
             "retrieved_at": "2026-10-26T11:24:09.730118+00:00"
           },
           "latest_identity_recheck": {
-            "checked_on": "2026-10-26",
+            "checked_on": "2026-11-20",
             "revision": "017b9c7af6b5689d5dd426a76e0bc077eb5ca20a",
-            "matches_retained_pin": true,
+            "matches_retained_pin": false,
+            "current_head": "c3a462cc3d38cf351f3b26cbd763469eeb74ef81",
             "source_ids": [
-              "RR-QWEN-27FP8-API",
+              "N20-HF-QWEN-QWEN3-8-27B-FP8",
               "qwen3.8-27b-FP8",
-              "qwen3.8-27b-FP8-CFG"
+              "qwen3.8-27b-FP8-CFG",
+              "N20-TREE-QWEN-QWEN3-8-27B-FP8-PIN",
+              "N20-TREE-QWEN-QWEN3-8-27B-FP8-HEAD",
+              "N20-QWEN-QWEN3-8-27B-FP8-HEAD-CHAT",
+              "N20-QWEN-QWEN3-8-27B-FP8-HEAD-TOKCFG"
             ],
-            "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
-          }
+            "scope": "Hub head plus immutable README and model configuration checked. Snapshot SHA-256 matches. No weight payload or inference run. Listed weight object IDs are unchanged. Retain the original protocol assets for baseline comparisons.",
+            "changed_files_since_pin": [
+              "chat_template.jinja",
+              "tokenizer_config.json"
+            ],
+            "retained_pin_still_valid_for_serving": true
+          },
+          "prior_identity_rechecks": [
+            {
+              "checked_on": "2026-10-26",
+              "revision": "017b9c7af6b5689d5dd426a76e0bc077eb5ca20a",
+              "matches_retained_pin": true,
+              "source_ids": [
+                "RR-QWEN-27FP8-API",
+                "qwen3.8-27b-FP8",
+                "qwen3.8-27b-FP8-CFG"
+              ],
+              "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+            }
+          ]
         },
         {
           "key": "nvfp4",
@@ -3992,23 +4171,37 @@
             "retrieved_at": "2026-10-26T11:24:11.653794+00:00"
           },
           "latest_identity_recheck": {
-            "checked_on": "2026-10-26",
+            "checked_on": "2026-11-20",
             "revision": "482ca0f3832238542f8f5295dde86b5f22711d80",
             "matches_retained_pin": true,
+            "current_head": "482ca0f3832238542f8f5295dde86b5f22711d80",
             "source_ids": [
-              "RR-QWEN-27NV-API",
+              "N20-HF-NVIDIA-QWEN3-8-27B-NVFP4",
               "qwen3.8-27b-NV",
-              "qwen3.8-27b-NV-CFG",
-              "qwen3.8-27b-NV-QUANT"
+              "qwen3.8-27b-NV-CFG"
             ],
-            "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
-          }
+            "scope": "Hub head plus immutable README and model configuration checked. Snapshot SHA-256 matches. No weight payload or inference run."
+          },
+          "prior_identity_rechecks": [
+            {
+              "checked_on": "2026-10-26",
+              "revision": "482ca0f3832238542f8f5295dde86b5f22711d80",
+              "matches_retained_pin": true,
+              "source_ids": [
+                "RR-QWEN-27NV-API",
+                "qwen3.8-27b-NV",
+                "qwen3.8-27b-NV-CFG",
+                "qwen3.8-27b-NV-QUANT"
+              ],
+              "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+            }
+          ]
         },
         {
           "key": "nvfp4-qad",
           "hf_id": "nvidia/Qwen3.8-27B-NVFP4-QAD",
           "revision": "cd46ab575a5a687f0bc3e54251016fc2cc1a6aef",
-          "precision": "ModelOpt mixed precision after quantization-aware distillation. The 401 per-module assignments contain 307 NVFP4 and 94 FP8 entries. The lm_head uses NVFP4. Config includes an 8-bit static KV scheme.",
+          "precision": "ModelOpt mixed precision after quantization-aware distillation. The 401 per-module assignments contain 307 NVFP4 and 94 FP8 entries. The lm_head uses NVFP4. Config includes an 8-bit static KV scheme. The card names ModelOpt v0.48.0. Both configuration files record producer 0.46.0rc1. The exact software version used for export is unresolved. The complete 64-shard header census matches all 2,304 index keys, including 11 MTP tensors. The bundled draft lacks four tensors used by the inspected native loaders. The export declares FP8 KV but supplies no named K/V cache scale tensors.",
           "status": "Pinned metadata and model card inspected on November 20. Target-node loading, quality and performance unmeasured.",
           "listed_weight_file_bytes": 19899236696,
           "weight_file_bytes_source_id": "N20-Q27-QAD-TREE",
@@ -4018,7 +4211,12 @@
             "N20-Q27-QAD-CFG",
             "N20-Q27-QAD-INDEX",
             "N20-Q27-QAD-TREE",
-            "N20-Q27-QAD-QCFG"
+            "N20-Q27-QAD-QCFG",
+            "N20-Q27-QAD-LAST-HDR",
+            "N20-Q27-V-MTP",
+            "N20-Q27-S-MTP",
+            "N20-Q27-V-KVSCALE",
+            "N20-Q27-S-KVSCALE"
           ],
           "huggingface_readme": {
             "hf_id": "nvidia/Qwen3.8-27B-NVFP4-QAD",
@@ -4146,7 +4344,11 @@
         "AA-MODEL-QWEN3-8-27B-MEDIUM",
         "AA-MODEL-QWEN3-8-27B-NON-REASONING",
         "AA-WB-MODEL-GEMINI-4-CARBON-20261101",
-        "AA-WB-MODEL-GEMINI-4-CARBON-20261103"
+        "AA-WB-MODEL-GEMINI-4-CARBON-20261103",
+        "N20-Q27-QAD-LAST-HDR",
+        "N20-Q27-V-MTP",
+        "N20-Q27-S-MTP",
+        "N20-Q27-V-KVSCALE"
       ],
       "revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
       "evidence_status": "Pinned cards and configuration and selected vLLM v0.34.0 / SGLang v0.5.23 sources checked November 20. Target-node build, runtime, quality and performance remain unqualified.",
@@ -4332,11 +4534,19 @@
           "sglang": {
             "engine_release": "v0.5.23",
             "source_commit": "297e54fd105e974cdf401e5b4d20253a22c16f90",
-            "assessment": "v0.5.23 documents the original NVIDIA export and separate RadixArk FP4-head and BF16-head variants. NVIDIA also gives a QAD command using v0.5.23-cu130. Start each target at TP1 with speculation off. The QAD export and Red Hat export carry FP8 KV metadata, so record the effective KV dtype and scales before a weight-format comparison.",
+            "assessment": "v0.5.23 documents the original NVIDIA export and separate RadixArk FP4-head and BF16-head variants. NVIDIA also gives a QAD command using v0.5.23-cu130. Start each target at TP1 with speculation off. The QAD export and Red Hat export carry FP8 KV metadata, so record the effective KV dtype and scales before a weight-format comparison. On the inspected CUDA loaders, auto selects BF16 KV for the original NVIDIA PTQ export and FP8 E4M3 for both QAD and Red Hat. Red Hat indexes 16 K and 16 V cache scales. QAD has no named K/V scale tensors. Match effective KV and check actual scaling before attributing differences to weights.",
             "source_ids": [
               "N20-S-STABLE-Q27",
               "N20-Q27-QAD-CFG",
-              "N20-Q27-RH-CFG"
+              "N20-Q27-RH-CFG",
+              "N20-S-KV-DTYPE",
+              "N20-S-KV-COMPRESSED",
+              "N20-S-Q35-WRAPPER",
+              "N20-S-QVL-WRAPPER",
+              "N20-S-KV-FIELD",
+              "N20-Q27-V-KVSCALE",
+              "N20-Q27-QAD-LAST-HDR",
+              "N20-Q27-S-KVSCALE"
             ],
             "detailed_review": "reports/sglang-2026-11-20.md"
           }
@@ -4642,19 +4852,27 @@
             "retrieved_at": "2026-10-26T11:24:12.057334+00:00"
           },
           "latest_identity_recheck": {
-            "checked_on": "2026-11-06",
+            "checked_on": "2026-11-20",
             "revision": "de4b8e4d43b917e7706784d8bb445c9af86a3540",
             "matches_retained_pin": false,
-            "current_head": "7ecef55a2e549814c62143fcf8b5be457695e3b9",
-            "changed_files_since_pin": [
-              "README.md"
-            ],
-            "retained_pin_still_valid_for_serving": true,
+            "current_head": "812d96e10a0dd82b69d749e68693698cf6c36daa",
             "source_ids": [
-              "O06-HF-HEADS",
-              "O06-HEAD-TREE-DIFF"
+              "N20-HF-QWEN-QWEN3-8-FLASH-NEXT",
+              "qwen3.8-flash-next-CARD",
+              "qwen3.8-flash-next-CFG",
+              "N20-TREE-QWEN-QWEN3-8-FLASH-NEXT-PIN",
+              "N20-TREE-QWEN-QWEN3-8-FLASH-NEXT-HEAD",
+              "N20-QWEN-QWEN3-8-FLASH-NEXT-HEAD-CARD",
+              "N20-QWEN-QWEN3-8-FLASH-NEXT-HEAD-CHAT",
+              "N20-QWEN-QWEN3-8-FLASH-NEXT-HEAD-TOKCFG"
             ],
-            "scope": "Head moved to 7ecef55a (2026-11-05, model-card table colours); only README.md changed. Weights, configuration and tokenizer unchanged: the retained pin and its README snapshot remain the serving identity."
+            "scope": "Hub head plus immutable README and model configuration checked. Snapshot SHA-256 matches. No weight payload or inference run. Listed weight object IDs are unchanged. Retain the original protocol assets for baseline comparisons.",
+            "changed_files_since_pin": [
+              "README.md",
+              "chat_template.jinja",
+              "tokenizer_config.json"
+            ],
+            "retained_pin_still_valid_for_serving": true
           },
           "prior_identity_rechecks": [
             {
@@ -4667,6 +4885,21 @@
                 "qwen3.8-flash-next-CFG"
               ],
               "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+            },
+            {
+              "checked_on": "2026-11-06",
+              "revision": "de4b8e4d43b917e7706784d8bb445c9af86a3540",
+              "matches_retained_pin": false,
+              "current_head": "7ecef55a2e549814c62143fcf8b5be457695e3b9",
+              "changed_files_since_pin": [
+                "README.md"
+              ],
+              "retained_pin_still_valid_for_serving": true,
+              "source_ids": [
+                "O06-HF-HEADS",
+                "O06-HEAD-TREE-DIFF"
+              ],
+              "scope": "Head moved to 7ecef55a (2026-11-05, model-card table colours); only README.md changed. Weights, configuration and tokenizer unchanged: the retained pin and its README snapshot remain the serving identity."
             }
           ]
         },
@@ -4687,16 +4920,39 @@
             "retrieved_at": "2026-10-26T11:24:12.437121+00:00"
           },
           "latest_identity_recheck": {
-            "checked_on": "2026-10-26",
+            "checked_on": "2026-11-20",
             "revision": "236dfdf285828023ca3bcd3f37366c58a3469b13",
-            "matches_retained_pin": true,
+            "matches_retained_pin": false,
+            "current_head": "7fb48d708ca6cd8eeed8f4db0433be18af96984f",
             "source_ids": [
-              "TOPQ-NEXTFP8-API",
+              "N20-HF-QWEN-QWEN3-8-FLASH-NEXT-FP8",
               "qwen3.8-flash-next-FP8",
-              "qwen3.8-flash-next-FP8-CFG"
+              "qwen3.8-flash-next-FP8-CFG",
+              "N20-TREE-QWEN-QWEN3-8-FLASH-NEXT-FP8-PIN",
+              "N20-TREE-QWEN-QWEN3-8-FLASH-NEXT-FP8-HEAD",
+              "N20-QWEN-QWEN3-8-FLASH-NEXT-FP8-HEAD-CHAT",
+              "N20-QWEN-QWEN3-8-FLASH-NEXT-FP8-HEAD-TOKCFG"
             ],
-            "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
-          }
+            "scope": "Hub head plus immutable README and model configuration checked. Snapshot SHA-256 matches. No weight payload or inference run. Listed weight object IDs are unchanged. Retain the original protocol assets for baseline comparisons.",
+            "changed_files_since_pin": [
+              "chat_template.jinja",
+              "tokenizer_config.json"
+            ],
+            "retained_pin_still_valid_for_serving": true
+          },
+          "prior_identity_rechecks": [
+            {
+              "checked_on": "2026-10-26",
+              "revision": "236dfdf285828023ca3bcd3f37366c58a3469b13",
+              "matches_retained_pin": true,
+              "source_ids": [
+                "TOPQ-NEXTFP8-API",
+                "qwen3.8-flash-next-FP8",
+                "qwen3.8-flash-next-FP8-CFG"
+              ],
+              "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+            }
+          ]
         },
         {
           "key": "nvfp4",
@@ -4716,23 +4972,37 @@
             "retrieved_at": "2026-10-26T11:24:12.417438+00:00"
           },
           "latest_identity_recheck": {
-            "checked_on": "2026-10-26",
+            "checked_on": "2026-11-20",
             "revision": "fc694b54fb0174e0913e6adf86691ef85a4ead47",
             "matches_retained_pin": true,
+            "current_head": "fc694b54fb0174e0913e6adf86691ef85a4ead47",
             "source_ids": [
-              "RR-QWEN-NEXTNV-API",
+              "N20-HF-NVIDIA-QWEN3-8-FLASH-NEXT-NVFP4",
               "qwen3.8-flash-next-NV",
-              "qwen3.8-flash-next-NV-CFG",
-              "qwen3.8-flash-next-NV-QUANT"
+              "qwen3.8-flash-next-NV-CFG"
             ],
-            "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
-          }
+            "scope": "Hub head plus immutable README and model configuration checked. Snapshot SHA-256 matches. No weight payload or inference run."
+          },
+          "prior_identity_rechecks": [
+            {
+              "checked_on": "2026-10-26",
+              "revision": "fc694b54fb0174e0913e6adf86691ef85a4ead47",
+              "matches_retained_pin": true,
+              "source_ids": [
+                "RR-QWEN-NEXTNV-API",
+                "qwen3.8-flash-next-NV",
+                "qwen3.8-flash-next-NV-CFG",
+                "qwen3.8-flash-next-NV-QUANT"
+              ],
+              "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+            }
+          ]
         },
         {
           "key": "redhat-nvfp4",
           "hf_id": "RedHatAI/Qwen3.8-Flash-Next-NVFP4",
           "revision": "96de4d48e43282a6430707f9eaf902bff2398507",
-          "precision": "compressed-tensors NVFP4 W4A4 group 16 on routed expert gate/up/down. PLE table shard 0 is BF16. No serialized KV quantization scheme.",
+          "precision": "compressed-tensors NVFP4 W4A4 group 16 on routed expert gate/up/down. All 128 PLE tables are BF16 (102,400,491,520 bytes). No serialized KV quantization scheme.",
           "status": "Pinned metadata and model card inspected on November 20. Target-node loading, quality and performance unmeasured.",
           "listed_weight_file_bytes": 186398156368,
           "weight_file_bytes_source_id": "N20-QFN-RH-TREE",
@@ -4769,7 +5039,7 @@
           "key": "inferact-nvfp4",
           "hf_id": "Inferact/Qwen3.8-Flash-Next-NVFP4",
           "revision": "103a7608316173ca6edd49929544244de7ffda70",
-          "precision": "ModelOpt NVFP4, group 16. A pinned PLE table shard stores BF16 values although the vLLM recipe describes NVFP4 PLE. Indexed MTP tensors have their own scales.",
+          "precision": "ModelOpt NVFP4, group 16. All 128 PLE tables store BF16 values (102,400,491,520 bytes) although the vLLM recipe describes NVFP4 PLE. Indexed MTP tensors have their own scales.",
           "status": "Pinned metadata and model card inspected on November 20. Target-node loading, quality and performance unmeasured.",
           "listed_weight_file_bytes": 182779284200,
           "weight_file_bytes_source_id": "N20-QFN-IN-TREE",
@@ -4806,7 +5076,7 @@
           "key": "radixark-nvfp4",
           "hf_id": "RadixArk/Qwen3.8-Flash-Next-NVFP4",
           "revision": "7b719225242aacd3dbd3f9407468c2ee9a9d2594",
-          "precision": "ModelOpt NVFP4 group-16 W4A4 routed experts. PLE tables stored in FP8 E4M3, MTP excluded from quantization, no KV scale scheme in the config.",
+          "precision": "ModelOpt NVFP4 group-16 W4A4 routed experts. PLE tables stored in FP8 E4M3, MTP excluded from quantization, no KV scale scheme in the config. The 128 FP8 PLE weights total 51,200,245,760 bytes plus a separate BF16 scalar scale.",
           "status": "Pinned metadata and model card inspected on November 20. Target-node loading, quality and performance unmeasured.",
           "listed_weight_file_bytes": 135195303851,
           "weight_file_bytes_source_id": "N20-QFN-RAD-TREE",
@@ -4817,7 +5087,11 @@
             "N20-QFN-RAD-INDEX",
             "N20-QFN-RAD-TREE",
             "N20-QFN-RAD-QCFG",
-            "N20-QFN-RAD-HDR"
+            "N20-QFN-RAD-HDR",
+            "N20-QFN-RAD-GSM",
+            "N20-QFN-RAD-AIME",
+            "N20-QFN-RAD-NOTES",
+            "N20-QFN-RAD-PLE-HEADERS"
           ],
           "huggingface_readme": {
             "hf_id": "RadixArk/Qwen3.8-Flash-Next-NVFP4",
@@ -4870,7 +5144,14 @@
         "O06-HEAD-TREE-DIFF",
         "AA-II-METHOD",
         "AA-MODEL-QWEN3-8-FLASH-NEXT",
-        "AA-WB-MODEL-GEMINI-4-CARBON-20261101"
+        "AA-WB-MODEL-GEMINI-4-CARBON-20261101",
+        "N20-QFN-RAD-GSM",
+        "N20-QFN-RAD-AIME",
+        "N20-QFN-RAD-NOTES",
+        "N20-QFN-RAD-PLE-HEADERS",
+        "N20-IX-QFN-SUBMISSION",
+        "N20-IX-QFN-C12",
+        "N20-IX-QFN-EVAL"
       ],
       "evidence_status": "Pinned cards and configuration and selected vLLM v0.34.0 / SGLang v0.5.23 sources checked November 20. Target-node build, runtime, quality and performance remain unqualified.",
       "source_projection_is_complete_original_config": false,
@@ -5033,7 +5314,7 @@
           "vllm": {
             "engine_release": "v0.34.0",
             "source_commit": "62d4bc3c7e33b1b6c906e233e6af2d3506c482ca",
-            "assessment": "v0.34 adds optional disk-backed PLE lookup and shared QSA top-k buffers. The reported 27 GiB saving is for DGX Spark. The tagged release recipe selects Inferact for NVFP4, despite describing its PLE as NVFP4. At the pinned Inferact revision the first n-gram tensor has BF16 storage. Plain TP8 is incompatible with the official block-FP8 expert geometry in the upstream recipe, which instead uses tensor plus expert parallelism.",
+            "assessment": "v0.34 adds optional disk-backed PLE lookup and shared QSA top-k buffers. The reported 27 GiB saving is for DGX Spark. The tagged release recipe selects Inferact for NVFP4, despite describing its PLE as NVFP4. At the pinned Inferact revision all 128 n-gram tables store BF16, totaling 102,400,491,520 bytes. Plain TP8 is incompatible with the official block-FP8 expert geometry in the upstream recipe, which instead uses tensor plus expert parallelism.",
             "source_ids": [
               "V034-R-QFN",
               "V034-RELEASE",
@@ -5044,11 +5325,15 @@
           "sglang": {
             "engine_release": "v0.5.23",
             "source_commit": "297e54fd105e974cdf401e5b4d20253a22c16f90",
-            "assessment": "The regular NVIDIA B300 cookbook cell remains unverified. The AgentX page bundled in v0.5.23 records a RadixArk B300 TP1 run under v0.5.21-cu130. The November main AgentX page records NVIDIA B300 TP1 and TP4/EP4 runs on an October 28 nightly at 586355a8. Both sets disclose synthetic acceptance. Their acceptance lengths cannot establish native MTP performance on agent turns.",
+            "assessment": "The regular NVIDIA B300 cookbook cell remains unverified. The AgentX page bundled in v0.5.23 records a RadixArk B300 TP1 run under v0.5.21-cu130. The November main AgentX page records NVIDIA B300 TP1 and TP4/EP4 runs on an October 28 nightly at 586355a8. Both sets disclose synthetic acceptance. Their acceptance lengths cannot establish native MTP performance on agent turns. The c12 submission injected the acceptance length 2.32. Its worker fingerprint matches the AMD64 image source label, and its output-token rate was measured through the benchmark frontend. The separate GSM8K evaluations used different concurrency and cache settings.",
             "source_ids": [
               "N20-S-QNEXT-STABLE",
               "N20-QFN-S-AGENTX-STABLE",
-              "N20-S-AGENTX-CELLS"
+              "N20-S-AGENTX-CELLS",
+              "N20-IX-QFN-C12",
+              "N20-IX-QFN-EVAL",
+              "N20-IX-QFN-SUBMISSION",
+              "N20-S-OCI-AGENTX"
             ],
             "detailed_review": "reports/sglang-2026-11-20.md"
           }
@@ -5295,16 +5580,30 @@
             "retrieved_at": "2026-10-26T11:24:12.509458+00:00"
           },
           "latest_identity_recheck": {
-            "checked_on": "2026-10-26",
+            "checked_on": "2026-11-20",
             "revision": "842da3794eaa0b77d5f08bae87a17459d91ff475",
             "matches_retained_pin": true,
+            "current_head": "842da3794eaa0b77d5f08bae87a17459d91ff475",
             "source_ids": [
-              "TOPM-GEMMA-BASE-META",
+              "N20-HF-GOOGLE-GEMMA-4-31B-IT",
               "gemma-4-31b-it-CARD",
               "gemma-4-31b-it-CFG"
             ],
-            "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
-          }
+            "scope": "Hub head plus immutable README and model configuration checked. Snapshot SHA-256 matches. No weight payload or inference run."
+          },
+          "prior_identity_rechecks": [
+            {
+              "checked_on": "2026-10-26",
+              "revision": "842da3794eaa0b77d5f08bae87a17459d91ff475",
+              "matches_retained_pin": true,
+              "source_ids": [
+                "TOPM-GEMMA-BASE-META",
+                "gemma-4-31b-it-CARD",
+                "gemma-4-31b-it-CFG"
+              ],
+              "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+            }
+          ]
         },
         {
           "key": "fp8",
@@ -5323,16 +5622,30 @@
             "retrieved_at": "2026-10-26T11:24:13.541300+00:00"
           },
           "latest_identity_recheck": {
-            "checked_on": "2026-10-26",
+            "checked_on": "2026-11-20",
             "revision": "d7242548c457ab4b45bd3adb8937f2659af4739d",
             "matches_retained_pin": true,
+            "current_head": "d7242548c457ab4b45bd3adb8937f2659af4739d",
             "source_ids": [
-              "TOPM-GEMMA-RHFP8-META",
+              "N20-HF-REDHATAI-GEMMA-4-31B-IT-FP8-BLOCK",
               "gemma-4-31b-it-FP8",
               "gemma-4-31b-it-FP8-CFG"
             ],
-            "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
-          }
+            "scope": "Hub head plus immutable README and model configuration checked. Snapshot SHA-256 matches. No weight payload or inference run."
+          },
+          "prior_identity_rechecks": [
+            {
+              "checked_on": "2026-10-26",
+              "revision": "d7242548c457ab4b45bd3adb8937f2659af4739d",
+              "matches_retained_pin": true,
+              "source_ids": [
+                "TOPM-GEMMA-RHFP8-META",
+                "gemma-4-31b-it-FP8",
+                "gemma-4-31b-it-FP8-CFG"
+              ],
+              "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+            }
+          ]
         },
         {
           "key": "nvfp4",
@@ -5351,16 +5664,30 @@
             "retrieved_at": "2026-10-26T11:24:15.153680+00:00"
           },
           "latest_identity_recheck": {
-            "checked_on": "2026-10-26",
+            "checked_on": "2026-11-20",
             "revision": "5df75ccad9b74546f5be758a2a68acc2e16bbc9b",
             "matches_retained_pin": true,
+            "current_head": "5df75ccad9b74546f5be758a2a68acc2e16bbc9b",
             "source_ids": [
-              "TOPM-GEMMA-RHNV-META",
+              "N20-HF-REDHATAI-GEMMA-4-31B-IT-NVFP4",
               "gemma-4-31b-it-NV",
               "gemma-4-31b-it-NV-CFG"
             ],
-            "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
-          }
+            "scope": "Hub head plus immutable README and model configuration checked. Snapshot SHA-256 matches. No weight payload or inference run."
+          },
+          "prior_identity_rechecks": [
+            {
+              "checked_on": "2026-10-26",
+              "revision": "5df75ccad9b74546f5be758a2a68acc2e16bbc9b",
+              "matches_retained_pin": true,
+              "source_ids": [
+                "TOPM-GEMMA-RHNV-META",
+                "gemma-4-31b-it-NV",
+                "gemma-4-31b-it-NV-CFG"
+              ],
+              "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+            }
+          ]
         },
         {
           "key": "nvidia-nvfp4",
@@ -5385,17 +5712,31 @@
             "retrieved_at": "2026-10-26T11:24:15.278028+00:00"
           },
           "latest_identity_recheck": {
-            "checked_on": "2026-10-26",
+            "checked_on": "2026-11-20",
             "revision": "4135a98a9b728a548947683219633b25682223ac",
             "matches_retained_pin": true,
+            "current_head": "4135a98a9b728a548947683219633b25682223ac",
             "source_ids": [
-              "TOPM-GEMMA-NVIDIA-META",
+              "N20-HF-NVIDIA-GEMMA-4-31B-IT-NVFP4",
               "TOPM-GEMMA-NVIDIA-CARD",
-              "TOPM-GEMMA-NVIDIA-CFG",
-              "HF-NVIDIA-GEMMA-4-31B-IT-NVFP4-HF-QUANT-CONFIG-JSON"
+              "TOPM-GEMMA-NVIDIA-CFG"
             ],
-            "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
-          }
+            "scope": "Hub head plus immutable README and model configuration checked. Snapshot SHA-256 matches. No weight payload or inference run."
+          },
+          "prior_identity_rechecks": [
+            {
+              "checked_on": "2026-10-26",
+              "revision": "4135a98a9b728a548947683219633b25682223ac",
+              "matches_retained_pin": true,
+              "source_ids": [
+                "TOPM-GEMMA-NVIDIA-META",
+                "TOPM-GEMMA-NVIDIA-CARD",
+                "TOPM-GEMMA-NVIDIA-CFG",
+                "HF-NVIDIA-GEMMA-4-31B-IT-NVFP4-HF-QUANT-CONFIG-JSON"
+              ],
+              "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+            }
+          ]
         },
         {
           "key": "unsloth-nvfp4",
@@ -5420,16 +5761,30 @@
             "retrieved_at": "2026-10-26T11:24:15.308878+00:00"
           },
           "latest_identity_recheck": {
-            "checked_on": "2026-10-26",
+            "checked_on": "2026-11-20",
             "revision": "373c00b5ecb0a8ee43942b5ca08b93805de8eee4",
             "matches_retained_pin": true,
+            "current_head": "373c00b5ecb0a8ee43942b5ca08b93805de8eee4",
             "source_ids": [
-              "TOPM-GEMMA-UNSLOTH-META",
+              "N20-HF-UNSLOTH-GEMMA-4-31B-IT-NVFP4",
               "TOPM-GEMMA-UNSLOTH-CARD",
               "TOPM-GEMMA-UNSLOTH-CFG"
             ],
-            "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
-          }
+            "scope": "Hub head plus immutable README and model configuration checked. Snapshot SHA-256 matches. No weight payload or inference run."
+          },
+          "prior_identity_rechecks": [
+            {
+              "checked_on": "2026-10-26",
+              "revision": "373c00b5ecb0a8ee43942b5ca08b93805de8eee4",
+              "matches_retained_pin": true,
+              "source_ids": [
+                "TOPM-GEMMA-UNSLOTH-META",
+                "TOPM-GEMMA-UNSLOTH-CARD",
+                "TOPM-GEMMA-UNSLOTH-CFG"
+              ],
+              "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+            }
+          ]
         },
         {
           "key": "nvfp4-turbo",
@@ -5454,16 +5809,30 @@
             "retrieved_at": "2026-10-26T11:24:15.673520+00:00"
           },
           "latest_identity_recheck": {
-            "checked_on": "2026-10-26",
+            "checked_on": "2026-11-20",
             "revision": "782d58ea7f9cf3a148be86e153f5689a2d73238b",
             "matches_retained_pin": true,
+            "current_head": "782d58ea7f9cf3a148be86e153f5689a2d73238b",
             "source_ids": [
-              "TOPM-GEMMA-TURBO-META",
+              "N20-HF-LILAREST-GEMMA-4-31B-IT-NVFP4-TURBO",
               "TOPM-GEMMA-TURBO-CARD",
               "TOPM-GEMMA-TURBO-CFG"
             ],
-            "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
-          }
+            "scope": "Hub head plus immutable README and model configuration checked. Snapshot SHA-256 matches. No weight payload or inference run."
+          },
+          "prior_identity_rechecks": [
+            {
+              "checked_on": "2026-10-26",
+              "revision": "782d58ea7f9cf3a148be86e153f5689a2d73238b",
+              "matches_retained_pin": true,
+              "source_ids": [
+                "TOPM-GEMMA-TURBO-META",
+                "TOPM-GEMMA-TURBO-CARD",
+                "TOPM-GEMMA-TURBO-CFG"
+              ],
+              "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+            }
+          ]
         }
       ],
       "path": "companies/google/gemma-4-31b-it",
@@ -5502,7 +5871,11 @@
         "AA-II-METHOD",
         "AA-MODEL-GEMMA-4-31B",
         "AA-MODEL-GEMMA-4-31B-NON-REASONING",
-        "AA-WB-MODEL-GEMINI-4-CARBON-20261101"
+        "AA-WB-MODEL-GEMINI-4-CARBON-20261101",
+        "N20-G31-QAT-CARD",
+        "N20-G31-QAT-CFG",
+        "N20-G31-QAT-DRAFT-CFG",
+        "N20-G31-QAT-CT-CFG"
       ],
       "revision": "842da3794eaa0b77d5f08bae87a17459d91ff475",
       "evidence_status": "Pinned cards and configuration and selected vLLM v0.34.0 / SGLang v0.5.23 sources checked November 20. Target-node build, runtime, quality and performance remain unqualified.",
@@ -5636,9 +6009,13 @@
           "sglang": {
             "engine_release": "v0.5.23",
             "source_commit": "297e54fd105e974cdf401e5b4d20253a22c16f90",
-            "assessment": "The v0.5.23 31B B300 generator emits TP1, Triton attention and a static-memory fraction of 0.9. It offers the Google standard or QAT checkpoint. Red Hat/NVIDIA NVFP4 and the Unsloth and turbo exports need their own compatibility and numerical checks. The optional NEXTN mode uses the separately named assistant, five steps and six draft tokens.",
+            "assessment": "The v0.5.23 31B B300 generator emits TP1, Triton attention and a static-memory fraction of 0.9. It offers the Google standard or QAT checkpoint. Red Hat/NVIDIA NVFP4 and the Unsloth and turbo exports need their own compatibility and numerical checks. The optional NEXTN mode uses the standard or QAT-specific assistant matched to its corresponding target, five steps and six draft tokens. The QAT recipe uses google/gemma-4-31B-it-qat-q4_0-unquantized and its corresponding -assistant, both stored in BF16. The packed W4A16 repository is separate.",
             "source_ids": [
-              "N20-G31-S-RECIPE"
+              "N20-G31-S-RECIPE",
+              "N20-G31-QAT-CARD",
+              "N20-G31-QAT-CFG",
+              "N20-G31-QAT-DRAFT-CFG",
+              "N20-G31-QAT-CT-CFG"
             ],
             "detailed_review": "reports/sglang-2026-11-20.md"
           }
@@ -5910,16 +6287,16 @@
             "retrieved_at": "2026-10-26T11:24:16.002230+00:00"
           },
           "latest_identity_recheck": {
-            "checked_on": "2026-11-06",
+            "checked_on": "2026-11-20",
             "revision": "22b2b868a15677cfa6061277ed2f653d1349a9ab",
             "matches_retained_pin": true,
+            "current_head": "22b2b868a15677cfa6061277ed2f653d1349a9ab",
             "source_ids": [
-              "V032-KM-API-MISTRALAI--MISTRAL-MEDIUM-3.5-128B",
+              "N20-HF-MISTRALAI-MISTRAL-MEDIUM-3-5-128B",
               "mistral-medium-3.5-CARD",
-              "mistral-medium-3.5-CFG",
-              "RR-GM-MISTRAL-PARAMS"
+              "mistral-medium-3.5-CFG"
             ],
-            "scope": "Current head; README, config, params and LICENSE byte-identical to retained hashes; no weight-payload identity or runtime qualification."
+            "scope": "Hub head plus immutable README and model configuration checked. Snapshot SHA-256 matches. No weight payload or inference run."
           },
           "prior_identity_rechecks": [
             {
@@ -5933,6 +6310,18 @@
                 "RR-GM-MISTRAL-PARAMS"
               ],
               "scope": "Current head and immutable README/configuration; no weight-payload identity or runtime qualification."
+            },
+            {
+              "checked_on": "2026-11-06",
+              "revision": "22b2b868a15677cfa6061277ed2f653d1349a9ab",
+              "matches_retained_pin": true,
+              "source_ids": [
+                "V032-KM-API-MISTRALAI--MISTRAL-MEDIUM-3.5-128B",
+                "mistral-medium-3.5-CARD",
+                "mistral-medium-3.5-CFG",
+                "RR-GM-MISTRAL-PARAMS"
+              ],
+              "scope": "Current head; README, config, params and LICENSE byte-identical to retained hashes; no weight-payload identity or runtime qualification."
             }
           ]
         },
@@ -5954,19 +6343,16 @@
             "retrieved_at": "2026-11-06T08:38:17.991694+00:00"
           },
           "latest_identity_recheck": {
-            "checked_on": "2026-11-06",
+            "checked_on": "2026-11-20",
             "revision": "b8c66d2098edd8c9c26bde2b2ff41b5967e111ae",
             "matches_retained_pin": true,
+            "current_head": "b8c66d2098edd8c9c26bde2b2ff41b5967e111ae",
             "source_ids": [
-              "mistral-medium-3.5-NV-NVFP4-API",
-              "mistral-medium-3.5-NV-NVFP4-REVISION",
+              "N20-HF-NVIDIA-MISTRAL-MEDIUM-3-5-128B-NVFP4",
               "mistral-medium-3.5-NV-NVFP4-CARD",
-              "mistral-medium-3.5-NV-NVFP4-CFG",
-              "mistral-medium-3.5-NV-NVFP4-HFQ",
-              "mistral-medium-3.5-NV-NVFP4-INDEX",
-              "mistral-medium-3.5-NV-NVFP4-HEADERS"
+              "mistral-medium-3.5-NV-NVFP4-CFG"
             ],
-            "scope": "Promotion recheck 12:45-12:46Z: head equals pin; README (byte-identical to local snapshot), config, quantization config and index byte-identical to first retrieval; all 10 safetensors headers parsed; no weight payload identity or runtime qualification."
+            "scope": "Hub head plus immutable README and model configuration checked. Snapshot SHA-256 matches. No weight payload or inference run."
           },
           "prior_identity_rechecks": [
             {
@@ -5978,6 +6364,21 @@
                 "mistral-medium-3.5-NV-NVFP4-COMMITS"
               ],
               "scope": "Initial pin (08:38Z); head identity and immutable card/configuration only."
+            },
+            {
+              "checked_on": "2026-11-06",
+              "revision": "b8c66d2098edd8c9c26bde2b2ff41b5967e111ae",
+              "matches_retained_pin": true,
+              "source_ids": [
+                "mistral-medium-3.5-NV-NVFP4-API",
+                "mistral-medium-3.5-NV-NVFP4-REVISION",
+                "mistral-medium-3.5-NV-NVFP4-CARD",
+                "mistral-medium-3.5-NV-NVFP4-CFG",
+                "mistral-medium-3.5-NV-NVFP4-HFQ",
+                "mistral-medium-3.5-NV-NVFP4-INDEX",
+                "mistral-medium-3.5-NV-NVFP4-HEADERS"
+              ],
+              "scope": "Promotion recheck 12:45-12:46Z: head equals pin; README (byte-identical to local snapshot), config, quantization config and index byte-identical to first retrieval; all 10 safetensors headers parsed; no weight payload identity or runtime qualification."
             }
           ]
         }
@@ -6198,20 +6599,21 @@
           "vllm": {
             "engine_release": "v0.34.0",
             "source_commit": "62d4bc3c7e33b1b6c906e233e6af2d3506c482ca",
-            "assessment": "v0.34 retains the Mistral3 class and mixed ModelOpt fallback for fused qkv_proj and gate_up_proj. The native FP8 recipe selects Mistral tokenizer/config/load formats. For NVIDIA mixed NVFP4 at b8c66d20, use the HF tokenizer, auto-resolved config and HF weights. Its only exporter validation in the dossier is v0.21.0 on B200. The stable Pixtral encoder graph change is relevant to image requests. Measure EAGLE separately with auto config selection for the target and Mistral-native draft.",
+            "assessment": "v0.34 retains the Mistral3 class and mixed ModelOpt fallback for fused qkv_proj and gate_up_proj. The native FP8 recipe selects Mistral tokenizer/config/load formats. For NVIDIA mixed NVFP4 at b8c66d20, use the HF tokenizer, auto-resolved config and HF weights. Its only exporter validation in the dossier is v0.21.0 on B200. The stable Pixtral encoder graph change is relevant to image requests. Measure EAGLE separately with auto config selection for the target and Mistral-native draft. The tagged recipe caps the EAGLE draft at 65,536 positions. Its separate publisher configuration allows 262,144.",
             "source_ids": [
               "V034-R-MED",
               "V034-REGISTRY",
               "V034-MED-MODELOPT",
               "mistral-medium-3.5-NV-NVFP4-CARD",
-              "V034-RELEASE"
+              "V034-RELEASE",
+              "mistral-medium-3.5-EAGLE-PARAMS"
             ],
             "detailed_review": "reports/vllm-v034-upgrade.md"
           },
           "sglang": {
             "engine_release": "v0.5.23",
             "source_commit": "297e54fd105e974cdf401e5b4d20253a22c16f90",
-            "assessment": "The publisher FP8 recipe remains the comparison on v0.5.23. The NVIDIA mixed export remains blocked on that release because the class supplies no matching packed-module mapping for the fused QKV and gate/up names. Main merged processor-selection fix #45868 on November 16. That change addresses multimodal processor initialization and leaves the mixed-weight loader question separate.",
+            "assessment": "The publisher FP8 recipe remains the comparison on v0.5.23. The NVIDIA mixed export remains blocked on that release because the class supplies no matching packed-module mapping for the fused QKV and gate/up names. Main merged processor-selection fix #45868 on November 16. That change addresses multimodal processor initialization and leaves the mixed-weight loader question separate. For native FP8 on B300 the tagged cookbook selects TP2 with a separate EAGLE draft. Run target-only first and enable drafting as a separate comparison.",
             "source_ids": [
               "N20-MM-S-RECIPE",
               "S0523-K-MISTRAL",
@@ -6651,17 +7053,16 @@
             "retrieved_at": "2026-11-06T08:28:55.035857+00:00"
           },
           "latest_identity_recheck": {
-            "checked_on": "2026-11-06",
-            "checked_at": "2026-11-06T12:45:13Z",
+            "checked_on": "2026-11-20",
             "revision": "af26e7869af601441d5cdf75a1272469ddc3d059",
             "matches_retained_pin": true,
-            "readme_sha256": "498bf4121e75f5582ee276f8ad6c6d96eea78885c878819dd1551c2dd84dc92c",
-            "readme_byte_identical_to_local_copy": true,
+            "current_head": "af26e7869af601441d5cdf75a1272469ddc3d059",
             "source_ids": [
               "mistral-large-4-API",
-              "mistral-large-4-CARD"
+              "mistral-large-4-CARD",
+              "mistral-large-4-CFG"
             ],
-            "scope": "Head identity and README byte identity recheck; no weight-payload identity or runtime qualification."
+            "scope": "Hub head plus immutable README and model configuration checked. Snapshot SHA-256 matches. No weight payload or inference run."
           },
           "prior_identity_rechecks": [
             {
@@ -6675,6 +7076,19 @@
                 "mistral-large-4-PARAMS"
               ],
               "scope": "Initial pin; head identity and immutable README/configuration; no weight-payload identity or runtime qualification."
+            },
+            {
+              "checked_on": "2026-11-06",
+              "checked_at": "2026-11-06T12:45:13Z",
+              "revision": "af26e7869af601441d5cdf75a1272469ddc3d059",
+              "matches_retained_pin": true,
+              "readme_sha256": "498bf4121e75f5582ee276f8ad6c6d96eea78885c878819dd1551c2dd84dc92c",
+              "readme_byte_identical_to_local_copy": true,
+              "source_ids": [
+                "mistral-large-4-API",
+                "mistral-large-4-CARD"
+              ],
+              "scope": "Head identity and README byte identity recheck; no weight-payload identity or runtime qualification."
             }
           ]
         },
@@ -6696,17 +7110,16 @@
             "retrieved_at": "2026-11-06T08:28:56.524308+00:00"
           },
           "latest_identity_recheck": {
-            "checked_on": "2026-11-06",
-            "checked_at": "2026-11-06T12:45:13Z",
+            "checked_on": "2026-11-20",
             "revision": "bb6d00fe249b0e876f0cffc6b85014be02de3e68",
             "matches_retained_pin": true,
-            "readme_sha256": "25f7c255ebe5f63931061886bdce29d524e0ab505ac13500fd01e2e644c615d8",
-            "readme_byte_identical_to_local_copy": true,
+            "current_head": "bb6d00fe249b0e876f0cffc6b85014be02de3e68",
             "source_ids": [
               "mistral-large-4-NVFP4-API",
-              "mistral-large-4-NVFP4-CARD"
+              "mistral-large-4-NVFP4-CARD",
+              "mistral-large-4-NVFP4-PARAMS"
             ],
-            "scope": "Head identity and README byte identity recheck; no weight-payload identity or runtime qualification."
+            "scope": "Hub head plus immutable README and model configuration checked. Snapshot SHA-256 matches. No weight payload or inference run."
           },
           "prior_identity_rechecks": [
             {
@@ -6719,6 +7132,19 @@
                 "mistral-large-4-NVFP4-PARAMS"
               ],
               "scope": "Initial pin; head identity and immutable README/params; no weight-payload identity or runtime qualification."
+            },
+            {
+              "checked_on": "2026-11-06",
+              "checked_at": "2026-11-06T12:45:13Z",
+              "revision": "bb6d00fe249b0e876f0cffc6b85014be02de3e68",
+              "matches_retained_pin": true,
+              "readme_sha256": "25f7c255ebe5f63931061886bdce29d524e0ab505ac13500fd01e2e644c615d8",
+              "readme_byte_identical_to_local_copy": true,
+              "source_ids": [
+                "mistral-large-4-NVFP4-API",
+                "mistral-large-4-NVFP4-CARD"
+              ],
+              "scope": "Head identity and README byte identity recheck; no weight-payload identity or runtime qualification."
             }
           ]
         }
@@ -6773,7 +7199,12 @@
         "mistral-large-4-SGL-PR-OVERRIDES",
         "mistral-large-4-SGL-V0523-MODELOPT",
         "mistral-large-4-SGL-V0523-SM100",
-        "mistral-large-4-SGL-PR47271-COMPARE-EB80"
+        "mistral-large-4-SGL-PR47271-COMPARE-EB80",
+        "V034-ML4-ATTENTION-CACHE",
+        "V034-ML4-INDEXER-CACHE",
+        "V034-FLASHMLA-CACHE-ROW",
+        "V034-SPARSE-FLASHMLA-LAYOUT",
+        "V034-ML4-BACKPORT"
       ],
       "revision": "af26e7869af601441d5cdf75a1272469ddc3d059",
       "evidence_status": "Pinned cards and configuration and selected vLLM v0.34.0 / SGLang v0.5.23 sources checked November 20. Target-node build, runtime, quality and performance remain unqualified.",
@@ -6850,19 +7281,27 @@
               "V034-ML4-MODEL",
               "V034-ML4-DRAFT",
               "V034-R-ML4",
-              "N20-ML4-V-MAIN-RECIPE"
+              "N20-ML4-V-MAIN-RECIPE",
+              "V034-ML4-ATTENTION-CACHE",
+              "V034-ML4-INDEXER-CACHE",
+              "V034-FLASHMLA-CACHE-ROW",
+              "V034-SPARSE-FLASHMLA-LAYOUT",
+              "V034-ML4-BACKPORT"
             ],
             "detailed_review": "reports/vllm-v034-upgrade.md"
           },
           "sglang": {
             "engine_release": "v0.5.23",
             "source_commit": "297e54fd105e974cdf401e5b4d20253a22c16f90",
-            "assessment": "SGLang v0.5.23 lacks the Large 4 model class. PR #47271 remains open at 74345a96. The separate development image retains digest sha256:6c9e19a08f30ef8472f3c2ae2d01de99b452cf1fed77f720cd3b6fec61625770. Its engine commit is unknown. The main cookbook contains B300 FP8 TP8 and marks the B300 NVFP4 TP8 cell unverified. The publisher-card NVFP4 TP4 example remains a development comparison.",
+            "assessment": "SGLang v0.5.23 lacks the Large 4 model class. PR #47271 remains open at 74345a96. The separate development image retains digest sha256:6c9e19a08f30ef8472f3c2ae2d01de99b452cf1fed77f720cd3b6fec61625770. The amd64 image labels base c10e0e17 and applies a 352-file patch. Its Mistral target differs from the current PR head. The main cookbook contains B300 FP8 TP8 and marks the B300 NVFP4 TP8 cell unverified. The publisher-card NVFP4 TP4 example remains a development comparison.",
             "source_ids": [
               "mistral-large-4-SGL-PR47271",
               "mistral-large-4-SGL-IMAGE",
               "N20-S-COOK-ML4",
-              "mistral-large-4-SGL-V0523-TREE"
+              "mistral-large-4-SGL-V0523-TREE",
+              "N20-S-OCI-ML4",
+              "N20-S-ML4-OVERLAY",
+              "N20-S-ML4-PR-MODEL"
             ],
             "detailed_review": "reports/sglang-2026-11-20.md"
           }
@@ -6900,9 +7339,15 @@
           },
           {
             "id": "mistral-large-4-2",
-            "mechanism": "MLA latent KV is replicated across TP ranks: per-GPU KV per token at TP8 (derived: 71,424 B BF16 latent; ~47 KB under a hypothetical 656 B/layer fp8_ds_mla layout plus FP8 indexer keys) exceeds Medium 3.5's sharded GQA KV (45,056 B). Use DCP (vLLM --decode-context-parallel-size; SGLang --dcp-size) when KV capacity binds; expect higher TPOT.",
+            "mechanism": "At vLLM v0.34.0, plain TP replicates target MLA KV per rank. All 63 owner layers have 576 latent slots, including padded NoPE tails. BF16 latent (72,576 B/token) plus 44 FP8 indexers (5,808 B/token) totals 78,384 B/token/rank. The 656-byte FlashMLA fp8_ds_mla row plus indexers totals 47,136 B/token/rank. These target-only layout calculations exclude page rounding, drafts and runtime buffers.",
             "evidence_limit": "Source-supported hypothesis from publisher/engine artifacts at pinned revisions; not measured on the B300 node.",
-            "reviewed_on": "2026-11-06"
+            "reviewed_on": "2026-11-20",
+            "source_ids": [
+              "V034-ML4-ATTENTION-CACHE",
+              "V034-ML4-INDEXER-CACHE",
+              "V034-FLASHMLA-CACHE-ROW",
+              "V034-SPARSE-FLASHMLA-LAYOUT"
+            ]
           },
           {
             "id": "mistral-large-4-3",
@@ -7155,16 +7600,37 @@
             "retrieved_at": "2026-11-06T08:37:08.787489+00:00"
           },
           "latest_identity_recheck": {
-            "checked_on": "2026-11-06",
+            "checked_on": "2026-11-20",
             "revision": "cec94fcfd6512f2cfe708138c32533b346ea4f69",
-            "matches_retained_pin": true,
+            "matches_retained_pin": false,
+            "current_head": "1297fd7dfeac4598948a5d15886968435c81c2b7",
             "source_ids": [
-              "muse-glimmer-30b-API",
+              "N20-HF-META-MODELS-MUSE-GLIMMER-30B",
               "muse-glimmer-30b-CARD",
-              "muse-glimmer-30b-CFG"
+              "muse-glimmer-30b-CFG",
+              "N20-TREE-META-MODELS-MUSE-GLIMMER-30B-PIN",
+              "N20-TREE-META-MODELS-MUSE-GLIMMER-30B-HEAD",
+              "N20-META-MODELS-MUSE-GLIMMER-30B-HEAD-CHAT"
             ],
-            "scope": "Initial pin; head re-resolved unchanged at end of review (2026-11-06T08:52Z). Immutable README/configuration; no weight-payload identity or runtime qualification."
-          }
+            "scope": "Hub head plus immutable README and model configuration checked. Snapshot SHA-256 matches. No weight payload or inference run. Listed weight object IDs are unchanged. Retain the original protocol assets for baseline comparisons.",
+            "changed_files_since_pin": [
+              "chat_template.jinja"
+            ],
+            "retained_pin_still_valid_for_serving": true
+          },
+          "prior_identity_rechecks": [
+            {
+              "checked_on": "2026-11-06",
+              "revision": "cec94fcfd6512f2cfe708138c32533b346ea4f69",
+              "matches_retained_pin": true,
+              "source_ids": [
+                "muse-glimmer-30b-API",
+                "muse-glimmer-30b-CARD",
+                "muse-glimmer-30b-CFG"
+              ],
+              "scope": "Initial pin; head re-resolved unchanged at end of review (2026-11-06T08:52Z). Immutable README/configuration; no weight-payload identity or runtime qualification."
+            }
+          ]
         },
         {
           "key": "nvidia-nvfp4",
@@ -7194,16 +7660,30 @@
             "retrieved_at": "2026-11-06T08:37:10.786238+00:00"
           },
           "latest_identity_recheck": {
-            "checked_on": "2026-11-06",
+            "checked_on": "2026-11-20",
             "revision": "47818374517751c48c55cde2621594926b1888b6",
             "matches_retained_pin": true,
+            "current_head": "47818374517751c48c55cde2621594926b1888b6",
             "source_ids": [
-              "muse-glimmer-30b-NV-API",
+              "N20-HF-NVIDIA-MUSE-GLIMMER-30B-NVFP4",
               "muse-glimmer-30b-NV-CARD",
               "muse-glimmer-30b-NV-CFG"
             ],
-            "scope": "Initial pin; head re-resolved unchanged at end of review (2026-11-06T08:52Z). Immutable README/configuration; no weight-payload identity or runtime qualification."
-          }
+            "scope": "Hub head plus immutable README and model configuration checked. Snapshot SHA-256 matches. No weight payload or inference run."
+          },
+          "prior_identity_rechecks": [
+            {
+              "checked_on": "2026-11-06",
+              "revision": "47818374517751c48c55cde2621594926b1888b6",
+              "matches_retained_pin": true,
+              "source_ids": [
+                "muse-glimmer-30b-NV-API",
+                "muse-glimmer-30b-NV-CARD",
+                "muse-glimmer-30b-NV-CFG"
+              ],
+              "scope": "Initial pin; head re-resolved unchanged at end of review (2026-11-06T08:52Z). Immutable README/configuration; no weight-payload identity or runtime qualification."
+            }
+          ]
         },
         {
           "key": "fp8",
@@ -7231,16 +7711,37 @@
             "retrieved_at": "2026-11-06T08:41:43.501066+00:00"
           },
           "latest_identity_recheck": {
-            "checked_on": "2026-11-06",
+            "checked_on": "2026-11-20",
             "revision": "1deb4641ff84f9a728dd11b27cac1f6a02a9ed14",
-            "matches_retained_pin": true,
+            "matches_retained_pin": false,
+            "current_head": "024ba7df2e23285cdb72616eb624c5b514ebceb1",
             "source_ids": [
-              "muse-glimmer-30b-RH-API",
+              "N20-HF-REDHATAI-MUSE-GLIMMER-30B-FP8-BLOCK",
               "muse-glimmer-30b-RH-CARD",
-              "muse-glimmer-30b-RH-CFG"
+              "muse-glimmer-30b-RH-CFG",
+              "N20-TREE-REDHATAI-MUSE-GLIMMER-30B-FP8-BLOCK-PIN",
+              "N20-TREE-REDHATAI-MUSE-GLIMMER-30B-FP8-BLOCK-HEAD",
+              "N20-REDHATAI-MUSE-GLIMMER-30B-FP8-BLOCK-HEAD-CARD"
             ],
-            "scope": "Initial pin; head re-resolved unchanged at end of review (2026-11-06T08:52Z). Immutable README/configuration; no weight-payload identity or runtime qualification."
-          }
+            "scope": "Hub head plus immutable README and model configuration checked. Snapshot SHA-256 matches. No weight payload or inference run. Listed weight object IDs are unchanged. Retain the original protocol assets for baseline comparisons.",
+            "changed_files_since_pin": [
+              "README.md"
+            ],
+            "retained_pin_still_valid_for_serving": true
+          },
+          "prior_identity_rechecks": [
+            {
+              "checked_on": "2026-11-06",
+              "revision": "1deb4641ff84f9a728dd11b27cac1f6a02a9ed14",
+              "matches_retained_pin": true,
+              "source_ids": [
+                "muse-glimmer-30b-RH-API",
+                "muse-glimmer-30b-RH-CARD",
+                "muse-glimmer-30b-RH-CFG"
+              ],
+              "scope": "Initial pin; head re-resolved unchanged at end of review (2026-11-06T08:52Z). Immutable README/configuration; no weight-payload identity or runtime qualification."
+            }
+          ]
         },
         {
           "key": "nvfp4-inferact",
@@ -7268,16 +7769,30 @@
             "retrieved_at": "2026-11-06T08:41:44.373650+00:00"
           },
           "latest_identity_recheck": {
-            "checked_on": "2026-11-06",
+            "checked_on": "2026-11-20",
             "revision": "d35cb79050f419c457611b1cee5c5d15b176f285",
             "matches_retained_pin": true,
+            "current_head": "d35cb79050f419c457611b1cee5c5d15b176f285",
             "source_ids": [
-              "muse-glimmer-30b-INF-API",
+              "N20-HF-INFERACT-MUSE-GLIMMER-30B-NVFP4-W4A4",
               "muse-glimmer-30b-INF-CARD",
               "muse-glimmer-30b-INF-CFG"
             ],
-            "scope": "Initial pin; head re-resolved unchanged at end of review (2026-11-06T08:52Z). Immutable README/configuration; no weight-payload identity or runtime qualification."
-          }
+            "scope": "Hub head plus immutable README and model configuration checked. Snapshot SHA-256 matches. No weight payload or inference run."
+          },
+          "prior_identity_rechecks": [
+            {
+              "checked_on": "2026-11-06",
+              "revision": "d35cb79050f419c457611b1cee5c5d15b176f285",
+              "matches_retained_pin": true,
+              "source_ids": [
+                "muse-glimmer-30b-INF-API",
+                "muse-glimmer-30b-INF-CARD",
+                "muse-glimmer-30b-INF-CFG"
+              ],
+              "scope": "Initial pin; head re-resolved unchanged at end of review (2026-11-06T08:52Z). Immutable README/configuration; no weight-payload identity or runtime qualification."
+            }
+          ]
         },
         {
           "key": "radixark-nvfp4",
@@ -7307,16 +7822,30 @@
             "retrieved_at": "2026-11-06T08:41:45.416733+00:00"
           },
           "latest_identity_recheck": {
-            "checked_on": "2026-11-06",
+            "checked_on": "2026-11-20",
             "revision": "1416629950afdfb276618fd4810103681dd10f4a",
             "matches_retained_pin": true,
+            "current_head": "1416629950afdfb276618fd4810103681dd10f4a",
             "source_ids": [
-              "muse-glimmer-30b-RX-API",
+              "N20-HF-RADIXARK-MUSE-GLIMMER-NVFP4",
               "muse-glimmer-30b-RX-CARD",
               "muse-glimmer-30b-RX-CFG"
             ],
-            "scope": "Initial pin; head re-resolved unchanged at end of review (2026-11-06T08:52Z). Immutable README/configuration; no weight-payload identity or runtime qualification."
-          }
+            "scope": "Hub head plus immutable README and model configuration checked. Snapshot SHA-256 matches. No weight payload or inference run."
+          },
+          "prior_identity_rechecks": [
+            {
+              "checked_on": "2026-11-06",
+              "revision": "1416629950afdfb276618fd4810103681dd10f4a",
+              "matches_retained_pin": true,
+              "source_ids": [
+                "muse-glimmer-30b-RX-API",
+                "muse-glimmer-30b-RX-CARD",
+                "muse-glimmer-30b-RX-CFG"
+              ],
+              "scope": "Initial pin; head re-resolved unchanged at end of review (2026-11-06T08:52Z). Immutable README/configuration; no weight-payload identity or runtime qualification."
+            }
+          ]
         },
         {
           "key": "redhat-nvfp4",

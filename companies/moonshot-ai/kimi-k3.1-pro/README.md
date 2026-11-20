@@ -2,7 +2,7 @@
 
 **November 20, 2026.** The native revision remains d9e99b07. NVIDIA now publishes a separate mixed NVFP4 checkpoint. Inferact’s non-preview DSpark is also available. Current engine references are vLLM v0.34.0 and SGLang v0.5.23 under required KServe. [November 20 serving review](serving.md#november-20-engine-and-benchmark-review)
 
-Moonshot describes K3.1 Pro as a post-trained Kimi K3. The serialized checkpoint keeps every K3 dimension except one: the 24 gated full-attention layers gain a DeepSeek-Sparse-Attention (DSA) lightning indexer that selects 2,048 history tokens per query. The card renames these layers from "Gated MLA" to "Gated DSA". The change affects attention kernels, KV-cache layout and engine support. Weight storage and precision format are unaffected. [kimi-k3.1-pro-CARD](https://huggingface.co/moonshotai/Kimi-K3.1-Pro/blob/d9e99b0792a5e93b78ea9bea62a68167e36ddd9e/README.md) [kimi-k3.1-pro-CFG](https://huggingface.co/moonshotai/Kimi-K3.1-Pro/raw/d9e99b0792a5e93b78ea9bea62a68167e36ddd9e/config.json)
+Moonshot describes K3.1 Pro as a post-trained Kimi K3. Each of the 24 gated MLA layers gains a DeepSeek Sparse Attention (DSA) indexer that selects up to 2,048 history tokens per query. The indexers add 120 BF16 tensors totaling 357,052,416 bytes. The other 497,220 tensor names have the same stored shapes and dtypes as native K3. Serving adds indexer computation and a cache for indexer keys. [kimi-k3.1-pro-CARD](https://huggingface.co/moonshotai/Kimi-K3.1-Pro/blob/d9e99b0792a5e93b78ea9bea62a68167e36ddd9e/README.md) [kimi-k3.1-pro-CFG](https://huggingface.co/moonshotai/Kimi-K3.1-Pro/raw/d9e99b0792a5e93b78ea9bea62a68167e36ddd9e/config.json) [Checkpoint comparison](architecture.md#memory-and-performance-consequences)
 
 **First serving comparison.** Qualify native MXFP4 TP8 target-only on a K3.1-capable development build under KServe. Neither stable engine serves K3.1. Compare the NVIDIA mixed NVFP4 target separately on its exporter-documented development images. [Precision evidence](precision.md)
 
@@ -16,7 +16,7 @@ Moonshot describes K3.1 Pro as a post-trained Kimi K3. The serialized checkpoint
 | Full-attention layers | 24 gated MLA (dense over history) | Same 24 layers. `dsa_config` adds an indexer with 32 heads, head dim 128, no RoPE, top-k 2,048 and frequency 1 | Sparse MLA kernels plus an indexer-key cache. Per-token cache grows; per-step attention over long history is bounded by top-k. |
 | Layers, KDA/MLA split, experts, latent dim, heads, vocabulary, context | 93; 69 KDA / 24 MLA; 896 routed / 16 active / 2 shared; 3,584; 96; 163,840; 1,048,576 | Identical | No change in weight-sharding topology |
 | Attention-residual block size, SiTU constants | 12; 4.0 / 25.0 | Identical | Same activation contract |
-| Quantization | compressed-tensors MXFP4 group 32, routed experts; `input_activations` null | Identical format. The ignore list now names router gate and latent projections, which K3 already stored in BF16 | No format change; the same MoE kernels apply |
+| Quantization | compressed-tensors MXFP4 group 32, routed experts; `input_activations` null | Identical format. The ignore list now names router gate and latent projections, which K3 already stored in BF16 | Preserve the SiTU activation and verify the selected MoE kernel on the K3.1 build |
 | Indexer tensors | none | 24 × 7,438,592 = 178,526,208 BF16 parameters × 2 B = 357,052,416 bytes | +0.023% serialized bytes |
 | Vision tower, processor, tokenizer, chat encoder | MoonViT-V2 (401M per card) | Identical config and processor. Tokenizer model and encoder logic are unchanged | Same `kimi_k3` parsers |
 | License | Kimi K3 License | Kimi K3.1-Pro License; only the title and attribution name differ | Same commercial thresholds |
@@ -33,7 +33,7 @@ Moonshot describes K3.1 Pro as a post-trained Kimi K3. The serialized checkpoint
 | Base revision pin | `d9e99b0792a5e93b78ea9bea62a68167e36ddd9e` |
 | Serialized tensor bytes (index) | 1,561,217,377,280 bytes (1,454.00 GiB) |
 | License scope | Kimi K3.1-Pro License; pinned file reviewed |
-| Verification level | Immutable publisher card/config/license/index retrieved, plus one shard header; no local GPU load or benchmark |
+| Verification level | Pinned card, configuration, license and index reviewed. November 20 comparison covers all 96 native shard headers in each version. GPU execution remains unmeasured. |
 | AA Intelligence Index v5.0.1 (third-party) | max: 46.453 (v5.0 46.003). AA weights link equals this repository; AA records no revision, precision or endpoint. Predecessor [Kimi K3](../kimi-k3/README.md) is scored separately. Not reproduced; not tied to this revision or any export. [Details](../../../reports/intelligence-index.md) [AA-MODEL-KIMI-K3-1-PRO](https://artificialanalysis.ai/models/kimi-k3-1-pro) |
 
 The positional limit is not a promise of usable concurrent context. KDA state slots, MLA-plus-indexer KV, draft caches and images each consume separate budgets. [kimi-k3.1-pro-CFG](https://huggingface.co/moonshotai/Kimi-K3.1-Pro/raw/d9e99b0792a5e93b78ea9bea62a68167e36ddd9e/config.json)

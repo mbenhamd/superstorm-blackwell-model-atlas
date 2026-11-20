@@ -8,7 +8,7 @@ The 31B instruction-tuned variant is dense. Its configuration explicitly disable
 
 The publisher's rounded component counts are 30.7B for the text model, about 550M for vision and about 500M for a separate drafter. Dense describes the text layers' computation; it does not mean every stored parameter, including vision, is used for every generated token. [TOPM-GEMMA-PAPER](https://arxiv.org/html/2607.02770v2#S1.T1)
 
-**Serving candidate.** KServe TP1 target-only BF16 and separate FP8/NVFP4 export comparisons. Preserve local/global and image attention. Probe TP2 multimodal encoder data parallelism and the pinned Google assistant independently.
+**Serving candidate.** Use KServe TP1 BF16 as the text control for the FP8/NVFP4 exports. Limit image tests and TP2 encoder comparisons to vision-capable targets. Test the standard Google assistant with the standard target and the separately named QAT assistant with its QAT target. [Target and assistant identities](serving.md#november-20-release-and-benchmark-controls)
 
 The existing Red Hat exports remain the comparison references. [Precision](precision.md) now also distinguishes NVIDIA's ModelOpt export, Unsloth's mixed FP8/NVFP4 export and LilaRest's text-only Turbo export. Turbo's 18.5 GiB and throughput figures describe its publisher's RTX PRO 6000 experiment; they do not establish B300 memory or performance. [Serving](serving.md) explains why the matching assistant, quantization format and attention backend must be qualified together.
 

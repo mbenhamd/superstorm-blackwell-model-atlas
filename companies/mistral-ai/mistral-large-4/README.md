@@ -1,6 +1,6 @@
 # Mistral Large 4
 
-**November 20, 2026 review.** The official FP8 revision af26e786 and NVFP4 revision bb6d00fe are unchanged. The NVFP4 release recipe continues to attribute its GB300 comparison tables to 4359ec6, which the November 6 public-revision check could not resolve. [Current engine and benchmark analysis](serving.md#november-20-release-and-benchmark-controls).
+**November 20, 2026 review.** The official FP8 revision af26e786 and NVFP4 revision bb6d00fe are unchanged. The NVFP4 release recipe continues to attribute its GB300 comparison tables to 4359ec6, which still returned HTTP 404 from the public revision API on November 20. [Current engine and benchmark analysis](serving.md#november-20-release-and-benchmark-controls).
 
 **As of 2026-11-06.** Sparse MoE, about 1.05T serialized parameters / 49B active (52B with embeddings and output head) by publisher statement; 72 layers, MLA with a DSA-style top-2048 indexer, cross-layer KV sharing, 128 routed experts (top-4) plus one shared expert, Pixtral-style vision, embedded DSpark draft; FP8 128×128 block export and official NVFP4 export.
 
@@ -25,7 +25,7 @@ The language stack combines multi-head latent attention (512-element compressed 
 | Base revision pin | `af26e7869af601441d5cdf75a1272469ddc3d059` |
 | Speculative draft | Embedded DSpark head inside both checkpoints (3 MLA layers, BF16); no separate draft repository |
 | License scope | Mistral Ecosystem Open-Weight License (modified MIT); Model-as-a-Service operators need a separate commercial license; internal use exempt |
-| Verification level | Pinned cards, configs, index and tensor headers inspected; no model load or B300 benchmark; engine support only in mutable-tag images |
+| Verification level | Pinned publisher files and tensor headers inspected. vLLM v0.34.0 includes the model. SGLang requires its separate development build. B300 load and benchmark evidence remains outstanding |
 | AA Intelligence Index v5.0.1 (third-party) | high: 26.125 (v5.0 26.025); medium: 23.128 (v5.0 23.078). Archived values for the deprecated Mistral Large 4 Preview, which occupied the `mistral-large-4` slug only in the 2026-10-29T01:01Z and 02:51Z captures (on `mistral-large-4-preview` from 07:59Z; released model on `mistral-large-4` from 14:59Z), are excluded by name. AA weights link is the base repository, not the NVFP4 export. Not reproduced; not tied to this revision or any export. [Details](../../../reports/intelligence-index.md) [AA-MODEL-MISTRAL-LARGE-4](https://artificialanalysis.ai/models/mistral-large-4) [AA-MODEL-MISTRAL-LARGE-4-MEDIUM](https://artificialanalysis.ai/models/mistral-large-4-medium) |
 
 The positional limit is not a promise of usable tokens under arbitrary batching, image load or cache precision. [mistral-large-4-CARD](https://huggingface.co/mistralai/Mistral-Large-4-1T-A52B/raw/af26e7869af601441d5cdf75a1272469ddc3d059/README.md) [mistral-large-4-LICENSE](https://huggingface.co/mistralai/Mistral-Large-4-1T-A52B/raw/af26e7869af601441d5cdf75a1272469ddc3d059/LICENSE)
@@ -36,7 +36,7 @@ Mistral announced a public API preview on 2026-10-06 with weights "end of this m
 
 ## The most important unresolved checks
 
-vLLM v0.34.0 contains released architecture support. The SGLang development image still requires a digest and internal build identity. Engine recipe measurements cite an NVFP4 revision `4359ec6` that is not resolvable on the public repository. Runtime memory beyond the weight payload, actual DSpark acceptance on target workloads, 1M-token behavior, KServe startup timeouts against 1,300–1,800 s cold starts, and storage for a 1.06 TB snapshot remain unmeasured.
+vLLM v0.34.0 contains released architecture support. The SGLang development image has a pinned manifest digest. Its internal engine commit and dependency versions remain unknown. Engine recipe measurements cite an NVFP4 revision `4359ec6` that is not resolvable on the public repository. Runtime memory beyond the weight payload, actual DSpark acceptance on target workloads, 1M-token behavior, KServe startup timeouts against 1,300–1,800 s cold starts, and storage for a 1.06 TB snapshot remain unmeasured.
 
 [Return to repository index](../../../README.md)
 

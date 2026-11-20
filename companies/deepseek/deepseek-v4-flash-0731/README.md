@@ -19,6 +19,7 @@ Attention combines recent-window state with compressed, selected history. Routed
 | Property | Value |
 | --- | --- |
 | Exact base repository | deepseek-ai/DeepSeek-V4-Flash-0731 |
+| Native target and bundled draft | 284.332B target weights and 19.846B DSpark weights, 304.178B combined. [Header census](architecture.md#target-and-draft-weights) |
 | Configured positional limit | 1,048,576 tokens |
 | Initial vLLM topology | TP1 / DP4 with expert parallelism; DP8 is an unbenchmarked adaptation |
 | Base revision pin | `7872f01b1d1fe23eabc4c98b48bffcef5a386062` |
@@ -31,7 +32,7 @@ The positional limit is not a promise of that many usable tokens under arbitrary
 
 ## The most important unresolved checks
 
-Exact main-plus-draft parameter accounting; selected image and kernel provenance; local B300 capacity, throughput and application correctness; qualification of the local eight-GPU adaptations.
+The exact publisher convention for active parameters, kernel selection in the serving image and per-rank runtime memory remain open. Capacity, application quality and throughput through KServe require measurements on the B300 node.
 
 [Return to repository index](../../../README.md)
 

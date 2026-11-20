@@ -14,9 +14,9 @@
       "release_commit": "62d4bc3c7e33b1b6c906e233e6af2d3506c482ca",
       "release_checked_at": "2026-11-20T19:06:39Z",
       "latest_branch": "main",
-      "latest_branch_ref": "0aa2bb19496d9252c0dd7f8d1c0d073fc634d471",
-      "latest_branch_commit_date": "2026-11-20T18:58:54Z",
-      "latest_branch_checked_at": "2026-11-20T19:01:24Z",
+      "latest_branch_ref": "b492a09c10118f43bfaf5ff75f17fa10fe86e0a6",
+      "latest_branch_commit_date": "2026-11-20T19:20:48Z",
+      "latest_branch_checked_at": "2026-11-20T19:33:06Z",
       "source_review_scope": "v0.34.0 selected release source, all twelve release recipes, and distinct main and nightly channel observations on November 20. See reports/vllm-v034-upgrade.md.",
       "prior_branch_observations": [
         {
@@ -88,6 +88,13 @@
           "latest_branch_commit_date": "2026-11-06T08:12:11Z",
           "latest_branch_checked_at": "2026-11-06T08:25:00Z",
           "latest_branch_source_id": "V033-MAIN-6C15C6CC"
+        },
+        {
+          "latest_branch": "main",
+          "latest_branch_ref": "0aa2bb19496d9252c0dd7f8d1c0d073fc634d471",
+          "latest_branch_commit_date": "2026-11-20T18:58:54Z",
+          "latest_branch_checked_at": "2026-11-20T19:01:24Z",
+          "latest_branch_source_id": "V034-MAIN"
         }
       ],
       "expanded_source_review": {
@@ -103,7 +110,7 @@
         "review_completed_at": "2026-10-16T09:09:05.186135+00:00"
       },
       "release_source_id": "V034-RELEASE",
-      "latest_branch_source_id": "V034-MAIN",
+      "latest_branch_source_id": "N20-V-MAIN-LATER",
       "attention_precision_review": {
         "release_ref": "db9527a46873454610df6dbedf79a36d6bf1a7f6",
         "development_ref": "07f3857fb93772fed64e06642cdb0b8c03e0b249",
@@ -374,7 +381,7 @@
           "binary_executed": false
         }
       },
-      "image_digest_scope": "Docker Hub tag and platform metadata. Image layers and configuration uninspected.",
+      "image_digest_scope": "Registry index, linux/amd64 manifest and immutable image configuration. Source revision and CUDA version are build metadata. Runtime behavior on the installed platform is untested.",
       "release_image_metadata": {
         "tag": "vllm/vllm-openai:v0.34.0",
         "retrieved_at": "2026-11-20T19:01:24Z",
@@ -441,7 +448,7 @@
         "source_id": "V034-IMAGE",
         "retrieved_at": "2026-11-20T19:01:24Z",
         "response_sha256": "eb81cc32a874e07510bef4450009e8ddc4e10c2c79d12c4fadc508b4b25e44f4",
-        "scope": "November 20 registry tag metadata only.",
+        "scope": "The November 20 tag check identified the registry index. The later linux/amd64 check verified the linked image config and its source and CUDA labels.",
         "digest": "sha256:20fdb089454afbb324efa4110a2c025ff7b27cc1a086e07aa580b18df8ad1ce1",
         "platforms": [
           {
@@ -454,7 +461,14 @@
             "architecture": "arm64",
             "digest": "sha256:e40eb98263fa13418dda684147d73e8ec4a2b0e056a37e955dc189cd1b11dd16"
           }
-        ]
+        ],
+        "amd64_configuration": {
+          "configuration_digest": "sha256:0372147e2b3daa1baa5c6aa9b90ae5de2f926e25742650f91fa24dbca9cc645a",
+          "source_revision_label": "62d4bc3c7e33b1b6c906e233e6af2d3506c482ca",
+          "cuda_version_env": "13.0.2",
+          "retrieved_at": "2026-11-20T19:33:01Z",
+          "source_id": "N20-V-OCI-STABLE"
+        }
       },
       "benchmark_insights_review": {
         "checked_at": "2026-10-26T18:00:13.245Z",
@@ -805,7 +819,7 @@
         ],
         "binary_executed": false
       },
-      "image_digest_scope": "Registry manifest-list identity only (Docker Hub API); image contents and runtime unqualified.",
+      "image_digest_scope": "Registry index, linux/amd64 manifest and immutable image configuration. Source revision and CUDA version are build metadata. Runtime behavior on the installed platform is untested.",
       "release_image_metadata": {
         "tag": "lmsysorg/sglang:v0.5.23",
         "retrieved_at": "2026-11-20T19:02:15+00:00",
@@ -880,7 +894,14 @@
         ],
         "retrieved_at": "2026-11-20T19:02:15+00:00",
         "source_id": "S0523-IMAGE",
-        "latest_alias_digest": "sha256:f832b5c39559c9caa900b22ad37c76fcce66470676855c42052102c537812f1f"
+        "latest_alias_digest": "sha256:f832b5c39559c9caa900b22ad37c76fcce66470676855c42052102c537812f1f",
+        "amd64_configuration": {
+          "configuration_digest": "sha256:f3a303d4028dc4597e312c96ada28fa19509f46559601a94e89dc630ac1ef152",
+          "source_revision_label": "297e54fd105e974cdf401e5b4d20253a22c16f90",
+          "cuda_version_env": "13.0.3",
+          "retrieved_at": "2026-11-20T19:33:01Z",
+          "source_id": "N20-S-OCI-STABLE"
+        }
       },
       "benchmark_insights_review": {
         "checked_at": "2026-10-26T18:00:13.193Z",
@@ -1806,16 +1827,30 @@
     {
       "repo": "vllm-project/vllm",
       "number": 62769,
-      "state": "open",
+      "state": "closed",
       "draft": false,
-      "merged_at": null,
-      "merge_commit": null,
-      "head_commit": "6b4758109451ece0e7b58a7af3824fa31c1c0f3d",
-      "base_commit": "612e928016e2cfe28da95fc03ed894aceaf18299",
-      "retrieved_at": "2026-10-26T11:46:23.220Z",
+      "merged_at": "2026-11-11T01:58:43Z",
+      "merge_commit": "80ac42b811ffea9dd8f2d2b1ea67beab5e20f7cf",
+      "head_commit": "bfb1abb204e9b19526ee499da198913bb399dadf",
+      "base_commit": "a92ab5b196430ec62e761f0d751a8c96abc43a6e",
+      "retrieved_at": "2026-11-20T19:38:24.569833+00:00",
       "source_id": "O26-DSPARK-CONSENSUS",
-      "status_basis": "Explicit merged boolean; synthetic merge_commit_sha on open PRs is not a merged revision.",
-      "published_binary_qualified": false
+      "status_basis": "GitHub API reports a November 11 merge. The merge commit is an ancestor of reviewed main and absent from v0.34.0.",
+      "published_binary_qualified": false,
+      "prior_observation": {
+        "repo": "vllm-project/vllm",
+        "number": 62769,
+        "state": "open",
+        "draft": false,
+        "merged_at": null,
+        "merge_commit": null,
+        "head_commit": "6b4758109451ece0e7b58a7af3824fa31c1c0f3d",
+        "base_commit": "612e928016e2cfe28da95fc03ed894aceaf18299",
+        "retrieved_at": "2026-10-26T11:46:23.220Z",
+        "source_id": "O26-DSPARK-CONSENSUS",
+        "status_basis": "Explicit merged boolean; synthetic merge_commit_sha on open PRs is not a merged revision.",
+        "published_binary_qualified": false
+      }
     },
     {
       "repo": "sgl-project/sglang",
@@ -2792,7 +2827,7 @@
       "scope": "Benchmark-insights follow-up: publication metadata only; no wheel contents inspected. Kept separate from branch heads and stable metric source pins."
     }
   ],
-  "nightly_observation_boundary": "Published index/registry metadata only; no wheel or image bytes executed or verified. Multiple dated observations are retained because moving channels changed during research. Source inspection applies only to the named selected refs, not every later branch or artifact.",
+  "nightly_observation_boundary": "Observations are dated because the channels move. November 20 checks resolved selected OCI indexes, platform manifests and linux/amd64 configuration blobs. For the dedicated SGLang Mistral image one source-only patch layer was also read. No full serving image or wheel was executed. Source inspection and OCI label evidence apply only to the cited artifacts.",
   "model_artifacts": [
     {
       "hf_id": "deepseek-ai/DeepSeek-V4-Flash-0731",
@@ -2809,7 +2844,10 @@
         "deepseek-v4-flash-0731-LICENSE",
         "deepseek-v4-flash-0731-INFER-CFG",
         "deepseek-v4-flash-0731-INFER-SRC",
-        "deepseek-v4-flash-0731-ENC"
+        "deepseek-v4-flash-0731-ENC",
+        "deepseek-v4-flash-0731-INDEX",
+        "deepseek-v4-flash-0731-HEADERS",
+        "deepseek-v4-flash-0731-META"
       ],
       "verification": "Pinned metadata reviewed; weight payload and runtime behavior untested",
       "latest_identity_recheck": {
@@ -2931,7 +2969,27 @@
         "source_id": "gemma-4-31b-it-CARD",
         "sha256": "e209f5c435b1e66055bd6d7c29185103ae8d2027a03a96b359335154f206b82b",
         "retrieved_at": "2026-10-26T11:24:12.509458+00:00"
-      }
+      },
+      "related_recipe_artifacts": [
+        {
+          "hf_id": "google/gemma-4-31B-it-qat-q4_0-unquantized",
+          "revision": "1e4d8beecacb8b7590c1d8bedd7335f687bf311f",
+          "source_id": "N20-G31-QAT-CFG",
+          "scope": "Related Gemma QAT recipe identity. Outside the retained deployment catalog and README snapshot count."
+        },
+        {
+          "hf_id": "google/gemma-4-31B-it-qat-q4_0-unquantized-assistant",
+          "revision": "96d4c8ca3cb38c107a8478587878124895d1e844",
+          "source_id": "N20-G31-QAT-DRAFT-CFG",
+          "scope": "Related Gemma QAT recipe identity. Outside the retained deployment catalog and README snapshot count."
+        },
+        {
+          "hf_id": "google/gemma-4-31B-it-qat-w4a16-ct",
+          "revision": "52f3f65bc7a02d555763bc923bd1d9094898219d",
+          "source_id": "N20-G31-QAT-CT-CFG",
+          "scope": "Related Gemma QAT recipe identity. Outside the retained deployment catalog and README snapshot count."
+        }
+      ]
     },
     {
       "hf_id": "Inferact/GLM-5.3-NVFP4",
@@ -4596,7 +4654,8 @@
         "deepseek-v4.1-flash-1017-NV-CFG",
         "deepseek-v4.1-flash-1017-NV-QCFG",
         "deepseek-v4.1-flash-1017-NV-INDEX",
-        "deepseek-v4.1-flash-1017-NV-TREE"
+        "deepseek-v4.1-flash-1017-NV-TREE",
+        "deepseek-v4.1-flash-1017-NV-HEADERS"
       ],
       "verification": "Pinned metadata reviewed; weight payload and runtime behavior untested; loader requires unreleased engine changes",
       "latest_identity_recheck": {
@@ -5877,7 +5936,8 @@
         "N20-REDHATAI-DEEPSEEK-V4-FLASH-0731-NVFP4-HEAD-CFG",
         "N20-REDHATAI-DEEPSEEK-V4-FLASH-0731-NVFP4-INDEX-RESOLVED",
         "N20-REDHATAI-DEEPSEEK-V4-FLASH-0731-NVFP4-PREP-RESOLVED",
-        "N20-REDHATAI-DEEPSEEK-V4-FLASH-0731-NVFP4-TREE"
+        "N20-REDHATAI-DEEPSEEK-V4-FLASH-0731-NVFP4-TREE",
+        "deepseek-v4-flash-0731-RH-HEADERS"
       ],
       "huggingface_readme": {
         "hf_id": "RedHatAI/DeepSeek-V4-Flash-0731-NVFP4",
@@ -6029,7 +6089,8 @@
       "revision": "f1caa71142bd0be02f728c79f75042ac1e461579",
       "source_ids": [
         "deepseek-v4-flash-0731-NV-CARD",
-        "deepseek-v4-flash-0731-NV-CFG"
+        "deepseek-v4-flash-0731-NV-CFG",
+        "deepseek-v4-flash-0731-NV-HEADERS"
       ],
       "qualification_status": "metadata observed; exact loader and full tensor map not qualified; publisher says DSpark unexercised in export validation",
       "weight_tensors_inspected": false,
@@ -6163,7 +6224,18 @@
         }
       ],
       "pulled": false,
-      "source_revision_verified": false
+      "source_revision_verified": true,
+      "publication_recheck": {
+        "retrieved_at": "2026-11-20T19:33:05Z",
+        "build_commit": "30da28a7b26041f396736276f4e66d7a97009c60",
+        "pushed_index_digest": "sha256:27a036ea5646166b76c3639a26c6ae68cf3819dc9f2888b035cfc4b61d23e52c",
+        "source_ids": [
+          "N20-K-CONTROLLER-PUSH",
+          "N20-K-CONTROLLER-LOG"
+        ],
+        "scope": "Publisher workflow head and logged push digest match the observed registry index. Cluster installation remains unknown."
+      },
+      "source_revision_verified_at_initial_tag_check": false
     }
   ],
   "development_artifact_observations": [
@@ -6674,6 +6746,100 @@
       },
       "source_id": "N20-S-IX-OCI",
       "downloaded_or_executed": false
+    },
+    {
+      "engine": "vllm",
+      "checked_at": "2026-11-20T19:33:01Z",
+      "channel": "amd64 image configuration",
+      "metadata": {
+        "index_digest": "sha256:c17e9d88fd35e9e0aebad2c09aaa3df5d469378744855db24f3210d8a6db5441",
+        "platform_manifest_digest": "sha256:94d67eec70147ee7119cda46c2754bc6cfa58f8f95526aa91780cdcaa5d5329a",
+        "configuration_digest": "sha256:735a8774607d1263e41a0cc09fbcbfaf73719f751b5677fc3efd92a01b8b0c3a",
+        "source_revision_label": "8586ccbcf58e69ecb69e370dd2fa69fb739f9b0c",
+        "cuda_version_env": "13.2.1",
+        "platform": "linux/amd64",
+        "image_config_build_url": "https://buildkite.com/vllm/release-v2/builds/11312"
+      },
+      "source_id": "N20-V-OCI-NIGHTLY",
+      "binary_executed": false
+    },
+    {
+      "engine": "sglang",
+      "checked_at": "2026-11-20T19:33:01Z",
+      "channel": "amd64 image configuration",
+      "metadata": {
+        "index_digest": "sha256:d6f6d9720febe26aad1e40649a401cddd8504feb1d70de6b7ea374ff71785931",
+        "platform_manifest_digest": "sha256:d7976d3a5963ea29eb34a3d94dd2304b3b9a8245da78add7ada9cb15bf77a641",
+        "configuration_digest": "sha256:6ff8c93289694a6c8b3a6be6487a9216dda86eff5d2e61c18cf1770ad5ccc57b",
+        "source_revision_label": "03fde9cc392a5f84a54a365635ffed0061cdf1b8",
+        "cuda_version_env": "13.0.3",
+        "platform": "linux/amd64",
+        "image_config_build_url": "https://github.com/sgl-project/sglang/actions/runs/44644189360"
+      },
+      "source_id": "N20-S-OCI-DEV",
+      "binary_executed": false
+    },
+    {
+      "engine": "sglang",
+      "checked_at": "2026-11-20T19:33:01Z",
+      "channel": "amd64 image configuration",
+      "metadata": {
+        "index_digest": "sha256:bf0a63c9d848f7225009621eae0fd1f053555147cde46d13f78c86e2ddc91d25",
+        "platform_manifest_digest": "sha256:f354cbcac577a7681a0af2ee14e1d24ae2eaea00fed1707bc3c2ad6e8c90f8bf",
+        "configuration_digest": "sha256:ac1f32c3bfe8763763116b03557ad22da61c9fc220d23acb88299dee0d0ef793",
+        "source_revision_label": "unknown",
+        "cuda_version_env": "13.4.1",
+        "platform": "linux/amd64",
+        "image_config_build_url": "https://github.com/sgl-project/sglang/actions/runs/44716644521"
+      },
+      "source_id": "N20-S-OCI-CU134",
+      "binary_executed": false
+    },
+    {
+      "engine": "sglang",
+      "checked_at": "2026-11-20T19:33:01Z",
+      "channel": "amd64 image configuration",
+      "metadata": {
+        "index_digest": "sha256:b4f09a2ccbcfcc262d49600c3cd7f8581a793ea7d104947257b6a95500953b90",
+        "platform_manifest_digest": "sha256:32c36844a21ee93dd6643d09ab9b6e5f5e08c69f21b72f9f686e5392d5d28f61",
+        "configuration_digest": "sha256:0574d31af7269a9e517c45375fcd698e1b89d0fcc5bea333ea72217bc10a80b2",
+        "source_revision_label": "586355a83bdf609579b3309d4125620351156bb7",
+        "cuda_version_env": "13.0.3",
+        "platform": "linux/amd64",
+        "image_config_build_url": "https://github.com/sgl-project/sglang/actions/runs/40607843580"
+      },
+      "source_id": "N20-S-OCI-AGENTX",
+      "binary_executed": false
+    },
+    {
+      "engine": "sglang",
+      "checked_at": "2026-11-20T19:33:03Z",
+      "channel": "amd64 image configuration",
+      "metadata": {
+        "index_digest": "sha256:6c9e19a08f30ef8472f3c2ae2d01de99b452cf1fed77f720cd3b6fec61625770",
+        "platform_manifest_digest": "sha256:bff7ea4d5feb5ef8f07e32e67d58d295a36bdcd65541f4c830bb18c66c3d249b",
+        "configuration_digest": "sha256:fe286e6bc7a86a200a08cbfe7966189066b9774794db82304784540a2aa2a844",
+        "source_revision_label": "c10e0e17735f7981c7cc46891eed6908b7701e58",
+        "cuda_version_env": "13.0.3",
+        "platform": "linux/amd64",
+        "image_config_build_url": "https://github.com/sgl-project/sglang/actions/runs/40793125062",
+        "embedded_patch_sha256": "0aaba3b65840799f8732cb0375cc1115ae2a6bd330350c4777c63c41d9258b37",
+        "overlay_source_id": "N20-S-ML4-OVERLAY"
+      },
+      "source_id": "N20-S-OCI-ML4",
+      "binary_executed": false
+    },
+    {
+      "engine": "vllm",
+      "checked_at": "2026-11-20T19:33:07Z",
+      "channel": "Default nightly wheel index",
+      "source_ids": [
+        "N20-V-DEFAULT-WHEEL-LATER",
+        "V034-WHEELS-DEFAULT"
+      ],
+      "advertised_version": "0.34.0rc1.dev1080+gc78f57f74",
+      "commit": "c78f57f74599cb3dc0a0bc2848d9b8b0dea3be6e",
+      "binary_executed": false
     }
   ],
   "additional_artifacts": [

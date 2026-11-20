@@ -1626,7 +1626,8 @@
       "model_review_field": "latest_stable_review",
       "argument_array_status": "Historical arguments retained; not full CLI or runtime validation.",
       "required_reconciliation": [
-        "This TP8 row is a derived layout. The four-GPU native control and NVIDIA’s TP8 NVFP4 target-only exporter command use different kernels. Pin the exact 0731 target and evaluate real output goodput, quality and latency."
+        "This TP8 row is a derived layout. The four-GPU native control and NVIDIA’s TP8 NVFP4 target-only exporter command use different kernels. Pin the exact 0731 target and evaluate real output goodput, quality and latency.",
+        "The tagged cookbook marks the native low-latency B300 TP4 DSpark cell verified upstream. Balanced and high-throughput TP4 cells remain unverified. This historical TP8 reference has no equivalent verification."
       ],
       "source_ids": [
         "S0523-RELEASE",
@@ -2022,7 +2023,7 @@
       "model_review_field": "latest_stable_review",
       "argument_array_status": "Historical arguments retained; not full CLI or runtime validation.",
       "required_reconciliation": [
-        "v0.5.23 documents the original NVIDIA export and separate RadixArk FP4-head and BF16-head variants. NVIDIA also gives a QAD command using v0.5.23-cu130. Start each target at TP1 with speculation off. The QAD export and Red Hat export carry FP8 KV metadata, so record the effective KV dtype and scales before a weight-format comparison.",
+        "v0.5.23 documents the original NVIDIA export and separate RadixArk FP4-head and BF16-head variants. NVIDIA also gives a QAD command using v0.5.23-cu130. Start each target at TP1 with speculation off. The QAD export and Red Hat export carry FP8 KV metadata, so record the effective KV dtype and scales before a weight-format comparison. On the inspected CUDA loaders, auto selects BF16 KV for the original NVIDIA PTQ export and FP8 E4M3 for both QAD and Red Hat. Red Hat indexes 16 K and 16 V cache scales. QAD has no named K/V scale tensors. Match effective KV and check actual scaling before attributing differences to weights.",
         "The Hub head differs from the retained model revision. Pin the tokenizer, template and processor used for the workload and compare rendered inputs before attributing a change to the engine."
       ],
       "source_ids": [
@@ -2036,7 +2037,15 @@
         "N20-TREE-QWEN-QWEN3-8-27B-HEAD",
         "N20-QWEN-QWEN3-8-27B-HEAD-CARD",
         "N20-QWEN-QWEN3-8-27B-HEAD-CHAT",
-        "N20-QWEN-QWEN3-8-27B-HEAD-TOKCFG"
+        "N20-QWEN-QWEN3-8-27B-HEAD-TOKCFG",
+        "N20-S-KV-DTYPE",
+        "N20-S-KV-COMPRESSED",
+        "N20-S-Q35-WRAPPER",
+        "N20-S-QVL-WRAPPER",
+        "N20-S-KV-FIELD",
+        "N20-Q27-V-KVSCALE",
+        "N20-Q27-QAD-LAST-HDR",
+        "N20-Q27-S-KVSCALE"
       ],
       "tested_on_target": false
     },
@@ -2123,7 +2132,7 @@
       "model_review_field": "latest_stable_review",
       "argument_array_status": "Historical arguments retained; not full CLI or runtime validation.",
       "required_reconciliation": [
-        "v0.5.23 documents the original NVIDIA export and separate RadixArk FP4-head and BF16-head variants. NVIDIA also gives a QAD command using v0.5.23-cu130. Start each target at TP1 with speculation off. The QAD export and Red Hat export carry FP8 KV metadata, so record the effective KV dtype and scales before a weight-format comparison.",
+        "v0.5.23 documents the original NVIDIA export and separate RadixArk FP4-head and BF16-head variants. NVIDIA also gives a QAD command using v0.5.23-cu130. Start each target at TP1 with speculation off. The QAD export and Red Hat export carry FP8 KV metadata, so record the effective KV dtype and scales before a weight-format comparison. On the inspected CUDA loaders, auto selects BF16 KV for the original NVIDIA PTQ export and FP8 E4M3 for both QAD and Red Hat. Red Hat indexes 16 K and 16 V cache scales. QAD has no named K/V scale tensors. Match effective KV and check actual scaling before attributing differences to weights.",
         "The Hub head differs from the retained model revision. Pin the tokenizer, template and processor used for the workload and compare rendered inputs before attributing a change to the engine."
       ],
       "source_ids": [
@@ -2136,7 +2145,15 @@
         "N20-TREE-QWEN-QWEN3-8-27B-FP8-PIN",
         "N20-TREE-QWEN-QWEN3-8-27B-FP8-HEAD",
         "N20-QWEN-QWEN3-8-27B-FP8-HEAD-CHAT",
-        "N20-QWEN-QWEN3-8-27B-FP8-HEAD-TOKCFG"
+        "N20-QWEN-QWEN3-8-27B-FP8-HEAD-TOKCFG",
+        "N20-S-KV-DTYPE",
+        "N20-S-KV-COMPRESSED",
+        "N20-S-Q35-WRAPPER",
+        "N20-S-QVL-WRAPPER",
+        "N20-S-KV-FIELD",
+        "N20-Q27-V-KVSCALE",
+        "N20-Q27-QAD-LAST-HDR",
+        "N20-Q27-S-KVSCALE"
       ],
       "tested_on_target": false
     },
@@ -2221,7 +2238,7 @@
       "model_review_field": "latest_stable_review",
       "argument_array_status": "Historical arguments retained; not full CLI or runtime validation.",
       "required_reconciliation": [
-        "v0.5.23 documents the original NVIDIA export and separate RadixArk FP4-head and BF16-head variants. NVIDIA also gives a QAD command using v0.5.23-cu130. Start each target at TP1 with speculation off. The QAD export and Red Hat export carry FP8 KV metadata, so record the effective KV dtype and scales before a weight-format comparison."
+        "v0.5.23 documents the original NVIDIA export and separate RadixArk FP4-head and BF16-head variants. NVIDIA also gives a QAD command using v0.5.23-cu130. Start each target at TP1 with speculation off. The QAD export and Red Hat export carry FP8 KV metadata, so record the effective KV dtype and scales before a weight-format comparison. On the inspected CUDA loaders, auto selects BF16 KV for the original NVIDIA PTQ export and FP8 E4M3 for both QAD and Red Hat. Red Hat indexes 16 K and 16 V cache scales. QAD has no named K/V scale tensors. Match effective KV and check actual scaling before attributing differences to weights."
       ],
       "source_ids": [
         "N20-S-STABLE-Q27",
@@ -2229,7 +2246,15 @@
         "N20-Q27-RH-CFG",
         "N20-HF-NVIDIA-QWEN3-8-27B-NVFP4",
         "qwen3.8-27b-NV",
-        "qwen3.8-27b-NV-CFG"
+        "qwen3.8-27b-NV-CFG",
+        "N20-S-KV-DTYPE",
+        "N20-S-KV-COMPRESSED",
+        "N20-S-Q35-WRAPPER",
+        "N20-S-QVL-WRAPPER",
+        "N20-S-KV-FIELD",
+        "N20-Q27-V-KVSCALE",
+        "N20-Q27-QAD-LAST-HDR",
+        "N20-Q27-S-KVSCALE"
       ],
       "tested_on_target": false
     },
@@ -2322,7 +2347,7 @@
       "model_review_field": "latest_stable_review",
       "argument_array_status": "Historical arguments retained; not full CLI or runtime validation.",
       "required_reconciliation": [
-        "v0.5.23 documents the original NVIDIA export and separate RadixArk FP4-head and BF16-head variants. NVIDIA also gives a QAD command using v0.5.23-cu130. Start each target at TP1 with speculation off. The QAD export and Red Hat export carry FP8 KV metadata, so record the effective KV dtype and scales before a weight-format comparison."
+        "v0.5.23 documents the original NVIDIA export and separate RadixArk FP4-head and BF16-head variants. NVIDIA also gives a QAD command using v0.5.23-cu130. Start each target at TP1 with speculation off. The QAD export and Red Hat export carry FP8 KV metadata, so record the effective KV dtype and scales before a weight-format comparison. On the inspected CUDA loaders, auto selects BF16 KV for the original NVIDIA PTQ export and FP8 E4M3 for both QAD and Red Hat. Red Hat indexes 16 K and 16 V cache scales. QAD has no named K/V scale tensors. Match effective KV and check actual scaling before attributing differences to weights."
       ],
       "source_ids": [
         "N20-S-STABLE-Q27",
@@ -2330,7 +2355,15 @@
         "N20-Q27-RH-CFG",
         "N20-HF-NVIDIA-QWEN3-8-27B-NVFP4",
         "qwen3.8-27b-NV",
-        "qwen3.8-27b-NV-CFG"
+        "qwen3.8-27b-NV-CFG",
+        "N20-S-KV-DTYPE",
+        "N20-S-KV-COMPRESSED",
+        "N20-S-Q35-WRAPPER",
+        "N20-S-QVL-WRAPPER",
+        "N20-S-KV-FIELD",
+        "N20-Q27-V-KVSCALE",
+        "N20-Q27-QAD-LAST-HDR",
+        "N20-Q27-S-KVSCALE"
       ],
       "tested_on_target": false
     },
@@ -2696,13 +2729,17 @@
       "model_review_field": "latest_stable_review",
       "argument_array_status": "Historical arguments retained; not full CLI or runtime validation.",
       "required_reconciliation": [
-        "The v0.5.23 31B B300 generator emits TP1, Triton attention and a static-memory fraction of 0.9. It offers the Google standard or QAT checkpoint. Red Hat/NVIDIA NVFP4 and the Unsloth and turbo exports need their own compatibility and numerical checks. The optional NEXTN mode uses the separately named assistant, five steps and six draft tokens."
+        "The v0.5.23 31B B300 generator emits TP1, Triton attention and a static-memory fraction of 0.9. It offers the Google standard or QAT checkpoint. Red Hat/NVIDIA NVFP4 and the Unsloth and turbo exports need their own compatibility and numerical checks. The optional NEXTN mode uses the standard or QAT-specific assistant matched to its corresponding target, five steps and six draft tokens. The QAT recipe uses google/gemma-4-31B-it-qat-q4_0-unquantized and its corresponding -assistant, both stored in BF16. The packed W4A16 repository is separate."
       ],
       "source_ids": [
         "N20-G31-S-RECIPE",
         "N20-HF-REDHATAI-GEMMA-4-31B-IT-NVFP4",
         "gemma-4-31b-it-NV",
-        "gemma-4-31b-it-NV-CFG"
+        "gemma-4-31b-it-NV-CFG",
+        "N20-G31-QAT-CARD",
+        "N20-G31-QAT-CFG",
+        "N20-G31-QAT-DRAFT-CFG",
+        "N20-G31-QAT-CT-CFG"
       ],
       "tested_on_target": false
     },
@@ -3069,7 +3106,7 @@
       "model_review_field": "latest_stable_review",
       "argument_array_status": "Historical arguments retained; not full CLI or runtime validation.",
       "required_reconciliation": [
-        "v0.34 adds optional disk-backed PLE lookup and shared QSA top-k buffers. The reported 27 GiB saving is for DGX Spark. The tagged release recipe selects Inferact for NVFP4, despite describing its PLE as NVFP4. At the pinned Inferact revision the first n-gram tensor has BF16 storage. Plain TP8 is incompatible with the official block-FP8 expert geometry in the upstream recipe, which instead uses tensor plus expert parallelism."
+        "v0.34 adds optional disk-backed PLE lookup and shared QSA top-k buffers. The reported 27 GiB saving is for DGX Spark. The tagged release recipe selects Inferact for NVFP4, despite describing its PLE as NVFP4. At the pinned Inferact revision all 128 n-gram tables store BF16, totaling 102,400,491,520 bytes. Plain TP8 is incompatible with the official block-FP8 expert geometry in the upstream recipe, which instead uses tensor plus expert parallelism."
       ],
       "source_ids": [
         "V034-R-QFN",
@@ -3167,7 +3204,7 @@
       "model_review_field": "latest_stable_review",
       "argument_array_status": "Historical arguments retained; not full CLI or runtime validation.",
       "required_reconciliation": [
-        "v0.34 adds optional disk-backed PLE lookup and shared QSA top-k buffers. The reported 27 GiB saving is for DGX Spark. The tagged release recipe selects Inferact for NVFP4, despite describing its PLE as NVFP4. At the pinned Inferact revision the first n-gram tensor has BF16 storage. Plain TP8 is incompatible with the official block-FP8 expert geometry in the upstream recipe, which instead uses tensor plus expert parallelism."
+        "v0.34 adds optional disk-backed PLE lookup and shared QSA top-k buffers. The reported 27 GiB saving is for DGX Spark. The tagged release recipe selects Inferact for NVFP4, despite describing its PLE as NVFP4. At the pinned Inferact revision all 128 n-gram tables store BF16, totaling 102,400,491,520 bytes. Plain TP8 is incompatible with the official block-FP8 expert geometry in the upstream recipe, which instead uses tensor plus expert parallelism."
       ],
       "source_ids": [
         "V034-R-QFN",
@@ -3268,7 +3305,7 @@
       "model_review_field": "latest_stable_review",
       "argument_array_status": "Historical arguments retained; not full CLI or runtime validation.",
       "required_reconciliation": [
-        "The regular NVIDIA B300 cookbook cell remains unverified. The AgentX page bundled in v0.5.23 records a RadixArk B300 TP1 run under v0.5.21-cu130. The November main AgentX page records NVIDIA B300 TP1 and TP4/EP4 runs on an October 28 nightly at 586355a8. Both sets disclose synthetic acceptance. Their acceptance lengths cannot establish native MTP performance on agent turns."
+        "The regular NVIDIA B300 cookbook cell remains unverified. The AgentX page bundled in v0.5.23 records a RadixArk B300 TP1 run under v0.5.21-cu130. The November main AgentX page records NVIDIA B300 TP1 and TP4/EP4 runs on an October 28 nightly at 586355a8. Both sets disclose synthetic acceptance. Their acceptance lengths cannot establish native MTP performance on agent turns. The c12 submission injected the acceptance length 2.32. Its worker fingerprint matches the AMD64 image source label, and its output-token rate was measured through the benchmark frontend. The separate GSM8K evaluations used different concurrency and cache settings."
       ],
       "source_ids": [
         "N20-S-QNEXT-STABLE",
@@ -3276,7 +3313,11 @@
         "N20-S-AGENTX-CELLS",
         "N20-HF-NVIDIA-QWEN3-8-FLASH-NEXT-NVFP4",
         "qwen3.8-flash-next-NV",
-        "qwen3.8-flash-next-NV-CFG"
+        "qwen3.8-flash-next-NV-CFG",
+        "N20-IX-QFN-C12",
+        "N20-IX-QFN-EVAL",
+        "N20-IX-QFN-SUBMISSION",
+        "N20-S-OCI-AGENTX"
       ],
       "tested_on_target": false
     },
@@ -4143,7 +4184,8 @@
       "model_review_field": "latest_stable_review",
       "argument_array_status": "Historical arguments retained; not full CLI or runtime validation.",
       "required_reconciliation": [
-        "Keep the exact 1bae0e10 pin and stage a separate 08c8657f tokenizer/template probe. v0.34 includes #59986, but the PR did not run the B300 stress test. Start target-only, budget CPU Engram per replica, then retest adaptive verification and mixed-batch graphs. #61530 for NVIDIA 1017 is main-only."
+        "Keep the exact 1bae0e10 pin and stage a separate 08c8657f tokenizer/template probe. v0.34 includes #59986, but the PR did not run the B300 stress test. Start target-only, budget CPU Engram per replica, then retest adaptive verification and mixed-batch graphs. #61530 for NVIDIA 1017 is main-only.",
+        "Use target-only or fixed-width DSpark at TP2/TP4 on v0.34.0. The separate rank-consensus fix #62769 broadcasts adaptive draft decisions across TP ranks on main. Its published end-to-end check used Qwen on MI355X."
       ],
       "source_ids": [
         "V034-RELEASE",
@@ -4152,7 +4194,12 @@
         "V034-PR-61530",
         "V034-IN-61530",
         "V034-MAIN-IN-61530",
-        "N20-MOE-HUB"
+        "N20-MOE-HUB",
+        "O26-DSPARK-CONSENSUS",
+        "V034-ADAPTIVE-TP",
+        "N20-V-MAIN-ADAPTIVE-TP",
+        "V034-COMPARE-ADAPTIVE-TP",
+        "N20-V-MAIN-COMPARE-ADAPTIVE-TP"
       ],
       "tested_on_target": false
     },
@@ -4601,7 +4648,7 @@
       "model_review_field": "latest_stable_review",
       "argument_array_status": "Historical arguments retained; not full CLI or runtime validation.",
       "required_reconciliation": [
-        "SGLang v0.5.23 lacks the Large 4 model class. PR #47271 remains open at 74345a96. The separate development image retains digest sha256:6c9e19a08f30ef8472f3c2ae2d01de99b452cf1fed77f720cd3b6fec61625770. Its engine commit is unknown. The main cookbook contains B300 FP8 TP8 and marks the B300 NVFP4 TP8 cell unverified. The publisher-card NVFP4 TP4 example remains a development comparison."
+        "SGLang v0.5.23 lacks the Large 4 model class. PR #47271 remains open at 74345a96. The separate development image retains digest sha256:6c9e19a08f30ef8472f3c2ae2d01de99b452cf1fed77f720cd3b6fec61625770. The linux/amd64 image labels base c10e0e17 and applies a separate 352-file patch. The resulting target file differs from PR #47271 head 74345a96. The main cookbook contains B300 FP8 TP8 and marks the B300 NVFP4 TP8 cell unverified. The publisher-card NVFP4 TP4 example remains a development comparison."
       ],
       "source_ids": [
         "mistral-large-4-SGL-PR47271",
@@ -4610,7 +4657,10 @@
         "mistral-large-4-SGL-V0523-TREE",
         "mistral-large-4-API",
         "mistral-large-4-CARD",
-        "mistral-large-4-CFG"
+        "mistral-large-4-CFG",
+        "N20-S-OCI-ML4",
+        "N20-S-ML4-OVERLAY",
+        "N20-S-ML4-PR-MODEL"
       ],
       "tested_on_target": false
     },
@@ -5289,7 +5339,7 @@
       "model_review_field": "latest_stable_review",
       "argument_array_status": "Historical arguments retained; not full CLI or runtime validation.",
       "required_reconciliation": [
-        "SGLang v0.5.23 lacks the Large 4 model class. PR #47271 remains open at 74345a96. The separate development image retains digest sha256:6c9e19a08f30ef8472f3c2ae2d01de99b452cf1fed77f720cd3b6fec61625770. Its engine commit is unknown. The main cookbook contains B300 FP8 TP8 and marks the B300 NVFP4 TP8 cell unverified. The publisher-card NVFP4 TP4 example remains a development comparison."
+        "SGLang v0.5.23 lacks the Large 4 model class. PR #47271 remains open at 74345a96. The separate development image retains digest sha256:6c9e19a08f30ef8472f3c2ae2d01de99b452cf1fed77f720cd3b6fec61625770. The linux/amd64 image labels base c10e0e17 and applies a separate 352-file patch. The resulting target file differs from PR #47271 head 74345a96. The main cookbook contains B300 FP8 TP8 and marks the B300 NVFP4 TP8 cell unverified. The publisher-card NVFP4 TP4 example remains a development comparison."
       ],
       "source_ids": [
         "mistral-large-4-SGL-PR47271",
@@ -5298,7 +5348,10 @@
         "mistral-large-4-SGL-V0523-TREE",
         "mistral-large-4-NVFP4-API",
         "mistral-large-4-NVFP4-CARD",
-        "mistral-large-4-NVFP4-PARAMS"
+        "mistral-large-4-NVFP4-PARAMS",
+        "N20-S-OCI-ML4",
+        "N20-S-ML4-OVERLAY",
+        "N20-S-ML4-PR-MODEL"
       ],
       "tested_on_target": false
     },
@@ -5385,7 +5438,7 @@
       "model_review_field": "latest_stable_review",
       "argument_array_status": "Historical arguments retained; not full CLI or runtime validation.",
       "required_reconciliation": [
-        "SGLang v0.5.23 lacks the Large 4 model class. PR #47271 remains open at 74345a96. The separate development image retains digest sha256:6c9e19a08f30ef8472f3c2ae2d01de99b452cf1fed77f720cd3b6fec61625770. Its engine commit is unknown. The main cookbook contains B300 FP8 TP8 and marks the B300 NVFP4 TP8 cell unverified. The publisher-card NVFP4 TP4 example remains a development comparison."
+        "SGLang v0.5.23 lacks the Large 4 model class. PR #47271 remains open at 74345a96. The separate development image retains digest sha256:6c9e19a08f30ef8472f3c2ae2d01de99b452cf1fed77f720cd3b6fec61625770. The linux/amd64 image labels base c10e0e17 and applies a separate 352-file patch. The resulting target file differs from PR #47271 head 74345a96. The main cookbook contains B300 FP8 TP8 and marks the B300 NVFP4 TP8 cell unverified. The publisher-card NVFP4 TP4 example remains a development comparison."
       ],
       "source_ids": [
         "mistral-large-4-SGL-PR47271",
@@ -5394,7 +5447,10 @@
         "mistral-large-4-SGL-V0523-TREE",
         "mistral-large-4-NVFP4-API",
         "mistral-large-4-NVFP4-CARD",
-        "mistral-large-4-NVFP4-PARAMS"
+        "mistral-large-4-NVFP4-PARAMS",
+        "N20-S-OCI-ML4",
+        "N20-S-ML4-OVERLAY",
+        "N20-S-ML4-PR-MODEL"
       ],
       "tested_on_target": false
     },
@@ -5490,7 +5546,8 @@
       "model_review_field": "latest_stable_review",
       "argument_array_status": "November 20 release-source recipe transcription. CLI, installed KServe template and runtime untested.",
       "required_reconciliation": [
-        "Record the model mount, Mistral tokenizer, loading path, effective KV dtype and image digest. Compare target-only quality at TP8 before enabling the bundled DSpark head at depth three."
+        "Record the model mount, Mistral tokenizer, loading path, effective KV dtype and image digest. Compare target-only quality at TP8 before enabling the bundled DSpark head at depth three.",
+        "The upstream KServe v0.21.0 vLLM template reparses $@ with shell eval. Preserve the speculative JSON as one argument and inspect the rendered argv. Its startup probe allows about 600 s while the recipe reports 1,300–1,800 s cold starts. Size the installed startup probe using measured model-mount and load times."
       ],
       "source_ids": [
         "V034-RELEASE",
@@ -5499,7 +5556,10 @@
         "V034-ML4-DRAFT",
         "V034-R-ML4",
         "V034-IMAGE",
-        "mistral-large-4-CARD"
+        "mistral-large-4-CARD",
+        "KEXP-TEMPLATE21",
+        "N20-V-OCI-STABLE",
+        "N20-V-COMMON"
       ],
       "tested_on_target": false
     }
@@ -5571,7 +5631,8 @@
       "model_review_field": "latest_stable_review",
       "argument_array_status": "November 20 release-source recipe transcription. CLI, installed KServe template and runtime untested.",
       "required_reconciliation": [
-        "Record the model mount, Mistral tokenizer, loading path, effective KV dtype and image digest. Compare target-only quality at TP8 before enabling the bundled DSpark head at depth three."
+        "Record the model mount, Mistral tokenizer, loading path, effective KV dtype and image digest. Compare target-only quality at TP8 before enabling the bundled DSpark head at depth three.",
+        "The upstream KServe v0.21.0 vLLM template reparses $@ with shell eval. Preserve the speculative JSON as one argument and inspect the rendered argv. Its startup probe allows about 600 s while the recipe reports 1,300–1,800 s cold starts. Size the installed startup probe using measured model-mount and load times."
       ],
       "source_ids": [
         "V034-RELEASE",
@@ -5580,7 +5641,10 @@
         "V034-ML4-DRAFT",
         "V034-R-ML4",
         "V034-IMAGE",
-        "mistral-large-4-NVFP4-CARD"
+        "mistral-large-4-NVFP4-CARD",
+        "KEXP-TEMPLATE21",
+        "N20-V-OCI-STABLE",
+        "N20-V-COMMON"
       ],
       "tested_on_target": false
     }
@@ -5725,7 +5789,12 @@
       "N20-S-AGENTX-RUN",
       "N20-S-IX-OCI",
       "N20-S-QNEXT-STABLE",
-      "qwen3.8-flash-next-NV-CFG"
+      "qwen3.8-flash-next-NV-CFG",
+      "N20-S-OCI-AGENTX",
+      "N20-S-AGENTX-BUILD",
+      "N20-IX-QFN-SUBMISSION",
+      "N20-IX-QFN-C12",
+      "N20-IX-QFN-EVAL"
     ],
     "reviewed_source_commit": "9fc0e2a6ba197f19f00165327adbb7c48cdf8281",
     "model_revision": "fc694b54fb0174e0913e6adf86691ef85a4ead47",
@@ -5745,7 +5814,8 @@
       "admission_limit": 96,
       "cache_tier": "GPU KV, pinned host PLE, no HiCache",
       "draft_identity": "NEXTN head bundled with target",
-      "image_commit_verified": false
+      "image_commit_verified": true,
+      "image_commit_scope": "The AMD64 OCI source label and build workflow identify 586355a83bdf609579b3309d4125620351156bb7. The upstream c12 worker package fingerprint reports 0.0.0.dev1+g586355a83. Local binary equivalence and execution remain unverified."
     },
     "notes": "Exact single SGLang worker arguments and environment from the November 18 cookbook dataset at the reviewed main commit, after applying override_c12. One B300 worker from an eight-GPU host. Upstream throughput replay used synthetic acceptance length 2.32 and never re-sent generated output. The emitted server arguments omit simulated acceptance. No target-node or KServe run. Docker Hub no longer lists the dated tag, but the registry served the index by digest.",
     "latest_release_recheck": {
@@ -5755,7 +5825,8 @@
       "model_review_field": "latest_stable_review",
       "argument_array_status": "Dated development-image recipe. The v0.5.23 general cookbook marks both NVIDIA B300 cells unverified. Exact arguments apply only to the cited development-image recipe.",
       "required_reconciliation": [
-        "Confirm the KServe runtime passes the image digest, environment, worker HTTP port and arguments, and reserve pinned host RAM for PLE. Re-evaluate the interval for conversations that resend model output."
+        "Confirm the KServe runtime passes the image digest, environment, worker HTTP port and arguments, and reserve pinned host RAM for PLE. Re-evaluate the interval for conversations that resend model output.",
+        "The inspected development KServe SGLang template supplies /mnt/models and port 8000. Render one target model path and align the worker port, Service target and all three HTTP probes with the installed template."
       ],
       "source_ids": [
         "N20-S-AGENTX-CELLS",
@@ -5765,7 +5836,13 @@
         "N20-S-AGENTX-RUN",
         "N20-S-IX-OCI",
         "N20-S-QNEXT-STABLE",
-        "qwen3.8-flash-next-NV-CFG"
+        "qwen3.8-flash-next-NV-CFG",
+        "KS20-MASTER-SGLANG",
+        "N20-S-OCI-AGENTX",
+        "N20-S-AGENTX-BUILD",
+        "N20-IX-QFN-SUBMISSION",
+        "N20-IX-QFN-C12",
+        "N20-IX-QFN-EVAL"
       ],
       "tested_on_target": false,
       "model_revision_matches_current_head": true
@@ -5821,14 +5898,30 @@
       "argument_array_status": "Publisher flags and named adaptations recorded from source. No installed CLI or runtime validation.",
       "required_reconciliation": [
         "Record actual weight loader, resolved KV dtype/scales and recurrent-state pool. Reject on load failure, numerical errors or degraded matched-prompt quality.",
-        "Use the same base template and sampling for PTQ/QAD comparisons. The KServe target port must match 30000. Size admission using measured HBM and context, as the configured cap only limits the request."
+        "Use the same base template and sampling for PTQ/QAD comparisons. If retaining the publisher’s 30000 listener, configure the KServe target port and probes accordingly. Size admission using measured HBM and context, as the configured cap only limits the request.",
+        "The inspected development KServe SGLang template supplies /mnt/models and port 8000. Render one target model path and align the worker port, Service target and all three HTTP probes with the installed template.",
+        "Keep the QAD probe target-only. Its named draft tensors omit the FC projection, final norm and both pre-FC norms used by the native vLLM and SGLang MTP models. With no named K/V cache scales, verify the selected dtype and loaded or calibrated scales against a matched reference.",
+        "SGLang v0.5.23 auto resolves to FP8 E4M3 KV for QAD and BF16 KV for the original NVIDIA PTQ checkpoint under the inspected CUDA loaders. Specify a common supported KV dtype for a weight comparison and measure each exporter default separately."
       ],
       "source_ids": [
         "N20-Q27-QAD-API",
         "N20-Q27-QAD-CARD",
         "N20-Q27-QAD-CFG",
         "S0523-RELEASE",
-        "N20-Q27-QAD-QCFG"
+        "N20-Q27-QAD-QCFG",
+        "KS20-MASTER-SGLANG",
+        "N20-S-QAD-TAG",
+        "N20-S-OCI-STABLE",
+        "N20-K-MASTER-RUNTIME",
+        "N20-Q27-QAD-LAST-HDR",
+        "N20-Q27-V-MTP",
+        "N20-Q27-S-MTP",
+        "N20-Q27-V-KVSCALE",
+        "N20-S-KV-DTYPE",
+        "N20-S-KV-COMPRESSED",
+        "N20-S-Q35-WRAPPER",
+        "N20-S-QVL-WRAPPER",
+        "N20-S-KV-FIELD"
       ],
       "tested_on_target": false
     }

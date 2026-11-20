@@ -31,7 +31,7 @@ The positional limit is not a promise of that many usable tokens under arbitrary
 
 ## The most important unresolved checks
 
-B300 load, quality and performance for the documented SGLang NVIDIA TP1 recipe; n-gram placement costs; full checkpoint tensor-byte census; production throughput under realistic prefix reuse.
+The generic v0.5.23 NVIDIA B300 TP1 cell still lacks upstream validation. For the separately measured AgentX nightly, natural draft acceptance, live tool-use quality and a matched target-only throughput baseline remain open. Host PLE residency, repeated-prefix routing and the installed KServe runtime determine transfer to the target node. [Upstream B300 replay and controls](serving.md#november-20-release-and-benchmark-controls)
 
 [Return to repository index](../../../README.md)
 

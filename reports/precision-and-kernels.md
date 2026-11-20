@@ -6,6 +6,10 @@ The November 20, 2026 review covers NVFP4 exporter recipes and B300 dispatch in 
 
 On November 20, 2026 the upstream exporter references were NVIDIA Model Optimizer **0.48.0** (`e2f328a1`) and LLM Compressor **0.15.0** (`04546e05`). The serving source comparison below uses vLLM **v0.34.0** (`62d4bc3c`) and SGLang **v0.5.23** (`297e54fd`) on SM103 as candidates for the eight-B300 KServe node. The installed KServe version, resource kind, image contents and actual kernel selections remain unknown. [Release and development channels](nightly-readiness.md). [R20-MO-RELEASE](https://api.github.com/repos/NVIDIA/Model-Optimizer/releases/tags/0.48.0) [R20-LC-RELEASE](https://api.github.com/repos/vllm-project/llm-compressor/releases/tags/0.15.0)
 
+The exporter version attached to an individual checkpoint can be ambiguous even when the upstream release is known. NVIDIA’s Qwen 27B QAD card names ModelOpt v0.48.0, while both pinned configuration files record producer 0.46.0rc1. Its 11 named MTP tensors omit four tensors used by the inspected native draft loaders. Use the target alone for the initial PTQ/QAD comparison, and record the effective K/V scales alongside the cache dtype. [Qwen 27B precision evidence](../companies/alibaba-qwen/qwen3.8-27b/precision.md).
+
+Header reads also change the draft-memory estimate. Across four GLM 5.3 NVFP4 exports, the serialized MTP tensors occupy 19,905,841,664 bytes each. On GLM 5.3 Flash, the corresponding payload is 14,865,185,408 bytes for NVIDIA and RadixArk and 7,618,312,832 bytes for Red Hat, whose MTP routed experts use FP8. The differences matter when reserving HBM for speculation. Engine loading and per-rank residency still require measurement. [GLM 5.3 precision](../companies/z-ai/glm-5.3/precision.md) · [GLM 5.3 Flash precision](../companies/z-ai/glm-5.3-flash/precision.md).
+
 ### Which part of the recipe changes?
 
 | Choice | What changes at export | What to compare |

@@ -90,16 +90,16 @@ SM103 is compute capability 10.3: vLLM's `is_device_capability_family(100)` and 
 
 The SGLang 145.8 figure matches the target-only TP4 estimate if its unit is GiB (unit not stated in the cookbook); read as decimal GB it would be below the even-shard payload. The vLLM ~76 GiB lies between the target-only and draft-inclusive estimates. Neither is a B300 measurement.
 
-**KV bytes per token [atlas derivation from the pinned config; engine layout is a hypothesis].** 63 layers own a latent cache (72 minus the 9 layers that read layer 35). With `fp8_ds_mla`-style entries of 656 B (512 FP8 latent + 4 × F32 scales + 64 BF16 RoPE elements) and FP8 indexer keys of 132 B (128 FP8 + 4-byte scale) on 44 `full` indexer layers: 63 × 656 + 44 × 132 = **47,136 B/token per GPU**. Under plain TP the latent is replicated on every rank, so the figure does not shrink with TP width. BF16 latent: (54 × 576 + 9 × 512) × 2 + 5,808 = 77,232 B/token. Per sequence (FP8): 2.88 GiB at 65,536 tokens, 11.51 GiB at 262,144, 46.03 GiB at 1,048,576.
+**KV bytes per token.** Release vLLM v0.34.0 has 63 latent-cache owners and stores one FP8 indexer row in each of 44 full indexers. Sparse FlashMLA with `fp8_ds_mla` uses 63 × 656 + 44 × 132 = **47,136 B/token per GPU** under ordinary TP. The BF16 latent path pads the 64-value rotary tail on every NoPE owner, giving 63 × 576 × 2 + 44 × 132 = **78,384 B/token per GPU**. FP8 latent and indexer payload totals 2.88 GiB at 65,536 tokens, 11.51 GiB at 262,144 and 46.03 GiB at 1,048,576. Paging, workspace and draft KV require additional memory. [Architecture and tagged implementation sources](architecture.md#memory-and-performance-consequences)
 
 **KV room on B300 [atlas calculation; payload only].** Budget = 0.85 × 288 GB (advertised capacity convention) minus weights, before activations, CUDA graphs, workspaces and the draft's own KV:
 
-| Layout | KV budget/GPU | FP8 KV tokens | Full-length 64K sequences | Full-length 256K sequences | Engine-reported comparison |
+| Layout | KV budget/GPU | FP8 KV tokens | Complete 65,536-token sequences, rounded down | Complete 262,144-token sequences, rounded down | Engine-reported comparison |
 | --- | ---: | ---: | ---: | ---: | --- |
-| TP8 target-only | 164.6 GB | ≈3.49M | ≈53 | ≈13 | vLLM recipe, 2×GB300 NVFP4 TP8, no spec: 3.60M tokens |
-| TP8 + draft weights | 160.4 GB | ≈3.40M | ≈52 | ≈13 | — |
-| TP4 target-only (per replica) | 89.5 GB | ≈1.90M | ≈29 | ≈7 | vLLM recipe, GB300 NVFP4 TP4 decode node, no spec: 1.96M tokens |
-| TP4 + draft weights (per replica) | 85.3 GB | ≈1.81M | ≈28 | ≈7 | SGLang/vLLM: none published for B300 |
+| TP8 target-only | 164.6 GB | ≈3.49M | 53 | 13 | vLLM recipe, 2×GB300 NVFP4 TP8, no spec: 3.60M tokens |
+| TP8 + draft weights | 160.4 GB | ≈3.40M | 51 | 12 | — |
+| TP4 target-only (per replica) | 89.5 GB | ≈1.90M | 28 | 7 | vLLM recipe, GB300 NVFP4 TP4 decode node, no spec: 1.96M tokens |
+| TP4 + draft weights (per replica) | 85.3 GB | ≈1.81M | 27 | 6 | SGLang/vLLM: none published for B300 |
 
 If the device exposes more than 288 decimal GB (the SGLang cookbook states 278 GiB for GB300), the budgets grow by ≈9 GB per GPU. The derived token counts land within ≈3–4% of the GB300 engine figures, which supports the per-token model; they are not B300 measurements. Two TP4 replicas give ≈3.8M tokens per node in total but no single request can use more than its replica's ≈1.9M. [mistral-large-4-VLLM-RECIPE](https://raw.githubusercontent.com/vllm-project/vllm/6c15c6cc5380b7d2d6052144f96889bf6c5d2e7c/recipes/models/mistralai/Mistral-Large-4-1T-A52B.yaml) [mistral-large-4-SGL-CONFIG-SRC](https://raw.githubusercontent.com/sgl-project/sglang/80eedfaf2fb34e392eaacdbb78a7cff92d6b647d/docs/src/snippets/configs/mistralai/mistral-large-4.jsx) [HW](https://docs.nvidia.com/dgx/dgxb300-user-guide/introduction-to-dgxb300.html)
 
@@ -233,7 +233,7 @@ This equals the cookbook's GB300 NVFP4 low-latency cell, which is verified on 4�
 
 | Condition | Effect | Status / mitigation | Source |
 | --- | --- | --- | --- |
-| Stable engine images | `MistralLarge4ForCausalLM` unknown → load fails | Use the digest-pinned development images only | §3 |
+| Release architecture support | vLLM v0.34.0 includes the model. SGLang v0.5.23 lacks it | Pin the selected vLLM release or SGLang development image by digest | [November 20 release analysis](serving.md#november-20-release-and-benchmark-controls) |
 | Mutable tags | Silent engine change | Pin `@sha256:` digests; record engine commit from inside the image at startup | §3 |
 | Startup longer than probe/engine timeout | Pod killed during load/DeepGEMM warmup/graph capture | `VLLM_ENGINE_READY_TIMEOUT_S=6000`; KServe startup budget ≥ 6,000 s | [recipe] |
 | Responses API with `--tokenizer-mode mistral` | `developer` role (#64793) and `input_text` (#64789) rejected | Open at 12:54Z; use Chat Completions | [mistral-large-4-VLLM-ISSUE64793](https://api.github.com/repos/vllm-project/vllm/issues/64793) [mistral-large-4-VLLM-ISSUE64789](https://api.github.com/repos/vllm-project/vllm/issues/64789) |
@@ -265,7 +265,7 @@ This equals the cookbook's GB300 NVFP4 low-latency cell, which is verified on 4�
 
 | Dimension | vLLM (`mistral-large-4` image) | SGLang (`mistral-large-4` image) |
 | --- | --- | --- |
-| Release support | None (min 0.34.0); draft PR #64534 | None; open PR #47271 |
+| Release status at November 6 review | v0.33.0 lacked the class. The November 13 backport reached v0.34.0 | v0.5.23 lacks the class. PR #47271 remained open on November 20 |
 | B300 NVFP4 status | TP8 listed as validated, no B300 table | TP8 cell "Not yet verified"; TP4 hidden for B300 |
 | Recommended first layout | TP8 | TP8 (cookbook) — publisher card shows TP4 |
 | Quant method | `modelopt_mixed` (auto) | `modelopt_mixed` (auto) |
