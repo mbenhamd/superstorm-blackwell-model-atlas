@@ -32,9 +32,11 @@ export function verdictText(verdict: EngineVerdict, measuredLabel = "measured"):
     case "none": return "no engine pair on this workload";
     case "one-sided": return `only ${verdict.engine} ${measuredLabel} · no engine pair`;
     case "different": return "different configs — no verdict";
-    case "no-passing": return verdict.passing ? `only ${verdict.passing} inside the SLO · matched pair` : "neither engine inside the SLO · matched pair";
-    case "tie": return "engines tied · matched pair";
-    case "lead": return `${signedFraction(verdict.fraction)} ${verdict.engine} · matched pair`;
+    case "unknown-allocation": return "comparison needs the measured deployment GPU count";
+    case "zero-baseline": return `only ${verdict.engine} has a positive planning rate`;
+    case "no-passing": return verdict.passing ? `only ${verdict.passing} inside the SLO` : "neither engine inside the SLO";
+    case "tie": return "within the planning tie band";
+    case "lead": return `${signedFraction(verdict.fraction)} ${verdict.engine} · checked controls match`;
   }
 }
 
@@ -50,8 +52,7 @@ export function differenceItems(verdict: Extract<EngineVerdict, { kind: "differe
   });
 }
 
-/** Controls a matched pair holds equal, stated wherever a verdict is shown. */
-export const MATCHED_CONTROLS = "same export, revision, shape, knob, decoding policy and run GPUs, and the same KV dtype, max sequences, memory fraction, prefix cache and context length (recorded runtime_config, else the configured command)";
+export const MATCHED_CONTROLS = "The comparison checks the catalog export, configured revision, parallel shape, knob, draft-enabled flag and GPU allocation. It checks KV dtype, max sequences, memory-fraction setting, prefix cache and context length from each run or its configured command. Two unknown defaults can match.";
 
 /** Add configurations to the selection tray (the "Compare" action there opens the Compare page). */
 export function addAllToCompare(ids: string[]): void {
@@ -122,7 +123,7 @@ export function EngineMatchup({ scope, fallback, shapeKey, modelName, details }:
         <TooltipContent className="max-w-80 text-pretty">
           <span className="block font-medium">Differs in</span>
           <ul className="my-1 list-disc pl-4">{differenceItems(verdict).map((item) => <li key={item}>{item}</li>)}</ul>
-          An engine verdict needs a matched pair: {MATCHED_CONTROLS}.
+          {MATCHED_CONTROLS}
         </TooltipContent>
       </Tooltip>
     )
@@ -135,7 +136,7 @@ export function EngineMatchup({ scope, fallback, shapeKey, modelName, details }:
       actions={<>
         {badge}
         <InfoTip label="How the matchup is read" testId="matchup-info">
-          Each card is the engine's best measured configuration for this model and GPU count on {state.workload}, read from its best run under the active SLO (every runtime version and recorded runtime_config competes), as on the TL;DR. A verdict needs a matched pair: {MATCHED_CONTROLS}. |Δ| ≤ {BAND}% reads as a tie (assumed single-run noise, not a measured interval).
+          Each card uses the highest planning throughput across the engine's configurations and runs on {state.workload} under the active SLO. {MATCHED_CONTROLS} The planning tie band is {BAND}% of the higher rate.
         </InfoTip>
         <Button variant="outline" size="sm" onClick={() => addAllToCompare(shown.map((d) => d.id))} data-testid="matchup-add-compare"><Plus aria-hidden="true" />Add both to compare</Button>
       </>}
@@ -144,9 +145,8 @@ export function EngineMatchup({ scope, fallback, shapeKey, modelName, details }:
       {verdict.kind === "lead" || verdict.kind === "tie" ? (
         <p className="text-[15px] leading-6 font-semibold tracking-tight text-pretty" data-testid="matchup-headline">
           {verdict.kind === "lead"
-            ? <>{verdict.engine} sustains {num(Math.abs(verdict.fraction) * 100, 1)}% more than {verdict.engine === "vLLM" ? "SGLang" : "vLLM"} on {state.workload}</>
-            : <>vLLM and SGLang are tied on {state.workload} (within ±{BAND}%)</>}
-          <span className="text-muted-foreground font-normal"> · matched pair</span>
+            ? <>{verdict.engine} has {num(Math.abs(verdict.fraction) * 100, 1)}% higher planning throughput than {verdict.engine === "vLLM" ? "SGLang" : "vLLM"} on {state.workload}</>
+            : <>Planning throughput differs by at most {BAND}% of the higher rate on {state.workload}</>}
         </p>
       ) : null}
       <div className="grid gap-3 md:grid-cols-2" data-testid="engine-matchup">
@@ -159,7 +159,7 @@ export function EngineMatchup({ scope, fallback, shapeKey, modelName, details }:
       <p className="text-muted-foreground flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-pretty" data-testid="matchup-note">
         <span>
           {verdict.kind === "different" ? <span data-testid="matchup-differences">Different configs, no verdict. Differs in {differenceItems(verdict).join("; ")}. Read each side on its own. </span>
-            : comparable || verdict.kind === "no-passing" ? "Matched pair (ⓘ lists the controls held equal). Engine-only flags may still differ: see Argument differences."
+            : comparable || verdict.kind === "no-passing" || verdict.kind === "zero-baseline" ? "The checked controls match. Effective sampling, routing, engine defaults and task quality can still differ."
             : `Verdict once both engines have a matched run on ${state.workload}.`}
         </span>
         <button type="button" className="text-link inline-flex items-center gap-0.5 hover:underline" onClick={() => openTldr(scope.modelId, shapeKey)} data-testid="matchup-ladder">Quantization ladder<ArrowUpRight className="size-3" aria-hidden="true" /></button>

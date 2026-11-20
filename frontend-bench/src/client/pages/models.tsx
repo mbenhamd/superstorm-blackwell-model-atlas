@@ -21,7 +21,7 @@ import { routeUrl, updateView, useAppState } from "../state.js";
 import { isMeasured, num, rankedRows, workloadOf } from "../lib/display.js";
 import { FacetedFilter } from "../components/app/pickers.js";
 import type { RankedDeployment } from "../../domain/types.js";
-import { aaHeadline, aaRelease, artifactsOf, atlasModel, categoryScores, unavailableExportsOf, cardsOf, cardRetention, contextLabel, effortLabel, hfUrl, paramsLabel, shortSha, type CardRecord, type CardTable } from "../lib/atlas.js";
+import { aaHeadline, aaRelease, artifactsOf, atlasModel, categoryScores, unavailableExportsOf, cardsOf, cardRetention, cardScoreDelta, contextLabel, effortLabel, hfUrl, paramsLabel, shortSha, type CardRecord, type CardTable } from "../lib/atlas.js";
 
 const precisionOrder = ["BF16", "FP8", "FP4/FP8", "MXFP4", "NVFP4"];
 const gb = (bytes: number | null | undefined) => (bytes ? `${num(bytes / 1e9, bytes >= 1e11 ? 0 : 1)} GB` : "—");
@@ -118,14 +118,14 @@ function AaScoreCard({ model }: { model: Model }) {
       className="gap-3 rounded-lg py-4 [&_[data-slot=card-content]]:px-4 [&_[data-slot=card-header]]:px-4"
       title="AA index (model)"
       status=""
-      badge={<Badge variant="neutral" title={effortLabel(aa.variant) === "reasoning" ? "Reasoning model, no effort setting" : `Highest published effort: ${effortLabel(aa.variant)}`}>{effortLabel(aa.variant)}</Badge>}
+      badge={<Badge variant="neutral" title={effortLabel(aa.variant) === "reasoning" ? "Reasoning model, no effort setting" : `Highest score at ${effortLabel(aa.variant)} effort`}>{effortLabel(aa.variant)}</Badge>}
       caption={missing.length ? `Not published: ${missing.join(", ")}` : undefined}
       score={aa.index}
       scoreFractionDigits={1}
       gaugeSize={112}
       thickness={9}
       items={scores.filter((item) => item.score !== null).map((item) => ({ label: item.category, value: Math.round(item.score as number), max: 100 }))}
-      action={<Tooltip><TooltipTrigger asChild><Info className="text-muted-foreground size-3.5" aria-label="About this score" tabIndex={0} /></TooltipTrigger><TooltipContent className="max-w-72 text-pretty">Artificial Analysis index for the model at its highest published effort. Category bars are weight-averaged component scores calculated here. Model level: not measured on any export or engine.</TooltipContent></Tooltip>}
+      action={<Tooltip><TooltipTrigger asChild><Info className="text-muted-foreground size-3.5" aria-label="About this score" tabIndex={0} /></TooltipTrigger><TooltipContent className="max-w-72 text-pretty">Highest index AA published across the model's effort settings. Category bars use the published components and their weights. AA leaves the evaluated weight revision and serving precision unspecified.</TooltipContent></Tooltip>}
     />
   );
 }
@@ -232,7 +232,7 @@ function ExportLadder({ model, showCards = false }: { model: Model; showCards?: 
   const unavailable = unavailableExportsOf(model.id);
   const maxBytes = Math.max(1, ...exports.map((item) => item.weightBytes ?? 0));
   return (
-    <Panel title="Exports" description="Weights · ideal bytes" bodyClassName="p-0" id="export-ladder">
+    <Panel title="Exports" description="Total size of listed weight files" bodyClassName="p-0" id="export-ladder">
       <ul className="divide-y">
         {exports.map((item) => {
           const configs = deployments.filter((config) => config.artifactId === item.id && config.id === config.configurationId).length;
@@ -251,13 +251,13 @@ function ExportLadder({ model, showCards = false }: { model: Model; showCards?: 
                   <span className="text-ink-2 truncate" title={item.precisionDetail}>{item.precisionDetail}</span>
                   <span className="shrink-0 font-semibold tabular-nums">{gb(item.weightBytes)}</span>
                 </div>
-                <div className="bg-muted h-2 overflow-hidden rounded-full" role="img" aria-label={item.weightBytes ? `${gb(item.weightBytes)} of weights` : "Weight bytes not recorded"}>
+                <div className="bg-muted h-2 overflow-hidden rounded-full" role="img" aria-label={item.weightBytes ? `${gb(item.weightBytes)} in listed weight files` : "Weight-file size not recorded"}>
                   <div className="h-full rounded-full" style={{ width: `${((item.weightBytes ?? 0) / maxBytes) * 100}%`, ...hatched(color) }} />
                 </div>
               </div>
               <div className="flex items-center gap-1.5 sm:justify-end">
                 <Badge variant="neutral" className="tabular-nums">{configs} config{configs === 1 ? "" : "s"}</Badge>
-                {showCards ? (!card ? <Badge variant="neutral">No card table</Badge> : retention ? <Badge variant="neutral" className={cn("tabular-nums", deltaTone(retention.mean))} title={retentionTitle(retention)} data-card-delta={signedPts(retention.mean)}>Card Δ {signedPts(retention.mean)} pts</Badge> : comparison ? <Badge variant="neutral">Δ vs baseline</Badge> : card.tables.length ? <Badge variant="neutral">Scores only</Badge> : <Badge variant="neutral">No table</Badge>) : null}
+                {showCards ? (retention ? <Badge variant="neutral" className={cn("tabular-nums", deltaTone(retention.mean))} title={retentionTitle(retention)} data-card-delta={signedPts(retention.mean)}>Card Δ {signedPts(retention.mean)} pts</Badge> : <Badge variant="neutral" title={card?.results_for}>{cardEvidenceLabel(card)}</Badge>) : null}
               </div>
             </li>
           );
@@ -297,9 +297,15 @@ function ModelOverviewTab({ model }: { model: Model }) {
 const deltaTone = (value: number) => (Math.abs(value) < 0.005 ? "text-ink-2" : value < 0 ? "text-critical-text" : "text-good-text");
 /** Signed points to two decimals; "±0.00" when the change rounds away. */
 const signedPts = (value: number) => `${Math.abs(value) < 0.005 ? "±" : value < 0 ? "−" : "+"}${Math.abs(value).toFixed(2)}`;
-const retentionTitle = (r: { rows: number; heading: string }) => `Mean of (export − baseline) over ${r.rows} benchmark${r.rows === 1 ? "" : "s"} in "${r.heading}"; calculated here from the card's own values, not measured`;
+const retentionTitle = (r: { rows: number; heading: string }) => `Unweighted mean difference from the source baseline across ${r.rows} rows in "${r.heading}", in points on a 100-point scale.`;
 
-const numeric = (value: number | string | undefined): number | null => typeof value === "number" && Number.isFinite(value) ? value : null;
+const cardRoleLabels: Record<string, string> = { base: "Base card", "quantized-export": "Export card", "draft-or-assistant": "Draft card", other: "Related card" };
+function cardEvidenceLabel(card?: CardRecord) {
+  if (!card?.tables.length) return "No table";
+  if (card.results_for) return "Copied results";
+  if (card.tables.some((table) => table.comparison)) return "Table deltas";
+  return card.tables.some((table) => table.baseline_column) ? "Baseline reported" : "Scores only";
+}
 
 /** Signed points as a bar from a centre line; the scale is the table's largest absolute Δ. */
 function DeltaBar({ delta, max }: { delta: number; max: number }) {
@@ -312,15 +318,9 @@ function DeltaBar({ delta, max }: { delta: number; max: number }) {
   );
 }
 
-function CardTableView({ table }: { table: CardTable }) {
+function CardTableView({ card, table }: { card: CardRecord; table: CardTable }) {
   const base = table.baseline_column;
-  const deltaOf = (row: CardTable["rows"][number]) => {
-    const baseline = base ? numeric(row.values[base]) : null;
-    const others = table.columns.filter((column) => column !== base).map((column) => numeric(row.values[column]));
-    const other = others.length === 1 ? others[0] ?? null : null;
-    return baseline !== null && other !== null ? other - baseline : null;
-  };
-  const maxDelta = Math.max(0, ...table.rows.map((row) => Math.abs(deltaOf(row) ?? 0)));
+  const maxDelta = Math.max(0, ...table.rows.map((row) => Math.abs(cardScoreDelta(table, row) ?? 0)));
   return (
     <div className="space-y-2">
       <div className="flex flex-wrap items-center justify-between gap-2">
@@ -332,26 +332,27 @@ function CardTableView({ table }: { table: CardTable }) {
               <TooltipContent className="max-w-96 text-pretty" data-card-settings>{table.settings}</TooltipContent>
             </Tooltip>
           ) : null}
-          <span className="text-muted-foreground font-mono text-[11px]" title="README line range">L{table.line_start}–{table.line_end}</span>
+          <a className="text-muted-foreground hover:text-link font-mono text-[11px]" href={`https://huggingface.co/${card.hf_id}/blob/${card.revision ?? "main"}/README.md#L${table.line_start}-L${table.line_end}`} target="_blank" rel="noreferrer" title="Source table in the model card">L{table.line_start}–{table.line_end}</a>
         </span>
       </div>
+      {table.scope_note ? <p className="text-muted-foreground text-xs">{table.scope_note}</p> : null}
       <div className="overflow-x-auto rounded-md border">
         <Table>
           <TableHeader>
             <TableRow className="hover:bg-transparent">
               <TableHead>Benchmark</TableHead>
-              {table.columns.map((column) => <TableHead key={column} className="text-right">{column}{column === base ? <Badge variant="neutral" className="ml-1.5">Baseline</Badge> : null}</TableHead>)}
-              {base ? <TableHead className="text-right" title="Points, calculated here from the card's own values">Δ pts</TableHead> : null}
+              {table.columns.map((column) => <TableHead key={column} className="text-right">{column}{table.comparison?.score_unit === "fraction" && (column === base || column === table.comparison.score_column) ? " (0–1)" : ""}{column === base ? <Badge variant="neutral" className="ml-1.5">Baseline</Badge> : null}</TableHead>)}
+              {table.comparison ? <TableHead className="text-right" title="Export minus baseline, in points on a 100-point scale. Uses central values when the card reports uncertainty.">Δ pts</TableHead> : null}
             </TableRow>
           </TableHeader>
           <TableBody>
             {table.rows.map((row, index) => {
-              const delta = deltaOf(row);
+              const delta = cardScoreDelta(table, row);
               return (
                 <TableRow key={`${row.benchmark}-${index}`}>
                   <TableCell className="text-ink-2">{row.benchmark}</TableCell>
                   {table.columns.map((column) => <TableCell key={column} className="text-right tabular-nums">{row.values[column] ?? "—"}</TableCell>)}
-                  {base ? (
+                  {table.comparison ? (
                     <TableCell className="text-right">
                       {delta === null ? <span className="text-muted-foreground">—</span> : (
                         <span className="inline-flex items-center justify-end gap-2.5">
@@ -388,14 +389,15 @@ function CardPanel({ card, scale }: { card: CardRecord; scale: number }) {
       <div className="space-y-2 px-4 py-3">
         <a className="hover:text-link inline-flex max-w-full items-start gap-1 font-mono text-[13px] font-medium break-all underline-offset-2 hover:underline" href={hfUrl(card.hf_id, card.revision)} target="_blank" rel="noreferrer">{card.hf_id}<ExternalLink className="mt-1 size-3 shrink-0" aria-hidden="true" /></a>
         <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-          <Badge variant="neutral">{card.role === "base" ? "Base card" : "Export card"}</Badge>
+          <Badge variant="neutral">{cardRoleLabels[card.role] ?? "Related card"}</Badge>
+          {card.results_for ? <span className="text-ink-2 break-all text-xs">Results reported for {card.results_for}</span> : null}
           {retention ? (
             <span className="inline-flex items-center gap-2 text-xs whitespace-nowrap" title={retentionTitle(retention)} data-card-delta={signedPts(retention.mean)}>
               <DeltaBar delta={retention.mean} max={scale} />
               <span className={cn("font-medium tabular-nums", deltaTone(retention.mean))}>Card Δ {signedPts(retention.mean)} pts</span>
               <span className="text-muted-foreground tabular-nums">· {retention.rows} benchmark{retention.rows === 1 ? "" : "s"}</span>
             </span>
-          ) : comparison ? <Badge variant="neutral">Δ vs baseline</Badge> : null}
+          ) : comparison && !card.results_for ? <Badge variant="neutral">{cardEvidenceLabel(card)}</Badge> : null}
           {card.notes ? (
             <Tooltip>
               <TooltipTrigger asChild><Badge variant="neutral" tabIndex={0} className="cursor-help" data-card-notes>Card notes</Badge></TooltipTrigger>
@@ -405,7 +407,7 @@ function CardPanel({ card, scale }: { card: CardRecord; scale: number }) {
           <span className="ml-auto">{toggle}</span>
         </div>
       </div>
-      {open && card.tables.length ? <div className="space-y-4 border-t p-4">{card.tables.map((table, index) => <CardTableView key={`${table.heading}-${index}`} table={table} />)}</div> : null}
+      {open && card.tables.length ? <div className="space-y-4 border-t p-4">{card.tables.map((table, index) => <CardTableView key={`${table.heading}-${index}`} card={card} table={table} />)}</div> : null}
     </section>
   );
 }
@@ -425,7 +427,7 @@ function PrecisionTab({ model }: { model: Model }) {
         <h2 className="text-[13px] font-medium">HF card claims</h2>
         <Tooltip>
           <TooltipTrigger asChild><Info className="text-muted-foreground size-3.5" tabIndex={0} aria-label="About card claims" /></TooltipTrigger>
-          <TooltipContent className="max-w-80 text-pretty">Verbatim publisher or exporter tables, not measured here. Δ is calculated only when a card names a baseline column.</TooltipContent>
+          <TooltipContent className="max-w-80 text-pretty">Selected columns from pinned model cards. Differences use the named baseline and export on a 100-point scale. The original cells preserve the source units.</TooltipContent>
         </Tooltip>
       </div>
       {cards.length ? <div className="space-y-3">{cards.map((card) => <CardPanel key={`${card.hf_id}-${card.revision}`} card={card} scale={scale} />)}</div> : <EmptyState icon={Layers} title="No card tables" description="No pinned HF card publishes a benchmark table." className="bg-card rounded-lg border" />}

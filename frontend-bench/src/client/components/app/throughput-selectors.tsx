@@ -208,8 +208,8 @@ export function IdentityLine({ row, latestRunDate }: { row: RankedDeployment; la
       <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5 text-xs" data-testid="throughput-identity">
         <Badge variant={measured ? "good" : "neutral"}>{measured ? `Measured · ${d.measuredAt?.slice(0, 10)}` : "Reference · no run"}</Badge>
         <StatusBadge deployment={d} />
-        <Badge variant="mono" data-testid="identity-hardware" title="<replicas>x<GPUs per replica><GPU type>; read as GPUs per replica">{hardwareShape(d)}</Badge>
-        <span className="text-ink-2 tabular-nums" data-testid="identity-gpus" title={d.replicas === null ? "Catalog shape at one KServe replica; a run records its replica count" : "GPUs per replica × recorded system replicas"}>{gpuTotals(d)}</span>
+        <Badge variant="mono" data-testid="identity-hardware" title="Recorded GPU type and KServe replica limit">{hardwareShape(d)}</Badge>
+        <span className="text-ink-2 tabular-nums" data-testid="identity-gpus" title={d.replicas === null ? "Catalog shape at one KServe replica; a run records its replica count" : "Recorded replica limit and the GPU allocation covered by the reported rates"}>{gpuTotals(d)}</span>
         {/* Run tag, latest-run note and warnings form one group, so a warning badge never wraps onto a line alone. */}
         <span className="inline-flex flex-wrap items-center gap-x-2 gap-y-1.5" data-testid="identity-run">
           {measured && d.runtimeTag ? <span className="text-muted-foreground" title="Run runtime_version (recorded); the configured build is in the Runtime picker">run <span className="text-foreground font-mono">{d.runtimeTag}</span></span> : null}
@@ -218,7 +218,7 @@ export function IdentityLine({ row, latestRunDate }: { row: RankedDeployment; la
           {measured ? <IncompleteBadge count={row.capacity.incomplete} /> : null}
           {measured ? <ErroredBadge count={row.capacity.errored} /> : null}
           {d.topologyMismatch ? <Badge variant="warning" title={`Run used ${gpusOf(d)} GPUs; the catalog shape has ${d.gpus}.`}>GPU count differs</Badge> : null}
-          {gpuDivisorUnconfirmed(d) ? <Badge variant="warning" data-testid="gpu-divisor-unconfirmed" title={`${d.replicas} system replicas: tok/min/GPU divides by num_gpus = ${gpusOf(d)}, read as GPUs per replica (unconfirmed). If throughput is aggregated over replicas, the per-GPU figure is overstated by ×${d.replicas}.`}>GPU divisor unconfirmed</Badge> : null}
+          {gpuDivisorUnconfirmed(d) ? <Badge variant="warning" data-testid="gpu-divisor-unconfirmed" title="Per-GPU comparisons need the total GPUs behind the service-wide rates during this run.">Deployment GPU count unknown</Badge> : null}
         </span>
         <span className="ml-auto flex flex-wrap items-center gap-1">
           <Button variant="ghost" size="sm" className="h-7 px-2 text-xs" asChild>

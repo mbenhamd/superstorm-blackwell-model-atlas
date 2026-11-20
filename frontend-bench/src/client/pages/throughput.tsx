@@ -308,7 +308,7 @@ function RunConfiguration({ deployment: d, dataset }: { deployment: Deployment; 
             ["Model", model ? model.name : d.modelId, model ? `${model.name} · ${model.architecture}` : undefined],
             ["Parameters", model ? paramsLabel({ totalParamsB: model.parametersB, activeParamsB: model.activeParamsB }) : "—"],
             ["Repository", mono(d.exportHfId)],
-            ["Revision", mono(shortSha(d.artifactRevision))],
+            ["Configured revision", mono(shortSha(d.artifactRevision))],
             ["Precision", d.precision],
             ["Quantization", <span key="q" className="font-normal">{d.quantMethod}</span>, d.quantMethod],
             ["Export status", <span key="s" className="text-ink-2 font-normal">{exported?.status ?? "—"}</span>, exported?.status],

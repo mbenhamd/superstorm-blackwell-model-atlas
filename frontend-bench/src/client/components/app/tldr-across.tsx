@@ -68,6 +68,7 @@ export function AcrossWorkloads({ row, shapeFilter, onPick }: { row: VariantRow;
           const standing = shown?.standing;
           const status = foreign ? "not run with this runtime config"
             : shown?.position ? `#${shown.position} of ${ranked}`
+            : shown?.standing.kind === "unknown-allocation" ? "deployment GPU count unknown"
             : shown && hasMeasuredLevels(shown.row) ? "no passing level"
             : "not run";
           const body = (

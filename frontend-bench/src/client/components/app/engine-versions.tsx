@@ -4,7 +4,7 @@ import { DeltaBadge } from "@/components/ui/delta-badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { LoadCurve, totalPerGpuCurve } from "./glance.js";
 import { useAppState } from "../../state.js";
-import { gpusOf, num } from "../../lib/display.js";
+import { num } from "../../lib/display.js";
 import { NARROW_MD, useMediaQuery } from "../../lib/use-media.js";
 import { everyMeasuredVersion, type EngineScope, type VersionRow } from "./engine-data.js";
 import { signedFraction } from "./engine-matchup.js";
@@ -35,7 +35,7 @@ function Quality({ row }: { row: VersionRow }) {
 
 function Delta({ row }: { row: VersionRow }) {
   if (row.delta === null) {
-    return <span className="text-muted-foreground" data-delta="none" title={row.previous ? "The older release or this run has no level inside the SLO" : "No older release of this engine and configuration on this dataset"}>—</span>;
+    return <span className="text-muted-foreground" data-delta="none" title={row.previous ? "A comparable rate requires a passing level and a known deployment GPU count for both releases" : "No older release of this engine and configuration on this dataset"}>—</span>;
   }
   return (
     <span className="inline-flex items-center gap-1.5" data-delta={signedFraction(row.delta)}>
@@ -90,7 +90,7 @@ export function EngineVersions({ scope, modelName, shapeLabel, children }: { sco
               <ConfigCell row={row} />
               <span className="text-muted-foreground flex flex-wrap items-center gap-x-3 gap-y-1 text-xs tabular-nums">
                 <span>C_max {num(row.capacity.highestPassingConcurrency)}</span>
-                <LoadCurve points={totalPerGpuCurve(row.capacity, gpusOf(row.deployment))} unit="Total tok/s per GPU" cmax={row.capacity.highestPassingConcurrency} className="h-5 w-16" />
+                <LoadCurve points={totalPerGpuCurve(row.capacity)} unit="Total tok/s per GPU" cmax={row.capacity.highestPassingConcurrency} className="h-5 w-16" />
                 <span>Run {dateOf(row.run.runDate)}</span>
                 <Quality row={row} />
               </span>
@@ -119,7 +119,7 @@ export function EngineVersions({ scope, modelName, shapeLabel, children }: { sco
                 <TableCell className="max-w-[280px] whitespace-normal"><ConfigCell row={row} /></TableCell>
                 <TableCell className="text-right tabular-nums"><InlineBar value={row.capacity.sustainableTpmPerGpu} max={max}>{num(row.capacity.sustainableTpmPerGpu)}</InlineBar></TableCell>
                 <TableCell className="text-right tabular-nums">{num(row.capacity.highestPassingConcurrency)}</TableCell>
-                <TableCell><LoadCurve points={totalPerGpuCurve(row.capacity, gpusOf(row.deployment))} unit="Total tok/s per GPU" cmax={row.capacity.highestPassingConcurrency} highlight={row.capacity.sustainableTpmPerGpu !== null && row.capacity.sustainableTpmPerGpu === max} /></TableCell>
+                <TableCell><LoadCurve points={totalPerGpuCurve(row.capacity)} unit="Total tok/s per GPU" cmax={row.capacity.highestPassingConcurrency} highlight={row.capacity.sustainableTpmPerGpu !== null && row.capacity.sustainableTpmPerGpu === max} /></TableCell>
                 <TableCell className="whitespace-normal"><Quality row={row} /></TableCell>
                 <TableCell className="text-muted-foreground tabular-nums">{dateOf(row.run.runDate)}</TableCell>
                 <TableCell><Delta row={row} /></TableCell>

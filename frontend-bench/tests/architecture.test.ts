@@ -110,12 +110,14 @@ describe("compressed attention (DeepSeek V4 family)", () => {
     expect(a.index).toMatchObject({ provenance: "recorded", own: 8, reused: 30 });
   });
 
-  test("parameters are not recorded for either DeepSeek release: no fraction, no bar", () => {
-    for (const id of ["deepseek-v4-flash-0731", "deepseek-v4.1-flash-1017"]) {
-      const item = model(id);
-      expect(item.totalParamsB).toBeNull();
-      expect(activeFraction(item.totalParamsB, item.activeParamsB)).toBeNull();
-    }
+  test("DeepSeek 0731 includes its bundled draft while active counts remain unresolved", () => {
+    const july = model("deepseek-v4-flash-0731");
+    const october = model("deepseek-v4.1-flash-1017");
+    expect(july.totalParamsB).toBe(304.178091454);
+    expect(july.activeParamsB).toBeNull();
+    expect(october.totalParamsB).toBeNull();
+    expect(activeFraction(july.totalParamsB, july.activeParamsB)).toBeNull();
+    expect(activeFraction(october.totalParamsB, october.activeParamsB)).toBeNull();
   });
 });
 

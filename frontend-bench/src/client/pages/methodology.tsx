@@ -78,18 +78,19 @@ function Definitions() {
             ["Output tok/min/GPU", <>Output tok/s at C_max × {num(state.slo.margin, 2)} × 60 ÷ GPUs; secondary, always labelled “output”</>],
             ["C_max", "Last measured concurrency level inside the SLO; never interpolated"],
             ["Per-user speed", "Output tok/s of one request, p50, at C_max (tok/s/user)"],
-            ["Deployment-wide", "Total tok/s at C_max × margin × 60 for one replica; input and output split from the same level"],
-            ["TTFT ceiling", "Measured: prompt tokens per request at that level ÷ prefill speed. Nominal: budget ÷ prefill, single-turn datasets only"],
+            ["Deployment-wide", "Total tok/s at C_max × margin × 60 across a known service allocation. Multi-replica runs must identify the GPUs participating in the aggregate."],
+            ["TTFT ceiling", "The console uses input tok/s ÷ requests/s as a prompt-length proxy, then divides by the target prefill speed. The ratio estimates a mean only for matched populations and windows."],
+            ["Joint attainment", "Separate passing p95s can hide different requests missing each objective. Joint latency or graded goodput requires per-request or per-task outcomes."],
             ["Success floor", <>≥ {num(state.slo.minSuccessRate * 100)}% of requests; errored and incomplete count against it. Console rule; the SLO presets define only prefill speed and ITL</>],
             ["Ties", "Within ±3% of the best setup reads as a tie: assumed single-run noise, not a measured interval"],
           ]} />
         </TabsContent>
         <TabsContent value="intelligence">
           <Glossary items={[
-            ["AA index (model)", "Highest published effort of the base model's AA endpoint"],
+            ["AA index (model)", "Highest score AA published across the model’s evaluated effort settings"],
             ["AA and the serving frontier", "Uses the AA endpoint score only for the weights repository linked by AA. The evaluated revision and precision are unknown."],
-            ["Frontier", "Publisher exports not beaten on AA index and throughput"],
-            ["Card tables", "Publisher or exporter claims; Δ only with a named baseline"],
+            ["Frontier", "Pairs the linked repository’s measured throughput with AA’s published model score. Each frontier point trades throughput against score."],
+            ["Card tables", "Publisher or exporter results. Score differences use the named baseline, export and source units."],
             ["Display name", <>{mono("Model · Export · Engine · TPn · Knob")}</>],
           ]} />
         </TabsContent>
@@ -259,7 +260,7 @@ export function MethodologyPage() {
           <li><span className="font-medium">TTFT ceiling</span> · which prompt-token statistic (mean, p50 or budget) sets the ceiling; the console uses input tok/s ÷ requests/s per level</li>
           <li><span className="font-medium">Concurrency ladder</span> · tested levels come only from imported runs; empty charts show no invented ticks</li>
           <li><span className="font-medium">Per-user speed</span> · the GuideLLM field behind it; p95 and rate p50/p95 not imported</li>
-          <li><span className="font-medium">GPUs</span> · whether {mono("num_gpus")} is per replica or total; deployment-wide is per replica</li>
+          <li><span className="font-medium">Multi-replica rates</span> · per-GPU and deployment-wide planning estimates require {mono("systemConfig.measuredDeploymentGpus")} from the measured service.</li>
           <li><span className="font-medium">Tie band</span> · ±3% single-run noise is assumed, not measured</li>
           <li><span className="font-medium">Success floor</span> · 99% is a console rule; the SLO presets define none</li>
         </ul>

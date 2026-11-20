@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import type { LatencyStats, MetricRow, PointMetrics, RankedDeployment, SloPolicy } from "../../../domain/types.js";
-import { gpusOf, num, pct } from "../../lib/display.js";
+import { num, pct } from "../../lib/display.js";
 
 /*
  * Throughput tables. SLO evaluation: one row per measured level with the two p95 values the verdict reads and
@@ -100,7 +100,7 @@ function StatCells({ stats, digits = 0 }: { stats: LatencyStats; digits?: number
  * Rates are single values per level in the report (no distribution), so they carry no percentile columns.
  */
 export function MeasuredResultsTable({ row }: { row: RankedDeployment }) {
-  const d = row.deployment, gpus = gpusOf(d);
+  const d = row.deployment, gpus = row.capacity.participatingGpus;
   const raw = new Map<number, MetricRow>(d.points.map((point) => [point.concurrency, point]));
   const cmax = row.capacity.selectedPoint?.concurrency ?? null;
   const levels = [...raw.keys()].sort((a, b) => a - b);
@@ -143,7 +143,7 @@ export function MeasuredResultsTable({ row }: { row: RankedDeployment }) {
                 <TableCell className="text-right tabular-nums">{num(m.inputTps)}</TableCell>
                 <TableCell className="text-right tabular-nums">{num(m.outputTps)}</TableCell>
                 <TableCell className="text-right tabular-nums">{num(m.totalTps)}</TableCell>
-                <TableCell className="text-right tabular-nums">{num(m.totalTps / gpus)}</TableCell>
+                <TableCell className="text-right tabular-nums">{num(gpus === null ? null : m.totalTps / gpus)}</TableCell>
                 <TableCell className={cn("text-right tabular-nums", m.outputTpsPerUserP50 === null && "text-muted-foreground")}>{num(m.outputTpsPerUserP50, 1)}</TableCell>
                 <StatCells stats={m.ttftMs} />
                 <StatCells stats={m.itlMs} digits={1} />

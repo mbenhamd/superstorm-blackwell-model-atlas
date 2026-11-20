@@ -10,6 +10,7 @@ import { DEFAULT_SLO, SLO_PRESETS } from "../src/domain/metrics.ts";
 import type { BenchmarkRun, Snapshot } from "../src/domain/types.ts";
 import { controlDifferences, effectiveControls, recordedOverrides } from "../src/domain/run-config.ts";
 import { loadRunsFile, memoryStore } from "../src/server/repository.ts";
+import { versionRows } from "../src/client/components/app/throughput-versions.tsx";
 import {
   bestMeasured, bestPerEngine, compareVersions, engineDifferences, engineVerdict, everyMeasuredVersion, versionKey, type EngineScope,
 } from "../src/client/components/app/engine-data.ts";
@@ -83,6 +84,12 @@ describe("engine verdict", () => {
     const best = bestPerEngine(snapshot, scope, "single-turn-8k", DEFAULT_SLO);
     expect(engineVerdict(best, 0.1).kind).toBe("tie");
   });
+  test("a positive rate against a measured zero has no percentage lead", () => {
+    const best = bestPerEngine(snapshot, scope, "single-turn-8k", DEFAULT_SLO);
+    const zero = { ...best.SGLang.capacity!, sustainableTpmPerGpu: 0 };
+    expect(engineVerdict({ ...best, SGLang: { ...best.SGLang, capacity: zero } }))
+      .toEqual({ kind: "zero-baseline", engine: "vLLM" });
+  });
   test("different knob, artifact or run GPUs: no verdict", () => {
     const a = snapshot.deployments.find((d) => d.id === VLLM)!;
     const b = snapshot.deployments.find((d) => d.id === SGLANG)!;
@@ -144,6 +151,28 @@ describe("runtime controls (recorded runtime_config, else configured command)", 
 });
 
 describe("every measured version", () => {
+  test("Throughput orders releases independently of measurement date and compares the same distribution and flavor", () => {
+    const base = snapshot.deployments.find((d) => d.id === VLLM)!;
+    const sample = runs.find((run) => run.configurationId === VLLM && run.identity.dataset === "single-turn-8k")!;
+    const release = (tag: string, day: number): BenchmarkRun => ({
+      ...sample, id: tag, runDate: `2026-11-${day}T10:00:00Z`, identity: { ...sample.identity, runtimeVersion: tag },
+    });
+    const records = [
+      release("vllm-v0.32.0", 19), release("vllm-v0.33.0", 15),
+      release("vllm-v0.33.0-cu13", 18), release("vllm-v0.33.0rc1", 17),
+      release("vllm-nightly-v0.33.0", 16),
+    ];
+    const rows = versionRows(base, records, sample.identity.dataset, DEFAULT_SLO);
+    expect(rows.map((row) => row.run.identity.runtimeVersion)).toEqual([
+      "vllm-v0.33.0-cu13", "vllm-nightly-v0.33.0", "vllm-v0.33.0", "vllm-v0.33.0rc1", "vllm-v0.32.0",
+    ]);
+    expect(rows.map((row) => row.previous)).toEqual([null, null, "vllm-v0.33.0rc1", "vllm-v0.32.0", null]);
+    const engineRows = everyMeasuredVersion({ deployments: [base], runs: records }, scope, sample.identity.dataset, DEFAULT_SLO);
+    for (const row of rows) {
+      const sameBuild = engineRows.find((entry) => entry.run.id === row.run.id)!;
+      expect(sameBuild.previous?.run.identity.runtimeVersion ?? null).toBe(row.previous);
+    }
+  });
   test("versions parse and order; a release candidate precedes its release", () => {
     expect(versionKey("vllm-v0.33.0")!.slice(0, 3)).toEqual([0, 33, 0]);
     expect(versionKey("sglang (source snapshot)")).toBeNull();

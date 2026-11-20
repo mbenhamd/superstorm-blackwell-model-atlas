@@ -106,7 +106,7 @@ export function SloPopover() {
           </div>
           <div className="bg-subtle rounded-md border px-3 py-2 text-xs" data-testid="ttft-ceiling">
             <span className="text-ink-2 font-medium">TTFT p95 ceiling on {workload?.name ?? state.workload}: </span>
-            <span className="tabular-nums">{ceiling === null ? "derived per level from measured prompt tokens" : `${num(ceiling)} ms nominal`}</span>
+            <span className="tabular-nums">{ceiling === null ? "estimated per level from token and request rates" : `${num(ceiling)} ms nominal`}</span>
             {ceiling !== null ? <span className="text-muted-foreground"> ({num(workload?.inputTokens)} tok ÷ {num(slo.prefillTps)} tok/s)</span> : null}
           </div>
           <div className="flex items-center justify-between text-xs">

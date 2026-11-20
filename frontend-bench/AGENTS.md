@@ -36,7 +36,7 @@ Before building or reworking a card, chart, KPI row, gauge or table, follow `.ag
 
 ## Not done
 
-Migrations 003 and 004 have not been applied to any database; no real bench run has been imported; `bun run test:postgres` and the GitHub workflow have not been run; the workflow sits in this folder's `.github/` and runs only when this folder is the repository root. The static deploy (see README) carries no API.
+The November 20 audit applied migrations 001–004 and ran the PostgreSQL integration tests on a disposable local database. Production migration status and real benchmark imports remain unknown. The CI workflow lives in this folder’s `.github/` and runs when this folder is the repository root. The static deploy (see README) carries no API.
 
 ## Architecture boundaries
 
@@ -55,7 +55,7 @@ Migrations 003 and 004 have not been applied to any database; no real bench run 
 3. A composite needs full coverage and explicit weights, suite, revision, and artifact identity. The Artificial Analysis Intelligence Index is model level: label it "AA (model)" and never transfer it to a third-party quantized export.
 4. Only matched workloads and evaluation revisions share a frontier. Runtime isolation additionally requires the same artifact, hardware/topology, and decoding policy. Quantization comparisons require the same model, runtime/version, topology, and workload.
 5. Show the selected SLO and headroom. Separate raw peak throughput, measured passing capacity, and highest passing concurrency.
-6. p95 values are taken verbatim from the imported GuideLLM report; the percentile method and request population are the tool's and are not re-derived (`percentile()` in metrics.ts is a nearest-rank helper used only by tests). Failures still count against request success and joint-SLO compliance. Do not derive token goodput from percentiles.
+6. GuideLLM v0.8.1 weights its ITL distribution by output-token intervals. The console reads the imported p95 directly; the percentile method and request population are the tool's and are not re-derived (`percentile()` in metrics.ts is a nearest-rank helper used only by tests). Failures still count against request success and joint-SLO compliance. Do not derive token goodput from percentiles.
 7. Do not interpolate a passing capacity between tested concurrency levels, promise SLA compliance, or imply benchmark error bars when no repeated runs exist.
 8. An experiment card is a plan. A status transition never implies a real cluster job ran. Any future runner requires a separate authenticated adapter and explicit evidence ingestion.
 9. Every exported result retains its evidence class and catalog date, the model artifact, runtime, hardware, workload, units, and policy where relevant.

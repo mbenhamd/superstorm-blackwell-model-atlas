@@ -5,37 +5,26 @@ import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { LoadCurve, totalPerGpuCurve } from "./glance.js";
 import { capacity, relativeDelta, tieBand } from "../../../domain/metrics.js";
-import { splitRuntime } from "../../../domain/catalog.js";
+import { measuredDeployment } from "../../../domain/catalog.js";
 import { configKeyOf } from "../../../domain/variants.js";
 import type { BenchmarkRun, Capacity, Deployment, SloPolicy } from "../../../domain/types.js";
 import { routeUrl, updateView, useAppState } from "../../state.js";
-import { engineBuildDetail, gpusOf, num, signedPct, workloadOf } from "../../lib/display.js";
+import { engineBuildDetail, num, signedPct, workloadOf } from "../../lib/display.js";
 import { NARROW_MD, useMediaQuery } from "../../lib/use-media.js";
 import { SweepChart } from "./charts.js";
+import { compareVersions, earlierVersion, versionKey } from "./engine-data.js";
 import { ErroredBadge, IncompleteBadge } from "./performance.js";
 import { InlineBar, Panel } from "./primitives.js";
 
 /** The configuration as one run measured it: that run's metrics and recorded identity (configured build unchanged). */
 export function deploymentForRun(base: Deployment, run: BenchmarkRun): Deployment {
-  const { identity } = run;
-  return {
-    ...base, workloadId: identity.dataset, points: run.metrics, measuredAt: run.runDate, evidence: "measured", runId: run.id,
-    runtimeTag: identity.runtimeVersion, gpuType: identity.gpuType, replicas: identity.maxSystemReplicas, runConfig: identity.runtimeConfig,
-    runGpus: identity.numGpus, topologyMismatch: identity.numGpus !== base.gpus,
-  };
+  return { ...measuredDeployment(base, run), id: base.id };
 }
 
-/** Numeric engine version for ordering ("0.33.0" > "0.33.0rc2" > "0.32.1"); null when the tag carries none. */
-function versionKey(runtimeVersion: string): number[] | null {
-  const version = splitRuntime(runtimeVersion).version;
-  const match = version ? /^(\d+)\.(\d+)\.(\d+)(?:rc(\d+))?$/.exec(version) : null;
-  if (!match) return null;
-  return [Number(match[1]), Number(match[2]), Number(match[3]), match[4] === undefined ? Number.MAX_SAFE_INTEGER : Number(match[4])];
-}
-function compareVersions(a: BenchmarkRun, b: BenchmarkRun): number {
+function newestReleaseFirst(a: BenchmarkRun, b: BenchmarkRun): number {
   const ka = versionKey(a.identity.runtimeVersion), kb = versionKey(b.identity.runtimeVersion);
-  if (ka && kb) for (let index = 0; index < 4; index++) if (ka[index] !== kb[index]) return kb[index]! - ka[index]!;
-  return Date.parse(b.runDate) - Date.parse(a.runDate);
+  const releaseOrder = ka && kb ? compareVersions(kb, ka) : Number(!!kb) - Number(!!ka);
+  return releaseOrder || Date.parse(b.runDate) - Date.parse(a.runDate);
 }
 
 interface VersionRow { run: BenchmarkRun; deployment: Deployment; capacity: Capacity; delta: number | null; tie: boolean; previous: string | null }
@@ -53,10 +42,10 @@ export function versionRows(base: Deployment, runs: readonly BenchmarkRun[], dat
     const current = newest.get(run.identity.runtimeVersion);
     if (!current || Date.parse(run.runDate) > Date.parse(current.runDate)) newest.set(run.identity.runtimeVersion, run);
   }
-  const ordered = [...newest.values()].sort(compareVersions);
+  const ordered = [...newest.values()].sort(newestReleaseFirst);
   const measured = ordered.map((run) => { const deployment = deploymentForRun(base, run); return { run, deployment, capacity: capacity(deployment, slo) }; });
   return measured.map((item, index) => {
-    const older = measured[index + 1];
+    const older = measured.slice(index + 1).find((candidate) => earlierVersion(candidate.run, item.run) !== null);
     const a = item.capacity.sustainableTpmPerGpu, b = older?.capacity.sustainableTpmPerGpu ?? null;
     return { ...item, delta: older ? relativeDelta(a, b) : null, tie: older ? tieBand(a, b) === "tie" : false, previous: older?.run.identity.runtimeVersion ?? null };
   });
@@ -152,7 +141,7 @@ export function RuntimeVersionsPanel({ base, shownRunId, onPick }: { base: Deplo
                 <span className="text-xs tabular-nums"><VersionDelta row={row} card /></span>
                 <span className="text-muted-foreground flex flex-wrap items-center gap-x-3 gap-y-1 text-xs tabular-nums">
                   <span>C_max {num(row.capacity.highestPassingConcurrency)}</span>
-                  <LoadCurve points={totalPerGpuCurve(row.capacity, gpusOf(row.deployment))} unit="Total tok/s per GPU" cmax={row.capacity.highestPassingConcurrency} highlight={shown} className="h-5 w-16" />
+                  <LoadCurve points={totalPerGpuCurve(row.capacity)} unit="Total tok/s per GPU" cmax={row.capacity.highestPassingConcurrency} highlight={shown} className="h-5 w-16" />
                   <span>Run {row.run.runDate.slice(0, 10)}</span>
                   <VersionQuality row={row} />
                 </span>
@@ -186,7 +175,7 @@ export function RuntimeVersionsPanel({ base, shownRunId, onPick }: { base: Deplo
                     <TableCell className="text-right tabular-nums"><InlineBar value={row.capacity.sustainableTpmPerGpu} max={max}>{num(row.capacity.sustainableTpmPerGpu)}</InlineBar></TableCell>
                     <TableCell className="text-right tabular-nums"><VersionDelta row={row} /></TableCell>
                     <TableCell className="text-right tabular-nums">{num(row.capacity.highestPassingConcurrency)}</TableCell>
-                    <TableCell><LoadCurve points={totalPerGpuCurve(row.capacity, gpusOf(row.deployment))} unit="Total tok/s per GPU" cmax={row.capacity.highestPassingConcurrency} highlight={shown} /></TableCell>
+                    <TableCell><LoadCurve points={totalPerGpuCurve(row.capacity)} unit="Total tok/s per GPU" cmax={row.capacity.highestPassingConcurrency} highlight={shown} /></TableCell>
                     <TableCell><VersionQuality row={row} /></TableCell>
                     <TableCell className="tabular-nums">{row.run.runDate.slice(0, 10)}</TableCell>
                   </TableRow>

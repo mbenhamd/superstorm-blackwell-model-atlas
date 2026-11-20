@@ -20,15 +20,15 @@ export function exportRows(rows: RankedDeployment[], name = "configurations"): v
   const test = Boolean(appState.snapshot.testData);
   const round = (value: number | null, digits = 1) => value === null ? null : Math.round(value * 10 ** digits) / 10 ** digits;
   download(`bench-${name}${test ? "-TEST-DATA" : ""}.csv`, safeCsv([
-    ["Evidence", "Configuration ID", "Configuration", "Model", "Export", "Export revision", "Precision", "Status", "Engine", "Configured build", "Latest recheck release", "Tested on B300", "Run runtime_version", "Hardware", "GPUs", "System replicas (run)", "Workload", "AA Intelligence Index v5.0.1 (base model, published)",
+    ["Evidence", "Configuration ID", "Configuration", "Model", "Export", "Configured export revision", "Precision", "Status", "Engine", "Configured build", "Latest recheck release", "Tested on B300", "Run runtime_version", "Hardware", "GPUs", "System replicas (run)", "Workload", "AA Intelligence Index v5.0.1 (base model, published)",
       "Sustainable total tok/min/GPU (computed from measured, ×margin)", "Sustainable output tok/min/GPU (computed from measured, ×margin)", "Observed total tok/s/GPU at C_max (measured, no margin)", "C_max (concurrency)", "TTFT p95 at C_max (ms)", "ITL p95 at C_max (ms)", "Incomplete requests (all levels)",
-      "SLO preset", "Policy prefill speed (tok/s)", "Policy ITL p95 ceiling (ms)", "Policy min success rate", "Policy margin", "Catalog as of"],
+      "SLO preset", "Policy prefill speed (tok/s)", "Policy ITL p95 ceiling (ms)", "Policy min success rate", "Policy margin", "Catalog as of", "Participating GPUs (measured rate denominator)"],
     ...rows.map((row) => {
       const d = row.deployment, c = row.capacity;
       return [test && d.evidence === "measured" ? "TEST DATA (invented fixture)" : d.evidence, d.id, [row.model.name, d.exportLabel, d.runtime, `TP${d.tensorParallel}`, d.knob].filter(Boolean).join(" · "), row.model.name, d.exportHfId, d.artifactRevision, d.precision, d.status, d.runtime, d.runtimeVersion, d.recheck?.engineRelease ?? null, d.testedOnTarget ? "yes" : "no", d.runtimeTag,
         row.hardware.name, d.runGpus ?? d.gpus, d.replicas, d.workloadId, row.quality ?? modelQuality(row.model.id),
         round(c.sustainableTpmPerGpu, 0), round(c.sustainableOutputTpmPerGpu, 0), round(c.observedTotalTpsPerGpu), c.highestPassingConcurrency, c.selectedPoint?.ttftP95Ms ?? null, c.selectedPoint?.itlP95Ms ?? null, c.incomplete,
-        policy.preset, policy.prefillTps, policy.itlP95Ms, policy.minSuccessRate, policy.margin, atlasMeta.asOf];
+        policy.preset, policy.prefillTps, policy.itlP95Ms, policy.minSuccessRate, policy.margin, atlasMeta.asOf, d.evidence === "measured" ? c.participatingGpus : null];
     }),
   ]), "text/csv;charset=utf-8");
   toast("CSV downloaded", test ? "TEST DATA: the measured columns are invented fixture values." : "Rows carry their evidence class and the active SLO policy. Unmeasured rows have empty result columns.");

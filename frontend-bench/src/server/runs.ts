@@ -31,6 +31,12 @@ export interface RunImport {
 
 const isObject = (value: unknown): value is JsonObject => typeof value === "object" && value !== null && !Array.isArray(value);
 
+/** An optional producer declaration covering every GPU and all service traffic for the active window. */
+export function observedDeploymentGpus(value: unknown, identity: RunIdentity): number | undefined {
+  if (typeof value !== "number" || !Number.isSafeInteger(value) || value <= 0) return undefined;
+  return identity.maxSystemReplicas === 1 && value !== identity.numGpus ? undefined : value;
+}
+
 /** Recursively sort object keys: the JS equivalent of jsonb's key-order-independent equality. */
 export function canonicalJson(value: unknown, path = "value"): unknown {
   if (value === null || typeof value === "string" || typeof value === "boolean") return value;
@@ -119,9 +125,13 @@ export function parseRunImport(input: unknown): RunImport {
   const metrics = input.metrics.map(parseMetric).sort((a, b) => a.row.concurrency - b.row.concurrency);
   const repeated = metrics.find((metric, index) => index > 0 && metrics[index - 1]!.row.concurrency === metric.row.concurrency);
   if (repeated) throw new ValidationError(`concurrency ${repeated.row.concurrency} appears more than once; one metrics row per level`);
+  const systemConfig = optionalObject(input.systemConfig, "systemConfig");
+  if (systemConfig.measuredDeploymentGpus != null && observedDeploymentGpus(systemConfig.measuredDeploymentGpus, identity) === undefined) {
+    throw new ValidationError("systemConfig.measuredDeploymentGpus must be a positive integer and match numGpus for a single replica");
+  }
   return {
     identity, configurationId, benchmarkTool, runDate: parseRunDate(input.runDate),
-    systemConfig: optionalObject(input.systemConfig, "systemConfig"), datasetConfig: optionalObject(input.datasetConfig, "datasetConfig"),
+    systemConfig, datasetConfig: optionalObject(input.datasetConfig, "datasetConfig"),
     metrics, rawResults: optionalRaw(input.rawResults, "rawResults"), test: input._test !== undefined,
   };
 }
@@ -180,9 +190,13 @@ export type MatchResult = { status: "matched"; configurationId: string } | { sta
 export function describeMatch(identity: RunIdentity, configurationId: string | null, catalog: Snapshot): MatchResult {
   const matched = matchConfiguration(identity, catalog, configurationId);
   if (matched) return { status: "matched", configurationId: matched };
-  if (configurationId) return { status: "unmatched", reason: `configurationId "${configurationId}" is not in the pinned atlas catalog` };
+  if (configurationId) {
+    const known = catalog.deployments.some((d) => d.id === configurationId);
+    const reason = known ? "does not match the recorded export, engine, GPU type or target revision" : "is not in the pinned atlas catalog";
+    return { status: "unmatched", reason: `configurationId "${configurationId}" ${reason}` };
+  }
   const { engine } = splitRuntime(identity.runtimeVersion);
-  return { status: "unmatched", reason: `no unique catalog configuration for ${identity.modelName} · ${engine ?? "unknown engine"} · ${identity.numGpus} GPU; pass configurationId` };
+  return { status: "unmatched", reason: `no unique catalog configuration for ${identity.modelName} · ${engine ?? "unknown engine"} · ${identity.numGpus}×${identity.gpuType}; pass configurationId to disambiguate a matching export and engine` };
 }
 
 export function summarizeIdentity(identity: RunIdentity): string {
@@ -192,6 +206,7 @@ export function summarizeIdentity(identity: RunIdentity): string {
 export function toBenchmarkRun(run: RunImport, id: string, catalog: Snapshot): BenchmarkRun {
   return {
     id, identity: run.identity, configurationId: matchConfiguration(run.identity, catalog, run.configurationId),
+    measuredDeploymentGpus: observedDeploymentGpus(run.systemConfig.measuredDeploymentGpus, run.identity),
     benchmarkTool: run.benchmarkTool, runDate: run.runDate, metrics: run.metrics.map((metric) => metric.row),
     ...(run.test ? { test: true } : {}),
   };

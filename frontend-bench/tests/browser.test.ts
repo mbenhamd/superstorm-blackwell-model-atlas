@@ -618,6 +618,29 @@ describe("offline console (atlas, Hugging Face and Artificial Analysis data)", (
     expect(pageErrors).toEqual([]);
   });
 
+  test("models: card differences keep their units and copied scores name the evaluated artifact", async () => {
+    await go("models?model=glm-5.3-flash&tab=precision");
+    const glm = page.locator('[data-card="nvidia/GLM-5.3-Flash-NVFP4"]');
+    expect(await glm.innerText()).toContain("Card Δ +0.46 pts");
+    await glm.locator("[data-card-toggle]").click();
+    expect(await glm.getByRole("row").filter({ hasText: "AA-LCR" }).innerText()).toContain("+1.62");
+
+    await go("models?model=qwen3.8-flash-next&tab=precision");
+    const copied = page.locator('[data-card="Inferact/Qwen3.8-Flash-Next-NVFP4"]');
+    expect(await copied.innerText()).toContain("Results reported for Qwen/Qwen3.8-Flash-Next");
+    expect(await copied.locator("[data-card-delta]").count()).toBe(0);
+    const radix = page.locator('[data-card="RadixArk/Qwen3.8-Flash-Next-NVFP4"]');
+    await radix.locator("[data-card-toggle]").click();
+    expect(await radix.innerText()).toContain("AIME26 result predates the PLE embedding change");
+    expect(await radix.getByRole("columnheader", { name: "Δ pts" }).count()).toBe(0);
+
+    await go("models?model=kimi-k3.1-pro&tab=precision");
+    const draft = page.locator('[data-card="RedHatAI/Kimi-K3.1-Pro-DSpark"]');
+    expect(await draft.innerText()).toContain("Draft card");
+    expect(await draft.innerText()).toContain("Results reported for Inferact/Kimi-K3.1-Pro-DSpark");
+    expect(pageErrors).toEqual([]);
+  });
+
   test("intelligence: scatter points keep keyboard focus across Tab and hover", async () => {
     await go("intelligence");
     const points = page.locator('[data-chart-panel="aa-index-versus-active-parameters"] [data-point-id]');
@@ -1205,12 +1228,12 @@ describe("architecture (publisher configuration fields; calculations, nothing me
     for (const strip of await page.getByTestId("arch-strip").all()) {
       expect(await strip.locator("[data-cell]").count()).toBe(Number(await strip.getAttribute("data-layers")));
     }
-    // Parameters on one shared scale; DeepSeek records none, so the bar is replaced by "—", never 0.
-    for (const id of ["deepseek-v4-flash-0731", "deepseek-v4.1-flash-1017"]) {
-      const params = page.locator(`[data-testid=arch-params][data-model-id="${id}"]`);
-      expect(await params.innerText()).toContain("—");
-      expect(await params.innerText()).not.toMatch(/\b0\b/);
-    }
+    // 0731 includes the bundled draft. No exact per-token count is established for either release.
+    const july = page.locator('[data-testid=arch-params][data-model-id="deepseek-v4-flash-0731"]');
+    expect(await july.innerText()).toContain("active not recorded · 304B total");
+    const october = page.locator('[data-testid=arch-params][data-model-id="deepseek-v4.1-flash-1017"]');
+    expect(await october.innerText()).toContain("—");
+    expect(await october.innerText()).not.toMatch(/\b0\b/);
     expect(await page.locator('[data-testid=arch-params][data-model-id="kimi-k3"]').innerText()).toContain("104B active · 2.8T total");
     expect(await page.locator('[data-testid=arch-params][data-model-id="muse-glimmer-30b"]').innerText()).toContain("active not recorded · 29.8B total");
     // Legend: only kinds present, grouped by family, plus the marks.
@@ -1593,7 +1616,7 @@ describe("measured-data views (TEST fixture runs via RUNS_FILE)", () => {
     const perUser = await strip.locator('[data-kpi="per-user"]').innerText();
     expect(perUser).toContain("60.0");
     expect(perUser).toContain("ITL p95 22.5 ms");
-    expect(perUser).toContain("median token every 16.7 ms");
+    expect(perUser).toContain("Reported ITL p50 16.7 ms");
     // The run data has no per-user p95 and no request-rate percentiles: named as missing, not replaced by another metric.
     expect(await strip.locator('[data-kpi="per-user"] [data-missing-metric="per-user-p95"]').innerText()).toBe("per-user p95 —");
     const wide = await strip.locator('[data-kpi="deployment"]').innerText();
@@ -1602,7 +1625,7 @@ describe("measured-data views (TEST fixture runs via RUNS_FILE)", () => {
     expect(await strip.locator('[data-kpi="deployment"] [data-missing-metric="request-rate-percentiles"]').innerText()).toBe("req/s p50 / p95 —");
     expect(await strip.locator('[data-profile="Balanced"]').count()).toBe(1);
     expect(await strip.getByTestId("strip-budget").innerText()).toContain("8,000 in / 500 out");
-    expect(await page.getByTestId("strip-ttft-ceiling").innerText()).toBe("TTFT p95 ≤ 6,154 ms (computed from measured prompt length)");
+    expect(await page.getByTestId("strip-ttft-ceiling").innerText()).toBe("TTFT p95 ≤ 6,154 ms (estimated from token and request rates)");
     // Profile tiles: one per measured dataset; the ratio divides two measured values of this configuration.
     const tiles = page.getByTestId("profile-tiles");
     expect(await tiles.locator("[data-profile-tile]").count()).toBe(2);
@@ -1847,8 +1870,8 @@ describe("measured-data views (TEST fixture runs via RUNS_FILE)", () => {
     const verdict = page.getByTestId("matchup-verdict");
     expect(await verdict.getAttribute("data-verdict-kind")).toBe("lead");
     // The verdict reads as the panel's headline sentence, not only as a chip.
-    expect(await page.getByTestId("matchup-headline").innerText()).toBe("vLLM sustains 4.0% more than SGLang on single-turn-8k · matched pair");
-    expect(await verdict.innerText()).toBe("+4.0% vLLM · matched pair");
+    expect(await page.getByTestId("matchup-headline").innerText()).toBe("vLLM has 4.0% higher planning throughput than SGLang on single-turn-8k");
+    expect(await verdict.innerText()).toBe("+4.0% vLLM · checked controls match");
     const vllm = page.locator('[data-matchup-engine="vLLM"]'), sglang = page.locator('[data-matchup-engine="SGLang"]');
     expect(await vllm.getAttribute("data-measured")).toBe("true");
     expect(await vllm.getByTestId("matchup-value").innerText()).toBe("2,882,918");
@@ -1862,12 +1885,12 @@ describe("measured-data views (TEST fixture runs via RUNS_FILE)", () => {
     expect(await vllm.locator("[data-testid=config-chips]").innerText()).toContain("kv fp8");
     // Matched pair: the recorded runtime controls match after normalisation (fp8 ≈ fp8_e4m3, max_num_seqs ≈ max_running_requests).
     // The note is one line; the controls a matched pair holds equal sit in the info tip.
-    expect(await page.getByTestId("matchup-note").innerText()).toContain("Matched pair (ⓘ lists the controls held equal)");
+    expect(await page.getByTestId("matchup-note").innerText()).toContain("Effective sampling, routing, engine defaults and task quality can still differ.");
     await page.getByTestId("matchup-info").hover();
-    const tip = page.locator('[data-slot="tooltip-content"]').filter({ hasText: "A verdict needs a matched pair" });
+    const tip = page.locator('[data-slot="tooltip-content"]').filter({ hasText: "The comparison checks the catalog export" });
     await tip.first().waitFor();
-    expect(await tip.first().innerText()).toContain("same export, revision, shape, knob");
-    expect(await tip.first().innerText()).toContain("same KV dtype, max sequences, memory fraction");
+    expect(await tip.first().innerText()).toContain("configured revision, parallel shape, knob, draft-enabled flag");
+    expect(await tip.first().innerText()).toContain("Two unknown defaults can match.");
     await page.mouse.move(0, 0);
     expect(await page.getByTestId("matchup-differences").count()).toBe(0);
     // The baseline pair is the matchup's detail: collapsed, full numbers (no "2.88M"), and next to the measured runs
@@ -1902,7 +1925,7 @@ describe("measured-data views (TEST fixture runs via RUNS_FILE)", () => {
     expect(await page.getByTestId("engine-verdicts").getAttribute("data-collapsed")).toBeNull();
     // single-turn-8k: matched fp8 pair, vLLM leads outside ±3%.
     expect(await row("single-turn-8k").getAttribute("data-verdict-kind")).toBe("lead");
-    expect(await row("single-turn-8k").locator("[data-verdict-text]").getAttribute("data-verdict-text")).toBe("+4.0% vLLM · matched pair");
+    expect(await row("single-turn-8k").locator("[data-verdict-text]").getAttribute("data-verdict-text")).toBe("+4.0% vLLM · checked controls match");
     expect(await row("single-turn-8k").locator("[data-profile]").innerText()).toBe("Balanced");
     expect(await row("single-turn-8k").innerText()).toContain("8K → 500 tok · 1 turn");
     const cell = row("single-turn-8k").locator('[data-workload-engine="vLLM"]');
@@ -1947,12 +1970,22 @@ describe("measured-data views (TEST fixture runs via RUNS_FILE)", () => {
     expect(await page.getByTestId("matchup-verdict").innerText()).toBe("Different configs — no verdict");
     expect(await page.getByTestId("matchup-differences").innerText()).toContain("Max sequences: vLLM 256 (recorded) vs SGLang 128 (recorded)");
     expect(await page.locator("[data-matchup-delta]").count()).toBe(0);
+    const pairCells = page.locator('[data-engine-pair="qwen3.8-27b.fp8@1"] td');
+    expect(await pairCells.nth(2).textContent()).toMatch(/\d/);
+    expect(await pairCells.nth(3).textContent()).toMatch(/\d/);
+    expect(await pairCells.nth(4).textContent()).toBe("—");
+    expect(await page.getByTestId("engine-verdict").textContent()).toBe("different configs — no verdict");
     expect(await page.locator("[data-version-row]").count()).toBe(2);
     // 390 px: no document overflow; versions reflow into stacked rows.
     await page.setViewportSize({ width: 390, height: 844 });
     await page.waitForTimeout(150);
     expect(await overflow()).toBeLessThanOrEqual(0);
     expect(await page.locator("ul[data-testid=engine-versions] [data-version-row]").count()).toBe(2);
+    await row("coding-agent-48-turn").getByRole("button", { name: "Show workload coding-agent-48-turn" }).click();
+    await page.waitForFunction(() => location.hash.includes("workload=coding-agent-48-turn"));
+    expect((await pairCells.allTextContents()).slice(2)).toEqual(["—", "—", "—"]);
+    expect(await page.getByTestId("engine-verdict").textContent()).toBe("no engine pair on this workload");
+    expect(await page.getByTestId("engine-head-to-head").count()).toBe(0);
     expect(pageErrors).toEqual([]);
   });
 

@@ -1,6 +1,6 @@
 {
   "extracted_on": "2026-11-20",
-  "method": "Each pinned card was scanned for Markdown pipe tables and HTML <table> blocks, every benchmark/evaluation/throughput/acceptance table was transcribed from the card text (configuration, hardware-compatibility and governance tables were skipped), Markdown/HTML formatting was stripped to rendered text, blank cells are null, plain numbers were kept with their printed decimals (a trailing % removed), all other cells were kept as verbatim strings, precision-by-row tables were transposed so that rows are benchmarks, and comparison tables were reduced to the card's own model/export column plus any named baseline.",
+  "method": "Each pinned card was scanned for Markdown pipe tables and HTML <table> blocks, every benchmark/evaluation/throughput/acceptance table was transcribed from the card text (configuration, hardware-compatibility and governance tables were skipped), Markdown/HTML formatting was stripped to rendered text, blank cells are null, plain numbers were kept with their printed decimals (a trailing % removed), all other cells were kept as verbatim strings, precision-by-row tables were transposed so that rows are benchmarks, and comparison tables were reduced to the card's own model/export column plus any named baseline. A comparison identifies the export column and source score unit for a difference on a 100-point scale. A card with results for another model names that model in results_for.",
   "cards": [
     {
       "card_path": "companies/alibaba-qwen/qwen3.8-27b/huggingface/README.md",
@@ -223,6 +223,7 @@
       "revision": "017b9c7af6b5689d5dd426a76e0bc077eb5ca20a",
       "source_id": "qwen3.8-27b-FP8",
       "precision": "E4M3 FP8 with 128x128 weight blocks and excluded modules",
+      "results_for": "Qwen/Qwen3.8-27B",
       "tables": [
         {
           "heading": "Text Performance",
@@ -446,6 +447,10 @@
             "Qwen3.8-27B NVFP4"
           ],
           "baseline_column": "Qwen3.8-27B BF16",
+          "comparison": {
+            "score_column": "Qwen3.8-27B NVFP4",
+            "score_unit": "points"
+          },
           "rows": [
             {
               "benchmark": "GPQA Diamond",
@@ -792,6 +797,7 @@
       "revision": "236dfdf285828023ca3bcd3f37366c58a3469b13",
       "source_id": "qwen3.8-flash-next-FP8",
       "precision": "FP8 routed experts and PLE embedding; attention/shared experts excluded",
+      "results_for": "Qwen/Qwen3.8-Flash-Next",
       "tables": [
         {
           "heading": "Language",
@@ -1012,6 +1018,10 @@
             "NVFP4"
           ],
           "baseline_column": "FP8",
+          "comparison": {
+            "score_column": "NVFP4",
+            "score_unit": "points"
+          },
           "rows": [
             {
               "benchmark": "GPQA Diamond",
@@ -1101,6 +1111,10 @@
             "FP4-Local"
           ],
           "baseline_column": "BF16",
+          "comparison": {
+            "score_column": "FP4-Local",
+            "score_unit": "points"
+          },
           "rows": [
             {
               "benchmark": "GPQA Diamond",
@@ -1220,6 +1234,10 @@
             "NVFP4"
           ],
           "baseline_column": "MXFP4 (source)",
+          "comparison": {
+            "score_column": "NVFP4",
+            "score_unit": "points"
+          },
           "rows": [
             {
               "benchmark": "GPQA Diamond",
@@ -1783,6 +1801,10 @@
             "NVFP4 + MXFP4 Engram"
           ],
           "baseline_column": "MXFP4 (source)",
+          "comparison": {
+            "score_column": "NVFP4 + MXFP4 Engram",
+            "score_unit": "points"
+          },
           "rows": [
             {
               "benchmark": "GPQA Diamond",
@@ -1974,6 +1996,7 @@
       "revision": "627c5ec1458b9086b841a91e0512fd31fd2fbbf1",
       "source_id": "RR-GM-GEMMA-DRAFT-CARD",
       "precision": null,
+      "results_for": "google/gemma-4-31B-it",
       "tables": [
         {
           "heading": "Benchmark Results",
@@ -2120,6 +2143,10 @@
             "Recovery"
           ],
           "baseline_column": "google/gemma-4-31B-it",
+          "comparison": {
+            "score_column": "RedHatAI/gemma-4-31B-it-FP8-block",
+            "score_unit": "points"
+          },
           "rows": [
             {
               "benchmark": "IFEval (0-shot, prompt-level strict)",
@@ -2206,6 +2233,10 @@
             "Recovery"
           ],
           "baseline_column": "google/gemma-4-31B-it",
+          "comparison": {
+            "score_column": "RedHatAI/gemma-4-31B-it-FP8-block",
+            "score_unit": "points"
+          },
           "rows": [
             {
               "benchmark": "IFEval (0-shot, prompt-level strict)",
@@ -2332,6 +2363,10 @@
             "Recovery"
           ],
           "baseline_column": "google/gemma-4-31B-it",
+          "comparison": {
+            "score_column": "RedHatAI/gemma-4-31B-it-NVFP4",
+            "score_unit": "points"
+          },
           "rows": [
             {
               "benchmark": "IFEval (0-shot, prompt-level strict)",
@@ -2418,6 +2453,10 @@
             "Recovery"
           ],
           "baseline_column": "google/gemma-4-31B-it",
+          "comparison": {
+            "score_column": "RedHatAI/gemma-4-31B-it-NVFP4",
+            "score_unit": "points"
+          },
           "rows": [
             {
               "benchmark": "IFEval (0-shot, prompt-level strict)",
@@ -2669,6 +2708,10 @@
             "NVFP4"
           ],
           "baseline_column": "Baseline (BF16)",
+          "comparison": {
+            "score_column": "NVFP4",
+            "score_unit": "points"
+          },
           "rows": [
             {
               "benchmark": "GPQA Diamond",
@@ -2726,6 +2769,7 @@
       "revision": "373c00b5ecb0a8ee43942b5ca08b93805de8eee4",
       "source_id": "TOPM-GEMMA-UNSLOTH-CARD",
       "precision": "compressed-tensors mixed precision: FP8 attention and MLP layers1/57/58/59; group16 NVFP4 remaining MLPs; vision retained",
+      "results_for": "google/gemma-4-31B-it",
       "tables": [
         {
           "heading": "Benchmark Results",
@@ -3169,6 +3213,7 @@
       "revision": "c676cce91658f9568aaf264a416211e2782735b7",
       "source_id": "muse-glimmer-30b-DRAFT-CARD",
       "precision": null,
+      "results_for": "meta-models/Muse-Glimmer-30B and its local deployment configurations",
       "tables": [
         {
           "heading": "Optimized for Local Deployments",
@@ -3695,6 +3740,10 @@
             "NVFP4"
           ],
           "baseline_column": "FP8",
+          "comparison": {
+            "score_column": "NVFP4",
+            "score_unit": "points"
+          },
           "rows": [
             {
               "benchmark": "MMLU Pro",
@@ -5369,6 +5418,10 @@
             "Kimi-K3-NVFP4"
           ],
           "baseline_column": "Original Kimi-K3",
+          "comparison": {
+            "score_column": "Kimi-K3-NVFP4",
+            "score_unit": "fraction"
+          },
           "rows": [
             {
               "benchmark": "GPQA Diamond",
@@ -5647,6 +5700,10 @@
             "NVFP4"
           ],
           "baseline_column": "FP8",
+          "comparison": {
+            "score_column": "NVFP4",
+            "score_unit": "points"
+          },
           "rows": [
             {
               "benchmark": "MMLU Pro",
@@ -5718,6 +5775,7 @@
       "revision": "abf42e6c0e53bc29a875511301e7b7fcd220315b",
       "source_id": "glm-5.3-BF16-CARD",
       "precision": "BF16 reference with small FP32 component",
+      "results_for": "zai-org/GLM-5.3",
       "tables": [
         {
           "heading": "Benchmark",
@@ -5839,6 +5897,7 @@
       "revision": "ce67b36f3669192b5bb233819f0fda6c8a9837f8",
       "source_id": "glm-5.3-INFERACT-CARD",
       "precision": "ModelOpt NVFP4 main routed-expert export; group size 16; MTP and other modules excluded",
+      "results_for": "zai-org/GLM-5.3",
       "tables": [
         {
           "heading": "Benchmark",
@@ -5972,6 +6031,10 @@
             "Recovery"
           ],
           "baseline_column": "zai-org/GLM-5.3 (FP8)",
+          "comparison": {
+            "score_column": "RedHatAI/GLM-5.3-NVFP4",
+            "score_unit": "points"
+          },
           "rows": [
             {
               "benchmark": "IFEval (prompt-level strict)",
@@ -6055,6 +6118,10 @@
             "NVFP4 QAD"
           ],
           "baseline_column": "BF16",
+          "comparison": {
+            "score_column": "NVFP4 QAD",
+            "score_unit": "points"
+          },
           "rows": [
             {
               "benchmark": "GPQA Diamond",
@@ -6124,6 +6191,10 @@
             "Recovery"
           ],
           "baseline_column": "Qwen/Qwen3.8-27B",
+          "comparison": {
+            "score_column": "RedHatAI/Qwen3.8-27B-NVFP4",
+            "score_unit": "points"
+          },
           "rows": [
             {
               "benchmark": "GSM8K Platinum",
@@ -6240,6 +6311,7 @@
       "revision": "103a7608316173ca6edd49929544244de7ffda70",
       "source_id": "N20-QFN-IN-CARD",
       "precision": "ModelOpt NVFP4, group 16. A pinned PLE table shard stores BF16 values although the vLLM recipe describes NVFP4 PLE. Indexed MTP tensors have their own scales.",
+      "results_for": "Qwen/Qwen3.8-Flash-Next",
       "tables": [
         {
           "heading": "Language",
@@ -6461,6 +6533,7 @@
             "NVFP4 (this checkpoint)"
           ],
           "baseline_column": "BF16 reference¹",
+          "scope_note": "The BF16 results use an earlier revision. The NVFP4 GSM8K result uses the listed checkpoint. The NVFP4 AIME26 result predates the PLE embedding change.",
           "rows": [
             {
               "benchmark": "GSM8K",
@@ -6503,6 +6576,10 @@
             "RedHatAI/Qwen3.8-Flash-Next-NVFP4 (this model)"
           ],
           "baseline_column": "Qwen/Qwen3.8-Flash-Next (baseline)",
+          "comparison": {
+            "score_column": "RedHatAI/Qwen3.8-Flash-Next-NVFP4 (this model)",
+            "score_unit": "points"
+          },
           "rows": [
             {
               "benchmark": "GPQA Diamond",
@@ -6668,6 +6745,10 @@
             "Recovery"
           ],
           "baseline_column": "deepseek-ai/DeepSeek-V4-Flash-0731 (Base)",
+          "comparison": {
+            "score_column": "RedHatAI/DeepSeek-V4-Flash-0731-NVFP4",
+            "score_unit": "points"
+          },
           "rows": [
             {
               "benchmark": "GPQA Platinum",
@@ -6690,6 +6771,10 @@
             "Recovery"
           ],
           "baseline_column": "deepseek-ai/DeepSeek-V4-Flash-0731 (Base)",
+          "comparison": {
+            "score_column": "RedHatAI/DeepSeek-V4-Flash-0731-NVFP4",
+            "score_unit": "fraction"
+          },
           "rows": [
             {
               "benchmark": "Terminal-Bench 2.1",
@@ -6748,6 +6833,10 @@
             "This checkpoint (NVFP4)"
           ],
           "baseline_column": "Base (BF16)",
+          "comparison": {
+            "score_column": "This checkpoint (NVFP4)",
+            "score_unit": "fraction"
+          },
           "rows": [
             {
               "benchmark": "GPQA-Diamond (198 questions, 3 passes)",
@@ -8503,6 +8592,10 @@
             "Recovery"
           ],
           "baseline_column": "moonshotai/Kimi-K3",
+          "comparison": {
+            "score_column": "RedHatAI/Kimi-K3-NVFP4",
+            "score_unit": "points"
+          },
           "rows": [
             {
               "benchmark": "GPQA Diamond",
@@ -8917,6 +9010,7 @@
       "revision": "fdb8bdea778a5260a9d9fbc7811044de46433959",
       "source_id": "N20-REDHATAI-KIMI-K31-PRO-DSPARK-HEAD-CARD",
       "precision": null,
+      "results_for": "Inferact/Kimi-K3.1-Pro-DSpark",
       "tables": [
         {
           "heading": "Per-position draft acceptance",
@@ -9318,6 +9412,10 @@
             "NVFP4"
           ],
           "baseline_column": "MXFP4",
+          "comparison": {
+            "score_column": "NVFP4",
+            "score_unit": "points"
+          },
           "rows": [
             {
               "benchmark": "GPQA Diamond",
@@ -9373,6 +9471,10 @@
             "Nvidia NVFP4"
           ],
           "baseline_column": "Moonshot",
+          "comparison": {
+            "score_column": "Nvidia NVFP4",
+            "score_unit": "points"
+          },
           "rows": [
             {
               "benchmark": "OCRBench",
@@ -9488,6 +9590,10 @@
             "NVFP4"
           ],
           "baseline_column": "BF16",
+          "comparison": {
+            "score_column": "NVFP4",
+            "score_unit": "fraction"
+          },
           "rows": [
             {
               "benchmark": "GPQA Diamond",

@@ -9,7 +9,7 @@ Read `src/domain/types.ts`, `metrics.ts` (`capacity`/`sweepCapacity`, `tieBand`,
 
 For each displayed number, trace artifact, workload, suite revision, runtime, hardware, observation unit and source. Verify:
 
-- Sustainable = observed total (input + output) tok/s at C_max × margin × 60 ÷ run GPUs (`runGpus ?? gpus`). The margin is the SLO policy value (0.8 in every preset, adjustable 0.50–1.00 in the SLO popover), not a constant.
+- Sustainable = observed total (input + output) tok/s at C_max × margin × 60 ÷ participating GPUs (`numGpus` for a single replica, or the fixed aggregate `systemConfig.measuredDeploymentGpus` for a multi-replica service). The margin is the SLO policy value (0.8 in every preset, adjustable 0.50–1.00 in the SLO popover), not a constant.
 - Null versus zero: a missing value renders "—", never 0; a ring for a missing value is empty and labelled.
 - Ties: |Δ| ≤ 3% reads as a tie (`SETUP_TIE_BAND` and `ENGINE_TIE_BAND` are separate constants and must stay equal). An engine Δ or verdict exists only for a matched pair; otherwise "Different configs — no verdict".
 - Setup standings order: measured with a value, then measured with no passing level, then unmeasured.

@@ -10,10 +10,8 @@ import { atlasModel, hfUrl } from "../../lib/atlas.js";
 import { useAppState } from "../../state.js";
 
 /**
- * Published intelligence scores pinned in the catalog snapshot (scripts/import-intelligence.ts).
- * Third-party Artificial Analysis Intelligence Index v5.0.1 by effort variant, with the Hugging Face
- * repository and pinned revision for catalog models. These are not measurements of any configuration in
- * this console: they identify no export, engine, KServe path or GPU, and never feed the serving frontier.
+ * Published AA endpoint scores by effort variant. HF links identify the catalog's separate weight pins.
+ * The frontier pairs the endpoint score with throughput only for AA's linked weights repository.
  */
 
 type Release = (typeof snapshot.releases)[number];
@@ -127,14 +125,14 @@ export function PublishedIntelligencePanel() {
           <span className="relative h-4" aria-hidden="true">
             {ticks.map((tick) => <span key={tick} className="absolute -translate-x-1/2 tabular-nums" style={{ left: pct(tick) }}>{tick}</span>)}
           </span>
-          <span className="text-right">Top effort</span>
+          <span className="text-right">Highest score</span>
         </div>
         <ol className="divide-y">
           {releases.map((release) => <ReleaseRow key={release.key} release={release} />)}
         </ol>
         <div className="text-muted-foreground flex flex-wrap items-center justify-between gap-x-4 gap-y-1 border-t px-4 py-2 text-[11px]">
           <span className="inline-flex flex-wrap items-center gap-x-3 gap-y-1">
-            <span className="inline-flex items-center gap-1.5"><span className="bg-chart-1 size-2.5 rounded-full" aria-hidden="true" />Top effort</span>
+            <span className="inline-flex items-center gap-1.5"><span className="bg-chart-1 size-2.5 rounded-full" aria-hidden="true" />Highest score</span>
             <span className="inline-flex items-center gap-1.5"><span className="bg-chart-neutral size-[7px] rounded-full" aria-hidden="true" />Other efforts</span>
           </span>
           <a className="hover:text-foreground inline-flex items-center gap-1 underline-offset-2 hover:underline" href={snapshot.method.url} target="_blank" rel="noreferrer">Methodology<ExternalLink className="size-3" aria-hidden="true" /></a>

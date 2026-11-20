@@ -20,6 +20,7 @@ export type SetupStanding =
   | { kind: "behind"; fraction: number; absolute: number }
   /** Measured, but no tested level meets the SLO: no sustainable value, no Δ. */
   | { kind: "no-passing" }
+  | { kind: "unknown-allocation" }
   | { kind: "unmeasured" };
 
 export interface SetupEntry<T extends RankedDeployment = RankedDeployment> {
@@ -59,6 +60,7 @@ export function setupStandings<T extends RankedDeployment>(rows: readonly T[], b
     const value = sustainable(row);
     if (value !== null && value !== previous) { position = index + 1; previous = value; }
     if (!hasMeasuredLevels(row)) return { row, position: null, standing: { kind: "unmeasured" } };
+    if (row.capacity.participatingGpus === null) return { row, position: null, standing: { kind: "unknown-allocation" } };
     if (value === null) return { row, position: null, standing: { kind: "no-passing" } };
     if (row === leader) return { row, position, standing: { kind: "best" } };
     const delta = deltaVsBest(value, best, band)!;

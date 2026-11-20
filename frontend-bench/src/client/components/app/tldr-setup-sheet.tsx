@@ -8,7 +8,7 @@ import type { VariantRow } from "../../../domain/variants.js";
 import type { ExternalRecord } from "../../../domain/external.js";
 import { appState, routeUrl, useAppState } from "../../state.js";
 import { restoreOpener } from "../../lib/focus-return.js";
-import { engineBuildDetail, gpusOf, hardwareShape, num, shape } from "../../lib/display.js";
+import { engineBuildDetail, hardwareShape, num, shape } from "../../lib/display.js";
 import { hfUrl, shortSha } from "../../lib/atlas.js";
 import { addToCompare, openRun } from "./overlays.js";
 import { CommandBlock, RecordedOverridesNote } from "./command-block.js";
@@ -65,7 +65,7 @@ export function SetupSheet({ entry, entries, rows, published, onClose, onPickWor
       label: "Sustainable", value: value ?? 0, display: value === null ? "—" : undefined, testId: "setup-sustainable",
       progress: value !== null && best ? (value / best) * 100 : 0,
       ringLabel: value !== null && best ? `${num((value / best) * 100)}% of the best setup` : "No sustainable value",
-      caption: `tok/min/GPU · ${standing?.kind === "best" ? `best of ${ranked} setups` : standing?.kind === "tie" || standing?.kind === "behind" ? `${signedPercent(standing.fraction)} vs best (${num(best)})${standing.kind === "tie" ? " · tie" : ""}` : "no passing level, no value"}`,
+      caption: `tok/min/GPU · ${standing?.kind === "best" ? `best of ${ranked} setups` : standing?.kind === "tie" || standing?.kind === "behind" ? `${signedPercent(standing.fraction)} vs best (${num(best)})${standing.kind === "tie" ? " · tie" : ""}` : standing?.kind === "unknown-allocation" ? "deployment GPU count unknown" : "no passing level"}`,
     },
     {
       label: "C_max · concurrent", value: cmax(row) ?? 0, display: cmax(row) === null ? "—" : undefined,
@@ -156,7 +156,7 @@ export function SetupSheet({ entry, entries, rows, published, onClose, onPickWor
                             <td className="py-1.5 pr-2 whitespace-nowrap max-sm:hidden">{dateOf(item.run.runDate)}</td>
                             <td className="py-1.5 text-right">{item.capacity.sustainableTpmPerGpu === null ? <Missing /> : num(item.capacity.sustainableTpmPerGpu)}</td>
                             <td className="py-1.5 pl-3 text-right">{item.capacity.highestPassingConcurrency === null ? <Missing /> : num(item.capacity.highestPassingConcurrency)}</td>
-                            <td className="py-1.5 pl-3"><LoadCurve points={totalPerGpuCurve(item.capacity, item.run.identity.numGpus ?? gpusOf(d))} unit="Total tok/s per GPU" cmax={item.capacity.highestPassingConcurrency} highlight={fronts} className="w-16" /></td>
+                            <td className="py-1.5 pl-3"><LoadCurve points={totalPerGpuCurve(item.capacity)} unit="Total tok/s per GPU" cmax={item.capacity.highestPassingConcurrency} highlight={fronts} className="w-16" /></td>
                           </tr>
                         );
                       })}

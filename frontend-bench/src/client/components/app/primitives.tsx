@@ -127,18 +127,18 @@ export function Notice({ tone = "info", icon: Icon, children, action }: { tone?:
 }
 
 const definitions: Record<string, string> = {
-  SLO: "Service-level objective: prefill speed (sets the TTFT ceiling), ITL p95 ceiling and success-rate floor a concurrency level must meet. Presets: Classic 1,300 tok/s · 26 ms, Low-latency 2,600 tok/s · 19 ms, Frontier 1,000 tok/s · 50 ms.",
-  TTFT: "Time to first token, as reported by GuideLLM per concurrency level (p50/p95/p99). The ceiling is prompt tokens ÷ prefill speed.",
-  ITL: "Inter-token latency between streamed tokens after the first, as reported by GuideLLM (p50/p95/p99).",
+  SLO: "The console separately checks a load level’s TTFT p95, ITL p95 and request success fraction. Joint attainment and quality-adjusted goodput require request-level outcomes.",
+  TTFT: "Client time from dispatch to the first generated token. The planning ceiling uses input tok/s ÷ requests/s as a prompt-length proxy.",
+  ITL: "GuideLLM divides each request’s time from first to last generated token by N − 1. Its percentiles weight each request average by those N − 1 token gaps.",
   "Prefill speed": "Prompt tokens processed per second for one request. The TTFT ceiling for a level is its prompt tokens divided by this speed.",
   "tok/s/GPU": "Tokens per second divided by the GPUs of the run. Labels say whether the figure is total (input + output) or output only.",
-  "SLO capacity": "Sustainable throughput: total (input + output) tok/s observed at C_max (the last concurrency level inside the SLO) × safety margin × 60 ÷ GPUs, in tok/min/GPU. GPUs = the run's num_gpus, read as GPUs per replica (assumption). Assumed definition; numerator, rate window and incomplete handling not yet confirmed at source. Never interpolated.",
-  "Sustainable throughput": "Total (input + output) tok/s observed at C_max × safety margin × 60 ÷ GPUs, in tok/min/GPU. GPUs = the run's num_gpus, read as GPUs per replica (assumption; multi-replica runs are flagged). Assumed definition, not yet confirmed at source. Never interpolated.",
+  "SLO capacity": "A planning rate. Total input and output tok/s at the highest tested concurrency passing the three separate gates × margin × 60 ÷ participating GPUs. A multi-replica rate requires the measured service-wide GPU allocation.",
+  "Sustainable throughput": "The console’s planning estimate in tok/min/GPU uses total input and output tok/s at C_max × margin × 60 ÷ participating GPUs. Sustainable arrival-rate capacity requires a separate test of arrivals, backlog and outcomes.",
   "tok/min/GPU": "Tokens per minute per GPU: tok/s × 60 ÷ GPUs of the run. Sustainable figures count input + output tokens; output-only figures say so.",
   "C_max": "The last measured concurrency level that is still inside the SLO.",
-  "Safety margin": "Multiplier applied to the throughput observed at C_max to turn a measurement into a deployable commitment (×0.8 by default).",
+  "Safety margin": "Planning multiplier applied to observed throughput at C_max (×0.8 by default). Its operational headroom requires validation under the intended traffic.",
   Intelligence: "Artificial Analysis Intelligence Index v5.0.1: a third-party, model-level score (0–100) for a lab or provider endpoint at a stated effort. It does not transfer to a quantized export, engine or GPU.",
-  Quality: "Model-level Artificial Analysis Intelligence Index v5.0.1 (highest published effort variant). Not measured on the export or engine shown.",
+  Quality: "Highest AA Intelligence Index v5.0.1 score published for the model across its effort settings. The revision and precision served by AA’s endpoint are unknown.",
   Frontier: "Configurations not beaten on both intelligence and sustainable throughput (tok/min/GPU) by another configuration on the same dataset.",
 };
 /** A term with a dotted underline that explains itself on hover and keyboard focus. */

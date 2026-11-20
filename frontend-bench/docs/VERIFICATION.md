@@ -1,5 +1,18 @@
 # Verification record
 
+## November 20, 2026 claim and benchmark audit
+
+The console uses research snapshot `5a429c3`. All 50 configured export records now agree with their upstream identity rechecks. All 67 retained Hugging Face README files matched the immutable remote bytes. All 74 AA effort variants matched the published model records, including three without a composite. For the 17 cards added in the refresh, the claim review checked 25 tables and 1,646 retained cells. These checks concern publication and attribution. Evaluated endpoint precision, local B300 performance and installed KServe behavior remain unmeasured.
+
+| Check | Observed result |
+| --- | --- |
+| Dependencies and imports | Bun 1.4.4. Frozen installation passed. The atlas snapshot matches the canonical input commit. The committed external data passed schema and source-table checks for 596 records and 177 sources. |
+| Unit, TypeScript and build | 217 tests passed across 11 files. Both TypeScript projects compiled. The build regenerated the standalone preview. |
+| Browser and design | 81 Playwright tests passed. Design lint reported zero errors and zero warnings. Screenshots covered 1440-pixel light and dark themes and 390-pixel light theme. The full browser suite caught a mobile radar label overflow and an obsolete assertion for DeepSeek 0731’s parameter count. Both corrections passed in the final run. |
+| PostgreSQL | All four migrations and the catalog seed ran on an isolated PostgreSQL 18.6 instance. Five integration tests passed, including explicit run identity conflicts, the recorded GPU denominator, upsert behavior and rejection of the labelled demo fixture. Two earlier integration assertions expected the old dataset and fixture-import behavior and were corrected. The temporary database was removed after testing. |
+
+The regression tests cover export, engine, hardware and revision matching, multi-replica rates without a known GPU allocation, and engine deltas for the selected workload and comparable runtime versions. A legacy run can identify the export repository while omitting its loaded revision. Publisher table tests preserve the units and identify results copied from another artifact.
+
 ## November 20, 2026 catalog and AA refresh
 
 The console pins atlas commit `d03c703`. Its import covers 12 families, 50 concrete exports, 59 configuration references, 67 Hugging Face cards and 24 AA releases. The AA and throughput chart now requires the weights URL published by AA to match the configured repository. The regression tests cover a separate first-party FP8 export, first-party NVFP4, an unknown artifact and a workload with measured derivative runs only. The SGLang recipe test checks environment forwarding and a single explicit model path.

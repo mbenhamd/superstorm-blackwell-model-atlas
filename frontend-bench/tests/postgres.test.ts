@@ -1,14 +1,16 @@
 import { afterAll, describe, expect, test } from "bun:test";
 import { Effect } from "effect";
 import { join } from "node:path";
+import { mkdtemp, rm } from "node:fs/promises";
+import { tmpdir } from "node:os";
 import { Pool } from "pg";
 import { ATLAS } from "../src/domain/catalog.js";
 import { postgresStore } from "../src/server/repository.js";
 
 /**
  * Explicit opt-in only: set TEST_DATABASE_URL to an ISOLATED database on which `db:migrate` and `db:seed` have
- * run. The tests write rows (cleaned up afterwards); the import test runs scripts/import-runs.ts against it with
- * the TEST fixture tests/fixtures/sample-runs.json and deletes those experiments at the end.
+ * run. The tests write rows (cleaned up afterwards); the importer must reject the labelled demo. A separate integration case
+ * exercises the CLI and SQL round trip using test-only rows in this isolated database.
  */
 const url = process.env.TEST_DATABASE_URL;
 const suite = url ? describe : describe.skip;
@@ -18,8 +20,7 @@ const CONFIG = "qwen3.8-27b.fp8.vllm.baseline";
 suite("PostgreSQL store", () => {
   const pool = new Pool({ connectionString: url, max: 3 });
   const fixtureModel = "qwen3.8-27b-fp8";
-  const cleanupRuns = () => pool.query("DELETE FROM experiments WHERE benchmark_tool LIKE 'test-fixture%' AND model_name = $1", [fixtureModel]);
-  afterAll(async () => { await cleanupRuns(); await pool.end(); });
+  afterAll(async () => { await pool.end(); });
 
   const importRuns = async (file: string, ...flags: string[]) => {
     const child = Bun.spawn([process.execPath, "scripts/import-runs.ts", file, ...flags], { cwd: root, env: { ...process.env, DATABASE_URL: url }, stdout: "pipe", stderr: "pipe" });
@@ -41,7 +42,7 @@ suite("PostgreSQL store", () => {
       const store = postgresStore(pool);
       const item = await Effect.runPromise(store.create({ name: "Integration check", deploymentId: CONFIG, priority: "Normal", scheduledDate: "2026-11-09", notes: "Temporary test record", datasets: ["single-turn-8k", "chat-8-turn"], blockedReason: null })); id = item.id;
       const row = await pool.query<{ configuration_id: string; datasets: string[]; slug: string }>("SELECT configuration_id, datasets, slug FROM scheduled_experiments WHERE id = $1", [id]);
-      expect(row.rows[0]).toMatchObject({ configuration_id: CONFIG, datasets: ["single-turn-8k"] });
+      expect(row.rows[0]).toMatchObject({ configuration_id: CONFIG, datasets: ["single-turn-8k", "chat-8-turn"] });
       const result = await Promise.all(["Scheduled", "Scheduled"].map(() => Effect.runPromise(store.move(item.id, "Scheduled", 1).pipe(Effect.map(() => "success"), Effect.catch((e) => Effect.succeed(e._tag))))));
       expect(result.sort()).toEqual(["ConflictError", "success"]);
       const audit = await pool.query<{ count: string }>("SELECT COUNT(*)::text AS count FROM audit_event WHERE entity_id = $1", [id]);
@@ -54,43 +55,47 @@ suite("PostgreSQL store", () => {
     }
   });
 
-  test("import upserts on identity, replaces metrics, and the snapshot shows measured runs", async () => {
-    await cleanupRuns();
-    const first = await importRuns("tests/fixtures/sample-runs.json");
-    expect(first.code).toBe(0);
-    expect(first.stdout).toContain("5 new, 0 replaced");
-    expect(first.stdout).toContain(`matched    qwen3.8-27b-fp8 · sglang-v0.5.23`);
-    const ids = await pool.query<{ id: string; engine: string; engine_version: string; engine_flavor: string | null }>("SELECT id::text, engine, engine_version, engine_flavor FROM experiments WHERE model_name = $1 AND benchmark_tool LIKE 'test-fixture%' ORDER BY run_date", [fixtureModel]);
-    expect(ids.rows.map((r) => [r.engine, r.engine_version, r.engine_flavor])).toEqual([["vllm", "0.32.0", null], ["vllm", "0.33.0", null], ["sglang", "0.5.23", null], ["vllm", "0.33.0", null], ["sglang", "0.5.23", null]]);
+  test("the importer refuses the labelled demo fixture", async () => {
+    const result = await importRuns("tests/fixtures/sample-runs.json");
+    expect(result.code).toBe(1);
+    expect(result.stderr).toContain("TEST fixtures");
+  });
 
-    const snapshot = await Effect.runPromise(postgresStore(pool).snapshot());
-    const measured = snapshot.deployments.find((d) => d.id === CONFIG)!;
-    expect(measured.evidence).toBe("measured");
-    expect(measured.points.map((p) => p.concurrency)).toEqual([1, 2, 4, 8, 16, 32, 64, 128]);
-    expect(measured.points[0]!.ttftMs.p99).toBeNull();
-    expect(snapshot.deployments.some((d) => d.id === `${CONFIG}@chat-8-turn`)).toBe(true);
-
-    // Re-import of the same file: same cells, metrics replaced, ids kept.
-    const again = await importRuns("tests/fixtures/sample-runs.json");
-    expect(again.stdout).toContain("0 new, 5 replaced");
-    const after = await pool.query<{ id: string }>("SELECT id::text FROM experiments WHERE model_name = $1 AND benchmark_tool LIKE 'test-fixture%' ORDER BY run_date", [fixtureModel]);
-    expect(after.rows.map((r) => r.id)).toEqual(ids.rows.map((r) => r.id));
-    const levels = await pool.query<{ count: number }>("SELECT COUNT(*)::int AS count FROM metrics WHERE experiment_id = ANY($1::uuid[])", [ids.rows.map((r) => r.id)]);
-    expect(levels.rows[0]?.count).toBe(8 + 7 + 6 + 6 + 7);
-
-    // An older run for an existing cell is skipped; a newer one with fewer levels replaces the set.
-    const sample = await Bun.file(join(root, "tests/fixtures/sample-runs.json")).json() as { runs: Record<string, unknown>[] };
-    const scratch = join(root, "tests/fixtures/.tmp-postgres-runs.json");
+  test("imports round-trip through PostgreSQL and conflicting catalog identities stay out of measurements", async () => {
+    const dir = await mkdtemp(join(tmpdir(), "bench-pg-import-"));
+    const file = join(dir, "integration.json");
+    const testId = crypto.randomUUID();
+    const entry = {
+      identity: { modelName: fixtureModel, gpuType: "B300", numGpus: 1, maxSystemReplicas: 2, runtimeVersion: "vllm-v0.34.0", dataset: "single-turn-8k", runtimeConfig: { integration_test: testId } },
+      configurationId: CONFIG, benchmarkTool: "test-fixture-postgres", runDate: "2026-11-19T12:00:00Z", systemConfig: { measuredDeploymentGpus: 2 },
+      metrics: [1, 2].map((concurrency) => ({ concurrency, successful: 1, incomplete: 0, errored: 0, totalTps: 2, inputTps: 1, outputTps: 1, requestsPerSecond: 1, durationSeconds: 1 })),
+    };
+    const other = { ...entry, identity: { ...entry.identity, runtimeVersion: "sglang-v0.5.23" } };
+    const read = () => Effect.runPromise(postgresStore(pool).snapshot());
     try {
-      await Bun.write(scratch, JSON.stringify([{ ...sample.runs[0], runDate: "2026-10-01T00:00:00Z" }]));
-      expect((await importRuns(scratch)).stdout).toContain("1 skipped");
-      const newer = sample.runs[0] as { metrics: unknown[] };
-      await Bun.write(scratch, JSON.stringify([{ ...sample.runs[0], runDate: "2026-11-05T00:00:00Z", metrics: newer.metrics.slice(0, 2) }]));
-      expect((await importRuns(scratch)).stdout).toContain("0 new, 1 replaced");
-      const vllm = (await Effect.runPromise(postgresStore(pool).snapshot())).deployments.find((d) => d.id === CONFIG)!;
-      expect(vllm.points.map((p) => p.concurrency)).toEqual([1, 2]);
-    } finally { await Bun.file(scratch).delete().catch(() => undefined); }
-    await pool.query("DELETE FROM audit_event WHERE entity_id = ANY($1::text[])", [ids.rows.map((r) => r.id)]);
+      await Bun.write(file, JSON.stringify([entry, other]));
+      const first = await importRuns(file);
+      expect(first.code).toBe(0);
+      expect(first.stdout).toContain("2 new, 0 replaced");
+      const snapshot = await read();
+      const valid = snapshot.runs?.filter((run) => run.identity.runtimeConfig.integration_test === testId);
+      expect(valid).toHaveLength(1);
+      expect(valid?.[0]).toMatchObject({ configurationId: CONFIG, measuredDeploymentGpus: 2 });
+      expect(valid?.[0]?.metrics.map((m) => m.concurrency)).toEqual([1, 2]);
+      const records = await pool.query<{ engine: string; engine_version: string }>(
+        "SELECT engine, engine_version FROM experiments WHERE runtime_config->>'integration_test' = $1 ORDER BY engine", [testId]);
+      expect(records.rows).toEqual([{ engine: "sglang", engine_version: "0.5.23" }, { engine: "vllm", engine_version: "0.34.0" }]);
+      expect((await importRuns(file)).stdout).toContain("0 new, 2 replaced");
+      await Bun.write(file, JSON.stringify([{ ...entry, runDate: "2026-11-18T00:00:00Z" }]));
+      expect((await importRuns(file)).stdout).toContain("1 skipped");
+      await Bun.write(file, JSON.stringify([{ ...entry, runDate: "2026-11-20T00:00:00Z", metrics: entry.metrics.slice(0, 1) }]));
+      expect((await importRuns(file)).stdout).toContain("0 new, 1 replaced");
+      const latest = (await read()).runs?.find((run) => run.id === valid?.[0]?.id);
+      expect(latest?.metrics.map((m) => m.concurrency)).toEqual([1]);
+    } finally {
+      await pool.query("DELETE FROM experiments WHERE runtime_config->>'integration_test' = $1", [testId]);
+      await rm(dir, { recursive: true, force: true });
+    }
   });
 
   test("schema CHECKs reject invalid rows", async () => {

@@ -47,7 +47,7 @@ export function nominalTtftCeilingMs(workload: Pick<Workload, "inputTokens" | "t
  * Verdict for one measured concurrency level. Prompt tokens per request are derived from the raw rates
  * (input tok/s ÷ requests/s). A missing p95 never passes; a level with no requests has no success rate.
  */
-export function measurePoint(row: MetricRow, slo: SloPolicy): PointMetrics {
+export function measurePoint(row: MetricRow, slo: SloPolicy, participatingGpus: number | null = null): PointMetrics {
   if (!Number.isInteger(row.concurrency) || row.concurrency < 1) throw new RangeError("Concurrency must be a positive integer");
   if (![row.outputTps, row.inputTps, row.requestsPerSecond].every((value) => Number.isFinite(value) && value >= 0)) throw new RangeError("Rates must be finite and nonnegative");
   if (![slo.prefillTps, slo.itlP95Ms, slo.minSuccessRate, slo.margin].every(Number.isFinite) || slo.prefillTps <= 0 || slo.itlP95Ms <= 0 || slo.minSuccessRate < 0 || slo.minSuccessRate > 1) throw new RangeError("Invalid service-level objective");
@@ -62,6 +62,9 @@ export function measurePoint(row: MetricRow, slo: SloPolicy): PointMetrics {
   if (successRate === null || successRate < slo.minSuccessRate) failures.push("Success");
   return {
     concurrency: row.concurrency, outputTps: row.outputTps, inputTps: row.inputTps, totalTps: row.totalTps, requestsPerSecond: row.requestsPerSecond,
+    inputTpsPerGpu: participatingGpus === null ? null : row.inputTps / participatingGpus,
+    outputTpsPerGpu: participatingGpus === null ? null : row.outputTps / participatingGpus,
+    totalTpsPerGpu: participatingGpus === null ? null : row.totalTps / participatingGpus,
     ttftP50Ms: row.ttftMs.p50, ttftP95Ms: ttft, ttftCeilingMs: ceiling,
     itlP50Ms: row.itlMs.p50, itlP95Ms: itl, outputTpsPerUser: row.outputTpsPerUserP50, successRate, requestCount: count, promptTokens,
     successful: row.successful, errored: row.errored, incomplete: row.incomplete,
@@ -74,28 +77,32 @@ export function measurePoint(row: MetricRow, slo: SloPolicy): PointMetrics {
  * output-only lens is kept alongside, never under the same label.
  */
 export function capacity(deployment: Deployment, slo: SloPolicy = DEFAULT_SLO): Capacity {
-  // The measured run's topology wins over the catalog shape: throughput is divided by the GPUs that produced it.
-  return sweepCapacity(deployment.points, deployment.runGpus ?? deployment.gpus, slo);
+  return sweepCapacity(deployment.points, participatingGpuCount(deployment.runGpus ?? deployment.gpus, deployment.replicas, deployment.measuredDeploymentGpus), slo);
 }
-/** capacity() over raw measured rows and the GPU divisor that produced them (a run's num_gpus). Same lens, no catalog row needed. */
-export function sweepCapacity(rows: readonly MetricRow[], gpus: number, slo: SloPolicy = DEFAULT_SLO): Capacity {
-  if (!Number.isInteger(gpus) || gpus <= 0) throw new RangeError("GPU count must be a positive integer");
+/** A replica limit does not establish how many replicas supplied a reported rate or how many GPUs they used. */
+export function participatingGpuCount(gpus: number, replicas: number | null, measuredDeploymentGpus?: number): number | null {
+  return measuredDeploymentGpus ?? ((replicas ?? 1) === 1 ? gpus : null);
+}
+/** Raw observations and concurrency gates stay available even when the service-wide rate scope is missing. */
+export function sweepCapacity(rows: readonly MetricRow[], gpus: number | null, slo: SloPolicy = DEFAULT_SLO): Capacity {
+  if (gpus !== null && (!Number.isSafeInteger(gpus) || gpus <= 0)) throw new RangeError("GPU count must be a positive integer");
   if (!Number.isFinite(slo.margin) || slo.margin <= 0 || slo.margin > 1) throw new RangeError("Margin must be in (0, 1]");
-  const points = rows.map((point) => measurePoint(point, slo)).sort((a, b) => a.concurrency - b.concurrency);
+  const points = rows.map((point) => measurePoint(point, slo, gpus)).sort((a, b) => a.concurrency - b.concurrency);
   const passing = points.filter((point) => point.passes);
   const p = passing.at(-1) ?? null;
   const perMinute = (tps: number) => tps * slo.margin * 60;
   const sum = (key: "incomplete" | "errored") => points.length ? points.reduce((total, point) => total + point[key], 0) : null;
   return {
+    participatingGpus: gpus,
     highestPassingConcurrency: p?.concurrency ?? null,
-    capacityTpsPerGpu: p ? p.outputTps * slo.margin / gpus : null,
-    observedTotalTpsPerGpu: p ? p.totalTps / gpus : null,
-    sustainableTpmPerGpu: p ? perMinute(p.totalTps) / gpus : null,
-    sustainableOutputTpmPerGpu: p ? perMinute(p.outputTps) / gpus : null,
-    deploymentWideTpm: p ? perMinute(p.totalTps) : null,
-    deploymentInputTpm: p ? perMinute(p.inputTps) : null,
-    deploymentOutputTpm: p ? perMinute(p.outputTps) : null,
-    rawPeakTpsPerGpu: points.length ? Math.max(...points.map((point) => point.outputTps / gpus)) : null,
+    capacityTpsPerGpu: p && gpus !== null ? p.outputTps * slo.margin / gpus : null,
+    observedTotalTpsPerGpu: p?.totalTpsPerGpu ?? null,
+    sustainableTpmPerGpu: p && gpus !== null ? perMinute(p.totalTps) / gpus : null,
+    sustainableOutputTpmPerGpu: p && gpus !== null ? perMinute(p.outputTps) / gpus : null,
+    deploymentWideTpm: p && gpus !== null ? perMinute(p.totalTps) : null,
+    deploymentInputTpm: p && gpus !== null ? perMinute(p.inputTps) : null,
+    deploymentOutputTpm: p && gpus !== null ? perMinute(p.outputTps) : null,
+    rawPeakTpsPerGpu: points.length && gpus !== null ? Math.max(...points.map((point) => point.outputTps)) / gpus : null,
     incomplete: sum("incomplete"), errored: sum("errored"),
     selectedPoint: p, points, passingLevels: passing.length, totalLevels: points.length,
   };
@@ -129,7 +136,7 @@ export function rank(snapshot: Snapshot, workloadId = snapshot.workloads[0]?.id 
 }
 /** The unmeasured (reference) view of a catalog configuration on `workloadId`: no points, no run, never zero. */
 export function referenceDeployment(snapshot: Snapshot, base: Deployment, workloadId: string): Deployment {
-  return base.workloadId === workloadId && base.evidence === "reference" ? base : { ...base, workloadId, points: [], evidence: "reference", measuredAt: null, runId: null, runtimeTag: null, replicas: null, runConfig: null, runGpus: null, topologyMismatch: false, gpuType: hardwareName(snapshot, base.hardwareId) };
+  return base.workloadId === workloadId && base.evidence === "reference" ? base : { ...base, workloadId, points: [], evidence: "reference", measuredAt: null, runId: null, runtimeTag: null, replicas: null, runConfig: null, runGpus: null, measuredDeploymentGpus: undefined, topologyMismatch: false, gpuType: hardwareName(snapshot, base.hardwareId) };
 }
 /** gpu_type as the bench identity spells it ("B300"), from the catalog hardware name. */
 const hardwareName = (snapshot: Snapshot, id: string) => (snapshot.hardware.find((item) => item.id === id)?.name ?? id).replace(/^NVIDIA\s+/i, "");

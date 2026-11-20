@@ -45,7 +45,8 @@ const componentLabel = (name: string) => name.replace(/ v[\d.]+/, "").replace(/ 
 /** Radar axis label: short enough not to clip at the chart edge; the table beside it carries the full name. */
 const radarLabel = (name: string) => componentLabel(name)
   .replace(/^AA-Omniscience accuracy$/, "Omni. accuracy").replace(/^AA-Omniscience non-hallucination$/, "Omni. non-halluc.")
-  .replace(/^Terminal-Bench-Science.*$/, "TB-Science").replace(/^Terminal-Bench .*$/, "Terminal-Bench").replace(/-AA$/, "");
+  .replace(/^Terminal-Bench-Science.*$/, "TB-Science").replace(/^Terminal-Bench .*$/, "Terminal-Bench").replace(/-AA$/, "")
+  .replace(/^FrontierCode-AA 2\.0$/, "FrontierCode-AA");
 
 /** AA component value on a 0–100 scale: Elo components use AA's own clamp((Elo − 500) / 2000); fractions × 100. */
 const componentScore = (name: string, value: number | null | undefined): number | null =>
@@ -70,7 +71,7 @@ function QualityProfile({ deployments }: { deployments: Deployment[] }) {
       <p className="text-ink-2 flex flex-wrap items-center gap-x-2 text-[13px]" data-testid="quality-profile" data-single-model="true">
         <Term name="Quality">AA (model)</Term>
         <span className="text-foreground font-semibold tabular-nums">{num(only.aa.index, 1)}</span>
-        <span className="text-muted-foreground">{effortLabel(only.aa.variant)} · identical for all {deployments.length} configurations</span>
+        <span className="text-muted-foreground">{effortLabel(only.aa.variant)} · AA's evaluated endpoint</span>
       </p>
     );
   }
@@ -81,7 +82,7 @@ function QualityProfile({ deployments }: { deployments: Deployment[] }) {
   return (
     <Panel
       title={<Term name="Quality">Intelligence profile · model level</Term>}
-      description={`AA ${intelligence.version} · same for every export`}
+      description={`AA ${intelligence.version} · one evaluated endpoint per model shown`}
       actions={
         <>
           {skipped.length ? <Badge variant="neutral" title={`No published composite: ${skipped.join(", ")}`}>{skipped.length} without composite</Badge> : null}
@@ -220,7 +221,7 @@ export function ComparePage() {
       node: (expanded) => <SweepChart expanded={expanded} legend={false} title="Total throughput per GPU" deployments={deployments} metric="totalTpsPerGpu" markCapacity yAxisTitle="Total tok/s per GPU" unit="tok/s/GPU" /> },
     { title: "ITL", description: `p95 solid · p50 dashed · ceiling ${num(state.slo.itlP95Ms)} ms`,
       node: (expanded) => <SweepChart expanded={expanded} legend={false} title="ITL" deployments={deployments} metric="itlP95Ms" secondary={{ metric: "itlP50Ms", label: "ITL p50" }} yAxisTitle="ITL, ms" unit="ms" threshold={state.slo.itlP95Ms} thresholdLabel={`ITL p95 ≤ ${num(state.slo.itlP95Ms)} ms`} digits={0} /> },
-    { title: "TTFT p95", description: measured.length ? "Dashed: ceiling per level (measured prompt ÷ prefill)" : nominal !== null ? "Ceiling nominal (budget ÷ prefill)" : "Ceiling set per level from measured prompts",
+    { title: "TTFT p95", description: measured.length ? "Dashed ceiling uses the prompt-length estimate for each level" : nominal !== null ? "Ceiling nominal (budget ÷ prefill)" : "Ceiling estimated per level from token and request rates",
       node: (expanded) => <SweepChart expanded={expanded} legend={false} title="TTFT p95" deployments={deployments} metric="ttftP95Ms" secondary={{ metric: "ttftCeilingMs", label: "ceiling" }} yAxisTitle="TTFT p95, ms" unit="ms" threshold={measured.length ? undefined : nominal} thresholdLabel={nominal !== null ? `Nominal ${num(nominal)} ms` : undefined} /> },
     { title: "Success rate", description: <Tooltip><TooltipTrigger asChild><span tabIndex={0} className="cursor-help underline decoration-dotted underline-offset-[3px]">Floor {num(state.slo.minSuccessRate * 100)}% · console rule</span></TooltipTrigger><TooltipContent className="max-w-64 text-pretty">Successful ÷ (successful + errored + incomplete) per level. The success floor is a console rule; the SLO presets define only prefill speed and ITL.</TooltipContent></Tooltip>,
       node: (expanded) => <SweepChart expanded={expanded} legend={false} title="Success rate" deployments={deployments} metric="successRate" percent yAxisTitle="Success rate, %" unit="%" threshold={state.slo.minSuccessRate * 100} thresholdLabel={`Floor ${num(state.slo.minSuccessRate * 100)}%`} /> },
@@ -229,7 +230,7 @@ export function ComparePage() {
     <div className="space-y-4">
       <PageHeader
         title="Compare"
-        description={<>Up to {MAX_COMPARE} configurations · <Term name="SLO" /> {state.slo.preset}.</>}
+        description={<>Up to {MAX_COMPARE} configurations · <Term name="SLO" /> {state.slo.preset}. Attributing a difference to one setting requires matching the other controls.</>}
         actions={
           <>
             <Button variant="outline" onClick={() => void share()}><Link2 aria-hidden="true" />Share link</Button>

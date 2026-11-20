@@ -66,7 +66,7 @@ function IntelligenceMeta() {
       <span aria-hidden="true">·</span>
       <span>top <span className="text-foreground font-medium tabular-nums">{indexes.length ? num(Math.max(...indexes), 1) : "—"}</span></span>
       <span aria-hidden="true">·</span>
-      <span><span className="text-foreground font-medium tabular-nums">{cells}</span>/{models.length * names.length} components published</span>
+      <span><span className="text-foreground font-medium tabular-nums">{cells}</span>/{models.length * names.length} component scores published for the displayed variants</span>
     </p>
   );
 }
@@ -186,7 +186,7 @@ const componentGuide: Record<string, string> = {
   "AA-Briefcase": "Expert-built multi-week knowledge-work projects over thousands of source files.",
   "AutomationBench-AA": "SaaS workflows across simulated business apps via REST API tools (Zapier).",
   "GDP.pdf": "Reasoning over long real-world professional PDFs (Surge AI).",
-  "FrontierCode": "Changes to real open-source repos, scored on whether a maintainer would merge (Cognition).",
+  "FrontierCode": "AA runs Cognition’s 132 repository tasks three times with Stirrup and grades the changes with GPT-6 Luna (medium).",
   "Terminal-Bench-Science": "Scientific research workflows in a terminal, verified by tests.",
   "Terminal-Bench": "Agentic terminal tasks: SWE, sysadmin, data, training, security.",
   "CritPt": "Research-level physics problems, hard 40-problem subset.",

@@ -8,11 +8,11 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Timeline, TimelineConnector, TimelineContent, TimelineHeader, TimelineItem, TimelineMarker, TimelineRail, TimelineTime, TimelineTitle } from "@/components/ui/timeline";
-import { capacity, tieBand } from "../../domain/metrics.js";
+import { capacity, referenceDeployment } from "../../domain/metrics.js";
 import { splitRuntime } from "../../domain/catalog.js";
 import { configChips } from "../../domain/config-chips.js";
 import { CONTROLS, effectiveControls, type ControlKey, type ControlValue } from "../../domain/run-config.js";
-import type { Deployment } from "../../domain/types.js";
+import type { Deployment, SloPolicy } from "../../domain/types.js";
 import { SweepChart } from "../components/app/charts.js";
 import { ExpandableChartPanel as ChartPanel } from "../components/app/throughput-chart-panel.js";
 import { EnginePublished } from "../components/app/engine-published.js";
@@ -21,8 +21,8 @@ import { HeadToHead } from "../components/app/head-to-head.js";
 import { StatusBadge } from "../components/app/status-badge.js";
 import { EngineBuild } from "../components/app/engine-build.js";
 import { EngineIntelDisclosure } from "../components/app/engine-intel-disclosure.js";
-import { EngineMatchup } from "../components/app/engine-matchup.js";
-import { bestMeasured, bestPerEngine } from "../components/app/engine-data.js";
+import { EngineMatchup, verdictText } from "../components/app/engine-matchup.js";
+import { bestMeasured, bestPerEngine, engineVerdict, runDeployment } from "../components/app/engine-data.js";
 import { EngineVersions } from "../components/app/engine-versions.js";
 import { EngineWorkloadVerdicts } from "../components/app/engine-workload-verdicts.js";
 import { openRun } from "../components/app/overlays.js";
@@ -31,7 +31,7 @@ import { EmptyState, PageHeader, Panel, SeriesSwatch } from "../components/app/p
 import { appState, navigate, updateView, useAppState } from "../state.js";
 import { engineVersion, isMeasured, measuredHereLabel, recheckNote, runtimeTag, testedLabel, modelOf, num, shape, topology } from "../lib/display.js";
 import { cn } from "@/lib/utils";
-import { aaHeadline, atlasModel, effortLabel, shortSha } from "../lib/atlas.js";
+import { aaHeadline, atlasModel, effortLabel } from "../lib/atlas.js";
 
 /**
  * A matched engine pair: the vLLM and SGLang baseline configurations of the same export at the same
@@ -93,11 +93,21 @@ const engineIndex = (d: Deployment) => (d.runtime === "vLLM" ? 0 : 1);
 
 /**
  * Measured counterpart of a catalog configuration on the active dataset, read from its best run under the active SLO
- * (the rule the matchup and the TL;DR use), else the configuration itself.
+ * (the rule the matchup and the TL;DR use), else its unmeasured reference on that dataset.
  */
 function useMeasured() {
   const state = useAppState();
-  return (d: Deployment) => bestMeasured(state.snapshot, d.configurationId, state.workload, state.slo) ?? d;
+  return (d: Deployment) => bestMeasured(state.snapshot, d.configurationId, state.workload, state.slo)
+    ?? referenceDeployment(state.snapshot, d, state.workload);
+}
+
+function baselineComparison(a: Deployment, b: Deployment, slo: SloPolicy) {
+  const ca = capacity(a, slo), cb = capacity(b, slo);
+  const verdict = engineVerdict({
+    vLLM: { deployment: isMeasured(a) ? a : null, capacity: ca },
+    SGLang: { deployment: isMeasured(b) ? b : null, capacity: cb },
+  });
+  return { ca, cb, verdict };
 }
 
 /**
@@ -123,9 +133,10 @@ function MatchedPairs({ pairs, active }: { pairs: EnginePair[]; active: string }
           </TableHeader>
           <TableBody>
             {pairs.map((pair) => {
-              const va = capacity(pick(pair.vllm), state.slo).sustainableTpmPerGpu, vb = capacity(pick(pair.sglang), state.slo).sustainableTpmPerGpu;
+              const { ca, cb, verdict } = baselineComparison(pick(pair.vllm), pick(pair.sglang), state.slo);
+              const va = ca.sustainableTpmPerGpu, vb = cb.sustainableTpmPerGpu;
               const current = pair.key === active;
-              const verdict = tieBand(vb, va);
+              const comparable = verdict.kind === "lead" || verdict.kind === "tie" || verdict.kind === "zero-baseline";
               return (
                 <TableRow
                   key={pair.key}
@@ -140,7 +151,7 @@ function MatchedPairs({ pairs, active }: { pairs: EnginePair[]; active: string }
                   <TableCell className="text-muted-foreground whitespace-nowrap tabular-nums">{shape(pair.vllm)} · {topology(pair.vllm)}</TableCell>
                   <TableCell className="text-right tabular-nums">{num(va)}</TableCell>
                   <TableCell className="text-right tabular-nums">{num(vb)}</TableCell>
-                  <TableCell className="text-right tabular-nums">{va !== null && vb !== null && va > 0 ? <span className="inline-flex items-center gap-1.5">{verdict === "tie" ? <Badge variant="neutral">tie</Badge> : null}×{num(vb / va, 2)}</span> : "—"}</TableCell>
+                  <TableCell className="text-right tabular-nums">{comparable && va !== null && vb !== null && va > 0 ? <span className="inline-flex items-center gap-1.5">{verdict.kind === "tie" ? <Badge variant="neutral">tie</Badge> : null}×{num(vb / va, 2)}</span> : "—"}</TableCell>
                 </TableRow>
               );
             })}
@@ -192,7 +203,7 @@ function EngineSide({ deployment: d, review }: { deployment: Deployment; review?
 function Controls({ a, b }: { a: Deployment; b: Deployment }) {
   const controls: [string, string, string][] = [
     ["Export", a.exportHfId, b.exportHfId],
-    ["Revision", shortSha(a.artifactRevision), shortSha(b.artifactRevision)],
+    ["Configured revision", a.artifactRevision, b.artifactRevision],
     ["Hardware", topology(a), topology(b)],
     ["Shape", shape(a), shape(b)],
     ["Knob", a.knob ?? "Baseline", b.knob ?? "Baseline"],
@@ -200,8 +211,8 @@ function Controls({ a, b }: { a: Deployment; b: Deployment }) {
   const matched = controls.filter(([, x, y]) => x === y).length;
   return (
     <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4" data-testid="engine-controls">
-      <span className="text-[13px] whitespace-nowrap"><span className="font-medium tabular-nums">{matched}/{controls.length}</span> <span className="text-muted-foreground">controls matched</span></span>
-      <TickBar value={matched} max={controls.length} segments={controls.length} shape="pill" className="h-2 w-full sm:w-40" color={matched === controls.length ? "var(--chart-3)" : "var(--chart-2)"} aria-label="Matched controls" />
+      <span className="text-[13px] whitespace-nowrap"><span className="font-medium tabular-nums">{matched}/{controls.length}</span> <span className="text-muted-foreground">listed fields match</span></span>
+      <TickBar value={matched} max={controls.length} segments={controls.length} shape="pill" className="h-2 w-full sm:w-40" color={matched === controls.length ? "var(--chart-3)" : "var(--chart-2)"} aria-label="Matching listed fields" />
       <ul className="flex flex-wrap gap-1.5">
         {controls.map(([label, x, y]) => (
           <li key={label}>
@@ -384,12 +395,8 @@ function VersionChart({ pair }: { pair: EnginePair }) {
     const version = splitRuntime(run.identity.runtimeVersion).version ?? run.identity.runtimeVersion;
     // Each historical run keeps its own recorded identity (GPU divisor, replicas, tag); the configured build
     // (runtimeVersion) stays the catalog's, and the run's version appears in the knob and runtimeTag.
-    const { identity } = run;
     const deployment: Deployment = {
-      ...base, id: `${base.id}#${run.id}`, knob: [`v${version.replace(/^v/, "")}`, base.knob].filter(Boolean).join(" · "),
-      points: run.metrics, evidence: "measured", measuredAt: run.runDate, runId: run.id, workloadId: identity.dataset,
-      runtimeTag: identity.runtimeVersion, runConfig: identity.runtimeConfig, gpuType: identity.gpuType,
-      replicas: identity.maxSystemReplicas, runGpus: identity.numGpus, topologyMismatch: identity.numGpus !== base.gpus,
+      ...runDeployment(base, run), knob: [`v${version.replace(/^v/, "")}`, base.knob].filter(Boolean).join(" · "),
     };
     return deployment;
   });
@@ -461,18 +468,7 @@ export function EnginePage() {
   }
   if (!pair) return <EmptyState icon={Server} title="No matched engine pair" description="No export has both a vLLM and an SGLang baseline at the same shape." />;
   const a = pick(pair.vllm), b = pick(pair.sglang);
-  const ca = capacity(a, state.slo), cb = capacity(b, state.slo);
-  const measuredBoth = isMeasured(a) && isMeasured(b);
-  const va = ca.sustainableTpmPerGpu, vb = cb.sustainableTpmPerGpu;
-  const band = tieBand(va, vb);
-  const lead = (x: number, y: number) => num(((x - y) / y) * 100, 1);
-  const verdict = !measuredBoth ? "Not measured · builds and arguments"
-    : va === null && vb === null ? "Neither engine passes this SLO"
-    : va === null ? "Only SGLang passes this SLO"
-    : vb === null ? "Only vLLM passes this SLO"
-    : band === "tie" ? "Tie within ±3% (assumed single-run noise)"
-    : band === "a" ? `vLLM +${lead(va, vb)}% sustainable tok/min/GPU`
-    : `SGLang +${lead(vb, va)}% sustainable tok/min/GPU`;
+  const { ca, cb, verdict } = baselineComparison(a, b, state.slo);
   const model = modelOf(pair.vllm);
   const aa = model ? aaHeadline(model.id) : null;
   const reviews = model ? atlasModel(model.id)?.reviews.engines ?? [] : [];
@@ -507,7 +503,7 @@ export function EnginePage() {
           >
             <div className="flex flex-wrap items-center justify-between gap-2">
               <p className="text-muted-foreground inline-flex flex-wrap items-center gap-x-2 text-xs">
-                <span className="text-foreground font-medium" data-testid="engine-verdict">{verdict}</span><span aria-hidden="true">·</span><span>{state.workload}</span>
+                <span className="text-foreground font-medium" data-testid="engine-verdict">{verdictText(verdict)}</span><span aria-hidden="true">·</span><span>{state.workload}</span>
                 {aa ? <><span aria-hidden="true">·</span><span title="Artificial Analysis index, model level: identical for both engines">AA (model) {aa.index.toFixed(1)} {effortLabel(aa.variant)}</span></> : null}
               </p>
               <Button variant="outline" size="sm" onClick={() => { appState.compare = [a.id, b.id]; navigate("compare", { runs: `${a.id},${b.id}` }); }}><Columns2 aria-hidden="true" />Open in Compare</Button>

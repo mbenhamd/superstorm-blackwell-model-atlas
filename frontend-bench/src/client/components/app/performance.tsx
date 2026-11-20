@@ -9,7 +9,7 @@ import { configChips } from "../../../domain/config-chips.js";
 import { nominalTtftCeilingMs, SLO_PRESETS, tieBand } from "../../../domain/metrics.js";
 import type { Deployment, PointMetrics, RankedDeployment, SloPolicy, Workload } from "../../../domain/types.js";
 import { update } from "../../state.js";
-import { compactNum, gpusOf, hardwareShape, isMeasured, num, pct } from "../../lib/display.js";
+import { compactNum, hardwareShape, isMeasured, num, pct } from "../../lib/display.js";
 import { LevelsBadge } from "./primitives.js";
 import { budgetLabel, PROFILE_HINT, workloadProfile } from "./throughput-profile.js";
 
@@ -27,7 +27,7 @@ const TAGS: { match: (tag: string) => boolean; icon: LucideIcon; hint: string; t
   { match: (t) => t === "prefix-immune", icon: ShieldCheck, hint: "Every request has a different prefix: prefix caching cannot inflate throughput." },
   { match: (t) => t === "default run", icon: Play, hint: "Dataset the bench runs by default." },
   { match: (t) => t.startsWith("costly"), icon: Timer, hint: "Long run: adds wall-clock time per sweep." },
-  { match: (t) => t === "multi-turn", icon: MessagesSquare, hint: "Conversations carry history: prompts grow per turn and prefixes are shared, so the TTFT ceiling is derived per level from measured prompt tokens." },
+  { match: (t) => t === "multi-turn", icon: MessagesSquare, hint: "Conversations carry history: prompts grow per turn and prefixes are shared, so the TTFT ceiling is estimated per level from the reported token and request rates." },
   { match: (t) => t === "KV-saturation", icon: HardDrive, hint: "Fills the KV cache; point measurements only." },
   { match: (t) => t === "balanced profile", icon: Scale, hint: "8,000 input / 500 output tokens per request." },
   { match: (t) => t === "legacy", icon: TriangleAlert, hint: "V1 profile, not prefix-immune: compare with care.", tone: "warning" },
@@ -163,7 +163,7 @@ export function ProfileBadge({ workload, plain = false, className }: { workload:
 /** TTFT ceiling: at C_max, computed from the measured prompt tokens ÷ prefill speed; else the nominal budget one; else per level. */
 function ttftCeilingLabel(row: RankedDeployment, workload: Workload | null | undefined, slo: SloPolicy): string {
   const measured = row.capacity.selectedPoint?.ttftCeilingMs ?? null;
-  if (measured !== null) return `TTFT p95 ≤ ${num(measured)} ms (computed from measured prompt length)`;
+  if (measured !== null) return `TTFT p95 ≤ ${num(measured)} ms (estimated from token and request rates)`;
   const nominal = nominalTtftCeilingMs(workload, slo);
   return nominal === null ? "TTFT ceiling per level" : `TTFT p95 ≤ ${num(nominal)} ms nominal`;
 }
@@ -207,7 +207,7 @@ export function PerformanceStrip({ row, workload, slo, action, className }: Perf
   const measured = isMeasured(d);
   const has = measured && point !== null;
   const text = (value: number | null | undefined, digits = 0) => value === null || value === undefined || !has ? null : num(value, digits);
-  const gpus = `${gpusOf(d)} GPU${gpusOf(d) === 1 ? "" : "s"}`;
+  const gpus = c.participatingGpus === null ? "participating GPUs" : `${c.participatingGpus} GPU${c.participatingGpus === 1 ? "" : "s"}`;
   const budget = budgetLabel(workload, (value) => num(value));
   const metrics: KpiRowMetric[] = [
     {
@@ -218,7 +218,7 @@ export function PerformanceStrip({ row, workload, slo, action, className }: Perf
     },
     {
       label: "Sustainable throughput", value: text(c.sustainableTpmPerGpu), unit: "tok/min/GPU",
-      detail: has ? `Observed ${num(c.observedTotalTpsPerGpu)} tok/s/GPU at the C_max ring · ×${slo.margin} margin` : `Total tok/s at C_max × ${slo.margin} × 60 ÷ ${gpus}`,
+      detail: c.participatingGpus === null ? "Deployment GPU count unknown" : has ? `Observed ${num(c.observedTotalTpsPerGpu)} tok/s/GPU at the C_max ring · ×${slo.margin} margin` : `Total tok/s at C_max × ${slo.margin} × 60 ÷ ${gpus}`,
       attrs: { "data-kpi": "sustainable" },
     },
     {
@@ -226,19 +226,19 @@ export function PerformanceStrip({ row, workload, slo, action, className }: Perf
       // The imported report carries the per-user median only: the p95 is named as missing, never replaced by another metric.
       detail: has ? lines(
         <span data-missing-metric="per-user-p95" title="The imported GuideLLM report records the per-user output rate as a median only">per-user p95 —</span>,
-        point?.itlP50Ms != null ? <span title="ITL p50: median inter-token latency at C_max">median token every {num(point.itlP50Ms, 1)} ms</span> : null,
+        point?.itlP50Ms != null ? <span title="GuideLLM v0.8.1 weights each request-average ITL by its number of output-token gaps">Reported ITL p50 {num(point.itlP50Ms, 1)} ms</span> : null,
         point?.itlP95Ms != null ? `ITL p95 ${num(point.itlP95Ms, 1)} ms${point.itlP50Ms != null ? ` · p50 ${num(point.itlP50Ms, 1)} ms` : ""}` : null,
       ) : "Output tok/s per request at C_max",
       attrs: { "data-kpi": "per-user" },
     },
     {
       label: "Deployment-wide", value: text(c.deploymentWideTpm), unit: "tok/min",
-      detail: has ? lines(
+      detail: c.participatingGpus === null ? "The aggregate service scope is unrecorded." : has ? lines(
         `observed ${num(point!.totalTps)} tok/s · ${hardwareShape(d)}`,
         `${compactNum(c.deploymentInputTpm)} in / ${compactNum(c.deploymentOutputTpm)} out tok/min`,
         `${num(point!.requestsPerSecond, 2)} req/s at C_max`,
         <span data-missing-metric="request-rate-percentiles" title="The imported report records one request rate per level; p50 / p95 request rates are not recorded">req/s p50 / p95 —</span>,
-      ) : `Per replica × ${slo.margin} · ${hardwareShape(d)}`,
+      ) : `Service rate × ${slo.margin} · ${hardwareShape(d)}`,
       attrs: { "data-kpi": "deployment" },
     },
   ];

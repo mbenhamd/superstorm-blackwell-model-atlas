@@ -81,6 +81,23 @@ describe("variant grouping (TEST fixture)", () => {
 });
 
 describe("variant rows: measured variants plus planning rows", () => {
+  test("rankings and load curves use the effective GPU allocation of each run", () => {
+    const single = runs.find((item) => item.configurationId === FP8_VLLM && item.identity.dataset === DATASET)!;
+    const multi = { ...single, identity: { ...single.identity, maxSystemReplicas: 2 } };
+    for (const measuredDeploymentGpus of [undefined, 2]) {
+      const scopedRun = { ...multi, measuredDeploymentGpus };
+      const applied = applyRuns(createCatalogSnapshot(), [scopedRun]);
+      const variant = variantRows(applied, DATASET).find((item) => item.variant !== null)!;
+      const row = rank(applied, DATASET).find((item) => item.deployment.configurationId === FP8_VLLM)!;
+      expect(row.capacity).toEqual(variant.capacity);
+      expect(row.capacity.highestPassingConcurrency).not.toBeNull();
+      expect(row.capacity.participatingGpus).toBe(measuredDeploymentGpus ?? null);
+      const point = variant.capacity.selectedPoint!;
+      expect(point.totalTpsPerGpu).toBe(measuredDeploymentGpus ? point.totalTps / measuredDeploymentGpus : null);
+      const [entry] = setupStandings([variant]);
+      expect(entry!.standing.kind).toBe(measuredDeploymentGpus ? "best" : "unknown-allocation");
+    }
+  });
   const rows = variantRows(snapshot, DATASET, DEFAULT_SLO, { modelId: MODEL });
   test("8 measured variants, then the 7 catalog configurations without a run as planning rows", () => {
     expect(rows).toHaveLength(15);

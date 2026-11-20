@@ -73,12 +73,13 @@ export function FrontierChart({ points, frontierIds, frontierOnly, log, selected
  * tok/s/GPU, totalTpsPerGpu = total (input + output) tok/s/GPU; `perMinute` multiplies them by 60.
  */
 export type SweepMetric = "outputTps" | "totalTpsPerGpu" | "ttftP95Ms" | "ttftP50Ms" | "ttftCeilingMs" | "itlP95Ms" | "itlP50Ms" | "successRate" | "outputTpsPerUser";
-const gpusOf = (deployment: Deployment) => deployment.runGpus ?? deployment.gpus;
 const isThroughput = (key: SweepMetric) => key === "outputTps" || key === "totalTpsPerGpu";
-export function sweepValue(point: PointMetrics, key: SweepMetric, deployment: Deployment, perMinute = false): number | null {
+export function sweepValue(point: PointMetrics, key: SweepMetric, perMinute = false): number | null {
   const scale = perMinute ? 60 : 1;
-  if (key === "outputTps") return point.outputTps / gpusOf(deployment) * scale;
-  if (key === "totalTpsPerGpu") return point.totalTps / gpusOf(deployment) * scale;
+  if (key === "outputTps" || key === "totalTpsPerGpu") {
+    const rate = key === "outputTps" ? point.outputTpsPerGpu : point.totalTpsPerGpu;
+    return rate === null ? null : rate * scale;
+  }
   if (key === "successRate") return point.successRate === null ? null : point.successRate * 100;
   return point[key];
 }
@@ -107,7 +108,9 @@ export function SweepChart({ deployments, metric, yAxisTitle, unit, threshold, t
 }) {
   const styleOf = (deployment: Deployment, index: number): SweepSeriesStyle => seriesStyle?.(deployment, index) ?? { color: `var(--chart-${((index + colorOffset) % 4) + 1})` };
   const sweeps = deployments.map((deployment) => ({ deployment, c: capacity(deployment, appState.slo) }));
-  const levels = [...new Set(sweeps.flatMap(({ c }) => c.points.map((point) => point.concurrency)))].sort((a, b) => a - b);
+  const eligible = sweeps.filter(({ c }) => !isThroughput(metric) || c.participatingGpus !== null);
+  const levels = [...new Set(eligible.flatMap(({ c }) => c.points.map((point) => point.concurrency)))].sort((a, b) => a - b);
+  if (!levels.length && sweeps.some(({ c }) => c.totalLevels && c.participatingGpus === null)) emptyLabel = "Deployment GPU count unavailable";
   const limit = threshold ?? undefined;
   const height = expanded ? "h-[min(64vh,600px)]" : "h-[248px]";
   if (!levels.length) {
@@ -127,18 +130,19 @@ export function SweepChart({ deployments, metric, yAxisTitle, unit, threshold, t
   }
   const data = levels.map((concurrency) => {
     const row: Record<string, unknown> = { concurrency };
-    sweeps.forEach(({ deployment, c }, index) => {
+    sweeps.forEach(({ c }, index) => {
       const point = c.points.find((item) => item.concurrency === concurrency);
-      const value = point ? sweepValue(point, metric, deployment, perMinute) : null;
+      const value = point ? sweepValue(point, metric, perMinute) : null;
       if (point && value !== null) { row[`s${index}`] = value; row[`s${index}_pass`] = point.passes; }
-      const extra = point && secondary ? sweepValue(point, secondary.metric, deployment, perMinute) : null;
+      const extra = point && secondary ? sweepValue(point, secondary.metric, perMinute) : null;
       if (extra !== null) row[`s${index}_b`] = extra;
     });
     return row;
   });
   const single = sweeps.length === 1 ? sweeps[0]! : null;
-  const sustainableValue = sustainable && single && isThroughput(metric) && single.c.selectedPoint
-    ? (sweepValue(single.c.selectedPoint, metric, single.deployment, perMinute) ?? 0) * appState.slo.margin : null;
+  const selectedRate = sustainable && single && isThroughput(metric) && single.c.selectedPoint
+    ? sweepValue(single.c.selectedPoint, metric, perMinute) : null;
+  const sustainableValue = selectedRate === null ? null : selectedRate * appState.slo.margin;
   const values = data.flatMap((row) => sweeps.flatMap((_, index) => [Number(row[`s${index}`]), Number(row[`s${index}_b`])])).filter(Number.isFinite);
   const y = percent ? { min: 0, max: 100, ticks: [0, 25, 50, 75, 100] } : niceDomain(0, Math.max(...values, limit ?? 0) * 1.04, 4);
   const styles = sweeps.map(({ deployment }, index) => styleOf(deployment, index));
@@ -150,9 +154,9 @@ export function SweepChart({ deployments, metric, yAxisTitle, unit, threshold, t
     key: `s${index}_b`, label: `${configLabel(deployment)} · ${secondary.label}`, type: "line", curve: "linear", dashed: true,
     color: styles[index]!.color,
   }));
-  const markers = markCapacity ? sweeps.flatMap(({ deployment, c }, index) => {
+  const markers = markCapacity ? sweeps.flatMap(({ c }, index) => {
     const point = c.selectedPoint;
-    const value = point ? sweepValue(point, metric, deployment, perMinute) : null;
+    const value = point ? sweepValue(point, metric, perMinute) : null;
     return point && value !== null ? [{ x: point.concurrency, y: value, label: single ? `C_max ${point.concurrency}` : undefined, seriesKey: `s${index}` }] : [];
   }) : [];
   const referenceLines = [
@@ -240,12 +244,12 @@ export function InteractivityChart({ deployments, title, className, expanded = f
   const sweeps = deployments.map((deployment, index) => {
     const c = capacity(deployment, appState.slo);
     const data: InteractivityDatum[] = c.points
-      .filter((point) => point.outputTpsPerUser !== null && Number.isFinite(point.outputTpsPerUser))
-      .map((point) => ({ x: point.outputTpsPerUser!, y: point.outputTps / gpusOf(deployment), concurrency: point.concurrency, passes: point.passes, cmax: point === c.selectedPoint, ttft: point.ttftP95Ms, itl: point.itlP95Ms }));
+      .filter((point) => point.outputTpsPerGpu !== null && point.outputTpsPerUser !== null && Number.isFinite(point.outputTpsPerUser))
+      .map((point) => ({ x: point.outputTpsPerUser!, y: point.outputTpsPerGpu!, concurrency: point.concurrency, passes: point.passes, cmax: point === c.selectedPoint, ttft: point.ttftP95Ms, itl: point.itlP95Ms }));
     return { key: `s${index}`, deployment, data, color: `var(--chart-${((index + colorOffset) % 4) + 1})` };
   }).filter((sweep) => sweep.data.length);
   const xs = sweeps.flatMap((s) => s.data.map((d) => d.x)), ys = sweeps.flatMap((s) => s.data.map((d) => d.y));
-  if (!xs.length) return <p className="text-muted-foreground py-8 text-center text-xs">No level reports per-user speed.</p>;
+  if (!xs.length) return <p className="text-muted-foreground py-8 text-center text-xs">This chart needs a per-user output rate and a known deployment GPU count.</p>;
   const x = niceDomain(0, Math.max(...xs) * 1.04, 5), y = niceDomain(0, Math.max(...ys) * 1.04, 4);
   const config = Object.fromEntries(sweeps.map((s) => [s.key, { label: configLabel(s.deployment), color: s.color }]));
   const labels = new Map(sweeps.map((s) => [s.key, { label: configLabel(s.deployment), color: s.color }]));
@@ -295,11 +299,9 @@ export function InteractivityChart({ deployments, title, className, expanded = f
  * (parseMetricRow) rejects rows where totalTps and inputTps + outputTps differ by more than 1 %.
  */
 export function TokenMixChart({ deployment, cmax, className, expanded = false }: { deployment: Deployment; cmax: number | null; className?: string; expanded?: boolean }) {
-  const gpus = gpusOf(deployment);
-  const points = [...deployment.points].sort((a, b) => a.concurrency - b.concurrency);
-  // Pass/fail per level under the active SLO, so a level outside it is drawn as failed (outlined, faint), not as capacity.
-  const passByLevel = new Map(capacity(deployment, appState.slo).points.map((point) => [point.concurrency, point.passes]));
-  const data = points.map((point) => ({ level: String(point.concurrency), input: point.inputTps / gpus, output: point.outputTps / gpus, pass: passByLevel.get(point.concurrency) ?? false }));
+  const sweep = capacity(deployment, appState.slo);
+  if (sweep.participatingGpus === null) return <p className="text-muted-foreground py-8 text-center text-xs">Deployment GPU count unavailable</p>;
+  const data = sweep.points.map((point) => ({ level: String(point.concurrency), input: point.inputTpsPerGpu!, output: point.outputTpsPerGpu!, pass: point.passes }));
   const failing = data.filter((row) => !row.pass).length;
   const height = expanded ? "h-[min(62vh,560px)]" : "h-[260px]";
   const y = niceDomain(0, Math.max(1, ...data.map((row) => row.input + row.output)), 5);

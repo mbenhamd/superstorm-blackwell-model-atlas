@@ -82,10 +82,11 @@ function LoadLevelHeatmap({ rows }: { rows: RankedDeployment[] }) {
   const ordered = [...rows].sort((a, b) => (b.capacity.sustainableTpmPerGpu ?? -1) - (a.capacity.sustainableTpmPerGpu ?? -1));
   const levels = [...new Set(ordered.flatMap((row) => row.capacity.points.map((point) => point.concurrency)))].sort((a, b) => a - b);
   const cell = (row: RankedDeployment, level: number) => row.capacity.points.find((point) => point.concurrency === level);
-  const perGpu = (row: RankedDeployment, level: number) => { const p = cell(row, level); return p ? (p.totalTps * 60) / gpusOf(row.deployment) : null; };
+  const perGpu = (row: RankedDeployment, level: number) => { const rate = cell(row, level)?.totalTpsPerGpu; return rate == null ? null : rate * 60; };
   const describe = (r: number, c: number) => {
     const row = ordered[r]!, level = levels[c]!, p = cell(row, level);
     if (!p) return { head: "Not tested", detail: `${configLabel(row.deployment)} · ${level} concurrent` };
+    if (p.totalTpsPerGpu === null) return { head: "Deployment GPU count unavailable", detail: `${configLabel(row.deployment)} · ${level} concurrent` };
     const tpm = `${num(perGpu(row, level))} total tok/min/GPU`;
     return p.passes
       ? { head: `${tpm} · meets SLO`, detail: `${configLabel(row.deployment)} · ${level} concurrent · TTFT p95 ${num(p.ttftP95Ms)} ms` }
@@ -98,7 +99,11 @@ function LoadLevelHeatmap({ rows }: { rows: RankedDeployment[] }) {
       <div className="-mx-4 overflow-x-auto px-4" data-testid="load-heatmap">
         <HeatmapChart
           className="min-w-[560px]"
-          rows={ordered.map((row) => ({ label: configLabel(row.deployment), values: levels.map((level) => { const p = cell(row, level); return p?.passes ? perGpu(row, level) ?? 0 : 0; }) }))}
+          rows={ordered.map((row) => ({
+            label: configLabel(row.deployment),
+            values: levels.map((level) => cell(row, level)?.passes ? perGpu(row, level) ?? 0 : 0),
+            missing: levels.map((level) => cell(row, level)?.totalTpsPerGpu == null),
+          }))}
           columns={levels.map(String)}
           scale="sqrt"
           cellHeight={24}
@@ -208,6 +213,7 @@ const columnsAll: DataTableColumnDef<RankedDeployment>[] = [
     header: ({ column }) => <DataTableColumnHeader column={column} title="tok/min/GPU" align="right" />,
     cell: ({ row, table }) => {
       const value = sustainableOf(row.original);
+      if (isMeasured(row.original.deployment) && row.original.capacity.participatingGpus === null) return <div className={right}><Badge variant="neutral">GPU count unknown</Badge></div>;
       if (value === null) return isMeasured(row.original.deployment) && row.original.deployment.points.length
         ? <div className={right}><Badge variant="critical" className="h-[18px] px-1.5 text-[10.5px]" title="Measured, but no tested level meets the SLO" data-no-passing="">No passing level</Badge></div>
         : <div className={right} title="Not measured">{dash}</div>;
@@ -218,7 +224,7 @@ const columnsAll: DataTableColumnDef<RankedDeployment>[] = [
   {
     id: "load curve", size: 96, enableSorting: false,
     header: () => <span title="Total tok/s per GPU at each tested concurrency level, lowest to highest">Load curve</span>,
-    cell: ({ row }) => isMeasured(row.original.deployment) ? <LoadCurve points={totalPerGpuCurve(row.original.capacity, gpusOf(row.original.deployment))} unit="Total tok/s per GPU" cmax={row.original.capacity.highestPassingConcurrency} /> : dash,
+    cell: ({ row }) => isMeasured(row.original.deployment) ? <LoadCurve points={totalPerGpuCurve(row.original.capacity)} unit="Total tok/s per GPU" cmax={row.original.capacity.highestPassingConcurrency} /> : dash,
   },
   {
     id: "C_max", size: 68, accessorFn: (row) => row.capacity.highestPassingConcurrency ?? undefined, sortUndefined: "last",

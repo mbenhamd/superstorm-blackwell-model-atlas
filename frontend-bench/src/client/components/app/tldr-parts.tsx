@@ -68,6 +68,7 @@ export function Bar({ value, max, best, className }: { value: number | null; max
 export function StandingCell({ standing, leader, leaderName, compact = false, plain = false }: { standing: SetupStanding; leader: RankedDeployment | null; leaderName?: string; compact?: boolean; plain?: boolean }) {
   if (standing.kind === "best") return <Badge variant="outline" data-delta="best" title="Highest sustainable tok/min/GPU of these setups">Best</Badge>;
   if (standing.kind === "unmeasured") return <Badge variant="neutral" className="border-dashed" data-delta="unmeasured" data-testid="setup-not-measured">Not measured</Badge>;
+  if (standing.kind === "unknown-allocation") return <Badge variant="neutral" data-delta="unknown-allocation" title="The run does not identify the total GPUs behind its measured rates">GPU count unknown</Badge>;
   if (standing.kind === "no-passing") return <Badge variant="critical" data-delta="no-passing" title="Measured, but no tested load level meets the SLO: no sustainable value and no Δ">No passing level</Badge>;
   const tie = standing.kind === "tie";
   const cell = (

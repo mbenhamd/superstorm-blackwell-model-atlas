@@ -1,6 +1,6 @@
 {
  "atlas": {
-  "commit": "d03c703cec006f26d5d0b1a5d20c7102286e62bc",
+  "commit": "5a429c32dbcbbd6d5c60af4f520b0bd55df8aa98",
   "asOf": "2026-11-20",
   "importedFrom": "catalog/models.json, catalog/configurations.json, catalog/aa-intelligence-index.json, evidence/sources.json"
  },
@@ -206,12 +206,13 @@
       "engine": "vLLM",
       "release": "v0.34.0",
       "commit": "62d4bc3c7e33b1b6c906e233e6af2d3506c482ca",
-      "assessment": "The v0.34 recipe selects RedHatAI/Kimi-K3-NVFP4 for NVFP4 and RedHatAI/Kimi-K3-speculator.dspark for the default optional draft (eight proposals, probabilistic drafting, block rejection). The opt-in KIMI_K3_KV_BALANCED_MLA backend splits each request’s MLA history by length. Its gates include BF16 input, FP8 KV and SM10.x. The PR’s decode attention comparison used GB300, with end-to-end AgentX results on different parallel layouts.",
+      "assessment": "The v0.34 recipe selects RedHatAI/Kimi-K3-NVFP4 for NVFP4 and RedHatAI/Kimi-K3-speculator.dspark for the default optional draft (eight proposals, probabilistic drafting, block rejection). The opt-in KIMI_K3_KV_BALANCED_MLA backend splits each request’s MLA history by length. Its gates include BF16 input, FP8 KV and SM10.x. The PR’s decode attention comparison used GB300, with end-to-end AgentX results on different parallel layouts. Decode requires packed FP8 cache and uniform query lengths. Check the additional workspace and TTFT tails under mixed load.",
       "nvfp4Assessment": null,
       "sourceIds": [
        "V034-RELEASE",
        "V034-R-K3",
-       "V034-PR-63638"
+       "V034-PR-63638",
+       "V034-K3-KVB-DECODE"
       ]
      },
      {
@@ -287,7 +288,9 @@
     "N20-S-STABLE-K3",
     "N20-S-MAIN-K3",
     "N20-V-PR-50500",
-    "N20-V-IN-50500"
+    "N20-V-IN-50500",
+    "V034-K3-KVB-DECODE",
+    "kimi-k3.1-pro-K3-INDEX"
    ]
   },
   {
@@ -392,14 +395,17 @@
       "engine": "SGLang",
       "release": "v0.5.23",
       "commit": "297e54fd105e974cdf401e5b4d20253a22c16f90",
-      "assessment": "v0.5.23 predates K3.1. Remaining day-0 integration #48414 merged to main on November 17. The main override allows DSPARK or DFLASH with DCP and enforces static ragged verification for DSPARK, a matching DFLASH draft-attention backend and fused DSA top-k. The native cookbook’s B300 unified cells remain unverified upstream. NVIDIA names dev-cu13 for its mixed export.",
+      "assessment": "v0.5.23 predates K3.1. Remaining day-0 integration #48414 merged to main on November 17. The main override allows DSPARK or DFLASH with DCP and enforces static ragged verification for DSPARK, a matching DFLASH draft-attention backend and fused DSA top-k. The native cookbook’s B300 unified cells remain unverified upstream. NVIDIA names dev-cu13 for its mixed export. The separate native AgentX run on eight B300s used a development image, RadixArk preview, HiCache and fixed acceptance. The exact Hub revisions and installed KServe path were unreported.",
       "nvfp4Assessment": null,
       "sourceIds": [
        "S0523-RELEASE",
        "N20-S-COOK-K31",
        "N20-S-MAIN-K31-OV",
        "kimi-k3.1-pro-SPR48414",
-       "N20-S-K31-TEST"
+       "N20-S-K31-TEST",
+       "N20-S-K31-CAPACITY",
+       "N20-S-K31-AGENTX",
+       "N20-IX-K31-B300"
       ]
      }
     ]
@@ -489,7 +495,10 @@
     "N20-S-K31-TEST",
     "N20-K31-NV-VLLM-IMAGE",
     "N20-K31-NV-SGL-IMAGE",
-    "N20-NVIDIA-KIMI-K31-PRO-NVFP4-LICENSE"
+    "N20-NVIDIA-KIMI-K31-PRO-NVFP4-LICENSE",
+    "N20-S-K31-CAPACITY",
+    "N20-S-K31-AGENTX",
+    "N20-IX-K31-B300"
    ]
   },
   {
@@ -553,27 +562,32 @@
       "engine": "vLLM",
       "release": "v0.34.0",
       "commit": "62d4bc3c7e33b1b6c906e233e6af2d3506c482ca",
-      "assessment": "The v0.34 sparse-MLA prefill path can shard query tokens under TP for eligible large prefill batches (default threshold 1,024 tokens). DCP, PCP and HiSparse exclude this path. FP32 logits are restored on the dense MQA indexer path. Sparse indexer logits remain BF16. The recipe’s NVFP4 entry is Inferact, whose expert-only ModelOpt metadata differs from the RedHat compressed-tensors and NVIDIA mixed exports.",
+      "assessment": "The v0.34 sparse-MLA prefill path can shard query tokens under TP for eligible large prefill batches (default threshold 1,024 tokens). The default gate also needs a prefill sequence longer than the 2,048-token indexer top-k. DCP, PCP, HiSparse and FULL mixed graphs exclude this path. FP32 logits are restored on the dense MQA indexer path. Sparse indexer logits remain BF16. The recipe’s NVFP4 entry is Inferact, whose expert-only ModelOpt metadata differs from the RedHat compressed-tensors and NVIDIA mixed exports.",
       "nvfp4Assessment": null,
       "sourceIds": [
        "V034-RELEASE",
        "V034-R-GLM",
        "V034-GLM-PREFILL",
        "V034-ATTN",
-       "V034-GLM-RENDERER"
+       "V034-GLM-RENDERER",
+       "V034-GLM-SHARDQ",
+       "V034-GLM-INDEXER",
+       "V034-PR-64580"
       ]
      },
      {
       "engine": "SGLang",
       "release": "v0.5.23",
       "commit": "297e54fd105e974cdf401e5b4d20253a22c16f90",
-      "assessment": "The v0.5.23 cookbook selects RadixArk’s ModelOpt expert-only NVFP4. Its B300 TP8 low-latency cell couples five EAGLE steps/six draft tokens to a cap of 16 requests. The throughput cell couples attention DP8 to two steps/three draft tokens and a cap of 256. Keep TP8 DCP1 as the control. FlashInfer #6389 remains open for FP8 64-head sparse MLA, so keep FP8/DCP8 excluded on this stack.",
+      "assessment": "The v0.5.23 cookbook selects RadixArk’s ModelOpt expert-only NVFP4. Its B300 TP8 low-latency cell couples five EAGLE steps/six draft tokens to a cap of 16 requests. The throughput cell couples attention DP8 to two steps/three draft tokens and a cap of 256. Keep TP8 DCP1 as the control. FlashInfer #6389 remains open for FP8 64-head sparse MLA, so keep FP8/DCP8 excluded on this stack. The reported B300 corruption was reproduced on FlashInfer 0.7.0.post1 with FP8 queries and cache at 64 gathered heads. SGLang pins 0.7.2, which retains the same FMHA artifact and selector. The matched source warrants excluding this combination until a correctness check passes on the pinned build.",
       "nvfp4Assessment": null,
       "sourceIds": [
        "S0523-RELEASE",
        "N20-S-STABLE-GLM",
        "N20-S-MAIN-GLM",
-       "S0523-FLASHINFER-6389"
+       "S0523-FLASHINFER-6389",
+       "N20-FI072-FMHA-ARTIFACT",
+       "N20-FI072-SPARSE-SELECTOR"
       ]
      }
     ]
@@ -634,7 +648,10 @@
     "RR-GLM-NVIDIA-CARD",
     "RR-GLM-NVIDIA-CFG",
     "RR-GLM-NVIDIA-HFQUANT",
-    "RR-GLM-NVIDIA-INDEX"
+    "RR-GLM-NVIDIA-INDEX",
+    "V034-GLM-SHARDQ",
+    "V034-GLM-INDEXER",
+    "V034-PR-64580"
    ]
   },
   {
@@ -799,9 +816,9 @@
    "company": "deepseek",
    "hfId": "deepseek-ai/DeepSeek-V4-Flash-0731",
    "revision": "7872f01b1d1fe23eabc4c98b48bffcef5a386062",
-   "totalParamsB": null,
+   "totalParamsB": 304.178091454,
    "activeParamsB": null,
-   "parameterNote": "284B/13B is the vLLM recipe preview-family headline; the SGLang cookbook lists 304B/13B for 0731. Exact 0731 main+draft logical-parameter census is not performed, so total_b and active_b remain null; serialized tensor-element counts are not substituted.",
+   "parameterNote": "The pinned native checkpoint contains 284,332,240,471 target weights and 19,845,850,983 bundled DSpark weights across three stages. total_b includes both. Two logical FP4 expert weights occupy each packed I8 element. The count excludes 9,261,408,000 E8M0 scales and 2,327,040 I64 routing IDs. The Hub total of 304,180,418,494 includes those IDs. Active parameters per token remain unresolved.",
    "contextTokens": 1048576,
    "layout": "compressed-mhc-moe",
    "architecture": "MoE",
@@ -932,7 +949,7 @@
       "engine": "SGLang",
       "release": "v0.5.23",
       "commit": "297e54fd105e974cdf401e5b4d20253a22c16f90",
-      "assessment": "The cookbook maps flash-official plus NVFP4 to nvidia/DeepSeek-V4-Flash-0731-NVFP4 and selects a dev image for B300. The exporter retained the DSpark tensors but exercised target-only on B200. The RedHat export’s tensor index has no named DSpark or MTP tensors. Neither native TP4 nor an unsuffixed NVFP4 cell qualifies these derivatives.",
+      "assessment": "The tagged cookbook marks the native 0731 low-latency B300 TP4 cell with flashinfer_mxfp4 and DSpark verified by the publisher. Its balanced and high-throughput native TP4 cells are unverified. The NVIDIA 0731 NVFP4 TP4 development-image cell uses flashinfer_trtllm_routed and DSpark and is marked in progress. The verified preview NVFP4 cell uses a different target. Red Hat’s 0731 export has no named DSpark or MTP tensors in its index.",
       "nvfp4Assessment": null,
       "sourceIds": [
        "S0523-RELEASE",
@@ -984,7 +1001,12 @@
     "V034-PR-59986",
     "N20-S-MAIN-DS4",
     "deepseek-v4-flash-0731-NV-CFG",
-    "SP32-DS0731NV-INDEX"
+    "SP32-DS0731NV-INDEX",
+    "deepseek-v4-flash-0731-INDEX",
+    "deepseek-v4-flash-0731-HEADERS",
+    "deepseek-v4-flash-0731-META",
+    "deepseek-v4-flash-0731-NV-HEADERS",
+    "deepseek-v4-flash-0731-RH-HEADERS"
    ]
   },
   {
@@ -1169,7 +1191,7 @@
       "engine": "vLLM",
       "release": "v0.34.0",
       "commit": "62d4bc3c7e33b1b6c906e233e6af2d3506c482ca",
-      "assessment": "Native 1017 is a release-source candidate. The v0.34 sparse-prefill graph gate (#59986) keeps prefill and mixed batches outside FULL capture while preserving uniform decode graphs. The author ran CPU checks, leaving the B300 end-to-end reproducer open for requalification. Packed MXFP4 Engram support #61530 is on main and absent from v0.34, so NVIDIA 1017 remains a development-build probe. The B300 recipe figures use 0909 weights.",
+      "assessment": "Native 1017 is a release-source candidate. The v0.34 sparse-prefill graph gate (#59986) keeps prefill and mixed batches outside FULL capture while preserving uniform decode graphs. The author ran CPU checks, leaving the B300 end-to-end reproducer open for requalification. Packed MXFP4 Engram support #61530 is on main and absent from v0.34, so NVIDIA 1017 remains a development-build probe. The B300 recipe figures use 0909 weights. Use target-only or fixed-width DSpark at TP2/TP4 on v0.34.0. The separate rank-consensus fix #62769 broadcasts adaptive draft decisions across TP ranks on main. Its published end-to-end check used Qwen on MI355X.",
       "nvfp4Assessment": null,
       "sourceIds": [
        "V034-RELEASE",
@@ -1177,7 +1199,12 @@
        "V034-PR-59986",
        "V034-PR-61530",
        "V034-IN-61530",
-       "V034-MAIN-IN-61530"
+       "V034-MAIN-IN-61530",
+       "O26-DSPARK-CONSENSUS",
+       "V034-ADAPTIVE-TP",
+       "N20-V-MAIN-ADAPTIVE-TP",
+       "V034-COMPARE-ADAPTIVE-TP",
+       "N20-V-MAIN-COMPARE-ADAPTIVE-TP"
       ]
      },
      {
@@ -1280,7 +1307,12 @@
     "V034-MAIN-IN-61530",
     "N20-S-COOK-V41",
     "N20-MOE-HUB",
-    "N20-DEEPSEEK-AI-DEEPSEEK-V41-FLASH-1017-TEMPLATE"
+    "N20-DEEPSEEK-AI-DEEPSEEK-V41-FLASH-1017-TEMPLATE",
+    "deepseek-v4.1-flash-1017-NV-HEADERS",
+    "V034-ADAPTIVE-TP",
+    "N20-V-MAIN-ADAPTIVE-TP",
+    "V034-COMPARE-ADAPTIVE-TP",
+    "N20-V-MAIN-COMPARE-ADAPTIVE-TP"
    ]
   },
   {
@@ -1297,7 +1329,7 @@
    "architecture": "Dense",
    "headline": "Dense 27B language model; Gated DeltaNet + gated full attention; multimodal",
    "license": "Apache-2.0 on base; also review derivative terms",
-   "recommended": "KServe TP1 target-only with identical KV and protocol settings. Compare BF16, official FP8, NVIDIA PTQ/QAD, Red Hat and Inferact independently, then native MTP on the selected target.",
+   "recommended": "KServe TP1 target-only with identical KV and protocol settings. Compare BF16, official FP8, NVIDIA PTQ/QAD, Red Hat and Inferact independently, then native MTP on targets with a complete compatible draft. Keep QAD target-only until a compatible draft is identified.",
    "baselineTp": 1,
    "evidenceStatus": "Pinned cards and configuration and selected vLLM v0.34.0 / SGLang v0.5.23 sources checked November 20. Target-node build, runtime, quality and performance remain unqualified.",
    "configProjection": {
@@ -1354,12 +1386,20 @@
       "engine": "SGLang",
       "release": "v0.5.23",
       "commit": "297e54fd105e974cdf401e5b4d20253a22c16f90",
-      "assessment": "v0.5.23 documents the original NVIDIA export and separate RadixArk FP4-head and BF16-head variants. NVIDIA also gives a QAD command using v0.5.23-cu130. Start each target at TP1 with speculation off. The QAD export and Red Hat export carry FP8 KV metadata, so record the effective KV dtype and scales before a weight-format comparison.",
+      "assessment": "v0.5.23 documents the original NVIDIA export and separate RadixArk FP4-head and BF16-head variants. NVIDIA also gives a QAD command using v0.5.23-cu130. Start each target at TP1 with speculation off. The QAD export and Red Hat export carry FP8 KV metadata, so record the effective KV dtype and scales before a weight-format comparison. On the inspected CUDA loaders, auto selects BF16 KV for the original NVIDIA PTQ export and FP8 E4M3 for both QAD and Red Hat. Red Hat indexes 16 K and 16 V cache scales. QAD has no named K/V scale tensors. Match effective KV and check actual scaling before attributing differences to weights.",
       "nvfp4Assessment": null,
       "sourceIds": [
        "N20-S-STABLE-Q27",
        "N20-Q27-QAD-CFG",
-       "N20-Q27-RH-CFG"
+       "N20-Q27-RH-CFG",
+       "N20-S-KV-DTYPE",
+       "N20-S-KV-COMPRESSED",
+       "N20-S-Q35-WRAPPER",
+       "N20-S-QVL-WRAPPER",
+       "N20-S-KV-FIELD",
+       "N20-Q27-V-KVSCALE",
+       "N20-Q27-QAD-LAST-HDR",
+       "N20-Q27-S-KVSCALE"
       ]
      }
     ]
@@ -1401,7 +1441,11 @@
     "AA-MODEL-QWEN3-8-27B-MEDIUM",
     "AA-MODEL-QWEN3-8-27B-NON-REASONING",
     "AA-WB-MODEL-GEMINI-4-CARBON-20261101",
-    "AA-WB-MODEL-GEMINI-4-CARBON-20261103"
+    "AA-WB-MODEL-GEMINI-4-CARBON-20261103",
+    "N20-Q27-QAD-LAST-HDR",
+    "N20-Q27-V-MTP",
+    "N20-Q27-S-MTP",
+    "N20-Q27-V-KVSCALE"
    ]
   },
   {
@@ -1476,7 +1520,7 @@
       "engine": "vLLM",
       "release": "v0.34.0",
       "commit": "62d4bc3c7e33b1b6c906e233e6af2d3506c482ca",
-      "assessment": "v0.34 adds optional disk-backed PLE lookup and shared QSA top-k buffers. The reported 27 GiB saving is for DGX Spark. The tagged release recipe selects Inferact for NVFP4, despite describing its PLE as NVFP4. At the pinned Inferact revision the first n-gram tensor has BF16 storage. Plain TP8 is incompatible with the official block-FP8 expert geometry in the upstream recipe, which instead uses tensor plus expert parallelism.",
+      "assessment": "v0.34 adds optional disk-backed PLE lookup and shared QSA top-k buffers. The reported 27 GiB saving is for DGX Spark. The tagged release recipe selects Inferact for NVFP4, despite describing its PLE as NVFP4. At the pinned Inferact revision all 128 n-gram tables store BF16, totaling 102,400,491,520 bytes. Plain TP8 is incompatible with the official block-FP8 expert geometry in the upstream recipe, which instead uses tensor plus expert parallelism.",
       "nvfp4Assessment": null,
       "sourceIds": [
        "V034-R-QFN",
@@ -1488,12 +1532,16 @@
       "engine": "SGLang",
       "release": "v0.5.23",
       "commit": "297e54fd105e974cdf401e5b4d20253a22c16f90",
-      "assessment": "The regular NVIDIA B300 cookbook cell remains unverified. The AgentX page bundled in v0.5.23 records a RadixArk B300 TP1 run under v0.5.21-cu130. The November main AgentX page records NVIDIA B300 TP1 and TP4/EP4 runs on an October 28 nightly at 586355a8. Both sets disclose synthetic acceptance. Their acceptance lengths cannot establish native MTP performance on agent turns.",
+      "assessment": "The regular NVIDIA B300 cookbook cell remains unverified. The AgentX page bundled in v0.5.23 records a RadixArk B300 TP1 run under v0.5.21-cu130. The November main AgentX page records NVIDIA B300 TP1 and TP4/EP4 runs on an October 28 nightly at 586355a8. Both sets disclose synthetic acceptance. Their acceptance lengths cannot establish native MTP performance on agent turns. The c12 submission injected the acceptance length 2.32. Its worker fingerprint matches the AMD64 image source label, and its output-token rate was measured through the benchmark frontend. The separate GSM8K evaluations used different concurrency and cache settings.",
       "nvfp4Assessment": null,
       "sourceIds": [
        "N20-S-QNEXT-STABLE",
        "N20-QFN-S-AGENTX-STABLE",
-       "N20-S-AGENTX-CELLS"
+       "N20-S-AGENTX-CELLS",
+       "N20-IX-QFN-C12",
+       "N20-IX-QFN-EVAL",
+       "N20-IX-QFN-SUBMISSION",
+       "N20-S-OCI-AGENTX"
       ]
      }
     ]
@@ -1533,7 +1581,14 @@
     "O06-HEAD-TREE-DIFF",
     "AA-II-METHOD",
     "AA-MODEL-QWEN3-8-FLASH-NEXT",
-    "AA-WB-MODEL-GEMINI-4-CARBON-20261101"
+    "AA-WB-MODEL-GEMINI-4-CARBON-20261101",
+    "N20-QFN-RAD-GSM",
+    "N20-QFN-RAD-AIME",
+    "N20-QFN-RAD-NOTES",
+    "N20-QFN-RAD-PLE-HEADERS",
+    "N20-IX-QFN-SUBMISSION",
+    "N20-IX-QFN-C12",
+    "N20-IX-QFN-EVAL"
    ]
   },
   {
@@ -1608,10 +1663,14 @@
       "engine": "SGLang",
       "release": "v0.5.23",
       "commit": "297e54fd105e974cdf401e5b4d20253a22c16f90",
-      "assessment": "The v0.5.23 31B B300 generator emits TP1, Triton attention and a static-memory fraction of 0.9. It offers the Google standard or QAT checkpoint. Red Hat/NVIDIA NVFP4 and the Unsloth and turbo exports need their own compatibility and numerical checks. The optional NEXTN mode uses the separately named assistant, five steps and six draft tokens.",
+      "assessment": "The v0.5.23 31B B300 generator emits TP1, Triton attention and a static-memory fraction of 0.9. It offers the Google standard or QAT checkpoint. Red Hat/NVIDIA NVFP4 and the Unsloth and turbo exports need their own compatibility and numerical checks. The optional NEXTN mode uses the standard or QAT-specific assistant matched to its corresponding target, five steps and six draft tokens. The QAT recipe uses google/gemma-4-31B-it-qat-q4_0-unquantized and its corresponding -assistant, both stored in BF16. The packed W4A16 repository is separate.",
       "nvfp4Assessment": null,
       "sourceIds": [
-       "N20-G31-S-RECIPE"
+       "N20-G31-S-RECIPE",
+       "N20-G31-QAT-CARD",
+       "N20-G31-QAT-CFG",
+       "N20-G31-QAT-DRAFT-CFG",
+       "N20-G31-QAT-CT-CFG"
       ]
      }
     ]
@@ -1658,7 +1717,11 @@
     "AA-II-METHOD",
     "AA-MODEL-GEMMA-4-31B",
     "AA-MODEL-GEMMA-4-31B-NON-REASONING",
-    "AA-WB-MODEL-GEMINI-4-CARBON-20261101"
+    "AA-WB-MODEL-GEMINI-4-CARBON-20261101",
+    "N20-G31-QAT-CARD",
+    "N20-G31-QAT-CFG",
+    "N20-G31-QAT-DRAFT-CFG",
+    "N20-G31-QAT-CT-CFG"
    ]
   },
   {
@@ -1728,21 +1791,22 @@
       "engine": "vLLM",
       "release": "v0.34.0",
       "commit": "62d4bc3c7e33b1b6c906e233e6af2d3506c482ca",
-      "assessment": "v0.34 retains the Mistral3 class and mixed ModelOpt fallback for fused qkv_proj and gate_up_proj. The native FP8 recipe selects Mistral tokenizer/config/load formats. For NVIDIA mixed NVFP4 at b8c66d20, use the HF tokenizer, auto-resolved config and HF weights. Its only exporter validation in the dossier is v0.21.0 on B200. The stable Pixtral encoder graph change is relevant to image requests. Measure EAGLE separately with auto config selection for the target and Mistral-native draft.",
+      "assessment": "v0.34 retains the Mistral3 class and mixed ModelOpt fallback for fused qkv_proj and gate_up_proj. The native FP8 recipe selects Mistral tokenizer/config/load formats. For NVIDIA mixed NVFP4 at b8c66d20, use the HF tokenizer, auto-resolved config and HF weights. Its only exporter validation in the dossier is v0.21.0 on B200. The stable Pixtral encoder graph change is relevant to image requests. Measure EAGLE separately with auto config selection for the target and Mistral-native draft. The tagged recipe caps the EAGLE draft at 65,536 positions. Its separate publisher configuration allows 262,144.",
       "nvfp4Assessment": null,
       "sourceIds": [
        "V034-R-MED",
        "V034-REGISTRY",
        "V034-MED-MODELOPT",
        "mistral-medium-3.5-NV-NVFP4-CARD",
-       "V034-RELEASE"
+       "V034-RELEASE",
+       "mistral-medium-3.5-EAGLE-PARAMS"
       ]
      },
      {
       "engine": "SGLang",
       "release": "v0.5.23",
       "commit": "297e54fd105e974cdf401e5b4d20253a22c16f90",
-      "assessment": "The publisher FP8 recipe remains the comparison on v0.5.23. The NVIDIA mixed export remains blocked on that release because the class supplies no matching packed-module mapping for the fused QKV and gate/up names. Main merged processor-selection fix #45868 on November 16. That change addresses multimodal processor initialization and leaves the mixed-weight loader question separate.",
+      "assessment": "The publisher FP8 recipe remains the comparison on v0.5.23. The NVIDIA mixed export remains blocked on that release because the class supplies no matching packed-module mapping for the fused QKV and gate/up names. Main merged processor-selection fix #45868 on November 16. That change addresses multimodal processor initialization and leaves the mixed-weight loader question separate. For native FP8 on B300 the tagged cookbook selects TP2 with a separate EAGLE draft. Run target-only first and enable drafting as a separate comparison.",
       "nvfp4Assessment": null,
       "sourceIds": [
        "N20-MM-S-RECIPE",
@@ -1926,20 +1990,28 @@
        "V034-ML4-MODEL",
        "V034-ML4-DRAFT",
        "V034-R-ML4",
-       "N20-ML4-V-MAIN-RECIPE"
+       "N20-ML4-V-MAIN-RECIPE",
+       "V034-ML4-ATTENTION-CACHE",
+       "V034-ML4-INDEXER-CACHE",
+       "V034-FLASHMLA-CACHE-ROW",
+       "V034-SPARSE-FLASHMLA-LAYOUT",
+       "V034-ML4-BACKPORT"
       ]
      },
      {
       "engine": "SGLang",
       "release": "v0.5.23",
       "commit": "297e54fd105e974cdf401e5b4d20253a22c16f90",
-      "assessment": "SGLang v0.5.23 lacks the Large 4 model class. PR #47271 remains open at 74345a96. The separate development image retains digest sha256:6c9e19a08f30ef8472f3c2ae2d01de99b452cf1fed77f720cd3b6fec61625770. Its engine commit is unknown. The main cookbook contains B300 FP8 TP8 and marks the B300 NVFP4 TP8 cell unverified. The publisher-card NVFP4 TP4 example remains a development comparison.",
+      "assessment": "SGLang v0.5.23 lacks the Large 4 model class. PR #47271 remains open at 74345a96. The separate development image retains digest sha256:6c9e19a08f30ef8472f3c2ae2d01de99b452cf1fed77f720cd3b6fec61625770. The amd64 image labels base c10e0e17 and applies a 352-file patch. Its Mistral target differs from the current PR head. The main cookbook contains B300 FP8 TP8 and marks the B300 NVFP4 TP8 cell unverified. The publisher-card NVFP4 TP4 example remains a development comparison.",
       "nvfp4Assessment": null,
       "sourceIds": [
        "mistral-large-4-SGL-PR47271",
        "mistral-large-4-SGL-IMAGE",
        "N20-S-COOK-ML4",
-       "mistral-large-4-SGL-V0523-TREE"
+       "mistral-large-4-SGL-V0523-TREE",
+       "N20-S-OCI-ML4",
+       "N20-S-ML4-OVERLAY",
+       "N20-S-ML4-PR-MODEL"
       ]
      }
     ]
@@ -2000,7 +2072,12 @@
     "mistral-large-4-SGL-PR-OVERRIDES",
     "mistral-large-4-SGL-V0523-MODELOPT",
     "mistral-large-4-SGL-V0523-SM100",
-    "mistral-large-4-SGL-PR47271-COMPARE-EB80"
+    "mistral-large-4-SGL-PR47271-COMPARE-EB80",
+    "V034-ML4-ATTENTION-CACHE",
+    "V034-ML4-INDEXER-CACHE",
+    "V034-FLASHMLA-CACHE-ROW",
+    "V034-SPARSE-FLASHMLA-LAYOUT",
+    "V034-ML4-BACKPORT"
    ]
   },
   {
@@ -2258,7 +2335,7 @@
    "hfId": "moonshotai/Kimi-K3.1-Pro",
    "revision": "d9e99b0792a5e93b78ea9bea62a68167e36ddd9e",
    "precision": "MXFP4",
-   "precisionDetail": "MXFP4 routed-expert weights (group 32); BF16 attention, DSA indexer, router, latent projections, shared/dense MLP, head and vision; publisher MXFP8-activation QAT claim does not fix runtime activation dtype",
+   "precisionDetail": "MXFP4 routed experts (group 32), BF16 DSA indexer and selected attention, router, shared/dense, head and vision tensors. In both native snapshots, 506 FP32 tensors include router correction biases and KDA state, convolution and output-normalization parameters. Publisher MXFP8 activation QAT does not fix runtime activation dtype.",
    "label": "Native MXFP4",
    "publisher": null,
    "status": "verified immutable publisher card/config/index/header; no GPU test",
@@ -2509,7 +2586,7 @@
    "label": "Native FP4/FP8",
    "publisher": null,
    "status": "verified exact immutable 0731 config; no GPU test",
-   "weightBytes": null,
+   "weightBytes": 166886535336,
    "card": {
     "sourceId": "deepseek-v4-flash-0731-CARD",
     "path": "companies/deepseek/deepseek-v4-flash-0731/huggingface/README.md",
@@ -2528,7 +2605,7 @@
    "label": "NVFP4 · RedHatAI",
    "publisher": "RedHatAI",
    "status": "Source-reviewed, unmeasured on B300.",
-   "weightBytes": null,
+   "weightBytes": 164617890813,
    "card": {
     "sourceId": "N20-REDHATAI-DEEPSEEK-V4-FLASH-0731-NVFP4-HEAD-CARD",
     "path": "companies/deepseek/deepseek-v4-flash-0731/huggingface/nvfp4-redhat/README.md",
@@ -2547,7 +2624,7 @@
    "label": "NVFP4 · NVIDIA",
    "publisher": "nvidia",
    "status": "Exact exporter card and quantization config reviewed. Separate B300 compatibility probe.",
-   "weightBytes": null,
+   "weightBytes": 175550788904,
    "card": {
     "sourceId": "deepseek-v4-flash-0731-NV-CARD",
     "path": "companies/deepseek/deepseek-v4-flash-0731/huggingface/additional/nvidia--DeepSeek-V4-Flash-0731-NVFP4/README.md",
@@ -2585,7 +2662,7 @@
    "label": "NVFP4 · NVIDIA",
    "publisher": "nvidia",
    "status": "Packed MXFP4 Engram support is present on vLLM and SGLang main. It is absent from both vLLM v0.34.0 and SGLang v0.5.23. No B300 execution.",
-   "weightBytes": null,
+   "weightBytes": 428986460424,
    "card": {
     "sourceId": "deepseek-v4.1-flash-1017-NV-CARD",
     "path": "companies/deepseek/deepseek-v4.1-flash-1017/huggingface/additional/nvidia--DeepSeek-V4.1-Flash-1017-NVFP4/README.md",
@@ -2657,7 +2734,7 @@
    "hfId": "nvidia/Qwen3.8-27B-NVFP4-QAD",
    "revision": "cd46ab575a5a687f0bc3e54251016fc2cc1a6aef",
    "precision": "NVFP4",
-   "precisionDetail": "ModelOpt mixed precision after quantization-aware distillation. The 401 per-module assignments contain 307 NVFP4 and 94 FP8 entries. The lm_head uses NVFP4. Config includes an 8-bit static KV scheme.",
+   "precisionDetail": "ModelOpt mixed precision after quantization-aware distillation. The 401 per-module assignments contain 307 NVFP4 and 94 FP8 entries. The lm_head uses NVFP4. Config includes an 8-bit static KV scheme. The card names ModelOpt v0.48.0. Both configuration files record producer 0.46.0rc1. The exact software version used for export is unresolved. The complete 64-shard header census matches all 2,304 index keys, including 11 MTP tensors. The bundled draft lacks four tensors used by the inspected native loaders. The export declares FP8 KV but supplies no named K/V cache scale tensors.",
    "label": "NVFP4 QAD · NVIDIA",
    "publisher": "nvidia",
    "status": "Pinned metadata and model card inspected on November 20. Target-node loading, quality and performance unmeasured.",
@@ -2771,7 +2848,7 @@
    "hfId": "RedHatAI/Qwen3.8-Flash-Next-NVFP4",
    "revision": "96de4d48e43282a6430707f9eaf902bff2398507",
    "precision": "NVFP4",
-   "precisionDetail": "compressed-tensors NVFP4 W4A4 group 16 on routed expert gate/up/down. PLE table shard 0 is BF16. No serialized KV quantization scheme.",
+   "precisionDetail": "compressed-tensors NVFP4 W4A4 group 16 on routed expert gate/up/down. All 128 PLE tables are BF16 (102,400,491,520 bytes). No serialized KV quantization scheme.",
    "label": "NVFP4 · RedHatAI",
    "publisher": "RedHatAI",
    "status": "Pinned metadata and model card inspected on November 20. Target-node loading, quality and performance unmeasured.",
@@ -2790,7 +2867,7 @@
    "hfId": "Inferact/Qwen3.8-Flash-Next-NVFP4",
    "revision": "103a7608316173ca6edd49929544244de7ffda70",
    "precision": "NVFP4",
-   "precisionDetail": "ModelOpt NVFP4, group 16. A pinned PLE table shard stores BF16 values although the vLLM recipe describes NVFP4 PLE. Indexed MTP tensors have their own scales.",
+   "precisionDetail": "ModelOpt NVFP4, group 16. All 128 PLE tables store BF16 values (102,400,491,520 bytes) although the vLLM recipe describes NVFP4 PLE. Indexed MTP tensors have their own scales.",
    "label": "NVFP4 · Inferact",
    "publisher": "Inferact",
    "status": "Pinned metadata and model card inspected on November 20. Target-node loading, quality and performance unmeasured.",
@@ -2809,7 +2886,7 @@
    "hfId": "RadixArk/Qwen3.8-Flash-Next-NVFP4",
    "revision": "7b719225242aacd3dbd3f9407468c2ee9a9d2594",
    "precision": "NVFP4",
-   "precisionDetail": "ModelOpt NVFP4 group-16 W4A4 routed experts. PLE tables stored in FP8 E4M3, MTP excluded from quantization, no KV scale scheme in the config.",
+   "precisionDetail": "ModelOpt NVFP4 group-16 W4A4 routed experts. PLE tables stored in FP8 E4M3, MTP excluded from quantization, no KV scale scheme in the config. The 128 FP8 PLE weights total 51,200,245,760 bytes plus a separate BF16 scalar scale.",
    "label": "NVFP4 · RadixArk",
    "publisher": "RadixArk",
    "status": "Pinned metadata and model card inspected on November 20. Target-node loading, quality and performance unmeasured.",
@@ -4395,7 +4472,8 @@
     "engineCommit": "297e54fd105e974cdf401e5b4d20253a22c16f90",
     "argumentStatus": "Historical arguments retained; not full CLI or runtime validation.",
     "reconciliation": [
-     "This TP8 row is a derived layout. The four-GPU native control and NVIDIA’s TP8 NVFP4 target-only exporter command use different kernels. Pin the exact 0731 target and evaluate real output goodput, quality and latency."
+     "This TP8 row is a derived layout. The four-GPU native control and NVIDIA’s TP8 NVFP4 target-only exporter command use different kernels. Pin the exact 0731 target and evaluate real output goodput, quality and latency.",
+     "The tagged cookbook marks the native low-latency B300 TP4 DSpark cell verified upstream. Balanced and high-throughput TP4 cells remain unverified. This historical TP8 reference has no equivalent verification."
     ],
     "sourceIds": [
      "S0523-RELEASE",
@@ -4693,7 +4771,7 @@
     "engineCommit": "297e54fd105e974cdf401e5b4d20253a22c16f90",
     "argumentStatus": "Historical arguments retained; not full CLI or runtime validation.",
     "reconciliation": [
-     "v0.5.23 documents the original NVIDIA export and separate RadixArk FP4-head and BF16-head variants. NVIDIA also gives a QAD command using v0.5.23-cu130. Start each target at TP1 with speculation off. The QAD export and Red Hat export carry FP8 KV metadata, so record the effective KV dtype and scales before a weight-format comparison.",
+     "v0.5.23 documents the original NVIDIA export and separate RadixArk FP4-head and BF16-head variants. NVIDIA also gives a QAD command using v0.5.23-cu130. Start each target at TP1 with speculation off. The QAD export and Red Hat export carry FP8 KV metadata, so record the effective KV dtype and scales before a weight-format comparison. On the inspected CUDA loaders, auto selects BF16 KV for the original NVIDIA PTQ export and FP8 E4M3 for both QAD and Red Hat. Red Hat indexes 16 K and 16 V cache scales. QAD has no named K/V scale tensors. Match effective KV and check actual scaling before attributing differences to weights.",
      "The Hub head differs from the retained model revision. Pin the tokenizer, template and processor used for the workload and compare rendered inputs before attributing a change to the engine."
     ],
     "sourceIds": [
@@ -4707,7 +4785,15 @@
      "N20-TREE-QWEN-QWEN3-8-27B-HEAD",
      "N20-QWEN-QWEN3-8-27B-HEAD-CARD",
      "N20-QWEN-QWEN3-8-27B-HEAD-CHAT",
-     "N20-QWEN-QWEN3-8-27B-HEAD-TOKCFG"
+     "N20-QWEN-QWEN3-8-27B-HEAD-TOKCFG",
+     "N20-S-KV-DTYPE",
+     "N20-S-KV-COMPRESSED",
+     "N20-S-Q35-WRAPPER",
+     "N20-S-QVL-WRAPPER",
+     "N20-S-KV-FIELD",
+     "N20-Q27-V-KVSCALE",
+     "N20-Q27-QAD-LAST-HDR",
+     "N20-Q27-S-KVSCALE"
     ],
     "testedOnTarget": false
    },
@@ -4771,7 +4857,7 @@
     "engineCommit": "297e54fd105e974cdf401e5b4d20253a22c16f90",
     "argumentStatus": "Historical arguments retained; not full CLI or runtime validation.",
     "reconciliation": [
-     "v0.5.23 documents the original NVIDIA export and separate RadixArk FP4-head and BF16-head variants. NVIDIA also gives a QAD command using v0.5.23-cu130. Start each target at TP1 with speculation off. The QAD export and Red Hat export carry FP8 KV metadata, so record the effective KV dtype and scales before a weight-format comparison.",
+     "v0.5.23 documents the original NVIDIA export and separate RadixArk FP4-head and BF16-head variants. NVIDIA also gives a QAD command using v0.5.23-cu130. Start each target at TP1 with speculation off. The QAD export and Red Hat export carry FP8 KV metadata, so record the effective KV dtype and scales before a weight-format comparison. On the inspected CUDA loaders, auto selects BF16 KV for the original NVIDIA PTQ export and FP8 E4M3 for both QAD and Red Hat. Red Hat indexes 16 K and 16 V cache scales. QAD has no named K/V scale tensors. Match effective KV and check actual scaling before attributing differences to weights.",
      "The Hub head differs from the retained model revision. Pin the tokenizer, template and processor used for the workload and compare rendered inputs before attributing a change to the engine."
     ],
     "sourceIds": [
@@ -4784,7 +4870,15 @@
      "N20-TREE-QWEN-QWEN3-8-27B-FP8-PIN",
      "N20-TREE-QWEN-QWEN3-8-27B-FP8-HEAD",
      "N20-QWEN-QWEN3-8-27B-FP8-HEAD-CHAT",
-     "N20-QWEN-QWEN3-8-27B-FP8-HEAD-TOKCFG"
+     "N20-QWEN-QWEN3-8-27B-FP8-HEAD-TOKCFG",
+     "N20-S-KV-DTYPE",
+     "N20-S-KV-COMPRESSED",
+     "N20-S-Q35-WRAPPER",
+     "N20-S-QVL-WRAPPER",
+     "N20-S-KV-FIELD",
+     "N20-Q27-V-KVSCALE",
+     "N20-Q27-QAD-LAST-HDR",
+     "N20-Q27-S-KVSCALE"
     ],
     "testedOnTarget": false
    },
@@ -4848,7 +4942,7 @@
     "engineCommit": "297e54fd105e974cdf401e5b4d20253a22c16f90",
     "argumentStatus": "Historical arguments retained; not full CLI or runtime validation.",
     "reconciliation": [
-     "v0.5.23 documents the original NVIDIA export and separate RadixArk FP4-head and BF16-head variants. NVIDIA also gives a QAD command using v0.5.23-cu130. Start each target at TP1 with speculation off. The QAD export and Red Hat export carry FP8 KV metadata, so record the effective KV dtype and scales before a weight-format comparison."
+     "v0.5.23 documents the original NVIDIA export and separate RadixArk FP4-head and BF16-head variants. NVIDIA also gives a QAD command using v0.5.23-cu130. Start each target at TP1 with speculation off. The QAD export and Red Hat export carry FP8 KV metadata, so record the effective KV dtype and scales before a weight-format comparison. On the inspected CUDA loaders, auto selects BF16 KV for the original NVIDIA PTQ export and FP8 E4M3 for both QAD and Red Hat. Red Hat indexes 16 K and 16 V cache scales. QAD has no named K/V scale tensors. Match effective KV and check actual scaling before attributing differences to weights."
     ],
     "sourceIds": [
      "N20-S-STABLE-Q27",
@@ -4856,7 +4950,15 @@
      "N20-Q27-RH-CFG",
      "N20-HF-NVIDIA-QWEN3-8-27B-NVFP4",
      "qwen3.8-27b-NV",
-     "qwen3.8-27b-NV-CFG"
+     "qwen3.8-27b-NV-CFG",
+     "N20-S-KV-DTYPE",
+     "N20-S-KV-COMPRESSED",
+     "N20-S-Q35-WRAPPER",
+     "N20-S-QVL-WRAPPER",
+     "N20-S-KV-FIELD",
+     "N20-Q27-V-KVSCALE",
+     "N20-Q27-QAD-LAST-HDR",
+     "N20-Q27-S-KVSCALE"
     ],
     "testedOnTarget": false
    },
@@ -4928,7 +5030,7 @@
     "engineCommit": "297e54fd105e974cdf401e5b4d20253a22c16f90",
     "argumentStatus": "Historical arguments retained; not full CLI or runtime validation.",
     "reconciliation": [
-     "v0.5.23 documents the original NVIDIA export and separate RadixArk FP4-head and BF16-head variants. NVIDIA also gives a QAD command using v0.5.23-cu130. Start each target at TP1 with speculation off. The QAD export and Red Hat export carry FP8 KV metadata, so record the effective KV dtype and scales before a weight-format comparison."
+     "v0.5.23 documents the original NVIDIA export and separate RadixArk FP4-head and BF16-head variants. NVIDIA also gives a QAD command using v0.5.23-cu130. Start each target at TP1 with speculation off. The QAD export and Red Hat export carry FP8 KV metadata, so record the effective KV dtype and scales before a weight-format comparison. On the inspected CUDA loaders, auto selects BF16 KV for the original NVIDIA PTQ export and FP8 E4M3 for both QAD and Red Hat. Red Hat indexes 16 K and 16 V cache scales. QAD has no named K/V scale tensors. Match effective KV and check actual scaling before attributing differences to weights."
     ],
     "sourceIds": [
      "N20-S-STABLE-Q27",
@@ -4936,7 +5038,15 @@
      "N20-Q27-RH-CFG",
      "N20-HF-NVIDIA-QWEN3-8-27B-NVFP4",
      "qwen3.8-27b-NV",
-     "qwen3.8-27b-NV-CFG"
+     "qwen3.8-27b-NV-CFG",
+     "N20-S-KV-DTYPE",
+     "N20-S-KV-COMPRESSED",
+     "N20-S-Q35-WRAPPER",
+     "N20-S-QVL-WRAPPER",
+     "N20-S-KV-FIELD",
+     "N20-Q27-V-KVSCALE",
+     "N20-Q27-QAD-LAST-HDR",
+     "N20-Q27-S-KVSCALE"
     ],
     "testedOnTarget": false
    },
@@ -5211,13 +5321,17 @@
     "engineCommit": "297e54fd105e974cdf401e5b4d20253a22c16f90",
     "argumentStatus": "Historical arguments retained; not full CLI or runtime validation.",
     "reconciliation": [
-     "The v0.5.23 31B B300 generator emits TP1, Triton attention and a static-memory fraction of 0.9. It offers the Google standard or QAT checkpoint. Red Hat/NVIDIA NVFP4 and the Unsloth and turbo exports need their own compatibility and numerical checks. The optional NEXTN mode uses the separately named assistant, five steps and six draft tokens."
+     "The v0.5.23 31B B300 generator emits TP1, Triton attention and a static-memory fraction of 0.9. It offers the Google standard or QAT checkpoint. Red Hat/NVIDIA NVFP4 and the Unsloth and turbo exports need their own compatibility and numerical checks. The optional NEXTN mode uses the standard or QAT-specific assistant matched to its corresponding target, five steps and six draft tokens. The QAT recipe uses google/gemma-4-31B-it-qat-q4_0-unquantized and its corresponding -assistant, both stored in BF16. The packed W4A16 repository is separate."
     ],
     "sourceIds": [
      "N20-G31-S-RECIPE",
      "N20-HF-REDHATAI-GEMMA-4-31B-IT-NVFP4",
      "gemma-4-31b-it-NV",
-     "gemma-4-31b-it-NV-CFG"
+     "gemma-4-31b-it-NV-CFG",
+     "N20-G31-QAT-CARD",
+     "N20-G31-QAT-CFG",
+     "N20-G31-QAT-DRAFT-CFG",
+     "N20-G31-QAT-CT-CFG"
     ],
     "testedOnTarget": false
    },
@@ -5497,7 +5611,7 @@
     "engineCommit": "62d4bc3c7e33b1b6c906e233e6af2d3506c482ca",
     "argumentStatus": "Historical arguments retained; not full CLI or runtime validation.",
     "reconciliation": [
-     "v0.34 adds optional disk-backed PLE lookup and shared QSA top-k buffers. The reported 27 GiB saving is for DGX Spark. The tagged release recipe selects Inferact for NVFP4, despite describing its PLE as NVFP4. At the pinned Inferact revision the first n-gram tensor has BF16 storage. Plain TP8 is incompatible with the official block-FP8 expert geometry in the upstream recipe, which instead uses tensor plus expert parallelism."
+     "v0.34 adds optional disk-backed PLE lookup and shared QSA top-k buffers. The reported 27 GiB saving is for DGX Spark. The tagged release recipe selects Inferact for NVFP4, despite describing its PLE as NVFP4. At the pinned Inferact revision all 128 n-gram tables store BF16, totaling 102,400,491,520 bytes. Plain TP8 is incompatible with the official block-FP8 expert geometry in the upstream recipe, which instead uses tensor plus expert parallelism."
     ],
     "sourceIds": [
      "V034-R-QFN",
@@ -5573,7 +5687,7 @@
     "engineCommit": "62d4bc3c7e33b1b6c906e233e6af2d3506c482ca",
     "argumentStatus": "Historical arguments retained; not full CLI or runtime validation.",
     "reconciliation": [
-     "v0.34 adds optional disk-backed PLE lookup and shared QSA top-k buffers. The reported 27 GiB saving is for DGX Spark. The tagged release recipe selects Inferact for NVFP4, despite describing its PLE as NVFP4. At the pinned Inferact revision the first n-gram tensor has BF16 storage. Plain TP8 is incompatible with the official block-FP8 expert geometry in the upstream recipe, which instead uses tensor plus expert parallelism."
+     "v0.34 adds optional disk-backed PLE lookup and shared QSA top-k buffers. The reported 27 GiB saving is for DGX Spark. The tagged release recipe selects Inferact for NVFP4, despite describing its PLE as NVFP4. At the pinned Inferact revision all 128 n-gram tables store BF16, totaling 102,400,491,520 bytes. Plain TP8 is incompatible with the official block-FP8 expert geometry in the upstream recipe, which instead uses tensor plus expert parallelism."
     ],
     "sourceIds": [
      "V034-R-QFN",
@@ -5649,7 +5763,7 @@
     "engineCommit": "297e54fd105e974cdf401e5b4d20253a22c16f90",
     "argumentStatus": "Historical arguments retained; not full CLI or runtime validation.",
     "reconciliation": [
-     "The regular NVIDIA B300 cookbook cell remains unverified. The AgentX page bundled in v0.5.23 records a RadixArk B300 TP1 run under v0.5.21-cu130. The November main AgentX page records NVIDIA B300 TP1 and TP4/EP4 runs on an October 28 nightly at 586355a8. Both sets disclose synthetic acceptance. Their acceptance lengths cannot establish native MTP performance on agent turns."
+     "The regular NVIDIA B300 cookbook cell remains unverified. The AgentX page bundled in v0.5.23 records a RadixArk B300 TP1 run under v0.5.21-cu130. The November main AgentX page records NVIDIA B300 TP1 and TP4/EP4 runs on an October 28 nightly at 586355a8. Both sets disclose synthetic acceptance. Their acceptance lengths cannot establish native MTP performance on agent turns. The c12 submission injected the acceptance length 2.32. Its worker fingerprint matches the AMD64 image source label, and its output-token rate was measured through the benchmark frontend. The separate GSM8K evaluations used different concurrency and cache settings."
     ],
     "sourceIds": [
      "N20-S-QNEXT-STABLE",
@@ -5657,7 +5771,11 @@
      "N20-S-AGENTX-CELLS",
      "N20-HF-NVIDIA-QWEN3-8-FLASH-NEXT-NVFP4",
      "qwen3.8-flash-next-NV",
-     "qwen3.8-flash-next-NV-CFG"
+     "qwen3.8-flash-next-NV-CFG",
+     "N20-IX-QFN-C12",
+     "N20-IX-QFN-EVAL",
+     "N20-IX-QFN-SUBMISSION",
+     "N20-S-OCI-AGENTX"
     ],
     "testedOnTarget": false
    },
@@ -6337,7 +6455,8 @@
     "engineCommit": "62d4bc3c7e33b1b6c906e233e6af2d3506c482ca",
     "argumentStatus": "Historical arguments retained; not full CLI or runtime validation.",
     "reconciliation": [
-     "Keep the exact 1bae0e10 pin and stage a separate 08c8657f tokenizer/template probe. v0.34 includes #59986, but the PR did not run the B300 stress test. Start target-only, budget CPU Engram per replica, then retest adaptive verification and mixed-batch graphs. #61530 for NVIDIA 1017 is main-only."
+     "Keep the exact 1bae0e10 pin and stage a separate 08c8657f tokenizer/template probe. v0.34 includes #59986, but the PR did not run the B300 stress test. Start target-only, budget CPU Engram per replica, then retest adaptive verification and mixed-batch graphs. #61530 for NVIDIA 1017 is main-only.",
+     "Use target-only or fixed-width DSpark at TP2/TP4 on v0.34.0. The separate rank-consensus fix #62769 broadcasts adaptive draft decisions across TP ranks on main. Its published end-to-end check used Qwen on MI355X."
     ],
     "sourceIds": [
      "V034-RELEASE",
@@ -6346,7 +6465,12 @@
      "V034-PR-61530",
      "V034-IN-61530",
      "V034-MAIN-IN-61530",
-     "N20-MOE-HUB"
+     "N20-MOE-HUB",
+     "O26-DSPARK-CONSENSUS",
+     "V034-ADAPTIVE-TP",
+     "N20-V-MAIN-ADAPTIVE-TP",
+     "V034-COMPARE-ADAPTIVE-TP",
+     "N20-V-MAIN-COMPARE-ADAPTIVE-TP"
     ],
     "testedOnTarget": false
    },
@@ -6710,7 +6834,7 @@
     "engineCommit": "297e54fd105e974cdf401e5b4d20253a22c16f90",
     "argumentStatus": "Historical arguments retained; not full CLI or runtime validation.",
     "reconciliation": [
-     "SGLang v0.5.23 lacks the Large 4 model class. PR #47271 remains open at 74345a96. The separate development image retains digest sha256:6c9e19a08f30ef8472f3c2ae2d01de99b452cf1fed77f720cd3b6fec61625770. Its engine commit is unknown. The main cookbook contains B300 FP8 TP8 and marks the B300 NVFP4 TP8 cell unverified. The publisher-card NVFP4 TP4 example remains a development comparison."
+     "SGLang v0.5.23 lacks the Large 4 model class. PR #47271 remains open at 74345a96. The separate development image retains digest sha256:6c9e19a08f30ef8472f3c2ae2d01de99b452cf1fed77f720cd3b6fec61625770. The linux/amd64 image labels base c10e0e17 and applies a separate 352-file patch. The resulting target file differs from PR #47271 head 74345a96. The main cookbook contains B300 FP8 TP8 and marks the B300 NVFP4 TP8 cell unverified. The publisher-card NVFP4 TP4 example remains a development comparison."
     ],
     "sourceIds": [
      "mistral-large-4-SGL-PR47271",
@@ -6719,7 +6843,10 @@
      "mistral-large-4-SGL-V0523-TREE",
      "mistral-large-4-API",
      "mistral-large-4-CARD",
-     "mistral-large-4-CFG"
+     "mistral-large-4-CFG",
+     "N20-S-OCI-ML4",
+     "N20-S-ML4-OVERLAY",
+     "N20-S-ML4-PR-MODEL"
     ],
     "testedOnTarget": false
    },
@@ -7275,7 +7402,7 @@
     "engineCommit": "297e54fd105e974cdf401e5b4d20253a22c16f90",
     "argumentStatus": "Historical arguments retained; not full CLI or runtime validation.",
     "reconciliation": [
-     "SGLang v0.5.23 lacks the Large 4 model class. PR #47271 remains open at 74345a96. The separate development image retains digest sha256:6c9e19a08f30ef8472f3c2ae2d01de99b452cf1fed77f720cd3b6fec61625770. Its engine commit is unknown. The main cookbook contains B300 FP8 TP8 and marks the B300 NVFP4 TP8 cell unverified. The publisher-card NVFP4 TP4 example remains a development comparison."
+     "SGLang v0.5.23 lacks the Large 4 model class. PR #47271 remains open at 74345a96. The separate development image retains digest sha256:6c9e19a08f30ef8472f3c2ae2d01de99b452cf1fed77f720cd3b6fec61625770. The linux/amd64 image labels base c10e0e17 and applies a separate 352-file patch. The resulting target file differs from PR #47271 head 74345a96. The main cookbook contains B300 FP8 TP8 and marks the B300 NVFP4 TP8 cell unverified. The publisher-card NVFP4 TP4 example remains a development comparison."
     ],
     "sourceIds": [
      "mistral-large-4-SGL-PR47271",
@@ -7284,7 +7411,10 @@
      "mistral-large-4-SGL-V0523-TREE",
      "mistral-large-4-NVFP4-API",
      "mistral-large-4-NVFP4-CARD",
-     "mistral-large-4-NVFP4-PARAMS"
+     "mistral-large-4-NVFP4-PARAMS",
+     "N20-S-OCI-ML4",
+     "N20-S-ML4-OVERLAY",
+     "N20-S-ML4-PR-MODEL"
     ],
     "testedOnTarget": false
    },
@@ -7354,7 +7484,7 @@
     "engineCommit": "297e54fd105e974cdf401e5b4d20253a22c16f90",
     "argumentStatus": "Historical arguments retained; not full CLI or runtime validation.",
     "reconciliation": [
-     "SGLang v0.5.23 lacks the Large 4 model class. PR #47271 remains open at 74345a96. The separate development image retains digest sha256:6c9e19a08f30ef8472f3c2ae2d01de99b452cf1fed77f720cd3b6fec61625770. Its engine commit is unknown. The main cookbook contains B300 FP8 TP8 and marks the B300 NVFP4 TP8 cell unverified. The publisher-card NVFP4 TP4 example remains a development comparison."
+     "SGLang v0.5.23 lacks the Large 4 model class. PR #47271 remains open at 74345a96. The separate development image retains digest sha256:6c9e19a08f30ef8472f3c2ae2d01de99b452cf1fed77f720cd3b6fec61625770. The linux/amd64 image labels base c10e0e17 and applies a separate 352-file patch. The resulting target file differs from PR #47271 head 74345a96. The main cookbook contains B300 FP8 TP8 and marks the B300 NVFP4 TP8 cell unverified. The publisher-card NVFP4 TP4 example remains a development comparison."
     ],
     "sourceIds": [
      "mistral-large-4-SGL-PR47271",
@@ -7363,7 +7493,10 @@
      "mistral-large-4-SGL-V0523-TREE",
      "mistral-large-4-NVFP4-API",
      "mistral-large-4-NVFP4-CARD",
-     "mistral-large-4-NVFP4-PARAMS"
+     "mistral-large-4-NVFP4-PARAMS",
+     "N20-S-OCI-ML4",
+     "N20-S-ML4-OVERLAY",
+     "N20-S-ML4-PR-MODEL"
     ],
     "testedOnTarget": false
    },
@@ -7442,7 +7575,8 @@
     "engineCommit": "62d4bc3c7e33b1b6c906e233e6af2d3506c482ca",
     "argumentStatus": "November 20 release-source recipe transcription. CLI, installed KServe template and runtime untested.",
     "reconciliation": [
-     "Record the model mount, Mistral tokenizer, loading path, effective KV dtype and image digest. Compare target-only quality at TP8 before enabling the bundled DSpark head at depth three."
+     "Record the model mount, Mistral tokenizer, loading path, effective KV dtype and image digest. Compare target-only quality at TP8 before enabling the bundled DSpark head at depth three.",
+     "The upstream KServe v0.21.0 vLLM template reparses $@ with shell eval. Preserve the speculative JSON as one argument and inspect the rendered argv. Its startup probe allows about 600 s while the recipe reports 1,300–1,800 s cold starts. Size the installed startup probe using measured model-mount and load times."
     ],
     "sourceIds": [
      "V034-RELEASE",
@@ -7451,7 +7585,10 @@
      "V034-ML4-DRAFT",
      "V034-R-ML4",
      "V034-IMAGE",
-     "mistral-large-4-CARD"
+     "mistral-large-4-CARD",
+     "KEXP-TEMPLATE21",
+     "N20-V-OCI-STABLE",
+     "N20-V-COMMON"
     ],
     "testedOnTarget": false
    },
@@ -7522,7 +7659,8 @@
     "engineCommit": "62d4bc3c7e33b1b6c906e233e6af2d3506c482ca",
     "argumentStatus": "November 20 release-source recipe transcription. CLI, installed KServe template and runtime untested.",
     "reconciliation": [
-     "Record the model mount, Mistral tokenizer, loading path, effective KV dtype and image digest. Compare target-only quality at TP8 before enabling the bundled DSpark head at depth three."
+     "Record the model mount, Mistral tokenizer, loading path, effective KV dtype and image digest. Compare target-only quality at TP8 before enabling the bundled DSpark head at depth three.",
+     "The upstream KServe v0.21.0 vLLM template reparses $@ with shell eval. Preserve the speculative JSON as one argument and inspect the rendered argv. Its startup probe allows about 600 s while the recipe reports 1,300–1,800 s cold starts. Size the installed startup probe using measured model-mount and load times."
     ],
     "sourceIds": [
      "V034-RELEASE",
@@ -7531,7 +7669,10 @@
      "V034-ML4-DRAFT",
      "V034-R-ML4",
      "V034-IMAGE",
-     "mistral-large-4-NVFP4-CARD"
+     "mistral-large-4-NVFP4-CARD",
+     "KEXP-TEMPLATE21",
+     "N20-V-OCI-STABLE",
+     "N20-V-COMMON"
     ],
     "testedOnTarget": false
    },
@@ -7694,7 +7835,8 @@
     "engineCommit": "297e54fd105e974cdf401e5b4d20253a22c16f90",
     "argumentStatus": "Dated development-image recipe. The v0.5.23 general cookbook marks both NVIDIA B300 cells unverified. Exact arguments apply only to the cited development-image recipe.",
     "reconciliation": [
-     "Confirm the KServe runtime passes the image digest, environment, worker HTTP port and arguments, and reserve pinned host RAM for PLE. Re-evaluate the interval for conversations that resend model output."
+     "Confirm the KServe runtime passes the image digest, environment, worker HTTP port and arguments, and reserve pinned host RAM for PLE. Re-evaluate the interval for conversations that resend model output.",
+     "The inspected development KServe SGLang template supplies /mnt/models and port 8000. Render one target model path and align the worker port, Service target and all three HTTP probes with the installed template."
     ],
     "sourceIds": [
      "N20-S-AGENTX-CELLS",
@@ -7704,7 +7846,13 @@
      "N20-S-AGENTX-RUN",
      "N20-S-IX-OCI",
      "N20-S-QNEXT-STABLE",
-     "qwen3.8-flash-next-NV-CFG"
+     "qwen3.8-flash-next-NV-CFG",
+     "KS20-MASTER-SGLANG",
+     "N20-S-OCI-AGENTX",
+     "N20-S-AGENTX-BUILD",
+     "N20-IX-QFN-SUBMISSION",
+     "N20-IX-QFN-C12",
+     "N20-IX-QFN-EVAL"
     ],
     "testedOnTarget": false
    },
@@ -7717,7 +7865,12 @@
     "N20-S-AGENTX-RUN",
     "N20-S-IX-OCI",
     "N20-S-QNEXT-STABLE",
-    "qwen3.8-flash-next-NV-CFG"
+    "qwen3.8-flash-next-NV-CFG",
+    "N20-S-OCI-AGENTX",
+    "N20-S-AGENTX-BUILD",
+    "N20-IX-QFN-SUBMISSION",
+    "N20-IX-QFN-C12",
+    "N20-IX-QFN-EVAL"
    ]
   },
   {
@@ -7762,14 +7915,30 @@
     "argumentStatus": "Publisher flags and named adaptations recorded from source. No installed CLI or runtime validation.",
     "reconciliation": [
      "Record actual weight loader, resolved KV dtype/scales and recurrent-state pool. Reject on load failure, numerical errors or degraded matched-prompt quality.",
-     "Use the same base template and sampling for PTQ/QAD comparisons. The KServe target port must match 30000. Size admission using measured HBM and context, as the configured cap only limits the request."
+     "Use the same base template and sampling for PTQ/QAD comparisons. If retaining the publisher’s 30000 listener, configure the KServe target port and probes accordingly. Size admission using measured HBM and context, as the configured cap only limits the request.",
+     "The inspected development KServe SGLang template supplies /mnt/models and port 8000. Render one target model path and align the worker port, Service target and all three HTTP probes with the installed template.",
+     "Keep the QAD probe target-only. Its named draft tensors omit the FC projection, final norm and both pre-FC norms used by the native vLLM and SGLang MTP models. With no named K/V cache scales, verify the selected dtype and loaded or calibrated scales against a matched reference.",
+     "SGLang v0.5.23 auto resolves to FP8 E4M3 KV for QAD and BF16 KV for the original NVIDIA PTQ checkpoint under the inspected CUDA loaders. Specify a common supported KV dtype for a weight comparison and measure each exporter default separately."
     ],
     "sourceIds": [
      "N20-Q27-QAD-API",
      "N20-Q27-QAD-CARD",
      "N20-Q27-QAD-CFG",
      "S0523-RELEASE",
-     "N20-Q27-QAD-QCFG"
+     "N20-Q27-QAD-QCFG",
+     "KS20-MASTER-SGLANG",
+     "N20-S-QAD-TAG",
+     "N20-S-OCI-STABLE",
+     "N20-K-MASTER-RUNTIME",
+     "N20-Q27-QAD-LAST-HDR",
+     "N20-Q27-V-MTP",
+     "N20-Q27-S-MTP",
+     "N20-Q27-V-KVSCALE",
+     "N20-S-KV-DTYPE",
+     "N20-S-KV-COMPRESSED",
+     "N20-S-Q35-WRAPPER",
+     "N20-S-QVL-WRAPPER",
+     "N20-S-KV-FIELD"
     ],
     "testedOnTarget": false
    },
@@ -7880,9 +8049,9 @@
    },
    {
     "category": "Coding",
-    "evaluation": "FrontierCode 2.0",
+    "evaluation": "FrontierCode-AA 2.0",
     "weight": 0.15,
-    "scoring": "Tests plus LLM-judge rubric; any blocking check scores zero"
+    "scoring": "AA runs Cognition's 132 tasks three times with Stirrup and a GPT-6 Luna (medium) judge. A failed blocking check or a flagged solution lookup scores zero."
    },
    {
     "category": "Coding",
@@ -7962,7 +8131,7 @@
        "AA-Briefcase v1.1": 985.14,
        "AutomationBench-AA": 0.4926,
        "GDP.pdf": 0.186,
-       "FrontierCode 2.0": 0.109,
+       "FrontierCode-AA 2.0": 0.109,
        "Terminal-Bench 4.0": 0.1263,
        "Terminal-Bench-Science 0.1": 0.0095,
        "CritPt v2 (Hard Subset)": 0.055,
@@ -7985,7 +8154,7 @@
       "index": null,
       "status": "not_published_incomplete_components",
       "missing": [
-       "FrontierCode 2.0",
+       "FrontierCode-AA 2.0",
        "AA-Omniscience v1.1 accuracy",
        "AA-Omniscience v1.1 non-hallucination"
       ],
@@ -7993,7 +8162,7 @@
        "AA-Briefcase v1.1": 1497.06,
        "AutomationBench-AA": 0.5827,
        "GDP.pdf": 0.22,
-       "FrontierCode 2.0": null,
+       "FrontierCode-AA 2.0": null,
        "Terminal-Bench 4.0": 0.1263,
        "Terminal-Bench-Science 0.1": 0.081,
        "CritPt v2 (Hard Subset)": 0.405,
@@ -8037,7 +8206,7 @@
        "AA-Briefcase v1.1": 1673.56,
        "AutomationBench-AA": 0.733,
        "GDP.pdf": 0.314,
-       "FrontierCode 2.0": 0.2545,
+       "FrontierCode-AA 2.0": 0.2545,
        "Terminal-Bench 4.0": 0.6717,
        "Terminal-Bench-Science 0.1": 0.3429,
        "CritPt v2 (Hard Subset)": 0.495,
@@ -8081,7 +8250,7 @@
        "AA-Briefcase v1.1": 1500.91,
        "AutomationBench-AA": 0.622,
        "GDP.pdf": 0.112,
-       "FrontierCode 2.0": 0.2159,
+       "FrontierCode-AA 2.0": 0.2159,
        "Terminal-Bench 4.0": 0.4192,
        "Terminal-Bench-Science 0.1": 0.0952,
        "CritPt v2 (Hard Subset)": 0.335,
@@ -8108,7 +8277,7 @@
        "AA-Briefcase v1.1": 1185.3,
        "AutomationBench-AA": 0.5198,
        "GDP.pdf": 0.088,
-       "FrontierCode 2.0": 0.1274,
+       "FrontierCode-AA 2.0": 0.1274,
        "Terminal-Bench 4.0": 0.3485,
        "Terminal-Bench-Science 0.1": 0.0381,
        "CritPt v2 (Hard Subset)": 0.215,
@@ -8152,7 +8321,7 @@
        "AA-Briefcase v1.1": 1449.78,
        "AutomationBench-AA": 0.6037,
        "GDP.pdf": 0.154,
-       "FrontierCode 2.0": 0.1761,
+       "FrontierCode-AA 2.0": 0.1761,
        "Terminal-Bench 4.0": 0.3283,
        "Terminal-Bench-Science 0.1": 0.0476,
        "CritPt v2 (Hard Subset)": 0.245,
@@ -8189,7 +8358,7 @@
       "index": null,
       "status": "not_published_incomplete_components",
       "missing": [
-       "FrontierCode 2.0",
+       "FrontierCode-AA 2.0",
        "Terminal-Bench-Science 0.1",
        "CritPt v2 (Hard Subset)",
        "AA-Omniscience v1.1 accuracy",
@@ -8200,7 +8369,7 @@
        "AA-Briefcase v1.1": 1254.85,
        "AutomationBench-AA": 0.5397,
        "GDP.pdf": 0.11,
-       "FrontierCode 2.0": null,
+       "FrontierCode-AA 2.0": null,
        "Terminal-Bench 4.0": 0.1212,
        "Terminal-Bench-Science 0.1": null,
        "CritPt v2 (Hard Subset)": null,
@@ -8244,7 +8413,7 @@
        "AA-Briefcase v1.1": 1570.42,
        "AutomationBench-AA": 0.6664,
        "GDP.pdf": 0.172,
-       "FrontierCode 2.0": 0.2847,
+       "FrontierCode-AA 2.0": 0.2847,
        "Terminal-Bench 4.0": 0.3384,
        "Terminal-Bench-Science 0.1": 0.1286,
        "CritPt v2 (Hard Subset)": 0.25,
@@ -8271,7 +8440,7 @@
        "AA-Briefcase v1.1": 1415.98,
        "AutomationBench-AA": 0.6849,
        "GDP.pdf": 0.142,
-       "FrontierCode 2.0": 0.1684,
+       "FrontierCode-AA 2.0": 0.1684,
        "Terminal-Bench 4.0": 0.2879,
        "Terminal-Bench-Science 0.1": 0.1048,
        "CritPt v2 (Hard Subset)": 0.275,
@@ -8298,7 +8467,7 @@
        "AA-Briefcase v1.1": 1425.93,
        "AutomationBench-AA": 0.4878,
        "GDP.pdf": 0.044,
-       "FrontierCode 2.0": 0.061,
+       "FrontierCode-AA 2.0": 0.061,
        "Terminal-Bench 4.0": 0.0909,
        "Terminal-Bench-Science 0.1": 0.0238,
        "CritPt v2 (Hard Subset)": 0.01,
@@ -8342,7 +8511,7 @@
        "AA-Briefcase v1.1": 1391.36,
        "AutomationBench-AA": 0.4824,
        "GDP.pdf": 0.164,
-       "FrontierCode 2.0": 0.1491,
+       "FrontierCode-AA 2.0": 0.1491,
        "Terminal-Bench 4.0": 0.0556,
        "Terminal-Bench-Science 0.1": 0.0048,
        "CritPt v2 (Hard Subset)": 0.04,
@@ -8369,7 +8538,7 @@
        "AA-Briefcase v1.1": 1370.65,
        "AutomationBench-AA": 0.4025,
        "GDP.pdf": 0.128,
-       "FrontierCode 2.0": 0.115,
+       "FrontierCode-AA 2.0": 0.115,
        "Terminal-Bench 4.0": 0.0505,
        "Terminal-Bench-Science 0.1": 0.0095,
        "CritPt v2 (Hard Subset)": 0.165,
@@ -8396,7 +8565,7 @@
        "AA-Briefcase v1.1": 1268.29,
        "AutomationBench-AA": 0.301,
        "GDP.pdf": 0.104,
-       "FrontierCode 2.0": 0.1237,
+       "FrontierCode-AA 2.0": 0.1237,
        "Terminal-Bench 4.0": 0.0253,
        "Terminal-Bench-Science 0.1": 0.0048,
        "CritPt v2 (Hard Subset)": 0.055,
@@ -8423,7 +8592,7 @@
        "AA-Briefcase v1.1": 900.22,
        "AutomationBench-AA": 0.1243,
        "GDP.pdf": 0.052,
-       "FrontierCode 2.0": 0.0372,
+       "FrontierCode-AA 2.0": 0.0372,
        "Terminal-Bench 4.0": 0,
        "Terminal-Bench-Science 0.1": 0,
        "CritPt v2 (Hard Subset)": 0.02,
@@ -8467,7 +8636,7 @@
        "AA-Briefcase v1.1": 1571.51,
        "AutomationBench-AA": 0.5591,
        "GDP.pdf": 0.156,
-       "FrontierCode 2.0": 0.2714,
+       "FrontierCode-AA 2.0": 0.2714,
        "Terminal-Bench 4.0": 0.2525,
        "Terminal-Bench-Science 0.1": 0.0714,
        "CritPt v2 (Hard Subset)": 0.245,
@@ -8511,7 +8680,7 @@
        "AA-Briefcase v1.1": 369.09,
        "AutomationBench-AA": 0.0493,
        "GDP.pdf": 0.06,
-       "FrontierCode 2.0": 0,
+       "FrontierCode-AA 2.0": 0,
        "Terminal-Bench 4.0": 0,
        "Terminal-Bench-Science 0.1": 0,
        "CritPt v2 (Hard Subset)": 0.04,
@@ -8537,7 +8706,7 @@
        "AA-Briefcase v1.1",
        "AutomationBench-AA",
        "GDP.pdf",
-       "FrontierCode 2.0",
+       "FrontierCode-AA 2.0",
        "Terminal-Bench 4.0",
        "Terminal-Bench-Science 0.1",
        "CritPt v2 (Hard Subset)",
@@ -8549,7 +8718,7 @@
        "AA-Briefcase v1.1": null,
        "AutomationBench-AA": null,
        "GDP.pdf": null,
-       "FrontierCode 2.0": null,
+       "FrontierCode-AA 2.0": null,
        "Terminal-Bench 4.0": null,
        "Terminal-Bench-Science 0.1": null,
        "CritPt v2 (Hard Subset)": null,
@@ -8593,7 +8762,7 @@
        "AA-Briefcase v1.1": 523.34,
        "AutomationBench-AA": 0.063,
        "GDP.pdf": 0.028,
-       "FrontierCode 2.0": 0.0177,
+       "FrontierCode-AA 2.0": 0.0177,
        "Terminal-Bench 4.0": 0,
        "Terminal-Bench-Science 0.1": 0,
        "CritPt v2 (Hard Subset)": 0.005,
@@ -8637,7 +8806,7 @@
        "AA-Briefcase v1.1": 1347.47,
        "AutomationBench-AA": 0.5783,
        "GDP.pdf": 0.176,
-       "FrontierCode 2.0": 0.1496,
+       "FrontierCode-AA 2.0": 0.1496,
        "Terminal-Bench 4.0": 0.2475,
        "Terminal-Bench-Science 0.1": 0.0429,
        "CritPt v2 (Hard Subset)": 0.27,
@@ -8664,7 +8833,7 @@
        "AA-Briefcase v1.1": 1187.35,
        "AutomationBench-AA": 0.528,
        "GDP.pdf": 0.168,
-       "FrontierCode 2.0": 0.1332,
+       "FrontierCode-AA 2.0": 0.1332,
        "Terminal-Bench 4.0": 0.2323,
        "Terminal-Bench-Science 0.1": 0.0333,
        "CritPt v2 (Hard Subset)": 0.225,
@@ -8708,7 +8877,7 @@
        "AA-Briefcase v1.1": 478.09,
        "AutomationBench-AA": 0.0683,
        "GDP.pdf": 0.1,
-       "FrontierCode 2.0": 0.0147,
+       "FrontierCode-AA 2.0": 0.0147,
        "Terminal-Bench 4.0": 0.0051,
        "Terminal-Bench-Science 0.1": 0,
        "CritPt v2 (Hard Subset)": 0.07,
@@ -8752,7 +8921,7 @@
        "AA-Briefcase v1.1": 1799.88,
        "AutomationBench-AA": 0.6954,
        "GDP.pdf": 0.262,
-       "FrontierCode 2.0": 0.4644,
+       "FrontierCode-AA 2.0": 0.4644,
        "Terminal-Bench 4.0": 0.596,
        "Terminal-Bench-Science 0.1": 0.5905,
        "CritPt v2 (Hard Subset)": 0.68,
@@ -8779,7 +8948,7 @@
        "AA-Briefcase v1.1": 1760.31,
        "AutomationBench-AA": 0.6495,
        "GDP.pdf": 0.266,
-       "FrontierCode 2.0": 0.4375,
+       "FrontierCode-AA 2.0": 0.4375,
        "Terminal-Bench 4.0": 0.596,
        "Terminal-Bench-Science 0.1": 0.619,
        "CritPt v2 (Hard Subset)": 0.675,
@@ -8806,7 +8975,7 @@
        "AA-Briefcase v1.1": 1682.17,
        "AutomationBench-AA": 0.6321,
        "GDP.pdf": 0.288,
-       "FrontierCode 2.0": 0.3593,
+       "FrontierCode-AA 2.0": 0.3593,
        "Terminal-Bench 4.0": 0.5657,
        "Terminal-Bench-Science 0.1": 0.4905,
        "CritPt v2 (Hard Subset)": 0.595,
@@ -8833,7 +9002,7 @@
        "AA-Briefcase v1.1": 1616.65,
        "AutomationBench-AA": 0.6122,
        "GDP.pdf": 0.256,
-       "FrontierCode 2.0": 0.3308,
+       "FrontierCode-AA 2.0": 0.3308,
        "Terminal-Bench 4.0": 0.5253,
        "Terminal-Bench-Science 0.1": 0.4333,
        "CritPt v2 (Hard Subset)": 0.54,
@@ -8860,7 +9029,7 @@
        "AA-Briefcase v1.1": 1277.75,
        "AutomationBench-AA": 0.5293,
        "GDP.pdf": 0.256,
-       "FrontierCode 2.0": 0.1584,
+       "FrontierCode-AA 2.0": 0.1584,
        "Terminal-Bench 4.0": 0.3131,
        "Terminal-Bench-Science 0.1": 0.2429,
        "CritPt v2 (Hard Subset)": 0.36,
@@ -8904,7 +9073,7 @@
        "AA-Briefcase v1.1": 1649.04,
        "AutomationBench-AA": 0.5777,
        "GDP.pdf": 0.262,
-       "FrontierCode 2.0": 0.3573,
+       "FrontierCode-AA 2.0": 0.3573,
        "Terminal-Bench 4.0": 0.5505,
        "Terminal-Bench-Science 0.1": 0.4048,
        "CritPt v2 (Hard Subset)": 0.6,
@@ -8931,7 +9100,7 @@
        "AA-Briefcase v1.1": 1670.55,
        "AutomationBench-AA": 0.5938,
        "GDP.pdf": 0.262,
-       "FrontierCode 2.0": 0.3162,
+       "FrontierCode-AA 2.0": 0.3162,
        "Terminal-Bench 4.0": 0.5202,
        "Terminal-Bench-Science 0.1": 0.4333,
        "CritPt v2 (Hard Subset)": 0.525,
@@ -8958,7 +9127,7 @@
        "AA-Briefcase v1.1": 1576.7,
        "AutomationBench-AA": 0.5532,
        "GDP.pdf": 0.268,
-       "FrontierCode 2.0": 0.303,
+       "FrontierCode-AA 2.0": 0.303,
        "Terminal-Bench 4.0": 0.5202,
        "Terminal-Bench-Science 0.1": 0.3952,
        "CritPt v2 (Hard Subset)": 0.62,
@@ -8985,7 +9154,7 @@
        "AA-Briefcase v1.1": 1523.52,
        "AutomationBench-AA": 0.5466,
        "GDP.pdf": 0.268,
-       "FrontierCode 2.0": 0.2877,
+       "FrontierCode-AA 2.0": 0.2877,
        "Terminal-Bench 4.0": 0.4495,
        "Terminal-Bench-Science 0.1": 0.2905,
        "CritPt v2 (Hard Subset)": 0.585,
@@ -9012,7 +9181,7 @@
        "AA-Briefcase v1.1": 1476.91,
        "AutomationBench-AA": 0.5224,
        "GDP.pdf": 0.28,
-       "FrontierCode 2.0": 0.2284,
+       "FrontierCode-AA 2.0": 0.2284,
        "Terminal-Bench 4.0": 0.404,
        "Terminal-Bench-Science 0.1": 0.2143,
        "CritPt v2 (Hard Subset)": 0.495,
@@ -9056,7 +9225,7 @@
        "AA-Briefcase v1.1": 1815.14,
        "AutomationBench-AA": 0.7177,
        "GDP.pdf": 0.258,
-       "FrontierCode 2.0": 0.417,
+       "FrontierCode-AA 2.0": 0.417,
        "Terminal-Bench 4.0": 0.6364,
        "Terminal-Bench-Science 0.1": 0.5333,
        "CritPt v2 (Hard Subset)": 0.59,
@@ -9083,7 +9252,7 @@
        "AA-Briefcase v1.1": 1739.19,
        "AutomationBench-AA": 0.6552,
        "GDP.pdf": 0.246,
-       "FrontierCode 2.0": 0.3565,
+       "FrontierCode-AA 2.0": 0.3565,
        "Terminal-Bench 4.0": 0.5707,
        "Terminal-Bench-Science 0.1": 0.5238,
        "CritPt v2 (Hard Subset)": 0.575,
@@ -9110,7 +9279,7 @@
        "AA-Briefcase v1.1": 1633.7,
        "AutomationBench-AA": 0.5943,
        "GDP.pdf": 0.252,
-       "FrontierCode 2.0": 0.2574,
+       "FrontierCode-AA 2.0": 0.2574,
        "Terminal-Bench 4.0": 0.4394,
        "Terminal-Bench-Science 0.1": 0.3429,
        "CritPt v2 (Hard Subset)": 0.515,
@@ -9137,7 +9306,7 @@
        "AA-Briefcase v1.1": 1437.63,
        "AutomationBench-AA": 0.5491,
        "GDP.pdf": 0.202,
-       "FrontierCode 2.0": 0.1097,
+       "FrontierCode-AA 2.0": 0.1097,
        "Terminal-Bench 4.0": 0.298,
        "Terminal-Bench-Science 0.1": 0.1619,
        "CritPt v2 (Hard Subset)": 0.335,
@@ -9164,7 +9333,7 @@
        "AA-Briefcase v1.1": 1267.83,
        "AutomationBench-AA": 0.4942,
        "GDP.pdf": 0.16,
-       "FrontierCode 2.0": 0.0713,
+       "FrontierCode-AA 2.0": 0.0713,
        "Terminal-Bench 4.0": 0.2071,
        "Terminal-Bench-Science 0.1": 0.1048,
        "CritPt v2 (Hard Subset)": 0.26,
@@ -9208,7 +9377,7 @@
        "AA-Briefcase v1.1": 1568.82,
        "AutomationBench-AA": 0.6849,
        "GDP.pdf": 0.31,
-       "FrontierCode 2.0": 0.4237,
+       "FrontierCode-AA 2.0": 0.4237,
        "Terminal-Bench 4.0": 0.5909,
        "Terminal-Bench-Science 0.1": 0.6333,
        "CritPt v2 (Hard Subset)": 0.705,
@@ -9235,7 +9404,7 @@
        "AA-Briefcase v1.1": 1543.65,
        "AutomationBench-AA": 0.6718,
        "GDP.pdf": 0.322,
-       "FrontierCode 2.0": 0.414,
+       "FrontierCode-AA 2.0": 0.414,
        "Terminal-Bench 4.0": 0.596,
        "Terminal-Bench-Science 0.1": 0.5476,
        "CritPt v2 (Hard Subset)": 0.71,
@@ -9262,7 +9431,7 @@
        "AA-Briefcase v1.1": 1502.98,
        "AutomationBench-AA": 0.6661,
        "GDP.pdf": 0.31,
-       "FrontierCode 2.0": 0.4014,
+       "FrontierCode-AA 2.0": 0.4014,
        "Terminal-Bench 4.0": 0.5404,
        "Terminal-Bench-Science 0.1": 0.5952,
        "CritPt v2 (Hard Subset)": 0.715,
@@ -9289,7 +9458,7 @@
        "AA-Briefcase v1.1": 1462.33,
        "AutomationBench-AA": 0.6459,
        "GDP.pdf": 0.304,
-       "FrontierCode 2.0": 0.3658,
+       "FrontierCode-AA 2.0": 0.3658,
        "Terminal-Bench 4.0": 0.4949,
        "Terminal-Bench-Science 0.1": 0.5333,
        "CritPt v2 (Hard Subset)": 0.72,
@@ -9316,7 +9485,7 @@
        "AA-Briefcase v1.1": 1256.43,
        "AutomationBench-AA": 0.591,
        "GDP.pdf": 0.304,
-       "FrontierCode 2.0": 0.2622,
+       "FrontierCode-AA 2.0": 0.2622,
        "Terminal-Bench 4.0": 0.4192,
        "Terminal-Bench-Science 0.1": 0.3714,
        "CritPt v2 (Hard Subset)": 0.63,
@@ -9360,7 +9529,7 @@
        "AA-Briefcase v1.1": 1556.87,
        "AutomationBench-AA": 0.6487,
        "GDP.pdf": 0.31,
-       "FrontierCode 2.0": 0.4063,
+       "FrontierCode-AA 2.0": 0.4063,
        "Terminal-Bench 4.0": 0.5606,
        "Terminal-Bench-Science 0.1": 0.581,
        "CritPt v2 (Hard Subset)": 0.695,
@@ -9387,7 +9556,7 @@
        "AA-Briefcase v1.1": 1504.23,
        "AutomationBench-AA": 0.6657,
        "GDP.pdf": 0.318,
-       "FrontierCode 2.0": 0.3852,
+       "FrontierCode-AA 2.0": 0.3852,
        "Terminal-Bench 4.0": 0.5404,
        "Terminal-Bench-Science 0.1": 0.5048,
        "CritPt v2 (Hard Subset)": 0.695,
@@ -9414,7 +9583,7 @@
        "AA-Briefcase v1.1": 1468.58,
        "AutomationBench-AA": 0.645,
        "GDP.pdf": 0.32,
-       "FrontierCode 2.0": 0.3674,
+       "FrontierCode-AA 2.0": 0.3674,
        "Terminal-Bench 4.0": 0.5152,
        "Terminal-Bench-Science 0.1": 0.4619,
        "CritPt v2 (Hard Subset)": 0.685,
@@ -9441,7 +9610,7 @@
        "AA-Briefcase v1.1": 1360.59,
        "AutomationBench-AA": 0.6257,
        "GDP.pdf": 0.3,
-       "FrontierCode 2.0": 0.3339,
+       "FrontierCode-AA 2.0": 0.3339,
        "Terminal-Bench 4.0": 0.4798,
        "Terminal-Bench-Science 0.1": 0.3714,
        "CritPt v2 (Hard Subset)": 0.67,
@@ -9468,7 +9637,7 @@
        "AA-Briefcase v1.1": 1114.73,
        "AutomationBench-AA": 0.5257,
        "GDP.pdf": 0.27,
-       "FrontierCode 2.0": 0.2016,
+       "FrontierCode-AA 2.0": 0.2016,
        "Terminal-Bench 4.0": 0.3081,
        "Terminal-Bench-Science 0.1": 0.1095,
        "CritPt v2 (Hard Subset)": 0.625,
@@ -9512,7 +9681,7 @@
        "AA-Briefcase v1.1": 1610.63,
        "AutomationBench-AA": 0.7782,
        "GDP.pdf": 0.284,
-       "FrontierCode 2.0": 0.4056,
+       "FrontierCode-AA 2.0": 0.4056,
        "Terminal-Bench 4.0": 0.6515,
        "Terminal-Bench-Science 0.1": 0.6476,
        "CritPt v2 (Hard Subset)": 0.69,
@@ -9539,7 +9708,7 @@
        "AA-Briefcase v1.1": 1601.74,
        "AutomationBench-AA": 0.776,
        "GDP.pdf": 0.296,
-       "FrontierCode 2.0": 0.3945,
+       "FrontierCode-AA 2.0": 0.3945,
        "Terminal-Bench 4.0": 0.6061,
        "Terminal-Bench-Science 0.1": 0.6238,
        "CritPt v2 (Hard Subset)": 0.69,
@@ -9566,7 +9735,7 @@
        "AA-Briefcase v1.1": 1567.14,
        "AutomationBench-AA": 0.6346,
        "GDP.pdf": 0.286,
-       "FrontierCode 2.0": 0.2962,
+       "FrontierCode-AA 2.0": 0.2962,
        "Terminal-Bench 4.0": 0.6263,
        "Terminal-Bench-Science 0.1": 0.619,
        "CritPt v2 (Hard Subset)": 0.65,
@@ -9610,7 +9779,7 @@
        "AA-Briefcase v1.1": 1485.08,
        "AutomationBench-AA": 0.7751,
        "GDP.pdf": 0.218,
-       "FrontierCode 2.0": 0.2571,
+       "FrontierCode-AA 2.0": 0.2571,
        "Terminal-Bench 4.0": 0.5707,
        "Terminal-Bench-Science 0.1": 0.5286,
        "CritPt v2 (Hard Subset)": 0.525,
@@ -9637,7 +9806,7 @@
        "AA-Briefcase v1.1": 1466.63,
        "AutomationBench-AA": 0.7582,
        "GDP.pdf": 0.256,
-       "FrontierCode 2.0": 0.2502,
+       "FrontierCode-AA 2.0": 0.2502,
        "Terminal-Bench 4.0": 0.5505,
        "Terminal-Bench-Science 0.1": 0.4857,
        "CritPt v2 (Hard Subset)": 0.535,
@@ -9681,7 +9850,7 @@
        "AA-Briefcase v1.1": 1784.66,
        "AutomationBench-AA": 0.7642,
        "GDP.pdf": 0.242,
-       "FrontierCode 2.0": 0.4876,
+       "FrontierCode-AA 2.0": 0.4876,
        "Terminal-Bench 4.0": 0.596,
        "Terminal-Bench-Science 0.1": 0.7333,
        "CritPt v2 (Hard Subset)": 0.765,
@@ -9708,7 +9877,7 @@
        "AA-Briefcase v1.1": 1737.31,
        "AutomationBench-AA": 0.7416,
        "GDP.pdf": 0.214,
-       "FrontierCode 2.0": 0.4758,
+       "FrontierCode-AA 2.0": 0.4758,
        "Terminal-Bench 4.0": 0.6162,
        "Terminal-Bench-Science 0.1": 0.6762,
        "CritPt v2 (Hard Subset)": 0.735,
@@ -9735,7 +9904,7 @@
        "AA-Briefcase v1.1": 1677.08,
        "AutomationBench-AA": 0.7136,
        "GDP.pdf": 0.218,
-       "FrontierCode 2.0": 0.4913,
+       "FrontierCode-AA 2.0": 0.4913,
        "Terminal-Bench 4.0": 0.596,
        "Terminal-Bench-Science 0.1": 0.7,
        "CritPt v2 (Hard Subset)": 0.73,
@@ -9762,7 +9931,7 @@
        "AA-Briefcase v1.1": 1621.81,
        "AutomationBench-AA": 0.6882,
        "GDP.pdf": 0.238,
-       "FrontierCode 2.0": 0.413,
+       "FrontierCode-AA 2.0": 0.413,
        "Terminal-Bench 4.0": 0.5505,
        "Terminal-Bench-Science 0.1": 0.6048,
        "CritPt v2 (Hard Subset)": 0.615,
@@ -9789,7 +9958,7 @@
        "AA-Briefcase v1.1": 1562.73,
        "AutomationBench-AA": 0.68,
        "GDP.pdf": 0.268,
-       "FrontierCode 2.0": 0.3844,
+       "FrontierCode-AA 2.0": 0.3844,
        "Terminal-Bench 4.0": 0.5455,
        "Terminal-Bench-Science 0.1": 0.5381,
        "CritPt v2 (Hard Subset)": 0.6,
@@ -9833,7 +10002,7 @@
        "AA-Briefcase v1.1": 1643.55,
        "AutomationBench-AA": 0.7725,
        "GDP.pdf": 0.298,
-       "FrontierCode 2.0": 0.4538,
+       "FrontierCode-AA 2.0": 0.4538,
        "Terminal-Bench 4.0": 0.6414,
        "Terminal-Bench-Science 0.1": 0.781,
        "CritPt v2 (Hard Subset)": 0.715,
@@ -9860,7 +10029,7 @@
        "AA-Briefcase v1.1": 1594.38,
        "AutomationBench-AA": 0.7606,
        "GDP.pdf": 0.28,
-       "FrontierCode 2.0": 0.4895,
+       "FrontierCode-AA 2.0": 0.4895,
        "Terminal-Bench 4.0": 0.6414,
        "Terminal-Bench-Science 0.1": 0.7857,
        "CritPt v2 (Hard Subset)": 0.705,
@@ -9887,7 +10056,7 @@
        "AA-Briefcase v1.1": 1570.4,
        "AutomationBench-AA": 0.7602,
        "GDP.pdf": 0.286,
-       "FrontierCode 2.0": 0.4713,
+       "FrontierCode-AA 2.0": 0.4713,
        "Terminal-Bench 4.0": 0.601,
        "Terminal-Bench-Science 0.1": 0.7524,
        "CritPt v2 (Hard Subset)": 0.715,
@@ -9914,7 +10083,7 @@
        "AA-Briefcase v1.1": 1408.1,
        "AutomationBench-AA": 0.7283,
        "GDP.pdf": 0.284,
-       "FrontierCode 2.0": 0.4656,
+       "FrontierCode-AA 2.0": 0.4656,
        "Terminal-Bench 4.0": 0.5859,
        "Terminal-Bench-Science 0.1": 0.7476,
        "CritPt v2 (Hard Subset)": 0.675,
@@ -9941,7 +10110,7 @@
        "AA-Briefcase v1.1": 1038.62,
        "AutomationBench-AA": 0.6857,
        "GDP.pdf": 0.28,
-       "FrontierCode 2.0": 0.3266,
+       "FrontierCode-AA 2.0": 0.3266,
        "Terminal-Bench 4.0": 0.5101,
        "Terminal-Bench-Science 0.1": 0.5095,
        "CritPt v2 (Hard Subset)": 0.61,
@@ -9985,7 +10154,7 @@
        "AA-Briefcase v1.1": 1612.07,
        "AutomationBench-AA": 0.7128,
        "GDP.pdf": 0.3,
-       "FrontierCode 2.0": 0.4438,
+       "FrontierCode-AA 2.0": 0.4438,
        "Terminal-Bench 4.0": 0.601,
        "Terminal-Bench-Science 0.1": 0.6762,
        "CritPt v2 (Hard Subset)": 0.625,
@@ -10012,7 +10181,7 @@
        "AA-Briefcase v1.1": 1580.04,
        "AutomationBench-AA": 0.7055,
        "GDP.pdf": 0.284,
-       "FrontierCode 2.0": 0.4275,
+       "FrontierCode-AA 2.0": 0.4275,
        "Terminal-Bench 4.0": 0.5606,
        "Terminal-Bench-Science 0.1": 0.6667,
        "CritPt v2 (Hard Subset)": 0.625,
@@ -10039,7 +10208,7 @@
        "AA-Briefcase v1.1": 1540.77,
        "AutomationBench-AA": 0.6985,
        "GDP.pdf": 0.288,
-       "FrontierCode 2.0": 0.4022,
+       "FrontierCode-AA 2.0": 0.4022,
        "Terminal-Bench 4.0": 0.5859,
        "Terminal-Bench-Science 0.1": 0.6762,
        "CritPt v2 (Hard Subset)": 0.615,
@@ -10066,7 +10235,7 @@
        "AA-Briefcase v1.1": 1494.88,
        "AutomationBench-AA": 0.7028,
        "GDP.pdf": 0.292,
-       "FrontierCode 2.0": 0.414,
+       "FrontierCode-AA 2.0": 0.414,
        "Terminal-Bench 4.0": 0.5606,
        "Terminal-Bench-Science 0.1": 0.6048,
        "CritPt v2 (Hard Subset)": 0.64,
@@ -10093,7 +10262,7 @@
        "AA-Briefcase v1.1": 1229.43,
        "AutomationBench-AA": 0.6323,
        "GDP.pdf": 0.286,
-       "FrontierCode 2.0": 0.3137,
+       "FrontierCode-AA 2.0": 0.3137,
        "Terminal-Bench 4.0": 0.3788,
        "Terminal-Bench-Science 0.1": 0.3714,
        "CritPt v2 (Hard Subset)": 0.58,
@@ -10137,7 +10306,7 @@
        "AA-Briefcase v1.1": 1568.83,
        "AutomationBench-AA": 0.7614,
        "GDP.pdf": 0.276,
-       "FrontierCode 2.0": 0.3896,
+       "FrontierCode-AA 2.0": 0.3896,
        "Terminal-Bench 4.0": 0.5354,
        "Terminal-Bench-Science 0.1": 0.4952,
        "CritPt v2 (Hard Subset)": 0.66,
@@ -10164,7 +10333,7 @@
        "AA-Briefcase v1.1": 1496.51,
        "AutomationBench-AA": 0.7444,
        "GDP.pdf": 0.3,
-       "FrontierCode 2.0": 0.3633,
+       "FrontierCode-AA 2.0": 0.3633,
        "Terminal-Bench 4.0": 0.5404,
        "Terminal-Bench-Science 0.1": 0.4143,
        "CritPt v2 (Hard Subset)": 0.615,
@@ -10191,7 +10360,7 @@
        "AA-Briefcase v1.1": 1296.81,
        "AutomationBench-AA": 0.7201,
        "GDP.pdf": 0.328,
-       "FrontierCode 2.0": 0.3152,
+       "FrontierCode-AA 2.0": 0.3152,
        "Terminal-Bench 4.0": 0.2929,
        "Terminal-Bench-Science 0.1": 0.1524,
        "CritPt v2 (Hard Subset)": 0.61,
@@ -10218,7 +10387,7 @@
        "AA-Briefcase v1.1": 947.6,
        "AutomationBench-AA": 0.6051,
        "GDP.pdf": 0.282,
-       "FrontierCode 2.0": 0.0929,
+       "FrontierCode-AA 2.0": 0.0929,
        "Terminal-Bench 4.0": 0.0657,
        "Terminal-Bench-Science 0.1": 0.0238,
        "CritPt v2 (Hard Subset)": 0.48,
@@ -10262,7 +10431,7 @@
        "AA-Briefcase v1.1": 1699.17,
        "AutomationBench-AA": 0.7934,
        "GDP.pdf": 0.28,
-       "FrontierCode 2.0": 0.4441,
+       "FrontierCode-AA 2.0": 0.4441,
        "Terminal-Bench 4.0": 0.6364,
        "Terminal-Bench-Science 0.1": 0.7,
        "CritPt v2 (Hard Subset)": 0.605,
@@ -10289,7 +10458,7 @@
        "AA-Briefcase v1.1": 1631.97,
        "AutomationBench-AA": 0.7924,
        "GDP.pdf": 0.334,
-       "FrontierCode 2.0": 0.4328,
+       "FrontierCode-AA 2.0": 0.4328,
        "Terminal-Bench 4.0": 0.6162,
        "Terminal-Bench-Science 0.1": 0.6571,
        "CritPt v2 (Hard Subset)": 0.59,
@@ -10316,7 +10485,7 @@
        "AA-Briefcase v1.1": 1517.92,
        "AutomationBench-AA": 0.7781,
        "GDP.pdf": 0.328,
-       "FrontierCode 2.0": 0.3693,
+       "FrontierCode-AA 2.0": 0.3693,
        "Terminal-Bench 4.0": 0.5455,
        "Terminal-Bench-Science 0.1": 0.5476,
        "CritPt v2 (Hard Subset)": 0.615,
@@ -10343,7 +10512,7 @@
        "AA-Briefcase v1.1": 1296.73,
        "AutomationBench-AA": 0.7599,
        "GDP.pdf": 0.314,
-       "FrontierCode 2.0": 0.2695,
+       "FrontierCode-AA 2.0": 0.2695,
        "Terminal-Bench 4.0": 0.3283,
        "Terminal-Bench-Science 0.1": 0.2714,
        "CritPt v2 (Hard Subset)": 0.62,
@@ -10364,7 +10533,7 @@
  },
  "cardBenchmarks": {
   "extractedOn": "2026-11-20",
-  "method": "Each pinned card was scanned for Markdown pipe tables and HTML <table> blocks, every benchmark/evaluation/throughput/acceptance table was transcribed from the card text (configuration, hardware-compatibility and governance tables were skipped), Markdown/HTML formatting was stripped to rendered text, blank cells are null, plain numbers were kept with their printed decimals (a trailing % removed), all other cells were kept as verbatim strings, precision-by-row tables were transposed so that rows are benchmarks, and comparison tables were reduced to the card's own model/export column plus any named baseline.",
+  "method": "Each pinned card was scanned for Markdown pipe tables and HTML <table> blocks, every benchmark/evaluation/throughput/acceptance table was transcribed from the card text (configuration, hardware-compatibility and governance tables were skipped), Markdown/HTML formatting was stripped to rendered text, blank cells are null, plain numbers were kept with their printed decimals (a trailing % removed), all other cells were kept as verbatim strings, precision-by-row tables were transposed so that rows are benchmarks, and comparison tables were reduced to the card's own model/export column plus any named baseline. A comparison identifies the export column and source score unit for a difference on a 100-point scale. A card with results for another model names that model in results_for.",
   "cards": [
    {
     "card_path": "companies/alibaba-qwen/qwen3.8-27b/huggingface/README.md",
@@ -10587,6 +10756,7 @@
     "revision": "017b9c7af6b5689d5dd426a76e0bc077eb5ca20a",
     "source_id": "qwen3.8-27b-FP8",
     "precision": "E4M3 FP8 with 128x128 weight blocks and excluded modules",
+    "results_for": "Qwen/Qwen3.8-27B",
     "tables": [
      {
       "heading": "Text Performance",
@@ -10810,6 +10980,10 @@
        "Qwen3.8-27B NVFP4"
       ],
       "baseline_column": "Qwen3.8-27B BF16",
+      "comparison": {
+       "score_column": "Qwen3.8-27B NVFP4",
+       "score_unit": "points"
+      },
       "rows": [
        {
         "benchmark": "GPQA Diamond",
@@ -11156,6 +11330,7 @@
     "revision": "236dfdf285828023ca3bcd3f37366c58a3469b13",
     "source_id": "qwen3.8-flash-next-FP8",
     "precision": "FP8 routed experts and PLE embedding; attention/shared experts excluded",
+    "results_for": "Qwen/Qwen3.8-Flash-Next",
     "tables": [
      {
       "heading": "Language",
@@ -11376,6 +11551,10 @@
        "NVFP4"
       ],
       "baseline_column": "FP8",
+      "comparison": {
+       "score_column": "NVFP4",
+       "score_unit": "points"
+      },
       "rows": [
        {
         "benchmark": "GPQA Diamond",
@@ -11465,6 +11644,10 @@
        "FP4-Local"
       ],
       "baseline_column": "BF16",
+      "comparison": {
+       "score_column": "FP4-Local",
+       "score_unit": "points"
+      },
       "rows": [
        {
         "benchmark": "GPQA Diamond",
@@ -11584,6 +11767,10 @@
        "NVFP4"
       ],
       "baseline_column": "MXFP4 (source)",
+      "comparison": {
+       "score_column": "NVFP4",
+       "score_unit": "points"
+      },
       "rows": [
        {
         "benchmark": "GPQA Diamond",
@@ -12147,6 +12334,10 @@
        "NVFP4 + MXFP4 Engram"
       ],
       "baseline_column": "MXFP4 (source)",
+      "comparison": {
+       "score_column": "NVFP4 + MXFP4 Engram",
+       "score_unit": "points"
+      },
       "rows": [
        {
         "benchmark": "GPQA Diamond",
@@ -12338,6 +12529,7 @@
     "revision": "627c5ec1458b9086b841a91e0512fd31fd2fbbf1",
     "source_id": "RR-GM-GEMMA-DRAFT-CARD",
     "precision": null,
+    "results_for": "google/gemma-4-31B-it",
     "tables": [
      {
       "heading": "Benchmark Results",
@@ -12484,6 +12676,10 @@
        "Recovery"
       ],
       "baseline_column": "google/gemma-4-31B-it",
+      "comparison": {
+       "score_column": "RedHatAI/gemma-4-31B-it-FP8-block",
+       "score_unit": "points"
+      },
       "rows": [
        {
         "benchmark": "IFEval (0-shot, prompt-level strict)",
@@ -12570,6 +12766,10 @@
        "Recovery"
       ],
       "baseline_column": "google/gemma-4-31B-it",
+      "comparison": {
+       "score_column": "RedHatAI/gemma-4-31B-it-FP8-block",
+       "score_unit": "points"
+      },
       "rows": [
        {
         "benchmark": "IFEval (0-shot, prompt-level strict)",
@@ -12696,6 +12896,10 @@
        "Recovery"
       ],
       "baseline_column": "google/gemma-4-31B-it",
+      "comparison": {
+       "score_column": "RedHatAI/gemma-4-31B-it-NVFP4",
+       "score_unit": "points"
+      },
       "rows": [
        {
         "benchmark": "IFEval (0-shot, prompt-level strict)",
@@ -12782,6 +12986,10 @@
        "Recovery"
       ],
       "baseline_column": "google/gemma-4-31B-it",
+      "comparison": {
+       "score_column": "RedHatAI/gemma-4-31B-it-NVFP4",
+       "score_unit": "points"
+      },
       "rows": [
        {
         "benchmark": "IFEval (0-shot, prompt-level strict)",
@@ -13033,6 +13241,10 @@
        "NVFP4"
       ],
       "baseline_column": "Baseline (BF16)",
+      "comparison": {
+       "score_column": "NVFP4",
+       "score_unit": "points"
+      },
       "rows": [
        {
         "benchmark": "GPQA Diamond",
@@ -13090,6 +13302,7 @@
     "revision": "373c00b5ecb0a8ee43942b5ca08b93805de8eee4",
     "source_id": "TOPM-GEMMA-UNSLOTH-CARD",
     "precision": "compressed-tensors mixed precision: FP8 attention and MLP layers1/57/58/59; group16 NVFP4 remaining MLPs; vision retained",
+    "results_for": "google/gemma-4-31B-it",
     "tables": [
      {
       "heading": "Benchmark Results",
@@ -13533,6 +13746,7 @@
     "revision": "c676cce91658f9568aaf264a416211e2782735b7",
     "source_id": "muse-glimmer-30b-DRAFT-CARD",
     "precision": null,
+    "results_for": "meta-models/Muse-Glimmer-30B and its local deployment configurations",
     "tables": [
      {
       "heading": "Optimized for Local Deployments",
@@ -14059,6 +14273,10 @@
        "NVFP4"
       ],
       "baseline_column": "FP8",
+      "comparison": {
+       "score_column": "NVFP4",
+       "score_unit": "points"
+      },
       "rows": [
        {
         "benchmark": "MMLU Pro",
@@ -15733,6 +15951,10 @@
        "Kimi-K3-NVFP4"
       ],
       "baseline_column": "Original Kimi-K3",
+      "comparison": {
+       "score_column": "Kimi-K3-NVFP4",
+       "score_unit": "fraction"
+      },
       "rows": [
        {
         "benchmark": "GPQA Diamond",
@@ -16011,6 +16233,10 @@
        "NVFP4"
       ],
       "baseline_column": "FP8",
+      "comparison": {
+       "score_column": "NVFP4",
+       "score_unit": "points"
+      },
       "rows": [
        {
         "benchmark": "MMLU Pro",
@@ -16082,6 +16308,7 @@
     "revision": "abf42e6c0e53bc29a875511301e7b7fcd220315b",
     "source_id": "glm-5.3-BF16-CARD",
     "precision": "BF16 reference with small FP32 component",
+    "results_for": "zai-org/GLM-5.3",
     "tables": [
      {
       "heading": "Benchmark",
@@ -16203,6 +16430,7 @@
     "revision": "ce67b36f3669192b5bb233819f0fda6c8a9837f8",
     "source_id": "glm-5.3-INFERACT-CARD",
     "precision": "ModelOpt NVFP4 main routed-expert export; group size 16; MTP and other modules excluded",
+    "results_for": "zai-org/GLM-5.3",
     "tables": [
      {
       "heading": "Benchmark",
@@ -16336,6 +16564,10 @@
        "Recovery"
       ],
       "baseline_column": "zai-org/GLM-5.3 (FP8)",
+      "comparison": {
+       "score_column": "RedHatAI/GLM-5.3-NVFP4",
+       "score_unit": "points"
+      },
       "rows": [
        {
         "benchmark": "IFEval (prompt-level strict)",
@@ -16419,6 +16651,10 @@
        "NVFP4 QAD"
       ],
       "baseline_column": "BF16",
+      "comparison": {
+       "score_column": "NVFP4 QAD",
+       "score_unit": "points"
+      },
       "rows": [
        {
         "benchmark": "GPQA Diamond",
@@ -16488,6 +16724,10 @@
        "Recovery"
       ],
       "baseline_column": "Qwen/Qwen3.8-27B",
+      "comparison": {
+       "score_column": "RedHatAI/Qwen3.8-27B-NVFP4",
+       "score_unit": "points"
+      },
       "rows": [
        {
         "benchmark": "GSM8K Platinum",
@@ -16604,6 +16844,7 @@
     "revision": "103a7608316173ca6edd49929544244de7ffda70",
     "source_id": "N20-QFN-IN-CARD",
     "precision": "ModelOpt NVFP4, group 16. A pinned PLE table shard stores BF16 values although the vLLM recipe describes NVFP4 PLE. Indexed MTP tensors have their own scales.",
+    "results_for": "Qwen/Qwen3.8-Flash-Next",
     "tables": [
      {
       "heading": "Language",
@@ -16825,6 +17066,7 @@
        "NVFP4 (this checkpoint)"
       ],
       "baseline_column": "BF16 reference¹",
+      "scope_note": "The BF16 results use an earlier revision. The NVFP4 GSM8K result uses the listed checkpoint. The NVFP4 AIME26 result predates the PLE embedding change.",
       "rows": [
        {
         "benchmark": "GSM8K",
@@ -16867,6 +17109,10 @@
        "RedHatAI/Qwen3.8-Flash-Next-NVFP4 (this model)"
       ],
       "baseline_column": "Qwen/Qwen3.8-Flash-Next (baseline)",
+      "comparison": {
+       "score_column": "RedHatAI/Qwen3.8-Flash-Next-NVFP4 (this model)",
+       "score_unit": "points"
+      },
       "rows": [
        {
         "benchmark": "GPQA Diamond",
@@ -17032,6 +17278,10 @@
        "Recovery"
       ],
       "baseline_column": "deepseek-ai/DeepSeek-V4-Flash-0731 (Base)",
+      "comparison": {
+       "score_column": "RedHatAI/DeepSeek-V4-Flash-0731-NVFP4",
+       "score_unit": "points"
+      },
       "rows": [
        {
         "benchmark": "GPQA Platinum",
@@ -17054,6 +17304,10 @@
        "Recovery"
       ],
       "baseline_column": "deepseek-ai/DeepSeek-V4-Flash-0731 (Base)",
+      "comparison": {
+       "score_column": "RedHatAI/DeepSeek-V4-Flash-0731-NVFP4",
+       "score_unit": "fraction"
+      },
       "rows": [
        {
         "benchmark": "Terminal-Bench 2.1",
@@ -17112,6 +17366,10 @@
        "This checkpoint (NVFP4)"
       ],
       "baseline_column": "Base (BF16)",
+      "comparison": {
+       "score_column": "This checkpoint (NVFP4)",
+       "score_unit": "fraction"
+      },
       "rows": [
        {
         "benchmark": "GPQA-Diamond (198 questions, 3 passes)",
@@ -18867,6 +19125,10 @@
        "Recovery"
       ],
       "baseline_column": "moonshotai/Kimi-K3",
+      "comparison": {
+       "score_column": "RedHatAI/Kimi-K3-NVFP4",
+       "score_unit": "points"
+      },
       "rows": [
        {
         "benchmark": "GPQA Diamond",
@@ -19281,6 +19543,7 @@
     "revision": "fdb8bdea778a5260a9d9fbc7811044de46433959",
     "source_id": "N20-REDHATAI-KIMI-K31-PRO-DSPARK-HEAD-CARD",
     "precision": null,
+    "results_for": "Inferact/Kimi-K3.1-Pro-DSpark",
     "tables": [
      {
       "heading": "Per-position draft acceptance",
@@ -19682,6 +19945,10 @@
        "NVFP4"
       ],
       "baseline_column": "MXFP4",
+      "comparison": {
+       "score_column": "NVFP4",
+       "score_unit": "points"
+      },
       "rows": [
        {
         "benchmark": "GPQA Diamond",
@@ -19737,6 +20004,10 @@
        "Nvidia NVFP4"
       ],
       "baseline_column": "Moonshot",
+      "comparison": {
+       "score_column": "Nvidia NVFP4",
+       "score_unit": "points"
+      },
       "rows": [
        {
         "benchmark": "OCRBench",
@@ -19852,6 +20123,10 @@
        "NVFP4"
       ],
       "baseline_column": "BF16",
+      "comparison": {
+       "score_column": "NVFP4",
+       "score_unit": "fraction"
+      },
       "rows": [
        {
         "benchmark": "GPQA Diamond",

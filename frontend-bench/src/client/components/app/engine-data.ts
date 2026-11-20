@@ -1,14 +1,14 @@
-import { measuredDeployment } from "../../../domain/catalog.js";
+import { measuredDeployment, splitRuntime } from "../../../domain/catalog.js";
 import { capacity, comparability, relativeDelta, tieBand } from "../../../domain/metrics.js";
 import { controlDifferences, type ControlDifference } from "../../../domain/run-config.js";
-import { configKeyOf } from "../../../domain/variants.js";
+import { variantKey } from "../../../domain/variants.js";
 import type { BenchmarkRun, Capacity, Deployment, SloPolicy, Snapshot } from "../../../domain/types.js";
 
 /*
  * Engine page data: the scope (one model × GPU count × hardware), the best measured configuration per engine on a
  * dataset, the verdict between the two, and every measured runtime version. Pure functions over the snapshot; values
  * come from `capacity()`; nothing here formats or reads UI state. A verdict or Δ exists only between two real
- * measurements, and an engine verdict additionally needs a matched configuration (runtime isolation).
+ * measurements whose checked configuration fields agree.
  */
 
 export type Engine = "vLLM" | "SGLang";
@@ -104,6 +104,7 @@ export function engineDifferences(a: Deployment, b: Deployment): string[] {
   if (a.dataParallel !== b.dataParallel && !differences.includes("Hardware / topology")) differences.push("Hardware / topology");
   if ((a.runGpus ?? a.gpus) !== (b.runGpus ?? b.gpus)) differences.push("GPUs in run");
   if (a.replicas !== null && b.replicas !== null && a.replicas !== b.replicas) differences.push("System replicas");
+  if ((a.replicas ?? 1) > 1 && a.measuredDeploymentGpus !== b.measuredDeploymentGpus) differences.push("Participating GPUs");
   for (const control of controlDifferences(a, b)) differences.push(control.label);
   return differences;
 }
@@ -117,29 +118,35 @@ export type EngineVerdict =
   | { kind: "different"; differences: string[]; controls: ControlDifference[] }
   /** Matched pair, but at least one engine has no level inside the SLO. */
   | { kind: "no-passing"; passing: Engine | null }
+  | { kind: "unknown-allocation" }
+  | { kind: "zero-baseline"; engine: Engine }
   /** Matched pair, both inside the SLO, |Δ| within the band. */
   | { kind: "tie"; fraction: number }
   /** Matched pair, `engine` leads by `fraction` = (leader − other) ÷ other. */
   | { kind: "lead"; engine: Engine; fraction: number };
 
-export function engineVerdict(best: Record<Engine, EngineBest>, band = ENGINE_TIE_BAND): EngineVerdict {
+export function engineVerdict(best: Record<Engine, Pick<EngineBest, "deployment" | "capacity">>, band = ENGINE_TIE_BAND): EngineVerdict {
   const a = best.vLLM, b = best.SGLang;
   if (!a.deployment && !b.deployment) return { kind: "none" };
   if (!a.deployment || !b.deployment) return { kind: "one-sided", engine: a.deployment ? "vLLM" : "SGLang" };
+  if (a.capacity?.participatingGpus === null || b.capacity?.participatingGpus === null) return { kind: "unknown-allocation" };
   const differences = engineDifferences(a.deployment, b.deployment);
   if (differences.length) return { kind: "different", differences, controls: controlDifferences(a.deployment, b.deployment) };
   const va = a.capacity?.sustainableTpmPerGpu ?? null, vb = b.capacity?.sustainableTpmPerGpu ?? null;
   if (va === null || vb === null) return { kind: "no-passing", passing: va !== null ? "vLLM" : vb !== null ? "SGLang" : null };
   const reading = tieBand(va, vb, band);
   if (reading === "tie") return { kind: "tie", fraction: relativeDelta(vb, va) ?? 0 };
-  return reading === "a" ? { kind: "lead", engine: "vLLM", fraction: relativeDelta(va, vb) ?? 0 } : { kind: "lead", engine: "SGLang", fraction: relativeDelta(vb, va) ?? 0 };
+  const engine = reading === "a" ? "vLLM" : "SGLang";
+  const fraction = reading === "a" ? relativeDelta(va, vb) : relativeDelta(vb, va);
+  return fraction === null ? { kind: "zero-baseline", engine } : { kind: "lead", engine, fraction };
 }
 
 /* ── Every measured version ─────────────────────────────────────────────────────────────── */
 
 /** "0.33.0" / "0.5.23" / "0.6.0rc1" → comparable tuple; null when the tag carries no release number. */
 export function versionKey(runtimeVersion: string): number[] | null {
-  const match = /v(\d+)\.(\d+)\.(\d+)(?:rc(\d+))?/i.exec(runtimeVersion);
+  const version = splitRuntime(runtimeVersion).version;
+  const match = version && /^v(\d+)\.(\d+)\.(\d+)(?:rc(\d+))?$/i.exec(version);
   if (!match) return null;
   // A release candidate sorts before its release: rcN → N, release → +∞ (encoded as a large number).
   return [Number(match[1]), Number(match[2]), Number(match[3]), match[4] === undefined ? Number.MAX_SAFE_INTEGER : Number(match[4])];
@@ -150,6 +157,15 @@ export function compareVersions(a: number[], b: number[]): number {
     if (d) return d;
   }
   return 0;
+}
+
+/** Release number of an earlier build of the same recorded variant, distribution and flavor. */
+export function earlierVersion(candidate: BenchmarkRun, current: BenchmarkRun): number[] | null {
+  if (variantKey(candidate) !== variantKey(current)) return null;
+  const a = splitRuntime(candidate.identity.runtimeVersion), b = splitRuntime(current.identity.runtimeVersion);
+  if (a.engine !== b.engine || a.distribution !== b.distribution || a.flavor !== b.flavor) return null;
+  const key = versionKey(candidate.identity.runtimeVersion), own = versionKey(current.identity.runtimeVersion);
+  return key && own && compareVersions(key, own) < 0 ? key : null;
 }
 
 export interface VersionRow {
@@ -167,19 +183,14 @@ export interface VersionRow {
 
 /** One deployment per run: the base configuration with the run's levels and recorded identity (GPUs, replicas, tag). */
 export function runDeployment(base: Deployment, run: BenchmarkRun): Deployment {
-  const { identity } = run;
-  return {
-    ...base, id: `${base.id}#${run.id}`, points: run.metrics, evidence: "measured", measuredAt: run.runDate, runId: run.id,
-    workloadId: identity.dataset, runtimeTag: identity.runtimeVersion, runConfig: identity.runtimeConfig, gpuType: identity.gpuType,
-    replicas: identity.maxSystemReplicas, runGpus: identity.numGpus, topologyMismatch: identity.numGpus !== base.gpus,
-  };
+  return { ...measuredDeployment(base, run), id: `${base.id}#${run.id}` };
 }
 
 /**
  * Every imported run of the scope on one dataset, newest run first. Δ prev compares a row with the highest older
  * release of the same engine, the same catalog configuration and the same recorded runtime_config (the same measured
  * variant, domain/variants.ts) on the same dataset — never across configurations, runtime configs, datasets or GPU
- * counts, so the Δ isolates the engine release; rows whose tag has no release number get no Δ.
+ * counts. The distribution and flavor must also match. Unrecorded settings can still differ.
  */
 export function everyMeasuredVersion(snapshot: Pick<Snapshot, "deployments" | "runs">, scope: EngineScope, workloadId: string, slo: SloPolicy): VersionRow[] {
   const bases = scopeBases(snapshot.deployments, scope);
@@ -192,15 +203,11 @@ export function everyMeasuredVersion(snapshot: Pick<Snapshot, "deployments" | "r
     rows.push({ run, base, deployment, engine: base.runtime, capacity: capacity(deployment, slo), previous: null, delta: null });
   }
   for (const row of rows) {
-    const own = versionKey(row.run.identity.runtimeVersion);
-    if (!own) continue;
     let previous: VersionRow | null = null, previousKey: number[] | null = null;
     for (const other of rows) {
       if (other === row || other.engine !== row.engine || other.base.configurationId !== row.base.configurationId) continue;
-      if ((other.run.identity.numGpus) !== row.run.identity.numGpus) continue;
-      if (configKeyOf(other.run.identity.runtimeConfig) !== configKeyOf(row.run.identity.runtimeConfig)) continue;
-      const key = versionKey(other.run.identity.runtimeVersion);
-      if (!key || compareVersions(key, own) >= 0) continue;
+      const key = earlierVersion(other.run, row.run);
+      if (!key) continue;
       const order = previousKey ? compareVersions(key, previousKey) : 1;
       if (order > 0 || (order === 0 && previous && Date.parse(other.run.runDate) > Date.parse(previous.run.runDate))) { previous = other; previousKey = key; }
     }

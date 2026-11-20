@@ -13,7 +13,7 @@ import { num } from "../../lib/display.js";
  *  - SloBudgetCard: SLO budget used at C_max, one ring per latency gate (p95 ÷ ceiling; a full ring is the limit).
  */
 
-/** A sweep's points as [concurrency, value] in ascending concurrency; `per` divides the value (e.g. GPUs). */
+/** A sweep’s measured values in ascending concurrency. */
 export function curveOf(points: readonly { concurrency: number; value: number | null }[]): { concurrency: number; value: number }[] {
   return points.filter((point): point is { concurrency: number; value: number } => point.value !== null && Number.isFinite(point.value))
     .sort((a, b) => a.concurrency - b.concurrency);
@@ -37,8 +37,8 @@ export function LoadCurve({ points, unit, cmax, highlight = false, className, te
 }
 
 /** Total tok/s per GPU at each tested level of a measured sweep. */
-export const totalPerGpuCurve = (capacity: Capacity, gpus: number) =>
-  capacity.points.map((point) => ({ concurrency: point.concurrency, value: gpus > 0 ? point.totalTps / gpus : null }));
+export const totalPerGpuCurve = (capacity: Capacity) =>
+  capacity.points.map((point) => ({ concurrency: point.concurrency, value: point.totalTpsPerGpu }));
 
 /**
  * SLO budget used at C_max: ITL p95 ÷ ITL ceiling and TTFT p95 ÷ TTFT ceiling, as concentric rings (a full ring is the

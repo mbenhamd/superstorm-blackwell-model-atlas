@@ -158,11 +158,11 @@ export function EvidenceSheet() {
                 <Details title="Configuration notes"><p className="text-ink-2 text-pretty">{deployment.notes}</p></Details>
                 <Details title="Weights export">
                   <dl className="divide-border divide-y">
-                    <Field label="Revision" value={deployment.artifactRevision} mono />
+                    <Field label="Configured revision" value={deployment.artifactRevision} mono />
                     <Field label="Precision" value={`${deployment.precision} · ${deployment.quantMethod}`} />
                     <Field label="Export status" value={exported?.status ?? "—"} />
                     <Field label="Base model" value={model ? `${model.hfId}@${shortSha(model.revision)}` : deployment.modelId} mono />
-                    <Field label="Deployment layer" value="KServe InferenceService (installed version not recorded)" />
+                    <Field label="Deployment layer" value="KServe (installed version and resource kind unknown)" />
                   </dl>
                 </Details>
                 <Details title={`Source IDs (${deployment.sourceIds.length})`}><div className="flex flex-wrap gap-1">{deployment.sourceIds.map((id) => <Badge key={id} variant="mono">{id}</Badge>)}</div></Details>

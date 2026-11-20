@@ -3,7 +3,7 @@ import { Pool, type PoolClient } from "pg";
 import { applyRuns, ATLAS, createCatalogSnapshot, matchConfiguration } from "../domain/catalog.js";
 import type { BenchmarkRun, Experiment, ExperimentInput, ExperimentStatus, RunIdentity, Snapshot } from "../domain/types.js";
 import { ConflictError, gpuFootprint, migrateExperiment, parseExperiment, transitionExperiment, ValidationError } from "../domain/validation.js";
-import { metricFromDb, parseDatasetMap, runsFromFile, type DatasetMap, type MetricDbRow } from "./runs.js";
+import { metricFromDb, observedDeploymentGpus, parseDatasetMap, runsFromFile, type DatasetMap, type MetricDbRow } from "./runs.js";
 
 export class RepositoryError extends Error {
   readonly _tag = "RepositoryError";
@@ -118,12 +118,13 @@ async function transaction<A>(pool: Pool, operation: (client: PoolClient) => Pro
 
 interface ExperimentDbRow {
   id: string; model_name: string; gpu_type: string; num_gpus: number; max_system_replicas: number; runtime_version: string;
+  measured_deployment_gpus: unknown;
   dataset: string; runtime_config: Record<string, unknown>; configuration_id: string | null; benchmark_tool: string; run_date: Date;
 }
 /** Measured runs: experiments + metrics (raw_results columns are never read here). */
 async function readRuns(client: PoolClient, catalog: Snapshot): Promise<BenchmarkRun[]> {
   const experiments = await client.query<ExperimentDbRow>(
-    "SELECT id::text AS id, model_name, gpu_type, num_gpus, max_system_replicas, runtime_version, dataset, runtime_config, configuration_id, benchmark_tool, run_date FROM experiments ORDER BY run_date DESC, id");
+    "SELECT id::text AS id, model_name, gpu_type, num_gpus, max_system_replicas, runtime_version, dataset, runtime_config, configuration_id, benchmark_tool, run_date, system_config->'measuredDeploymentGpus' AS measured_deployment_gpus FROM experiments ORDER BY run_date DESC, id");
   const metrics = await client.query<MetricDbRow & { experiment_id: string }>(
     "SELECT experiment_id::text AS experiment_id, concurrency, ttft_ms, itl_ms, request_latency_ms, requests_per_second, input_tokens_per_second, output_tokens_per_second, total_tokens_per_second, output_tokens_per_second_per_user_p50, successful, errored, incomplete, duration_seconds FROM metrics ORDER BY experiment_id, concurrency");
   const byExperiment = new Map<string, MetricDbRow[]>();
@@ -139,6 +140,7 @@ async function readRuns(client: PoolClient, catalog: Snapshot): Promise<Benchmar
     };
     return {
       id: row.id, identity, configurationId: matchConfiguration(identity, catalog, row.configuration_id),
+      measuredDeploymentGpus: observedDeploymentGpus(row.measured_deployment_gpus, identity),
       benchmarkTool: row.benchmark_tool, runDate: row.run_date.toISOString(), metrics: (byExperiment.get(row.id) ?? []).map(metricFromDb),
     };
   });

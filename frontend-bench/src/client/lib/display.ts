@@ -68,30 +68,24 @@ export const runtimeTag = (deployment: Deployment): string => {
   const engine = deployment.runtime.toLowerCase();
   return /^v\d/.test(deployment.runtimeVersion) ? `${engine}-${deployment.runtimeVersion}` : `${engine} (${engineVersion(deployment)}, no release tag)`;
 };
-/** GPUs that produced (or will produce) the numbers: the run's num_gpus when measured, else the catalog shape. */
+/** Recorded num_gpus or the catalog shape. Multi-replica runs can report this per replica or for the deployment. */
 export const gpusOf = (deployment: Deployment): number => deployment.runGpus ?? deployment.gpus;
-/**
- * True when a measured run used more than one KServe system replica. Whether its num_gpus counts GPUs per replica
- * or in total is unconfirmed; if per replica and throughput is aggregated over replicas, tok/min/GPU is overstated
- * by the replica factor. The formula is unchanged; the value is flagged.
- */
-export const gpuDivisorUnconfirmed = (deployment: Deployment): boolean => deployment.replicas !== null && deployment.replicas > 1;
+export const gpuDivisorUnconfirmed = (deployment: Deployment): boolean => (deployment.replicas ?? 1) > 1 && deployment.measuredDeploymentGpus === undefined;
 export const topology = (deployment: Deployment): string => `${gpusOf(deployment)}× ${deployment.gpuType}`;
-/**
- * Hardware label "<replicas>x<num_gpus><gpu_type>" ("1xB300", "1x2B300", "2x8B300") when the run recorded its
- * KServe system replicas; otherwise the per-replica shape ("8× B300"). Never uses in-engine DP. Reading num_gpus
- * as GPUs per replica is an ASSUMPTION (unconfirmed at source); with replicas > 1 the GPU divisor of the
- * sustainable figure is flagged as unconfirmed (see gpuDivisorUnconfirmed).
- */
-export const hardwareShape = (deployment: Deployment): string =>
-  deployment.replicas === null ? topology(deployment) : `${deployment.replicas}x${gpusOf(deployment) === 1 ? "" : gpusOf(deployment)}${deployment.gpuType}`;
+export const hardwareShape = (deployment: Deployment): string => {
+  if (deployment.replicas === null) return topology(deployment);
+  if (deployment.replicas > 1) return `${deployment.gpuType} · up to ${deployment.replicas} replicas`;
+  return `1x${gpusOf(deployment) === 1 ? "" : gpusOf(deployment)}${deployment.gpuType}`;
+};
 /**
  * "1 GPU per replica · 1 GPU total" when a run recorded its replicas; otherwise the catalog shape at one KServe
  * replica, stated as such: "8 GPUs per replica · 8 GPUs total (1 replica)". The catalog carries no replica count.
  */
 export const gpuTotals = (deployment: Deployment): string => {
   const per = gpusOf(deployment), plural = (n: number) => `${n} GPU${n === 1 ? "" : "s"}`;
-  return deployment.replicas === null ? `${plural(per)} per replica · ${plural(per)} total (1 replica)` : `${plural(per)} per replica · ${plural(per * deployment.replicas)} total`;
+  if (deployment.replicas === null) return `${plural(per)} per replica · ${plural(per)} total (1 replica)`;
+  if (deployment.replicas === 1) return `${plural(per)} per replica · ${plural(per)} total`;
+  return deployment.measuredDeploymentGpus === undefined ? `Recorded num_gpus ${per} · total unknown` : `${plural(deployment.measuredDeploymentGpus)} in the measured deployment`;
 };
 /**
  * Naming convention for a benchmarked configuration:

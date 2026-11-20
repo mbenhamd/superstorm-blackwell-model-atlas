@@ -24,7 +24,7 @@ function shellArg(arg: string): string {
  * Serve command with the atlas's exact engine arguments, formatted for reading and copy-paste: the entry
  * point on the first line, then one flag (with its value) per line, joined with POSIX `\` continuations.
  * Values are shell-quoted only when needed (JSON configs). Nothing is added to or removed from the arguments.
- * KServe runs this as the InferenceService container command.
+ * The installed KServe integration determines how to supply this container command.
  */
 export function launchCommand(engine: "vLLM" | "SGLang", hfId: string, args: string[], environment: string[] = []): string {
   const entrypoint = engine === "vLLM" ? ["vllm", "serve", hfId] : ["python", "-m", "sglang.launch_server"];
@@ -63,7 +63,7 @@ export const deployments: Deployment[] = atlas.configurations.map((config) => {
     // Configured build only. The latest recheck release is a separate fact (recheck), never substituted here.
     runtimeVersion: config.engineRelease ?? "not recorded", runtimeCommit: config.sourceCommit ?? "not recorded",
     precision: artifact.precision as Precision, exportLabel: artifact.label, exportHfId: artifact.hfId,
-    quantMethod: artifact.precisionDetail, artifactRevision: artifact.revision ?? "not recorded",
+    quantMethod: artifact.precisionDetail, artifactRevision: config.modelRevision ?? artifact.revision ?? "not recorded",
     knob: config.knob, status: config.status as ConfigurationStatus, reason: config.reason, contextCap: config.contextCap,
     speculativeDecoding: Boolean(config.draftHfId) || /mtp|dspark|dflash|eagle/i.test(config.id) || config.engineArgs.some((arg) => arg.startsWith("--speculative")),
     draftHfId: config.draftHfId, testedOnTarget: config.testedOnTarget,
@@ -152,15 +152,20 @@ export function parseIdentity(input: unknown): RunIdentity {
   return identity;
 }
 
-/**
- * Resolve the atlas configuration a run measures: an explicit configurationId wins; otherwise the unique
- * configuration with the same weights artifact, engine and GPU count. Ambiguous or unknown runs stay unmatched.
- */
+/** A supplied configuration disambiguates recipes and permits a different GPU count on the same hardware. */
 export function matchConfiguration(identity: RunIdentity, snapshot: Snapshot, explicit?: string | null): string | null {
-  if (explicit) return snapshot.deployments.some((d) => d.configurationId === explicit) ? explicit : null;
   const artifact = artifactBySlug.get(identity.modelName);
+  if (!artifact) return null;
   const { engine } = splitRuntime(identity.runtimeVersion);
-  const matches = snapshot.deployments.filter((d) => d.id === d.configurationId && artifact && d.artifactId === artifact.id && d.runtime === engine && d.gpus === identity.numGpus);
+  const gpuType = identity.gpuType.trim().replace(/^NVIDIA\s+/i, "").toLowerCase();
+  const hardware = snapshot.hardware.find((h) => h.name.replace(/^NVIDIA\s+/i, "").toLowerCase() === gpuType);
+  if (!hardware) return null;
+  const revisions = ["revision", "model_revision"].filter((key) => Object.hasOwn(identity.runtimeConfig, key))
+    .map((key) => identity.runtimeConfig[key]);
+  const matches = snapshot.deployments.filter((d) =>
+    d.id === d.configurationId && d.artifactId === artifact.id && d.runtime === engine && d.hardwareId === hardware.id
+    && revisions.every((revision) => revision === d.artifactRevision)
+    && (explicit ? d.configurationId === explicit : d.gpus === identity.numGpus));
   return matches.length === 1 ? matches[0]!.configurationId : null;
 }
 
@@ -177,6 +182,7 @@ export function measuredDeployment(base: Deployment, run: BenchmarkRun): Deploym
     ...base, id: identity.dataset === base.workloadId ? base.id : `${base.configurationId}@${identity.dataset}`, workloadId: identity.dataset,
     points: run.metrics, measuredAt: run.runDate, evidence: "measured", runId: run.id,
     runtimeTag: identity.runtimeVersion, gpuType: identity.gpuType, replicas: identity.maxSystemReplicas, runConfig: identity.runtimeConfig,
+    measuredDeploymentGpus: run.measuredDeploymentGpus,
     runGpus: identity.numGpus, topologyMismatch: identity.numGpus !== base.gpus,
   };
 }
@@ -188,8 +194,8 @@ export function measuredDeployment(base: Deployment, run: BenchmarkRun): Deploym
  */
 export function applyRuns(snapshot: Snapshot, runs: BenchmarkRun[]): Snapshot {
   const latest = new Map<string, BenchmarkRun>();
-  for (const run of runs) {
-    if (!run.configurationId) continue;
+  const matched = runs.filter((run) => run.configurationId && matchConfiguration(run.identity, snapshot, run.configurationId));
+  for (const run of matched) {
     const key = `${run.configurationId}|${run.identity.dataset}`;
     const current = latest.get(key);
     if (!current || Date.parse(run.runDate) > Date.parse(current.runDate)) latest.set(key, run);
@@ -202,7 +208,6 @@ export function applyRuns(snapshot: Snapshot, runs: BenchmarkRun[]): Snapshot {
     const index = deployments.findIndex((d) => d.id === measured.id);
     if (index >= 0) deployments[index] = measured; else deployments.push(measured);
   }
-  const matched = runs.filter((run) => run.configurationId && snapshot.deployments.some((d) => d.id === run.configurationId))
-    .sort((a, b) => Date.parse(a.runDate) - Date.parse(b.runDate));
+  matched.sort((a, b) => Date.parse(a.runDate) - Date.parse(b.runDate));
   return { ...snapshot, deployments, runs: matched, ...(runs.some((run) => run.test) ? { testData: true } : {}) };
 }

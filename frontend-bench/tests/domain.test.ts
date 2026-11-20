@@ -6,6 +6,7 @@ import { deltaVsBest, groupSetups, setupStandings, sortSetups } from "../src/dom
 import { ConflictError, migrateExperiment, parseExperiment, transitionExperiment, ValidationError } from "../src/domain/validation.js";
 import type { BenchmarkRun, Deployment, MetricRow, SloPolicy } from "../src/domain/types.js";
 import { publisherQuality } from "../src/client/lib/display.js";
+import { cardRetention, cardScoreDelta, type CardRecord } from "../src/client/lib/atlas.js";
 import { configurationIdOf } from "../src/client/state.js";
 
 /*
@@ -13,6 +14,35 @@ import { configurationIdOf } from "../src/client/state.js";
  * catalog snapshot contains no sweep points at all; that is asserted first.
  */
 const snapshot = createCatalogSnapshot();
+const publisherCards = (await Bun.file(new URL("../data/hf-card-benchmarks.json", import.meta.url)).json() as { cards: CardRecord[] }).cards;
+const publisherCard = (hfId: string) => publisherCards.find((card) => card.hf_id === hfId)!;
+
+describe("quantization comparisons in publisher cards", () => {
+  test("fractional scores and scores printed on a 100-point scale share the same difference unit", () => {
+    expect(cardRetention(publisherCard("nvidia/GLM-5.3-Flash-NVFP4"))?.mean).toBeCloseTo(0.463333, 5);
+    expect(cardRetention(publisherCard("nvidia/Kimi-K3-NVFP4"))?.mean).toBeCloseTo(-0.097667, 5);
+    expect(cardRetention(publisherCard("nvidia/Qwen3.8-27B-NVFP4"))?.mean).toBeCloseTo(-0.44, 5);
+  });
+  test("a printed recovery column is distinct from the export and its named baseline", () => {
+    expect(cardRetention(publisherCard("RedHatAI/Kimi-K3-NVFP4"))?.mean).toBeCloseTo(-2.5, 5);
+  });
+  test("separate suites and baselines do not produce a single card-wide mean", () => {
+    expect(cardRetention(publisherCard("nvidia/Kimi-K3.1-Pro-NVFP4"))).toBeNull();
+  });
+  test("row deltas honor source units, central estimates and prior-revision restrictions", () => {
+    const glm = publisherCard("nvidia/GLM-5.3-Flash-NVFP4").tables[0]!;
+    expect(cardScoreDelta(glm, glm.rows.find((row) => row.benchmark === "AA-LCR")!)).toBeCloseTo(1.62);
+    const coding = publisherCard("RedHatAI/DeepSeek-V4-Flash-0731-NVFP4").tables[1]!;
+    expect(cardScoreDelta(coding, coding.rows[0]!)).toBeCloseTo(-3.4);
+    const muse = publisherCard("RedHatAI/Muse-Glimmer-30B-NVFP4").tables[0]!;
+    expect(cardScoreDelta(muse, muse.rows[0]!)).toBeCloseTo(1.7);
+    const radix = publisherCard("RadixArk/Qwen3.8-Flash-Next-NVFP4").tables[0]!;
+    expect(cardScoreDelta(radix, radix.rows[1]!)).toBeNull();
+    const throughput = publisherCard("meta-models/Muse-Glimmer-30B").tables.find((table) => table.baseline_column?.includes("tok/s"))!;
+    expect(cardScoreDelta(throughput, throughput.rows[0]!)).toBeNull();
+  });
+});
+
 const stats = (p50: number | null, p95: number | null) => ({ mean: null, p50, p95, p99: null });
 const row = (concurrency: number, o: Partial<MetricRow> & { ttft95?: number | null; itl95?: number | null } = {}): MetricRow => ({
   concurrency, ttftMs: stats(400, o.ttft95 === undefined ? 1000 : o.ttft95), itlMs: stats(15, o.itl95 === undefined ? 20 : o.itl95), requestLatencyMs: stats(null, null),
@@ -24,10 +54,14 @@ const base = (id = "qwen3.8-27b.fp8.vllm.baseline"): Deployment => {
   if (!found) throw new Error(`Catalog configuration ${id} is missing`);
   return structuredClone(found);
 };
-const run = (configurationId: string | null, metrics: MetricRow[], dataset = "single-turn-8k", runDate = "2026-11-01T00:00:00Z"): BenchmarkRun => ({
-  id: `run-${configurationId}-${dataset}-${runDate}`, configurationId, benchmarkTool: "unit-test", runDate, metrics,
-  identity: { modelName: "qwen3.8-27b-fp8", gpuType: "B300", numGpus: 1, maxSystemReplicas: 1, runtimeVersion: "vllm-v0.33.0", dataset, runtimeConfig: {} },
-});
+const run = (configurationId: string | null, metrics: MetricRow[], dataset = "single-turn-8k", runDate = "2026-11-01T00:00:00Z"): BenchmarkRun => {
+  const config = base(configurationId ?? undefined);
+  const artifact = ATLAS.artifacts.find((item) => item.id === config.artifactId)!;
+  return {
+    id: `run-${configurationId}-${dataset}-${runDate}`, configurationId, benchmarkTool: "unit-test", runDate, metrics,
+    identity: { modelName: artifact.slug, gpuType: "B300", numGpus: config.gpus, maxSystemReplicas: 1, runtimeVersion: config.runtime === "SGLang" ? "sglang-v0.5.23" : "vllm-v0.33.0", dataset, runtimeConfig: {} },
+  };
+};
 
 describe("catalog snapshot", () => {
   test("configured build is engine_release; the latest recheck stays separate and untested", () => {
@@ -67,7 +101,7 @@ describe("catalog snapshot", () => {
     expect(new Set(slugs).size).toBe(slugs.length);
   });
   test("missing parameter counts stay null rather than borrowed", () => {
-    expect(snapshot.models.find((m) => m.id === "deepseek-v4-flash-0731")?.parametersB).toBeNull();
+    expect(snapshot.models.find((m) => m.id === "deepseek-v4-flash-0731")?.activeParamsB).toBeNull();
   });
   test("an SGLang recipe retains its environment and explicit model path exactly once", () => {
     const command = launchCommand("SGLang", "example/base", ["--model-path", "example/export", "--port", "30000"], ["NCCL_CUMEM_ENABLE=1"]);
@@ -135,6 +169,19 @@ describe("SLO semantics", () => {
 });
 
 describe("C_max and sustainable throughput", () => {
+  test("a multi-replica sweep needs the service-wide GPU allocation for normalized rates", () => {
+    const deployment = { ...base(), runGpus: 4, replicas: 2, points: [row(1), row(2)] };
+    const unscoped = capacity(deployment);
+    expect(unscoped.highestPassingConcurrency).toBe(2);
+    expect(unscoped.sustainableTpmPerGpu).toBeNull();
+    expect(unscoped.rawPeakTpsPerGpu).toBeNull();
+    expect(unscoped.deploymentWideTpm).toBeNull();
+    expect(unscoped.selectedPoint?.totalTps).toBe(18000);
+    const scoped = capacity({ ...deployment, measuredDeploymentGpus: 8 });
+    expect(scoped.sustainableTpmPerGpu).toBe(18000 * 60 * 0.8 / 8);
+    expect(scoped.deploymentWideTpm).toBe(18000 * 60 * 0.8);
+    expect(scoped.rawPeakTpsPerGpu).toBe(2000 / 8);
+  });
   test("C_max is the last passing level; throughput = output tok/s there × margin ÷ GPUs", () => {
     const d = { ...base(), gpus: 2, points: [row(1), row(2), row(4), row(8, { itl95: 40 })] };
     const c = capacity(d, DEFAULT_SLO);
@@ -208,6 +255,13 @@ describe("runs and ranking", () => {
     const identity = run(null, []).identity;
     expect(matchConfiguration(identity, snapshot, "qwen3.8-27b.fp8.vllm.baseline")).toBe("qwen3.8-27b.fp8.vllm.baseline");
     expect(matchConfiguration(identity, snapshot, "does-not-exist")).toBeNull();
+  });
+  test("a stored mismatched configuration cannot replace a correctly attributed run", () => {
+    const valid = run("qwen3.8-27b.fp8.vllm.baseline", [row(1)]);
+    const conflicting = { ...valid, id: "wrong-gpu", runDate: "2026-11-02T00:00:00Z", identity: { ...valid.identity, gpuType: "H100" } };
+    const merged = applyRuns(snapshot, [valid, conflicting]);
+    expect(merged.runs?.map((item) => item.id)).toEqual([valid.id]);
+    expect(merged.deployments.find((d) => d.id === valid.configurationId)?.runId).toBe(valid.id);
   });
   test("applyRuns keeps every matched run (all runtime versions) for version comparisons", () => {
     const older = { ...run("qwen3.8-27b.fp8.vllm.baseline", [row(1)], "single-turn-8k", "2026-11-01T00:00:00Z") };

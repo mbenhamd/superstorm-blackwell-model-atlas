@@ -1,6 +1,6 @@
 import { ATLAS, measuredDeployment, splitRuntime } from "./catalog.js";
 import { configChips } from "./config-chips.js";
-import { DEFAULT_SLO, referenceDeployment, sweepCapacity } from "./metrics.js";
+import { DEFAULT_SLO, participatingGpuCount, referenceDeployment, sweepCapacity } from "./metrics.js";
 import type { BenchmarkRun, Capacity, Deployment, RankedDeployment, SloPolicy, Snapshot } from "./types.js";
 
 /*
@@ -67,7 +67,9 @@ const time = (run: BenchmarkRun): number => Date.parse(run.runDate);
 export function variantKey(run: BenchmarkRun): string {
   const { identity } = run;
   const owner = run.configurationId ?? `${identity.modelName}|${splitRuntime(identity.runtimeVersion).engine ?? "unknown"}`;
-  return JSON.stringify([owner, identity.dataset, identity.gpuType, identity.numGpus, identity.maxSystemReplicas, configKeyOf(identity.runtimeConfig)]);
+  const shape = [owner, identity.dataset, identity.gpuType, identity.numGpus, identity.maxSystemReplicas, configKeyOf(identity.runtimeConfig)];
+  if (identity.maxSystemReplicas > 1 && run.measuredDeploymentGpus !== undefined) shape.push(run.measuredDeploymentGpus);
+  return JSON.stringify(shape);
 }
 
 /** Best of a variant's runs: highest sustainable tok/min/GPU, newest first among equal values (and when none passes). */
@@ -88,7 +90,7 @@ export function groupVariants(snapshot: Snapshot, slo: SloPolicy = DEFAULT_SLO, 
     if (members) members.push(run); else groups.set(key, [run]);
   }
   const variants = [...groups].map(([key, members]): Variant => {
-    const scored = members.map((run) => ({ run, capacity: sweepCapacity(run.metrics, run.identity.numGpus, slo) }))
+    const scored = members.map((run) => ({ run, capacity: sweepCapacity(run.metrics, participatingGpuCount(run.identity.numGpus, run.identity.maxSystemReplicas, run.measuredDeploymentGpus), slo) }))
       .sort((a, b) => time(b.run) - time(a.run) || a.run.id.localeCompare(b.run.id));
     const first = scored[0]!.run;
     const { identity } = first;

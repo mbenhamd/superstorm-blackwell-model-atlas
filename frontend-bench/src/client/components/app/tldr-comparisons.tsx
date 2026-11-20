@@ -225,7 +225,7 @@ function OpenRunButton({ deployment: d }: { deployment: Deployment }) {
   );
 }
 
-/** Export identity for a ladder group: label, repository, ideal weight bytes, card-reported Δ and configuration count. */
+/** Export identity for a ladder group: label, repository, listed weight-file bytes, card-reported Δ and configuration count. */
 function ExportSummary({ group, stacked = false }: { group: LadderGroup; stacked?: boolean }) {
   const exported = artifact(group.artifactId);
   const first = group.rows[0]!.deployment;
@@ -238,8 +238,8 @@ function ExportSummary({ group, stacked = false }: { group: LadderGroup; stacked
   );
   const facts = (
     <>
-      <span className="tabular-nums" title="Ideal weight bytes (safetensors index)">{gb(exported?.weightBytes)}</span>
-      <span title={delta ? `Card Δ vs baseline: ${delta.rows} benchmarks · ${delta.heading} (exporter claim)` : "No card baseline"}>
+      <span className="tabular-nums" title="Total size of listed weight files (GB)">{gb(exported?.weightBytes)}</span>
+      <span title={delta ? `Unweighted mean difference from baseline across ${delta.rows} benchmarks in ${delta.heading}, in points on a 100-point scale.` : "See the source tables and baselines on the model’s Precision tab."}>
         {delta ? <span className={cn("font-medium tabular-nums", deltaTone(delta.mean))}>Card Δ {signed(delta.mean)} pts</span> : <span className="text-muted-foreground">No card Δ</span>}
       </span>
     </>

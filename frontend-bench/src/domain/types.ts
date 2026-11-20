@@ -86,8 +86,10 @@ export interface Deployment {
   runtimeTag: string | null; gpuType: string; replicas: number | null;
   /** Recorded runtime_config of the applied run (KV dtype, speculative, context, …); null on reference rows. */
   runConfig: Record<string, unknown> | null;
-  /** num_gpus of the applied run (null on reference rows); capacity divides by it when present. */
+  /** num_gpus of the applied run (null on reference rows). Its scope can be ambiguous with multiple replicas. */
   runGpus: number | null;
+  /** Actual fixed GPU count behind all reported service traffic, when recorded by the producer. */
+  measuredDeploymentGpus?: number;
   /** True when runGpus differs from the catalog GPU count (the catalog shape and the measured run disagree). */
   topologyMismatch: boolean;
 }
@@ -95,6 +97,7 @@ export interface Deployment {
 export interface BenchmarkRun {
   id: string; identity: RunIdentity; configurationId: string | null;
   benchmarkTool: string; runDate: string; metrics: MetricRow[];
+  measuredDeploymentGpus?: number;
   /** Invented fixture values (import entry labelled "_test"); the UI then shows a persistent TEST DATA banner. */
   test?: boolean;
 }
@@ -138,6 +141,7 @@ export interface SloPolicy {
 }
 export interface PointMetrics {
   concurrency: number; outputTps: number; inputTps: number; totalTps: number; requestsPerSecond: number;
+  inputTpsPerGpu: number | null; outputTpsPerGpu: number | null; totalTpsPerGpu: number | null;
   ttftP50Ms: number | null; ttftP95Ms: number | null; ttftCeilingMs: number | null;
   itlP50Ms: number | null; itlP95Ms: number | null; outputTpsPerUser: number | null;
   /** successful ÷ (successful + errored + incomplete); null when the level recorded no requests. */
@@ -152,6 +156,8 @@ export interface PointMetrics {
  * at C_max × margin × 60 ÷ GPUs.
  */
 export interface Capacity {
+  /** GPUs covered by the reported rates. Unknown for a multi-replica run without an allocated total. */
+  participatingGpus: number | null;
   highestPassingConcurrency: number | null;
   /** Legacy output-only lens: output tok/s at C_max × margin ÷ GPUs. Kept for comparisons with earlier exports. */
   capacityTpsPerGpu: number | null;
@@ -161,7 +167,7 @@ export interface Capacity {
   sustainableTpmPerGpu: number | null;
   /** Output-only tok/min per GPU at C_max × margin. */
   sustainableOutputTpmPerGpu: number | null;
-  /** Per replica (all GPUs of one serving replica), × margin, tok/min: total, input and output from the C_max row. */
+  /** Deployment-wide rates at C_max × margin × 60, when the aggregate scope is known. */
   deploymentWideTpm: number | null; deploymentInputTpm: number | null; deploymentOutputTpm: number | null;
   /** Highest observed output tok/s per GPU over all levels (no SLO); null without levels. */
   rawPeakTpsPerGpu: number | null;

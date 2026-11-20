@@ -4,7 +4,7 @@ import { ChartContainer } from "@/components/ui/chart";
 import { yAxisTitleLabel, yAxisWidth } from "@/lib/chart-axis";
 import { niceDomain } from "@/scale";
 import type { Capacity, Deployment } from "../../../domain/types.js";
-import { gpusOf, num } from "../../lib/display.js";
+import { num } from "../../lib/display.js";
 
 /*
  * Total throughput (input + output tok/s per GPU) against the measured concurrency levels of one run.
@@ -90,14 +90,14 @@ export const ExternalSwatch = () => <LineSwatch dashed hollow color="var(--chart
 export function ThroughputConcurrencyChart({ deployment: d, capacity: c, margin, expanded = false, className, external = [] }: {
   deployment: Deployment; capacity: Capacity; margin: number; expanded?: boolean; className?: string; external?: readonly OverlayCurve[];
 }) {
-  const gpus = gpusOf(d);
+  if (c.participatingGpus === null) return <p className="text-muted-foreground py-8 text-center text-xs">Deployment GPU count unavailable</p>;
   const cmax = c.selectedPoint;
   const own = new Map(c.points.map((point) => [point.concurrency, point]));
   const levels = [...new Set([...c.points.map((point) => point.concurrency), ...external.flatMap((curve) => curve.points.map((point) => point.concurrency))])].sort((a, b) => a - b);
   const data: Datum[] = levels.map((concurrency) => {
     const point = own.get(concurrency);
     const datum: Datum = point
-      ? { level: String(concurrency), concurrency, value: point.totalTps / gpus, passes: point.passes, cmax: point === cmax, ttft: point.ttftP95Ms, ttftCeiling: point.ttftCeilingMs, itl: point.itlP95Ms, failures: point.failures }
+      ? { level: String(concurrency), concurrency, value: point.totalTpsPerGpu, passes: point.passes, cmax: point === cmax, ttft: point.ttftP95Ms, ttftCeiling: point.ttftCeilingMs, itl: point.itlP95Ms, failures: point.failures }
       : { level: String(concurrency), concurrency, value: null, passes: false, cmax: false, ttft: null, ttftCeiling: null, itl: null, failures: [] };
     external.forEach((curve, index) => { datum[`ext${index}`] = curve.points.find((item) => item.concurrency === concurrency)?.value ?? null; });
     return datum;

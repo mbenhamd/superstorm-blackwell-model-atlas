@@ -92,12 +92,35 @@ describe("identity", () => {
 });
 
 describe("match", () => {
+  test("a fixed deployment-wide rate scope survives an import and malformed GPU counts are rejected", () => {
+    const scoped = { identity: identity({ numGpus: 4, maxSystemReplicas: 2 }), systemConfig: { measuredDeploymentGpus: 8 } };
+    expect(toBenchmarkRun(parseRunImport(entry(scoped)), "scoped", catalog).measuredDeploymentGpus).toBe(8);
+    for (const invalid of [0, -2, 1.5, "8"]) {
+      expect(() => parseRunImport(entry({ ...scoped, systemConfig: { measuredDeploymentGpus: invalid } }))).toThrow(/measuredDeploymentGpus/);
+    }
+    expect(() => parseRunImport(entry({ identity: identity({ numGpus: 4 }), systemConfig: { measuredDeploymentGpus: 8 } }))).toThrow(/measuredDeploymentGpus/);
+    expect(toBenchmarkRun(parseRunImport(entry()), "legacy", catalog).measuredDeploymentGpus).toBeUndefined();
+    expect(toBenchmarkRun(parseRunImport(entry({ ...scoped, systemConfig: { measuredDeploymentGpus: null } })), "unknown", catalog).measuredDeploymentGpus).toBeUndefined();
+  });
   test("an explicit configurationId wins", () => {
     expect(describeMatch(parseRunImport(entry()).identity, "qwen3.8-27b.fp8.vllm.baseline", catalog)).toEqual({ status: "matched", configurationId: "qwen3.8-27b.fp8.vllm.baseline" });
   });
   test("identity matching resolves a unique artifact × engine × GPU count", () => {
     const run = parseRunImport(entry({ identity: identity({ runtimeVersion: "sglang-v0.5.23" }) }));
     expect(describeMatch(run.identity, null, catalog)).toEqual({ status: "matched", configurationId: "qwen3.8-27b.fp8.sglang.baseline" });
+  });
+  test("explicit and inferred matches require the same export, engine, GPU type and supplied target revision", () => {
+    const id = "qwen3.8-27b.fp8.sglang.baseline";
+    const base = catalog.deployments.find((deployment) => deployment.id === id)!;
+    const recorded = { ...parseRunImport(entry()).identity, runtimeVersion: "sglang-v0.5.23", gpuType: "NVIDIA B300" };
+    for (const explicit of [id, null]) {
+      expect(describeMatch({ ...recorded, runtimeConfig: { revision: base.artifactRevision } }, explicit, catalog).status).toBe("matched");
+      expect(describeMatch({ ...recorded, gpuType: "H100" }, explicit, catalog).status).toBe("unmatched");
+      expect(describeMatch({ ...recorded, runtimeConfig: { revision: "some-other-revision" } }, explicit, catalog).status).toBe("unmatched");
+    }
+    expect(describeMatch({ ...recorded, runtimeVersion: "vllm-v0.34.0" }, id, catalog).status).toBe("unmatched");
+    expect(describeMatch({ ...recorded, modelName: "qwen3.8-27b-nvfp4" }, id, catalog).status).toBe("unmatched");
+    expect(describeMatch({ ...recorded, numGpus: 2 }, id, catalog).status).toBe("matched");
   });
   test("ambiguous identity (vLLM baseline and knob variants) stays unmatched", () => {
     const result = describeMatch(parseRunImport(entry()).identity, null, catalog);

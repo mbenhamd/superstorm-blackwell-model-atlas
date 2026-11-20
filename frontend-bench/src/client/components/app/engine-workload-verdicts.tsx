@@ -162,7 +162,7 @@ export function EngineWorkloadVerdicts({ scope, modelName, shapeLabel }: { scope
       description={<span data-testid="verdicts-scope">{modelName} · {shapeLabel} · best per engine on each dataset</span>}
       actions={
         <InfoTip label="How verdicts are read" testId="verdicts-info">
-          Sustainable = observed total (input + output) tok/s at C_max × {num(state.slo.margin, 2)} margin × 60 ÷ GPUs. TTFT and ITL are the imported p95 at C_max; per-user speed is the p50 output tok/s per request. A verdict needs a matched pair: {MATCHED_CONTROLS}; otherwise the row reads "different configs — no verdict". |Δ| ≤ {BAND}% reads as a tie (assumed single-run noise, not a measured interval).
+          Planning throughput is the observed input plus output tok/s at C_max × {num(state.slo.margin, 2)} × 60 ÷ participating GPUs. TTFT and ITL show the reported p95 at C_max. Per-user speed is the p50 output tok/s per request. {MATCHED_CONTROLS} The planning tie band is {BAND}% of the higher rate.
         </InfoTip>
       }
       bodyClassName="p-0"
